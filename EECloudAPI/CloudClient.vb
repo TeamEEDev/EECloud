@@ -57,6 +57,10 @@ Public MustInherit Class CloudClient
                 RegisterMessage("clear", MessageType.Clear, GetType(Clear_Message))
                 RegisterMessage("saved", MessageType.SaveDone, GetType(SaveDone_Message))
                 RegisterMessage("refreshshop", MessageType.RefreshShop, GetType(RefreshShop_Message))
+                RegisterMessage("givewizard", MessageType.GiveWizard, GetType(GiveWizard_Message))
+                RegisterMessage("givewizard2", MessageType.GiveWizard2, GetType(GiveWizard2_Message))
+                RegisterMessage("givewitch", MessageType.GiveWitch, GetType(GiveWitch_Message))
+                RegisterMessage("givegrinch", MessageType.GiveGrinch, GetType(GiveGrinch_Message))
             End If
         End SyncLock
     End Sub

@@ -279,4 +279,36 @@
             MyBase.New(PMessage)
         End Sub
     End Class
+
+    Public Class GiveWizard_Message
+        Inherits Message
+
+        Public Sub New(PMessage As PlayerIOClient.Message)
+            MyBase.New(PMessage)
+        End Sub
+    End Class
+
+    Public Class GiveWizard2_Message
+        Inherits Message
+
+        Public Sub New(PMessage As PlayerIOClient.Message)
+            MyBase.New(PMessage)
+        End Sub
+    End Class
+
+    Public Class GiveWitch_Message
+        Inherits Message
+
+        Public Sub New(PMessage As PlayerIOClient.Message)
+            MyBase.New(PMessage)
+        End Sub
+    End Class
+
+    Public Class GiveGrinch_Message
+        Inherits Message
+
+        Public Sub New(PMessage As PlayerIOClient.Message)
+            MyBase.New(PMessage)
+        End Sub
+    End Class
 End Namespace

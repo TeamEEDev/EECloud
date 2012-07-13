@@ -31,4 +31,8 @@
     Clear
     SaveDone
     RefreshShop
+    GiveWizard
+    GiveWizard2
+    GiveWitch
+    GiveGrinch
 End Enum
