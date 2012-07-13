@@ -1,58 +1,78 @@
 ﻿Imports EECloudAPI.EECloudAPI.Messages
 
-Public MustInherit Class CloudClient
+Namespace EECloudAPI
+    Public Class CloudClient
 #Region "Fields"
-    Public UsernameOrEmail As String
-    Public Password As String
-    Public WorldId As String
-    Public RoomType As String
-    Public RoomIsVisible
-    Public JoinData As Dictionary(Of String, String)
-    Public RoomData As Dictionary(Of String, String)
+        Public UsernameOrEmail As String
+        Public Password As String
+        Public WorldId As String
+        Public RoomType As String
+        Public RoomIsVisible
+        Public JoinData As Dictionary(Of String, String)
+        Public RoomData As Dictionary(Of String, String)
 #End Region
 
 #Region "Events"
-    Public Class OnMessageEventArgs
-        Inherits EventArgs
+        Public Class OnMessageEventArgs
+            Inherits EventArgs
 
-        Public Sub New(PType As MessageType, PMessage As Message)
-            Type = PType
-            Message = PMessage
-        End Sub
+            Public Sub New(PType As MessageType, PMessage As Message)
+                Type = PType
+                Message = PMessage
+            End Sub
 
-        Public Type As MessageType
-        Public Message As Message
-    End Class
+            Public Type As MessageType
+            Public Message As Message
+        End Class
 
-    Public Event OnMessage(sender As Object, e As OnMessageEventArgs)
-    Public Event OnJoin(sender As Object, e As EventArgs)
-    Public Event OnDisconnect(sender As Object, e As EventArgs)
+        Public Event OnMessage(sender As Object, e As OnMessageEventArgs)
+        Public Event OnJoin(sender As Object, e As EventArgs)
+        Public Event OnDisconnect(sender As Object, e As EventArgs)
 #End Region
 
 #Region "Properties"
-    Private m_Client As PlayerIOClient.Client
+        Private m_Client As PlayerIOClient.Client
 
-    Public ReadOnly Property Client As PlayerIOClient.Client
-        Get
-            Return m_Client
-        End Get
-    End Property
+        Public ReadOnly Property Client As PlayerIOClient.Client
+            Get
+                Return m_Client
+            End Get
+        End Property
 
-    Private m_Connection As PlayerIOClient.Connection
-    Public ReadOnly Property Connection As PlayerIOClient.Connection
-        Get
-            Return m_Connection
-        End Get
-    End Property
+        Private m_Connection As PlayerIOClient.Connection
+        Public ReadOnly Property Connection As PlayerIOClient.Connection
+            Get
+                Return m_Connection
+            End Get
+        End Property
 #End Region
 
 #Region "Methods"
-    Private LockObject As Object
-    Private Connected As Boolean
-    Public Sub Connect()
-        SyncLock LockObject
-            If Not Connected Then
-                Connected = True
+        Private LockObject As Object
+        Private Connected As Boolean
+        Public Sub Connect()
+            SyncLock LockObject
+                If Not Connected Then
+                    Connected = True
+                    RegisterMessages()
+                    m_Connection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
+                    m_Connection.AddOnMessage(AddressOf MessageReciver)
+                    RaiseEvent OnJoin(Me, New EventArgs)
+                End If
+            End SyncLock
+        End Sub
+
+        Private Sub MessageHandler(sender As Object, e As OnMessageEventArgs) Handles Me.OnMessage
+            If e.Type = MessageType.Init Then
+                Dim Message As Init_Message = e.Message
+                'TODO: Load the world
+            End If
+        End Sub
+
+        Private RegisteredMessages As Boolean
+        Public Sub RegisterMessages()
+            If RegisteredMessages = False Then
+                RegisteredMessages = True
                 RegisterMessage("groupdisallowedjoin", MessageType.GroupDisallowedJoin, GetType(GroupDisallowedJoin_Message))
                 RegisterMessage("upgrade", MessageType.Upgrade, GetType(Upgrade_Message))
                 RegisterMessage("info", MessageType.Info, GetType(Info_Message))
@@ -89,38 +109,30 @@ Public MustInherit Class CloudClient
                 RegisterMessage("givewizard2", MessageType.GiveWizard2, GetType(GiveWizard2_Message))
                 RegisterMessage("givewitch", MessageType.GiveWitch, GetType(GiveWitch_Message))
                 RegisterMessage("givegrinch", MessageType.GiveGrinch, GetType(GiveGrinch_Message))
-
             End If
-        End SyncLock
-    End Sub
+        End Sub
 
-    Private Sub MessageReciver(sender As Object, e As PlayerIOClient.Message)
-        Try
-            Dim myRegisteredMessageInfo As RegisteredMessageInfo = MessageDictionary(e.Type.ToLower)
-            Dim myMessage As 
-            'Dim myEventArgs As New OnMessageEventArgs(myRegisteredMessageInfo.Type, myRegisteredMessageInfo.Message)
-        Catch ex As KeyNotFoundException
-            Throw New KeyNotFoundException(String.Format("Message is not registered: {0}", e.Type.ToLower))
-        End Try
+        Public Sub MessageReciver(sender As Object, e As PlayerIOClient.Message)
+            Try
+                Dim myRegisteredMessageInfo As RegisteredMessageInfo = MessageDictionary(e.Type)
+                Dim myMessage As Message = Activator.CreateInstance(myRegisteredMessageInfo.Message, e)
+                Dim myEventArgs As New OnMessageEventArgs(myRegisteredMessageInfo.Type, myMessage)
+                RaiseEvent OnMessage(Me, myEventArgs)
+            Catch ex As KeyNotFoundException
+                Throw New KeyNotFoundException(String.Format("Message is not registered: {0}", e.Type))
+            End Try
+        End Sub
 
-    End Sub
-
-    Private Sub MessageHandler(sender As Object, e As OnMessageEventArgs) Handles Me.OnMessage
-        If e.Type = MessageType.Init Then
-            Dim Message As Init_Message = e.Message
-            'TODO: Load the world
-        End If
-    End Sub
-
-    Private MessageDictionary As Dictionary(Of String, RegisteredMessageInfo)
-    Private Sub RegisterMessage(PString As String, PType As MessageType, PMessage As Type)
-        If MessageDictionary.ContainsKey(PString) Then
-            Throw New InvalidOperationException("Message ID already registered")
-        ElseIf Not PMessage.IsSubclassOf(GetType(Message)) Then
-            Throw New InvalidOperationException("Invalid message class! Must inherit EECloudAPI.Messages.Message")
-        Else
-            MessageDictionary.Add(PString, New RegisteredMessageInfo(PType, PMessage))
-        End If
-    End Sub
+        Private MessageDictionary As New Dictionary(Of String, RegisteredMessageInfo)
+        Private Sub RegisterMessage(PString As String, PType As MessageType, PMessage As Type)
+            If MessageDictionary.ContainsKey(PString) Then
+                Throw New InvalidOperationException("Message ID already registered")
+            ElseIf Not PMessage.IsSubclassOf(GetType(Message)) Then
+                Throw New InvalidOperationException("Invalid message class! Must inherit EECloudAPI.Messages.Message")
+            Else
+                MessageDictionary.Add(PString, New RegisteredMessageInfo(PType, PMessage))
+            End If
+        End Sub
 #End Region
-End Class
+    End Class
+End Namespace
