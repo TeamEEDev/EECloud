@@ -29,6 +29,64 @@ Public MustInherit Class CloudClient
                 RegisterMessage("upgrade", GetType(Upgrade_Message))
                 RegisterMessage("info", GetType(Info_Message))
                 RegisterMessage("init", GetType(Init_Message))
+                RegisterMessage("updatemeta", GetType(UpdateMeta_Message))
+                RegisterMessage("add", GetType(Add_Message))
+                RegisterMessage("left", GetType(Left_Message))
+                RegisterMessage("m", GetType(Move_Message))
+                RegisterMessage("c", GetType(Coin_Message))
+                RegisterMessage("k", GetType(Crown_Message))
+                RegisterMessage("ks", GetType(SilverCrown_Message))
+                RegisterMessage("face", GetType(Face_Message))
+                RegisterMessage("show", GetType(ShowKey_Message))
+                RegisterMessage("hide", GetType(HideKey_Message))
+                RegisterMessage("say", GetType(Say_Message))
+                'TODO: Add AutoText/Say_Old
+                RegisterMessage("write", GetType(Write_Message))
+                RegisterMessage("b", GetType(BlockPlace_Message))
+                RegisterMessage("bc", GetType(CoinDoorPlace_Message))
+                RegisterMessage("bs", GetType(SoundPlace_Message))
+                RegisterMessage("pt", GetType(PortalPlace_Message))
+                RegisterMessage("lb", GetType(LabelPlace_Message))
+                RegisterMessage("god", GetType(Godmode_Message))
+                RegisterMessage("mod", GetType(Modmode_Message))
+                RegisterMessage("access", GetType(Access_Message))
+                RegisterMessage("lostaccess", GetType(LostAccess_Message))
+                RegisterMessage("tele", GetType(Teleport_Message))
+                RegisterMessage("reset", GetType(Reset_Message))
+                RegisterMessage("clear", GetType(Clear_Message))
+                RegisterMessage("givewizard", GetType(Givewizard_Message))
+                RegisterMessage("saved", GetType(SaveDone_Message))
+#If MINI Then
+                If MainFrm.WaitingForReload Then
+                    MainFrm.SendChat("Reloaded.")
+                    MainFrm.WaitingForReload = False
+                End If
+#End If
+                MainFrm.Reloading = False
+                MainFrm.CurrentWorld = MainFrm.Reload(m, MainFrm.CurrentWorld)
+                MainFrm.CurrentWorld.ID = MainFrm.TextID.Tag.ToString
+            Case "tele"
+                For N = 1 To m.Count - 1 Step +3
+                    If MainFrm.GetPlayer(m.Item(N)) IsNot Nothing Then
+                        MainFrm.GetPlayer(m.Item(N)).Position.X = m.Item(N + 1)
+                        MainFrm.GetPlayer(m.Item(N)).Position.Y = m.Item(N + 2)
+                        MainFrm.GetPlayer(m.Item(N)).Coins = 0
+                    End If
+                Next
+            Case "clear"
+                MainFrm.CurrentWorld.Clear()
+            Case "disconnect"
+                If MainFrm.Disconnecting Then
+                    MainFrm.Disconnecting = False
+                Else
+                    MainFrm.Disconnect()
+                End If
+            Case "send"
+                If m.Item(3) = 0 Then
+                    MainFrm.Uploader.AddToQueue(m.Item(0), m.Item(1), m.Item(2), m.Item(3), m.Item(4), m.Item(5), m.Item(6))
+                ElseIf m.Item(3) = 1 Then
+                    MainFrm.Uploader.AddToQueue(m.Item(0), m.Item(1), m.Item(2), m.Item(3))
+                End If
             End If
         End SyncLock
     End Sub
