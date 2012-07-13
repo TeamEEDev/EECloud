@@ -14,6 +14,7 @@
     ShowKey
     HideKey
     Say
+    SayOld
     AutoText
     Write
     BlockPlace

@@ -144,6 +144,14 @@
         End Sub
     End Class
 
+    Public Class SayOld_Message
+        Inherits Message
+
+        Public Sub New(PMessage As PlayerIOClient.Message)
+            MyBase.New(PMessage)
+        End Sub
+    End Class
+
     Public Class AutoText_Message
         Inherits Message
 
