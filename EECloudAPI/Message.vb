@@ -25,8 +25,8 @@
 
     Public Class Info_Message
         Inherits Message
-        Public Title As String '0
-        Public Text As String '1
+        Public ReadOnly Title As String '0
+        Public ReadOnly Text As String '1
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -37,20 +37,19 @@
 
     Public Class Init_Message
         Inherits Message
-        Public UsernameOwner As String '0
-        Public WorldName As String '1
-        Public Plays As UInteger '2
-        Public Encryption As String '3
-        Public UserID As UInteger '4
-        Public SpawnX As Integer '5
-        Public SpawnY As Integer '6
-        Public Username As String '7
-        Public CanEdit As Boolean '8
-        Public IsOwner As Boolean '9
-        Public SizeX As Integer '10
-        Public SizeY As Integer '11
-        Public IsTutorialRoom As Boolean '12
-        Public WorldData As Message '13-??
+        Public ReadOnly UsernameOwner As String '0
+        Public ReadOnly WorldName As String '1
+        Public ReadOnly Plays As UInteger '2
+        Public ReadOnly Encryption As String '3
+        Public ReadOnly UserID As UInteger '4
+        Public ReadOnly SpawnX As Integer '5
+        Public ReadOnly SpawnY As Integer '6
+        Public ReadOnly Username As String '7
+        Public ReadOnly CanEdit As Boolean '8
+        Public ReadOnly IsOwner As Boolean '9
+        Public ReadOnly SizeX As Integer '10
+        Public ReadOnly SizeY As Integer '11
+        Public ReadOnly IsTutorialRoom As Boolean '12
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
