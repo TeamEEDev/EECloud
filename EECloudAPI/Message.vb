@@ -9,6 +9,7 @@
 
     Public Class GroupDisallowedJoin_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -16,6 +17,7 @@
 
     Public Class Upgrade_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -25,6 +27,7 @@
         Inherits Message
         Public Title As String '0
         Public Text As String '1
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
             Title = PMessage.Item(0)
@@ -56,6 +59,7 @@
 
     Public Class UpdateMeta_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -63,6 +67,7 @@
 
     Public Class Add_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -70,6 +75,7 @@
 
     Public Class Left_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -77,6 +83,7 @@
 
     Public Class Move_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -84,6 +91,7 @@
 
     Public Class Coin_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -91,6 +99,7 @@
 
     Public Class Crown_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -98,6 +107,7 @@
 
     Public Class SilverCrown_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -105,6 +115,7 @@
 
     Public Class Face_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -112,6 +123,7 @@
 
     Public Class ShowKey_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -119,6 +131,7 @@
 
     Public Class HideKey_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -126,6 +139,7 @@
 
     Public Class Say_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -133,6 +147,7 @@
 
     Public Class AutoText_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -140,6 +155,7 @@
 
     Public Class Write_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -147,6 +163,7 @@
 
     Public Class BlockPlace_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -154,6 +171,7 @@
 
     Public Class CoinDoorPlace_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -161,6 +179,7 @@
 
     Public Class SoundPlace_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -168,6 +187,7 @@
 
     Public Class PortalPlace_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -175,6 +195,7 @@
 
     Public Class LabelPlace_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -182,6 +203,7 @@
 
     Public Class Godmode_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -189,6 +211,7 @@
 
     Public Class Modmode_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -196,6 +219,7 @@
 
     Public Class Access_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -203,6 +227,7 @@
 
     Public Class LostAccess_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -210,6 +235,7 @@
 
     Public Class Teleport_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -217,6 +243,7 @@
 
     Public Class Reset_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -224,6 +251,7 @@
 
     Public Class Clear_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -231,6 +259,7 @@
 
     Public Class SaveDone_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
@@ -238,6 +267,7 @@
 
     Public Class RefreshShop_Message
         Inherits Message
+
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
         End Sub
