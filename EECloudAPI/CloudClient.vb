@@ -1,12 +1,22 @@
 ﻿Imports EECloudAPI.EECloudAPI.Messages
 
 Public MustInherit Class CloudClient
-    Public LockObject As Object
+#Region "Fields"
+    Public UsernameOrEmail As String
+    Public Password As String
+    Public WorldId As String
+    Public RoomType As String
+    Public RoomIsVisible
+    Public JoinData As Dictionary(Of String, String)
+    Public RoomData As Dictionary(Of String, String)
+#End Region
+
 #Region "Events"
     Public Class OnMessageEventArgs
         Inherits EventArgs
 
-        Public Sub New(PMessage As Message)
+        Public Sub New(PType As MessageType, PMessage As Message)
+            Type = PType
             Message = PMessage
         End Sub
 
@@ -19,7 +29,25 @@ Public MustInherit Class CloudClient
     Public Event OnDisconnect(sender As Object, e As EventArgs)
 #End Region
 
+#Region "Properties"
+    Private m_Client As PlayerIOClient.Client
+
+    Public ReadOnly Property Client As PlayerIOClient.Client
+        Get
+            Return m_Client
+        End Get
+    End Property
+
+    Private m_Connection As PlayerIOClient.Connection
+    Public ReadOnly Property Connection As PlayerIOClient.Connection
+        Get
+            Return m_Connection
+        End Get
+    End Property
+#End Region
+
 #Region "Methods"
+    Private LockObject As Object
     Private Connected As Boolean
     Public Sub Connect()
         SyncLock LockObject
@@ -61,11 +89,23 @@ Public MustInherit Class CloudClient
                 RegisterMessage("givewizard2", MessageType.GiveWizard2, GetType(GiveWizard2_Message))
                 RegisterMessage("givewitch", MessageType.GiveWitch, GetType(GiveWitch_Message))
                 RegisterMessage("givegrinch", MessageType.GiveGrinch, GetType(GiveGrinch_Message))
+
             End If
         End SyncLock
     End Sub
 
-    Public Sub MessageHandler(sender As Object, e As OnMessageEventArgs) Handles Me.OnMessage
+    Private Sub MessageReciver(sender As Object, e As PlayerIOClient.Message)
+        Try
+            Dim myRegisteredMessageInfo As RegisteredMessageInfo = MessageDictionary(e.Type.ToLower)
+            Dim myMessage As 
+            'Dim myEventArgs As New OnMessageEventArgs(myRegisteredMessageInfo.Type, myRegisteredMessageInfo.Message)
+        Catch ex As KeyNotFoundException
+            Throw New KeyNotFoundException(String.Format("Message is not registered: {0}", e.Type.ToLower))
+        End Try
+
+    End Sub
+
+    Private Sub MessageHandler(sender As Object, e As OnMessageEventArgs) Handles Me.OnMessage
         If e.Type = MessageType.Init Then
             Dim Message As Init_Message = e.Message
             'TODO: Load the world

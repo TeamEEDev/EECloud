@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CloudClient.vb" />
+    <Compile Include="JoinType.vb" />
     <Compile Include="Message.vb" />
     <Compile Include="MessageType.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
