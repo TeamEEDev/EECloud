@@ -124,6 +124,7 @@
 
     Public Class Crown_Message
         Inherits Message
+        Public ReadOnly UserID As Integer '0
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -132,6 +133,7 @@
 
     Public Class SilverCrown_Message
         Inherits Message
+        Public ReadOnly UserID As Integer '0
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -140,6 +142,8 @@
 
     Public Class Face_Message
         Inherits Message
+        Public ReadOnly UserID As Integer '0
+        Public ReadOnly FaceID As Integer '1
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -148,6 +152,7 @@
 
     Public Class ShowKey_Message
         Inherits Message
+        Public ReadOnly KeyColor As String '0
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -156,6 +161,7 @@
 
     Public Class HideKey_Message
         Inherits Message
+        Public ReadOnly KeyColor As String '0
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -164,6 +170,8 @@
 
     Public Class Say_Message
         Inherits Message
+        Public ReadOnly UserID As Integer '0
+        Public ReadOnly Text As String '1
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
