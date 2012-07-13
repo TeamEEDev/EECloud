@@ -1,3 +1,4 @@
-﻿Public Structure Player
+﻿Public Class Player
 
-End Structure
+End Class
+
