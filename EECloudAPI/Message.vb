@@ -242,4 +242,11 @@
             MyBase.New(PMessage)
         End Sub
     End Class
+
+    Public Class RefreshShop_Message
+        Inherits Message
+        Public Sub New(PMessage As PlayerIOClient.Message)
+            MyBase.New(PMessage)
+        End Sub
+    End Class
 End Namespace
