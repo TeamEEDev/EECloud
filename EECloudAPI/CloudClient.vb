@@ -24,7 +24,6 @@ Public MustInherit Class CloudClient
         SyncLock LockObject
             If Not Connected Then
                 Connected = True
-                'TODO: Do this for every message
                 RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoin_Message))
                 RegisterMessage("upgrade", GetType(Upgrade_Message))
                 RegisterMessage("info", GetType(Info_Message))
@@ -54,7 +53,6 @@ Public MustInherit Class CloudClient
                 RegisterMessage("tele", GetType(Teleport_Message))
                 RegisterMessage("reset", GetType(Reset_Message))
                 RegisterMessage("clear", GetType(Clear_Message))
-                RegisterMessage("givewizard", GetType(Givewizard_Message))
                 RegisterMessage("saved", GetType(SaveDone_Message))
                 RegisterMessage("refreshshop", GetType(RefreshShop_Message))
             End If

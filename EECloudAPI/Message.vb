@@ -229,13 +229,6 @@
         End Sub
     End Class
 
-    Public Class Givewizard_Message
-        Inherits Message
-        Public Sub New(PMessage As PlayerIOClient.Message)
-            MyBase.New(PMessage)
-        End Sub
-    End Class
-
     Public Class SaveDone_Message
         Inherits Message
         Public Sub New(PMessage As PlayerIOClient.Message)
