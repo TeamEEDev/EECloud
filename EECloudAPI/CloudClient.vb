@@ -40,7 +40,7 @@ Public MustInherit Class CloudClient
                 RegisterMessage("show", GetType(ShowKey_Message))
                 RegisterMessage("hide", GetType(HideKey_Message))
                 RegisterMessage("say", GetType(Say_Message))
-                'TODO: Add AutoText/Say_Old
+                RegisterMessage("autotext", GetType(AutoText_Message))
                 RegisterMessage("write", GetType(Write_Message))
                 RegisterMessage("b", GetType(BlockPlace_Message))
                 RegisterMessage("bc", GetType(CoinDoorPlace_Message))
@@ -56,37 +56,7 @@ Public MustInherit Class CloudClient
                 RegisterMessage("clear", GetType(Clear_Message))
                 RegisterMessage("givewizard", GetType(Givewizard_Message))
                 RegisterMessage("saved", GetType(SaveDone_Message))
-#If MINI Then
-                If MainFrm.WaitingForReload Then
-                    MainFrm.SendChat("Reloaded.")
-                    MainFrm.WaitingForReload = False
-                End If
-#End If
-                MainFrm.Reloading = False
-                MainFrm.CurrentWorld = MainFrm.Reload(m, MainFrm.CurrentWorld)
-                MainFrm.CurrentWorld.ID = MainFrm.TextID.Tag.ToString
-            Case "tele"
-                For N = 1 To m.Count - 1 Step +3
-                    If MainFrm.GetPlayer(m.Item(N)) IsNot Nothing Then
-                        MainFrm.GetPlayer(m.Item(N)).Position.X = m.Item(N + 1)
-                        MainFrm.GetPlayer(m.Item(N)).Position.Y = m.Item(N + 2)
-                        MainFrm.GetPlayer(m.Item(N)).Coins = 0
-                    End If
-                Next
-            Case "clear"
-                MainFrm.CurrentWorld.Clear()
-            Case "disconnect"
-                If MainFrm.Disconnecting Then
-                    MainFrm.Disconnecting = False
-                Else
-                    MainFrm.Disconnect()
-                End If
-            Case "send"
-                If m.Item(3) = 0 Then
-                    MainFrm.Uploader.AddToQueue(m.Item(0), m.Item(1), m.Item(2), m.Item(3), m.Item(4), m.Item(5), m.Item(6))
-                ElseIf m.Item(3) = 1 Then
-                    MainFrm.Uploader.AddToQueue(m.Item(0), m.Item(1), m.Item(2), m.Item(3))
-                End If
+                RegisterMessage("refreshshop", GetType(RefreshShop_Message))
             End If
         End SyncLock
     End Sub
