@@ -58,6 +58,9 @@
 
     Public Class UpdateMeta_Message
         Inherits Message
+        Public ReadOnly Owner As String '0
+        Public ReadOnly Title As String '1
+        Public ReadOnly Plays As Integer '2
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -66,6 +69,16 @@
 
     Public Class Add_Message
         Inherits Message
+        Public ReadOnly UserID As Integer '0
+        Public ReadOnly UserName As String '1
+        Public ReadOnly FaceID As Integer '2
+        Public ReadOnly PlayerPosX As Integer '3
+        Public ReadOnly PlayerPosY As Integer '4
+        Public ReadOnly IsGod As Boolean '5
+        Public ReadOnly IsMod As Boolean '6
+        Public ReadOnly HasChat As Boolean '7
+        Public ReadOnly Coins As Integer '8
+        Public ReadOnly IsYourFriend As Boolean '9
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -74,6 +87,7 @@
 
     Public Class Left_Message
         Inherits Message
+        Public ReadOnly UserID As Integer '0
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -82,6 +96,16 @@
 
     Public Class Move_Message
         Inherits Message
+        Public ReadOnly UserID As Integer '0
+        Public ReadOnly PlayerPosX As Integer '1
+        Public ReadOnly PlayerPosY As Integer '2
+        Public ReadOnly SpeedX As Double '3
+        Public ReadOnly SpeedY As Double '4
+        Public ReadOnly ModifierX As Double '5
+        Public ReadOnly ModifierY As Double '6
+        Public ReadOnly Horizontal As Double '7
+        Public ReadOnly Vertical As Double '8
+        Public ReadOnly Coins As Integer '9
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -90,6 +114,8 @@
 
     Public Class Coin_Message
         Inherits Message
+        Public ReadOnly UserID As Integer '0
+        Public ReadOnly Coins As Integer '1
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
