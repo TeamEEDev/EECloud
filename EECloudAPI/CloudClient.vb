@@ -6,12 +6,12 @@ Public MustInherit Class CloudClient
     Public Class OnMessageEventArgs
         Inherits EventArgs
 
-        Public Sub New(PMessage As PlayerIOClient.Message)
+        Public Sub New(PMessage As Message)
             Message = PMessage
         End Sub
 
         Public Type As MessageType
-        Public Message As PlayerIOClient.Message
+        Public Message As Message
     End Class
 
     Public Event OnMessage(sender As Object, e As OnMessageEventArgs)
@@ -62,6 +62,7 @@ Public MustInherit Class CloudClient
 
     Public Sub MessageHandler(sender As Object, e As OnMessageEventArgs) Handles Me.OnMessage
         If e.Type = MessageType.Init Then
+            Dim Message As Init_Message = e.Message
             'TODO: Load the world
         End If
     End Sub
