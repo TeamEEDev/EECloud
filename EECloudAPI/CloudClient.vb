@@ -40,6 +40,7 @@ Public MustInherit Class CloudClient
                 RegisterMessage("show", MessageType.ShowKey, GetType(ShowKey_Message))
                 RegisterMessage("hide", MessageType.HideKey, GetType(HideKey_Message))
                 RegisterMessage("say", MessageType.Say, GetType(Say_Message))
+                RegisterMessage("say_old", MessageType.SayOld, GetType(SayOld_Message))
                 RegisterMessage("autotext", MessageType.AutoText, GetType(AutoText_Message))
                 RegisterMessage("write", MessageType.Write, GetType(Write_Message))
                 RegisterMessage("b", MessageType.BlockPlace, GetType(BlockPlace_Message))
