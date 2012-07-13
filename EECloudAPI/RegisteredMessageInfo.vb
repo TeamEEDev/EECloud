@@ -4,6 +4,6 @@
 
     Public Sub New(PType As MessageType, PMessage As Type)
         Type = PType
-        PMessage = Message
+        Message = PMessage
     End Sub
 End Class

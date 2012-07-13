@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloudAPI", "EECloudAPI\EECloudAPI.vbproj", "{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloudAPI.Tests", "EECloudAPI.Tests\EECloudAPI.Tests.vbproj", "{799836D7-7F7B-41F1-A755-82F596A74CB4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{799836D7-7F7B-41F1-A755-82F596A74CB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{799836D7-7F7B-41F1-A755-82F596A74CB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{799836D7-7F7B-41F1-A755-82F596A74CB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{799836D7-7F7B-41F1-A755-82F596A74CB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
