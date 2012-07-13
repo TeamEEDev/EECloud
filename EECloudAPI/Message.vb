@@ -1,6 +1,6 @@
 ﻿Namespace EECloudAPI.Messages
     Public MustInherit Class Message
-        Public Message As PlayerIOClient.Message
+        Public ReadOnly Message As PlayerIOClient.Message
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             Message = PMessage
