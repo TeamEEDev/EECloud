@@ -1,4 +1,4 @@
-﻿Public Class RegisteredMessageInfo
+﻿Friend Class RegisteredMessageInfo
     Public ReadOnly Type As MessageType
     Public ReadOnly Message As Type
 
