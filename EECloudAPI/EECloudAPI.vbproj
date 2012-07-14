@@ -55,6 +55,7 @@
     <Reference Include="System.Data.DataSetExtensions" />
   </ItemGroup>
   <ItemGroup>
+    <Import Include="EECloudAPI" />
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
     <Import Include="System.Collections" />
@@ -65,7 +66,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CloudClient.vb" />
+    <Compile Include="CloudPlugin.vb" />
     <Compile Include="JoinType.vb" />
     <Compile Include="Message.vb" />
     <Compile Include="MessageType.vb" />

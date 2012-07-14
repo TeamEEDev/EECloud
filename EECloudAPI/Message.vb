@@ -1,4 +1,4 @@
-﻿Namespace EECloudAPI.Messages
+﻿Namespace Messages
     Public MustInherit Class Message
         Public ReadOnly Message As PlayerIOClient.Message
 
