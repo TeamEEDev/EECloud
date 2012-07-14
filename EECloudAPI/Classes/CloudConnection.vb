@@ -24,14 +24,9 @@
 #Region "Methods"
     Sub New(PConnection As PlayerIOClient.Connection, PWorldID As String)
         If PConnection IsNot Nothing Then
-            RegisterMessages()
-
             m_Connection = PConnection
             m_WorldID = PWorldID
-
-            m_Connection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
-            m_Connection.AddOnMessage(AddressOf MessageReciver)
-            RaiseEvent OnJoin(Me, New EventArgs)
+            Init()
         Else
             Throw New NullReferenceException("PConnection can not be null.")
         End If
@@ -39,35 +34,33 @@
 
     Sub New(PClient As PlayerIOClient.Client, PWorldID As String)
         If PClient IsNot Nothing Then
-            RegisterMessages()
-
-
             m_Connection = PClient.Multiplayer.JoinRoom(PWorldID, Nothing)
             m_WorldID = PWorldID
-
-            m_Connection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
-            m_Connection.AddOnMessage(AddressOf MessageReciver)
-            RaiseEvent OnJoin(Me, New EventArgs)
+            Init()
         Else
             Throw New NullReferenceException("PClient can not be null.")
         End If
     End Sub
 
-
     Sub New(PUsername As String, PPassword As String, PWorldID As String)
-        RegisterMessages()
-
         Dim myClient As PlayerIOClient.Client = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(gameID, PUsername, PPassword)
         m_Connection = myClient.Multiplayer.JoinRoom(PWorldID, Nothing)
         m_WorldID = PWorldID
+    End Sub
 
+    Private Sub Init()
+        RegisterMessages()
         m_Connection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
         m_Connection.AddOnMessage(AddressOf MessageReciver)
         RaiseEvent OnJoin(Me, New EventArgs)
+        m_Connection.Send("init")
     End Sub
 
     Private Sub MessageHandler(sender As Object, e As OnMessageEventArgs) Handles Me.OnMessage
-
+        If e.Type = MessageType.Init Then
+            Dim m As Init_Message = CType(e.Message, Init_Message)
+            Connection.Send("init2")
+        End If
     End Sub
 
     Private Sub MessageReciver(sender As Object, e As PlayerIOClient.Message)
