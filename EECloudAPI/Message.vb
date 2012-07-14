@@ -25,8 +25,8 @@
 
     Public Class Info_Message
         Inherits Message
-        Public ReadOnly Title As String '0
-        Public ReadOnly Text As String '1
+        Private ReadOnly Title As String '0
+        Private ReadOnly Text As String '1
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -37,19 +37,19 @@
 
     Public Class Init_Message
         Inherits Message
-        Public ReadOnly UsernameOwner As String '0
-        Public ReadOnly WorldName As String '1
-        Public ReadOnly Plays As UInteger '2
-        Public ReadOnly Encryption As String '3
-        Public ReadOnly UserID As UInteger '4
-        Public ReadOnly SpawnX As Integer '5
-        Public ReadOnly SpawnY As Integer '6
-        Public ReadOnly Username As String '7
-        Public ReadOnly CanEdit As Boolean '8
-        Public ReadOnly IsOwner As Boolean '9
-        Public ReadOnly SizeX As Integer '10
-        Public ReadOnly SizeY As Integer '11
-        Public ReadOnly IsTutorialRoom As Boolean '12
+        Private ReadOnly UsernameOwner As String '0
+        Private ReadOnly WorldName As String '1
+        Private ReadOnly Plays As UInteger '2
+        Private ReadOnly Encryption As String '3
+        Private ReadOnly UserID As UInteger '4
+        Private ReadOnly SpawnX As Integer '5
+        Private ReadOnly SpawnY As Integer '6
+        Private ReadOnly Username As String '7
+        Private ReadOnly CanEdit As Boolean '8
+        Private ReadOnly IsOwner As Boolean '9
+        Private ReadOnly SizeX As Integer '10
+        Private ReadOnly SizeY As Integer '11
+        Private ReadOnly IsTutorialRoom As Boolean '12
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -58,9 +58,9 @@
 
     Public Class UpdateMeta_Message
         Inherits Message
-        Public ReadOnly Owner As String '0
-        Public ReadOnly Title As String '1
-        Public ReadOnly Plays As Integer '2
+        Private ReadOnly Owner As String '0
+        Private ReadOnly Title As String '1
+        Private ReadOnly Plays As Integer '2
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -69,16 +69,16 @@
 
     Public Class Add_Message
         Inherits Message
-        Public ReadOnly UserID As Integer '0
-        Public ReadOnly UserName As String '1
-        Public ReadOnly FaceID As Integer '2
-        Public ReadOnly PlayerPosX As Integer '3
-        Public ReadOnly PlayerPosY As Integer '4
-        Public ReadOnly IsGod As Boolean '5
-        Public ReadOnly IsMod As Boolean '6
-        Public ReadOnly HasChat As Boolean '7
-        Public ReadOnly Coins As Integer '8
-        Public ReadOnly IsYourFriend As Boolean '9
+        Private ReadOnly UserID As Integer '0
+        Private ReadOnly UserName As String '1
+        Private ReadOnly FaceID As Integer '2
+        Private ReadOnly PlayerPosX As Integer '3
+        Private ReadOnly PlayerPosY As Integer '4
+        Private ReadOnly IsGod As Boolean '5
+        Private ReadOnly IsMod As Boolean '6
+        Private ReadOnly HasChat As Boolean '7
+        Private ReadOnly Coins As Integer '8
+        Private ReadOnly IsYourFriend As Boolean '9
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -87,7 +87,7 @@
 
     Public Class Left_Message
         Inherits Message
-        Public ReadOnly UserID As Integer '0
+        Private ReadOnly UserID As Integer '0
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -96,16 +96,16 @@
 
     Public Class Move_Message
         Inherits Message
-        Public ReadOnly UserID As Integer '0
-        Public ReadOnly PlayerPosX As Integer '1
-        Public ReadOnly PlayerPosY As Integer '2
-        Public ReadOnly SpeedX As Double '3
-        Public ReadOnly SpeedY As Double '4
-        Public ReadOnly ModifierX As Double '5
-        Public ReadOnly ModifierY As Double '6
-        Public ReadOnly Horizontal As Double '7
-        Public ReadOnly Vertical As Double '8
-        Public ReadOnly Coins As Integer '9
+        Private ReadOnly UserID As Integer '0
+        Private ReadOnly PlayerPosX As Integer '1
+        Private ReadOnly PlayerPosY As Integer '2
+        Private ReadOnly SpeedX As Double '3
+        Private ReadOnly SpeedY As Double '4
+        Private ReadOnly ModifierX As Double '5
+        Private ReadOnly ModifierY As Double '6
+        Private ReadOnly Horizontal As Double '7
+        Private ReadOnly Vertical As Double '8
+        Private ReadOnly Coins As Integer '9
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -114,8 +114,8 @@
 
     Public Class Coin_Message
         Inherits Message
-        Public ReadOnly UserID As Integer '0
-        Public ReadOnly Coins As Integer '1
+        Private ReadOnly UserID As Integer '0
+        Private ReadOnly Coins As Integer '1
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -124,7 +124,7 @@
 
     Public Class Crown_Message
         Inherits Message
-        Public ReadOnly UserID As Integer '0
+        Private ReadOnly UserID As Integer '0
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -133,7 +133,7 @@
 
     Public Class SilverCrown_Message
         Inherits Message
-        Public ReadOnly UserID As Integer '0
+        Private ReadOnly UserID As Integer '0
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -142,8 +142,8 @@
 
     Public Class Face_Message
         Inherits Message
-        Public ReadOnly UserID As Integer '0
-        Public ReadOnly FaceID As Integer '1
+        Private ReadOnly UserID As Integer '0
+        Private ReadOnly FaceID As Integer '1
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -152,7 +152,7 @@
 
     Public Class ShowKey_Message
         Inherits Message
-        Public ReadOnly KeyColor As String '0
+        Private ReadOnly KeyColor As String '0
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -161,7 +161,7 @@
 
     Public Class HideKey_Message
         Inherits Message
-        Public ReadOnly KeyColor As String '0
+        Private ReadOnly KeyColor As String '0
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -170,8 +170,8 @@
 
     Public Class Say_Message
         Inherits Message
-        Public ReadOnly UserID As Integer '0
-        Public ReadOnly Text As String '1
+        Private ReadOnly UserID As Integer '0
+        Private ReadOnly Text As String '1
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
