@@ -281,7 +281,7 @@
 
     Public Class BlockPlace_Message
         Inherits Message
-        Private ReadOnly Layer As Integer '0
+        Private ReadOnly Layer As Layer '0
         Private ReadOnly PosX As Integer '1
         Private ReadOnly PosY As Integer '2
         Private ReadOnly BlockID As Integer '3
@@ -289,7 +289,7 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            Layer = CInt(PMessage.Item(0))
+            Layer = CType(PMessage.Item(0), Layer)
             PosX = CInt(PMessage.Item(1))
             PosY = CInt(PMessage.Item(2))
             BlockID = CInt(PMessage.Item(3))
