@@ -3,7 +3,6 @@
     Public Shared ReadOnly Property ConnectionsCount As Integer
         Get
             Return CloudConnections.Count
-
         End Get
     End Property
 
