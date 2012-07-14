@@ -415,6 +415,9 @@
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
+
+            RoomWidth = CInt(PMessage.Item(0))
+            RoomHeight = CInt(PMessage.Item(1))
         End Sub
     End Class
 
