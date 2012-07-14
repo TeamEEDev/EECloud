@@ -56,6 +56,20 @@
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
+
+            UsernameOwner = PMessage.Item(0)
+            WorldName = PMessage.Item(1)
+            Plays = PMessage.Item(2)
+            Encryption = PMessage.Item(3)
+            UserID = PMessage.Item(4)
+            SpawnX = PMessage.Item(5)
+            SpawnY = PMessage.Item(6)
+            Username = PMessage.Item(7)
+            CanEdit = PMessage.Item(8)
+            IsOwner = PMessage.Item(9)
+            SizeX = PMessage.Item(10)
+            SizeY = PMessage.Item(11)
+            IsTutorialRoom = PMessage.Item(12)
         End Sub
     End Class
 
@@ -67,6 +81,10 @@
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
+
+            Owner = PMessage.Item(0)
+            Title = PMessage.Item(1)
+            Plays = PMessage.Item(2)
         End Sub
     End Class
 
@@ -85,6 +103,17 @@
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
+
+            UserID = PMessage.Item(0)
+            UserName = PMessage.Item(1)
+            FaceID = PMessage.Item(2)
+            PlayerPosX = PMessage.Item(3)
+            PlayerPosY = PMessage.Item(4)
+            IsGod = PMessage.Item(5)
+            IsMod = PMessage.Item(6)
+            HasChat = PMessage.Item(7)
+            Coins = PMessage.Item(8)
+            IsYourFriend = PMessage.Item(9)
         End Sub
     End Class
 
@@ -94,6 +123,8 @@
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
+
+            UserID = PMessage.Item(0)
         End Sub
     End Class
 
@@ -112,6 +143,17 @@
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
+
+            UserID = PMessage.Item(0)
+            PlayerPosX = PMessage.Item(1)
+            PlayerPosY = PMessage.Item(2)
+            SpeedX = PMessage.Item(3)
+            SpeedY = PMessage.Item(4)
+            ModifierX = PMessage.Item(5)
+            ModifierY = PMessage.Item(6)
+            Horizontal = PMessage.Item(7)
+            Vertical = PMessage.Item(8)
+            Coins = PMessage.Item(9)
         End Sub
     End Class
 
@@ -122,6 +164,9 @@
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
+
+            UserID = PMessage.Item(0)
+            Coins = PMessage.Item(1)
         End Sub
     End Class
 
@@ -131,6 +176,8 @@
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
+
+            UserID = PMessage.Item(0)
         End Sub
     End Class
 
@@ -140,6 +187,8 @@
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
+
+            UserID = PMessage.Item(0)
         End Sub
     End Class
 
@@ -150,6 +199,9 @@
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
+
+            UserID = PMessage.Item(0)
+            FaceID = PMessage.Item(1)
         End Sub
     End Class
 
@@ -159,6 +211,8 @@
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
+
+            KeyColor = PMessage.Item(0)
         End Sub
     End Class
 
@@ -168,6 +222,8 @@
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
+
+            KeyColor = PMessage.Item(0)
         End Sub
     End Class
 
@@ -178,6 +234,9 @@
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
+
+            UserID = PMessage.Item(0)
+            Text = PMessage.Item(1)
         End Sub
     End Class
 
@@ -188,6 +247,9 @@
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
+
+            UserName = PMessage.Item(0)
+            Text = PMessage.Item(1)
         End Sub
     End Class
 
@@ -198,6 +260,9 @@
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
+
+            UserID = PMessage.Item(0)
+            Text = PMessage.Item(1)
         End Sub
     End Class
 
@@ -208,6 +273,9 @@
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
+
+            Title = PMessage.Item(0)
+            Text = PMessage.Item(1)
         End Sub
     End Class
 
@@ -216,10 +284,15 @@
         Private ReadOnly Layer As Integer '0
         Private ReadOnly PosX As Integer '1
         Private ReadOnly PosY As Integer '2
-        Private ReadOnly BlockID As Integer '4
+        Private ReadOnly BlockID As Integer '3
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
+
+            Layer = PMessage.Item(0)
+            PosX = PMessage.Item(1)
+            PosY = PMessage.Item(2)
+            BlockID = PMessage.Item(3)
         End Sub
     End Class
 
@@ -361,6 +434,7 @@
 
     Public Class RefreshShop_Message
         Inherits Message
+        'Arguments: To be added...
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -369,6 +443,7 @@
 
     Public Class GiveWizard_Message
         Inherits Message
+        'No arguments
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -377,6 +452,7 @@
 
     Public Class GiveWizard2_Message
         Inherits Message
+        'No arguments
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -385,6 +461,7 @@
 
     Public Class GiveWitch_Message
         Inherits Message
+        'No arguments
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -393,6 +470,7 @@
 
     Public Class GiveGrinch_Message
         Inherits Message
+        'No arguments
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
