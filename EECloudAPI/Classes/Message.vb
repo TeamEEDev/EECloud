@@ -133,12 +133,12 @@
         Private ReadOnly UserID As Integer '0
         Private ReadOnly PlayerPosX As Integer '1
         Private ReadOnly PlayerPosY As Integer '2
-        Private ReadOnly SpeedX As Double '3
-        Private ReadOnly SpeedY As Double '4
-        Private ReadOnly ModifierX As Double '5
-        Private ReadOnly ModifierY As Double '6
-        Private ReadOnly Horizontal As Double '7
-        Private ReadOnly Vertical As Double '8
+        Private ReadOnly SpeedX As Single '3
+        Private ReadOnly SpeedY As Single '4
+        Private ReadOnly ModifierX As Single '5
+        Private ReadOnly ModifierY As Single '6
+        Private ReadOnly Horizontal As Single '7
+        Private ReadOnly Vertical As Single '8
         Private ReadOnly Coins As Integer '9
 
         Public Sub New(PMessage As PlayerIOClient.Message)
@@ -147,12 +147,12 @@
             UserID = CInt(PMessage.Item(0))
             PlayerPosX = CInt(PMessage.Item(1))
             PlayerPosY = CInt(PMessage.Item(2))
-            SpeedX = CDbl(PMessage.Item(3))
-            SpeedY = CDbl(PMessage.Item(4))
-            ModifierX = CDbl(PMessage.Item(5))
-            ModifierY = CDbl(PMessage.Item(6))
-            Horizontal = CDbl(PMessage.Item(7))
-            Vertical = CDbl(PMessage.Item(8))
+            SpeedX = CSng(PMessage.Item(3))
+            SpeedY = CSng(PMessage.Item(4))
+            ModifierX = CSng(PMessage.Item(5))
+            ModifierY = CSng(PMessage.Item(6))
+            Horizontal = CSng(PMessage.Item(7))
+            Vertical = CSng(PMessage.Item(8))
             Coins = CInt(PMessage.Item(9))
         End Sub
     End Class
@@ -305,6 +305,11 @@
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
+
+            PosX = CInt(PMessage.Item(0))
+            PosY = CInt(PMessage.Item(1))
+            BlockID = CInt(PMessage.Item(2))
+            CoinsToOpen = CInt(PMessage.Item(3))
         End Sub
     End Class
 
@@ -317,6 +322,11 @@
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
+
+            PosX = CInt(PMessage.Item(0))
+            PosY = CInt(PMessage.Item(1))
+            BlockID = CInt(PMessage.Item(2))
+            SoundID = CInt(PMessage.Item(3))
         End Sub
     End Class
 
@@ -331,6 +341,13 @@
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
+
+            PosX = CInt(PMessage.Item(0))
+            PosY = CInt(PMessage.Item(1))
+            BlockID = CInt(PMessage.Item(2))
+            Rotation = CInt(PMessage.Item(3))
+            ID = CInt(PMessage.Item(4))
+            Target = CInt(PMessage.Item(5))
         End Sub
     End Class
 
@@ -343,6 +360,11 @@
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
+
+            PosX = CInt(PMessage.Item(0))
+            PosY = CInt(PMessage.Item(1))
+            BlockID = CInt(PMessage.Item(2))
+            Text = CStr(PMessage.Item(3))
         End Sub
     End Class
 
@@ -432,7 +454,7 @@
 
     Public Class RefreshShop_Message
         Inherits Message
-        'No arguments
+        'TODO: Add arguments
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
