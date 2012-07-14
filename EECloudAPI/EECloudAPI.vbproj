@@ -75,6 +75,7 @@
     <Compile Include="Classes\CloudPlugin.vb" />
     <Compile Include="Classes\Message.vb" />
     <Compile Include="Enums\MessageType.vb" />
+    <Compile Include="Modules\EECloud.vb" />
     <Compile Include="Modules\Utils.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -92,7 +93,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Classes\OnMessageEventArgs.vb" />
-    <Compile Include="Classes\Player.vb" />
     <Compile Include="Classes\RegisteredMessageInfo.vb" />
   </ItemGroup>
   <ItemGroup>
