@@ -10,24 +10,26 @@ Namespace EECloudAPI
         Public RoomIsVisible
         Public JoinData As Dictionary(Of String, String)
         Public RoomData As Dictionary(Of String, String)
+        Public JoinType As JoinType
 #End Region
 
 #Region "Events"
+        Public Event OnMessage(sender As Object, e As OnMessageEventArgs)
+        Public Event OnJoin(sender As Object, e As EventArgs)
+        Public Event OnDisconnect(sender As Object, e As EventArgs)
+#End Region
+
+#Region "Classes"
         Public Class OnMessageEventArgs
             Inherits EventArgs
+            Public Type As MessageType
+            Public Message As Message
 
             Public Sub New(PType As MessageType, PMessage As Message)
                 Type = PType
                 Message = PMessage
             End Sub
-
-            Public Type As MessageType
-            Public Message As Message
         End Class
-
-        Public Event OnMessage(sender As Object, e As OnMessageEventArgs)
-        Public Event OnJoin(sender As Object, e As EventArgs)
-        Public Event OnDisconnect(sender As Object, e As EventArgs)
 #End Region
 
 #Region "Properties"
