@@ -30,6 +30,7 @@ Namespace EECloudAPI
                 m_Password = value
             End Set
         End Property
+
         Public Property WorldId As String
         Public Property RoomType As String
         Public Property RoomIsVisible As Boolean
@@ -39,6 +40,21 @@ Namespace EECloudAPI
 #End Region
 
 #Region "Methods"
+        Private Sub MessageHandler(sender As Object, e As OnMessageEventArgs) Handles Me.OnMessage
+
+        End Sub
+
+        Private Sub MessageReciver(sender As Object, e As PlayerIOClient.Message)
+            Try
+                Dim myRegisteredMessageInfo As RegisteredMessageInfo = MessageDictionary(e.Type)
+                Dim myMessage As Message = Activator.CreateInstance(myRegisteredMessageInfo.Message, e)
+                Dim myEventArgs As New OnMessageEventArgs(myRegisteredMessageInfo.Type, myMessage)
+                RaiseEvent OnMessage(Me, myEventArgs)
+            Catch ex As KeyNotFoundException
+                Throw New KeyNotFoundException(String.Format("Message is not registered: {0}", e.Type))
+            End Try
+        End Sub
+
         Private LockObject As Object
         Private Connected As Boolean
         Public Sub Connect()
@@ -53,15 +69,8 @@ Namespace EECloudAPI
             End SyncLock
         End Sub
 
-        Private Sub MessageHandler(sender As Object, e As OnMessageEventArgs) Handles Me.OnMessage
-            If e.Type = MessageType.Init Then
-                Dim Message As Init_Message = e.Message
-                'TODO: Load the world
-            End If
-        End Sub
-
         Private RegisteredMessages As Boolean
-        Public Sub RegisterMessages()
+        Private Sub RegisterMessages()
             If RegisteredMessages = False Then
                 RegisteredMessages = True
                 RegisterMessage("groupdisallowedjoin", MessageType.GroupDisallowedJoin, GetType(GroupDisallowedJoin_Message))
@@ -103,19 +112,8 @@ Namespace EECloudAPI
             End If
         End Sub
 
-        Public Sub MessageReciver(sender As Object, e As PlayerIOClient.Message)
-            Try
-                Dim myRegisteredMessageInfo As RegisteredMessageInfo = MessageDictionary(e.Type)
-                Dim myMessage As Message = Activator.CreateInstance(myRegisteredMessageInfo.Message, e)
-                Dim myEventArgs As New OnMessageEventArgs(myRegisteredMessageInfo.Type, myMessage)
-                RaiseEvent OnMessage(Me, myEventArgs)
-            Catch ex As KeyNotFoundException
-                Throw New KeyNotFoundException(String.Format("Message is not registered: {0}", e.Type))
-            End Try
-        End Sub
-
         Private MessageDictionary As New Dictionary(Of String, RegisteredMessageInfo)
-        Private Sub RegisterMessage(PString As String, PType As MessageType, PMessage As Type)
+        Public Sub RegisterMessage(PString As String, PType As MessageType, PMessage As Type)
             If MessageDictionary.ContainsKey(PString) Then
                 Throw New InvalidOperationException("Message ID already registered")
             ElseIf Not PMessage.IsSubclassOf(GetType(Message)) Then
