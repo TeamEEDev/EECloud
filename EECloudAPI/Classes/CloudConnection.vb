@@ -21,15 +21,20 @@
     End Property
 #End Region
 
+#Region "Methods"
     Sub New(PConnection As PlayerIOClient.Connection, PWorldID As String)
-        RegisterMessages()
+        If PConnection IsNot Nothing Then
+            RegisterMessages()
 
-        m_Connection = PConnection
-        m_WorldID = PWorldID
+            m_Connection = PConnection
+            m_WorldID = PWorldID
 
-        m_Connection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
-        m_Connection.AddOnMessage(AddressOf MessageReciver)
-        RaiseEvent OnJoin(Me, New EventArgs)
+            m_Connection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
+            m_Connection.AddOnMessage(AddressOf MessageReciver)
+            RaiseEvent OnJoin(Me, New EventArgs)
+        Else
+            Throw New NullReferenceException("PConnection can not be null.")
+        End If
     End Sub
 
     Private Sub MessageHandler(sender As Object, e As OnMessageEventArgs) Handles Me.OnMessage
@@ -101,5 +106,6 @@
             MessageDictionary.Add(PString, New RegisteredMessageInfo(PType, PMessage))
         End If
     End Sub
+#End Region
 #End Region
 End Class
