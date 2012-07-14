@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="Classes\Public\CloudConnection.vb" />
     <Compile Include="Classes\Public\CloudPlugin.vb" />
+    <Compile Include="Enums\Block.vb" />
     <Compile Include="Enums\Layer.vb" />
     <Compile Include="Namespaces\Message.vb" />
     <Compile Include="Enums\MessageType.vb" />
