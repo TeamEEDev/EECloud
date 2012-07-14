@@ -1,12 +1,13 @@
-﻿Public Class EECloud
+﻿Public Class Connections
     Private Shared CloudConnections As New List(Of CloudConnection)
     Public Shared ReadOnly Property ConnectionsCount As Integer
         Get
             Return CloudConnections.Count
+
         End Get
     End Property
 
-    Public Shared ReadOnly Property Connection(Index As Integer) As CloudConnection
+    Public Shared ReadOnly Property Item(Index As Integer) As CloudConnection
         Get
             Return CloudConnections.Item(Index)
         End Get

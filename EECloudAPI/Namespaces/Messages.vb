@@ -33,8 +33,8 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            Title = CStr(PMessage.Item(0))
-            Text = CStr(PMessage.Item(1))
+            Title = PMessage.GetString(0)
+            Text = PMessage.GetString(1)
         End Sub
     End Class
 
@@ -42,7 +42,7 @@
         Inherits Message
         Private ReadOnly UsernameOwner As String '0
         Private ReadOnly WorldName As String '1
-        Private ReadOnly Plays As UInteger '2
+        Private ReadOnly Plays As Integer '2
         Private ReadOnly Encryption As String '3
         Private ReadOnly UserID As Integer '4
         Private ReadOnly SpawnX As Integer '5
@@ -57,19 +57,19 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            UsernameOwner = CStr(PMessage.Item(0))
-            WorldName = CStr(PMessage.Item(1))
-            Plays = CUInt(CStr(PMessage.Item(2)))
-            Encryption = CStr(PMessage.Item(3))
-            UserID = CInt(PMessage.Item(4))
-            SpawnX = CInt(PMessage.Item(5))
-            SpawnY = CInt(PMessage.Item(6))
-            Username = CStr(PMessage.Item(7))
-            CanEdit = CBool(PMessage.Item(8))
-            IsOwner = CBool(PMessage.Item(9))
-            SizeX = CInt(PMessage.Item(10))
-            SizeY = CInt(PMessage.Item(11))
-            IsTutorialRoom = CBool(PMessage.Item(12))
+            UsernameOwner = PMessage.GetString(0)
+            WorldName = PMessage.GetString(1)
+            Plays = CInt(PMessage.GetString(2))
+            Encryption = PMessage.GetString(3)
+            UserID = PMessage.GetInteger(4)
+            SpawnX = PMessage.GetInteger(5)
+            SpawnY = PMessage.GetInteger(6)
+            Username = PMessage.GetString(7)
+            CanEdit = PMessage.GetBoolean(8)
+            IsOwner = PMessage.GetBoolean(9)
+            SizeX = PMessage.GetInteger(10)
+            SizeY = PMessage.GetInteger(11)
+            IsTutorialRoom = PMessage.GetBoolean(12)
         End Sub
     End Class
 
@@ -82,9 +82,9 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            Owner = CStr(PMessage.Item(0))
-            Title = CStr(PMessage.Item(1))
-            Plays = CInt(PMessage.Item(2))
+            Owner = PMessage.GetString(0)
+            Title = PMessage.GetString(1)
+            Plays = PMessage.GetInteger(2)
         End Sub
     End Class
 
@@ -104,16 +104,16 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            UserID = CInt(PMessage.Item(0))
-            Username = CStr(PMessage.Item(1))
-            FaceID = CInt(PMessage.Item(2))
-            PlayerPosX = CInt(PMessage.Item(3))
-            PlayerPosY = CInt(PMessage.Item(4))
-            IsGod = CBool(PMessage.Item(5))
-            IsMod = CBool(PMessage.Item(6))
-            HasChat = CBool(PMessage.Item(7))
-            Coins = CInt(PMessage.Item(8))
-            IsYourFriend = CBool(PMessage.Item(9))
+            UserID = PMessage.GetInteger(0)
+            Username = PMessage.GetString(1)
+            FaceID = PMessage.GetInteger(2)
+            PlayerPosX = PMessage.GetInteger(3)
+            PlayerPosY = PMessage.GetInteger(4)
+            IsGod = PMessage.GetBoolean(5)
+            IsMod = PMessage.GetBoolean(6)
+            HasChat = PMessage.GetBoolean(7)
+            Coins = PMessage.GetInteger(8)
+            IsYourFriend = PMessage.GetBoolean(9)
         End Sub
     End Class
 
@@ -124,7 +124,7 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            UserID = CInt(PMessage.Item(0))
+            UserID = PMessage.GetInteger(0)
         End Sub
     End Class
 
@@ -133,27 +133,27 @@
         Private ReadOnly UserID As Integer '0
         Private ReadOnly PlayerPosX As Integer '1
         Private ReadOnly PlayerPosY As Integer '2
-        Private ReadOnly SpeedX As Single '3
-        Private ReadOnly SpeedY As Single '4
-        Private ReadOnly ModifierX As Single '5
-        Private ReadOnly ModifierY As Single '6
-        Private ReadOnly Horizontal As Single '7
-        Private ReadOnly Vertical As Single '8
+        Private ReadOnly SpeedX As Double  '3
+        Private ReadOnly SpeedY As Double '4
+        Private ReadOnly ModifierX As Double '5
+        Private ReadOnly ModifierY As Double '6
+        Private ReadOnly Horizontal As Double '7
+        Private ReadOnly Vertical As Double '8
         Private ReadOnly Coins As Integer '9
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            UserID = CInt(PMessage.Item(0))
-            PlayerPosX = CInt(PMessage.Item(1))
-            PlayerPosY = CInt(PMessage.Item(2))
-            SpeedX = CSng(PMessage.Item(3))
-            SpeedY = CSng(PMessage.Item(4))
-            ModifierX = CSng(PMessage.Item(5))
-            ModifierY = CSng(PMessage.Item(6))
-            Horizontal = CSng(PMessage.Item(7))
-            Vertical = CSng(PMessage.Item(8))
-            Coins = CInt(PMessage.Item(9))
+            UserID = PMessage.GetInteger(0)
+            PlayerPosX = PMessage.GetInteger(1)
+            PlayerPosY = PMessage.GetInteger(2)
+            SpeedX = PMessage.GetDouble(3)
+            SpeedY = PMessage.GetDouble(4)
+            ModifierX = PMessage.GetDouble(5)
+            ModifierY = PMessage.GetDouble(6)
+            Horizontal = PMessage.GetDouble(7)
+            Vertical = PMessage.GetDouble(8)
+            Coins = PMessage.GetInteger(9)
         End Sub
     End Class
 
@@ -165,8 +165,8 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            UserID = CInt(PMessage.Item(0))
-            Coins = CInt(PMessage.Item(1))
+            UserID = PMessage.GetInteger(0)
+            Coins = PMessage.GetInteger(1)
         End Sub
     End Class
 
@@ -177,7 +177,7 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            UserID = CInt(PMessage.Item(0))
+            UserID = PMessage.GetInteger(0)
         End Sub
     End Class
 
@@ -188,7 +188,7 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            UserID = CInt(PMessage.Item(0))
+            UserID = PMessage.GetInteger(0)
         End Sub
     End Class
 
@@ -200,8 +200,8 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            UserID = CInt(PMessage.Item(0))
-            FaceID = CInt(PMessage.Item(1))
+            UserID = PMessage.GetInteger(0)
+            FaceID = PMessage.GetInteger(1)
         End Sub
     End Class
 
@@ -212,7 +212,7 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            KeyColor = CStr(PMessage.Item(0))
+            KeyColor = PMessage.GetString(0)
         End Sub
     End Class
 
@@ -223,7 +223,7 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            KeyColor = CStr(PMessage.Item(0))
+            KeyColor = PMessage.GetString(0)
         End Sub
     End Class
 
@@ -235,8 +235,8 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            UserID = CInt(PMessage.Item(0))
-            Text = CStr(PMessage.Item(1))
+            UserID = PMessage.GetInteger(0)
+            Text = PMessage.GetString(1)
         End Sub
     End Class
 
@@ -248,8 +248,8 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            UserName = CStr(PMessage.Item(0))
-            Text = CStr(PMessage.Item(1))
+            UserName = PMessage.GetString(0)
+            Text = PMessage.GetString(1)
         End Sub
     End Class
 
@@ -261,8 +261,8 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            UserID = CInt(PMessage.Item(0))
-            Text = CStr(PMessage.Item(1))
+            UserID = PMessage.GetInteger(0)
+            Text = PMessage.GetString(1)
         End Sub
     End Class
 
@@ -274,8 +274,8 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            Title = CStr(PMessage.Item(0))
-            Text = CStr(PMessage.Item(1))
+            Title = PMessage.GetString(0)
+            Text = PMessage.GetString(1)
         End Sub
     End Class
 
@@ -290,9 +290,9 @@
             MyBase.New(PMessage)
 
             Layer = CType(PMessage.Item(0), Layer)
-            PosX = CInt(PMessage.Item(1))
-            PosY = CInt(PMessage.Item(2))
-            BlockID = CInt(PMessage.Item(3))
+            PosX = PMessage.GetInteger(1)
+            PosY = PMessage.GetInteger(2)
+            BlockID = PMessage.GetInteger(3)
         End Sub
     End Class
 
@@ -306,10 +306,10 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            PosX = CInt(PMessage.Item(0))
-            PosY = CInt(PMessage.Item(1))
-            BlockID = CInt(PMessage.Item(2))
-            CoinsToOpen = CInt(PMessage.Item(3))
+            PosX = PMessage.GetInteger(0)
+            PosY = PMessage.GetInteger(1)
+            BlockID = PMessage.GetInteger(2)
+            CoinsToOpen = PMessage.GetInteger(3)
         End Sub
     End Class
 
@@ -323,10 +323,10 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            PosX = CInt(PMessage.Item(0))
-            PosY = CInt(PMessage.Item(1))
-            BlockID = CInt(PMessage.Item(2))
-            SoundID = CInt(PMessage.Item(3))
+            PosX = PMessage.GetInteger(0)
+            PosY = PMessage.GetInteger(1)
+            BlockID = PMessage.GetInteger(2)
+            SoundID = PMessage.GetInteger(3)
         End Sub
     End Class
 
@@ -342,12 +342,12 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            PosX = CInt(PMessage.Item(0))
-            PosY = CInt(PMessage.Item(1))
-            BlockID = CInt(PMessage.Item(2))
-            Rotation = CInt(PMessage.Item(3))
-            ID = CInt(PMessage.Item(4))
-            Target = CInt(PMessage.Item(5))
+            PosX = PMessage.GetInteger(0)
+            PosY = PMessage.GetInteger(1)
+            BlockID = PMessage.GetInteger(2)
+            Rotation = PMessage.GetInteger(3)
+            ID = PMessage.GetInteger(4)
+            Target = PMessage.GetInteger(5)
         End Sub
     End Class
 
@@ -361,10 +361,10 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            PosX = CInt(PMessage.Item(0))
-            PosY = CInt(PMessage.Item(1))
-            BlockID = CInt(PMessage.Item(2))
-            Text = CStr(PMessage.Item(3))
+            PosX = PMessage.GetInteger(0)
+            PosY = PMessage.GetInteger(1)
+            BlockID = PMessage.GetInteger(2)
+            Text = PMessage.GetString(3)
         End Sub
     End Class
 
@@ -376,8 +376,8 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            UserID = CInt(PMessage.Item(0))
-            IsGod = CBool(PMessage.Item(1))
+            UserID = PMessage.GetInteger(0)
+            IsGod = PMessage.GetBoolean(1)
         End Sub
     End Class
 
@@ -388,7 +388,7 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            UserID = CInt(PMessage.Item(0))
+            UserID = PMessage.GetInteger(0)
         End Sub
     End Class
 
@@ -417,7 +417,7 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            ResetCoins = CBool(PMessage.Item(0))
+            ResetCoins = PMessage.GetBoolean(0)
         End Sub
     End Class
 
@@ -438,8 +438,8 @@
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            RoomWidth = CInt(PMessage.Item(0))
-            RoomHeight = CInt(PMessage.Item(1))
+            RoomWidth = PMessage.GetInteger(0)
+            RoomHeight = PMessage.GetInteger(1)
         End Sub
     End Class
 

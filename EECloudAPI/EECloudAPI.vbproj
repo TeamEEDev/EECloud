@@ -75,9 +75,9 @@
     <Compile Include="Classes\Public\CloudPlugin.vb" />
     <Compile Include="Enums\Block.vb" />
     <Compile Include="Enums\Layer.vb" />
-    <Compile Include="Namespaces\Message.vb" />
+    <Compile Include="Namespaces\Messages.vb" />
     <Compile Include="Enums\MessageType.vb" />
-    <Compile Include="Classes\Shared\EECloud.vb" />
+    <Compile Include="Classes\Shared\Connections.vb" />
     <Compile Include="Modules\Utils.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
