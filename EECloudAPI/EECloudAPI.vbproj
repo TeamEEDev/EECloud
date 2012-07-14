@@ -60,7 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <Import Include="EECloudAPI" />
-    <Import Include="EECloudAPI.Messages" />
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
     <Import Include="System.Collections" />
@@ -76,7 +75,8 @@
     <Compile Include="Enums\Autotext.vb" />
     <Compile Include="Enums\Block.vb" />
     <Compile Include="Enums\Layer.vb" />
-    <Compile Include="Namespaces\Messages.vb" />
+    <Compile Include="Namespaces\Send.vb" />
+    <Compile Include="Namespaces\Recive.vb" />
     <Compile Include="Enums\MessageType.vb" />
     <Compile Include="Classes\Shared\Connections.vb" />
     <Compile Include="Modules\Utils.vb" />
