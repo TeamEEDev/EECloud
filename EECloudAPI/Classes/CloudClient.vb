@@ -1,4 +1,9 @@
 ﻿Public Class CloudClient
+#Region "Consts"
+    Public Const GameID As String = "everybody-edits-su9rn58o40itdbnw69plyw"
+
+#End Region
+
 #Region "Events"
     Public Event OnMessage(sender As Object, e As OnMessageEventArgs)
     Public Event OnJoin(sender As Object, e As EventArgs)
@@ -29,11 +34,10 @@
     End Property
 
     Public Property WorldId As String
-    Public Property RoomType As String
-    Public Property RoomIsVisible As Boolean
+    Public Property RoomType As String = "EverybodyEdits"
+    Public Property RoomIsVisible As Boolean = True
     Public Property JoinData As Dictionary(Of String, String)
     Public Property RoomData As Dictionary(Of String, String)
-    Public Property JoinType As JoinType
 #End Region
 
 #Region "Methods"
@@ -56,7 +60,7 @@
     Private Connected As Boolean
     Public Sub Connect()
         SyncLock LockObject
-            If Not Connected Then
+            If Not Connected And m_Client IsNot Nothing Then
                 Connected = True
                 RegisterMessages()
                 m_Connection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
