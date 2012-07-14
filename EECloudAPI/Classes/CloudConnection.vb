@@ -37,6 +37,35 @@
         End If
     End Sub
 
+    Sub New(PClient As PlayerIOClient.Client, PWorldID As String)
+        If PClient IsNot Nothing Then
+            RegisterMessages()
+
+
+            m_Connection = PClient.Multiplayer.JoinRoom(PWorldID, Nothing)
+            m_WorldID = PWorldID
+
+            m_Connection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
+            m_Connection.AddOnMessage(AddressOf MessageReciver)
+            RaiseEvent OnJoin(Me, New EventArgs)
+        Else
+            Throw New NullReferenceException("PClient can not be null.")
+        End If
+    End Sub
+
+
+    Sub New(PUsername As String, PPassword As String, PWorldID As String)
+        RegisterMessages()
+
+        Dim myClient As PlayerIOClient.Client = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(gameID, PUsername, PPassword)
+        m_Connection = myClient.Multiplayer.JoinRoom(PWorldID, Nothing)
+        m_WorldID = PWorldID
+
+        m_Connection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
+        m_Connection.AddOnMessage(AddressOf MessageReciver)
+        RaiseEvent OnJoin(Me, New EventArgs)
+    End Sub
+
     Private Sub MessageHandler(sender As Object, e As OnMessageEventArgs) Handles Me.OnMessage
 
     End Sub
