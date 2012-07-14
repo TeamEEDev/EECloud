@@ -4,12 +4,7 @@
     Private Const gameVersion As String = "118"
     Public Const NormalRoom As String = "Everybodyedits" + gameVersion
     Public Const BetaRoom As String = "Beta" + gameVersion
-    Public Const GuestServiceRoom As String = "LobbyGuest" + gameVersion
-    Public Const ServiceRoom As String = "Lobby" + gameVersion
-    Public Const AuthRoom As String = "Auth" + gameVersion
-    Public Const BlacklistRoom As String = "QuickInviteHandler" + gameVersion
     Public Const TutorialRoom As String = "Tutorial" + gameVersion + "_world_"
-    Public Const TrackingRoom As String = "Tracking" + gameVersion
 #End Region
 
 #Region "Properties"
