@@ -27,8 +27,8 @@
 
     Public Property Username As PlayerIOClient.Connection
     Private m_Password As String
-    Public WriteOnly Property Password
-        Set(value)
+    Public WriteOnly Property Password As String
+        Set(value As String)
             m_Password = value
         End Set
     End Property
@@ -48,7 +48,7 @@
     Private Sub MessageReciver(sender As Object, e As PlayerIOClient.Message)
         Try
             Dim myRegisteredMessageInfo As RegisteredMessageInfo = MessageDictionary(e.Type)
-            Dim myMessage As Message = Activator.CreateInstance(myRegisteredMessageInfo.Message, e)
+            Dim myMessage As Message = CType(Activator.CreateInstance(myRegisteredMessageInfo.Message, e), Message)
             Dim myEventArgs As New OnMessageEventArgs(myRegisteredMessageInfo.Type, myMessage)
             RaiseEvent OnMessage(Me, myEventArgs)
         Catch ex As KeyNotFoundException

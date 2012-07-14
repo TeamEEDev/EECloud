@@ -16,8 +16,8 @@
 
     Public Property Username As PlayerIOClient.Connection
     Private m_Password As String
-    Public WriteOnly Property Password
-        Set(value)
+    Public WriteOnly Property Password As String
+        Set(value As String)
             m_Password = value
         End Set
     End Property
