@@ -74,7 +74,6 @@
     <Compile Include="Classes\CloudClient.vb" />
     <Compile Include="Classes\CloudConnection.vb" />
     <Compile Include="Classes\CloudPlugin.vb" />
-    <Compile Include="Enums\JoinType.vb" />
     <Compile Include="Classes\Message.vb" />
     <Compile Include="Enums\MessageType.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
