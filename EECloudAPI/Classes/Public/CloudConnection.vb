@@ -29,7 +29,7 @@
             m_WorldID = PWorldID
             Init()
         Else
-            Throw New NullReferenceException("PConnection can not be null.")
+            Throw New NullReferenceException("PConnection cannot be null.")
         End If
     End Sub
 
@@ -39,7 +39,7 @@
             m_WorldID = PWorldID
             Init()
         Else
-            Throw New NullReferenceException("PClient can not be null.")
+            Throw New NullReferenceException("PClient cannot be null.")
         End If
     End Sub
 
