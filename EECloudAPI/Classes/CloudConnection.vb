@@ -22,6 +22,7 @@
 #End Region
 
 #Region "Methods"
+#Region "Instance Creation"
     Sub New(PConnection As PlayerIOClient.Connection, PWorldID As String)
         If PConnection IsNot Nothing Then
             m_Connection = PConnection
@@ -46,6 +47,7 @@
         Dim myClient As PlayerIOClient.Client = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(gameID, PUsername, PPassword)
         m_Connection = myClient.Multiplayer.JoinRoom(PWorldID, Nothing)
         m_WorldID = PWorldID
+        Init()
     End Sub
 
     Private Sub Init()
@@ -55,7 +57,9 @@
         RaiseEvent OnJoin(Me, New EventArgs)
         m_Connection.Send("init")
     End Sub
+#End Region
 
+#Region "Message Handling"
     Private Sub MessageHandler(sender As Object, e As OnMessageEventArgs) Handles Me.OnMessage
         If e.Type = MessageType.Init Then
             Dim m As Init_Message = CType(e.Message, Init_Message)
@@ -73,6 +77,7 @@
             Throw New KeyNotFoundException(String.Format("Message is not registered: {0}", e.Type))
         End Try
     End Sub
+#End Region
 
 #Region "Message Register"
     Private RegisteredMessages As Boolean

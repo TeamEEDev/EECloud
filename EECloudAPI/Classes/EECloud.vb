@@ -1,13 +1,13 @@
-﻿Public Module EECloud
-    Private CloudConnections As New List(Of CloudConnection)
-    Public ReadOnly Property ConnectionsCount As Integer
+﻿Public Class EECloud
+    Private Shared CloudConnections As New List(Of CloudConnection)
+    Public Shared ReadOnly Property ConnectionsCount As Integer
         Get
             Return CloudConnections.Count
         End Get
     End Property
 
-    Private m_MainConnection As Integer = 0
-    Public Property MainConnection As CloudConnection
+    Private Shared m_MainConnection As Integer = 0
+    Public Shared Property MainConnection As CloudConnection
         Get
             If CloudConnections.Count >= m_MainConnection + 1 Then
                 Return CloudConnections(m_MainConnection)
@@ -24,7 +24,7 @@
         End Set
     End Property
 
-    Public Sub AddConnection(PConnection As CloudConnection)
+    Public Shared Sub AddConnection(PConnection As CloudConnection)
         If Not CloudConnections.Contains(PConnection) Then
             CloudConnections.Add(PConnection)
         Else
@@ -32,11 +32,11 @@
         End If
     End Sub
 
-    Public Sub RemoveConnection(PConnection As CloudConnection)
+    Public Shared Sub RemoveConnection(PConnection As CloudConnection)
         If CloudConnections.Contains(PConnection) Then
             CloudConnections.Remove(PConnection)
         Else
             Throw New ApplicationException("Unknown Connection")
         End If
     End Sub
-End Module
+End Class

@@ -8,17 +8,17 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("EECloudAPI.Tests")> 
+<Assembly: AssemblyTitle("EECloudTest")> 
 <Assembly: AssemblyDescription("")> 
 <Assembly: AssemblyCompany("")> 
-<Assembly: AssemblyProduct("EECloudAPI.Tests")> 
+<Assembly: AssemblyProduct("EECloudTest")> 
 <Assembly: AssemblyCopyright("Copyright ©  2012")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)>
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("e46c971d-ad18-4cfd-b89a-d15ee6f38eec")> 
+<Assembly: Guid("d0d511f8-ad6d-4131-867a-0b0dd6d37dec")> 
 
 ' Version information for an assembly consists of the following four values:
 '
