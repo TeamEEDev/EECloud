@@ -3,14 +3,7 @@
 Namespace EECloudAPI
     Public Class CloudClient
 #Region "Fields"
-        Public UsernameOrEmail As String
-        Public Password As String
-        Public WorldId As String
-        Public RoomType As String
-        Public RoomIsVisible
-        Public JoinData As Dictionary(Of String, String)
-        Public RoomData As Dictionary(Of String, String)
-        Public JoinType As JoinType
+
 #End Region
 
 #Region "Events"
@@ -47,6 +40,20 @@ Namespace EECloudAPI
                 Return m_Connection
             End Get
         End Property
+
+        Public Property Username As PlayerIOClient.Connection
+        Private m_Password As String
+        Public WriteOnly Property Password
+            Set(value)
+                m_Password = value
+            End Set
+        End Property
+        Private Property WorldId As String
+        Private Property RoomType As String
+        Private Property RoomIsVisible As Boolean
+        Private Property JoinData As Dictionary(Of String, String)
+        Private Property RoomData As Dictionary(Of String, String)
+        Private Property JoinType As JoinType
 #End Region
 
 #Region "Methods"
