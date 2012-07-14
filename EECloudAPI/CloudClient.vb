@@ -2,32 +2,14 @@
 
 Namespace EECloudAPI
     Public Class CloudClient
-#Region "Fields"
-
-#End Region
-
 #Region "Events"
         Public Event OnMessage(sender As Object, e As OnMessageEventArgs)
         Public Event OnJoin(sender As Object, e As EventArgs)
         Public Event OnDisconnect(sender As Object, e As EventArgs)
 #End Region
 
-#Region "Classes"
-        Public Class OnMessageEventArgs
-            Inherits EventArgs
-            Public Type As MessageType
-            Public Message As Message
-
-            Public Sub New(PType As MessageType, PMessage As Message)
-                Type = PType
-                Message = PMessage
-            End Sub
-        End Class
-#End Region
-
 #Region "Properties"
         Private m_Client As PlayerIOClient.Client
-
         Public ReadOnly Property Client As PlayerIOClient.Client
             Get
                 Return m_Client
@@ -48,12 +30,12 @@ Namespace EECloudAPI
                 m_Password = value
             End Set
         End Property
-        Private Property WorldId As String
-        Private Property RoomType As String
-        Private Property RoomIsVisible As Boolean
-        Private Property JoinData As Dictionary(Of String, String)
-        Private Property RoomData As Dictionary(Of String, String)
-        Private Property JoinType As JoinType
+        Public Property WorldId As String
+        Public Property RoomType As String
+        Public Property RoomIsVisible As Boolean
+        Public Property JoinData As Dictionary(Of String, String)
+        Public Property RoomData As Dictionary(Of String, String)
+        Public Property JoinType As JoinType
 #End Region
 
 #Region "Methods"
