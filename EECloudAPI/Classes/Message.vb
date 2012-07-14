@@ -385,28 +385,17 @@
 
     Public Class Teleport_Message
         Inherits Message
-        'Private ReadOnly ? As Boolean '0
-        Private ReadOnly UserIDs() As Integer '1; (4; 7; 10; ...)
-        Private ReadOnly SpawnPosXs() As Integer '2; (5; 8; 11; ...)
-        Private ReadOnly SpawnPosYs() As Integer '3; (6; 9; 12; ...)
+        Private ReadOnly ResetCoins As Boolean '0
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            ReDim UserIDs((PMessage.Count - 4) / 3)
-            ReDim SpawnPosXs((PMessage.Count - 4) / 3)
-            ReDim SpawnPosYs((PMessage.Count - 4) / 3)
-            For N = 1 To PMessage.Count - 1 Step 3
-                UserIDs(N - 1) = PMessage.Item(N)
-                SpawnPosXs(N - 1) = PMessage.Item(N + 1)
-                SpawnPosYs(N - 1) = PMessage.Item(N + 2)
-            Next
+            ResetCoins = PMessage.Item(0)
         End Sub
     End Class
 
     Public Class Reset_Message
         Inherits Message
-        Private ReadOnly RoomData As PlayerIOClient.Message
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
