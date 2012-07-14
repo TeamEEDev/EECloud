@@ -6,6 +6,12 @@
         End Get
     End Property
 
+    Public Shared ReadOnly Property Connection(Index As Integer) As CloudConnection
+        Get
+            Return CloudConnections.Item(Index)
+        End Get
+    End Property
+
     Private Shared m_MainConnection As Integer = 0
     Public Shared Property MainConnection As CloudConnection
         Get
