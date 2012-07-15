@@ -70,16 +70,16 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\CloudPluginManager.vb" />
     <Compile Include="Enums\AutoText.vb" />
     <Compile Include="Interfaces\CloudConnection.vb" />
     <Compile Include="Classes\CloudPlugin.vb" />
     <Compile Include="Enums\Block.vb" />
     <Compile Include="Enums\Layer.vb" />
-    <Compile Include="Interfaces\BasePlugin.vb" />
     <Compile Include="Interfaces\CloudPluginHost.vb" />
     <Compile Include="Namespaces\Send.vb" />
     <Compile Include="Namespaces\Recive.vb" />
-    <Compile Include="Enums\MessageType.vb" />
+    <Compile Include="Enums\ReciveType.vb" />
     <Compile Include="Interfaces\CloudManager.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
