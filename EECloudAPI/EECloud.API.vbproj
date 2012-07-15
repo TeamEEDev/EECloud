@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>EECloudAPI</RootNamespace>
-    <AssemblyName>EECloudAPI</AssemblyName>
+    <RootNamespace>EECloud.API</RootNamespace>
+    <AssemblyName>EECloud.API</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -18,7 +18,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>EECloudAPI.xml</DocumentationFile>
+    <DocumentationFile>EECloud.API.xml</DocumentationFile>
     <NoWarn>
     </NoWarn>
     <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
@@ -29,7 +29,7 @@
     <DefineTrace>false</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>EECloudAPI.xml</DocumentationFile>
+    <DocumentationFile>EECloud.API.xml</DocumentationFile>
     <NoWarn>
     </NoWarn>
     <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
@@ -59,7 +59,7 @@
     <Reference Include="System.Data.DataSetExtensions" />
   </ItemGroup>
   <ItemGroup>
-    <Import Include="EECloudAPI" />
+    <Import Include="EECloud.API" />
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
     <Import Include="System.Collections" />
@@ -71,19 +71,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\AutoText.vb" />
-    <Compile Include="Classes\CloudConnection.vb" />
+    <Compile Include="Interfaces\CloudConnection.vb" />
     <Compile Include="Classes\CloudPlugin.vb" />
     <Compile Include="Enums\Block.vb" />
     <Compile Include="Enums\Layer.vb" />
+    <Compile Include="Interfaces\BasePlugin.vb" />
+    <Compile Include="Interfaces\CloudPluginHost.vb" />
     <Compile Include="Namespaces\Send.vb" />
     <Compile Include="Namespaces\Recive.vb" />
     <Compile Include="Enums\MessageType.vb" />
-    <Compile Include="Classes\CloudManager.vb" />
+    <Compile Include="Interfaces\CloudManager.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
-    <Compile Include="My Project\Application.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Application.myapp</DependentUpon>
-    </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -94,7 +92,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Classes\OnMessageEventArgs.vb" />
+    <Compile Include="Interfaces\OnMessageEventArgs.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -107,7 +105,6 @@
   <ItemGroup>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
-      <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -117,6 +114,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PlayerIOClient.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Attributes\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

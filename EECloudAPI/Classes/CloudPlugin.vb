@@ -1,15 +1,8 @@
 ﻿Public MustInherit Class CloudPlugin
+    Inherits BasePlugin
 
-    Sub OnEnable()
-
-    End Sub
-    Sub OnDisable()
-
-    End Sub
-    Sub OnJoin()
-
-    End Sub
-    Sub OnLeave()
-
+    Private myHost As CloudPluginHost
+    Public Sub AttemptSetup(Host As CloudPluginHost)
+        myHost = Host
     End Sub
 End Class

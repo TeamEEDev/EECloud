@@ -46,4 +46,8 @@
             End If
         End Set
     End Property
+
+    Friend Sub New(MainConnection As CloudConnection)
+        Add(MainConnection)
+    End Sub
 End Class
