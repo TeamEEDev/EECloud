@@ -14,5 +14,5 @@
 
     Public MustOverride ReadOnly Property Connection As PlayerIOClient.Connection
     Public MustOverride ReadOnly Property WorldID As String
-    Public MustOverride Sub RegisterMessage(PString As String, PType As MessageType, PMessage As Type)
+    Public MustOverride Overloads Sub RegisterMessage(PString As String, PType As ReciveType, PMessage As Type)
 End Class

@@ -1,7 +1,7 @@
 ﻿Friend Class EEOnMessageEventArgs
     Inherits OnMessageEventArgs
-    Private m_Type As MessageType
-    Public Overrides ReadOnly Property Type As MessageType
+    Private m_Type As ReciveType
+    Public Overrides ReadOnly Property Type As ReciveType
         Get
             Return m_Type
         End Get
@@ -14,7 +14,7 @@
         End Get
     End Property
 
-    Public Sub New(PType As MessageType, PMessage As Recive.ReciveMessage)
+    Public Sub New(PType As ReciveType, PMessage As Recive.ReciveMessage)
         m_Type = PType
         m_Message = PMessage
     End Sub

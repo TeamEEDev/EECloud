@@ -1,8 +1,11 @@
 ﻿Public MustInherit Class CloudPlugin
-    Inherits Interfaces.BasePlugin
 
     Private myHost As Interfaces.CloudPluginHost
-    Public NotOverridable Overrides Sub AttemptSetup(Host As Interfaces.CloudPluginHost)
-        myHost = Host
+    Friend Sub AttemptSetup(Host As Interfaces.CloudPluginHost)
+        If myHost Is Nothing Then
+            myHost = Host
+        End If
     End Sub
+    Public MustOverride Sub OnEnable()
+    Public MustOverride Sub OnDisable()
 End Class

@@ -1,4 +1,4 @@
-﻿Public Enum MessageType
+﻿Public Enum ReciveType
     GroupDisallowedJoin
     Upgrade
     Info

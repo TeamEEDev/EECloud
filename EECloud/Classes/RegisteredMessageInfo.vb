@@ -1,5 +1,5 @@
 ﻿Friend Class RegisteredMessageInfo
-    Private m_Type As MessageType
+    Private m_Type As ReciveType
     Private m_Message As Type
     Public ReadOnly Property Type
         Get
@@ -12,7 +12,7 @@
         End Get
     End Property
 
-    Public Sub New(PType As MessageType, PMessage As Type)
+    Public Sub New(PType As ReciveType, PMessage As Type)
         m_Type = PType
         m_Message = PMessage
     End Sub
