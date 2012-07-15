@@ -68,7 +68,7 @@
   <ItemGroup>
     <Compile Include="Classes\EECloudConnection.vb" />
     <Compile Include="Classes\RegisteredMessageInfo.vb" />
-    <Compile Include="EECloudManager.vb" />
+    <Compile Include="Classes\EECloudManager.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -85,6 +85,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Modules\Utils.vb" />
+    <Compile Include="Classes\EEOnMessageEventArgs.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
