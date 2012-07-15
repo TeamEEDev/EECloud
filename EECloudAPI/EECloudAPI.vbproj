@@ -73,13 +73,15 @@
     <Compile Include="Classes\Public\CloudConnection.vb" />
     <Compile Include="Classes\Public\CloudPlugin.vb" />
     <Compile Include="Enums\AutoText.vb" />
+    <Compile Include="Classes\CloudConnection.vb" />
+    <Compile Include="Classes\CloudPlugin.vb" />
+    <Compile Include="Enums\Autotext.vb" />
     <Compile Include="Enums\Block.vb" />
     <Compile Include="Enums\Layer.vb" />
     <Compile Include="Namespaces\Send.vb" />
     <Compile Include="Namespaces\Recive.vb" />
     <Compile Include="Enums\MessageType.vb" />
-    <Compile Include="Classes\Shared\Connections.vb" />
-    <Compile Include="Modules\Utils.vb" />
+    <Compile Include="Classes\Connections.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -95,8 +97,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Classes\Public\OnMessageEventArgs.vb" />
-    <Compile Include="Classes\Friend\RegisteredMessageInfo.vb" />
+    <Compile Include="Classes\OnMessageEventArgs.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
