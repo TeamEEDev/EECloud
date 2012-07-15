@@ -1,20 +1,16 @@
-﻿Public Class CloudConnection
-#Region "Events"
-    Public Event OnMessage(sender As Object, e As OnMessageEventArgs)
-    Public Event OnJoin(sender As Object, e As EventArgs)
-    Public Event OnDisconnect(sender As Object, e As EventArgs)
-#End Region
+﻿Public Class EECloudConnection
+    Inherits CloudConnection
 
 #Region "Properties"
     Private m_Connection As PlayerIOClient.Connection
-    Public ReadOnly Property Connection As PlayerIOClient.Connection
+    Public Overrides ReadOnly Property Connection As PlayerIOClient.Connection
         Get
             Return m_Connection
         End Get
     End Property
 
     Private ReadOnly m_WorldID As String
-    Public ReadOnly Property WorldID As String
+    Public Overrides ReadOnly Property WorldID As String
         Get
             Return m_WorldID
         End Get
@@ -52,9 +48,9 @@
 
     Private Sub Init()
         RegisterMessages()
-        m_Connection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
+        m_Connection.AddOnDisconnect(Sub() RaiseOnDisconnect(New EventArgs))
         m_Connection.AddOnMessage(AddressOf MessageReciver)
-        RaiseEvent OnJoin(Me, New EventArgs)
+        RaiseOnJoin(New EventArgs)
         m_Connection.Send("init")
     End Sub
 #End Region
@@ -72,7 +68,7 @@
             Dim myRegisteredMessageInfo As RegisteredMessageInfo = MessageDictionary(e.Type)
             Dim myMessage As Recive.ReciveMessage = CType(Activator.CreateInstance(myRegisteredMessageInfo.Message, e), Recive.ReciveMessage)
             Dim myEventArgs As New OnMessageEventArgs(myRegisteredMessageInfo.Type, myMessage)
-            RaiseEvent OnMessage(Me, myEventArgs)
+            RaiseOnMessage(myEventArgs)
         Catch ex As KeyNotFoundException
             Throw New KeyNotFoundException(String.Format("Message is not registered: {0}", e.Type))
         End Try
@@ -124,7 +120,7 @@
     End Sub
 
     Private MessageDictionary As New Dictionary(Of String, RegisteredMessageInfo)
-    Public Sub RegisterMessage(PString As String, PType As MessageType, PMessage As Type)
+    Public Overrides Sub RegisterMessage(PString As String, PType As MessageType, PMessage As Type)
         If MessageDictionary.ContainsKey(PString) Then
             Throw New InvalidOperationException("Message ID already registered")
         ElseIf Not PMessage.IsSubclassOf(GetType(Recive.ReciveMessage)) Then

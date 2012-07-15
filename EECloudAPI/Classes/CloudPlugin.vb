@@ -1,4 +1,5 @@
 ﻿Public MustInherit Class CloudPlugin
+
     Sub OnEnable()
 
     End Sub

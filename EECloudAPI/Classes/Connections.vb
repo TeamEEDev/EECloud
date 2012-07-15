@@ -1,4 +1,5 @@
 ﻿Public Class Connections
+    Inherits CollectionBase
     Private Shared CloudConnections As New List(Of CloudConnection)
     Public Shared ReadOnly Property ConnectionsCount As Integer
         Get
