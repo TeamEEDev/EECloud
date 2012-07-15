@@ -8,7 +8,7 @@
         'No Arguments
 
         Public Overrides Function GetMessage() As PlayerIOClient.Message
-
+            Return PlayerIOClient.Message.Create("init")
         End Function
     End Class
 
@@ -17,7 +17,7 @@
         'No Arguments
 
         Public Overrides Function GetMessage() As PlayerIOClient.Message
-
+            Return PlayerIOClient.Message.Create("init")
         End Function
     End Class
 
@@ -29,7 +29,7 @@
         End Sub
 
         Public Overrides Function GetMessage() As PlayerIOClient.Message
-
+            Return PlayerIOClient.Message.Create("c", Coins)
         End Function
     End Class
 End Namespace
