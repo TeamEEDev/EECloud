@@ -1,4 +1,4 @@
-﻿Public Class EECloudConnection
+﻿Friend Class EECloudConnection
     Inherits CloudConnection
 
 #Region "Properties"

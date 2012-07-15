@@ -1,5 +1,5 @@
-﻿Public Class EECloudPluginHost
-    Inherits CloudPluginHost
+﻿Friend Class EECloudPluginHost
+    Inherits Interfaces.CloudPluginHost
 
     Private m_CloudManager As CloudManager
     Public Overrides ReadOnly Property CloudManager As CloudManager

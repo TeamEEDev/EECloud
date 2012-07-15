@@ -1,8 +1,6 @@
 ﻿Public Class SimplePlugin
-    Inherits EECloud.API.BasePlugin
-    Public Shadows Sub AttemptSetup()
+    Inherits EECloud.API.CloudPlugin
 
-    End Sub
 
     Public Overrides Sub OnDisable()
 

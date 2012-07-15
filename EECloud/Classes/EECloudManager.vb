@@ -1,4 +1,4 @@
-﻿Public Class EECloudManager
+﻿Friend Class EECloudManager
     Inherits CloudManager
     Private CloudConnectionsList As New List(Of CloudConnection)
     Public Overrides ReadOnly Property Count As Integer
