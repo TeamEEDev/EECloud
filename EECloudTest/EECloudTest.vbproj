@@ -85,6 +85,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="SimplePlugin.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -106,9 +107,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EECloudAPI\EECloudAPI.vbproj">
+    <ProjectReference Include="..\EECloudAPI\EECloud.API.vbproj">
       <Project>{580ddf14-7848-4318-b9d8-55cbc3a2bc9e}</Project>
-      <Name>EECloudAPI</Name>
+      <Name>EECloud.API</Name>
     </ProjectReference>
     <ProjectReference Include="..\EECloud\EECloud.vbproj">
       <Project>{1d698966-6dca-453c-80db-3cbaf1138349}</Project>
