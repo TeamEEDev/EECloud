@@ -36,4 +36,3 @@
     GiveWitch
     GiveGrinch
 End Enum
-
