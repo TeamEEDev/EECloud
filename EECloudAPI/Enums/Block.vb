@@ -18,6 +18,13 @@
     Block_Basic_Yellow = 13
     Block_Basic_Green = 14
     Block_Basic_LightBlue = 15
+    Background_Basic_Grey = 500
+    Background_Basic_DarkBlue = 501
+    Background_Basic_Purple = 502
+    Background_Basic_Red = 503
+    Background_Basic_Yellow = 504
+    Background_Basic_Green = 505
+    Background_Basic_LightBlue = 506
 
     Block_Brick_DarkBrown = 16
     Block_Brick_DarkGreen = 17
@@ -25,6 +32,12 @@
     Block_Brick_LightGreen = 19
     Block_Brick_Red = 20
     Block_Brick_LightBrown = 21
+    Background_Brick_DarkBrown = 507
+    Background_Brick_DarkGreen = 508
+    Background_Brick_Purple = 509
+    Background_Brick_LightGreen = 510
+    Background_Brick_Red = 511
+    Background_Brick_LightBrown = 512
 
     Block_Special_1 = 22
     Block_Special_2 = 32
@@ -108,4 +121,103 @@
     Block_Mineral_Green = 74
     Block_Mineral_Yellow = 75
     Block_Mineral_Orange = 76
+
+    Block_Music_Piano = 77
+    Block_Music_Drum = 83
+
+    Block_Christmas2011_YellowBox = 78
+    Block_Christmas2011_WhiteBox = 79
+    Block_Christmas2011_RedBox = 80
+    Block_Christmas2011_BlueBox = 81
+    Block_Christmas2011_GreenBox = 82
+    Decoration_Christmas2011_Star = 218
+    Decoration_Christmas2011_Wreath = 219
+    Decoration_Christmas2011_SphereBlue = 220
+    Decoration_Christmas2011_SphereGreen = 221
+    Decoration_Christmas2011_SphereRed = 222
+
+    Block_SciFi_SolidRed = 84
+    Block_SciFi_SolidBlue = 85
+    Block_SciFi_SolidGrey = 86
+    Block_SciFi_SolidWhite = 87
+    Block_SciFi_SolidBrown = 88
+    Block_SciFi_OneWayRed = 89
+    Block_SciFi_OneWayBlue = 90
+    Block_SciFi_OneWayGreen = 91
+
+    Block_Prison = 92
+    Decoration_Prison = 261
+    Background_Prison_BrickWall = 550
+    Background_Prison_Picture = 551
+    Background_Prison_WindowBlue = 552
+    Background_Prison_WindowBlack = 553
+
+    Block_Pirate_1 = 93
+    Block_Pirate_Chest = 94
+    Decoration_Pirate_1 = 271
+    Decoration_Pirate_Skull = 272
+    Background_Pirate_1 = 554
+    Background_Pirate_2 = 555
+    Background_Pirate_3 = 556
+    Background_Pirate_4 = 557
+    Background_Pirate_5 = 558
+    Background_Pirate_6 = 559
+    Background_Pirate_Skull = 560
+
+    Block_Viking = 95
+    Decoration_Viking_RedShield = 273
+    Decoration_Viking_BlueShield = 274
+    Decoration_Viking_Ax = 275
+    Background_Viking_1 = 561
+    Background_Viking_2 = 562
+    Background_Viking_3 = 563
+
+    Block_Ninja_White = 96
+    Block_Ninja_Grey = 97
+    Block_Ninja_Ladder = 120
+    Decoration_Ninja_1 = 276
+    Decoration_Ninja_2 = 277
+    Decoration_Ninja_3 = 278
+    Decoration_Ninja_4 = 279
+    Decoration_Ninja_5 = 280
+    Decoration_Ninja_6 = 281
+    Decoration_Ninja_7 = 282
+    Decoration_Ninja_8 = 283
+    Decoration_Ninja_9 = 284
+
+    Block_Coin_Gold = 100
+    Block_Coin_Blue = 101
+
+    Block_Water = 119
+    Decoration_Water = 300
+    Background_Water_Basic = 574
+    Background_Water_Octopus = 575
+    Background_Water_Fish = 576
+    Background_Water_SeaHorse = 577
+    Background_Water_Seaweed = 578
+
+    Block_Tool_WinTrophy = 121
+    Block_Tool_SpawnPoint = 255
+
+    Block_Cowboy_BrownLit = 122
+    Block_Cowboy_RedLit = 123
+    Block_Cowboy_BlueLit = 124
+    Block_Cowboy_BrownDark = 125
+    Block_Cowboy_RedDark = 126
+    Block_Cowboy_BlueDark = 127
+    Decoration_Cowboy_PoleLit = 285
+    Decoration_Cowboy_PoleDark = 286
+    Decoration_Cowboy_DoorBrownLeft = 287
+    Decoration_Cowboy_DoorBrownRight = 288
+    Decoration_Cowboy_DoorRedLeft = 289
+    Decoration_Cowboy_DoorRedRight = 290
+    Decoration_Cowboy_DoorBlueLeft = 291
+    Decoration_Cowboy_DoorBlueRight = 292
+    Decoration_Cowboy_Window = 293
+    Decoration_Cowboy_TableBrownLit = 294
+    Decoration_Cowboy_TableBrownDark = 295
+    Decoration_Cowboy_TableRedLit = 296
+    Decoration_Cowboy_TableRedDark = 297
+    Decoration_Cowboy_TableBlueLit = 298
+    Decoration_Cowboy_TableBlueDark = 299
 End Enum
