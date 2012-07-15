@@ -1,10 +1,5 @@
-﻿Public Class OnMessageEventArgs
+﻿Public MustInherit Class OnMessageEventArgs
     Inherits EventArgs
-    Public Type As MessageType
-    Public Message As Recive.ReciveMessage
-
-    Public Sub New(PType As MessageType, PMessage As Recive.ReciveMessage)
-        Type = PType
-        Message = PMessage
-    End Sub
+    Public MustOverride ReadOnly Property Type As MessageType
+    Public MustOverride ReadOnly Property Message As Recive.ReciveMessage
 End Class
