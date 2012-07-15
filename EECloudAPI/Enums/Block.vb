@@ -90,4 +90,22 @@
     Decoration_Candy = 227
     Background_Candy_Pink = 539
     Background_Candy_Blue = 540
+
+    Block_Halloween2011_1 = 68
+    Block_Halloween2011_2 = 69
+    Decoration_Halloween2011_GraveStone = 224
+    Decoration_Halloween2011_2 = 225
+    Decoration_Halloween2011_3 = 226
+    Background_Halloween2011_1 = 541
+    Background_Halloween2011_2 = 542
+    Background_Halloween2011_3 = 543
+    Background_Halloween2011_4 = 544
+
+    Block_Mineral_Red = 70
+    Block_Mineral_Pink = 71
+    Block_Mineral_DarkBlue = 72
+    Block_Mineral_LightBlue = 73
+    Block_Mineral_Green = 74
+    Block_Mineral_Yellow = 75
+    Block_Mineral_Orange = 76
 End Enum
