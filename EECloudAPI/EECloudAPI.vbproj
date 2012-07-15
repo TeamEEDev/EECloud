@@ -78,7 +78,7 @@
     <Compile Include="Namespaces\Send.vb" />
     <Compile Include="Namespaces\Recive.vb" />
     <Compile Include="Enums\MessageType.vb" />
-    <Compile Include="Classes\Connections.vb" />
+    <Compile Include="Classes\CloudManager.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
