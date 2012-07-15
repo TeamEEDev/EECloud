@@ -56,7 +56,7 @@
 #End Region
 
 #Region "Message Handling"
-    Private Sub MessageHandler(sender As Object, e As OnMessageEventArgs) Handles Me.OnMessage
+    Private Sub MessageHandler(sender As Object, e As EEOnMessageEventArgs) Handles Me.OnMessage
         If e.Type = MessageType.Init Then
             Dim m As Recive.Init_ReciveMessage = CType(e.Message, Recive.Init_ReciveMessage)
             Connection.Send("init2")
@@ -67,7 +67,7 @@
         Try
             Dim myRegisteredMessageInfo As RegisteredMessageInfo = MessageDictionary(e.Type)
             Dim myMessage As Recive.ReciveMessage = CType(Activator.CreateInstance(myRegisteredMessageInfo.Message, e), Recive.ReciveMessage)
-            Dim myEventArgs As New OnMessageEventArgs(myRegisteredMessageInfo.Type, myMessage)
+            Dim myEventArgs As New EEOnMessageEventArgs(myRegisteredMessageInfo.Type, myMessage)
             RaiseOnMessage(myEventArgs)
         Catch ex As KeyNotFoundException
             Throw New KeyNotFoundException(String.Format("Message is not registered: {0}", e.Type))
