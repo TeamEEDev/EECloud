@@ -1,4 +1,4 @@
-﻿Public Class EEOnMessageEventArgs
+﻿Friend Class EEOnMessageEventArgs
     Inherits OnMessageEventArgs
     Private m_Type As MessageType
     Public Overrides ReadOnly Property Type As MessageType
