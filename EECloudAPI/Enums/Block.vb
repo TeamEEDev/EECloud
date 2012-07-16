@@ -259,6 +259,16 @@
     Background_Sand_LightBrown = 583
     Background_Sand_DarkBrown = 584
 
+    Block_Cloud = 143
+    Decoration_Cloud_1 = 311
+    Decoration_Cloud_2 = 312
+    Decoration_Cloud_3 = 313
+    Decoration_Cloud_4 = 314
+    Decoration_Cloud_5 = 315
+    Decoration_Cloud_6 = 316
+    Decoration_Cloud_7 = 317
+    Decoration_Cloud_8 = 318
+
     Decoration_Spring2011_Grass1 = 233
     Decoration_Spring2011_Grass2 = 234
     Decoration_Spring2011_Grass3 = 235
