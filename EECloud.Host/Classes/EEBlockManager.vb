@@ -3,9 +3,9 @@
 
     Public Overrides ReadOnly Property CorrectLayer(PID As Integer, PLayer As Layer) As Layer
         Get
-            If (PID > 0 And PID < 500) Or PID = 1000 Then
+            If Enumerable.Range(1, 499).Contains(PID) Or PID = 1000 Then
                 Return Layer.Foreground
-            ElseIf PID >= 500 And PID < 1000 Then
+            ElseIf Enumerable.Range(500, 499).Contains(PID) Then
                 Return Layer.Background
             Else
                 Return PLayer
