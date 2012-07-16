@@ -7,7 +7,15 @@
             Return m_Encryption
         End Get
     End Property
-    Sub New(Encryption As String)
+
+    Private m_BlockManager As BlockManager
+    Public Overrides ReadOnly Property BlockManager As BlockManager
+        Get
+            Return m_BlockManager
+        End Get
+    End Property
+
+    Sub New(Encryption As String, BlockManager As BlockManager)
         m_Encryption = Encryption
     End Sub
 End Class
