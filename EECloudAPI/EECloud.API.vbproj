@@ -73,6 +73,7 @@
     <Compile Include="Interfaces\BlockManager.vb" />
     <Compile Include="Classes\CloudPluginManager.vb" />
     <Compile Include="Enums\AutoText.vb" />
+    <Compile Include="Enums\Smiley.vb" />
     <Compile Include="Interfaces\CloudConnection.vb" />
     <Compile Include="Classes\CloudPlugin.vb" />
     <Compile Include="Enums\Block.vb" />
