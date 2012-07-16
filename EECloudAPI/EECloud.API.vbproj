@@ -70,6 +70,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\BlockManager.vb" />
     <Compile Include="Classes\CloudPluginManager.vb" />
     <Compile Include="Enums\AutoText.vb" />
     <Compile Include="Interfaces\CloudConnection.vb" />
