@@ -1,5 +1,5 @@
 ﻿Public Class EEBlockManager
-    Inherits API.BlockManager
+    Inherits BlockManager
 
     Public Overrides ReadOnly Property CorrectLayer(PID As Integer, PLayer As Layer) As Layer
         Get

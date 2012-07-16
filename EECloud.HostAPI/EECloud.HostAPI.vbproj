@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}</ProjectGuid>
+    <ProjectGuid>{1D698966-6DCA-453C-80DB-3CBAF1138349}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>EECloud.API</RootNamespace>
-    <AssemblyName>EECloud.API</AssemblyName>
+    <RootNamespace>EECloud.HostAPI</RootNamespace>
+    <AssemblyName>EECloud.HostAPI</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -18,21 +18,17 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>EECloud.API.xml</DocumentationFile>
-    <NoWarn>
-    </NoWarn>
-    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+    <DocumentationFile>EECloud.HostAPI.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>None</DebugType>
+    <DebugType>pdbonly</DebugType>
     <DefineDebug>false</DefineDebug>
-    <DefineTrace>false</DefineTrace>
+    <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>EECloud.API.xml</DocumentationFile>
-    <NoWarn>
-    </NoWarn>
-    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+    <DocumentationFile>EECloud.HostAPI.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -41,7 +37,7 @@
     <OptionCompare>Binary</OptionCompare>
   </PropertyGroup>
   <PropertyGroup>
-    <OptionStrict>On</OptionStrict>
+    <OptionStrict>Off</OptionStrict>
   </PropertyGroup>
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
@@ -59,7 +55,7 @@
     <Reference Include="System.Data.DataSetExtensions" />
   </ItemGroup>
   <ItemGroup>
-    <Import Include="EECloud.API" />
+    <Import Include="EECloud.PluginAPI" />
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
     <Import Include="System.Collections" />
@@ -70,24 +66,17 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\PluginAttribute.vb" />
-    <Compile Include="Interfaces\CloudPlayer.vb" />
-    <Compile Include="Interfaces\BlockManager.vb" />
-    <Compile Include="Interfaces\CloudPluginManager.vb" />
-    <Compile Include="Enums\AutoText.vb" />
-    <Compile Include="Enums\Smiley.vb" />
-    <Compile Include="Interfaces\CloudConnection.vb" />
-    <Compile Include="Classes\CloudPlugin.vb" />
-    <Compile Include="Enums\Block.vb" />
-    <Compile Include="Enums\Layer.vb" />
-    <Compile Include="Interfaces\CloudPluginHost.vb" />
-    <Compile Include="Interfaces\IComponent.vb" />
-    <Compile Include="Interfaces\SendMessageMeta.vb" />
-    <Compile Include="Namespaces\Send.vb" />
-    <Compile Include="Namespaces\Recive.vb" />
-    <Compile Include="Enums\ReciveType.vb" />
-    <Compile Include="Interfaces\CloudManager.vb" />
+    <Compile Include="Classes\EEBlockManager.vb" />
+    <Compile Include="Classes\EECloudConnection.vb" />
+    <Compile Include="Classes\EECloudPluginHost.vb" />
+    <Compile Include="Classes\EESendMessageMeta.vb" />
+    <Compile Include="Classes\RegisteredMessageInfo.vb" />
+    <Compile Include="Classes\EECloudManager.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -98,7 +87,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Interfaces\OnMessageEventArgs.vb" />
+    <Compile Include="Modules\Utils.vb" />
+    <Compile Include="Classes\EEOnMessageEventArgs.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -111,6 +101,7 @@
   <ItemGroup>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -121,7 +112,12 @@
   <ItemGroup>
     <Content Include="PlayerIOClient.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\EECloud.PluginAPI\EECloud.PluginAPI.vbproj">
+      <Project>{580ddf14-7848-4318-b9d8-55cbc3a2bc9e}</Project>
+      <Name>EECloud.PluginAPI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
