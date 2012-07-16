@@ -7,6 +7,10 @@
     Protected Overridable Sub RaiseOnJoin(e As EventArgs)
         RaiseEvent OnJoin(Me, e)
     End Sub
+    Public Event OnJoinError As EventHandler
+    Protected Overridable Sub RaiseOnJoinError(e As EventArgs)
+        RaiseEvent OnJoinError(Me, e)
+    End Sub
     Public Event OnDisconnect As EventHandler
     Protected Overridable Sub RaiseOnDisconnect(e As EventArgs)
         RaiseEvent OnDisconnect(Me, e)
@@ -14,5 +18,4 @@
 
     Public MustOverride ReadOnly Property Connection As PlayerIOClient.Connection
     Public MustOverride ReadOnly Property WorldID As String
-    Public MustOverride Overloads Sub RegisterMessage(PString As String, PType As ReciveType, PMessage As Type)
 End Class

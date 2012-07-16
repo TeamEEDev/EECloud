@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="Classes\EECloudConnection.vb" />
     <Compile Include="Classes\EECloudPluginHost.vb" />
+    <Compile Include="Classes\EESendMessageMeta.vb" />
     <Compile Include="Classes\RegisteredMessageInfo.vb" />
     <Compile Include="Classes\EECloudManager.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
