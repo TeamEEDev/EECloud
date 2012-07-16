@@ -79,6 +79,7 @@
     <Compile Include="Enums\Block.vb" />
     <Compile Include="Enums\Layer.vb" />
     <Compile Include="Interfaces\CloudPluginHost.vb" />
+    <Compile Include="Interfaces\IComponent.vb" />
     <Compile Include="Interfaces\SendMessageMeta.vb" />
     <Compile Include="Namespaces\Send.vb" />
     <Compile Include="Namespaces\Recive.vb" />
