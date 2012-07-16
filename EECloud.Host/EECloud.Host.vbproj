@@ -66,6 +66,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\EEBlockManager.vb" />
     <Compile Include="Classes\EECloudConnection.vb" />
     <Compile Include="Classes\EECloudPluginHost.vb" />
     <Compile Include="Classes\EESendMessageMeta.vb" />
