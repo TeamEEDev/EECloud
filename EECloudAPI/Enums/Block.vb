@@ -26,18 +26,18 @@
     Background_Basic_Green = 505
     Background_Basic_LightBlue = 506
 
-    Block_Brick_DarkBrown = 16
+    Block_Brick_SaturatedBrown = 16
     Block_Brick_DarkGreen = 17
     Block_Brick_Purple = 18
     Block_Brick_LightGreen = 19
     Block_Brick_Red = 20
-    Block_Brick_LightBrown = 21
-    Background_Brick_DarkBrown = 507
+    Block_Brick_PaleBrown = 21
+    Background_Brick_SaturatedBrown = 507
     Background_Brick_DarkGreen = 508
     Background_Brick_Purple = 509
     Background_Brick_LightGreen = 510
     Background_Brick_Red = 511
-    Background_Brick_LightBrown = 512
+    Background_Brick_PaleBrown = 512
 
     Block_Special_1 = 22
     Block_Special_2 = 32
@@ -184,6 +184,10 @@
     Decoration_Ninja_7 = 282
     Decoration_Ninja_8 = 283
     Decoration_Ninja_9 = 284
+    Background_Ninja_WhiteWall = 564
+    Background_Ninja_GreyWall = 565
+    Background_Ninja_LitWindow = 566
+    Background_Ninja_DarkWindow = 567
 
     Block_Coin_Gold = 100
     Block_Coin_Blue = 101
@@ -220,4 +224,123 @@
     Decoration_Cowboy_TableRedDark = 297
     Decoration_Cowboy_TableBlueLit = 298
     Decoration_Cowboy_TableBlueDark = 299
+    Background_Cowboy_BrownLit = 568
+    Background_Cowboy_BrownDark = 569
+    Background_Cowboy_RedLit = 570
+    Background_Cowboy_RedDark = 571
+    Background_Cowboy_BlueLit = 572
+    Background_Cowboy_BlueDark = 573
+
+    Block_Plastic_LightGreen = 128
+    Block_Plastic_Red = 129
+    Block_Plastic_Yellow = 130
+    Block_Plastic_LightBlue = 131
+    Block_Plastic_DarkBlue = 132
+    Block_Plastic_Pink = 133
+    Block_Plastic_DarkGreen = 134
+    Block_Plastic_Orange = 135
+
+    Block_Sand_LightYellow = 137
+    Block_Sand_Grey = 138
+    Block_Sand_DarkerYellow = 139
+    Block_Sand_Orange = 140
+    Block_Sand_LightBrown = 141
+    Block_Sand_DarkBrown = 142
+    Decoration_Sand_LightYellow = 301
+    Decoration_Sand_Grey = 302
+    Decoration_Sand_DarkerYellow = 303
+    Decoration_Sand_Orange = 304
+    Decoration_Sand_LightBrown = 305
+    Decoration_Sand_DarkBrown = 306
+    Background_Sand_LightYellow = 579
+    Background_Sand_Grey = 580
+    Background_Sand_DarkerYellow = 581
+    Background_Sand_Orange = 582
+    Background_Sand_LightBrown = 583
+    Background_Sand_DarkBrown = 584
+
+    Decoration_Spring2011_Grass1 = 233
+    Decoration_Spring2011_Grass2 = 234
+    Decoration_Spring2011_Grass3 = 235
+    Decoration_Spring2011_OblongBush1 = 236
+    Decoration_Spring2011_OblongBush2 = 237
+    Decoration_Spring2011_OblongBush3 = 238
+    Decoration_Spring2011_Flower = 239
+    Decoration_Spring2011_GlobularBush = 240
+
+    Block_Diamond = 241
+
+    Block_Portal = 242
+
+    Decoration_NewYear2010_Purple = 244
+    Decoration_NewYear2010_Yellow = 245
+    Decoration_NewYear2010_Blue = 246
+    Decoration_NewYear2010_Red = 247
+    Decoration_NewYear2010_Green = 248
+
+    Decoration_Christmas2010_1 = 249
+    Decoration_Christmas2010_2 = 250
+    Decoration_Christmas2010_SnowFreeTree = 251
+    Decoration_Christmas2010_SnowyTree = 252
+    Decoration_Christmas2010_SnowyFence = 253
+    Decoration_Christmas2010_SnowFreeFence = 254
+
+    Decoration_Easter2012_BlueEgg = 256
+    Decoration_Easter2012_PinkEgg = 257
+    Decoration_Easter2012_YellowEgg = 258
+    Decoration_Easter2012_RedEgg = 259
+    Decoration_Easter2012_GreenEgg = 260
+
+    Decoration_Window_FullyTransparent = 262
+    Decoration_Window_TransparentLightGreen = 263
+    Decoration_Window_TransparentDarkGreen = 264
+    Decoration_Window_TransparentLightBlue = 265
+    Decoration_Window_TransparentDarkBlue = 266
+    Decoration_Window_TransparentPink = 267
+    Decoration_Window_TransparentRed = 268
+    Decoration_Window_TransparentOrange = 269
+    Decoration_Window_TransparentYellow = 270
+
+    Decoration_Summer2012_Ball = 307
+    Decoration_Summer2012_Bucket = 308
+    Decoration_Summer2012_Grubber = 309
+    Decoration_Summer2012_Cocktail = 310
+
+    Background_Checkered_Grey = 513
+    Background_Checkered_DarkBlue = 514
+    Background_Checkered_Purple = 515
+    Background_Checkered_Red = 516
+    Background_Checkered_Yellow = 517
+    Background_Checkered_Green = 518
+    Background_Checkered_LightBlue = 519
+
+    Background_Dark_Grey = 520
+    Background_Dark_DarkBlue = 521
+    Background_Dark_Purple = 522
+    Background_Dark_Red = 523
+    Background_Dark_Yellow = 524
+    Background_Dark_Green = 525
+    Background_Dark_LightBlue = 526
+
+    Background_Pastel_Yellow = 527
+    Background_Pastel_DarkerGreen = 528
+    Background_Pastel_LimeGreen = 529
+    Background_Pastel_LightBlue = 530
+    Background_Pastel_DarkerBlue = 531
+    Background_Pastel_Red = 532
+
+    Background_Canvas_SaturatedBrown = 533
+    Background_Canvas_PaleBrown = 534
+    Background_Canvas_Yellow = 535
+    Background_Canvas_Green = 536
+    Background_Canvas_Blue = 537
+    Background_Canvas_Grey = 538
+
+    Background_Carnival_StripeyRedYellow = 545
+    Background_Carnival_StripeyPurpleBlue = 546
+    Background_Carnival_Pink = 547
+    Background_Carnival_Checker = 548
+    Background_Carnival_Green = 549
+
+    Block_Label = 1000
 End Enum
