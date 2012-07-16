@@ -113,7 +113,7 @@
             RegisterMessage("saved", ReciveType.SaveDone, GetType(Recive.SaveDone_ReciveMessage))
             RegisterMessage("refreshshop", ReciveType.RefreshShop, GetType(Recive.RefreshShop_ReciveMessage))
             RegisterMessage("givewizard", ReciveType.GiveWizard, GetType(Recive.GiveWizard_ReciveMessage))
-            RegisterMessage("givewizard2", ReciveType.GiveWizard2, GetType(Recive.GiveWizard2_ReciveMessage))
+            RegisterMessage("givewizard2", ReciveType.GiveFireWizard, GetType(Recive.GiveFireWizard_ReciveMessage))
             RegisterMessage("givewitch", ReciveType.GiveWitch, GetType(Recive.GiveWitch_ReciveMessage))
             RegisterMessage("givegrinch", ReciveType.GiveGrinch, GetType(Recive.GiveGrinch_ReciveMessage))
         End If

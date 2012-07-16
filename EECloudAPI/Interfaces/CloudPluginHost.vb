@@ -3,4 +3,3 @@
         Public MustOverride ReadOnly Property CloudManager As CloudManager
     End Class
 End Namespace
-
