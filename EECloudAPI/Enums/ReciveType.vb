@@ -32,7 +32,7 @@
     SaveDone
     RefreshShop
     GiveWizard
-    GiveWizard2
+    GiveFireWizard
     GiveWitch
     GiveGrinch
 End Enum

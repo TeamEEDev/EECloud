@@ -470,7 +470,7 @@
         End Sub
     End Class
 
-    Public Class GiveWizard2_ReciveMessage
+    Public Class GiveFireWizard_ReciveMessage
         Inherits ReciveMessage
         'No arguments
 
