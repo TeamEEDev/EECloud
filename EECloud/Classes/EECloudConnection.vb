@@ -120,7 +120,7 @@
     End Sub
 
     Private MessageDictionary As New Dictionary(Of String, RegisteredMessageInfo)
-    Public Overloads Overrides Sub RegisterMessage(PString As String, PType As ReciveType, PMessage As Type)
+    Private Sub RegisterMessage(PString As String, PType As ReciveType, PMessage As Type)
         If MessageDictionary.ContainsKey(PString) Then
             Throw New InvalidOperationException("Message ID already registered")
         ElseIf Not PMessage.IsSubclassOf(GetType(Recive.ReciveMessage)) Then
