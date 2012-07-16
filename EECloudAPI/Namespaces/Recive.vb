@@ -335,9 +335,9 @@
         Public ReadOnly PosX As Integer '0
         Public ReadOnly PosY As Integer '1
         Public ReadOnly BlockID As Integer '2
-        Public ReadOnly Rotation As Integer '3
-        Public ReadOnly ID As Integer '4
-        Public ReadOnly Target As Integer '5
+        Public ReadOnly PortalRotation As Integer '3
+        Public ReadOnly PortalID As Integer '4
+        Public ReadOnly PortalTarget As Integer '5
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -345,9 +345,9 @@
             PosX = PMessage.GetInteger(0)
             PosY = PMessage.GetInteger(1)
             BlockID = PMessage.GetInteger(2)
-            Rotation = PMessage.GetInteger(3)
-            ID = PMessage.GetInteger(4)
-            Target = PMessage.GetInteger(5)
+            PortalRotation = PMessage.GetInteger(3)
+            PortalID = PMessage.GetInteger(4)
+            PortalTarget = PMessage.GetInteger(5)
         End Sub
     End Class
 
