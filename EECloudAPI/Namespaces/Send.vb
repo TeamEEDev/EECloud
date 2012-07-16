@@ -35,7 +35,7 @@
         End Sub
 
         Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
-            Return PlayerIOClient.Message.Create(Meta.Encryption, Layer, X, Y, ID)
+            Return PlayerIOClient.Message.Create(Meta.Encryption, Meta.BlockManager.CorrectLayer(ID, Layer), X, Y, ID)
         End Function
     End Class
 
@@ -50,7 +50,9 @@
 
         Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
             If Meta.BlockManager.IsCoindoor(ID) Then
-                Return PlayerIOClient.Message.Create(Meta.Encryption, Layer, X, Y, ID, CoinsToCollect)
+                Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Meta)
+                myMessage.Add(CoinsToCollect)
+                Return myMessage
             Else
                 Return MyBase.GetMessage(Meta)
             End If
@@ -68,7 +70,29 @@
 
         Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
             If Meta.BlockManager.IsSound(ID) Then
-                Return PlayerIOClient.Message.Create(Meta.Encryption, Layer, X, Y, ID, BeatID)
+                Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Meta)
+                myMessage.Add(BeatID)
+                Return myMessage
+            Else
+                Return MyBase.GetMessage(Meta)
+            End If
+        End Function
+    End Class
+
+    Public Class LabelPlace_SendMessage
+        Inherits BlockPlace_SendMessage
+        Public ReadOnly Text As String
+
+        Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PID As Integer, PText As String)
+            MyBase.New(PLayer, PX, PY, PID)
+            Text = PText
+        End Sub
+
+        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+            If Meta.BlockManager.IsLabel(ID) Then
+                Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Meta)
+                myMessage.Add(Text)
+                Return myMessage
             Else
                 Return MyBase.GetMessage(Meta)
             End If
@@ -90,7 +114,11 @@
 
         Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
             If Meta.BlockManager.IsPortal(ID) Then
-                Return PlayerIOClient.Message.Create(Meta.Encryption, Layer, X, Y, ID, PortalRotation, PortalID, PortalTarget)
+                Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Meta)
+                myMessage.Add(PortalRotation)
+                myMessage.Add(PortalID)
+                myMessage.Add(PortalTarget)
+                Return myMessage
             Else
                 Return MyBase.GetMessage(Meta)
             End If

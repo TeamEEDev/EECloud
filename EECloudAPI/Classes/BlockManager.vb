@@ -1,8 +1,7 @@
 ﻿Public MustInherit Class BlockManager
-    Public MustOverride Function IsSound(ID As Integer) As Boolean
-    Public MustOverride Function IsBackground(ID As Integer) As Boolean
-    Public MustOverride Function IsForeground(ID As Integer) As Boolean
-    Public MustOverride Function IsPortal(ID As Integer) As Boolean
-    Public MustOverride Function IsCoindoor(ID As Integer) As Boolean
-    Public MustOverride Function IsLabel(ID As Integer) As Boolean
+    Public MustOverride Property CorrectLayer(PID As Integer, PLayer As Layer) As Layer
+    Public MustOverride Property IsSound(PID As Integer) As Boolean
+    Public MustOverride Property IsCoindoor(PID As Integer) As Boolean
+    Public MustOverride Property IsLabel(PID As Integer) As Boolean
+    Public MustOverride Property IsPortal(PID As Integer) As Boolean
 End Class
