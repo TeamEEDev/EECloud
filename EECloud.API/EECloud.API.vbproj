@@ -70,9 +70,10 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\CloudPlayer.vb" />
+    <Compile Include="Attributes\PluginAttribute.vb" />
+    <Compile Include="Interfaces\CloudPlayer.vb" />
     <Compile Include="Interfaces\BlockManager.vb" />
-    <Compile Include="Classes\CloudPluginManager.vb" />
+    <Compile Include="Interfaces\CloudPluginManager.vb" />
     <Compile Include="Enums\AutoText.vb" />
     <Compile Include="Enums\Smiley.vb" />
     <Compile Include="Interfaces\CloudConnection.vb" />
@@ -120,9 +121,7 @@
   <ItemGroup>
     <Content Include="PlayerIOClient.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Attributes\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
