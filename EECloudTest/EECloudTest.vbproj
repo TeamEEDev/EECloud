@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B0158CC8-9348-4CE9-8500-139B98C4E074}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <StartupObject>EECloudTest.Module1</StartupObject>
+    <StartupObject>Sub Main</StartupObject>
     <RootNamespace>EECloudTest</RootNamespace>
     <AssemblyName>EECloudTest</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -107,17 +107,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EECloudAPI\EECloud.API.vbproj">
+    <Content Include="PlayerIOClient.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EECloud.API\EECloud.API.vbproj">
       <Project>{580ddf14-7848-4318-b9d8-55cbc3a2bc9e}</Project>
       <Name>EECloud.API</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EECloud\EECloud.vbproj">
-      <Project>{1d698966-6dca-453c-80db-3cbaf1138349}</Project>
-      <Name>EECloud</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="PlayerIOClient.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

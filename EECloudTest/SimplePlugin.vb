@@ -3,6 +3,7 @@
 
 End Class
 
+
 Public Class SimplePlugin
     Inherits EECloud.API.CloudPlugin(Of SimplePlayer)
 
