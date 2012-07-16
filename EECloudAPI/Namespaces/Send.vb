@@ -98,9 +98,9 @@
 
     Public Class PortalPlace_SendMessage
         Inherits BlockPlace_SendMessage
+        Public ReadOnly PortalRotation As Integer
         Public ReadOnly PortalID As Integer
         Public ReadOnly PortalTarget As Integer
-        Public ReadOnly PortalRotation As Integer
         Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PID As Integer, PPortalID As Integer, PPortalTarget As Integer, PPortalRotation As Integer)
             MyBase.New(PLayer, PX, PY, PID)
             PortalID = PPortalID
