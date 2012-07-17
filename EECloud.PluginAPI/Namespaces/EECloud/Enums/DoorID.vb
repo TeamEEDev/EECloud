@@ -1,5 +1,4 @@
-﻿
-Namespace Global.EECloud
+﻿Namespace Global.EECloud
     Public Enum DoorID
         Red
         Green
