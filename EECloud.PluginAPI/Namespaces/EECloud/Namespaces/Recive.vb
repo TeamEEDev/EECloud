@@ -207,23 +207,23 @@
 
     Public Class ShowKey_ReciveMessage
         Inherits ReciveMessage
-        Public ReadOnly KeyColor As String '0
+        Public ReadOnly KeyColor As DoorID '0
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            KeyColor = PMessage.GetString(0)
+            KeyColor = CType([Enum].Parse(GetType(DoorID), PMessage.GetString(0), True), DoorID)
         End Sub
     End Class
 
     Public Class HideKey_ReciveMessage
         Inherits ReciveMessage
-        Public ReadOnly KeyColor As String '0
+        Public ReadOnly KeyColor As DoorID '0
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
 
-            KeyColor = PMessage.GetString(0)
+            KeyColor = CType([Enum].Parse(GetType(DoorID), PMessage.GetString(0), True), DoorID)
         End Sub
     End Class
 
