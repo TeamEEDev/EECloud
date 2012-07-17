@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="Attributes\PluginAttribute.vb" />
     <Compile Include="Namespaces\EECloud\Enums\DoorID.vb" />
+    <Compile Include="EECloud\Enums\PortalRotation.vb" />
     <Compile Include="Interfaces\CloudPlayer.vb" />
     <Compile Include="Interfaces\BlockManager.vb" />
     <Compile Include="Interfaces\CloudPluginManager.vb" />

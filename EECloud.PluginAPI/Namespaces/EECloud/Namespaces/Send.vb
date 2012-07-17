@@ -26,12 +26,12 @@
         Public ReadOnly Layer As Layer
         Public ReadOnly X As Integer
         Public ReadOnly Y As Integer
-        Public ReadOnly ID As Integer
-        Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PID As Integer)
+        Public ReadOnly ID As Block
+        Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PBlock As Block)
             Layer = PLayer
             X = PX
             Y = PY
-            ID = PID
+            ID = PBlock
         End Sub
 
         Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
@@ -42,8 +42,8 @@
     Public Class CoinDoorPlace_SendMessage
         Inherits BlockPlace_SendMessage
         Public ReadOnly CoinsToCollect As Integer
-        Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PID As Integer, PCoinsToCollect As Integer)
-            MyBase.New(PLayer, PX, PY, PID)
+        Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PBlock As Block, PCoinsToCollect As Integer)
+            MyBase.New(PLayer, PX, PY, PBlock)
             CoinsToCollect = PCoinsToCollect
         End Sub
 
@@ -61,8 +61,8 @@
     Public Class SoundPlace_SendMessage
         Inherits BlockPlace_SendMessage
         Public ReadOnly SoundID As Integer
-        Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PID As Integer, PSoundID As Integer)
-            MyBase.New(PLayer, PX, PY, PID)
+        Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PBlock As Block, PSoundID As Integer)
+            MyBase.New(PLayer, PX, PY, PBlock)
             SoundID = PSoundID
         End Sub
 
@@ -77,32 +77,13 @@
         End Function
     End Class
 
-    Public Class LabelPlace_SendMessage
-        Inherits BlockPlace_SendMessage
-        Public ReadOnly Text As String
-        Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PID As Integer, PText As String)
-            MyBase.New(PLayer, PX, PY, PID)
-            Text = PText
-        End Sub
-
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
-            If Meta.BlockManager.IsLabel(ID) Then
-                Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Meta)
-                myMessage.Add(Text)
-                Return myMessage
-            Else
-                Return MyBase.GetMessage(Meta)
-            End If
-        End Function
-    End Class
-
     Public Class PortalPlace_SendMessage
         Inherits BlockPlace_SendMessage
-        Public ReadOnly PortalRotation As Integer
         Public ReadOnly PortalID As Integer
         Public ReadOnly PortalTarget As Integer
-        Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PID As Integer, PPortalID As Integer, PPortalTarget As Integer, PPortalRotation As Integer)
-            MyBase.New(PLayer, PX, PY, PID)
+        Public ReadOnly PortalRotation As PortalRotation
+        Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PBlock As Block, PPortalID As Integer, PPortalTarget As Integer, PPortalRotation As PortalRotation)
+            MyBase.New(PLayer, PX, PY, PBlock)
             PortalID = PPortalID
             PortalTarget = PPortalTarget
             PortalRotation = PPortalRotation
@@ -121,6 +102,25 @@
         End Function
     End Class
 
+    Public Class LabelPlace_SendMessage
+        Inherits BlockPlace_SendMessage
+        Public ReadOnly Text As String
+        Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PBlock As Block, PText As String)
+            MyBase.New(PLayer, PX, PY, PBlock)
+            Text = PText
+        End Sub
+
+        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+            If Meta.BlockManager.IsLabel(ID) Then
+                Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Meta)
+                myMessage.Add(Text)
+                Return myMessage
+            Else
+                Return MyBase.GetMessage(Meta)
+            End If
+        End Function
+    End Class
+
     Public Class Coin_SendMessage
         Inherits SendMessage
         Public ReadOnly Coins As Integer
@@ -130,36 +130,6 @@
 
         Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
             Return PlayerIOClient.Message.Create("c", Coins)
-        End Function
-    End Class
-
-    Public Class GodMode_SendMessage
-        Inherits SendMessage
-        Public ReadOnly GodModeEnabled As Boolean
-        Public Sub New(PGodModeEnabled As Boolean)
-            GodModeEnabled = PGodModeEnabled
-        End Sub
-
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
-            Return PlayerIOClient.Message.Create("god", GodModeEnabled)
-        End Function
-    End Class
-
-    Public Class ModMode_SendMessage
-        Inherits SendMessage
-        'No arguments
-
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
-            Return PlayerIOClient.Message.Create("mod")
-        End Function
-    End Class
-
-    Public Class GetCrown_SendMessage
-        Inherits SendMessage
-        'No arguments
-
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
-            Return PlayerIOClient.Message.Create(Meta.Encryption & "k")
         End Function
     End Class
 
@@ -190,6 +160,15 @@
         End Function
     End Class
 
+    Public Class GetCrown_SendMessage
+        Inherits SendMessage
+        'No arguments
+
+        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+            Return PlayerIOClient.Message.Create(Meta.Encryption & "k")
+        End Function
+    End Class
+
     Public Class TouchDiamond_SendMessage
         Inherits SendMessage
         Public ReadOnly X As Integer
@@ -210,6 +189,27 @@
 
         Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
             Return PlayerIOClient.Message.Create("levelcomplete")
+        End Function
+    End Class
+
+    Public Class GodMode_SendMessage
+        Inherits SendMessage
+        Public ReadOnly GodModeEnabled As Boolean
+        Public Sub New(PGodModeEnabled As Boolean)
+            GodModeEnabled = PGodModeEnabled
+        End Sub
+
+        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+            Return PlayerIOClient.Message.Create("god", GodModeEnabled)
+        End Function
+    End Class
+
+    Public Class ModMode_SendMessage
+        Inherits SendMessage
+        'No arguments
+
+        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+            Return PlayerIOClient.Message.Create("mod")
         End Function
     End Class
 
@@ -287,15 +287,6 @@
         End Function
     End Class
 
-    Public Class KillWorld_SendMessage
-        Inherits SendMessage
-        'No arguments
-
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
-            Return PlayerIOClient.Message.Create("kill")
-        End Function
-    End Class
-
     Public Class SaveWorld_SendMessage
         Inherits SendMessage
         'No arguments
@@ -335,6 +326,15 @@
 
         Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
             Return PlayerIOClient.Message.Create("clear")
+        End Function
+    End Class
+
+    Public Class KillWorld_SendMessage
+        Inherits SendMessage
+        'No arguments
+
+        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+            Return PlayerIOClient.Message.Create("kill")
         End Function
     End Class
 End Namespace
