@@ -75,21 +75,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\PluginAttribute.vb" />
+    <Compile Include="Namespaces\EECloud\Enums\KeyID.vb" />
     <Compile Include="Interfaces\CloudPlayer.vb" />
     <Compile Include="Interfaces\BlockManager.vb" />
     <Compile Include="Interfaces\CloudPluginManager.vb" />
-    <Compile Include="EECloud\Enums\AutoText.vb" />
-    <Compile Include="EECloud\Enums\Smiley.vb" />
+    <Compile Include="Namespaces\EECloud\Enums\AutoText.vb" />
+    <Compile Include="Namespaces\EECloud\Enums\Smiley.vb" />
     <Compile Include="Interfaces\CloudConnection.vb" />
     <Compile Include="Classes\CloudPlugin.vb" />
-    <Compile Include="EECloud\Enums\Block.vb" />
-    <Compile Include="EECloud\Enums\Layer.vb" />
+    <Compile Include="Namespaces\EECloud\Enums\Block.vb" />
+    <Compile Include="Namespaces\EECloud\Enums\Layer.vb" />
     <Compile Include="Interfaces\CloudPluginHost.vb" />
     <Compile Include="Interfaces\IComponent.vb" />
     <Compile Include="Interfaces\SendMessageMeta.vb" />
-    <Compile Include="EECloud\Send.vb" />
-    <Compile Include="EECloud\Recive.vb" />
-    <Compile Include="EECloud\Enums\ReciveType.vb" />
+    <Compile Include="Namespaces\EECloud\Namespaces\Send.vb" />
+    <Compile Include="Namespaces\EECloud\Namespaces\Recive.vb" />
+    <Compile Include="Namespaces\EECloud\Enums\ReciveType.vb" />
     <Compile Include="Interfaces\CloudManager.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
@@ -125,9 +126,7 @@
   <ItemGroup>
     <Content Include="PlayerIOClient.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Namespaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
