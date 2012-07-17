@@ -4,4 +4,3 @@
         Background = 1
     End Enum
 End Namespace
-

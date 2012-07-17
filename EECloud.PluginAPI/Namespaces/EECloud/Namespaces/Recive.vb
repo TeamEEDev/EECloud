@@ -284,7 +284,7 @@
         Public ReadOnly Layer As Layer '0
         Public ReadOnly PosX As Integer '1
         Public ReadOnly PosY As Integer '2
-        Public ReadOnly BlockID As Integer '3
+        Public ReadOnly Block As Block '3
 
         Public Sub New(PMessage As PlayerIOClient.Message)
             MyBase.New(PMessage)
@@ -292,7 +292,7 @@
             Layer = CType(PMessage.Item(0), Layer)
             PosX = PMessage.GetInteger(1)
             PosY = PMessage.GetInteger(2)
-            BlockID = PMessage.GetInteger(3)
+            Block = CType(PMessage.GetInteger(3), Block)
         End Sub
     End Class
 
@@ -300,7 +300,7 @@
         Inherits ReciveMessage
         Public ReadOnly PosX As Integer '0
         Public ReadOnly PosY As Integer '1
-        Public ReadOnly BlockID As Integer '2
+        Public ReadOnly Block As Block '2
         Public ReadOnly CoinsToOpen As Integer '3
 
         Public Sub New(PMessage As PlayerIOClient.Message)
@@ -308,7 +308,7 @@
 
             PosX = PMessage.GetInteger(0)
             PosY = PMessage.GetInteger(1)
-            BlockID = PMessage.GetInteger(2)
+            Block = CType(PMessage.GetInteger(2), Block)
             CoinsToOpen = PMessage.GetInteger(3)
         End Sub
     End Class
@@ -317,7 +317,7 @@
         Inherits ReciveMessage
         Public ReadOnly PosX As Integer '0
         Public ReadOnly PosY As Integer '1
-        Public ReadOnly BlockID As Integer '2
+        Public ReadOnly Block As Block '2
         Public ReadOnly SoundID As Integer '3
 
         Public Sub New(PMessage As PlayerIOClient.Message)
@@ -325,7 +325,7 @@
 
             PosX = PMessage.GetInteger(0)
             PosY = PMessage.GetInteger(1)
-            BlockID = PMessage.GetInteger(2)
+            Block = CType(PMessage.GetInteger(2), Block)
             SoundID = PMessage.GetInteger(3)
         End Sub
     End Class
@@ -334,8 +334,8 @@
         Inherits ReciveMessage
         Public ReadOnly PosX As Integer '0
         Public ReadOnly PosY As Integer '1
-        Public ReadOnly BlockID As Integer '2
-        Public ReadOnly PortalRotation As Integer '3
+        Public ReadOnly Block As Block '2
+        Public ReadOnly PortalRotation As PortalRotation '3
         Public ReadOnly PortalID As Integer '4
         Public ReadOnly PortalTarget As Integer '5
 
@@ -344,8 +344,8 @@
 
             PosX = PMessage.GetInteger(0)
             PosY = PMessage.GetInteger(1)
-            BlockID = PMessage.GetInteger(2)
-            PortalRotation = PMessage.GetInteger(3)
+            Block = CType(PMessage.GetInteger(2), Block)
+            PortalRotation = CType(PMessage.GetInteger(3), PortalRotation)
             PortalID = PMessage.GetInteger(4)
             PortalTarget = PMessage.GetInteger(5)
         End Sub
@@ -355,7 +355,7 @@
         Inherits ReciveMessage
         Public ReadOnly PosX As Integer '0
         Public ReadOnly PosY As Integer '1
-        Public ReadOnly BlockID As Integer '2
+        Public ReadOnly Block As Block '2
         Public ReadOnly Text As String '3
 
         Public Sub New(PMessage As PlayerIOClient.Message)
@@ -363,7 +363,7 @@
 
             PosX = PMessage.GetInteger(0)
             PosY = PMessage.GetInteger(1)
-            BlockID = PMessage.GetInteger(2)
+            Block = CType(PMessage.GetInteger(2), Block)
             Text = PMessage.GetString(3)
         End Sub
     End Class

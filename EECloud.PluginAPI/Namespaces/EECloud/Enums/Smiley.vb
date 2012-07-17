@@ -66,5 +66,4 @@
         'Gas_Mask = 63
         'Robot = 64
     End Enum
-
 End Namespace
