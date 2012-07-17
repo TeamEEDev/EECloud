@@ -13,43 +13,27 @@
         End Get
     End Property
 
-    Public Overrides ReadOnly Property IsCoindoor(PID As Integer) As Boolean
+    Public Overrides ReadOnly Property IsCoinDoor(PID As Integer) As Boolean
         Get
-            If PID = 43 Then
-                Return True
-            Else
-                Return False
-            End If
+            Return PID = 43
         End Get
     End Property
 
     Public Overrides ReadOnly Property IsSound(PID As Integer) As Boolean
         Get
-            If PID = 77 Or PID = 83 Then
-                Return True
-            Else
-                Return False
-            End If
+            Return PID = 77 Or PID = 83
         End Get
     End Property
 
     Public Overrides ReadOnly Property IsPortal(PID As Integer) As Boolean
         Get
-            If PID = 242 Then
-                Return True
-            Else
-                Return False
-            End If
+            Return PID = 242
         End Get
     End Property
 
     Public Overrides ReadOnly Property IsLabel(PID As Integer) As Boolean
         Get
-            If PID = 1000 Then
-                Return True
-            Else
-                Return False
-            End If
+            Return PID = 1000
         End Get
     End Property
 End Class

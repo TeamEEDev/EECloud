@@ -48,7 +48,7 @@
         End Sub
 
         Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
-            If Meta.BlockManager.IsCoindoor(ID) Then
+            If Meta.BlockManager.IsCoinDoor(ID) Then
                 Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Meta)
                 myMessage.Add(CoinsToCollect)
                 Return myMessage
