@@ -34,7 +34,7 @@ Public Class CloudConnection
             m_WorldID = PWorldID
             Init()
         Else
-            Throw New NullReferenceException("PConnection cannot be null.")
+            Throw New ArgumentException("PConnection cannot be null.")
         End If
     End Sub
 
@@ -44,7 +44,7 @@ Public Class CloudConnection
             m_WorldID = PWorldID
             Init()
         Else
-            Throw New NullReferenceException("PClient cannot be null.")
+            Throw New ArgumentException("PClient cannot be null.")
         End If
     End Sub
 

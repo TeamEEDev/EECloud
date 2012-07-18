@@ -3,7 +3,7 @@ Imports System.ComponentModel.Composition.Hosting
 Imports System.ComponentModel.Composition.Primitives
 Imports System.ComponentModel
 
-Public Class EECloudHost
+Public Class CloudHost
     <Import(GetType(PluginAPI.IComponentManager))>
     Private m_ComponentManager As PluginAPI.IComponentManager
     Public ReadOnly Property ComponentManager As PluginAPI.IComponentManager
@@ -27,7 +27,7 @@ Public Class EECloudHost
             System.IO.Directory.CreateDirectory(ComponentsPath)
         End If
 
-        MyCatalog.Catalogs.Add(New AssemblyCatalog(GetType(EECloudHost).Assembly))
+        MyCatalog.Catalogs.Add(New AssemblyCatalog(GetType(CloudHost).Assembly))
         MyCatalog.Catalogs.Add(New DirectoryCatalog(PluginsPath))
         MyCatalog.Catalogs.Add(New DirectoryCatalog(ComponentsPath))
 
@@ -37,6 +37,5 @@ Public Class EECloudHost
         Catch ex As Exception
             Console.WriteLine(ex.ToString)
         End Try
-        Console.ReadLine()
     End Sub
 End Class
