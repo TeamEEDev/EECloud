@@ -1,6 +1,6 @@
 ﻿Module ModuleMain
-
     Dim myHost As EECloud.HostAPI.CloudHost
+
     Sub Main()
         myHost = New EECloud.HostAPI.CloudHost
         If myHost.ComponentManager.BlockManager IsNot Nothing Then
@@ -8,5 +8,4 @@
         End If
         Console.ReadLine()
     End Sub
-
 End Module
