@@ -1,4 +1,5 @@
-﻿Friend Class EECloudConnection
+﻿<Export(GetType(PluginAPI.IConnection))>
+Public Class CloudConnection
     Implements IConnection
 
     Public Event OnDisconnect(sender As Object, e As EventArgs) Implements IConnection.OnDisconnect
@@ -48,7 +49,7 @@
     End Sub
 
     Sub New(PUsername As String, PPassword As String, PWorldID As String)
-        Dim myClient As PlayerIOClient.Client = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(gameID, PUsername, PPassword)
+        Dim myClient As PlayerIOClient.Client = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(GameID, PUsername, PPassword)
         m_Connection = myClient.Multiplayer.JoinRoom(PWorldID, Nothing)
         m_WorldID = PWorldID
         Init()

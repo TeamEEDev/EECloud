@@ -1,4 +1,5 @@
-﻿Friend Class EECloudManager
+﻿<Export(GetType(PluginAPI.IConnectionManager))>
+Public Class CloudConnectionManager
     Implements IConnectionManager
 
     Private CloudConnectionsList As New List(Of IConnection)
