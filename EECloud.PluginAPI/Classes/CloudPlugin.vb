@@ -1,6 +1,6 @@
 ﻿Public MustInherit Class CloudPlugin(Of CloudPlayer)
-    Private myHost As Interfaces.CloudPluginHost
-    Friend Sub AttemptSetup(Host As Interfaces.CloudPluginHost)
+    Private myHost As CloudPluginHost
+    Friend Sub AttemptSetup(Host As CloudPluginHost)
         If myHost Is Nothing Then
             myHost = Host
         End If
