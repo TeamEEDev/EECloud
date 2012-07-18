@@ -1,19 +1,20 @@
 ﻿Friend Class EECloudManager
-    Inherits CloudManager
-    Private CloudConnectionsList As New List(Of CloudConnection)
-    Public Overrides ReadOnly Property Count As Integer
+    Implements IConnectionManager
+
+    Private CloudConnectionsList As New List(Of IConnection)
+    Public ReadOnly Property Count As Integer Implements IConnectionManager.Count
         Get
             Return CloudConnectionsList.Count
         End Get
     End Property
 
-    Default Public Overrides ReadOnly Property Item(Index As Integer) As CloudConnection
+    Default Public ReadOnly Property Item(Index As Integer) As IConnection Implements IConnectionManager.Item
         Get
             Return CloudConnectionsList.Item(Index)
         End Get
     End Property
 
-    Public Overrides Sub Add(PConnection As CloudConnection)
+    Public Sub Add(PConnection As IConnection) Implements IConnectionManager.Add
         If Not CloudConnectionsList.Contains(PConnection) Then
             CloudConnectionsList.Add(PConnection)
         Else
@@ -21,7 +22,7 @@
         End If
     End Sub
 
-    Public Overrides Sub Remove(PConnection As CloudConnection)
+    Public Sub Remove(PConnection As IConnection) Implements IConnectionManager.Remove
         If CloudConnectionsList.Contains(PConnection) Then
             CloudConnectionsList.Remove(PConnection)
         Else
@@ -30,7 +31,7 @@
     End Sub
 
     Private m_MainConnection As Integer = 0
-    Public Overrides Property Main As CloudConnection
+    Public Property Main As IConnection Implements IConnectionManager.Main
         Get
             If CloudConnectionsList.Count >= m_MainConnection + 1 Then
                 Return CloudConnectionsList(m_MainConnection)
@@ -38,7 +39,7 @@
                 Return Nothing
             End If
         End Get
-        Set(value As CloudConnection)
+        Set(value As IConnection)
             If CloudConnectionsList.Contains(value) Then
                 m_MainConnection = CloudConnectionsList.IndexOf(value)
             Else
@@ -46,8 +47,4 @@
             End If
         End Set
     End Property
-
-    Friend Sub New(MainConnection As CloudConnection)
-        Add(MainConnection)
-    End Sub
 End Class

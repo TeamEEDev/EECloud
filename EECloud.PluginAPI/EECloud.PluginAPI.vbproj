@@ -73,25 +73,22 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\PluginAttribute.vb" />
     <Compile Include="Namespaces\EECloud\Enums\DoorID.vb" />
-    <Compile Include="EECloud\Enums\PortalRotation.vb" />
-    <Compile Include="Interfaces\CloudPlayer.vb" />
-    <Compile Include="Interfaces\BlockManager.vb" />
-    <Compile Include="Interfaces\CloudPluginManager.vb" />
+    <Compile Include="Namespaces\EECloud\Enums\PortalRotation.vb" />
+    <Compile Include="Classes\CloudPlayer.vb" />
+    <Compile Include="Interfaces\IBlockManager.vb" />
     <Compile Include="Namespaces\EECloud\Enums\AutoText.vb" />
     <Compile Include="Namespaces\EECloud\Enums\Smiley.vb" />
-    <Compile Include="Interfaces\CloudConnection.vb" />
-    <Compile Include="Classes\CloudPlugin.vb" />
+    <Compile Include="Interfaces\IConnection.vb" />
+    <Compile Include="Interfaces\IPlugin.vb" />
     <Compile Include="Namespaces\EECloud\Enums\Block.vb" />
     <Compile Include="Namespaces\EECloud\Enums\Layer.vb" />
-    <Compile Include="Interfaces\CloudPluginHost.vb" />
-    <Compile Include="Interfaces\IComponent.vb" />
-    <Compile Include="Interfaces\SendMessageMeta.vb" />
+    <Compile Include="Classes\CloudPluginHost.vb" />
+    <Compile Include="Classes\SendMessageMeta.vb" />
     <Compile Include="Namespaces\EECloud\Namespaces\Send.vb" />
     <Compile Include="Namespaces\EECloud\Namespaces\Recive.vb" />
     <Compile Include="Namespaces\EECloud\Enums\ReciveType.vb" />
-    <Compile Include="Interfaces\CloudManager.vb" />
+    <Compile Include="Interfaces\IConnectionManager.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -103,7 +100,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Interfaces\OnMessageEventArgs.vb" />
+    <Compile Include="Classes\OnMessageEventArgs.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
