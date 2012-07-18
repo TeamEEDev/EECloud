@@ -1,12 +1,12 @@
 ﻿Friend Class RegisteredMessageInfo
     Private m_Type As ReciveType
     Private m_Message As Type
-    Public ReadOnly Property Type
+    Public ReadOnly Property Type As ReciveType
         Get
             Return m_Type
         End Get
     End Property
-    Public ReadOnly Property Message
+    Public ReadOnly Property Message As Type
         Get
             Return m_Message
         End Get
