@@ -1,4 +1,4 @@
-﻿Public Class CloudPlayer
+﻿Public Class IPlayer
     Public Property UserID As String
     Public Property Username As String
     Public Property Coins As String

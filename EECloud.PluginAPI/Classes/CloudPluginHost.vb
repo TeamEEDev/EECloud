@@ -1,3 +1,3 @@
 ﻿Public Class CloudPluginHost
-    Public Property CloudManager As IConnectionManager
+    Public Property ComponentManager As IComponentManager
 End Class

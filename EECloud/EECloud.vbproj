@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B3AEFB54-4760-4AD0-B895-C681081B5034}</ProjectGuid>
+    <ProjectGuid>{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <StartupObject>EECloudHostTest.ModuleMain</StartupObject>
-    <RootNamespace>EECloudHostTest</RootNamespace>
-    <AssemblyName>EECloudHostTest</AssemblyName>
+    <StartupObject>EECloud.ModuleMain</StartupObject>
+    <RootNamespace>EECloud</RootNamespace>
+    <AssemblyName>EECloud</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Console</MyType>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -20,7 +20,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>EECloudHostTest.xml</DocumentationFile>
+    <DocumentationFile>EECloud.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -30,7 +30,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>EECloudHostTest.xml</DocumentationFile>
+    <DocumentationFile>EECloud.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -46,10 +46,8 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PlayerIOClient">
-      <HintPath>..\PlayerIOClient.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Xml" />
@@ -105,10 +103,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EECloud.HostAPI\EECloud.HostAPI.vbproj">
-      <Project>{1d698966-6dca-453c-80db-3cbaf1138349}</Project>
-      <Name>EECloud.HostAPI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\EECloud.PluginAPI\EECloud.PluginAPI.vbproj">
       <Project>{580ddf14-7848-4318-b9d8-55cbc3a2bc9e}</Project>
       <Name>EECloud.PluginAPI</Name>

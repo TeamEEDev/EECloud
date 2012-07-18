@@ -73,6 +73,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IComponentManager.vb" />
     <Compile Include="Namespaces\EECloud\Enums\DoorID.vb" />
     <Compile Include="Namespaces\EECloud\Enums\PortalRotation.vb" />
     <Compile Include="Classes\CloudPlayer.vb" />
