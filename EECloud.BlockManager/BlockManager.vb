@@ -1,6 +1,6 @@
-﻿Public Class EEBlockManager
+﻿<Export(GetType(PluginAPI.IBlockManager))>
+Public Class BlockManager
     Implements IBlockManager
-
 
     Public ReadOnly Property CorrectLayer(PID As Integer, PLayer As Layer) As Layer Implements IBlockManager.CorrectLayer
         Get
