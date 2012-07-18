@@ -1,7 +1,7 @@
-﻿Public Class IPlayer
-    Public Property UserID As String
-    Public Property Username As String
-    Public Property Coins As String
-    Public Property PositionX As String
-    Public Property PositionY As String
-End Class
+﻿Public Interface IPlayer
+    Property UserID As String
+    Property Username As String
+    Property Coins As String
+    Property PositionX As String
+    Property PositionY As String
+End Interface
