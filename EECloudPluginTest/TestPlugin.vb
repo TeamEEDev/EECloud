@@ -1,5 +1,5 @@
 ﻿Public Class TestPlayer
-    Inherits EECloud.PluginAPI.CloudPlayer
+    Inherits EECloud.PluginAPI.IPlayer
 End Class
 
 Public Class TestPlugin
