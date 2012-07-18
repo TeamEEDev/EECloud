@@ -1,16 +1,24 @@
 ﻿Friend Class EECloudConnection
-    Inherits CloudConnection
+    Implements IConnection
+
+    Public Event OnDisconnect(sender As Object, e As EventArgs) Implements IConnection.OnDisconnect
+
+    Public Event OnJoin(sender As Object, e As EventArgs) Implements IConnection.OnJoin
+
+    Public Event OnJoinError(sender As Object, e As EventArgs) Implements IConnection.OnJoinError
+
+    Public Event OnMessage(sender As Object, e As OnMessageEventArgs) Implements IConnection.OnMessage
 
 #Region "Properties"
     Private m_Connection As PlayerIOClient.Connection
-    Public Overrides ReadOnly Property Connection As PlayerIOClient.Connection
+    Public ReadOnly Property Connection As PlayerIOClient.Connection Implements IConnection.Connection
         Get
             Return m_Connection
         End Get
     End Property
 
     Private ReadOnly m_WorldID As String
-    Public Overrides ReadOnly Property WorldID As String
+    Public ReadOnly Property WorldID As String Implements IConnection.WorldID
         Get
             Return m_WorldID
         End Get
@@ -48,15 +56,15 @@
 
     Private Sub Init()
         RegisterMessages()
-        m_Connection.AddOnDisconnect(Sub() RaiseOnDisconnect(New EventArgs))
+        m_Connection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
         m_Connection.AddOnMessage(AddressOf MessageReciver)
-        RaiseOnJoin(New EventArgs)
+        RaiseEvent OnJoin(Me, New EventArgs)
         m_Connection.Send("init")
     End Sub
 #End Region
 
 #Region "Message Handling"
-    Private Sub MessageHandler(sender As Object, e As EEOnMessageEventArgs) Handles Me.OnMessage
+    Private Sub MessageHandler(sender As Object, e As OnMessageEventArgs) Handles Me.OnMessage
         If e.Type = ReciveType.Init Then
             Dim m As Recive.Init_ReciveMessage = CType(e.Message, Recive.Init_ReciveMessage)
             Connection.Send("init2")
@@ -67,8 +75,8 @@
         Try
             Dim myRegisteredMessageInfo As RegisteredMessageInfo = MessageDictionary(e.Type)
             Dim myMessage As Recive.ReciveMessage = CType(Activator.CreateInstance(myRegisteredMessageInfo.Message, e), Recive.ReciveMessage)
-            Dim myEventArgs As New EEOnMessageEventArgs(myRegisteredMessageInfo.Type, myMessage)
-            RaiseOnMessage(myEventArgs)
+            Dim myEventArgs As New OnMessageEventArgs(myRegisteredMessageInfo.Type, myMessage)
+            RaiseEvent OnMessage(Me, myEventArgs)
         Catch ex As KeyNotFoundException
             Throw New KeyNotFoundException(String.Format("Message is not registered: {0}", e.Type))
         End Try
