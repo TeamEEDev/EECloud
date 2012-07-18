@@ -1,11 +1,19 @@
 ﻿Module ModuleMain
     Dim myHost As EECloud.HostAPI.CloudHost
 
-    Sub Main()
-        myHost = New EECloud.HostAPI.CloudHost
-        If myHost.ComponentManager.BlockManager IsNot Nothing Then
-            Console.WriteLine("Things work, proof: " & myHost.ComponentManager.BlockManager.IsPortal(242) & ", " & myHost.ComponentManager.BlockManager.IsPortal(222))
+    Function Main() As Integer
+        Dim PluginsPath As String = My.Application.Info.DirectoryPath & "\Plugins"
+        If Not System.IO.Directory.Exists(PluginsPath) Then
+            System.IO.Directory.CreateDirectory(PluginsPath)
         End If
+
+        Dim ComponentsPath As String = My.Application.Info.DirectoryPath & "\Components"
+        If Not System.IO.Directory.Exists(ComponentsPath) Then
+            System.IO.Directory.CreateDirectory(ComponentsPath)
+        End If
+        myHost = New EECloud.HostAPI.CloudHost(ComponentsPath)
         Console.ReadLine()
-    End Sub
+        Return 0
+    End Function
+
 End Module
