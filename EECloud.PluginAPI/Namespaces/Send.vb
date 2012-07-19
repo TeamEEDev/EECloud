@@ -1,4 +1,4 @@
-﻿Namespace Global.EECloud.Send
+﻿Namespace Send
     Public MustInherit Class SendMessage
         Public MustOverride Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
     End Class
