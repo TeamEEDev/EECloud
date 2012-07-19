@@ -46,9 +46,9 @@ Public Class CloudConnection
         End If
     End Sub
 
-    Sub New(PClient As PlayerIOClient.Client, PWorldID As String, Optional ByVal PVisible As Boolean = True, Optional ByVal PRoomType As RoomType = ConnectionManager.RoomType.Everybodyedits)
+    Sub New(PClient As PlayerIOClient.Client, PWorldID As String)
         If PClient IsNot Nothing Then
-            CreateJoinRoom(PClient, PWorldID, PVisible, PRoomType)
+            m_Connection = PClient.Multiplayer.JoinRoom(PWorldID, Nothing)
             m_WorldID = PWorldID
             Init()
         Else
@@ -56,25 +56,11 @@ Public Class CloudConnection
         End If
     End Sub
 
-    Sub New(PUsername As String, PPassword As String, PWorldID As String, Optional ByVal PVisible As Boolean = True, Optional ByVal PRoomType As RoomType = ConnectionManager.RoomType.Everybodyedits)
+    Sub New(PUsername As String, PPassword As String, PWorldID As String)
         Dim myClient As PlayerIOClient.Client = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.GameID, PUsername, PPassword)
-        CreateJoinRoom(myClient, PWorldID, PVisible, PRoomType)
+        m_Connection = myClient.Multiplayer.JoinRoom(PWorldID, Nothing)
         m_WorldID = PWorldID
         Init()
-    End Sub
-
-    Private Sub CreateJoinRoom(ByVal PClient As PlayerIOClient.Client, ByVal PWorldID As String, Optional ByVal PVisible As Boolean = True, Optional ByVal PRoomType As RoomType = ConnectionManager.RoomType.Everybodyedits)
-        Try
-            PClient.Multiplayer.CreateJoinRoom("GetEEVersion", "GetEEVersion", False, Nothing, Nothing)
-        Catch Err As PlayerIOClient.PlayerIOError
-            Dim ErrorMessage() As String = Err.Message.Split(CChar(" "))
-            For N = ErrorMessage.Length - 1 To 0 Step -1
-                If ErrorMessage(N).StartsWith("Everybodyedits") Then 'CStr(PRoomType) doesn't work
-                    m_Connection = PClient.Multiplayer.CreateJoinRoom(PWorldID, Replace(ErrorMessage(N), ",", ""), PVisible, Nothing, Nothing)
-                    Exit Sub
-                End If
-            Next
-        End Try
     End Sub
 
     Private Sub Init()
