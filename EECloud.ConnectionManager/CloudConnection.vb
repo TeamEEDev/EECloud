@@ -26,10 +26,10 @@ Public Class CloudConnection
     End Property
 
     <Import()>
-    Friend m_Components As IComponentManager
-    Public ReadOnly Property Components As IComponentManager Implements IConnection.Components
+    Friend m_IBlockManager As IBlockManager
+    Public ReadOnly Property IBlockManager As IBlockManager Implements IConnection.BlockManager
         Get
-            Return m_Components
+            Return m_IBlockManager
         End Get
     End Property
 #End Region
@@ -57,7 +57,7 @@ Public Class CloudConnection
     End Sub
 
     Sub New(PUsername As String, PPassword As String, PWorldID As String)
-        Dim myClient As PlayerIOClient.Client = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(GameID, PUsername, PPassword)
+        Dim myClient As PlayerIOClient.Client = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.GameID, PUsername, PPassword)
         m_Connection = myClient.Multiplayer.JoinRoom(PWorldID, Nothing)
         m_WorldID = PWorldID
         Init()
