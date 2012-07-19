@@ -1,10 +1,10 @@
 ﻿Module ModuleMain
-    Dim myHost As EECloud.HostAPI.CloudHost
+    Dim myContext As EECloud.HostAPI.CloudApplicationContext
 
-    Function Main() As Integer
-        Application.Run(New EECloud.HostAPI.CloudApplicationContext)
-        Console.ReadLine()
-        Return 0
-    End Function
+    <STAThread>
+    Sub Main()
+        myContext = New EECloud.HostAPI.CloudApplicationContext
+        Application.Run(myContext)
+    End Sub
 
 End Module
