@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Classes\CloudPlayer.vb" />
     <Compile Include="Classes\CloudPlugin.vb" />
+    <Compile Include="Interfaces\ISettingManager.vb" />
     <Compile Include="Modules\Utils.vb" />
     <Compile Include="Enums\DoorID.vb" />
     <Compile Include="Enums\PortalRotation.vb" />
