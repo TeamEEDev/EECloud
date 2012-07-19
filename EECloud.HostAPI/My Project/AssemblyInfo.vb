@@ -1,4 +1,6 @@
-﻿Imports System
+﻿Imports System.Resources
+
+Imports System
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
@@ -8,14 +10,14 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("EECloud")> 
-<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyTitle("EECloud.HostAPI")> 
+<Assembly: AssemblyDescription("EECloud HostAPI")> 
 <Assembly: AssemblyCompany("Processor and Jojatekok")> 
-<Assembly: AssemblyProduct("EECloud")> 
+<Assembly: AssemblyProduct("EECloud.HostAPI")> 
 <Assembly: AssemblyCopyright("")> 
 <Assembly: AssemblyTrademark("")> 
 
-<Assembly: ComVisible(False)>
+<Assembly: ComVisible(False)> 
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
 <Assembly: Guid("2499c409-0ec2-45f7-a4bb-b89e8a35905a")> 
@@ -33,3 +35,5 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyVersion("1.0.0.0")> 
 <Assembly: AssemblyFileVersion("1.0.0.0")> 
+
+<Assembly: NeutralResourcesLanguageAttribute("")> 
