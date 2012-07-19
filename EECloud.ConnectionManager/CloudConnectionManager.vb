@@ -1,6 +1,10 @@
 ﻿<Export(GetType(PluginAPI.IConnectionManager))>
 Public Class CloudConnectionManager
     Implements IConnectionManager
+    Private m_CompositionContainer As CompositionContainer
+    Public Sub AttmeptSetup(PContainer As Hosting.CompositionContainer) Implements IConnectionManager.AttmeptSetup
+        m_CompositionContainer = PContainer
+    End Sub
 
     Private CloudConnectionsList As New List(Of IConnection)
     Public ReadOnly Property Count As Integer Implements IConnectionManager.Count
@@ -25,17 +29,24 @@ Public Class CloudConnectionManager
 
     Public Sub Add(PConnection As PlayerIOClient.Connection, PWorldID As String) Implements IConnectionManager.Add
         Dim myConnection As New CloudConnection(PConnection, PWorldID)
+        InitConnection(myConnection)
         CloudConnectionsList.Add(myConnection)
     End Sub
 
     Public Sub Add(PClient As PlayerIOClient.Client, PWorldID As String) Implements IConnectionManager.Add
         Dim myConnection As New CloudConnection(PClient, PWorldID)
+        InitConnection(myConnection)
         CloudConnectionsList.Add(myConnection)
     End Sub
 
     Public Sub Add(PUsername As String, PPassword As String, PWorldID As String) Implements IConnectionManager.Add
         Dim myConnection As New CloudConnection(PUsername, PPassword, PWorldID)
+        InitConnection(myConnection)
         CloudConnectionsList.Add(myConnection)
+    End Sub
+
+    Private Sub InitConnection(PCloudConnection As CloudConnection)
+        m_CompositionContainer.ComposeParts(PCloudConnection)
     End Sub
 
     Public Sub Remove(PConnection As IConnection) Implements IConnectionManager.Remove
