@@ -4,25 +4,27 @@ Imports System.ComponentModel.Composition.Primitives
 Imports System.ComponentModel
 
 Public Class CloudHost
-    <Import(GetType(IComponentManager))>
-    Private m_ComponentManager As PluginAPI.IComponentManager
-    Public ReadOnly Property ComponentManager As PluginAPI.IComponentManager
+    <Import()>
+    Private m_Connections As IConnectionManager
+    Public ReadOnly Property Connections As IConnectionManager
         Get
-            Return m_ComponentManager
+            Return m_Connections
         End Get
     End Property
 
-    Public Property Container As CompositionContainer
+    Private m_ComponentContainer As CompositionContainer
+    Public ReadOnly Property ComponentContainer As CompositionContainer
+        Get
+            Return m_ComponentContainer
+        End Get
+    End Property
 
     Sub New(ComponentsPath As String)
         Dim MyCatalog = New AggregateCatalog()
-
         MyCatalog.Catalogs.Add(New DirectoryCatalog(ComponentsPath))
-
-        Container = New CompositionContainer(MyCatalog)
-
+        m_ComponentContainer = New CompositionContainer(MyCatalog)
         Try
-            Container.ComposeParts(Me)
+            m_ComponentContainer.ComposeParts(Me)
         Catch ex As Exception
             Console.WriteLine(ex.ToString)
         End Try

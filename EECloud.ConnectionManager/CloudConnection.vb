@@ -24,6 +24,14 @@ Public Class CloudConnection
             Return m_WorldID
         End Get
     End Property
+
+    <Import()>
+    Private ReadOnly m_Components As IComponentManager
+    Public ReadOnly Property Components As IComponentManager Implements IConnection.Components
+        Get
+            Return m_Components
+        End Get
+    End Property
 #End Region
 
 #Region "Methods"
