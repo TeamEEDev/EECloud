@@ -1,8 +1,8 @@
 ﻿Public MustInherit Class CloudPlugin
     Implements IPlugin(Of IPlayer)
 
-    Private m_Host As CloudPluginHost
-    Public Sub AttemptSetup(Host As CloudPluginHost) Implements IPlugin(Of IPlayer).AttemptSetup
+    Private m_Host As IConnectionManager
+    Public Sub AttemptSetup(Host As IConnectionManager) Implements IPlugin(Of IPlayer).AttemptSetup
         m_Host = Host
     End Sub
 
