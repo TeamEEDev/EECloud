@@ -1,4 +1,4 @@
-﻿Namespace Global.EECloud.Recive
+﻿Namespace Recive
     Public MustInherit Class ReciveMessage
         Public ReadOnly Message As PlayerIOClient.Message
 
