@@ -1,9 +1,9 @@
 ﻿Module ModuleMain
-    Dim myContext As EECloud.HostAPI.CloudApplicationContext
+    Dim myContext As CloudApplicationContext
 
     <STAThread>
     Sub Main()
-        myContext = New EECloud.HostAPI.CloudApplicationContext
+        myContext = New CloudApplicationContext
         Application.Run(myContext)
     End Sub
 

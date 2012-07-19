@@ -23,6 +23,21 @@ Public Class CloudConnectionManager
         End If
     End Sub
 
+    Public Sub Add(PConnection As PlayerIOClient.Connection, PWorldID As String) Implements IConnectionManager.Add
+        Dim myConnection As New CloudConnection(PConnection, PWorldID)
+        CloudConnectionsList.Add(myConnection)
+    End Sub
+
+    Public Sub Add(PClient As PlayerIOClient.Client, PWorldID As String) Implements IConnectionManager.Add
+        Dim myConnection As New CloudConnection(PClient, PWorldID)
+        CloudConnectionsList.Add(myConnection)
+    End Sub
+
+    Public Sub Add(PUsername As String, PPassword As String, PWorldID As String) Implements IConnectionManager.Add
+        Dim myConnection As New CloudConnection(PUsername, PPassword, PWorldID)
+        CloudConnectionsList.Add(myConnection)
+    End Sub
+
     Public Sub Remove(PConnection As IConnection) Implements IConnectionManager.Remove
         If CloudConnectionsList.Contains(PConnection) Then
             CloudConnectionsList.Remove(PConnection)
@@ -32,7 +47,7 @@ Public Class CloudConnectionManager
     End Sub
 
     Private m_MainConnection As Integer = 0
-    Public Property Main As IConnection Implements IConnectionManager.Main
+    Public Property MainConnection As IConnection Implements IConnectionManager.MainConnection
         Get
             If CloudConnectionsList.Count >= m_MainConnection + 1 Then
                 Return CloudConnectionsList(m_MainConnection)

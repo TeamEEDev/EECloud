@@ -6,4 +6,5 @@
 
     ReadOnly Property Connection As PlayerIOClient.Connection
     ReadOnly Property WorldID As String
+    ReadOnly Property Components As IComponentManager
 End Interface

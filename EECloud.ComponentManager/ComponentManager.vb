@@ -9,12 +9,4 @@ Public Class ComponentManager
             Return m_BlockManager
         End Get
     End Property
-
-    <Import(GetType(IConnectionManager))>
-    Private m_ConnectionManager As IConnectionManager
-    Public ReadOnly Property ConnectionManager As IConnectionManager Implements IComponentManager.ConnectionManager
-        Get
-            Return m_ConnectionManager
-        End Get
-    End Property
 End Class
