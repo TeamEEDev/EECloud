@@ -2,6 +2,7 @@
     Default ReadOnly Property Item(Index As Integer) As IConnection
     ReadOnly Property Count As Integer
     Property MainConnection As IConnection
+    Sub AttmeptSetup(PContainer As CompositionContainer)
     Overloads Sub Add(PConnection As IConnection)
     Overloads Sub Add(PConnection As PlayerIOClient.Connection, WorldID As String)
     Overloads Sub Add(Client As PlayerIOClient.Client, WorldID As String)

@@ -26,7 +26,7 @@ Public Class CloudConnection
     End Property
 
     <Import()>
-    Private ReadOnly m_Components As IComponentManager
+    Friend m_Components As IComponentManager
     Public ReadOnly Property Components As IComponentManager Implements IConnection.Components
         Get
             Return m_Components

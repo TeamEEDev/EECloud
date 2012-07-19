@@ -28,5 +28,7 @@ Public Class CloudHost
         Catch ex As Exception
             Console.WriteLine(ex.ToString)
         End Try
+        m_Connections.AttmeptSetup(m_ComponentContainer)
+        m_Connections.Add("guest", "guest", "PWPC-Tjtqxa0I")
     End Sub
 End Class
