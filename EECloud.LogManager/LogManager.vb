@@ -32,7 +32,7 @@ Public Class LogManager
                             Console.CursorLeft = 1
                         End If
                     ElseIf InputKey.Key = ConsoleKey.Enter Then
-                        Log(Input)
+                        Log(">" & Input)
                         RaiseEvent OnInput(Me, New EventArgs)
                         Input = String.Empty
                     Else
