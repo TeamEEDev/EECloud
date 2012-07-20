@@ -19,7 +19,7 @@ Public Class LogManager
     Public Event OnInput As EventHandler Implements ILogManager.OnInput
 
     Sub New()
-        Log("") 'Init
+        Log("EECloud version: " & My.Application.Info.Version.ToString) 'Init
         Dim Worker As New Thread(
             Sub()
                 Do
