@@ -33,7 +33,7 @@ Public Class LogManager
                         End If
                     ElseIf InputKey.Key = ConsoleKey.Enter Then
                         If Input IsNot String.Empty Then
-                            Log(">" & Input)
+                            Console.CursorTop += 1
                             RaiseEvent OnInput(Me, New EventArgs)
                         End If
                         Input = String.Empty
