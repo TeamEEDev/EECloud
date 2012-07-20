@@ -68,12 +68,12 @@ Public Class CloudConnection
             Return PClient.Multiplayer.JoinRoom(PWorldID, Nothing)
         Catch ex As PlayerIOClient.PlayerIOError
             Try
-                PClient.Multiplayer.CreateJoinRoom("", Config.ServerType_Normal, False, Nothing, Nothing)
+                PClient.Multiplayer.CreateJoinRoom("", " ", False, Nothing, Nothing)
                 Throw New Exception("Couldn't get the current EE version.")
             Catch Err As PlayerIOClient.PlayerIOError
                 Dim ErrorMessage() As String = Err.Message.Split(CChar(" "))
                 For N = ErrorMessage.Length - 1 To 0 Step -1
-                    If ErrorMessage(N).StartsWith(Config.ServerType_Normal) Then
+                    If ErrorMessage(N).StartsWith(Config.RoomTypes.Normal) Then
                         Return PClient.Multiplayer.CreateJoinRoom(PWorldID, Replace(ErrorMessage(N), ",", ""), True, Nothing, Nothing)
                     End If
                 Next
