@@ -1,7 +1,6 @@
 ﻿<Export(GetType(PluginAPI.IConnection))>
 Public Class CloudConnection
     Implements IConnection
-    Private m_GameVersionSetting As Integer = 0
 
 #Region "Events"
     Public Event OnDisconnect(sender As Object, e As EventArgs) Implements IConnection.OnDisconnect
@@ -46,6 +45,13 @@ Public Class CloudConnection
             Return m_SettingManager
         End Get
     End Property
+
+    Private m_LogManager As ILogManager 'Global Component
+    Public ReadOnly Property LogManager As ILogManager Implements IConnection.LogManager
+        Get
+            Return m_LogManager
+        End Get
+    End Property
 #End Region
 
 #Region "Methods"
@@ -60,48 +66,6 @@ Public Class CloudConnection
         End If
     End Sub
 
-    Sub New(PClient As PlayerIOClient.Client, PWorldID As String)
-        If PClient IsNot Nothing Then
-            m_Connection = JoinWorld(PClient, PWorldID)
-            m_WorldID = PWorldID
-            Init()
-        Else
-            Throw New ArgumentException("PClient cannot be null.")
-        End If
-    End Sub
-
-    Sub New(PUsername As String, PPassword As String, PWorldID As String)
-        Dim myClient As PlayerIOClient.Client = LogIn(PUsername, PPassword)
-        m_Connection = JoinWorld(myClient, PWorldID)
-        m_WorldID = PWorldID
-        Init()
-    End Sub
-
-    Private Function LogIn(PUsername As String, PPassword As String) As PlayerIOClient.Client
-        Return PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.GameID, PUsername, PPassword)
-    End Function
-
-    Private Function JoinWorld(PClient As PlayerIOClient.Client, PWorldID As String) As PlayerIOClient.Connection
-        Try
-            Return PClient.Multiplayer.CreateJoinRoom(PWorldID, Config.NormalRoom & SettingManager.GetString("GameVersion"), True, Nothing, Nothing)
-        Catch ex As PlayerIOClient.PlayerIOError
-            If ex.ErrorCode = PlayerIOClient.ErrorCode.UnknownRoomType Then
-                Dim ErrorMessage() As String = ex.Message.Split(CChar(" "))
-                Dim CurrentRoomType As String
-                For N = ErrorMessage.Length - 1 To 0 Step -1
-                    CurrentRoomType = ErrorMessage(N)
-                    If CurrentRoomType.StartsWith(Config.NormalRoom) Then
-                        SettingManager.SetSetting("GameVersion", CInt(CurrentRoomType.Substring(Config.NormalRoom.Length, CurrentRoomType.Length - Config.NormalRoom.Length - 1)))
-                        Return JoinWorld(PClient, WorldID)
-                    End If
-                Next
-                Throw New KeyNotFoundException("Room type not available: """ & Config.NormalRoom & """")
-            Else
-                Throw
-            End If
-        End Try
-    End Function
-
     Private Sub Init()
         RegisterMessages()
         m_Connection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
@@ -110,14 +74,10 @@ Public Class CloudConnection
         m_Connection.Send("init")
     End Sub
 
-    Friend Sub AttemptSetup(PConnectionManager As IConnectionManager, PSettingManager As ISettingManager)
+    Friend Sub AttemptSetup(PConnectionManager As IConnectionManager, PSettingManager As ISettingManager, PLogManager As ILogManager)
         m_ConnectionManager = PConnectionManager
         m_SettingManager = PSettingManager
-        If SettingManager IsNot Nothing Then
-            m_GameVersionSetting = SettingManager.GetInteger("GameVersion")
-        Else
-            Throw New ApplicationException("SettingManager not available")
-        End If
+        m_LogManager = PLogManager
     End Sub
 #End Region
 
