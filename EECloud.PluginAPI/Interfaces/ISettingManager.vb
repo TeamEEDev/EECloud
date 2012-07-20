@@ -26,8 +26,8 @@
 
     Function GetBoolean(SetttingName As String) As Boolean
 
-    Function SetChar(SetttingName As String) As Char
-    Function SetDate(SetttingName As String) As Date
+    Function GetChar(SetttingName As String) As Char
+    Function GetDate(SetttingName As String) As Date
 
     Function GetSingle(SetttingName As String) As Single
     Function GetDouble(SetttingName As String) As Double
