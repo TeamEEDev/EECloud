@@ -50,6 +50,8 @@ Public Class CloudConnectionManager
 #Region "Methods"
     Public Sub AttemptSetup(PContainer As Hosting.CompositionContainer) Implements IConnectionManager.AttemptSetup
         m_CompositionContainer = PContainer
+
+        m_GameVersionSetting = m_SettingManager.GetInteger("GameVersion")
     End Sub
 
 #Region "Add"
