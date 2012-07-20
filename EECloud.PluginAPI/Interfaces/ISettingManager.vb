@@ -2,6 +2,8 @@
     Overloads Sub SetSetting(SetttingName As String, Value As Boolean)
 
     Overloads Sub SetSetting(SetttingName As String, Value As Char)
+    Overloads Sub SetSetting(SetttingName As String, Value As Char())
+
     Overloads Sub SetSetting(SetttingName As String, Value As Date)
 
     Overloads Sub SetSetting(SetttingName As String, Value As Single)
@@ -27,6 +29,8 @@
     Function GetBoolean(SetttingName As String) As Boolean
 
     Function GetChar(SetttingName As String) As Char
+    Function GetBuffer(SetttingName As String) As Char()
+
     Function GetDate(SetttingName As String) As Date
 
     Function GetSingle(SetttingName As String) As Single
