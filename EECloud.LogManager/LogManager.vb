@@ -11,7 +11,7 @@ Public Class LogManager
         End Get
         Set(value As String)
             Overwrite(Input.Length + 1, ">" & value)
-            Console.CursorLeft = value.Length + 1
+            Console.CursorLeft = value.Length + 2
             m_Input = value
         End Set
     End Property
