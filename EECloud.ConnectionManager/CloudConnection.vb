@@ -79,23 +79,21 @@ Public Class CloudConnection
 
     Private Function JoinWorld(PClient As PlayerIOClient.Client, PWorldID As String) As PlayerIOClient.Connection
         Try
-            Return PClient.Multiplayer.CreateJoinRoom(PWorldID, Config.NormalRoom & CStr(m_GameVersionSetting), True, Nothing, Nothing)
+            Return PClient.Multiplayer.CreateJoinRoom(PWorldID, Config.NormalRoom & SettingManager.GetString("GameVersion"), True, Nothing, Nothing)
         Catch ex As PlayerIOClient.PlayerIOError
             If ex.ErrorCode = PlayerIOClient.ErrorCode.UnknownRoomType Then
-                Dim ErrorMessage() As String = ex.Message.Substring(102 + m_GameVersionSetting, ex.Message.Length - 103).Split(CChar(" "))
-                For N = 0 To ErrorMessage.Length - 1
-                    Dim RoomID As String = ErrorMessage(N).Substring(0, ErrorMessage(N).Length - 1)
-                    If RoomID.StartsWith(Config.NormalRoom) Then
-                        Dim Version As Integer = CInt(RoomID.Substring(Config.NormalRoom.Length))
-                        SettingManager.SetSetting("GameVersion", Version)
-                        JoinWorld(PClient, WorldID)
-                    Else
-                        Throw New ApplicationException("Cloud not get RoomVersion: Bad Message.")
+                Dim ErrorMessage() As String = ex.Message.Split(CChar(" "))
+                Dim CurrentRoomType As String
+                For N = ErrorMessage.Length - 1 To 0 Step -1
+                    CurrentRoomType = ErrorMessage(N)
+                    If CurrentRoomType.StartsWith(Config.NormalRoom) Then
+                        SettingManager.SetSetting("GameVersion", CInt(CurrentRoomType.Substring(Config.NormalRoom.Length, CurrentRoomType.Length - Config.NormalRoom.Length - 1)))
+                        Return JoinWorld(PClient, WorldID)
                     End If
                 Next
-                Throw New ApplicationException("Cloud not get RoomVersion: Room not in list.")
+                Throw New ApplicationException("Couldn't get RoomVersion: Room with type starting with """ & Config.NormalRoom & """ isn't on the list of available RoomTypes.")
             Else
-                Throw
+                Throw New ApplicationException("Couldn't join world (unknown reason): " & ex.Message)
             End If
         End Try
     End Function
