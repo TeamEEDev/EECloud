@@ -1,6 +1,6 @@
 ﻿Imports System.Threading
 
-Public Class Logger
+Public Class LogManager
     Private m_Input As String = String.Empty
     Public Property Input As String
         Get
