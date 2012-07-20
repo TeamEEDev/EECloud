@@ -8,4 +8,6 @@
     ReadOnly Property WorldID As String
 
     ReadOnly Property BlockManager As IBlockManager
+    ReadOnly Property ConnectionManager As IConnectionManager
+    ReadOnly Property SettingManager As ISettingManager
 End Interface
