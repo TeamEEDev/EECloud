@@ -1,6 +1,7 @@
 ﻿<Export(GetType(PluginAPI.IConnection))>
 Public Class CloudConnection
     Implements IConnection
+    Private m_GameVersionSetting As Integer = 0
 
 #Region "Events"
     Public Event OnDisconnect(sender As Object, e As EventArgs) Implements IConnection.OnDisconnect
@@ -78,20 +79,24 @@ Public Class CloudConnection
 
     Private Function JoinWorld(PClient As PlayerIOClient.Client, PWorldID As String) As PlayerIOClient.Connection
         Try
-            Return PClient.Multiplayer.JoinRoom(PWorldID, Nothing)
+            Return PClient.Multiplayer.CreateJoinRoom(PWorldID, Config.NormalRoom & CStr(m_GameVersionSetting), True, Nothing, Nothing)
         Catch ex As PlayerIOClient.PlayerIOError
-            Try
-                PClient.Multiplayer.CreateJoinRoom("", " ", False, Nothing, Nothing)
-                Throw New Exception("Couldn't get the current EE version.")
-            Catch Err As PlayerIOClient.PlayerIOError
-                Dim ErrorMessage() As String = Err.Message.Split(CChar(" "))
-                For N = ErrorMessage.Length - 1 To 0 Step -1
-                    If ErrorMessage(N).StartsWith(Config.RoomTypes.Normal) Then
-                        Return PClient.Multiplayer.CreateJoinRoom(PWorldID, Replace(ErrorMessage(N), ",", ""), True, Nothing, Nothing)
+            If ex.ErrorCode = PlayerIOClient.ErrorCode.UnknownRoomType Then
+                Dim ErrorMessage() As String = ex.Message.Substring(102 + m_GameVersionSetting, ex.Message.Length - 103).Split(CChar(" "))
+                For N = 0 To ErrorMessage.Length - 1
+                    Dim RoomID As String = ErrorMessage(N)
+                    If RoomID.StartsWith(Config.NormalRoom) Then
+                        Dim Version As Integer = CInt(RoomID.Substring(Config.NormalRoom.Length, RoomID.Length - Config.NormalRoom.Length - 1))
+                        SettingManager.SetSetting("GameVersion", Version)
+                        JoinWorld(PClient, WorldID)
+                    Else
+                        Throw New ApplicationException("Cloud not get RoomVersion: Bad Message.")
                     End If
                 Next
-                Throw New Exception("Couldn't get the current EE version.")
-            End Try
+                Throw New ApplicationException("Cloud not get RoomVersion: Room not in list.")
+            Else
+                Throw
+            End If
         End Try
     End Function
 
@@ -106,6 +111,8 @@ Public Class CloudConnection
     Friend Sub AttemptSetup(PConnectionManager As IConnectionManager, PSettingManager As ISettingManager)
         m_ConnectionManager = PConnectionManager
         m_SettingManager = PSettingManager
+
+        m_GameVersionSetting = SettingManager.GetInteger("GameVersion")
     End Sub
 #End Region
 
