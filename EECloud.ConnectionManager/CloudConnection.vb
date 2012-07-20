@@ -71,11 +71,15 @@ Public Class CloudConnection
     End Sub
 
     Sub New(PUsername As String, PPassword As String, PWorldID As String)
-        Dim myClient As PlayerIOClient.Client = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.GameID, PUsername, PPassword)
+        Dim myClient As PlayerIOClient.Client = LogIn(PUsername, PPassword)
         m_Connection = JoinWorld(myClient, PWorldID)
         m_WorldID = PWorldID
         Init()
     End Sub
+
+    Private Function LogIn(PUsername As String, PPassword As String) As PlayerIOClient.Client
+        Return PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.GameID, PUsername, PPassword)
+    End Function
 
     Private Function JoinWorld(PClient As PlayerIOClient.Client, PWorldID As String) As PlayerIOClient.Connection
         Try
