@@ -35,8 +35,8 @@ Public Class LogManager
                         If Input IsNot String.Empty Then
                             Log(">" & Input)
                             RaiseEvent OnInput(Me, New EventArgs)
-                            Input = String.Empty
                         End If
+                        Input = String.Empty
                     Else
                         If Input.Length <= 76 Then
                             Input += InputKey.KeyChar
