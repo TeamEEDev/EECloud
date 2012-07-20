@@ -91,7 +91,7 @@ Public Class CloudConnection
                         Return JoinWorld(PClient, WorldID)
                     End If
                 Next
-                Throw New ApplicationException("Room type not available: """ & Config.NormalRoom & """")
+                Throw New KeyNotFoundException("Room type not available: """ & Config.NormalRoom & """")
             Else
                 Throw
             End If
