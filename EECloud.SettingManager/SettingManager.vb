@@ -1,7 +1,12 @@
 ﻿Public Class SettingManager
     Implements ISettingManager
 
+
     Public Function GetBoolean(SetttingName As String) As Boolean Implements ISettingManager.GetBoolean
+
+    End Function
+
+    Public Function GetBuffer(SetttingName As String) As Char() Implements ISettingManager.GetBuffer
 
     End Function
 
@@ -29,7 +34,7 @@
 
     End Function
 
-    Public Function GetObject(SetttingName As String) As Object Implements ISettingManager.GetObject
+    Public Function GetObject(SetttingName As String) As PlayerIOClient.DatabaseObject Implements ISettingManager.GetObject
 
     End Function
 
@@ -73,6 +78,10 @@
 
     End Sub
 
+    Public Overloads Sub SetSetting(SetttingName As String, Value() As Char) Implements ISettingManager.SetSetting
+
+    End Sub
+
     Public Overloads Sub SetSetting(SetttingName As String, Value As Date) Implements ISettingManager.SetSetting
 
     End Sub
@@ -89,7 +98,7 @@
 
     End Sub
 
-    Public Overloads Sub SetSetting(SetttingName As String, Value As Object) Implements ISettingManager.SetSetting
+    Public Overloads Sub SetSetting(SetttingName As String, Value As PlayerIOClient.DatabaseObject) Implements ISettingManager.SetSetting
 
     End Sub
 
