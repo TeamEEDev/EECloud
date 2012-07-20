@@ -111,8 +111,11 @@ Public Class CloudConnection
     Friend Sub AttemptSetup(PConnectionManager As IConnectionManager, PSettingManager As ISettingManager)
         m_ConnectionManager = PConnectionManager
         m_SettingManager = PSettingManager
-
-        m_GameVersionSetting = SettingManager.GetInteger("GameVersion")
+        If SettingManager IsNot Nothing Then
+            m_GameVersionSetting = SettingManager.GetInteger("GameVersion")
+        Else
+            Throw New ApplicationException("SettingManager not available")
+        End If
     End Sub
 #End Region
 
