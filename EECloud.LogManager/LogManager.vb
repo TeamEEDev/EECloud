@@ -11,7 +11,7 @@ Public Class LogManager
         End Get
         Set(value As String)
             Overwrite(Input.Length + 1, ">" & value)
-            Console.CursorLeft = value.Length + 2
+            Console.CursorLeft = value.Length + 1
             m_Input = value
         End Set
     End Property
@@ -28,6 +28,8 @@ Public Class LogManager
                     If InputKey.Key = ConsoleKey.Backspace Then
                         If Input.Length >= 1 Then
                             Input = Input.Substring(0, Input.Length - 1)
+                        Else
+                            Console.CursorLeft = 1
                         End If
                     ElseIf InputKey.Key = ConsoleKey.Enter Then
                         Log(Input)
