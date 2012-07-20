@@ -2,13 +2,12 @@
 Public Class CloudConnection
     Implements IConnection
 
+#Region "Events"
     Public Event OnDisconnect(sender As Object, e As EventArgs) Implements IConnection.OnDisconnect
-
     Public Event OnJoin(sender As Object, e As EventArgs) Implements IConnection.OnJoin
-
     Public Event OnJoinError(sender As Object, e As EventArgs) Implements IConnection.OnJoinError
-
     Public Event OnMessage(sender As Object, e As OnMessageEventArgs) Implements IConnection.OnMessage
+#End Region
 
 #Region "Properties"
     Private m_Connection As PlayerIOClient.Connection
@@ -25,11 +24,25 @@ Public Class CloudConnection
         End Get
     End Property
 
-    <Import()>
-    Friend m_IBlockManager As IBlockManager
-    Public ReadOnly Property IBlockManager As IBlockManager Implements IConnection.BlockManager
+    <Import(AllowDefault:=True)>
+    Private m_BlockManager As IBlockManager
+    Public ReadOnly Property BlockManager As IBlockManager Implements IConnection.BlockManager
         Get
-            Return m_IBlockManager
+            Return m_BlockManager
+        End Get
+    End Property
+
+    Private m_ConnectionManager As IConnectionManager 'Global Component
+    Public ReadOnly Property ConnectionManager As IConnectionManager Implements IConnection.ConnectionManager
+        Get
+            Return m_ConnectionManager
+        End Get
+    End Property
+
+    Private m_SettingManager As ISettingManager 'Global Component
+    Public ReadOnly Property SettingManager As ISettingManager Implements IConnection.SettingManager
+        Get
+            Return m_SettingManager
         End Get
     End Property
 #End Region
@@ -88,6 +101,11 @@ Public Class CloudConnection
         m_Connection.AddOnMessage(AddressOf MessageReciver)
         RaiseEvent OnJoin(Me, New EventArgs)
         m_Connection.Send("init")
+    End Sub
+
+    Friend Sub AttemptSetup(PConnectionManager As IConnectionManager, PSettingManager As ISettingManager)
+        m_ConnectionManager = PConnectionManager
+        m_SettingManager = PSettingManager
     End Sub
 #End Region
 

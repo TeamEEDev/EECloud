@@ -1,8 +1,12 @@
 ﻿<Export(GetType(PluginAPI.IConnectionManager))>
 Public Class CloudConnectionManager
     Implements IConnectionManager
+
+    <Import(AllowDefault:=True)>
+    Private m_SettingManager As ISettingManager
+
     Private m_CompositionContainer As CompositionContainer
-    Public Sub AttmeptSetup(PContainer As Hosting.CompositionContainer) Implements IConnectionManager.AttmeptSetup
+    Public Sub AttemptSetup(PContainer As Hosting.CompositionContainer) Implements IConnectionManager.AttemptSetup
         m_CompositionContainer = PContainer
     End Sub
 
@@ -46,6 +50,7 @@ Public Class CloudConnectionManager
     End Sub
 
     Private Sub InitConnection(PCloudConnection As CloudConnection)
+        PCloudConnection.AttemptSetup(Me, m_SettingManager)
         m_CompositionContainer.ComposeParts(PCloudConnection)
     End Sub
 
