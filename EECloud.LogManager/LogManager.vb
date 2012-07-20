@@ -39,12 +39,14 @@ Public Class LogManager
                         Input = String.Empty
                     ElseIf Not InputKey.KeyChar = Nothing Then
                         If Input.Length <= 76 Then
-                            Input += InputKey.KeyChar
+                            Input &= InputKey.KeyChar
                         Else 'It gets buggy if it uses more than one line for input
                             Console.CursorLeft -= 1
                             Console.Write(" "c)
                             Console.CursorLeft -= 1
                         End If
+                    Else
+                        Console.CursorLeft -= 1
                     End If
                 Loop
             End Sub)
