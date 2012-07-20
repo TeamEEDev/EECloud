@@ -37,7 +37,7 @@ Public Class LogManager
                             RaiseEvent OnInput(Me, New EventArgs)
                         End If
                         Input = String.Empty
-                    Else
+                    ElseIf Not InputKey.KeyChar = Nothing Then
                         If Input.Length <= 76 Then
                             Input += InputKey.KeyChar
                         Else 'It gets buggy if it uses more than one line for input
