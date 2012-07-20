@@ -18,6 +18,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud.ConnectionManager",
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud.BlockManager", "EECloud.BlockManager\EECloud.BlockManager.vbproj", "{607E8B82-01F1-45D8-B1DA-A896F09A9DF1}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud.LogManager", "EECloud.LogManager\EECloud.LogManager.vbproj", "{EB89615D-7D61-40B0-98BE-A775113BC876}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{CDA1FC07-887C-4FB2-8593-9C66D318854E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDA1FC07-887C-4FB2-8593-9C66D318854E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDA1FC07-887C-4FB2-8593-9C66D318854E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB89615D-7D61-40B0-98BE-A775113BC876}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB89615D-7D61-40B0-98BE-A775113BC876}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB89615D-7D61-40B0-98BE-A775113BC876}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB89615D-7D61-40B0-98BE-A775113BC876}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
