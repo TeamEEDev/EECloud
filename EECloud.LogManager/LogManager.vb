@@ -1,8 +1,11 @@
 ﻿Imports System.Threading
 
+<Export(GetType(ILogManager))>
 Public Class LogManager
+    Implements ILogManager
+
     Private m_Input As String = String.Empty
-    Public Property Input As String
+    Public Property Input As String Implements ILogManager.Input
         Get
             Return m_Input
         End Get
@@ -13,7 +16,7 @@ Public Class LogManager
         End Set
     End Property
 
-    Public Event OnInput As EventHandler
+    Public Event OnInput As EventHandler Implements ILogManager.OnInput
 
     Sub New()
         Log("") 'Init
@@ -44,7 +47,7 @@ Public Class LogManager
         Worker.Start()
     End Sub
 
-    Public Sub Log(str As String)
+    Public Sub Log(str As String) Implements ILogManager.Log
         Overwrite(Input.Length + 1, str)
         Console.WriteLine()
         Console.Write(">" & Input)

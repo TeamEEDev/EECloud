@@ -10,4 +10,5 @@
     ReadOnly Property BlockManager As IBlockManager
     ReadOnly Property ConnectionManager As IConnectionManager
     ReadOnly Property SettingManager As ISettingManager
+    ReadOnly Property LogManager As ILogManager
 End Interface
