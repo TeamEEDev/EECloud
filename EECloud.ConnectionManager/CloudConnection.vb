@@ -84,9 +84,9 @@ Public Class CloudConnection
             If ex.ErrorCode = PlayerIOClient.ErrorCode.UnknownRoomType Then
                 Dim ErrorMessage() As String = ex.Message.Substring(102 + m_GameVersionSetting, ex.Message.Length - 103).Split(CChar(" "))
                 For N = 0 To ErrorMessage.Length - 1
-                    Dim RoomID As String = ErrorMessage(N)
+                    Dim RoomID As String = ErrorMessage(N).Substring(0, ErrorMessage(N).Length - 1)
                     If RoomID.StartsWith(Config.NormalRoom) Then
-                        Dim Version As Integer = CInt(RoomID.Substring(Config.NormalRoom.Length, RoomID.Length - Config.NormalRoom.Length - 1))
+                        Dim Version As Integer = CInt(RoomID.Substring(Config.NormalRoom.Length))
                         SettingManager.SetSetting("GameVersion", Version)
                         JoinWorld(PClient, WorldID)
                     Else
