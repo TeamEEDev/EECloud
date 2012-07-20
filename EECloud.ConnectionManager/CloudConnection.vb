@@ -48,7 +48,7 @@ Public Class CloudConnection
 
     Sub New(PClient As PlayerIOClient.Client, PWorldID As String)
         If PClient IsNot Nothing Then
-            m_Connection = PClient.Multiplayer.JoinRoom(PWorldID, Nothing)
+            m_Connection = JoinWorld(PClient, PWorldID)
             m_WorldID = PWorldID
             Init()
         Else
@@ -58,10 +58,29 @@ Public Class CloudConnection
 
     Sub New(PUsername As String, PPassword As String, PWorldID As String)
         Dim myClient As PlayerIOClient.Client = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.GameID, PUsername, PPassword)
-        m_Connection = myClient.Multiplayer.JoinRoom(PWorldID, Nothing)
+        m_Connection = JoinWorld(myClient, PWorldID)
         m_WorldID = PWorldID
         Init()
     End Sub
+
+    Private Function JoinWorld(PClient As PlayerIOClient.Client, PWorldID As String) As PlayerIOClient.Connection
+        Try
+            Return PClient.Multiplayer.JoinRoom(PWorldID, Nothing)
+        Catch ex As PlayerIOClient.PlayerIOError
+            Try
+                PClient.Multiplayer.CreateJoinRoom("", Config.ServerType_Normal, False, Nothing, Nothing)
+                Throw New Exception("Couldn't get the current EE version.")
+            Catch Err As PlayerIOClient.PlayerIOError
+                Dim ErrorMessage() As String = Err.Message.Split(CChar(" "))
+                For N = ErrorMessage.Length - 1 To 0 Step -1
+                    If ErrorMessage(N).StartsWith(Config.ServerType_Normal) Then
+                        Return PClient.Multiplayer.CreateJoinRoom(PWorldID, Replace(ErrorMessage(N), ",", ""), True, Nothing, Nothing)
+                    End If
+                Next
+                Throw New Exception("Couldn't get the current EE version.")
+            End Try
+        End Try
+    End Function
 
     Private Sub Init()
         RegisterMessages()
