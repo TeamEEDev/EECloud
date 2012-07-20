@@ -22,7 +22,7 @@
     Overloads Sub SetSetting(SetttingName As String, Value As ULong)
 
     Overloads Sub SetSetting(SetttingName As String, Value As String)
-    Overloads Sub SetSetting(SetttingName As String, Value As Object)
+    Overloads Sub SetSetting(SetttingName As String, Value As PlayerIOClient.DatabaseObject)
 
 
 
@@ -49,5 +49,5 @@
     Function GetULong(SetttingName As String) As ULong
 
     Function GetString(SetttingName As String) As String
-    Function GetObject(SetttingName As String) As Object
+    Function GetObject(SetttingName As String) As PlayerIOClient.DatabaseObject
 End Interface
