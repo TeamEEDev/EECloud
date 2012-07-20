@@ -19,7 +19,7 @@ Public Class LogManager
     Public Event OnInput As EventHandler Implements ILogManager.OnInput
 
     Sub New()
-        Log("EECloud version: " & My.Application.Info.Version.ToString) 'Init
+        Console.Write(">" & Input)
         Dim Worker As New Thread(
             Sub()
                 Do
@@ -32,9 +32,11 @@ Public Class LogManager
                             Console.CursorLeft = 1
                         End If
                     ElseIf InputKey.Key = ConsoleKey.Enter Then
-                        Log(">" & Input)
-                        RaiseEvent OnInput(Me, New EventArgs)
-                        Input = String.Empty
+                        If Input IsNot String.Empty Then
+                            Log(">" & Input)
+                            RaiseEvent OnInput(Me, New EventArgs)
+                            Input = String.Empty
+                        End If
                     Else
                         If Input.Length <= 76 Then
                             Input += InputKey.KeyChar
