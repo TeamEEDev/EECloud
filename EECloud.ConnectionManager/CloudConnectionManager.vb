@@ -51,7 +51,7 @@ Public Class CloudConnectionManager
     Public Sub AttemptSetup(PContainer As Hosting.CompositionContainer) Implements IConnectionManager.AttemptSetup
         m_CompositionContainer = PContainer
 
-        m_GameVersionSetting = m_SettingManager.GetInteger("GameVersion")
+        m_GameVersionSetting = 119 'm_SettingManager.GetInteger("GameVersion")
     End Sub
 
 #Region "Add"
@@ -85,12 +85,17 @@ Public Class CloudConnectionManager
     End Sub
 
     Private Function LogIn(PUsername As String, PPassword As String) As PlayerIOClient.Client
-        Return PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.GameID, PUsername, PPassword)
+        m_LogManager.Log("Logging in...")
+        Dim Client As PlayerIOClient.Client = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.GameID, PUsername, PPassword)
+        m_LogManager.Log("Logged in.")
+        Return Client
     End Function
 
     Private Function JoinWorld(PClient As PlayerIOClient.Client, PWorldID As String) As PlayerIOClient.Connection
+        m_LogManager.Log("Joining world """ & PWorldID & """...")
         Try
-            Return PClient.Multiplayer.CreateJoinRoom(PWorldID, Config.NormalRoom & m_GameVersionSetting, True, Nothing, Nothing)
+            Dim Connection As PlayerIOClient.Connection = PClient.Multiplayer.CreateJoinRoom(PWorldID, Config.NormalRoom & m_GameVersionSetting, True, Nothing, Nothing)
+            m_LogManager.Log("Joined world """ & PWorldID & """.")
         Catch ex As PlayerIOClient.PlayerIOError
             If ex.ErrorCode = PlayerIOClient.ErrorCode.UnknownRoomType Then
                 Dim ErrorMessage() As String = ex.Message.Split(CChar(" "))
