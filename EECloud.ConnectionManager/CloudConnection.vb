@@ -91,9 +91,9 @@ Public Class CloudConnection
                         Return JoinWorld(PClient, WorldID)
                     End If
                 Next
-                Throw New ApplicationException("Couldn't get RoomVersion: Room with type starting with """ & Config.NormalRoom & """ isn't on the list of available RoomTypes.")
+                Throw New ApplicationException("Room type not available: """ & Config.NormalRoom & """")
             Else
-                Throw New ApplicationException("Couldn't join world (unknown reason): " & ex.Message)
+                Throw
             End If
         End Try
     End Function
