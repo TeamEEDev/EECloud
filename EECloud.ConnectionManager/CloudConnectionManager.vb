@@ -96,6 +96,7 @@ Public Class CloudConnectionManager
         Try
             Dim Connection As PlayerIOClient.Connection = PClient.Multiplayer.CreateJoinRoom(PWorldID, Config.NormalRoom & m_GameVersionSetting, True, Nothing, Nothing)
             m_LogManager.Log("Joined world """ & PWorldID & """.")
+            Return Connection
         Catch ex As PlayerIOClient.PlayerIOError
             If ex.ErrorCode = PlayerIOClient.ErrorCode.UnknownRoomType Then
                 Dim ErrorMessage() As String = ex.Message.Split(CChar(" "))
