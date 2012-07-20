@@ -11,11 +11,6 @@
         'If Not System.IO.Directory.Exists(ComponentsPath) Then
         '    System.IO.Directory.CreateDirectory(ComponentsPath)
         'End If
-        Console.Write("                                    EECloud")
-        Console.WriteLine()
-        Console.Write("                        Made by Processor and Jojatekok")
-        Console.WriteLine()
-
         Dim myHost = New EECloud.HostAPI.CloudHost(My.Application.Info.DirectoryPath)
     End Sub
 End Class
