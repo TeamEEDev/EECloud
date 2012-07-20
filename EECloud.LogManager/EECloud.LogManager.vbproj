@@ -20,7 +20,7 @@
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\EECloud\bin\Debug\</OutputPath>
     <DocumentationFile>
     </DocumentationFile>
     <NoWarn>
@@ -33,7 +33,7 @@
     <DefineDebug>false</DefineDebug>
     <DefineTrace>false</DefineTrace>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\EECloud\bin\Release\</OutputPath>
     <DocumentationFile>
     </DocumentationFile>
     <NoWarn>
