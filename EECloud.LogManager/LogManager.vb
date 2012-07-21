@@ -4,8 +4,6 @@
 Public Class LogManager
     Implements ILogManager
 
-    Private AcceptedCharacters() As Char = "abcdefghijklmnopqrstuvwxyz/ ".ToCharArray
-
     Private m_Input As String = String.Empty
     Public Property Input As String Implements ILogManager.Input
         Get
@@ -39,34 +37,14 @@ Public Class LogManager
                             RaiseEvent OnInput(Me, New EventArgs)
                         End If
                         Input = String.Empty
-                    ElseIf AcceptedCharacters.Contains(LCase(InputKey.KeyChar)) Then
-                        If Input.Length <= 76 Then
-                            Input &= InputKey.KeyChar
-                        Else 'It gets buggy if it uses more than one line for input
-                            Console.CursorLeft -= 1
-                            Console.Write(" "c)
-                            Console.CursorLeft -= 1
-                        End If
+                    ElseIf InputKey.Key = ConsoleKey.Tab Then
+                        Console.CursorLeft = Input.Length + 1
+                    ElseIf Input.Length <= 76 Then
+                        m_Input &= InputKey.KeyChar
                     Else
-                        If InputKey.Key = ConsoleKey.Tab Then
-                            Dim TabLength As Integer
-                            If Input.Length <= 6 Then
-                                TabLength = 7 - Input.Length
-                            Else
-                                TabLength = 9 - (Input.Length - 6) Mod 8
-                                If TabLength = 9 Then TabLength = 1
-                            End If
-
-                            Console.CursorLeft -= TabLength
-                            For N = 1 To TabLength
-                                Console.Write(" "c)
-                            Next
-                            Console.CursorLeft -= TabLength
-                        Else
-                            Console.CursorLeft -= 1
-                            Console.Write(" "c)
-                            Console.CursorLeft -= 1
-                        End If
+                        Console.CursorLeft -= 1
+                        Console.Write(" "c)
+                        Console.CursorLeft -= 1
                     End If
                 Loop
             End Sub)
