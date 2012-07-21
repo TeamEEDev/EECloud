@@ -2,6 +2,7 @@
 Public Class BlockManager
     Implements IBlockManager
 
+
     Public ReadOnly Property CorrectLayer(PID As Integer, PLayer As Layer) As Layer Implements IBlockManager.CorrectLayer
         Get
             If (PID > 0 And PID < 500) Or PID = 1000 Then
@@ -41,4 +42,11 @@ Public Class BlockManager
     Public Sub AttemptSetup(Connection As IConnection) Implements IBlockManager.AttemptSetup
 
     End Sub
+
+    Private m_Encryption As String
+    Public ReadOnly Property Encryption As String Implements IBlockManager.Encryption
+        Get
+            Return m_Encryption
+        End Get
+    End Property
 End Class
