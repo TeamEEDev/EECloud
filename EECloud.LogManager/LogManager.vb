@@ -62,15 +62,16 @@ Public Class LogManager
                             Console.CursorLeft = OldLeft
                         End If
                     Catch ex As Exception
-                        Log("Log Manager has crashed! Console is disabled.")
+                        Log(LogPriority.Serve, "Log Manager has crashed! Console is disabled.")
                     End Try
                 Loop
             End Sub)
         Worker.Start()
     End Sub
 
-    Public Sub Log(str As String) Implements ILogManager.Log
-        Overwrite(Input.Length + 1, str)
+    Public Sub Log(priority As LogPriority, str As String) Implements ILogManager.Log
+        Dim Output As String = String.Format("{0} [{1}] {2}", Now.ToLongTimeString, priority.ToString.ToUpper, str)
+        Overwrite(Input.Length + 1, Output)
         Console.WriteLine()
         Console.Write(">" & Input)
     End Sub
