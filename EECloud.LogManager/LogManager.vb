@@ -22,8 +22,8 @@ Public Class LogManager
         Console.Write(">") 'Init
         Dim Worker As New Thread(
             Sub()
-                Do
-                    Try
+                Try
+                    Do
                         Dim OldTop As Integer = Console.CursorTop
                         Dim OldLeft As Integer = Console.CursorLeft
                         Dim InputKey As System.ConsoleKeyInfo = Console.ReadKey
@@ -61,10 +61,10 @@ Public Class LogManager
                             Console.CursorTop = OldTop
                             Console.CursorLeft = OldLeft
                         End If
-                    Catch ex As Exception
-                        Log(LogPriority.Serve, "Log Manager has crashed! Console is disabled.")
-                    End Try
-                Loop
+                    Loop
+                Catch ex As Exception
+                    Log(LogPriority.Serve, "Log Manager has crashed! Console is disabled.")
+                End Try
             End Sub)
         Worker.Start()
     End Sub
