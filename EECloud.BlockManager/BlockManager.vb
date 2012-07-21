@@ -37,4 +37,8 @@ Public Class BlockManager
             Return PID = 1000
         End Get
     End Property
+
+    Public Sub AttemptSetup(Connection As IConnection) Implements IBlockManager.AttemptSetup
+
+    End Sub
 End Class

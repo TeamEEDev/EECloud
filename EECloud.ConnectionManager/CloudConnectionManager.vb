@@ -6,12 +6,12 @@ Public Class CloudConnectionManager
     Private m_GameVersionSetting As Integer = 0
 
     <Import(AllowDefault:=True)>
-    Private m_SettingManager As ISettingManager
+    Friend m_SettingManager As ISettingManager
 
     <Import(AllowDefault:=True)>
-    Private m_LogManager As ILogManager
+    Friend m_LogManager As ILogManager
 
-    Private m_CompositionContainer As CompositionContainer
+    Friend m_CompositionContainer As CompositionContainer
 #End Region
 
 #Region "Properties"
@@ -113,7 +113,7 @@ Public Class CloudConnectionManager
     End Function
 
     Private Sub InitConnection(PCloudConnection As CloudConnection)
-        PCloudConnection.AttemptSetup(Me, m_SettingManager, m_LogManager)
+        PCloudConnection.AttemptSetup(Me)
         m_CompositionContainer.ComposeParts(PCloudConnection)
     End Sub
 #End Region
