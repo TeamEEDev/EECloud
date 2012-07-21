@@ -4,6 +4,8 @@
 Public Class LogManager
     Implements ILogManager
 
+    Private AcceptedCharacters() As Char = "abcdefghijklmnopqrstuvwxyz/ ".ToCharArray
+
     Private m_Input As String = String.Empty
     Public Property Input As String Implements ILogManager.Input
         Get
@@ -37,7 +39,7 @@ Public Class LogManager
                             RaiseEvent OnInput(Me, New EventArgs)
                         End If
                         Input = String.Empty
-                    ElseIf Not InputKey.KeyChar = Nothing Then
+                    ElseIf AcceptedCharacters.Contains(LCase(InputKey.KeyChar)) Then
                         If Input.Length <= 76 Then
                             Input &= InputKey.KeyChar
                         Else 'It gets buggy if it uses more than one line for input
@@ -46,7 +48,19 @@ Public Class LogManager
                             Console.CursorLeft -= 1
                         End If
                     Else
-                        Console.CursorLeft -= 1
+                        If InputKey.Key = ConsoleKey.Tab Then
+                            Dim TabLength As Integer = 7 - Input.Length Mod 6
+                            If TabLength = 7 And Input.Length > 0 Then TabLength = 1
+                            Console.CursorLeft -= TabLength
+                            For N = 1 To TabLength
+                                Console.Write(" "c)
+                            Next
+                            Console.CursorLeft -= TabLength
+                        Else
+                            Console.CursorLeft -= 1
+                            Console.Write(" "c)
+                            Console.CursorLeft -= 1
+                        End If
                     End If
                 Loop
             End Sub)
