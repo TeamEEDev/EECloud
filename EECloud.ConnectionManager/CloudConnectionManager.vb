@@ -45,11 +45,23 @@ Public Class CloudConnectionManager
             End If
         End Set
     End Property
+
+    Private m_OnAppHarbor As Boolean
+    Public ReadOnly Property OnAppHarbor As Boolean Implements IConnectionManager.OnAppHarbor
+        Get
+            Return m_OnAppHarbor
+        End Get
+    End Property
 #End Region
 
 #Region "Methods"
-    Public Sub AttemptSetup(PContainer As Hosting.CompositionContainer) Implements IConnectionManager.AttemptSetup
+    Public Sub AttemptSetup(POnAppharbor As Boolean, PContainer As Hosting.CompositionContainer) Implements IConnectionManager.AttemptSetup
+        m_OnAppHarbor = POnAppharbor
         m_CompositionContainer = PContainer
+
+        If Not POnAppharbor Then
+            m_LogManager.AttemptSetup()
+        End If
 
         m_GameVersionSetting = 119 'm_SettingManager.GetInteger("GameVersion")
     End Sub
