@@ -100,7 +100,8 @@ Public Class CloudConnectionManager
                 For N = ErrorMessage.Length - 1 To 0 Step -1
                     CurrentRoomType = ErrorMessage(N)
                     If CurrentRoomType.StartsWith(Config.NormalRoom) Then
-                        m_SettingManager.SetSetting("GameVersion", CInt(CurrentRoomType.Substring(Config.NormalRoom.Length, CurrentRoomType.Length - Config.NormalRoom.Length - 1)))
+                        m_GameVersionSetting = CInt(CurrentRoomType.Substring(Config.NormalRoom.Length, CurrentRoomType.Length - Config.NormalRoom.Length - 1))
+                        'm_SettingManager.SetSetting("GameVersion", CInt(CurrentRoomType.Substring(Config.NormalRoom.Length, CurrentRoomType.Length - Config.NormalRoom.Length - 1)))
                         Return JoinWorld(PClient, PWorldID)
                     End If
                 Next
