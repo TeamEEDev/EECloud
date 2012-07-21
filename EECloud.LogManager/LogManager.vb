@@ -49,8 +49,14 @@ Public Class LogManager
                         End If
                     Else
                         If InputKey.Key = ConsoleKey.Tab Then
-                            Dim TabLength As Integer = 7 - Input.Length Mod 6
-                            If TabLength = 7 And Input.Length > 0 Then TabLength = 1
+                            Dim TabLength As Integer
+                            If Input.Length <= 6 Then
+                                TabLength = 7 - Input.Length
+                            Else
+                                TabLength = 9 - (Input.Length - 6) Mod 8
+                                If TabLength = 9 Then TabLength = 1
+                            End If
+
                             Console.CursorLeft -= TabLength
                             For N = 1 To TabLength
                                 Console.Write(" "c)
