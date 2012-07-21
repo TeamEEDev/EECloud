@@ -3,22 +3,17 @@ Public Class CloudConnection
     Implements IConnection
 
 #Region "Events"
-    Public Event OnLogin(sender As Object, e As EventArgs) Implements IConnection.OnJoin
+    Public Event OnLogin(sender As Object, e As EventArgs) Implements IConnection.OnLogin
     Public Event OnJoin(sender As Object, e As EventArgs) Implements IConnection.OnJoin
-    Public Event OnError(sender As Object, e As EventArgs) Implements IConnection.OnJoinError
+    Public Event OnError(sender As Object, e As EventArgs) Implements IConnection.OnError
     Public Event OnMessage(sender As Object, e As OnMessageEventArgs) Implements IConnection.OnMessage
     Public Event OnDisconnect(sender As Object, e As EventArgs) Implements IConnection.OnDisconnect
 #End Region
 
 #Region "Properties"
     Private m_Connection As PlayerIOClient.Connection
-    Public ReadOnly Property Connection As PlayerIOClient.Connection Implements IConnection.Connection
-        Get
-            Return m_Connection
-        End Get
-    End Property
 
-    Private ReadOnly m_WorldID As String
+    Private m_WorldID As String
     Public ReadOnly Property WorldID As String Implements IConnection.WorldID
         Get
             Return m_WorldID
@@ -57,28 +52,28 @@ Public Class CloudConnection
 
 #Region "Methods"
 #Region "Instance Creation"
-    Sub New(PConnection As PlayerIOClient.Connection, PWorldID As String)
+    Friend Sub AttemptSetup(PConnectionManager As CloudConnectionManager, PConnection As PlayerIOClient.Connection, PWorldID As String)
         If PConnection IsNot Nothing Then
             m_Connection = PConnection
             m_WorldID = PWorldID
-            Init()
+            Init(PConnectionManager)
         Else
             Throw New ArgumentException("PConnection cannot be null.")
         End If
     End Sub
 
-    Private Sub Init()
-        RegisterMessages()
+    Private Sub Init(PConnectionManager As CloudConnectionManager)
+
         m_Connection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
         m_Connection.AddOnMessage(AddressOf MessageReciver)
         RaiseEvent OnJoin(Me, New EventArgs)
-        m_Connection.Send("init")
-    End Sub
 
-    Friend Sub AttemptSetup(PConnectionManager As CloudConnectionManager)
         m_ConnectionManager = PConnectionManager
         m_SettingManager = PConnectionManager.m_SettingManager
         m_LogManager = PConnectionManager.m_LogManager
+
+        RegisterMessage("init", ReciveType.Init, GetType(Recive.Init_ReciveMessage))
+        Send(New Send.Init_SendMessage)
     End Sub
 #End Region
 
@@ -86,7 +81,8 @@ Public Class CloudConnection
     Private Sub MessageHandler(sender As Object, e As OnMessageEventArgs) Handles Me.OnMessage
         If e.Type = ReciveType.Init Then
             Dim m As Recive.Init_ReciveMessage = CType(e.Message, Recive.Init_ReciveMessage)
-            Connection.Send("init2")
+            RegisterMessages()
+            Send(New Send.Init2_SendMessage)
         End If
     End Sub
 
@@ -100,6 +96,10 @@ Public Class CloudConnection
             Throw New KeyNotFoundException(String.Format("Message is not registered: {0}", e.Type))
         End Try
     End Sub
+
+    Public Sub Send(PMessage As Send.SendMessage) Implements IConnection.Send
+        m_Connection.Send(PMessage.GetMessage(New SendMessageMeta("", BlockManager)))
+    End Sub
 #End Region
 
 #Region "Message Register"
@@ -110,7 +110,7 @@ Public Class CloudConnection
             RegisterMessage("groupdisallowedjoin", ReciveType.GroupDisallowedJoin, GetType(Recive.GroupDisallowedJoin_ReciveMessage))
             RegisterMessage("upgrade", ReciveType.Upgrade, GetType(Recive.Upgrade_ReciveMessage))
             RegisterMessage("info", ReciveType.Info, GetType(Recive.Info_ReciveMessage))
-            RegisterMessage("init", ReciveType.Init, GetType(Recive.Init_ReciveMessage))
+            'RegisterMessage("init", ReciveType.Init, GetType(Recive.Init_ReciveMessage)) 'Already registered at Init()
             RegisterMessage("updatemeta", ReciveType.UpdateMeta, GetType(Recive.UpdateMeta_ReciveMessage))
             RegisterMessage("add", ReciveType.Add, GetType(Recive.Add_ReciveMessage))
             RegisterMessage("left", ReciveType.Left, GetType(Recive.Left_ReciveMessage))
