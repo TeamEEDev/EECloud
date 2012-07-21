@@ -1,7 +1,8 @@
 ﻿Public Interface IConnection
     Event OnMessage As EventHandler(Of OnMessageEventArgs)
+    Event OnLogin As EventHandler
     Event OnJoin As EventHandler
-    Event OnJoinError As EventHandler
+    Event OnError As EventHandler
     Event OnDisconnect As EventHandler
 
     ReadOnly Property Connection As PlayerIOClient.Connection

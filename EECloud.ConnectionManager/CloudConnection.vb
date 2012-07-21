@@ -3,10 +3,11 @@ Public Class CloudConnection
     Implements IConnection
 
 #Region "Events"
-    Public Event OnDisconnect(sender As Object, e As EventArgs) Implements IConnection.OnDisconnect
+    Public Event OnLogin(sender As Object, e As EventArgs) Implements IConnection.OnJoin
     Public Event OnJoin(sender As Object, e As EventArgs) Implements IConnection.OnJoin
-    Public Event OnJoinError(sender As Object, e As EventArgs) Implements IConnection.OnJoinError
+    Public Event OnError(sender As Object, e As EventArgs) Implements IConnection.OnJoinError
     Public Event OnMessage(sender As Object, e As OnMessageEventArgs) Implements IConnection.OnMessage
+    Public Event OnDisconnect(sender As Object, e As EventArgs) Implements IConnection.OnDisconnect
 #End Region
 
 #Region "Properties"
