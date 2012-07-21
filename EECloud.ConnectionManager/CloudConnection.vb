@@ -74,10 +74,10 @@ Public Class CloudConnection
         m_Connection.Send("init")
     End Sub
 
-    Friend Sub AttemptSetup(PConnectionManager As IConnectionManager, PSettingManager As ISettingManager, PLogManager As ILogManager)
+    Friend Sub AttemptSetup(PConnectionManager As CloudConnectionManager)
         m_ConnectionManager = PConnectionManager
-        m_SettingManager = PSettingManager
-        m_LogManager = PLogManager
+        m_SettingManager = PConnectionManager.m_SettingManager
+        m_LogManager = PConnectionManager.m_LogManager
     End Sub
 #End Region
 
