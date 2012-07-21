@@ -93,7 +93,6 @@
     <Compile Include="Interfaces\IPlugin.vb" />
     <Compile Include="Enums\Block.vb" />
     <Compile Include="Enums\Layer.vb" />
-    <Compile Include="Classes\SendMessageMeta.vb" />
     <Compile Include="Namespaces\Send.vb" />
     <Compile Include="Namespaces\Recive.vb" />
     <Compile Include="Enums\ReciveType.vb" />
