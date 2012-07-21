@@ -76,23 +76,23 @@ Public Class CloudConnectionManager
     End Sub
 
     Public Overloads Sub Add(PConnection As PlayerIOClient.Connection, PWorldID As String) Implements IConnectionManager.Add
-        Dim myConnection As New CloudConnection(PConnection, PWorldID)
-        InitConnection(myConnection)
+        Dim myConnection As New CloudConnection()
+        InitConnection(myConnection, PConnection, PWorldID)
         CloudConnectionsList.Add(myConnection)
     End Sub
 
     Public Overloads Sub Add(PClient As PlayerIOClient.Client, PWorldID As String) Implements IConnectionManager.Add
         Dim myIOConnection = JoinWorld(PClient, PWorldID)
-        Dim myConnection As New CloudConnection(myIOConnection, PWorldID)
-        InitConnection(myConnection)
+        Dim myConnection As New CloudConnection()
+        InitConnection(myConnection, myIOConnection, PWorldID)
         CloudConnectionsList.Add(myConnection)
     End Sub
 
     Public Overloads Sub Add(PUsername As String, PPassword As String, PWorldID As String) Implements IConnectionManager.Add
         Dim myClient As PlayerIOClient.Client = LogIn(PUsername, PPassword)
         Dim myIOConnection = JoinWorld(myClient, PWorldID)
-        Dim myConnection As New CloudConnection(myIOConnection, PWorldID)
-        InitConnection(myConnection)
+        Dim myConnection As New CloudConnection()
+        InitConnection(myConnection, myIOConnection, PWorldID)
         CloudConnectionsList.Add(myConnection)
     End Sub
 
@@ -124,8 +124,8 @@ Public Class CloudConnectionManager
         End Try
     End Function
 
-    Private Sub InitConnection(PCloudConnection As CloudConnection)
-        PCloudConnection.AttemptSetup(Me)
+    Private Sub InitConnection(PCloudConnection As CloudConnection, PConnection As PlayerIOClient.Connection, PWorldID As String)
+        PCloudConnection.AttemptSetup(Me, PConnection, PWorldID)
         m_CompositionContainer.ComposeParts(PCloudConnection)
     End Sub
 #End Region

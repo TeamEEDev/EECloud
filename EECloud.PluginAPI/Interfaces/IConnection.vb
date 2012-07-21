@@ -5,11 +5,12 @@
     Event OnError As EventHandler
     Event OnDisconnect As EventHandler
 
-    ReadOnly Property Connection As PlayerIOClient.Connection
     ReadOnly Property WorldID As String
 
     ReadOnly Property BlockManager As IBlockManager
     ReadOnly Property ConnectionManager As IConnectionManager
     ReadOnly Property SettingManager As ISettingManager
     ReadOnly Property LogManager As ILogManager
+
+    Sub Send(PMessage As Send.SendMessage)
 End Interface
