@@ -98,7 +98,7 @@ Public Class CloudConnection
     End Sub
 
     Public Sub Send(PMessage As Send.SendMessage) Implements IConnection.Send
-        m_Connection.Send(PMessage.GetMessage(New SendMessageMeta("", BlockManager)))
+        m_Connection.Send(PMessage.GetMessage(Me))
     End Sub
 #End Region
 

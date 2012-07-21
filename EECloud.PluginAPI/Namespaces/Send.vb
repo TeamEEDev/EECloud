@@ -1,13 +1,13 @@
 ﻿Namespace Send
     Public MustInherit Class SendMessage
-        Public MustOverride Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+        Public MustOverride Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
     End Class
 
     Public Class Init_SendMessage
         Inherits SendMessage
         'No arguments
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
             Return PlayerIOClient.Message.Create("init")
         End Function
     End Class
@@ -16,7 +16,7 @@
         Inherits SendMessage
         'No arguments
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
             Return PlayerIOClient.Message.Create("init2")
         End Function
     End Class
@@ -34,8 +34,8 @@
             ID = PBlock
         End Sub
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
-            Return PlayerIOClient.Message.Create(Meta.Encryption, Meta.BlockManager.CorrectLayer(ID, Layer), X, Y, ID)
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
+            Return PlayerIOClient.Message.Create(Connection.Encryption, Connection.BlockManager.CorrectLayer(ID, Layer), X, Y, ID)
         End Function
     End Class
 
@@ -47,13 +47,13 @@
             CoinsToCollect = PCoinsToCollect
         End Sub
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
-            If Meta.BlockManager.IsCoinDoor(ID) Then
-                Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Meta)
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
+            If Connection.BlockManager.IsCoinDoor(ID) Then
+                Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Connection)
                 myMessage.Add(CoinsToCollect)
                 Return myMessage
             Else
-                Return MyBase.GetMessage(Meta)
+                Return MyBase.GetMessage(Connection)
             End If
         End Function
     End Class
@@ -66,13 +66,13 @@
             SoundID = PSoundID
         End Sub
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
-            If Meta.BlockManager.IsSound(ID) Then
-                Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Meta)
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
+            If Connection.BlockManager.IsSound(ID) Then
+                Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Connection)
                 myMessage.Add(SoundID)
                 Return myMessage
             Else
-                Return MyBase.GetMessage(Meta)
+                Return MyBase.GetMessage(Connection)
             End If
         End Function
     End Class
@@ -89,15 +89,15 @@
             PortalRotation = PPortalRotation
         End Sub
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
-            If Meta.BlockManager.IsPortal(ID) Then
-                Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Meta)
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
+            If Connection.BlockManager.IsPortal(ID) Then
+                Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Connection)
                 myMessage.Add(PortalRotation)
                 myMessage.Add(PortalID)
                 myMessage.Add(PortalTarget)
                 Return myMessage
             Else
-                Return MyBase.GetMessage(Meta)
+                Return MyBase.GetMessage(Connection)
             End If
         End Function
     End Class
@@ -110,13 +110,13 @@
             Text = PText
         End Sub
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
-            If Meta.BlockManager.IsLabel(ID) Then
-                Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Meta)
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
+            If Connection.BlockManager.IsLabel(ID) Then
+                Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Connection)
                 myMessage.Add(Text)
                 Return myMessage
             Else
-                Return MyBase.GetMessage(Meta)
+                Return MyBase.GetMessage(Connection)
             End If
         End Function
     End Class
@@ -128,7 +128,7 @@
             Coins = PCoins
         End Sub
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
             Return PlayerIOClient.Message.Create("c", Coins)
         End Function
     End Class
@@ -137,8 +137,8 @@
         Inherits SendMessage
         'No arguments
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
-            Return PlayerIOClient.Message.Create(Meta.Encryption & "r")
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
+            Return PlayerIOClient.Message.Create(Connection.Encryption & "r")
         End Function
     End Class
 
@@ -146,8 +146,8 @@
         Inherits SendMessage
         'No arguments
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
-            Return PlayerIOClient.Message.Create(Meta.Encryption & "g")
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
+            Return PlayerIOClient.Message.Create(Connection.Encryption & "g")
         End Function
     End Class
 
@@ -155,8 +155,8 @@
         Inherits SendMessage
         'No arguments
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
-            Return PlayerIOClient.Message.Create(Meta.Encryption & "b")
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
+            Return PlayerIOClient.Message.Create(Connection.Encryption & "b")
         End Function
     End Class
 
@@ -164,8 +164,8 @@
         Inherits SendMessage
         'No arguments
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
-            Return PlayerIOClient.Message.Create(Meta.Encryption & "k")
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
+            Return PlayerIOClient.Message.Create(Connection.Encryption & "k")
         End Function
     End Class
 
@@ -178,7 +178,7 @@
             Y = PY
         End Sub
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
             Return PlayerIOClient.Message.Create("diamondtouch", X, Y)
         End Function
     End Class
@@ -187,7 +187,7 @@
         Inherits SendMessage
         'No arguments
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
             Return PlayerIOClient.Message.Create("levelcomplete")
         End Function
     End Class
@@ -199,7 +199,7 @@
             GodModeEnabled = PGodModeEnabled
         End Sub
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
             Return PlayerIOClient.Message.Create("god", GodModeEnabled)
         End Function
     End Class
@@ -208,7 +208,7 @@
         Inherits SendMessage
         'No arguments
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
             Return PlayerIOClient.Message.Create("mod")
         End Function
     End Class
@@ -234,7 +234,7 @@
             Vertical = PVertical
         End Sub
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
             Return PlayerIOClient.Message.Create("m", PosX, PosY, SpeedX, SpeedY, ModifierX, ModifierY, Horizontal, Vertical)
         End Function
     End Class
@@ -246,7 +246,7 @@
             Text = PText
         End Sub
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
             Return PlayerIOClient.Message.Create("say", Text)
         End Function
     End Class
@@ -258,7 +258,7 @@
             TextID = PTextID
         End Sub
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
             Return PlayerIOClient.Message.Create("autosay", TextID)
         End Function
     End Class
@@ -270,7 +270,7 @@
             EditKey = PEditKey
         End Sub
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
             Return PlayerIOClient.Message.Create("access", EditKey)
         End Function
     End Class
@@ -282,8 +282,8 @@
             FaceID = PFaceID
         End Sub
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
-            Return PlayerIOClient.Message.Create(Meta.Encryption & "f", FaceID)
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
+            Return PlayerIOClient.Message.Create(Connection.Encryption & "f", FaceID)
         End Function
     End Class
 
@@ -291,7 +291,7 @@
         Inherits SendMessage
         'No arguments
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
             Return PlayerIOClient.Message.Create("save")
         End Function
     End Class
@@ -303,7 +303,7 @@
             WorldName = PWorldName
         End Sub
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
             Return PlayerIOClient.Message.Create("name", WorldName)
         End Function
     End Class
@@ -315,7 +315,7 @@
             EditKey = PEditKey
         End Sub
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
             Return PlayerIOClient.Message.Create("key", EditKey)
         End Function
     End Class
@@ -324,7 +324,7 @@
         Inherits SendMessage
         'No arguments
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
             Return PlayerIOClient.Message.Create("clear")
         End Function
     End Class
@@ -333,7 +333,7 @@
         Inherits SendMessage
         'No arguments
 
-        Public Overrides Function GetMessage(Meta As SendMessageMeta) As PlayerIOClient.Message
+        Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
             Return PlayerIOClient.Message.Create("kill")
         End Function
     End Class
