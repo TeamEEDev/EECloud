@@ -35,7 +35,7 @@
         End Sub
 
         Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
-            Return PlayerIOClient.Message.Create(Connection.Encryption, Connection.BlockManager.CorrectLayer(ID, Layer), X, Y, ID)
+            Return PlayerIOClient.Message.Create(Connection.BlockManager.Encryption, Connection.BlockManager.CorrectLayer(ID, Layer), X, Y, ID)
         End Function
     End Class
 
@@ -138,7 +138,7 @@
         'No arguments
 
         Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
-            Return PlayerIOClient.Message.Create(Connection.Encryption & "r")
+            Return PlayerIOClient.Message.Create(Connection.BlockManager.Encryption & "r")
         End Function
     End Class
 
@@ -147,7 +147,7 @@
         'No arguments
 
         Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
-            Return PlayerIOClient.Message.Create(Connection.Encryption & "g")
+            Return PlayerIOClient.Message.Create(Connection.BlockManager.Encryption & "g")
         End Function
     End Class
 
@@ -156,7 +156,7 @@
         'No arguments
 
         Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
-            Return PlayerIOClient.Message.Create(Connection.Encryption & "b")
+            Return PlayerIOClient.Message.Create(Connection.BlockManager.Encryption & "b")
         End Function
     End Class
 
@@ -165,7 +165,7 @@
         'No arguments
 
         Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
-            Return PlayerIOClient.Message.Create(Connection.Encryption & "k")
+            Return PlayerIOClient.Message.Create(Connection.BlockManager.Encryption & "k")
         End Function
     End Class
 
@@ -283,7 +283,7 @@
         End Sub
 
         Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
-            Return PlayerIOClient.Message.Create(Connection.Encryption & "f", FaceID)
+            Return PlayerIOClient.Message.Create(Connection.BlockManager.Encryption & "f", FaceID)
         End Function
     End Class
 
