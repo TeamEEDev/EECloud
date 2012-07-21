@@ -19,9 +19,6 @@ Public Class LogManager
     Public Event OnInput As EventHandler Implements ILogManager.OnInput
 
     Sub New()
-        If System.Configuration.ConfigurationManager.AppSettings("Environment") = "Release" Then
-            Throw New ApplicationException("Test exeption :D")
-        End If
         Console.Write(">") 'Init
         Dim Worker As New Thread(
             Sub()
