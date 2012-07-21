@@ -1,6 +1,6 @@
 ﻿Public Interface IConnectionManager
-    Sub AttemptSetup(PContainer As CompositionContainer)
-
+    Sub AttemptSetup(POnAppharbor As Boolean, PContainer As CompositionContainer)
+    ReadOnly Property OnAppHarbor As Boolean
     Default ReadOnly Property Item(Index As Integer) As IConnection
     ReadOnly Property Count As Integer
     Property MainConnection As IConnection

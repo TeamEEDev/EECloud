@@ -19,7 +19,15 @@ Public Class CloudHost
         End Get
     End Property
 
-    Sub New(ComponentsPath As String)
+    Private m_OnAppHarbor As Boolean
+    Public ReadOnly Property OnAppHarbor As Boolean
+        Get
+            Return m_OnAppHarbor
+        End Get
+    End Property
+
+    Sub New(OnAppHarbor As Boolean, ComponentsPath As String)
+        m_OnAppHarbor = OnAppHarbor
         Dim MyCatalog = New AggregateCatalog()
         MyCatalog.Catalogs.Add(New DirectoryCatalog(ComponentsPath))
         m_ComponentContainer = New CompositionContainer(MyCatalog)
@@ -28,7 +36,7 @@ Public Class CloudHost
         Catch ex As Exception
             Console.WriteLine(ex.ToString)
         End Try
-        m_Connections.AttemptSetup(m_ComponentContainer)
+        m_Connections.AttemptSetup(OnAppHarbor, m_ComponentContainer)
         m_Connections.Add("guest", "guest", "PWPC-Tjtqxa0I")
     End Sub
 End Class
