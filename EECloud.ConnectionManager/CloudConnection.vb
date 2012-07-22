@@ -48,6 +48,13 @@ Public Class CloudConnection
             Return m_LogManager
         End Get
     End Property
+
+    Private m_DatabaseManager As IDatabaseManager  'Global Component
+    Public ReadOnly Property DatabaseManager As IDatabaseManager Implements IConnection.DatabaseManager
+        Get
+            Return m_DatabaseManager
+        End Get
+    End Property
 #End Region
 
 #Region "Methods"
@@ -56,24 +63,21 @@ Public Class CloudConnection
         If PConnection IsNot Nothing Then
             m_Connection = PConnection
             m_WorldID = PWorldID
-            Init(PConnectionManager)
+
+            m_Connection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
+            m_Connection.AddOnMessage(AddressOf MessageReciver)
+            RaiseEvent OnJoin(Me, New EventArgs)
+
+            m_ConnectionManager = PConnectionManager
+            m_SettingManager = PConnectionManager.m_SettingManager
+            m_LogManager = PConnectionManager.m_LogManager
+            m_DatabaseManager = PConnectionManager.m_DatabaseManager
+
+            RegisterMessage("init", GetType(Init_ReciveMessage))
+            Send(New Init_SendMessage)
         Else
             Throw New ArgumentException("PConnection cannot be null.")
         End If
-    End Sub
-
-    Private Sub Init(PConnectionManager As CloudConnectionManager)
-
-        m_Connection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
-        m_Connection.AddOnMessage(AddressOf MessageReciver)
-        RaiseEvent OnJoin(Me, New EventArgs)
-
-        m_ConnectionManager = PConnectionManager
-        m_SettingManager = PConnectionManager.m_SettingManager
-        m_LogManager = PConnectionManager.m_LogManager
-
-        RegisterMessage("init", GetType(Init_ReciveMessage))
-        Send(New Init_SendMessage)
     End Sub
 #End Region
 
