@@ -80,6 +80,7 @@
     <Compile Include="Classes\CloudPlayer.vb" />
     <Compile Include="Classes\CloudPlugin.vb" />
     <Compile Include="Enums\LogPriority.vb" />
+    <Compile Include="Interfaces\IDatabaseManager.vb" />
     <Compile Include="Interfaces\ILogManager.vb" />
     <Compile Include="Interfaces\ISettingManager.vb" />
     <Compile Include="Modules\Utils.vb" />
@@ -95,7 +96,6 @@
     <Compile Include="Enums\Layer.vb" />
     <Compile Include="Namespaces\Send.vb" />
     <Compile Include="Namespaces\Recive.vb" />
-    <Compile Include="Enums\ReciveType.vb" />
     <Compile Include="Interfaces\IConnectionManager.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="Classes\OnMessageEventArgs.vb" />

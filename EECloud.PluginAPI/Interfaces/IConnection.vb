@@ -12,5 +12,5 @@
     ReadOnly Property SettingManager As ISettingManager
     ReadOnly Property LogManager As ILogManager
 
-    Sub Send(PMessage As Send.SendMessage)
+    Sub Send(PMessage As SendMessage)
 End Interface
