@@ -72,32 +72,34 @@ Public Class CloudConnection
         m_SettingManager = PConnectionManager.m_SettingManager
         m_LogManager = PConnectionManager.m_LogManager
 
-        RegisterMessage("init", ReciveType.Init, GetType(Recive.Init_ReciveMessage))
-        Send(New Send.Init_SendMessage)
+        RegisterMessage("init", GetType(Init_ReciveMessage))
+        Send(New Init_SendMessage)
     End Sub
 #End Region
 
 #Region "Message Handling"
     Private Sub MessageHandler(sender As Object, e As OnMessageEventArgs) Handles Me.OnMessage
-        If e.Type = ReciveType.Init Then
-            Dim m As Recive.Init_ReciveMessage = CType(e.Message, Recive.Init_ReciveMessage)
+        If e.Type = GetType(Init_ReciveMessage) Then
+            Dim m As Init_ReciveMessage = CType(e.Message, Init_ReciveMessage)
             RegisterMessages()
-            Send(New Send.Init2_SendMessage)
+            Send(New Init2_SendMessage)
         End If
     End Sub
 
     Private Sub MessageReciver(sender As Object, e As PlayerIOClient.Message)
         Try
-            Dim myRegisteredMessageInfo As RegisteredMessageInfo = MessageDictionary(e.Type)
-            Dim myMessage As Recive.ReciveMessage = CType(Activator.CreateInstance(myRegisteredMessageInfo.Message, e), Recive.ReciveMessage)
-            Dim myEventArgs As New OnMessageEventArgs(myRegisteredMessageInfo.Type, myMessage)
+            Dim messageType As Type = MessageDictionary(e.Type)
+
+            Dim myMessage As ReciveMessage = CType(Activator.CreateInstance(messageType, e), ReciveMessage)
+            Dim myEventArgs As New OnMessageEventArgs(myMessage)
+
             RaiseEvent OnMessage(Me, myEventArgs)
         Catch ex As KeyNotFoundException
             Throw New KeyNotFoundException(String.Format("Message is not registered: {0}", e.Type))
         End Try
     End Sub
 
-    Public Sub Send(PMessage As Send.SendMessage) Implements IConnection.Send
+    Public Sub Send(PMessage As SendMessage) Implements IConnection.Send
         m_Connection.Send(PMessage.GetMessage(Me))
     End Sub
 #End Region
@@ -107,53 +109,53 @@ Public Class CloudConnection
     Private Sub RegisterMessages()
         If RegisteredMessages = False Then
             RegisteredMessages = True
-            RegisterMessage("groupdisallowedjoin", ReciveType.GroupDisallowedJoin, GetType(Recive.GroupDisallowedJoin_ReciveMessage))
-            RegisterMessage("upgrade", ReciveType.Upgrade, GetType(Recive.Upgrade_ReciveMessage))
-            RegisterMessage("info", ReciveType.Info, GetType(Recive.Info_ReciveMessage))
-            'RegisterMessage("init", ReciveType.Init, GetType(Recive.Init_ReciveMessage)) 'Already registered at Init()
-            RegisterMessage("updatemeta", ReciveType.UpdateMeta, GetType(Recive.UpdateMeta_ReciveMessage))
-            RegisterMessage("add", ReciveType.Add, GetType(Recive.Add_ReciveMessage))
-            RegisterMessage("left", ReciveType.Left, GetType(Recive.Left_ReciveMessage))
-            RegisterMessage("m", ReciveType.Move, GetType(Recive.Move_ReciveMessage))
-            RegisterMessage("c", ReciveType.Coin, GetType(Recive.Coin_ReciveMessage))
-            RegisterMessage("k", ReciveType.Crown, GetType(Recive.Crown_ReciveMessage))
-            RegisterMessage("ks", ReciveType.SilverCrown, GetType(Recive.SilverCrown_ReciveMessage))
-            RegisterMessage("face", ReciveType.Face, GetType(Recive.Face_ReciveMessage))
-            RegisterMessage("show", ReciveType.ShowKey, GetType(Recive.ShowKey_ReciveMessage))
-            RegisterMessage("hide", ReciveType.HideKey, GetType(Recive.HideKey_ReciveMessage))
-            RegisterMessage("say", ReciveType.Say, GetType(Recive.Say_ReciveMessage))
-            RegisterMessage("say_old", ReciveType.SayOld, GetType(Recive.SayOld_ReciveMessage))
-            RegisterMessage("autotext", ReciveType.AutoText, GetType(Recive.AutoText_ReciveMessage))
-            RegisterMessage("write", ReciveType.Write, GetType(Recive.Write_ReciveMessage))
-            RegisterMessage("b", ReciveType.BlockPlace, GetType(Recive.BlockPlace_ReciveMessage))
-            RegisterMessage("bc", ReciveType.CoinDoorPlace, GetType(Recive.CoinDoorPlace_ReciveMessage))
-            RegisterMessage("bs", ReciveType.SoundPlace, GetType(Recive.SoundPlace_ReciveMessage))
-            RegisterMessage("pt", ReciveType.PortalPlace, GetType(Recive.PortalPlace_ReciveMessage))
-            RegisterMessage("lb", ReciveType.LabelPlace, GetType(Recive.LabelPlace_ReciveMessage))
-            RegisterMessage("god", ReciveType.Godmode, GetType(Recive.Godmode_ReciveMessage))
-            RegisterMessage("mod", ReciveType.Modmode, GetType(Recive.Modmode_ReciveMessage))
-            RegisterMessage("access", ReciveType.Access, GetType(Recive.Access_ReciveMessage))
-            RegisterMessage("lostaccess", ReciveType.LostAccess, GetType(Recive.LostAccess_ReciveMessage))
-            RegisterMessage("tele", ReciveType.Teleport, GetType(Recive.Teleport_ReciveMessage))
-            RegisterMessage("reset", ReciveType.Reset, GetType(Recive.Reset_ReciveMessage))
-            RegisterMessage("clear", ReciveType.Clear, GetType(Recive.Clear_ReciveMessage))
-            RegisterMessage("saved", ReciveType.SaveDone, GetType(Recive.SaveDone_ReciveMessage))
-            RegisterMessage("refreshshop", ReciveType.RefreshShop, GetType(Recive.RefreshShop_ReciveMessage))
-            RegisterMessage("givewizard", ReciveType.GiveWizard, GetType(Recive.GiveWizard_ReciveMessage))
-            RegisterMessage("givewizard2", ReciveType.GiveFireWizard, GetType(Recive.GiveFireWizard_ReciveMessage))
-            RegisterMessage("givewitch", ReciveType.GiveWitch, GetType(Recive.GiveWitch_ReciveMessage))
-            RegisterMessage("givegrinch", ReciveType.GiveGrinch, GetType(Recive.GiveGrinch_ReciveMessage))
+            RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoin_ReciveMessage))
+            RegisterMessage("upgrade", GetType(Upgrade_ReciveMessage))
+            RegisterMessage("info", GetType(Info_ReciveMessage))
+            'RegisterMessage("init",  GetType(Init_ReciveMessage)) 'Already registered at Init()
+            RegisterMessage("updatemeta", GetType(UpdateMeta_ReciveMessage))
+            RegisterMessage("add", GetType(Add_ReciveMessage))
+            RegisterMessage("left", GetType(Left_ReciveMessage))
+            RegisterMessage("m", GetType(Move_ReciveMessage))
+            RegisterMessage("c", GetType(Coin_ReciveMessage))
+            RegisterMessage("k", GetType(Crown_ReciveMessage))
+            RegisterMessage("ks", GetType(SilverCrown_ReciveMessage))
+            RegisterMessage("face", GetType(Face_ReciveMessage))
+            RegisterMessage("show", GetType(ShowKey_ReciveMessage))
+            RegisterMessage("hide", GetType(HideKey_ReciveMessage))
+            RegisterMessage("say", GetType(Say_ReciveMessage))
+            RegisterMessage("say_old", GetType(SayOld_ReciveMessage))
+            RegisterMessage("autotext", GetType(AutoText_ReciveMessage))
+            RegisterMessage("write", GetType(Write_ReciveMessage))
+            RegisterMessage("b", GetType(BlockPlace_ReciveMessage))
+            RegisterMessage("bc", GetType(CoinDoorPlace_ReciveMessage))
+            RegisterMessage("bs", GetType(SoundPlace_ReciveMessage))
+            RegisterMessage("pt", GetType(PortalPlace_ReciveMessage))
+            RegisterMessage("lb", GetType(LabelPlace_ReciveMessage))
+            RegisterMessage("god", GetType(Godmode_ReciveMessage))
+            RegisterMessage("mod", GetType(Modmode_ReciveMessage))
+            RegisterMessage("access", GetType(Access_ReciveMessage))
+            RegisterMessage("lostaccess", GetType(LostAccess_ReciveMessage))
+            RegisterMessage("tele", GetType(Teleport_ReciveMessage))
+            RegisterMessage("reset", GetType(Reset_ReciveMessage))
+            RegisterMessage("clear", GetType(Clear_ReciveMessage))
+            RegisterMessage("saved", GetType(SaveDone_ReciveMessage))
+            RegisterMessage("refreshshop", GetType(RefreshShop_ReciveMessage))
+            RegisterMessage("givewizard", GetType(GiveWizard_ReciveMessage))
+            RegisterMessage("givewizard2", GetType(GiveFireWizard_ReciveMessage))
+            RegisterMessage("givewitch", GetType(GiveWitch_ReciveMessage))
+            RegisterMessage("givegrinch", GetType(GiveGrinch_ReciveMessage))
         End If
     End Sub
 
-    Private MessageDictionary As New Dictionary(Of String, RegisteredMessageInfo)
-    Private Sub RegisterMessage(PString As String, PType As ReciveType, PMessage As Type)
+    Private MessageDictionary As New Dictionary(Of String, Type)
+    Private Sub RegisterMessage(PString As String, PType As Type)
         If MessageDictionary.ContainsKey(PString) Then
             Throw New InvalidOperationException("Message ID already registered")
-        ElseIf Not PMessage.IsSubclassOf(GetType(Recive.ReciveMessage)) Then
-            Throw New InvalidOperationException("Invalid message class! Must inherit " & GetType(Recive.ReciveMessage).ToString)
+        ElseIf Not PType.IsSubclassOf(GetType(ReciveMessage)) Then
+            Throw New InvalidOperationException("Invalid message class! Must inherit " & GetType(ReciveMessage).ToString)
         Else
-            MessageDictionary.Add(PString, New RegisteredMessageInfo(PType, PMessage))
+            MessageDictionary.Add(PString, PType)
         End If
     End Sub
 #End Region
