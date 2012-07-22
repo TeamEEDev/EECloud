@@ -11,6 +11,9 @@ Public Class CloudConnectionManager
     <Import(AllowDefault:=True)>
     Friend m_LogManager As ILogManager
 
+    <Import(AllowDefault:=True)>
+    Friend m_DatabaseManager As IDatabaseManager
+
     Friend m_CompositionContainer As CompositionContainer
 #End Region
 

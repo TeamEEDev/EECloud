@@ -11,6 +11,7 @@
     ReadOnly Property ConnectionManager As IConnectionManager
     ReadOnly Property SettingManager As ISettingManager
     ReadOnly Property LogManager As ILogManager
+    ReadOnly Property DatabaseManager As IDatabaseManager
 
     Sub Send(PMessage As SendMessage)
 End Interface
