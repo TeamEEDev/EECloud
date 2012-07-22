@@ -97,14 +97,12 @@ Public Class CloudConnectionManager
     End Sub
 
     Private Function LogIn(PUsername As String, PPassword As String) As PlayerIOClient.Client
-        Dim Client As PlayerIOClient.Client = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.GameID, PUsername, PPassword)
-        Return Client
+        Return PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.GameID, PUsername, PPassword)
     End Function
 
     Private Function JoinWorld(PClient As PlayerIOClient.Client, PWorldID As String) As PlayerIOClient.Connection
         Try
-            Dim Connection As PlayerIOClient.Connection = PClient.Multiplayer.CreateJoinRoom(PWorldID, Config.NormalRoom & m_GameVersionSetting, True, Nothing, Nothing)
-            Return Connection
+            Return PClient.Multiplayer.CreateJoinRoom(PWorldID, Config.NormalRoom & m_GameVersionSetting, True, Nothing, Nothing)
         Catch ex As PlayerIOClient.PlayerIOError
             If ex.ErrorCode = PlayerIOClient.ErrorCode.UnknownRoomType Then
                 Dim ErrorMessage() As String = ex.Message.Split(CChar(" "))
