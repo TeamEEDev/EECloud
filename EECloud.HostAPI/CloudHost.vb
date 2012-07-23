@@ -5,10 +5,10 @@ Imports System.ComponentModel
 
 Public Class CloudHost
     <Import()>
-    Private m_Connections As IConnectionManager
-    Public ReadOnly Property Connections As IConnectionManager
+    Private m_ConnectionManager As IConnectionManager
+    Public ReadOnly Property ConnectionManager As IConnectionManager
         Get
-            Return m_Connections
+            Return m_ConnectionManager
         End Get
     End Property
 
@@ -33,10 +33,14 @@ Public Class CloudHost
         m_ComponentContainer = New CompositionContainer(MyCatalog)
         Try
             m_ComponentContainer.ComposeParts(Me)
-        Catch ex As Exception
+        Catch ex As Exception 'TODO: better exeption handling
             Console.WriteLine(ex.ToString)
         End Try
-        m_Connections.AttemptSetup(OnAppHarbor, m_ComponentContainer)
-        m_Connections.Add("guest", "guest", "PWPC-Tjtqxa0I")
+        m_ConnectionManager.AttemptSetup(OnAppHarbor, m_ComponentContainer)
+        m_ConnectionManager.Connect(
+            "guest", "guest", "PWPC-Tjtqxa0I",
+            Sub(PConnection As IConnection)
+                m_ConnectionManager.SetMainConnection(PConnection)
+            End Sub)
     End Sub
 End Class

@@ -3,20 +3,26 @@ Public Class CloudConnection
     Implements IConnection
 
 #Region "Events"
-    Public Event OnLogin(sender As Object, e As EventArgs) Implements IConnection.OnLogin
-    Public Event OnJoin(sender As Object, e As EventArgs) Implements IConnection.OnJoin
-    Public Event OnError(sender As Object, e As EventArgs) Implements IConnection.OnError
     Public Event OnMessage(sender As Object, e As OnMessageEventArgs) Implements IConnection.OnMessage
     Public Event OnDisconnect(sender As Object, e As EventArgs) Implements IConnection.OnDisconnect
 #End Region
 
-#Region "Properties"
+#Region "Fields"
+    Private m_ConnectionManager As IConnectionManager
     Private m_Connection As PlayerIOClient.Connection
+#End Region
 
+#Region "Properties"
     Private m_WorldID As String
     Public ReadOnly Property WorldID As String Implements IConnection.WorldID
         Get
             Return m_WorldID
+        End Get
+    End Property
+
+    Public ReadOnly Property Connected As Boolean Implements IConnection.Connected
+        Get
+            Return m_Connection.Connected
         End Get
     End Property
 
@@ -27,38 +33,9 @@ Public Class CloudConnection
             Return m_BlockManager
         End Get
     End Property
-
-    Private m_ConnectionManager As IConnectionManager 'Global Component
-    Public ReadOnly Property ConnectionManager As IConnectionManager Implements IConnection.ConnectionManager
-        Get
-            Return m_ConnectionManager
-        End Get
-    End Property
-
-    Private m_SettingManager As ISettingManager 'Global Component
-    Public ReadOnly Property SettingManager As ISettingManager Implements IConnection.SettingManager
-        Get
-            Return m_SettingManager
-        End Get
-    End Property
-
-    Private m_LogManager As ILogManager 'Global Component
-    Public ReadOnly Property LogManager As ILogManager Implements IConnection.LogManager
-        Get
-            Return m_LogManager
-        End Get
-    End Property
-
-    Private m_DatabaseManager As IDatabaseManager  'Global Component
-    Public ReadOnly Property DatabaseManager As IDatabaseManager Implements IConnection.DatabaseManager
-        Get
-            Return m_DatabaseManager
-        End Get
-    End Property
 #End Region
 
 #Region "Methods"
-#Region "Instance Creation"
     Friend Sub AttemptSetup(PConnectionManager As CloudConnectionManager, PConnection As PlayerIOClient.Connection, PWorldID As String)
         If PConnection IsNot Nothing Then
             m_Connection = PConnection
@@ -66,12 +43,8 @@ Public Class CloudConnection
 
             m_Connection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
             m_Connection.AddOnMessage(AddressOf MessageReciver)
-            RaiseEvent OnJoin(Me, New EventArgs)
 
             m_ConnectionManager = PConnectionManager
-            m_SettingManager = PConnectionManager.m_SettingManager
-            m_LogManager = PConnectionManager.m_LogManager
-            m_DatabaseManager = PConnectionManager.m_DatabaseManager
 
             RegisterMessage("init", GetType(Init_ReciveMessage))
             Send(New Init_SendMessage)
@@ -79,9 +52,7 @@ Public Class CloudConnection
             Throw New ArgumentException("PConnection cannot be null.")
         End If
     End Sub
-#End Region
 
-#Region "Message Handling"
     Private Sub MessageHandler(sender As Object, e As OnMessageEventArgs) Handles Me.OnMessage
         If e.Type = GetType(Init_ReciveMessage) Then
             Dim m As Init_ReciveMessage = CType(e.Message, Init_ReciveMessage)
@@ -99,16 +70,18 @@ Public Class CloudConnection
 
             RaiseEvent OnMessage(Me, myEventArgs)
         Catch ex As KeyNotFoundException
-            Throw New KeyNotFoundException(String.Format("Message is not registered: {0}", e.Type))
+            m_ConnectionManager.LogManager.Log(LogPriority.Warning, "Recived not registered message: " & e.Type)
         End Try
     End Sub
 
     Public Sub Send(PMessage As SendMessage) Implements IConnection.Send
         m_Connection.Send(PMessage.GetMessage(Me))
     End Sub
-#End Region
 
-#Region "Message Register"
+    Public Sub Disconnect() Implements IConnection.Disconnect
+        m_Connection.Disconnect()
+    End Sub
+
     Private RegisteredMessages As Boolean
     Private Sub RegisterMessages()
         If RegisteredMessages = False Then
@@ -162,6 +135,5 @@ Public Class CloudConnection
             MessageDictionary.Add(PString, PType)
         End If
     End Sub
-#End Region
 #End Region
 End Class
