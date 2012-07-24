@@ -11,22 +11,22 @@
 #End Region
 
 #Region "Properties"
-    Private m_SettingManager As ISettingManager = New SettingManager
-    Public ReadOnly Property SettingManager As ISettingManager Implements IConnectionManager.SettingManager
+    Private m_SettingManager As ISettings = New Settings
+    Public ReadOnly Property SettingManager As ISettings Implements IConnectionManager.SettingManager
         Get
             Return m_SettingManager
         End Get
     End Property
 
-    Private m_LogManager As ILogManager = New LogManager
-    Public ReadOnly Property LogManager As ILogManager Implements IConnectionManager.LogManager
+    Private m_LogManager As ILogger = New Logger
+    Public ReadOnly Property LogManager As ILogger Implements IConnectionManager.LogManager
         Get
             Return m_LogManager
         End Get
     End Property
 
-    Private m_DatabaseManager As IDatabaseManager = New DatabaseManager
-    Public ReadOnly Property DatabaseManager As IDatabaseManager Implements IConnectionManager.DatabaseManager
+    Private m_DatabaseManager As IDatabase = New Database
+    Public ReadOnly Property DatabaseManager As IDatabase Implements IConnectionManager.DatabaseManager
         Get
             Return m_DatabaseManager
         End Get
@@ -39,7 +39,7 @@
         End Get
     End Property
 
-    Public ReadOnly Property BlockManager As IBlockManager Implements IConnection.BlockManager
+    Public ReadOnly Property BlockManager As IBlocks Implements IConnection.BlockManager
         Get
             Return m_Connection.BlockManager
         End Get
@@ -59,15 +59,7 @@
 #End Region
 
 #Region "Methods"
-    Private Sub m_Connection_OnDisconnect(sender As Object, e As EventArgs) Handles m_Connection.OnDisconnect
-        RaiseEvent OnDisconnect(sender, e)
-    End Sub
-
-    Private Sub m_Connection_OnMessage(sender As Object, e As OnMessageEventArgs) Handles m_Connection.OnMessage
-        RaiseEvent OnMessage(sender, e)
-    End Sub
-
-    Public Sub Setup(POnAppharbor As Boolean) Implements IConnectionManager.AttemptSetup
+    Public Sub New(POnAppharbor As Boolean)
         'Setting variables
         m_OnAppHarbor = POnAppharbor
         'TODO: Finish SettingManager
@@ -79,13 +71,20 @@
         End If
     End Sub
 
+    Private Sub m_Connection_OnDisconnect(sender As Object, e As EventArgs) Handles m_Connection.OnDisconnect
+        RaiseEvent OnDisconnect(sender, e)
+    End Sub
+
+    Private Sub m_Connection_OnMessage(sender As Object, e As OnMessageEventArgs) Handles m_Connection.OnMessage
+        RaiseEvent OnMessage(sender, e)
+    End Sub
+
     Public Sub SetMainConnection(PConnection As IConnection) Implements IConnectionManager.SetMainConnection
         m_Connection = PConnection
     End Sub
 
     Public Overloads Function Connect(PConnection As PlayerIOClient.Connection, PWorldID As String) As IConnection Implements IConnectionManager.Connect
-        Dim myConnection As New Connection()
-        InitConnection(myConnection, PConnection, PWorldID)
+        Dim myConnection As New Connection(Me, PConnection, PWorldID)
         Return myConnection
     End Function
 
@@ -126,10 +125,6 @@
             End If
         Next
         Throw New KeyNotFoundException("Room type not available: """ & Config.NormalRoom & """")
-    End Sub
-
-    Private Sub InitConnection(PCloudConnection As Connection, PConnection As PlayerIOClient.Connection, PWorldID As String)
-        PCloudConnection.AttemptSetup(Me, PConnection, PWorldID)
     End Sub
 
     Public Sub Disconnect() Implements IConnection.Disconnect
