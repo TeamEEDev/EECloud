@@ -93,6 +93,9 @@
     <Reference Include="System.Data.DataSetExtensions" />
   </ItemGroup>
   <ItemGroup>
+    <Import Include="EECloud" />
+    <Import Include="EECloud.API" />
+    <Import Include="EECloud.Components" />
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
     <Import Include="System.Collections" />
@@ -124,6 +127,10 @@
     <ProjectReference Include="..\EECloud.API\EECloud.API.vbproj">
       <Project>{580ddf14-7848-4318-b9d8-55cbc3a2bc9e}</Project>
       <Name>EECloud.PluginAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EECloud.Components\EECloud.Components.vbproj">
+      <Project>{3db6f763-a8a9-4edd-8149-7b96063ff00c}</Project>
+      <Name>EECloud.Components</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
