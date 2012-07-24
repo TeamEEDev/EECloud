@@ -1,4 +1,4 @@
-﻿Public Class Database
+﻿Friend NotInheritable Class Database
     Implements IDatabase
 
     Public Property Client As Client Implements IDatabase.Client

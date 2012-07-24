@@ -70,10 +70,9 @@
   <ItemGroup>
     <Compile Include="Blocks.vb" />
     <Compile Include="Connection.vb" />
-    <Compile Include="Global\Connections.vb" />
+    <Compile Include="Global\Bot.vb" />
     <Compile Include="Global\Database.vb" />
     <Compile Include="Global\Logger.vb" />
-    <Compile Include="Host.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

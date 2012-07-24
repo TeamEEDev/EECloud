@@ -1,7 +1,5 @@
-﻿Public Interface IConnections
+﻿Public Interface IBot
     Inherits IConnection
-    <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)>
-    Sub SetMainConnection(PConnection As IConnection)
     ReadOnly Property OnAppHarbor As Boolean
 
     Overloads Function Connect(PConnection As PlayerIOClient.Connection, WorldID As String) As IConnection

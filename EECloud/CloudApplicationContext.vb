@@ -4,8 +4,8 @@
     Public Sub New()
         Console.Title = "EECloud"
 
-        Dim onAppharbor = (System.Configuration.ConfigurationManager.AppSettings("Environment") = "Release")
-        Dim m_ConnectionManager As IConnections = New Connections(onAppharbor)
+        Dim AppEnvironment As AppEnvironment = CType([Enum].Parse(GetType(AppEnvironment), System.Configuration.ConfigurationManager.AppSettings("Environment"), True), AppEnvironment)
+        Dim m_ConnectionManager As New Bot(AppEnvironment)
         m_ConnectionManager.Connect("guest", "guest", "PWPC-Tjtqxa0I",
             Sub(PConnection As IConnection)
                 m_ConnectionManager.SetMainConnection(PConnection)

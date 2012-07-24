@@ -1,4 +1,4 @@
-﻿Friend Class Connection
+﻿Friend NotInheritable Class Connection
     Implements IConnection
 
 #Region "Events"
@@ -7,7 +7,7 @@
 #End Region
 
 #Region "Fields"
-    Private m_ConnectionManager As IConnections
+    Private m_ConnectionManager As IBot
     Private m_Connection As PlayerIOClient.Connection
 #End Region
 
@@ -34,7 +34,7 @@
 #End Region
 
 #Region "Methods"
-    Sub New(PConnectionManager As Connections, PConnection As PlayerIOClient.Connection, PWorldID As String)
+    Sub New(PConnectionManager As Bot, PConnection As PlayerIOClient.Connection, PWorldID As String)
         If PConnectionManager Is Nothing Then
             Throw New ArgumentException("PConnectionManager cannot be null.")
         End If

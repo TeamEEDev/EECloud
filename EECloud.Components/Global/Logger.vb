@@ -1,6 +1,6 @@
 ﻿Imports System.Threading
 
-Public Class Logger
+Friend NotInheritable Class Logger
     Implements ILogger
 
     Private m_Input As String = String.Empty
