@@ -1,10 +1,10 @@
 ﻿Imports System.Threading
 
-Public Class LogManager
-    Implements ILogManager
+Public Class Logger
+    Implements ILogger
 
     Private m_Input As String = String.Empty
-    Public Property Input As String Implements ILogManager.Input
+    Public Property Input As String Implements ILogger.Input
         Get
             Return m_Input
         End Get
@@ -15,10 +15,10 @@ Public Class LogManager
         End Set
     End Property
 
-    Public Event OnInput As EventHandler Implements ILogManager.OnInput
+    Public Event OnInput As EventHandler Implements ILogger.OnInput
 
     Dim m_IsSetup As Boolean
-    Public Sub AttemptSetup() Implements ILogManager.AttemptSetup
+    Public Sub AttemptSetup() Implements ILogger.AttemptSetup
         m_IsSetup = True
         Console.Write(">") 'Init
         Dim Worker As New Thread(
@@ -70,7 +70,7 @@ Public Class LogManager
         Worker.Start()
     End Sub
 
-    Public Sub Log(priority As LogPriority, str As String) Implements ILogManager.Log
+    Public Sub Log(priority As LogPriority, str As String) Implements ILogger.Log
         If m_IsSetup Then
             Dim Output As String = String.Format("{0} [{1}] {2}", Now.ToLongTimeString, priority.ToString.ToUpper, str)
             Overwrite(Input.Length + 1, Output)

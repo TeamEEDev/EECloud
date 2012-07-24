@@ -1,4 +1,4 @@
-﻿Public Interface ISettingManager
+﻿Public Interface ISettings
     <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)>
     Sub AttemptSetup(ConnectionManager As IConnectionManager)
 

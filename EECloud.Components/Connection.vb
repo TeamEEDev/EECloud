@@ -25,8 +25,8 @@
         End Get
     End Property
 
-    Private m_BlockManager As IBlockManager = New BlockManager
-    Public ReadOnly Property BlockManager As IBlockManager Implements IConnection.BlockManager
+    Private m_BlockManager As IBlocks = New Blocks(Me)
+    Public ReadOnly Property BlockManager As IBlocks Implements IConnection.BlockManager
         Get
             Return m_BlockManager
         End Get
@@ -34,21 +34,23 @@
 #End Region
 
 #Region "Methods"
-    Friend Sub AttemptSetup(PConnectionManager As ConnectionManager, PConnection As PlayerIOClient.Connection, PWorldID As String)
-        If PConnection IsNot Nothing Then
-            m_Connection = PConnection
-            m_WorldID = PWorldID
-
-            m_Connection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
-            m_Connection.AddOnMessage(AddressOf MessageReciver)
-
-            m_ConnectionManager = PConnectionManager
-
-            RegisterMessage("init", GetType(Init_ReciveMessage))
-            Send(New Init_SendMessage)
-        Else
+    Sub New(PConnectionManager As ConnectionManager, PConnection As PlayerIOClient.Connection, PWorldID As String)
+        If PConnectionManager Is Nothing Then
+            Throw New ArgumentException("PConnectionManager cannot be null.")
+        End If
+        If PConnection Is Nothing Then
             Throw New ArgumentException("PConnection cannot be null.")
         End If
+        m_Connection = PConnection
+        m_WorldID = PWorldID
+
+        m_Connection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
+        m_Connection.AddOnMessage(AddressOf MessageReciver)
+
+        m_ConnectionManager = PConnectionManager
+
+        RegisterMessage("init", GetType(Init_ReciveMessage))
+        Send(New Init_SendMessage)
     End Sub
 
     Private Sub MessageHandler(sender As Object, e As OnMessageEventArgs) Handles Me.OnMessage

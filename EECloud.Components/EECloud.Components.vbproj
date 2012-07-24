@@ -68,11 +68,12 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlockManager.vb" />
+    <Compile Include="Blocks.vb" />
     <Compile Include="Connection.vb" />
     <Compile Include="Global\ConnectionManager.vb" />
-    <Compile Include="Global\DatabaseManager.vb" />
-    <Compile Include="Global\LogManager.vb" />
+    <Compile Include="Global\Database.vb" />
+    <Compile Include="Global\Logger.vb" />
+    <Compile Include="Host.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -88,7 +89,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Global\SettingManager.vb" />
+    <Compile Include="Global\Settings.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

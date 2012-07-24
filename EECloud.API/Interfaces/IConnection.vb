@@ -4,7 +4,7 @@
 
     ReadOnly Property WorldID As String
     ReadOnly Property Connected As Boolean
-    ReadOnly Property BlockManager As IBlockManager
+    ReadOnly Property BlockManager As IBlocks
 
     Sub Send(PMessage As SendMessage)
     Sub Disconnect()
