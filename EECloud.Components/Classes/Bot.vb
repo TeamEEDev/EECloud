@@ -6,35 +6,35 @@
 #End Region
 
 #Region "Properties"
-    Private myConnection As Connection
+    Friend myConnection As Connection
     Public ReadOnly Property Connection As IConnection Implements IBot.Connection
         Get
             Return myConnection
         End Get
     End Property
 
-    Private mySettings As New Settings(Me)
+    Friend mySettings As New Settings(Me)
     Public ReadOnly Property Settings As ISettings Implements IBot.Settings
         Get
             Return mySettings
         End Get
     End Property
 
-    Private myLogger As New Logger(Me)
+    Friend myLogger As New Logger(Me)
     Public ReadOnly Property Logger As ILogger Implements IBot.Logger
         Get
             Return myLogger
         End Get
     End Property
 
-    Private myDatabase As New Database(Me)
+    Friend myDatabase As New Database(Me)
     Public ReadOnly Property Database As IDatabase Implements IBot.Database
         Get
             Return myDatabase
         End Get
     End Property
 
-    Private myBlocks As New Blocks(myConnection)
+    Friend myBlocks As New Blocks(myConnection)
     Public ReadOnly Property Blocks As IBlocks Implements IBot.Blocks
         Get
             Return myBlocks
