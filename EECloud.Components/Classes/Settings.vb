@@ -10,10 +10,6 @@
         Return CBool(GetObj(SettingName))
     End Function
 
-    Public Function GetBuffer(SettingName As String) As Char() Implements ISettings.GetBuffer
-
-    End Function
-
     Public Function GetByte(SettingName As String) As Byte Implements ISettings.GetByte
 
     End Function
@@ -87,10 +83,6 @@
     End Sub
 
     Public Overloads Sub SetSetting(SettingName As String, Value As Char) Implements ISettings.SetSetting
-
-    End Sub
-
-    Public Overloads Sub SetSetting(SettingName As String, Value() As Char) Implements ISettings.SetSetting
 
     End Sub
 
