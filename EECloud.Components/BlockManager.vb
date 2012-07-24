@@ -1,4 +1,4 @@
-﻿<Export(GetType(PluginAPI.IBlockManager))>
+﻿<Export(GetType(API.IBlockManager))>
 Public Class BlockManager
     Implements IBlockManager
 

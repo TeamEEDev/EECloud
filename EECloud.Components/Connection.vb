@@ -1,4 +1,4 @@
-﻿<Export(GetType(PluginAPI.IConnection))>
+﻿<Export(GetType(API.IConnection))>
 Public Class Connection
     Implements IConnection
 

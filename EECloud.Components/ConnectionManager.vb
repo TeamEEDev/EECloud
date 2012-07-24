@@ -1,4 +1,4 @@
-﻿<Export(GetType(PluginAPI.IConnectionManager))>
+﻿<Export(GetType(API.IConnectionManager))>
 Public NotInheritable Class ConnectionManager
     Implements IConnectionManager
 #Region "Events"

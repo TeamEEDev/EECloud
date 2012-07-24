@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud.PluginAPI", "EECloud.PluginAPI\EECloud.PluginAPI.vbproj", "{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud.API", "EECloud.API\EECloud.API.vbproj", "{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud", "EECloud\EECloud.vbproj", "{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}"
 EndProject
