@@ -1,4 +1,4 @@
-﻿Public Interface IConnectionManager
+﻿Public Interface IConnections
     Inherits IConnection
     <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)>
     Sub SetMainConnection(PConnection As IConnection)

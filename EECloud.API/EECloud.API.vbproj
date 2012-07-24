@@ -96,7 +96,7 @@
     <Compile Include="Enums\Layer.vb" />
     <Compile Include="Namespaces\Send.vb" />
     <Compile Include="Namespaces\Recive.vb" />
-    <Compile Include="Interfaces\IConnectionManager.vb" />
+    <Compile Include="Interfaces\IConnections.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="Classes\OnMessageEventArgs.vb" />
   </ItemGroup>

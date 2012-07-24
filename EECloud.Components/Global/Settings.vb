@@ -1,7 +1,7 @@
 ﻿Public Class Settings
     Implements ISettings
 
-    Private m_ConnectionManager As IConnectionManager
+    Private m_ConnectionManager As IConnections
 
     Public Function GetBoolean(SettingName As String) As Boolean Implements ISettings.GetBoolean
         Return CBool(GetObj(SettingName))
@@ -139,7 +139,7 @@
 
     End Sub
 
-    Public Sub AttemptSetup(PConnectionManager As IConnectionManager) Implements ISettings.AttemptSetup
+    Public Sub AttemptSetup(PConnectionManager As IConnections) Implements ISettings.AttemptSetup
         m_ConnectionManager = PConnectionManager
     End Sub
 End Class

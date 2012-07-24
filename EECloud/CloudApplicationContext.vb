@@ -5,7 +5,7 @@
         Console.Title = "EECloud"
 
         Dim onAppharbor = (System.Configuration.ConfigurationManager.AppSettings("Environment") = "Release")
-        Dim m_ConnectionManager As IConnectionManager = New ConnectionManager(onAppharbor)
+        Dim m_ConnectionManager As IConnections = New Connections(onAppharbor)
         m_ConnectionManager.Connect("guest", "guest", "PWPC-Tjtqxa0I",
             Sub(PConnection As IConnection)
                 m_ConnectionManager.SetMainConnection(PConnection)

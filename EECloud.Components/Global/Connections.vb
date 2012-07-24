@@ -1,5 +1,5 @@
-﻿Public NotInheritable Class ConnectionManager
-    Implements IConnectionManager
+﻿Public NotInheritable Class Connections
+    Implements IConnections
 #Region "Events"
     Public Event OnDisconnect(sender As Object, e As EventArgs) Implements IConnection.OnDisconnect
     Public Event OnMessage(sender As Object, e As OnMessageEventArgs) Implements IConnection.OnMessage
@@ -12,28 +12,28 @@
 
 #Region "Properties"
     Private m_SettingManager As ISettings = New Settings
-    Public ReadOnly Property SettingManager As ISettings Implements IConnectionManager.SettingManager
+    Public ReadOnly Property SettingManager As ISettings Implements IConnections.SettingManager
         Get
             Return m_SettingManager
         End Get
     End Property
 
     Private m_LogManager As ILogger = New Logger
-    Public ReadOnly Property LogManager As ILogger Implements IConnectionManager.LogManager
+    Public ReadOnly Property LogManager As ILogger Implements IConnections.LogManager
         Get
             Return m_LogManager
         End Get
     End Property
 
     Private m_DatabaseManager As IDatabase = New Database
-    Public ReadOnly Property DatabaseManager As IDatabase Implements IConnectionManager.DatabaseManager
+    Public ReadOnly Property DatabaseManager As IDatabase Implements IConnections.DatabaseManager
         Get
             Return m_DatabaseManager
         End Get
     End Property
 
     Private m_OnAppHarbor As Boolean
-    Public ReadOnly Property OnAppHarbor As Boolean Implements IConnectionManager.OnAppHarbor
+    Public ReadOnly Property OnAppHarbor As Boolean Implements IConnections.OnAppHarbor
         Get
             Return m_OnAppHarbor
         End Get
@@ -79,16 +79,16 @@
         RaiseEvent OnMessage(sender, e)
     End Sub
 
-    Public Sub SetMainConnection(PConnection As IConnection) Implements IConnectionManager.SetMainConnection
+    Public Sub SetMainConnection(PConnection As IConnection) Implements IConnections.SetMainConnection
         m_Connection = PConnection
     End Sub
 
-    Public Overloads Function Connect(PConnection As PlayerIOClient.Connection, PWorldID As String) As IConnection Implements IConnectionManager.Connect
+    Public Overloads Function Connect(PConnection As PlayerIOClient.Connection, PWorldID As String) As IConnection Implements IConnections.Connect
         Dim myConnection As New Connection(Me, PConnection, PWorldID)
         Return myConnection
     End Function
 
-    Public Overloads Sub Connect(PClient As PlayerIOClient.Client, PWorldID As String, PCallback As PlayerIOClient.Callback(Of IConnection)) Implements IConnectionManager.Connect
+    Public Overloads Sub Connect(PClient As PlayerIOClient.Client, PWorldID As String, PCallback As PlayerIOClient.Callback(Of IConnection)) Implements IConnections.Connect
         PClient.Multiplayer.CreateJoinRoom(PWorldID, Config.NormalRoom & m_GameVersionSetting, True, Nothing, Nothing,
             Sub(PConnection As PlayerIOClient.Connection)
                 Dim myConnection As PlayerIOClient.Connection = PConnection
@@ -105,7 +105,7 @@
             End Sub)
     End Sub
 
-    Public Overloads Sub Connect(PUsername As String, PPassword As String, PWorldID As String, PCallback As PlayerIOClient.Callback(Of IConnection)) Implements IConnectionManager.Connect
+    Public Overloads Sub Connect(PUsername As String, PPassword As String, PWorldID As String, PCallback As PlayerIOClient.Callback(Of IConnection)) Implements IConnections.Connect
         PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.GameID, PUsername, PPassword,
             Sub(PClient As PlayerIOClient.Client)
                 Connect(PClient, PWorldID, PCallback)
