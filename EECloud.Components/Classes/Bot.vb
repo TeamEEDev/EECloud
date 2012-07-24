@@ -1,34 +1,36 @@
 ﻿Public NotInheritable Class Bot
     Implements IBot
-#Region "Events"
-    Public Event OnDisconnect(sender As Object, e As EventArgs) Implements IConnection.OnDisconnect
-    Public Event OnMessage(sender As Object, e As OnMessageEventArgs) Implements IConnection.OnMessage
-#End Region
 
 #Region "Fields"
     Private m_GameVersionSetting As Integer = 0
-    Private WithEvents m_Connection As IConnection
 #End Region
 
 #Region "Properties"
-    Private m_SettingManager As ISettings = New Settings
-    Public ReadOnly Property SettingManager As ISettings Implements IBot.SettingManager
+    Private m_Connection As IConnection
+    Public ReadOnly Property Connection As IConnection Implements IBot.Connection
         Get
-            Return m_SettingManager
+            Return m_Connection
         End Get
     End Property
 
-    Private m_LogManager As ILogger = New Logger
-    Public ReadOnly Property LogManager As ILogger Implements IBot.LogManager
+    Private m_Settings As ISettings = New Settings
+    Public ReadOnly Property Settings As ISettings Implements IBot.Settings
         Get
-            Return m_LogManager
+            Return m_Settings
         End Get
     End Property
 
-    Private m_DatabaseManager As IDatabase = New Database
-    Public ReadOnly Property DatabaseManager As IDatabase Implements IBot.DatabaseManager
+    Private m_Logger As ILogger = New Logger
+    Public ReadOnly Property Logger As ILogger Implements IBot.Logger
         Get
-            Return m_DatabaseManager
+            Return m_Logger
+        End Get
+    End Property
+
+    Private m_Database As IDatabase = New Database
+    Public ReadOnly Property Database As IDatabase Implements IBot.Database
+        Get
+            Return m_Database
         End Get
     End Property
 
@@ -36,24 +38,6 @@
     Public ReadOnly Property OnAppHarbor As Boolean Implements IBot.OnAppHarbor
         Get
             Return (m_AppEnvironment = AppEnvironment.Release)
-        End Get
-    End Property
-
-    Public ReadOnly Property BlockManager As IBlocks Implements IConnection.BlockManager
-        Get
-            Return m_Connection.BlockManager
-        End Get
-    End Property
-
-    Public ReadOnly Property WorldID As String Implements IConnection.WorldID
-        Get
-            Return m_Connection.WorldID
-        End Get
-    End Property
-
-    Public ReadOnly Property Connected As Boolean Implements IConnection.Connected
-        Get
-            Return m_Connection.Connected
         End Get
     End Property
 #End Region
@@ -67,16 +51,8 @@
 
         'Component init
         If m_AppEnvironment = AppEnvironment.Dev Then
-            m_LogManager.AttemptSetup()
+            m_Logger.AttemptSetup()
         End If
-    End Sub
-
-    Private Sub m_Connection_OnDisconnect(sender As Object, e As EventArgs) Handles m_Connection.OnDisconnect
-        RaiseEvent OnDisconnect(sender, e)
-    End Sub
-
-    Private Sub m_Connection_OnMessage(sender As Object, e As OnMessageEventArgs) Handles m_Connection.OnMessage
-        RaiseEvent OnMessage(sender, e)
     End Sub
 
     Public Sub SetMainConnection(PConnection As IConnection)
@@ -125,14 +101,6 @@
             End If
         Next
         Throw New KeyNotFoundException("Room type not available: """ & Config.NormalRoom & """")
-    End Sub
-
-    Public Sub Disconnect() Implements IConnection.Disconnect
-        m_Connection.Disconnect()
-    End Sub
-
-    Public Sub Send(PMessage As SendMessage) Implements IConnection.Send
-        m_Connection.Send(PMessage)
     End Sub
 #End Region
 End Class
