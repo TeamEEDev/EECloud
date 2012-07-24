@@ -2,7 +2,7 @@
     Implements IConnection
 
 #Region "Events"
-    Public Event OnMessage(sender As Object, e As OnMessageEventArgs) Implements IConnection.OnMessage
+    Public Event OnMessage(sender As Object, e As OnMessageEventArgs)
     Public Event OnDisconnect(sender As Object, e As EventArgs) Implements IConnection.OnDisconnect
 #End Region
 
@@ -70,11 +70,11 @@
 
             RaiseEvent OnMessage(Me, myEventArgs)
         Catch ex As KeyNotFoundException
-            m_ConnectionManager.LogManager.Log(LogPriority.Warning, "Recived not registered message: " & e.Type)
+            m_ConnectionManager.Logger.Log(LogPriority.Warning, "Recived not registered message: " & e.Type)
         End Try
     End Sub
 
-    Public Sub Send(PMessage As SendMessage) Implements IConnection.Send
+    Public Sub Send(PMessage As SendMessage)
         m_Connection.Send(PMessage.GetMessage(Me))
     End Sub
 
@@ -134,6 +134,25 @@
         Else
             MessageDictionary.Add(PString, PType)
         End If
+    End Sub
+#End Region
+
+#Region "IDisposable Support"
+    Private disposedValue As Boolean
+    Protected Sub Dispose(disposing As Boolean)
+        If Not Me.disposedValue Then
+            If disposing Then
+                m_Connection.Disconnect()
+                m_Connection = Nothing
+            End If
+
+            MessageDictionary.Clear()
+        End If
+        Me.disposedValue = True
+    End Sub
+    Public Sub Dispose() Implements IDisposable.Dispose
+        Dispose(True)
+        GC.SuppressFinalize(Me)
     End Sub
 #End Region
 End Class

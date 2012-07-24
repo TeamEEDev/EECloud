@@ -40,8 +40,8 @@
     End Function
 
     Public Function GetObj(SettingName As String) As Object Implements ISettings.GetObj
-        Try 'TODO: Better handeling of errors 
-            Return m_ConnectionManager.DatabaseManager.GetObject("SettingsDB", SettingName)("value")
+        Try 'TODO: Better handling of errors 
+            Return m_ConnectionManager.Database.GetObject("SettingsDB", SettingName)("value")
         Catch ex As PlayerIOClient.PlayerIOError
             Return Nothing
         End Try
