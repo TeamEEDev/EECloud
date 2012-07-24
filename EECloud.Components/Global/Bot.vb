@@ -32,10 +32,10 @@
         End Get
     End Property
 
-    Private m_OnAppHarbor As Boolean
+    Private m_AppEnvironment As AppEnvironment
     Public ReadOnly Property OnAppHarbor As Boolean Implements IBot.OnAppHarbor
         Get
-            Return m_OnAppHarbor
+            Return (m_AppEnvironment = AppEnvironment.Release)
         End Get
     End Property
 
@@ -59,14 +59,14 @@
 #End Region
 
 #Region "Methods"
-    Public Sub New(POnAppharbor As AppEnvironment)
+    Public Sub New(PAppEnvironment As AppEnvironment)
         'Setting variables
-        m_OnAppHarbor = POnAppharbor
+        m_AppEnvironment = PAppEnvironment
         'TODO: Finish SettingManager
         m_GameVersionSetting = 119 'm_SettingManager.GetInteger("GameVersion")
 
         'Component init
-        If Not POnAppharbor Then
+        If m_AppEnvironment = AppEnvironment.Dev Then
             m_LogManager.AttemptSetup()
         End If
     End Sub
