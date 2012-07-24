@@ -1,4 +1,4 @@
-﻿Public MustInherit Class ReciveMessage
+﻿Friend MustInherit Class ReciveMessage
     Public ReadOnly Message As PlayerIOClient.Message
 
     Public Sub New(PMessage As PlayerIOClient.Message)
@@ -11,7 +11,7 @@ Friend Class GroupDisallowedJoin_ReciveMessage
     'No arguments
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
     End Sub
 End Class
 
@@ -20,7 +20,7 @@ Friend Class Upgrade_ReciveMessage
     'No arguments
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
     End Sub
 End Class
 
@@ -30,7 +30,7 @@ Friend Class Info_ReciveMessage
     Public ReadOnly Text As String '1
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         Title = PMessage.GetString(0)
         Text = PMessage.GetString(1)
@@ -54,7 +54,7 @@ Friend Class Init_ReciveMessage
     Public ReadOnly IsTutorialRoom As Boolean '12
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         UsernameOwner = PMessage.GetString(0)
         WorldName = PMessage.GetString(1)
@@ -79,7 +79,7 @@ Friend Class UpdateMeta_ReciveMessage
     Public ReadOnly Plays As Integer '2
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         Owner = PMessage.GetString(0)
         Title = PMessage.GetString(1)
@@ -101,7 +101,7 @@ Friend Class Add_ReciveMessage
     Public ReadOnly IsYourFriend As Boolean '9
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         UserID = PMessage.GetInteger(0)
         Username = PMessage.GetString(1)
@@ -121,7 +121,7 @@ Friend Class Left_ReciveMessage
     Public ReadOnly UserID As Integer '0
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         UserID = PMessage.GetInteger(0)
     End Sub
@@ -141,7 +141,7 @@ Friend Class Move_ReciveMessage
     Public ReadOnly Coins As Integer '9
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         UserID = PMessage.GetInteger(0)
         PlayerPosX = PMessage.GetInteger(1)
@@ -162,7 +162,7 @@ Friend Class Coin_ReciveMessage
     Public ReadOnly Coins As Integer '1
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         UserID = PMessage.GetInteger(0)
         Coins = PMessage.GetInteger(1)
@@ -174,7 +174,7 @@ Friend Class Crown_ReciveMessage
     Public ReadOnly UserID As Integer '0
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         UserID = PMessage.GetInteger(0)
     End Sub
@@ -185,7 +185,7 @@ Friend Class SilverCrown_ReciveMessage
     Public ReadOnly UserID As Integer '0
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         UserID = PMessage.GetInteger(0)
     End Sub
@@ -197,7 +197,7 @@ Friend Class Face_ReciveMessage
     Public ReadOnly FaceID As Integer '1
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         UserID = PMessage.GetInteger(0)
         FaceID = PMessage.GetInteger(1)
@@ -209,7 +209,7 @@ Friend Class ShowKey_ReciveMessage
     Public ReadOnly KeyColor As DoorID '0
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         KeyColor = CType([Enum].Parse(GetType(DoorID), PMessage.GetString(0), True), DoorID)
     End Sub
@@ -220,7 +220,7 @@ Friend Class HideKey_ReciveMessage
     Public ReadOnly KeyColor As DoorID '0
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         KeyColor = CType([Enum].Parse(GetType(DoorID), PMessage.GetString(0), True), DoorID)
     End Sub
@@ -232,7 +232,7 @@ Friend Class Say_ReciveMessage
     Public ReadOnly Text As String '1
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         UserID = PMessage.GetInteger(0)
         Text = PMessage.GetString(1)
@@ -245,7 +245,7 @@ Friend Class SayOld_ReciveMessage
     Public ReadOnly Text As String '1
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         UserName = PMessage.GetString(0)
         Text = PMessage.GetString(1)
@@ -258,7 +258,7 @@ Friend Class AutoText_ReciveMessage
     Public ReadOnly Text As String '1
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         UserID = PMessage.GetInteger(0)
         Text = PMessage.GetString(1)
@@ -271,7 +271,7 @@ Friend Class Write_ReciveMessage
     Public ReadOnly Text As String '1
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         Title = PMessage.GetString(0)
         Text = PMessage.GetString(1)
@@ -286,7 +286,7 @@ Friend Class BlockPlace_ReciveMessage
     Public ReadOnly Block As Block '3
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         Layer = CType(PMessage.Item(0), Layer)
         PosX = PMessage.GetInteger(1)
@@ -303,7 +303,7 @@ Friend Class CoinDoorPlace_ReciveMessage
     Public ReadOnly CoinsToOpen As Integer '3
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         PosX = PMessage.GetInteger(0)
         PosY = PMessage.GetInteger(1)
@@ -320,7 +320,7 @@ Friend Class SoundPlace_ReciveMessage
     Public ReadOnly SoundID As Integer '3
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         PosX = PMessage.GetInteger(0)
         PosY = PMessage.GetInteger(1)
@@ -339,7 +339,7 @@ Friend Class PortalPlace_ReciveMessage
     Public ReadOnly PortalTarget As Integer '5
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         PosX = PMessage.GetInteger(0)
         PosY = PMessage.GetInteger(1)
@@ -358,7 +358,7 @@ Friend Class LabelPlace_ReciveMessage
     Public ReadOnly Text As String '3
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         PosX = PMessage.GetInteger(0)
         PosY = PMessage.GetInteger(1)
@@ -373,7 +373,7 @@ Friend Class Godmode_ReciveMessage
     Public ReadOnly IsGod As Boolean '1
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         UserID = PMessage.GetInteger(0)
         IsGod = PMessage.GetBoolean(1)
@@ -385,7 +385,7 @@ Friend Class Modmode_ReciveMessage
     Public ReadOnly UserID As Integer '0
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         UserID = PMessage.GetInteger(0)
     End Sub
@@ -396,7 +396,7 @@ Friend Class Access_ReciveMessage
     'No arguments
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
     End Sub
 End Class
 
@@ -405,7 +405,7 @@ Friend Class LostAccess_ReciveMessage
     'No arguments
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
     End Sub
 End Class
 
@@ -414,7 +414,7 @@ Friend Class Teleport_ReciveMessage
     Public ReadOnly ResetCoins As Boolean '0
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         ResetCoins = PMessage.GetBoolean(0)
     End Sub
@@ -425,7 +425,7 @@ Friend Class Reset_ReciveMessage
     'No arguments
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
     End Sub
 End Class
 
@@ -435,7 +435,7 @@ Friend Class Clear_ReciveMessage
     Public ReadOnly RoomHeight As Integer '1
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
 
         RoomWidth = PMessage.GetInteger(0)
         RoomHeight = PMessage.GetInteger(1)
@@ -447,7 +447,7 @@ Friend Class SaveDone_ReciveMessage
     'No arguments
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
     End Sub
 End Class
 
@@ -456,7 +456,7 @@ Friend Class RefreshShop_ReciveMessage
     'TODO: Add arguments
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
     End Sub
 End Class
 
@@ -465,7 +465,7 @@ Friend Class GiveWizard_ReciveMessage
     'No arguments
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
     End Sub
 End Class
 
@@ -474,7 +474,7 @@ Friend Class GiveFireWizard_ReciveMessage
     'No arguments
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
     End Sub
 End Class
 
@@ -483,7 +483,7 @@ Friend Class GiveWitch_ReciveMessage
     'No arguments
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
     End Sub
 End Class
 
@@ -492,6 +492,6 @@ Friend Class GiveGrinch_ReciveMessage
     'No arguments
 
     Public Sub New(PMessage As PlayerIOClient.Message)
-        MyBase.New(PMessage)
+        myBase.New(PMessage)
     End Sub
 End Class

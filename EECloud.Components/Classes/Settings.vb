@@ -1,7 +1,10 @@
 ﻿Friend NotInheritable Class Settings
+    Inherits BaseGlobalComponent
     Implements ISettings
 
-    Private m_ConnectionManager As IBot
+    Public Sub New(PBot As Bot)
+        MyBase.New(PBot)
+    End Sub
 
     Public Function GetBoolean(SettingName As String) As Boolean Implements ISettings.GetBoolean
         Return CBool(GetObj(SettingName))
@@ -41,7 +44,7 @@
 
     Public Function GetObj(SettingName As String) As Object Implements ISettings.GetObj
         Try 'TODO: Better handling of errors 
-            Return m_ConnectionManager.Database.GetObject("SettingsDB", SettingName)("value")
+            Return myBot.Database.GetObject("SettingsDB", SettingName)("value")
         Catch ex As PlayerIOClient.PlayerIOError
             Return Nothing
         End Try
@@ -137,9 +140,5 @@
 
     Public Overloads Sub SetSetting(SettingName As String, Value As UShort) Implements ISettings.SetSetting
 
-    End Sub
-
-    Public Sub AttemptSetup(PConnectionManager As IBot) Implements ISettings.AttemptSetup
-        m_ConnectionManager = PConnectionManager
     End Sub
 End Class

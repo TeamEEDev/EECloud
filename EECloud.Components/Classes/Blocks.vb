@@ -1,8 +1,9 @@
 ﻿Friend NotInheritable Class Blocks
+    Inherits BaseComponent
     Implements IBlocks
 
-    Public Sub New(Connection As IConnection)
-
+    Public Sub New(PConnection As Connection)
+        MyBase.New(PConnection)
     End Sub
 
     Public ReadOnly Property CorrectLayer(PID As Integer, PLayer As Layer) As Layer Implements IBlocks.CorrectLayer
@@ -41,10 +42,10 @@
         End Get
     End Property
 
-    Private m_Encryption As String
+    Private myEncryption As String
     Public ReadOnly Property Encryption As String Implements IBlocks.Encryption
         Get
-            Return m_Encryption
+            Return myEncryption
         End Get
     End Property
 End Class

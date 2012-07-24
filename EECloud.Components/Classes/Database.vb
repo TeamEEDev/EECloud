@@ -1,5 +1,10 @@
 ﻿Friend NotInheritable Class Database
+    Inherits BaseGlobalComponent
     Implements IDatabase
+
+    Public Sub New(PBot As Bot)
+        MyBase.New(PBot)
+    End Sub
 
     Public Property Client As Client Implements IDatabase.Client
 

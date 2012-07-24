@@ -17,30 +17,30 @@ Namespace My
     <Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(), _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0"), _
      Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)> _
-    Partial Friend NotInheritable Class MySettings
+    Partial Friend NotInheritable Class mySettings
         Inherits Global.System.Configuration.ApplicationSettingsBase
 
-        Private Shared defaultInstance As MySettings = CType(Global.System.Configuration.ApplicationSettingsBase.Synchronized(New MySettings), MySettings)
+        Private Shared defaultInstance As mySettings = CType(Global.System.Configuration.ApplicationSettingsBase.Synchronized(New mySettings), mySettings)
 
 #Region "My.Settings Auto-Save Functionality"
-#If _MyType = "WindowsForms" Then
+#If _myType = "WindowsForms" Then
         Private Shared addedHandler As Boolean
 
         Private Shared addedHandlerLockObject As New Object
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)> _
         Private Shared Sub AutoSaveSettings(ByVal sender As Global.System.Object, ByVal e As Global.System.EventArgs)
-            If My.Application.SaveMySettingsOnExit Then
+            If My.Application.SavemySettingsOnExit Then
                 My.Settings.Save()
             End If
         End Sub
 #End If
 #End Region
 
-        Public Shared ReadOnly Property [Default]() As MySettings
+        Public Shared ReadOnly Property [Default]() As mySettings
             Get
 
-#If _MyType = "WindowsForms" Then
+#If _myType = "WindowsForms" Then
                    If Not addedHandler Then
                         SyncLock addedHandlerLockObject
                             If Not addedHandler Then
@@ -57,16 +57,16 @@ Namespace My
 End Namespace
 
 Namespace My
-    
-    <Global.Microsoft.VisualBasic.HideModuleNameAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute()>  _
-    Friend Module MySettingsProperty
-        
-        <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")>  _
-        Friend ReadOnly Property Settings() As Global.EECloud.Components.My.MySettings
+
+    <Global.Microsoft.VisualBasic.HideModuleNameAttribute(), _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute()> _
+    Friend Module mySettingsProperty
+
+        <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")> _
+        Friend ReadOnly Property Settings() As Global.EECloud.Components.My.mySettings
             Get
-                Return Global.EECloud.Components.My.MySettings.Default
+                Return Global.EECloud.Components.My.mySettings.Default
             End Get
         End Property
     End Module

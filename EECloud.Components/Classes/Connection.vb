@@ -1,4 +1,5 @@
 ﻿Friend NotInheritable Class Connection
+    Inherits BaseGlobalComponent
     Implements IConnection
 
 #Region "Events"
@@ -7,47 +8,47 @@
 #End Region
 
 #Region "Fields"
-    Private m_ConnectionManager As IBot
-    Private m_Connection As PlayerIOClient.Connection
+    Private myConnection As PlayerIOClient.Connection
 #End Region
 
 #Region "Properties"
-    Private m_WorldID As String
+    Private myWorldID As String
     Public ReadOnly Property WorldID As String Implements IConnection.WorldID
         Get
-            Return m_WorldID
+            Return myWorldID
         End Get
     End Property
 
     Public ReadOnly Property Connected As Boolean Implements IConnection.Connected
         Get
-            Return m_Connection.Connected
+            Return myConnection.Connected
         End Get
     End Property
 
-    Private m_BlockManager As IBlocks = New Blocks(Me)
+    Friend myBlockManager As New Blocks(Me)
     Public ReadOnly Property BlockManager As IBlocks Implements IConnection.BlockManager
         Get
-            Return m_BlockManager
+            Return myBlockManager
         End Get
     End Property
 #End Region
 
 #Region "Methods"
-    Sub New(PConnectionManager As Bot, PConnection As PlayerIOClient.Connection, PWorldID As String)
-        If PConnectionManager Is Nothing Then
-            Throw New ArgumentException("PConnectionManager cannot be null.")
+    Sub New(PBot As Bot, PConnection As PlayerIOClient.Connection, PWorldID As String)
+        MyBase.New(PBot)
+        If PBot Is Nothing Then
+            Throw New ArgumentException("PBot cannot be null.")
         End If
         If PConnection Is Nothing Then
             Throw New ArgumentException("PConnection cannot be null.")
         End If
-        m_Connection = PConnection
-        m_WorldID = PWorldID
+        myConnection = PConnection
+        myWorldID = PWorldID
 
-        m_Connection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
-        m_Connection.AddOnMessage(AddressOf MessageReciver)
+        myConnection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
+        myConnection.AddOnMessage(AddressOf MessageReciver)
 
-        m_ConnectionManager = PConnectionManager
+        myBot = PBot
 
         RegisterMessage("init", GetType(Init_ReciveMessage))
         Send(New Init_SendMessage)
@@ -70,16 +71,16 @@
 
             RaiseEvent OnMessage(Me, myEventArgs)
         Catch ex As KeyNotFoundException
-            m_ConnectionManager.Logger.Log(LogPriority.Warning, "Recived not registered message: " & e.Type)
+            myBot.Logger.Log(LogPriority.Warning, "Recived not registered message: " & e.Type)
         End Try
     End Sub
 
     Public Sub Send(PMessage As SendMessage)
-        m_Connection.Send(PMessage.GetMessage(Me))
+        myConnection.Send(PMessage.GetMessage(Me))
     End Sub
 
     Public Sub Disconnect() Implements IConnection.Disconnect
-        m_Connection.Disconnect()
+        myConnection.Disconnect()
     End Sub
 
     Private RegisteredMessages As Boolean
@@ -142,8 +143,8 @@
     Protected Sub Dispose(disposing As Boolean)
         If Not Me.disposedValue Then
             If disposing Then
-                m_Connection.Disconnect()
-                m_Connection = Nothing
+                myConnection.Disconnect()
+                myConnection = Nothing
             End If
 
             MessageDictionary.Clear()
