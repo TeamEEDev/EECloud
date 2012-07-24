@@ -1,4 +1,5 @@
 ﻿Public Interface ISettingManager
+    <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)>
     Sub AttemptSetup(ConnectionManager As IConnectionManager)
 
     Overloads Sub SetSetting(SettingName As String, Value As Boolean)

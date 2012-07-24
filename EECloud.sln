@@ -3,27 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud.PluginAPI", "EECloud.PluginAPI\EECloud.PluginAPI.vbproj", "{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud.HostAPI", "EECloud.HostAPI\EECloud.HostAPI.vbproj", "{1D698966-6DCA-453C-80DB-3CBAF1138349}"
-EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud", "EECloud\EECloud.vbproj", "{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}"
-	ProjectSection(ProjectDependencies) = postProject
-		{2D5B5168-62F3-42A8-9570-F709D52AFDDD} = {2D5B5168-62F3-42A8-9570-F709D52AFDDD}
-		{607E8B82-01F1-45D8-B1DA-A896F09A9DF1} = {607E8B82-01F1-45D8-B1DA-A896F09A9DF1}
-		{CDA1FC07-887C-4FB2-8593-9C66D318854E} = {CDA1FC07-887C-4FB2-8593-9C66D318854E}
-		{EB89615D-7D61-40B0-98BE-A775113BC876} = {EB89615D-7D61-40B0-98BE-A775113BC876}
-	EndProjectSection
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud.ConnectionManager", "EECloud.ConnectionManager\EECloud.ConnectionManager.vbproj", "{CDA1FC07-887C-4FB2-8593-9C66D318854E}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud.BlockManager", "EECloud.BlockManager\EECloud.BlockManager.vbproj", "{607E8B82-01F1-45D8-B1DA-A896F09A9DF1}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud.LogManager", "EECloud.LogManager\EECloud.LogManager.vbproj", "{EB89615D-7D61-40B0-98BE-A775113BC876}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud.SettingManager", "EECloud.SettingManager\EECloud.SettingManager.vbproj", "{2D5B5168-62F3-42A8-9570-F709D52AFDDD}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud.CommandManager", "EECloud.CommandManager\EECloud.CommandManager.vbproj", "{95270D09-DCDA-4636-BC24-3756AE073CA8}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud.DatabaseManager", "EECloud.DatabaseManager\EECloud.DatabaseManager.vbproj", "{F6E1E3C4-DD27-4253-9FC0-F3A66AD402D6}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud.Components", "EECloud.Components\EECloud.Components.vbproj", "{3DB6F763-A8A9-4EDD-8149-7B96063FF00C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,42 +13,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1D698966-6DCA-453C-80DB-3CBAF1138349}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1D698966-6DCA-453C-80DB-3CBAF1138349}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1D698966-6DCA-453C-80DB-3CBAF1138349}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1D698966-6DCA-453C-80DB-3CBAF1138349}.Release|Any CPU.Build.0 = Release|Any CPU
 		{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2D5B5168-62F3-42A8-9570-F709D52AFDDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D5B5168-62F3-42A8-9570-F709D52AFDDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D5B5168-62F3-42A8-9570-F709D52AFDDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D5B5168-62F3-42A8-9570-F709D52AFDDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DB6F763-A8A9-4EDD-8149-7B96063FF00C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DB6F763-A8A9-4EDD-8149-7B96063FF00C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DB6F763-A8A9-4EDD-8149-7B96063FF00C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DB6F763-A8A9-4EDD-8149-7B96063FF00C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{607E8B82-01F1-45D8-B1DA-A896F09A9DF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{607E8B82-01F1-45D8-B1DA-A896F09A9DF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{607E8B82-01F1-45D8-B1DA-A896F09A9DF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{607E8B82-01F1-45D8-B1DA-A896F09A9DF1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{95270D09-DCDA-4636-BC24-3756AE073CA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{95270D09-DCDA-4636-BC24-3756AE073CA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{95270D09-DCDA-4636-BC24-3756AE073CA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{95270D09-DCDA-4636-BC24-3756AE073CA8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CDA1FC07-887C-4FB2-8593-9C66D318854E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CDA1FC07-887C-4FB2-8593-9C66D318854E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CDA1FC07-887C-4FB2-8593-9C66D318854E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CDA1FC07-887C-4FB2-8593-9C66D318854E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EB89615D-7D61-40B0-98BE-A775113BC876}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB89615D-7D61-40B0-98BE-A775113BC876}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB89615D-7D61-40B0-98BE-A775113BC876}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB89615D-7D61-40B0-98BE-A775113BC876}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F6E1E3C4-DD27-4253-9FC0-F3A66AD402D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6E1E3C4-DD27-4253-9FC0-F3A66AD402D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6E1E3C4-DD27-4253-9FC0-F3A66AD402D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6E1E3C4-DD27-4253-9FC0-F3A66AD402D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,8 @@
 ﻿Public Class SettingManager
     Implements ISettingManager
 
+    Private m_ConnectionManager As IConnectionManager
+
     Public Function GetBoolean(SettingName As String) As Boolean Implements ISettingManager.GetBoolean
         Return CBool(GetObj(SettingName))
     End Function
@@ -38,7 +40,11 @@
     End Function
 
     Public Function GetObj(SettingName As String) As Object Implements ISettingManager.GetObj
-
+        Try 'TODO: Better handeling of errors 
+            Return m_ConnectionManager.DatabaseManager.GetObject("SettingsDB", SettingName)("value")
+        Catch ex As PlayerIOClient.PlayerIOError
+            Return Nothing
+        End Try
     End Function
 
     Public Function GetSByte(SettingName As String) As SByte Implements ISettingManager.GetSByte
@@ -133,7 +139,7 @@
 
     End Sub
 
-    Public Sub AttemptSetup(ConnectionManager As IConnectionManager) Implements ISettingManager.AttemptSetup
-
+    Public Sub AttemptSetup(PConnectionManager As IConnectionManager) Implements ISettingManager.AttemptSetup
+        m_ConnectionManager = PConnectionManager
     End Sub
 End Class
