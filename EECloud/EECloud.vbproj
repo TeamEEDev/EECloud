@@ -121,7 +121,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EECloud.PluginAPI\EECloud.PluginAPI.vbproj">
+    <ProjectReference Include="..\EECloud.API\EECloud.API.vbproj">
       <Project>{580ddf14-7848-4318-b9d8-55cbc3a2bc9e}</Project>
       <Name>EECloud.PluginAPI</Name>
     </ProjectReference>
