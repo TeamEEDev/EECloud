@@ -70,7 +70,7 @@
   <ItemGroup>
     <Compile Include="Blocks.vb" />
     <Compile Include="Connection.vb" />
-    <Compile Include="Global\ConnectionManager.vb" />
+    <Compile Include="Global\Connections.vb" />
     <Compile Include="Global\Database.vb" />
     <Compile Include="Global\Logger.vb" />
     <Compile Include="Host.vb" />
