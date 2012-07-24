@@ -1,5 +1,4 @@
-﻿<Export(GetType(API.IConnection))>
-Public Class Connection
+﻿Public Class Connection
     Implements IConnection
 
 #Region "Events"
@@ -26,8 +25,7 @@ Public Class Connection
         End Get
     End Property
 
-    <Import(AllowDefault:=True)>
-    Private m_BlockManager As IBlockManager
+    Private m_BlockManager As IBlockManager = New BlockManager
     Public ReadOnly Property BlockManager As IBlockManager Implements IConnection.BlockManager
         Get
             Return m_BlockManager

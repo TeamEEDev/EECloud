@@ -1,5 +1,4 @@
-﻿<Export(GetType(API.IBlockManager))>
-Public Class BlockManager
+﻿Public Class BlockManager
     Implements IBlockManager
 
 

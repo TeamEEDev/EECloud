@@ -47,7 +47,6 @@
       <HintPath>..\PlayerIOClient.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -63,9 +62,6 @@
     <Import Include="System" />
     <Import Include="System.Collections" />
     <Import Include="System.Collections.Generic" />
-    <Import Include="System.ComponentModel.Composition" />
-    <Import Include="System.ComponentModel.Composition.Hosting" />
-    <Import Include="System.ComponentModel.Composition.Primitives" />
     <Import Include="System.Data" />
     <Import Include="System.Diagnostics" />
     <Import Include="System.Linq" />
@@ -75,9 +71,9 @@
     <Compile Include="BlockManager.vb" />
     <Compile Include="CloudHost.vb" />
     <Compile Include="Connection.vb" />
-    <Compile Include="ConnectionManager.vb" />
-    <Compile Include="DatabaseManager.vb" />
-    <Compile Include="LogManager.vb" />
+    <Compile Include="Global\ConnectionManager.vb" />
+    <Compile Include="Global\DatabaseManager.vb" />
+    <Compile Include="Global\LogManager.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -93,7 +89,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="SettingManager.vb" />
+    <Compile Include="Global\SettingManager.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

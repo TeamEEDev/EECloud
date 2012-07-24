@@ -1,7 +1,7 @@
 ﻿Public Interface IConnectionManager
     Inherits IConnection
     <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)>
-    Sub AttemptSetup(POnAppharbor As Boolean, PContainer As CompositionContainer)
+    Sub AttemptSetup(POnAppharbor As Boolean)
     <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)>
     Sub SetMainConnection(PConnection As IConnection)
     ReadOnly Property OnAppHarbor As Boolean

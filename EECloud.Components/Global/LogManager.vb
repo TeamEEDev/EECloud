@@ -1,6 +1,5 @@
 ﻿Imports System.Threading
 
-<Export(GetType(ILogManager))>
 Public Class LogManager
     Implements ILogManager
 
