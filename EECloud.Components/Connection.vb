@@ -1,4 +1,4 @@
-﻿Public Class Connection
+﻿Friend Class Connection
     Implements IConnection
 
 #Region "Events"
