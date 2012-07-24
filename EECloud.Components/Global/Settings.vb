@@ -1,7 +1,7 @@
-﻿Public Class Settings
+﻿Friend NotInheritable Class Settings
     Implements ISettings
 
-    Private m_ConnectionManager As IConnections
+    Private m_ConnectionManager As IBot
 
     Public Function GetBoolean(SettingName As String) As Boolean Implements ISettings.GetBoolean
         Return CBool(GetObj(SettingName))
@@ -139,7 +139,7 @@
 
     End Sub
 
-    Public Sub AttemptSetup(PConnectionManager As IConnections) Implements ISettings.AttemptSetup
+    Public Sub AttemptSetup(PConnectionManager As IBot) Implements ISettings.AttemptSetup
         m_ConnectionManager = PConnectionManager
     End Sub
 End Class

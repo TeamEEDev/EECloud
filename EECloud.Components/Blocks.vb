@@ -1,4 +1,4 @@
-﻿Public Class Blocks
+﻿Friend NotInheritable Class Blocks
     Implements IBlocks
 
     Public Sub New(Connection As IConnection)

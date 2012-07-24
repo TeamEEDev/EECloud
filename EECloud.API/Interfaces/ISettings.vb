@@ -1,6 +1,6 @@
 ﻿Public Interface ISettings
     <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)>
-    Sub AttemptSetup(ConnectionManager As IConnections)
+    Sub AttemptSetup(ConnectionManager As IBot)
 
     Overloads Sub SetSetting(SettingName As String, Value As Boolean)
 
