@@ -2,7 +2,7 @@
     Public MustOverride Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
 End Class
 
-Public Class Init_SendMessage
+Friend Class Init_SendMessage
     Inherits SendMessage
     'No arguments
 
@@ -11,7 +11,7 @@ Public Class Init_SendMessage
     End Function
 End Class
 
-Public Class Init2_SendMessage
+Friend Class Init2_SendMessage
     Inherits SendMessage
     'No arguments
 
@@ -20,7 +20,7 @@ Public Class Init2_SendMessage
     End Function
 End Class
 
-Public Class BlockPlace_SendMessage
+Friend Class BlockPlace_SendMessage
     Inherits SendMessage
     Public ReadOnly Layer As Layer
     Public ReadOnly X As Integer
@@ -38,7 +38,7 @@ Public Class BlockPlace_SendMessage
     End Function
 End Class
 
-Public Class CoinDoorPlace_SendMessage
+Friend Class CoinDoorPlace_SendMessage
     Inherits BlockPlace_SendMessage
     Public ReadOnly CoinsToCollect As Integer
     Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PBlock As Block, PCoinsToCollect As Integer)
@@ -57,7 +57,7 @@ Public Class CoinDoorPlace_SendMessage
     End Function
 End Class
 
-Public Class SoundPlace_SendMessage
+Friend Class SoundPlace_SendMessage
     Inherits BlockPlace_SendMessage
     Public ReadOnly SoundID As Integer
     Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PBlock As Block, PSoundID As Integer)
@@ -76,7 +76,7 @@ Public Class SoundPlace_SendMessage
     End Function
 End Class
 
-Public Class PortalPlace_SendMessage
+Friend Class PortalPlace_SendMessage
     Inherits BlockPlace_SendMessage
     Public ReadOnly PortalID As Integer
     Public ReadOnly PortalTarget As Integer
@@ -101,7 +101,7 @@ Public Class PortalPlace_SendMessage
     End Function
 End Class
 
-Public Class LabelPlace_SendMessage
+Friend Class LabelPlace_SendMessage
     Inherits BlockPlace_SendMessage
     Public ReadOnly Text As String
     Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PBlock As Block, PText As String)
@@ -120,7 +120,7 @@ Public Class LabelPlace_SendMessage
     End Function
 End Class
 
-Public Class Coin_SendMessage
+Friend Class Coin_SendMessage
     Inherits SendMessage
     Public ReadOnly Coins As Integer
     Public Sub New(PCoins As Integer)
@@ -132,7 +132,7 @@ Public Class Coin_SendMessage
     End Function
 End Class
 
-Public Class PressRedKey_SendMessage
+Friend Class PressRedKey_SendMessage
     Inherits SendMessage
     'No arguments
 
@@ -141,7 +141,7 @@ Public Class PressRedKey_SendMessage
     End Function
 End Class
 
-Public Class PressGreenKey_SendMessage
+Friend Class PressGreenKey_SendMessage
     Inherits SendMessage
     'No arguments
 
@@ -150,7 +150,7 @@ Public Class PressGreenKey_SendMessage
     End Function
 End Class
 
-Public Class PressBlueKey_SendMessage
+Friend Class PressBlueKey_SendMessage
     Inherits SendMessage
     'No arguments
 
@@ -159,7 +159,7 @@ Public Class PressBlueKey_SendMessage
     End Function
 End Class
 
-Public Class GetCrown_SendMessage
+Friend Class GetCrown_SendMessage
     Inherits SendMessage
     'No arguments
 
@@ -168,7 +168,7 @@ Public Class GetCrown_SendMessage
     End Function
 End Class
 
-Public Class TouchDiamond_SendMessage
+Friend Class TouchDiamond_SendMessage
     Inherits SendMessage
     Public ReadOnly X As Integer
     Public ReadOnly Y As Integer
@@ -182,7 +182,7 @@ Public Class TouchDiamond_SendMessage
     End Function
 End Class
 
-Public Class CompleteLevel_SendMessage
+Friend Class CompleteLevel_SendMessage
     Inherits SendMessage
     'No arguments
 
@@ -191,7 +191,7 @@ Public Class CompleteLevel_SendMessage
     End Function
 End Class
 
-Public Class GodMode_SendMessage
+Friend Class GodMode_SendMessage
     Inherits SendMessage
     Public ReadOnly GodModeEnabled As Boolean
     Public Sub New(PGodModeEnabled As Boolean)
@@ -203,7 +203,7 @@ Public Class GodMode_SendMessage
     End Function
 End Class
 
-Public Class ModMode_SendMessage
+Friend Class ModMode_SendMessage
     Inherits SendMessage
     'No arguments
 
@@ -212,7 +212,7 @@ Public Class ModMode_SendMessage
     End Function
 End Class
 
-Public Class Move_SendMessage
+Friend Class Move_SendMessage
     Inherits SendMessage
     Public ReadOnly PosX As Integer
     Public ReadOnly PosY As Integer
@@ -238,7 +238,7 @@ Public Class Move_SendMessage
     End Function
 End Class
 
-Public Class Say_SendMessage
+Friend Class Say_SendMessage
     Inherits SendMessage
     Public ReadOnly Text As String
     Public Sub New(PText As String)
@@ -250,7 +250,7 @@ Public Class Say_SendMessage
     End Function
 End Class
 
-Public Class AutoSay_SendMessage
+Friend Class AutoSay_SendMessage
     Inherits SendMessage
     Public ReadOnly TextID As AutoText
     Public Sub New(PTextID As AutoText)
@@ -262,7 +262,7 @@ Public Class AutoSay_SendMessage
     End Function
 End Class
 
-Public Class Access_SendMessage
+Friend Class Access_SendMessage
     Inherits SendMessage
     Public ReadOnly EditKey As String
     Public Sub New(PEditKey As String)
@@ -274,7 +274,7 @@ Public Class Access_SendMessage
     End Function
 End Class
 
-Public Class ChangeFace_SendMessage
+Friend Class ChangeFace_SendMessage
     Inherits SendMessage
     Public ReadOnly FaceID As Smiley
     Public Sub New(PFaceID As Smiley)
@@ -286,7 +286,7 @@ Public Class ChangeFace_SendMessage
     End Function
 End Class
 
-Public Class SaveWorld_SendMessage
+Friend Class SaveWorld_SendMessage
     Inherits SendMessage
     'No arguments
 
@@ -295,7 +295,7 @@ Public Class SaveWorld_SendMessage
     End Function
 End Class
 
-Public Class ChangeWorldName_SendMessage
+Friend Class ChangeWorldName_SendMessage
     Inherits SendMessage
     Public ReadOnly WorldName As String
     Public Sub New(PWorldName As String)
@@ -307,7 +307,7 @@ Public Class ChangeWorldName_SendMessage
     End Function
 End Class
 
-Public Class ChangeWorldEditKey_SendMessage
+Friend Class ChangeWorldEditKey_SendMessage
     Inherits SendMessage
     Public ReadOnly EditKey As String
     Public Sub New(PEditKey As String)
@@ -319,7 +319,7 @@ Public Class ChangeWorldEditKey_SendMessage
     End Function
 End Class
 
-Public Class ClearWorld_SendMessage
+Friend Class ClearWorld_SendMessage
     Inherits SendMessage
     'No arguments
 
@@ -328,7 +328,7 @@ Public Class ClearWorld_SendMessage
     End Function
 End Class
 
-Public Class KillWorld_SendMessage
+Friend Class KillWorld_SendMessage
     Inherits SendMessage
     'No arguments
 

@@ -1,4 +1,4 @@
-﻿Public Class OnMessageEventArgs
+﻿Friend Class OnMessageEventArgs
     Inherits EventArgs
     Public ReadOnly Property Type As Type
         Get

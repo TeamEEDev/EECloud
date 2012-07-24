@@ -6,7 +6,7 @@
     End Sub
 End Class
 
-Public Class GroupDisallowedJoin_ReciveMessage
+Friend Class GroupDisallowedJoin_ReciveMessage
     Inherits ReciveMessage
     'No arguments
 
@@ -15,7 +15,7 @@ Public Class GroupDisallowedJoin_ReciveMessage
     End Sub
 End Class
 
-Public Class Upgrade_ReciveMessage
+Friend Class Upgrade_ReciveMessage
     Inherits ReciveMessage
     'No arguments
 
@@ -24,7 +24,7 @@ Public Class Upgrade_ReciveMessage
     End Sub
 End Class
 
-Public Class Info_ReciveMessage
+Friend Class Info_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly Title As String '0
     Public ReadOnly Text As String '1
@@ -37,7 +37,7 @@ Public Class Info_ReciveMessage
     End Sub
 End Class
 
-Public Class Init_ReciveMessage
+Friend Class Init_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly UsernameOwner As String '0
     Public ReadOnly WorldName As String '1
@@ -72,7 +72,7 @@ Public Class Init_ReciveMessage
     End Sub
 End Class
 
-Public Class UpdateMeta_ReciveMessage
+Friend Class UpdateMeta_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly Owner As String '0
     Public ReadOnly Title As String '1
@@ -87,7 +87,7 @@ Public Class UpdateMeta_ReciveMessage
     End Sub
 End Class
 
-Public Class Add_ReciveMessage
+Friend Class Add_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly UserID As Integer '0
     Public ReadOnly Username As String '1
@@ -116,7 +116,7 @@ Public Class Add_ReciveMessage
     End Sub
 End Class
 
-Public Class Left_ReciveMessage
+Friend Class Left_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly UserID As Integer '0
 
@@ -127,7 +127,7 @@ Public Class Left_ReciveMessage
     End Sub
 End Class
 
-Public Class Move_ReciveMessage
+Friend Class Move_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly UserID As Integer '0
     Public ReadOnly PlayerPosX As Integer '1
@@ -156,7 +156,7 @@ Public Class Move_ReciveMessage
     End Sub
 End Class
 
-Public Class Coin_ReciveMessage
+Friend Class Coin_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly UserID As Integer '0
     Public ReadOnly Coins As Integer '1
@@ -169,7 +169,7 @@ Public Class Coin_ReciveMessage
     End Sub
 End Class
 
-Public Class Crown_ReciveMessage
+Friend Class Crown_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly UserID As Integer '0
 
@@ -180,7 +180,7 @@ Public Class Crown_ReciveMessage
     End Sub
 End Class
 
-Public Class SilverCrown_ReciveMessage
+Friend Class SilverCrown_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly UserID As Integer '0
 
@@ -191,7 +191,7 @@ Public Class SilverCrown_ReciveMessage
     End Sub
 End Class
 
-Public Class Face_ReciveMessage
+Friend Class Face_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly UserID As Integer '0
     Public ReadOnly FaceID As Integer '1
@@ -204,7 +204,7 @@ Public Class Face_ReciveMessage
     End Sub
 End Class
 
-Public Class ShowKey_ReciveMessage
+Friend Class ShowKey_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly KeyColor As DoorID '0
 
@@ -215,7 +215,7 @@ Public Class ShowKey_ReciveMessage
     End Sub
 End Class
 
-Public Class HideKey_ReciveMessage
+Friend Class HideKey_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly KeyColor As DoorID '0
 
@@ -226,7 +226,7 @@ Public Class HideKey_ReciveMessage
     End Sub
 End Class
 
-Public Class Say_ReciveMessage
+Friend Class Say_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly UserID As Integer '0
     Public ReadOnly Text As String '1
@@ -239,7 +239,7 @@ Public Class Say_ReciveMessage
     End Sub
 End Class
 
-Public Class SayOld_ReciveMessage
+Friend Class SayOld_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly UserName As String '0
     Public ReadOnly Text As String '1
@@ -252,7 +252,7 @@ Public Class SayOld_ReciveMessage
     End Sub
 End Class
 
-Public Class AutoText_ReciveMessage
+Friend Class AutoText_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly UserID As Integer '0
     Public ReadOnly Text As String '1
@@ -265,7 +265,7 @@ Public Class AutoText_ReciveMessage
     End Sub
 End Class
 
-Public Class Write_ReciveMessage
+Friend Class Write_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly Title As String '0
     Public ReadOnly Text As String '1
@@ -278,7 +278,7 @@ Public Class Write_ReciveMessage
     End Sub
 End Class
 
-Public Class BlockPlace_ReciveMessage
+Friend Class BlockPlace_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly Layer As Layer '0
     Public ReadOnly PosX As Integer '1
@@ -295,7 +295,7 @@ Public Class BlockPlace_ReciveMessage
     End Sub
 End Class
 
-Public Class CoinDoorPlace_ReciveMessage
+Friend Class CoinDoorPlace_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly PosX As Integer '0
     Public ReadOnly PosY As Integer '1
@@ -312,7 +312,7 @@ Public Class CoinDoorPlace_ReciveMessage
     End Sub
 End Class
 
-Public Class SoundPlace_ReciveMessage
+Friend Class SoundPlace_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly PosX As Integer '0
     Public ReadOnly PosY As Integer '1
@@ -329,7 +329,7 @@ Public Class SoundPlace_ReciveMessage
     End Sub
 End Class
 
-Public Class PortalPlace_ReciveMessage
+Friend Class PortalPlace_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly PosX As Integer '0
     Public ReadOnly PosY As Integer '1
@@ -350,7 +350,7 @@ Public Class PortalPlace_ReciveMessage
     End Sub
 End Class
 
-Public Class LabelPlace_ReciveMessage
+Friend Class LabelPlace_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly PosX As Integer '0
     Public ReadOnly PosY As Integer '1
@@ -367,7 +367,7 @@ Public Class LabelPlace_ReciveMessage
     End Sub
 End Class
 
-Public Class Godmode_ReciveMessage
+Friend Class Godmode_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly UserID As Integer '0
     Public ReadOnly IsGod As Boolean '1
@@ -380,7 +380,7 @@ Public Class Godmode_ReciveMessage
     End Sub
 End Class
 
-Public Class Modmode_ReciveMessage
+Friend Class Modmode_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly UserID As Integer '0
 
@@ -391,7 +391,7 @@ Public Class Modmode_ReciveMessage
     End Sub
 End Class
 
-Public Class Access_ReciveMessage
+Friend Class Access_ReciveMessage
     Inherits ReciveMessage
     'No arguments
 
@@ -400,7 +400,7 @@ Public Class Access_ReciveMessage
     End Sub
 End Class
 
-Public Class LostAccess_ReciveMessage
+Friend Class LostAccess_ReciveMessage
     Inherits ReciveMessage
     'No arguments
 
@@ -409,7 +409,7 @@ Public Class LostAccess_ReciveMessage
     End Sub
 End Class
 
-Public Class Teleport_ReciveMessage
+Friend Class Teleport_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly ResetCoins As Boolean '0
 
@@ -420,7 +420,7 @@ Public Class Teleport_ReciveMessage
     End Sub
 End Class
 
-Public Class Reset_ReciveMessage
+Friend Class Reset_ReciveMessage
     Inherits ReciveMessage
     'No arguments
 
@@ -429,7 +429,7 @@ Public Class Reset_ReciveMessage
     End Sub
 End Class
 
-Public Class Clear_ReciveMessage
+Friend Class Clear_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly RoomWidth As Integer '0
     Public ReadOnly RoomHeight As Integer '1
@@ -442,7 +442,7 @@ Public Class Clear_ReciveMessage
     End Sub
 End Class
 
-Public Class SaveDone_ReciveMessage
+Friend Class SaveDone_ReciveMessage
     Inherits ReciveMessage
     'No arguments
 
@@ -451,7 +451,7 @@ Public Class SaveDone_ReciveMessage
     End Sub
 End Class
 
-Public Class RefreshShop_ReciveMessage
+Friend Class RefreshShop_ReciveMessage
     Inherits ReciveMessage
     'TODO: Add arguments
 
@@ -460,7 +460,7 @@ Public Class RefreshShop_ReciveMessage
     End Sub
 End Class
 
-Public Class GiveWizard_ReciveMessage
+Friend Class GiveWizard_ReciveMessage
     Inherits ReciveMessage
     'No arguments
 
@@ -469,7 +469,7 @@ Public Class GiveWizard_ReciveMessage
     End Sub
 End Class
 
-Public Class GiveFireWizard_ReciveMessage
+Friend Class GiveFireWizard_ReciveMessage
     Inherits ReciveMessage
     'No arguments
 
@@ -478,7 +478,7 @@ Public Class GiveFireWizard_ReciveMessage
     End Sub
 End Class
 
-Public Class GiveWitch_ReciveMessage
+Friend Class GiveWitch_ReciveMessage
     Inherits ReciveMessage
     'No arguments
 
@@ -487,7 +487,7 @@ Public Class GiveWitch_ReciveMessage
     End Sub
 End Class
 
-Public Class GiveGrinch_ReciveMessage
+Friend Class GiveGrinch_ReciveMessage
     Inherits ReciveMessage
     'No arguments
 

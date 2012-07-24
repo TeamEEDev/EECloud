@@ -84,7 +84,6 @@
     <Compile Include="Interfaces\IDatabase.vb" />
     <Compile Include="Interfaces\ILogger.vb" />
     <Compile Include="Interfaces\ISettings.vb" />
-    <Compile Include="Modules\Utils.vb" />
     <Compile Include="Enums\DoorID.vb" />
     <Compile Include="Enums\PortalRotation.vb" />
     <Compile Include="Interfaces\IPlayer.vb" />
