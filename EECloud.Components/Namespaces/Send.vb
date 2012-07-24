@@ -1,4 +1,4 @@
-﻿Public MustInherit Class SendMessage
+﻿Friend MustInherit Class SendMessage
     Public MustOverride Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
 End Class
 
@@ -42,17 +42,17 @@ Friend Class CoinDoorPlace_SendMessage
     Inherits BlockPlace_SendMessage
     Public ReadOnly CoinsToCollect As Integer
     Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PBlock As Block, PCoinsToCollect As Integer)
-        MyBase.New(PLayer, PX, PY, PBlock)
+        myBase.New(PLayer, PX, PY, PBlock)
         CoinsToCollect = PCoinsToCollect
     End Sub
 
     Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
         If Connection.BlockManager.IsCoinDoor(ID) Then
-            Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Connection)
+            Dim myMessage As PlayerIOClient.Message = myBase.GetMessage(Connection)
             myMessage.Add(CoinsToCollect)
             Return myMessage
         Else
-            Return MyBase.GetMessage(Connection)
+            Return myBase.GetMessage(Connection)
         End If
     End Function
 End Class
@@ -61,17 +61,17 @@ Friend Class SoundPlace_SendMessage
     Inherits BlockPlace_SendMessage
     Public ReadOnly SoundID As Integer
     Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PBlock As Block, PSoundID As Integer)
-        MyBase.New(PLayer, PX, PY, PBlock)
+        myBase.New(PLayer, PX, PY, PBlock)
         SoundID = PSoundID
     End Sub
 
     Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
         If Connection.BlockManager.IsSound(ID) Then
-            Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Connection)
+            Dim myMessage As PlayerIOClient.Message = myBase.GetMessage(Connection)
             myMessage.Add(SoundID)
             Return myMessage
         Else
-            Return MyBase.GetMessage(Connection)
+            Return myBase.GetMessage(Connection)
         End If
     End Function
 End Class
@@ -82,7 +82,7 @@ Friend Class PortalPlace_SendMessage
     Public ReadOnly PortalTarget As Integer
     Public ReadOnly PortalRotation As PortalRotation
     Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PBlock As Block, PPortalID As Integer, PPortalTarget As Integer, PPortalRotation As PortalRotation)
-        MyBase.New(PLayer, PX, PY, PBlock)
+        myBase.New(PLayer, PX, PY, PBlock)
         PortalID = PPortalID
         PortalTarget = PPortalTarget
         PortalRotation = PPortalRotation
@@ -90,13 +90,13 @@ Friend Class PortalPlace_SendMessage
 
     Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
         If Connection.BlockManager.IsPortal(ID) Then
-            Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Connection)
+            Dim myMessage As PlayerIOClient.Message = myBase.GetMessage(Connection)
             myMessage.Add(PortalRotation)
             myMessage.Add(PortalID)
             myMessage.Add(PortalTarget)
             Return myMessage
         Else
-            Return MyBase.GetMessage(Connection)
+            Return myBase.GetMessage(Connection)
         End If
     End Function
 End Class
@@ -105,17 +105,17 @@ Friend Class LabelPlace_SendMessage
     Inherits BlockPlace_SendMessage
     Public ReadOnly Text As String
     Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PBlock As Block, PText As String)
-        MyBase.New(PLayer, PX, PY, PBlock)
+        myBase.New(PLayer, PX, PY, PBlock)
         Text = PText
     End Sub
 
     Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
         If Connection.BlockManager.IsLabel(ID) Then
-            Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Connection)
+            Dim myMessage As PlayerIOClient.Message = myBase.GetMessage(Connection)
             myMessage.Add(Text)
             Return myMessage
         Else
-            Return MyBase.GetMessage(Connection)
+            Return myBase.GetMessage(Connection)
         End If
     End Function
 End Class

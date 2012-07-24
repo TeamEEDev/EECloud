@@ -1,19 +1,19 @@
-﻿Friend Class OnMessageEventArgs
+﻿Friend NotInheritable Class OnMessageEventArgs
     Inherits EventArgs
     Public ReadOnly Property Type As Type
         Get
-            Return m_Message.GetType
+            Return myMessage.GetType
         End Get
     End Property
 
-    Private m_Message As ReciveMessage
+    Private myMessage As ReciveMessage
     Public ReadOnly Property Message As ReciveMessage
         Get
-            Return m_Message
+            Return myMessage
         End Get
     End Property
 
     Public Sub New(PMessage As ReciveMessage)
-        m_Message = PMessage
+        myMessage = PMessage
     End Sub
 End Class

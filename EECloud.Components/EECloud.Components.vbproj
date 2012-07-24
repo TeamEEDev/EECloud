@@ -68,6 +68,8 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\BaseComponent.vb" />
+    <Compile Include="Classes\BaseGlobalComponent.vb" />
     <Compile Include="Classes\Blocks.vb" />
     <Compile Include="Classes\Connection.vb" />
     <Compile Include="Classes\Bot.vb" />

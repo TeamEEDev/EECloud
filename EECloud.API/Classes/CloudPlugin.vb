@@ -1,9 +1,9 @@
 ﻿Public MustInherit Class CloudPlugin
     Implements IPlugin(Of IPlayer)
 
-    Private m_Host As IBot
+    Private myHost As IBot
     Public Sub AttemptSetup(Host As IBot) Implements IPlugin(Of IPlayer).AttemptSetup
-        m_Host = Host
+        myHost = Host
     End Sub
 
     Public MustOverride Sub OnDisable() Implements IPlugin(Of IPlayer).OnDisable

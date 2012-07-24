@@ -2,42 +2,49 @@
     Implements IBot
 
 #Region "Fields"
-    Private m_GameVersionSetting As Integer = 0
+    Private myGameVersionSetting As Integer = 0
 #End Region
 
 #Region "Properties"
-    Private m_Connection As IConnection
+    Private myConnection As Connection
     Public ReadOnly Property Connection As IConnection Implements IBot.Connection
         Get
-            Return m_Connection
+            Return myConnection
         End Get
     End Property
 
-    Private m_Settings As ISettings = New Settings
+    Private mySettings As New Settings(Me)
     Public ReadOnly Property Settings As ISettings Implements IBot.Settings
         Get
-            Return m_Settings
+            Return mySettings
         End Get
     End Property
 
-    Private m_Logger As ILogger = New Logger
+    Private myLogger As New Logger(Me)
     Public ReadOnly Property Logger As ILogger Implements IBot.Logger
         Get
-            Return m_Logger
+            Return myLogger
         End Get
     End Property
 
-    Private m_Database As IDatabase = New Database
+    Private myDatabase As New Database(Me)
     Public ReadOnly Property Database As IDatabase Implements IBot.Database
         Get
-            Return m_Database
+            Return myDatabase
         End Get
     End Property
 
-    Private m_AppEnvironment As AppEnvironment
-    Public ReadOnly Property OnAppHarbor As Boolean Implements IBot.OnAppHarbor
+    Private myBlocks As New Blocks(myConnection)
+    Public ReadOnly Property Blocks As IBlocks Implements IBot.Blocks
         Get
-            Return (m_AppEnvironment = AppEnvironment.Release)
+            Return myBlocks
+        End Get
+    End Property
+
+    Private myAppEnvironment As AppEnvironment
+    Public ReadOnly Property AppEnvironment As AppEnvironment Implements IBot.AppEnvironment
+        Get
+            Return myAppEnvironment
         End Get
     End Property
 #End Region
@@ -45,18 +52,13 @@
 #Region "Methods"
     Public Sub New(PAppEnvironment As AppEnvironment)
         'Setting variables
-        m_AppEnvironment = PAppEnvironment
+        myAppEnvironment = PAppEnvironment
         'TODO: Finish SettingManager
-        m_GameVersionSetting = 119 'm_SettingManager.GetInteger("GameVersion")
-
-        'Component init
-        If m_AppEnvironment = AppEnvironment.Dev Then
-            m_Logger.AttemptSetup()
-        End If
+        myGameVersionSetting = 119 'mySettingManager.GetInteger("GameVersion")
     End Sub
 
     Public Sub SetMainConnection(PConnection As IConnection)
-        m_Connection = PConnection
+        myConnection = PConnection
     End Sub
 
     Public Overloads Function Connect(PConnection As PlayerIOClient.Connection, PWorldID As String) As IConnection Implements IBot.Connect
@@ -65,7 +67,7 @@
     End Function
 
     Public Overloads Sub Connect(PClient As PlayerIOClient.Client, PWorldID As String, PCallback As PlayerIOClient.Callback(Of IConnection)) Implements IBot.Connect
-        PClient.Multiplayer.CreateJoinRoom(PWorldID, Config.NormalRoom & m_GameVersionSetting, True, Nothing, Nothing,
+        PClient.Multiplayer.CreateJoinRoom(PWorldID, Config.NormalRoom & myGameVersionSetting, True, Nothing, Nothing,
             Sub(PConnection As PlayerIOClient.Connection)
                 Dim myConnection As PlayerIOClient.Connection = PConnection
                 Connect(myConnection, PWorldID)
@@ -97,7 +99,7 @@
         For N = ErrorMessage.Length - 1 To 0 Step -1
             CurrentRoomType = ErrorMessage(N)
             If CurrentRoomType.StartsWith(Config.NormalRoom) Then
-                m_GameVersionSetting = CInt(CurrentRoomType.Substring(Config.NormalRoom.Length, CurrentRoomType.Length - Config.NormalRoom.Length - 1))
+                myGameVersionSetting = CInt(CurrentRoomType.Substring(Config.NormalRoom.Length, CurrentRoomType.Length - Config.NormalRoom.Length - 1))
             End If
         Next
         Throw New KeyNotFoundException("Room type not available: """ & Config.NormalRoom & """")

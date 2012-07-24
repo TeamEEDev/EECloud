@@ -1,77 +1,79 @@
 ﻿Imports System.Threading
 
 Friend NotInheritable Class Logger
+    Inherits BaseGlobalComponent
     Implements ILogger
 
-    Private m_Input As String = String.Empty
+    Private myInput As String = String.Empty
     Public Property Input As String Implements ILogger.Input
         Get
-            Return m_Input
+            Return myInput
         End Get
         Set(value As String)
             Overwrite(Input.Length + 1, ">" & value)
             Console.CursorLeft = value.Length + 1
-            m_Input = value
+            myInput = value
         End Set
     End Property
 
     Public Event OnInput As EventHandler Implements ILogger.OnInput
+    Public Sub New(PBot As Bot)
+        MyBase.New(PBot)
+        If Not myBot.AppEnvironment = AppEnvironment.Release Then
+            Console.Write(">") 'Init
+            Dim Worker As New Thread(AddressOf HandleInput)
+            Worker.Start()
+        End If
+    End Sub
 
-    Dim m_IsSetup As Boolean
-    Public Sub AttemptSetup() Implements ILogger.AttemptSetup
-        m_IsSetup = True
-        Console.Write(">") 'Init
-        Dim Worker As New Thread(
-            Sub()
-                Try
-                    Do
-                        Dim OldTop As Integer = Console.CursorTop
-                        Dim OldLeft As Integer = Console.CursorLeft
-                        Dim InputKey As System.ConsoleKeyInfo = Console.ReadKey
-                        If InputKey.Key = ConsoleKey.Backspace Then
-                            If Input.Length >= 1 Then
-                                Input = Input.Substring(0, Input.Length - 1)
-                            Else 'Cancel
-                                Console.CursorTop = OldTop
-                                Console.CursorLeft = OldLeft
-                            End If
-                        ElseIf InputKey.Key = ConsoleKey.Enter Then
-                            If Input IsNot String.Empty Then
-                                Console.CursorTop += 1
-                                RaiseEvent OnInput(Me, New EventArgs)
-                            End If
-                            Input = String.Empty
-                        ElseIf InputKey.Key = ConsoleKey.Tab Then 'Cancel
-                            Console.CursorTop = OldTop
-                            Console.CursorLeft = OldLeft
-                        ElseIf InputKey.Modifiers = ConsoleModifiers.Control Then 'Cancel
-                            Console.CursorTop = OldTop
-                            Console.CursorLeft = OldLeft
-                            Console.Write(" "c)
-                            Console.CursorLeft -= 1
-                        ElseIf InputKey.KeyChar <> Nothing Then
-                            If Input.Length <= 76 Then
-                                m_Input &= InputKey.KeyChar
-                            Else
-                                Console.CursorLeft -= 1
-                                Console.Write(" "c)
-                                Console.CursorTop = OldTop
-                                Console.CursorLeft = OldLeft
-                            End If
-                        Else
-                            Console.CursorTop = OldTop
-                            Console.CursorLeft = OldLeft
-                        End If
-                    Loop
-                Catch ex As Exception
-                    Log(LogPriority.Serve, "Log Manager has crashed! Console is disabled.")
-                End Try
-            End Sub)
-        Worker.Start()
+    Public Sub HandleInput()
+        Try
+            Do
+                Dim OldTop As Integer = Console.CursorTop
+                Dim OldLeft As Integer = Console.CursorLeft
+                Dim InputKey As System.ConsoleKeyInfo = Console.ReadKey
+                If InputKey.Key = ConsoleKey.Backspace Then
+                    If Input.Length >= 1 Then
+                        Input = Input.Substring(0, Input.Length - 1)
+                    Else 'Cancel
+                        Console.CursorTop = OldTop
+                        Console.CursorLeft = OldLeft
+                    End If
+                ElseIf InputKey.Key = ConsoleKey.Enter Then
+                    If Input IsNot String.Empty Then
+                        Console.CursorTop += 1
+                        RaiseEvent OnInput(Me, New EventArgs)
+                    End If
+                    Input = String.Empty
+                ElseIf InputKey.Key = ConsoleKey.Tab Then
+                    Console.CursorTop = OldTop
+                    Console.CursorLeft = OldLeft
+                ElseIf InputKey.Modifiers = ConsoleModifiers.Control Then
+                    Console.CursorTop = OldTop
+                    Console.CursorLeft = OldLeft
+                    Console.Write(" "c)
+                    Console.CursorLeft -= 1
+                ElseIf InputKey.KeyChar <> Nothing Then
+                    If Input.Length <= 76 Then
+                        myInput &= InputKey.KeyChar
+                    Else
+                        Console.CursorLeft -= 1
+                        Console.Write(" "c)
+                        Console.CursorTop = OldTop
+                        Console.CursorLeft = OldLeft
+                    End If
+                Else
+                    Console.CursorTop = OldTop
+                    Console.CursorLeft = OldLeft
+                End If
+            Loop
+        Catch ex As Exception
+            Log(LogPriority.Serve, "Log Manager has crashed! Console is disabled.")
+        End Try
     End Sub
 
     Public Sub Log(priority As LogPriority, str As String) Implements ILogger.Log
-        If m_IsSetup Then
+        If Not myBot.AppEnvironment = AppEnvironment.Release Then
             Dim Output As String = String.Format("{0} [{1}] {2}", Now.ToLongTimeString, priority.ToString.ToUpper, str)
             Overwrite(Input.Length + 1, Output)
             Console.WriteLine()
