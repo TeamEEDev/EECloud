@@ -8,17 +8,17 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("EECloud.SettingManager")> 
-<Assembly: AssemblyDescription("Setting Manager for EECloud")> 
-<Assembly: AssemblyCompany("Processor and Jojatekok")> 
-<Assembly: AssemblyProduct("EECloud.SettingManager")> 
-<Assembly: AssemblyCopyright("")> 
+<Assembly: AssemblyTitle("EECloud.Components")> 
+<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyCompany("")> 
+<Assembly: AssemblyProduct("EECloud.Components")> 
+<Assembly: AssemblyCopyright("Copyright ©  2012")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)>
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("88a0a486-9aed-4038-80d6-01bbe9255883")> 
+<Assembly: Guid("019202f9-e60c-443f-bae1-14bfec8e4fe7")> 
 
 ' Version information for an assembly consists of the following four values:
 '

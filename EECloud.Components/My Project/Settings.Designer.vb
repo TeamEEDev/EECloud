@@ -64,9 +64,9 @@ Namespace My
     Friend Module MySettingsProperty
         
         <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")>  _
-        Friend ReadOnly Property Settings() As Global.EECloud.DatabaseManager.My.MySettings
+        Friend ReadOnly Property Settings() As Global.EECloud.Components.My.MySettings
             Get
-                Return Global.EECloud.DatabaseManager.My.MySettings.Default
+                Return Global.EECloud.Components.My.MySettings.Default
             End Get
         End Property
     End Module

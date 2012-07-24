@@ -1,5 +1,5 @@
 ﻿<Export(GetType(PluginAPI.IConnectionManager))>
-Public NotInheritable Class CloudConnectionManager
+Public NotInheritable Class ConnectionManager
     Implements IConnectionManager
 #Region "Events"
     Public Event OnDisconnect(sender As Object, e As EventArgs) Implements IConnection.OnDisconnect
@@ -90,7 +90,7 @@ Public NotInheritable Class CloudConnectionManager
     End Sub
 
     Public Overloads Function Connect(PConnection As PlayerIOClient.Connection, PWorldID As String) As IConnection Implements IConnectionManager.Connect
-        Dim myConnection As New CloudConnection()
+        Dim myConnection As New Connection()
         InitConnection(myConnection, PConnection, PWorldID)
         Return myConnection
     End Function
@@ -134,7 +134,7 @@ Public NotInheritable Class CloudConnectionManager
         Throw New KeyNotFoundException("Room type not available: """ & Config.NormalRoom & """")
     End Sub
 
-    Private Sub InitConnection(PCloudConnection As CloudConnection, PConnection As PlayerIOClient.Connection, PWorldID As String)
+    Private Sub InitConnection(PCloudConnection As Connection, PConnection As PlayerIOClient.Connection, PWorldID As String)
         PCloudConnection.AttemptSetup(Me, PConnection, PWorldID)
         m_CompositionContainer.ComposeParts(PCloudConnection)
     End Sub

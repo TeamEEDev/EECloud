@@ -1,5 +1,5 @@
 ﻿<Export(GetType(PluginAPI.IConnection))>
-Public Class CloudConnection
+Public Class Connection
     Implements IConnection
 
 #Region "Events"
@@ -36,7 +36,7 @@ Public Class CloudConnection
 #End Region
 
 #Region "Methods"
-    Friend Sub AttemptSetup(PConnectionManager As CloudConnectionManager, PConnection As PlayerIOClient.Connection, PWorldID As String)
+    Friend Sub AttemptSetup(PConnectionManager As ConnectionManager, PConnection As PlayerIOClient.Connection, PWorldID As String)
         If PConnection IsNot Nothing Then
             m_Connection = PConnection
             m_WorldID = PWorldID
