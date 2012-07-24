@@ -1,5 +1,4 @@
-﻿<Export(GetType(API.IConnectionManager))>
-Public NotInheritable Class ConnectionManager
+﻿Public NotInheritable Class ConnectionManager
     Implements IConnectionManager
 #Region "Events"
     Public Event OnDisconnect(sender As Object, e As EventArgs) Implements IConnection.OnDisconnect
@@ -8,29 +7,25 @@ Public NotInheritable Class ConnectionManager
 
 #Region "Fields"
     Private m_GameVersionSetting As Integer = 0
-    Private m_CompositionContainer As CompositionContainer
     Private WithEvents m_Connection As IConnection
 #End Region
 
 #Region "Properties"
-    <Import(AllowDefault:=True)>
-    Private m_SettingManager As ISettingManager
+    Private m_SettingManager As ISettingManager = New SettingManager
     Public ReadOnly Property SettingManager As ISettingManager Implements IConnectionManager.SettingManager
         Get
             Return m_SettingManager
         End Get
     End Property
 
-    <Import(AllowDefault:=True)>
-    Private m_LogManager As ILogManager
+    Private m_LogManager As ILogManager = New LogManager
     Public ReadOnly Property LogManager As ILogManager Implements IConnectionManager.LogManager
         Get
             Return m_LogManager
         End Get
     End Property
 
-    <Import(AllowDefault:=True)>
-    Private m_DatabaseManager As IDatabaseManager
+    Private m_DatabaseManager As IDatabaseManager = New DatabaseManager
     Public ReadOnly Property DatabaseManager As IDatabaseManager Implements IConnectionManager.DatabaseManager
         Get
             Return m_DatabaseManager
@@ -72,10 +67,9 @@ Public NotInheritable Class ConnectionManager
         RaiseEvent OnMessage(sender, e)
     End Sub
 
-    Public Sub Setup(POnAppharbor As Boolean, PContainer As CompositionContainer) Implements IConnectionManager.AttemptSetup
+    Public Sub Setup(POnAppharbor As Boolean) Implements IConnectionManager.AttemptSetup
         'Setting variables
         m_OnAppHarbor = POnAppharbor
-        m_CompositionContainer = PContainer
         'TODO: Finish SettingManager
         m_GameVersionSetting = 119 'm_SettingManager.GetInteger("GameVersion")
 
@@ -136,7 +130,6 @@ Public NotInheritable Class ConnectionManager
 
     Private Sub InitConnection(PCloudConnection As Connection, PConnection As PlayerIOClient.Connection, PWorldID As String)
         PCloudConnection.AttemptSetup(Me, PConnection, PWorldID)
-        m_CompositionContainer.ComposeParts(PCloudConnection)
     End Sub
 
     Public Sub Disconnect() Implements IConnection.Disconnect
