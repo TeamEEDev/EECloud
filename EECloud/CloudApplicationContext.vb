@@ -11,6 +11,9 @@
         myBot.Connect("guest", "guest", "PWPC-Tjtqxa0I",
             Sub(PConnection As IConnection)
                 myBot.Logger.Log(LogPriority.Info, "Successfully joined.")
+            End Sub,
+            Sub(ex As EECloudException)
+                myBot.Logger.Log(LogPriority.Info, "Failed to join.")
             End Sub)
     End Sub
 End Class
