@@ -51,21 +51,20 @@
 
 #Region "Methods"
     Public Sub New(PAppEnvironment As AppEnvironment)
-        'Setting variables
         myAppEnvironment = PAppEnvironment
         'TODO: Finish SettingManager
         myGameVersionSetting = 119 'mySettingManager.GetInteger("GameVersion")
     End Sub
 
-    Public Overloads Function Connect(PConnection As PlayerIOClient.Connection, PWorldID As String) As IConnection Implements IBot.Connect
-        Dim mConnection As New Connection(Me, PConnection, PWorldID)
-        If mConnection Is Nothing Then
-            myConnection = mConnection
-        End If
-        Return mConnection
+    Public Overloads Function Connect(PConnection As PlayerIOClient.Connection, PWorldID As String) As IConnection
+            Dim mConnection As New Connection(Me, PConnection, PWorldID)
+            If mConnection Is Nothing Then
+                myConnection = mConnection
+            End If
+            Return mConnection
     End Function
 
-    Public Overloads Sub Connect(PClient As PlayerIOClient.Client, PWorldID As String, PSuccessCallback As PlayerIOClient.Callback(Of IConnection)) Implements IBot.Connect
+    Public Overloads Sub Connect(PClient As PlayerIOClient.Client, PWorldID As String, PSuccessCallback As PlayerIOClient.Callback(Of IConnection), PErrorCallback As PlayerIOClient.Callback(Of EECloudException)) Implements IBot.Connect
         PClient.Multiplayer.CreateJoinRoom(PWorldID, Config.NormalRoom & myGameVersionSetting, True, Nothing, Nothing,
             Sub(PConnection As PlayerIOClient.Connection)
                 Dim myConnection As PlayerIOClient.Connection = PConnection
@@ -74,21 +73,27 @@
             End Sub,
             Sub(ex As PlayerIOClient.PlayerIOError)
                 If ex.ErrorCode = PlayerIOClient.ErrorCode.UnknownRoomType Then
-                    UpdateVersion(ex)
-                    Connect(PClient, PWorldID, PSuccessCallback)
+                    Try
+                        UpdateVersion(ex)
+                    Catch ex2 As EECloudException
+                        PErrorCallback.Invoke(New EECloudException(API.ErrorCode.PlayerIOError))
+                        Exit Sub
+                    End Try
+
+                    Connect(PClient, PWorldID, PSuccessCallback, PErrorCallback)
                 Else
-                    Throw ex
+                    PErrorCallback.Invoke(New EECloudPlayerIOException(ex))
                 End If
             End Sub)
     End Sub
 
-    Public Overloads Sub Connect(PUsername As String, PPassword As String, PWorldID As String, PSuccessCallback As PlayerIOClient.Callback(Of IConnection)) Implements IBot.Connect
+    Public Overloads Sub Connect(PUsername As String, PPassword As String, PWorldID As String, PSuccessCallback As PlayerIOClient.Callback(Of IConnection), PErrorCallback As PlayerIOClient.Callback(Of EECloudException)) Implements IBot.Connect
         PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.GameID, PUsername, PPassword,
             Sub(PClient As PlayerIOClient.Client)
-                Connect(PClient, PWorldID, PSuccessCallback)
+                Connect(PClient, PWorldID, PSuccessCallback, PErrorCallback)
             End Sub,
             Sub(ex As PlayerIOClient.PlayerIOError)
-                Throw ex
+                PErrorCallback.Invoke(New EECloudPlayerIOException(ex))
             End Sub)
     End Sub
 
