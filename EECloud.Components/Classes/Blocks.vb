@@ -6,7 +6,7 @@
         MyBase.New(PConnection)
     End Sub
 
-    Public ReadOnly Property CorrectLayer(PID As Integer, PLayer As Layer) As Layer Implements IBlocks.CorrectLayer
+    Public ReadOnly Property CorrectLayer(PID As Block, PLayer As Layer) As Layer Implements IBlocks.CorrectLayer
         Get
             If (PID > 0 And PID < 500) Or PID = 1000 Then
                 Return Layer.Foreground
@@ -18,25 +18,25 @@
         End Get
     End Property
 
-    Public ReadOnly Property IsCoinDoor(PID As Integer) As Boolean Implements IBlocks.IsCoinDoor
+    Public ReadOnly Property IsCoinDoor(PID As Block) As Boolean Implements IBlocks.IsCoinDoor
         Get
             Return PID = 43
         End Get
     End Property
 
-    Public ReadOnly Property IsSound(PID As Integer) As Boolean Implements IBlocks.IsSound
+    Public ReadOnly Property IsSound(PID As Block) As Boolean Implements IBlocks.IsSound
         Get
             Return PID = 77 Or PID = 83
         End Get
     End Property
 
-    Public ReadOnly Property IsPortal(PID As Integer) As Boolean Implements IBlocks.IsPortal
+    Public ReadOnly Property IsPortal(PID As Block) As Boolean Implements IBlocks.IsPortal
         Get
             Return PID = 242
         End Get
     End Property
 
-    Public ReadOnly Property IsLabel(PID As Integer) As Boolean Implements IBlocks.IsLabel
+    Public ReadOnly Property IsLabel(PID As Block) As Boolean Implements IBlocks.IsLabel
         Get
             Return PID = 1000
         End Get

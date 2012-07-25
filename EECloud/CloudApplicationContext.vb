@@ -6,9 +6,11 @@
 
         Dim AppEnvironment As AppEnvironment = CType([Enum].Parse(GetType(AppEnvironment), System.Configuration.ConfigurationManager.AppSettings("Environment"), True), AppEnvironment)
         Dim myBot As New Bot(AppEnvironment)
+        'TODO: well, ask for login defails somehow
+        myBot.Logger.Log(LogPriority.Info, "Joining world...")
         myBot.Connect("guest", "guest", "PWPC-Tjtqxa0I",
             Sub(PConnection As IConnection)
-                myBot.SetMainConnection(PConnection)
+                myBot.Logger.Log(LogPriority.Info, "Successfully joined.")
             End Sub)
     End Sub
 End Class
