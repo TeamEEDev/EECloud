@@ -34,7 +34,7 @@ Friend Class BlockPlace_SendMessage
     End Sub
 
     Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
-        Return PlayerIOClient.Message.Create(Connection.BlockManager.Encryption, Connection.BlockManager.CorrectLayer(ID, Layer), X, Y, ID)
+        Return PlayerIOClient.Message.Create(Connection.Blocks.Encryption, Connection.Blocks.CorrectLayer(ID, Layer), X, Y, ID)
     End Function
 End Class
 
@@ -42,17 +42,17 @@ Friend Class CoinDoorPlace_SendMessage
     Inherits BlockPlace_SendMessage
     Public ReadOnly CoinsToCollect As Integer
     Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PBlock As Block, PCoinsToCollect As Integer)
-        myBase.New(PLayer, PX, PY, PBlock)
+        MyBase.New(PLayer, PX, PY, PBlock)
         CoinsToCollect = PCoinsToCollect
     End Sub
 
     Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
-        If Connection.BlockManager.IsCoinDoor(ID) Then
-            Dim myMessage As PlayerIOClient.Message = myBase.GetMessage(Connection)
+        If Connection.Blocks.IsCoinDoor(ID) Then
+            Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Connection)
             myMessage.Add(CoinsToCollect)
             Return myMessage
         Else
-            Return myBase.GetMessage(Connection)
+            Return MyBase.GetMessage(Connection)
         End If
     End Function
 End Class
@@ -61,17 +61,17 @@ Friend Class SoundPlace_SendMessage
     Inherits BlockPlace_SendMessage
     Public ReadOnly SoundID As Integer
     Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PBlock As Block, PSoundID As Integer)
-        myBase.New(PLayer, PX, PY, PBlock)
+        MyBase.New(PLayer, PX, PY, PBlock)
         SoundID = PSoundID
     End Sub
 
     Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
-        If Connection.BlockManager.IsSound(ID) Then
-            Dim myMessage As PlayerIOClient.Message = myBase.GetMessage(Connection)
+        If Connection.Blocks.IsSound(ID) Then
+            Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Connection)
             myMessage.Add(SoundID)
             Return myMessage
         Else
-            Return myBase.GetMessage(Connection)
+            Return MyBase.GetMessage(Connection)
         End If
     End Function
 End Class
@@ -82,21 +82,21 @@ Friend Class PortalPlace_SendMessage
     Public ReadOnly PortalTarget As Integer
     Public ReadOnly PortalRotation As PortalRotation
     Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PBlock As Block, PPortalID As Integer, PPortalTarget As Integer, PPortalRotation As PortalRotation)
-        myBase.New(PLayer, PX, PY, PBlock)
+        MyBase.New(PLayer, PX, PY, PBlock)
         PortalID = PPortalID
         PortalTarget = PPortalTarget
         PortalRotation = PPortalRotation
     End Sub
 
     Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
-        If Connection.BlockManager.IsPortal(ID) Then
-            Dim myMessage As PlayerIOClient.Message = myBase.GetMessage(Connection)
+        If Connection.Blocks.IsPortal(ID) Then
+            Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Connection)
             myMessage.Add(PortalRotation)
             myMessage.Add(PortalID)
             myMessage.Add(PortalTarget)
             Return myMessage
         Else
-            Return myBase.GetMessage(Connection)
+            Return MyBase.GetMessage(Connection)
         End If
     End Function
 End Class
@@ -105,17 +105,17 @@ Friend Class LabelPlace_SendMessage
     Inherits BlockPlace_SendMessage
     Public ReadOnly Text As String
     Public Sub New(PLayer As Layer, PX As Integer, PY As Integer, PBlock As Block, PText As String)
-        myBase.New(PLayer, PX, PY, PBlock)
+        MyBase.New(PLayer, PX, PY, PBlock)
         Text = PText
     End Sub
 
     Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
-        If Connection.BlockManager.IsLabel(ID) Then
-            Dim myMessage As PlayerIOClient.Message = myBase.GetMessage(Connection)
+        If Connection.Blocks.IsLabel(ID) Then
+            Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(Connection)
             myMessage.Add(Text)
             Return myMessage
         Else
-            Return myBase.GetMessage(Connection)
+            Return MyBase.GetMessage(Connection)
         End If
     End Function
 End Class
@@ -137,7 +137,7 @@ Friend Class PressRedKey_SendMessage
     'No arguments
 
     Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
-        Return PlayerIOClient.Message.Create(Connection.BlockManager.Encryption & "r")
+        Return PlayerIOClient.Message.Create(Connection.Blocks.Encryption & "r")
     End Function
 End Class
 
@@ -146,7 +146,7 @@ Friend Class PressGreenKey_SendMessage
     'No arguments
 
     Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
-        Return PlayerIOClient.Message.Create(Connection.BlockManager.Encryption & "g")
+        Return PlayerIOClient.Message.Create(Connection.Blocks.Encryption & "g")
     End Function
 End Class
 
@@ -155,7 +155,7 @@ Friend Class PressBlueKey_SendMessage
     'No arguments
 
     Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
-        Return PlayerIOClient.Message.Create(Connection.BlockManager.Encryption & "b")
+        Return PlayerIOClient.Message.Create(Connection.Blocks.Encryption & "b")
     End Function
 End Class
 
@@ -164,7 +164,7 @@ Friend Class GetCrown_SendMessage
     'No arguments
 
     Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
-        Return PlayerIOClient.Message.Create(Connection.BlockManager.Encryption & "k")
+        Return PlayerIOClient.Message.Create(Connection.Blocks.Encryption & "k")
     End Function
 End Class
 
@@ -282,7 +282,7 @@ Friend Class ChangeFace_SendMessage
     End Sub
 
     Public Overrides Function GetMessage(Connection As IConnection) As PlayerIOClient.Message
-        Return PlayerIOClient.Message.Create(Connection.BlockManager.Encryption & "f", FaceID)
+        Return PlayerIOClient.Message.Create(Connection.Blocks.Encryption & "f", FaceID)
     End Function
 End Class
 

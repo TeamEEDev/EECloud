@@ -25,10 +25,10 @@
         End Get
     End Property
 
-    Friend myBlockManager As New Blocks(Me)
-    Public ReadOnly Property BlockManager As IBlocks Implements IConnection.BlockManager
+    Friend myBlocks As New Blocks(Me)
+    Public ReadOnly Property Blocks As IBlocks Implements IConnection.Blocks
         Get
-            Return myBlockManager
+            Return myBlocks
         End Get
     End Property
 #End Region
