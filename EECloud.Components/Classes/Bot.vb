@@ -57,52 +57,51 @@
         myGameVersionSetting = 119 'mySettingManager.GetInteger("GameVersion")
     End Sub
 
-    Public Sub SetMainConnection(PConnection As IConnection)
-        myConnection = PConnection
-    End Sub
-
     Public Overloads Function Connect(PConnection As PlayerIOClient.Connection, PWorldID As String) As IConnection Implements IBot.Connect
-        Dim myConnection As New Connection(Me, PConnection, PWorldID)
-        Return myConnection
+        Dim mConnection As New Connection(Me, PConnection, PWorldID)
+        If mConnection Is Nothing Then
+            myConnection = mConnection
+        End If
+        Return mConnection
     End Function
 
-    Public Overloads Sub Connect(PClient As PlayerIOClient.Client, PWorldID As String, PCallback As PlayerIOClient.Callback(Of IConnection)) Implements IBot.Connect
+    Public Overloads Sub Connect(PClient As PlayerIOClient.Client, PWorldID As String, PSuccessCallback As PlayerIOClient.Callback(Of IConnection)) Implements IBot.Connect
         PClient.Multiplayer.CreateJoinRoom(PWorldID, Config.NormalRoom & myGameVersionSetting, True, Nothing, Nothing,
             Sub(PConnection As PlayerIOClient.Connection)
                 Dim myConnection As PlayerIOClient.Connection = PConnection
                 Connect(myConnection, PWorldID)
-                PCallback.Invoke(Connect(PConnection, PWorldID))
+                PSuccessCallback.Invoke(Connect(PConnection, PWorldID))
             End Sub,
             Sub(ex As PlayerIOClient.PlayerIOError)
                 If ex.ErrorCode = PlayerIOClient.ErrorCode.UnknownRoomType Then
-                    GetVersion(ex)
-                    Connect(PClient, PWorldID, PCallback)
+                    UpdateVersion(ex)
+                    Connect(PClient, PWorldID, PSuccessCallback)
                 Else
                     Throw ex
                 End If
             End Sub)
     End Sub
 
-    Public Overloads Sub Connect(PUsername As String, PPassword As String, PWorldID As String, PCallback As PlayerIOClient.Callback(Of IConnection)) Implements IBot.Connect
+    Public Overloads Sub Connect(PUsername As String, PPassword As String, PWorldID As String, PSuccessCallback As PlayerIOClient.Callback(Of IConnection)) Implements IBot.Connect
         PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.GameID, PUsername, PPassword,
             Sub(PClient As PlayerIOClient.Client)
-                Connect(PClient, PWorldID, PCallback)
+                Connect(PClient, PWorldID, PSuccessCallback)
             End Sub,
             Sub(ex As PlayerIOClient.PlayerIOError)
                 Throw ex
             End Sub)
     End Sub
 
-    Private Sub GetVersion(ex As PlayerIOClient.PlayerIOError)
-        Dim ErrorMessage() As String = ex.Message.Split(CChar(" "))
-        Dim CurrentRoomType As String
+    Private Sub UpdateVersion(ex As PlayerIOClient.PlayerIOError)
+        Dim ErrorMessage() As String = ex.Message.Substring(102).Split(CChar(" "))
         For N = ErrorMessage.Length - 1 To 0 Step -1
+            Dim CurrentRoomType As String
             CurrentRoomType = ErrorMessage(N)
             If CurrentRoomType.StartsWith(Config.NormalRoom) Then
                 myGameVersionSetting = CInt(CurrentRoomType.Substring(Config.NormalRoom.Length, CurrentRoomType.Length - Config.NormalRoom.Length - 1))
             End If
         Next
-        Throw New KeyNotFoundException("Room type not available: """ & Config.NormalRoom & """")
+        Throw New KeyNotFoundException("Unable to get GameVersion")
     End Sub
 #End Region
 End Class
