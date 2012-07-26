@@ -6,6 +6,20 @@
 #End Region
 
 #Region "Properties"
+    Private myUsername As String
+    Public ReadOnly Property Username As String Implements IBot.Username
+        Get
+            Return myUsername
+        End Get
+    End Property
+
+    Private myKey As String
+    Public ReadOnly Property Key As String Implements IBot.Key
+        Get
+            Return myKey
+        End Get
+    End Property
+
     Friend myConnection As Connection
     Public ReadOnly Property Connection As IConnection Implements IBot.Connection
         Get
@@ -50,7 +64,7 @@
 #End Region
 
 #Region "Methods"
-    Public Sub New(PAppEnvironment As AppEnvironment)
+    Public Sub New(PAppEnvironment As AppEnvironment, PUsername As String, PKey As String)
         myAppEnvironment = PAppEnvironment
         'TODO: Finish SettingManager
         myGameVersionSetting = 110 'mySettingManager.GetInteger("GameVersion")

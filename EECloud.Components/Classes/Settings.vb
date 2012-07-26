@@ -71,7 +71,7 @@
     End Function
 
     Private Function GetObj(SettingName As String) As Object
-        Return myBot.Database.GetObject("SettingsDB", SettingName)("value")
+        'Return myBot.Database.GetObject("SettingsDB", SettingName)("value")
     End Function
 
     Public Function GetSingle(SettingName As String) As Single Implements ISettings.GetSingle
@@ -166,7 +166,7 @@
 
     Private Sub SetObj(SettingName As String, Value As DatabaseObject)
         Try
-            myBot.Database.SetObject("SettingsDB", SettingName, Value)
+            'myBot.Database.SetObject("SettingsDB", SettingName, Value)
         Catch ex As Exception
             myBot.Logger.Log(LogPriority.Serve, "Failed to save Setting: " & SettingName)
         End Try
