@@ -6,17 +6,24 @@
 #End Region
 
 #Region "Properties"
-    Private myUsername As String
-    Public ReadOnly Property Username As String Implements IBot.Username
+    Private myLicenceUsername As String
+    Public ReadOnly Property LicenceUsername As String Implements IBot.LicenceUsername
         Get
-            Return myUsername
+            Return myLicenceUsername
         End Get
     End Property
 
-    Private myKey As String
-    Public ReadOnly Property Key As String Implements IBot.Key
+    Private myLicenceKey As String
+    Public ReadOnly Property LicenceKey As String Implements IBot.LicenceKey
         Get
-            Return myKey
+            Return myLicenceKey
+        End Get
+    End Property
+
+    Private myAppEnvironment As AppEnvironment
+    Public ReadOnly Property AppEnvironment As AppEnvironment Implements IBot.AppEnvironment
+        Get
+            Return myAppEnvironment
         End Get
     End Property
 
@@ -27,13 +34,6 @@
         End Get
     End Property
 
-    Friend mySettings As New Settings(Me)
-    Public ReadOnly Property Settings As ISettings Implements IBot.Settings
-        Get
-            Return mySettings
-        End Get
-    End Property
-
     Friend myLogger As New Logger(Me)
     Public ReadOnly Property Logger As ILogger Implements IBot.Logger
         Get
@@ -41,10 +41,17 @@
         End Get
     End Property
 
-    Friend myDatabase As New Database(Me)
+    Friend myDatabase As New Database(Me, LicenceUsername, LicenceKey)
     Public ReadOnly Property Database As IDatabase Implements IBot.Database
         Get
             Return myDatabase
+        End Get
+    End Property
+
+    Friend mySettings As New Settings(Me)
+    Public ReadOnly Property Settings As ISettings Implements IBot.Settings
+        Get
+            Return mySettings
         End Get
     End Property
 
@@ -54,18 +61,13 @@
             Return myBlocks
         End Get
     End Property
-
-    Private myAppEnvironment As AppEnvironment
-    Public ReadOnly Property AppEnvironment As AppEnvironment Implements IBot.AppEnvironment
-        Get
-            Return myAppEnvironment
-        End Get
-    End Property
 #End Region
 
 #Region "Methods"
-    Public Sub New(PAppEnvironment As AppEnvironment, PUsername As String, PKey As String)
+    Public Sub New(PAppEnvironment As AppEnvironment, PLicenceUsername As String, PLicenceKey As String)
         myAppEnvironment = PAppEnvironment
+        myLicenceUsername = PLicenceUsername
+        myLicenceKey = PLicenceKey
         'TODO: Finish SettingManager
         myGameVersionSetting = 110 'mySettingManager.GetInteger("GameVersion")
     End Sub
