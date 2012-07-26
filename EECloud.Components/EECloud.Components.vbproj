@@ -79,7 +79,7 @@
     <Compile Include="Classes\Bot.vb" />
     <Compile Include="Classes\Database.vb" />
     <Compile Include="Classes\Logger.vb" />
-    <Compile Include="Modules\Utils.vb" />
+    <Compile Include="Classes\Config.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
