@@ -56,12 +56,12 @@
         myGameVersionSetting = 110 'mySettingManager.GetInteger("GameVersion")
     End Sub
 
-    Public Overloads Function Connect(PConnection As PlayerIOClient.Connection, PWorldID As String) As IConnection
-            Dim mConnection As New Connection(Me, PConnection, PWorldID)
-            If mConnection Is Nothing Then
-                myConnection = mConnection
-            End If
-            Return mConnection
+    Private Overloads Function Connect(PConnection As PlayerIOClient.Connection, PWorldID As String) As IConnection
+        Dim mConnection As New Connection(Me, PConnection, PWorldID)
+        If mConnection Is Nothing Then
+            myConnection = mConnection
+        End If
+        Return mConnection
     End Function
 
     Public Overloads Sub Connect(PClient As PlayerIOClient.Client, PWorldID As String, PSuccessCallback As PlayerIOClient.Callback(Of IConnection), PErrorCallback As PlayerIOClient.Callback(Of EECloudException)) Implements IBot.Connect
