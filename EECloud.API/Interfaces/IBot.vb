@@ -9,7 +9,7 @@
 
     ReadOnly Property Connection As IConnection
     ReadOnly Property Logger As ILogger
-    ReadOnly Property Database As IDatabase
+    ReadOnly Property Service As IService
     ReadOnly Property Settings As ISettings
 
     ReadOnly Property Blocks As IBlocks

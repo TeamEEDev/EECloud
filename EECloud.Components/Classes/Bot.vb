@@ -41,10 +41,10 @@
         End Get
     End Property
 
-    Friend myDatabase As Database
-    Public ReadOnly Property Database As IDatabase Implements IBot.Database
+    Friend myService As Service
+    Public ReadOnly Property Service As IService Implements IBot.Service
         Get
-            Return myDatabase
+            Return myService
         End Get
     End Property
 
@@ -69,7 +69,7 @@
         myLicenceKey = PLicenceKey
 
         myLogger = New Logger(Me)
-        myDatabase = New Database(Me, LicenceUsername, LicenceKey)
+        myService = New Service(Me, LicenceUsername, LicenceKey)
         mySettings = New Settings(Me)
         'TODO: Finish SettingManager
         myGameVersionSetting = 110 'mySettingManager.GetInteger("GameVersion")
@@ -122,7 +122,7 @@
                 'mySettings.SetSetting("GameVersion", myGameVersionSetting)
                 Exit Sub
             End If
-        Next 
+        Next
         Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get GameVersion")
     End Sub
 #End Region
