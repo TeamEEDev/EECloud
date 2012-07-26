@@ -7,130 +7,168 @@
     End Sub
 
     Public Function GetBoolean(SettingName As String) As Boolean Implements ISettings.GetBoolean
-        Return CBool(GetObj(SettingName))
+        Try
+            Return CBool(GetObj(SettingName))
+        Catch ex As Exception
+            Return False
+        End Try
     End Function
 
     Public Function GetByte(SettingName As String) As Byte Implements ISettings.GetByte
-
+        Try
+            Return CByte(GetObj(SettingName))
+        Catch ex As Exception
+            Return 0
+        End Try
     End Function
 
-    Public Function GetChar(SettingName As String) As Char Implements ISettings.GetChar
-
+    Public Function GetDatabaseArray(SettingName As String) As DatabaseArray Implements ISettings.GetDatabaseArray
+        Try
+            Return CType(GetObj(SettingName), DatabaseArray)
+        Catch ex As Exception
+            Return New DatabaseArray
+        End Try
     End Function
 
     Public Function GetDatabaseObject(SettingName As String) As PlayerIOClient.DatabaseObject Implements ISettings.GetDatabaseObject
-
+        Try
+            Return CType(GetObj(SettingName), DatabaseObject)
+        Catch ex As Exception
+            Return New DatabaseObject
+        End Try
     End Function
 
     Public Function GetDate(SettingName As String) As Date Implements ISettings.GetDate
-
+        Try
+            Return CDate(GetObj(SettingName))
+        Catch ex As Exception
+            Return #1/1/2000#
+        End Try
     End Function
 
     Public Function GetDouble(SettingName As String) As Double Implements ISettings.GetDouble
-
+        Try
+            Return CDbl(GetObj(SettingName))
+        Catch ex As Exception
+            Return 0.0
+        End Try
     End Function
 
     Public Function GetInteger(SettingName As String) As Integer Implements ISettings.GetInteger
-
+        Try
+            Return CInt(GetObj(SettingName))
+        Catch ex As Exception
+            Return 0
+        End Try
     End Function
 
     Public Function GetLong(SettingName As String) As Long Implements ISettings.GetLong
-
+        Try
+            Return CLng(GetObj(SettingName))
+        Catch ex As Exception
+            Return 0
+        End Try
     End Function
 
     Public Function GetObj(SettingName As String) As Object Implements ISettings.GetObj
-        Try 'TODO: Better handling of errors 
+        Try
             Return myBot.Database.GetObject("SettingsDB", SettingName)("value")
-        Catch ex As PlayerIOClient.PlayerIOError
+        Catch ex As Exception
             Return Nothing
         End Try
     End Function
 
-    Public Function GetSByte(SettingName As String) As SByte Implements ISettings.GetSByte
-
-    End Function
-
-    Public Function GetShort(SettingName As String) As Short Implements ISettings.GetShort
-
-    End Function
-
     Public Function GetSingle(SettingName As String) As Single Implements ISettings.GetSingle
-
+        Try
+            Return CSng(GetObj(SettingName))
+        Catch ex As Exception
+            Return 0.0
+        End Try
     End Function
 
     Public Function GetString(SettingName As String) As String Implements ISettings.GetString
-
+        Try
+            Return CStr(GetObj(SettingName))
+        Catch ex As Exception
+            Return String.Empty
+        End Try
     End Function
 
     Public Function GetUInteger(SettingName As String) As UInteger Implements ISettings.GetUInteger
-
-    End Function
-
-    Public Function GetULong(SettingName As String) As ULong Implements ISettings.GetULong
-
-    End Function
-
-    Public Function GetUShort(SettingName As String) As UShort Implements ISettings.GetUShort
-
+        Try
+            Return CUInt(GetObj(SettingName))
+        Catch ex As Exception
+            Return 0
+        End Try
     End Function
 
     Public Overloads Sub SetSetting(SettingName As String, Value As Boolean) Implements ISettings.SetSetting
-
+        Dim myDBObj As New DatabaseObject
+        myDBObj.Set("value", Value)
+        SetObj(SettingName, myDBObj)
     End Sub
 
     Public Overloads Sub SetSetting(SettingName As String, Value As Byte) Implements ISettings.SetSetting
-
-    End Sub
-
-    Public Overloads Sub SetSetting(SettingName As String, Value As Char) Implements ISettings.SetSetting
-
+        Dim myDBObj As New DatabaseObject
+        myDBObj.Set("value", Value)
+        SetObj(SettingName, myDBObj)
     End Sub
 
     Public Overloads Sub SetSetting(SettingName As String, Value As Date) Implements ISettings.SetSetting
-
+        Dim myDBObj As New DatabaseObject
+        myDBObj.Set("value", Value)
+        SetObj(SettingName, myDBObj)
     End Sub
 
     Public Overloads Sub SetSetting(SettingName As String, Value As Double) Implements ISettings.SetSetting
-
+        Dim myDBObj As New DatabaseObject
+        myDBObj.Set("value", Value)
+        SetObj(SettingName, myDBObj)
     End Sub
 
     Public Overloads Sub SetSetting(SettingName As String, Value As Integer) Implements ISettings.SetSetting
-
+        Dim myDBObj As New DatabaseObject
+        myDBObj.Set("value", Value)
+        SetObj(SettingName, myDBObj)
     End Sub
 
     Public Overloads Sub SetSetting(SettingName As String, Value As Long) Implements ISettings.SetSetting
+        Dim myDBObj As New DatabaseObject
+        myDBObj.Set("value", Value)
+        SetObj(SettingName, myDBObj)
+    End Sub
 
+    Public Overloads Sub SetSetting(SettingName As String, Value As PlayerIOClient.DatabaseArray) Implements ISettings.SetSetting
+        Dim myDBObj As New DatabaseObject
+        myDBObj.Set("value", Value)
+        SetObj(SettingName, myDBObj)
     End Sub
 
     Public Overloads Sub SetSetting(SettingName As String, Value As PlayerIOClient.DatabaseObject) Implements ISettings.SetSetting
-
-    End Sub
-
-    Public Overloads Sub SetSetting(SettingName As String, Value As SByte) Implements ISettings.SetSetting
-
-    End Sub
-
-    Public Overloads Sub SetSetting(SettingName As String, Value As Short) Implements ISettings.SetSetting
-
+        Dim myDBObj As New DatabaseObject
+        myDBObj.Set("value", Value)
+        SetObj(SettingName, myDBObj)
     End Sub
 
     Public Overloads Sub SetSetting(SettingName As String, Value As Single) Implements ISettings.SetSetting
-
+        Dim myDBObj As New DatabaseObject
+        myDBObj.Set("value", Value)
+        SetObj(SettingName, myDBObj)
     End Sub
 
     Public Overloads Sub SetSetting(SettingName As String, Value As String) Implements ISettings.SetSetting
-
+        Dim myDBObj As New DatabaseObject
+        myDBObj.Set("value", Value)
+        SetObj(SettingName, myDBObj)
     End Sub
 
     Public Overloads Sub SetSetting(SettingName As String, Value As UInteger) Implements ISettings.SetSetting
-
+        Dim myDBObj As New DatabaseObject
+        myDBObj.Set("value", Value)
+        SetObj(SettingName, myDBObj)
     End Sub
 
-    Public Overloads Sub SetSetting(SettingName As String, Value As ULong) Implements ISettings.SetSetting
-
-    End Sub
-
-    Public Overloads Sub SetSetting(SettingName As String, Value As UShort) Implements ISettings.SetSetting
-
+    Private Sub SetObj(SettingName As String, Value As DatabaseObject)
+        myBot.Database.SetObject("SettingsDB", SettingName, Value)
     End Sub
 End Class

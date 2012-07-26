@@ -21,7 +21,11 @@
 
     Public ReadOnly Property Connected As Boolean Implements IConnection.Connected
         Get
-            Return myConnection.Connected
+            If myConnection IsNot Nothing Then
+                Return myConnection.Connected
+            Else
+                Return False
+            End If
         End Get
     End Property
 
@@ -42,13 +46,15 @@
         If PConnection Is Nothing Then
             Throw New ArgumentException("PConnection cannot be null.")
         End If
+        If PWorldID Is Nothing Then
+            Throw New ArgumentException("PWorldID cannot be null.")
+        End If
         myConnection = PConnection
         myWorldID = PWorldID
+        myBot = PBot
 
         myConnection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
         myConnection.AddOnMessage(AddressOf MessageReciver)
-
-        myBot = PBot
 
         RegisterMessage("init", GetType(Init_ReciveMessage))
         Send(New Init_SendMessage)
@@ -57,6 +63,7 @@
     Private Sub MessageHandler(sender As Object, e As OnMessageEventArgs) Handles Me.OnMessage
         If e.Type = GetType(Init_ReciveMessage) Then
             Dim m As Init_ReciveMessage = CType(e.Message, Init_ReciveMessage)
+
             RegisterMessages()
             Send(New Init2_SendMessage)
         End If
@@ -65,7 +72,6 @@
     Private Sub MessageReciver(sender As Object, e As PlayerIOClient.Message)
         Try
             Dim messageType As Type = MessageDictionary(e.Type)
-
             Dim myMessage As ReciveMessage = CType(Activator.CreateInstance(messageType, e), ReciveMessage)
             Dim myEventArgs As New OnMessageEventArgs(myMessage)
 
@@ -76,11 +82,15 @@
     End Sub
 
     Public Sub Send(PMessage As SendMessage)
-        myConnection.Send(PMessage.GetMessage(Me))
+        If myConnection IsNot Nothing Then
+            myConnection.Send(PMessage.GetMessage(Me))
+        End If
     End Sub
 
     Public Sub Disconnect() Implements IConnection.Disconnect
-        myConnection.Disconnect()
+        If myConnection IsNot Nothing Then
+            myConnection.Disconnect()
+        End If
     End Sub
 
     Private RegisteredMessages As Boolean
@@ -90,7 +100,6 @@
             RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoin_ReciveMessage))
             RegisterMessage("upgrade", GetType(Upgrade_ReciveMessage))
             RegisterMessage("info", GetType(Info_ReciveMessage))
-            'RegisterMessage("init",  GetType(Init_ReciveMessage)) 'Already registered at Init()
             RegisterMessage("updatemeta", GetType(UpdateMeta_ReciveMessage))
             RegisterMessage("add", GetType(Add_ReciveMessage))
             RegisterMessage("left", GetType(Left_ReciveMessage))
@@ -128,11 +137,9 @@
 
     Private MessageDictionary As New Dictionary(Of String, Type)
     Private Sub RegisterMessage(PString As String, PType As Type)
-        If MessageDictionary.ContainsKey(PString) Then
-            Throw New InvalidOperationException("Message ID already registered")
-        ElseIf Not PType.IsSubclassOf(GetType(ReciveMessage)) Then
+        If Not PType.IsSubclassOf(GetType(ReciveMessage)) Then
             Throw New InvalidOperationException("Invalid message class! Must inherit " & GetType(ReciveMessage).ToString)
-        Else
+        ElseIf Not MessageDictionary.ContainsKey(PString) Then
             MessageDictionary.Add(PString, PType)
         End If
     End Sub
