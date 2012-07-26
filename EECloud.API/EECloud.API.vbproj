@@ -84,7 +84,7 @@
     <Compile Include="Enums\AppEnvironment.vb" />
     <Compile Include="Enums\ErrorCode.vb" />
     <Compile Include="Enums\LogPriority.vb" />
-    <Compile Include="Interfaces\IDatabase.vb" />
+    <Compile Include="Interfaces\IService.vb" />
     <Compile Include="Interfaces\ILogger.vb" />
     <Compile Include="Interfaces\ISettings.vb" />
     <Compile Include="Enums\DoorID.vb" />

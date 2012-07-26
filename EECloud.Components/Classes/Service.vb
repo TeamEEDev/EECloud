@@ -1,6 +1,6 @@
-﻿Friend NotInheritable Class Database
+﻿Friend NotInheritable Class Service
     Inherits BaseGlobalComponent
-    Implements IDatabase
+    Implements IService
 
     Public Sub New(PBot As Bot, PLicenceUsername As String, PLicencePassword As String)
         MyBase.New(PBot)
@@ -8,7 +8,7 @@
     End Sub
 
     Private myClient As PlayerIOClient.Client
-    Public ReadOnly Property Client As Client Implements IDatabase.Client
+    Public ReadOnly Property Client As Client Implements IService.Client
         Get
             Return myClient
         End Get

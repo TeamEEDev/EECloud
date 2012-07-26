@@ -77,7 +77,7 @@
     <Compile Include="Classes\Blocks.vb" />
     <Compile Include="Classes\Connection.vb" />
     <Compile Include="Classes\Bot.vb" />
-    <Compile Include="Classes\Database.vb" />
+    <Compile Include="Classes\Service.vb" />
     <Compile Include="Classes\Logger.vb" />
     <Compile Include="Classes\Config.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
