@@ -63,7 +63,7 @@
     Private Sub MessageHandler(sender As Object, e As OnMessageEventArgs) Handles Me.OnMessage
         If e.Type = GetType(Init_ReciveMessage) Then
             Dim m As Init_ReciveMessage = CType(e.Message, Init_ReciveMessage)
-
+            UnRegisterMessage("init")
             RegisterMessages()
             Send(New Init2_SendMessage)
         End If
@@ -137,11 +137,22 @@
 
     Private MessageDictionary As New Dictionary(Of String, Type)
     Private Sub RegisterMessage(PString As String, PType As Type)
-        If Not PType.IsSubclassOf(GetType(ReciveMessage)) Then
-            Throw New InvalidOperationException("Invalid message class! Must inherit " & GetType(ReciveMessage).ToString)
-        ElseIf Not MessageDictionary.ContainsKey(PString) Then
-            MessageDictionary.Add(PString, PType)
-        End If
+        Try
+            If Not PType.IsSubclassOf(GetType(ReciveMessage)) Then
+                Throw New InvalidOperationException("Invalid message class! Must inherit " & GetType(ReciveMessage).ToString)
+            Else
+                MessageDictionary.Add(PString, PType)
+            End If
+        Catch ex As Exception
+            myBot.Logger.Log(LogPriority.Serve, "Failed to register message: " & PString)
+        End Try
+    End Sub
+    Private Sub UnRegisterMessage(PString As String)
+        Try
+            MessageDictionary.Remove(PString)
+        Catch ex As Exception
+            myBot.Logger.Log(LogPriority.Serve, "Failed to unregister message: " & PString)
+        End Try
     End Sub
 #End Region
 
