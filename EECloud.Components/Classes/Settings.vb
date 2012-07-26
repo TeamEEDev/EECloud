@@ -71,7 +71,7 @@
     End Function
 
     Private Function GetObj(SettingName As String) As Object
-        'Return myBot.Service.GetObject("SettingsDB", SettingName)("value")
+        Return myBot.Service.ServiceClient.BigDB.Load("SettingsDB", SettingName).Item("value")
     End Function
 
     Public Function GetSingle(SettingName As String) As Single Implements ISettings.GetSingle
@@ -99,74 +99,114 @@
     End Function
 
     Public Overloads Sub SetSetting(SettingName As String, Value As Boolean) Implements ISettings.SetSetting
-        Dim myDBObj As New DatabaseObject
-        myDBObj.Set("value", Value)
-        SetObj(SettingName, myDBObj)
+        SetObjGet(
+            SettingName,
+            Sub(myDBObj As PlayerIOClient.DatabaseObject)
+                myDBObj.Set("value", Value)
+                SetObj(SettingName, myDBObj)
+            End Sub)
     End Sub
 
     Public Overloads Sub SetSetting(SettingName As String, Value As Byte) Implements ISettings.SetSetting
-        Dim myDBObj As New DatabaseObject
-        myDBObj.Set("value", Value)
-        SetObj(SettingName, myDBObj)
+        SetObjGet(
+            SettingName,
+            Sub(myDBObj As PlayerIOClient.DatabaseObject)
+                myDBObj.Set("value", Value)
+                SetObj(SettingName, myDBObj)
+            End Sub)
     End Sub
 
     Public Overloads Sub SetSetting(SettingName As String, Value As Date) Implements ISettings.SetSetting
-        Dim myDBObj As New DatabaseObject
-        myDBObj.Set("value", Value)
-        SetObj(SettingName, myDBObj)
+        SetObjGet(
+            SettingName,
+            Sub(myDBObj As PlayerIOClient.DatabaseObject)
+                myDBObj.Set("value", Value)
+                SetObj(SettingName, myDBObj)
+            End Sub)
     End Sub
 
     Public Overloads Sub SetSetting(SettingName As String, Value As Double) Implements ISettings.SetSetting
-        Dim myDBObj As New DatabaseObject
-        myDBObj.Set("value", Value)
-        SetObj(SettingName, myDBObj)
+        SetObjGet(
+            SettingName,
+            Sub(myDBObj As PlayerIOClient.DatabaseObject)
+                myDBObj.Set("value", Value)
+                SetObj(SettingName, myDBObj)
+            End Sub)
     End Sub
 
     Public Overloads Sub SetSetting(SettingName As String, Value As Integer) Implements ISettings.SetSetting
-        Dim myDBObj As New DatabaseObject
-        myDBObj.Set("value", Value)
-        SetObj(SettingName, myDBObj)
+        SetObjGet(
+            SettingName,
+            Sub(myDBObj As PlayerIOClient.DatabaseObject)
+                myDBObj.Set("value", Value)
+                SetObj(SettingName, myDBObj)
+            End Sub)
     End Sub
 
     Public Overloads Sub SetSetting(SettingName As String, Value As Long) Implements ISettings.SetSetting
-        Dim myDBObj As New DatabaseObject
-        myDBObj.Set("value", Value)
-        SetObj(SettingName, myDBObj)
+        SetObjGet(
+            SettingName,
+            Sub(myDBObj As PlayerIOClient.DatabaseObject)
+                myDBObj.Set("value", Value)
+                SetObj(SettingName, myDBObj)
+            End Sub)
     End Sub
 
     Public Overloads Sub SetSetting(SettingName As String, Value As PlayerIOClient.DatabaseArray) Implements ISettings.SetSetting
-        Dim myDBObj As New DatabaseObject
-        myDBObj.Set("value", Value)
-        SetObj(SettingName, myDBObj)
+        SetObjGet(
+            SettingName,
+            Sub(myDBObj As PlayerIOClient.DatabaseObject)
+                myDBObj.Set("value", Value)
+                SetObj(SettingName, myDBObj)
+            End Sub)
     End Sub
 
     Public Overloads Sub SetSetting(SettingName As String, Value As PlayerIOClient.DatabaseObject) Implements ISettings.SetSetting
-        Dim myDBObj As New DatabaseObject
-        myDBObj.Set("value", Value)
-        SetObj(SettingName, myDBObj)
+        SetObjGet(
+            SettingName,
+            Sub(myDBObj As PlayerIOClient.DatabaseObject)
+                myDBObj.Set("value", Value)
+                SetObj(SettingName, myDBObj)
+            End Sub)
     End Sub
 
     Public Overloads Sub SetSetting(SettingName As String, Value As Single) Implements ISettings.SetSetting
-        Dim myDBObj As New DatabaseObject
-        myDBObj.Set("value", Value)
-        SetObj(SettingName, myDBObj)
+        SetObjGet(
+            SettingName,
+            Sub(myDBObj As PlayerIOClient.DatabaseObject)
+                myDBObj.Set("value", Value)
+                SetObj(SettingName, myDBObj)
+            End Sub)
     End Sub
 
     Public Overloads Sub SetSetting(SettingName As String, Value As String) Implements ISettings.SetSetting
-        Dim myDBObj As New DatabaseObject
-        myDBObj.Set("value", Value)
-        SetObj(SettingName, myDBObj)
+        SetObjGet(
+            SettingName,
+            Sub(myDBObj As PlayerIOClient.DatabaseObject)
+                myDBObj.Set("value", Value)
+                SetObj(SettingName, myDBObj)
+            End Sub)
     End Sub
 
     Public Overloads Sub SetSetting(SettingName As String, Value As UInteger) Implements ISettings.SetSetting
-        Dim myDBObj As New DatabaseObject
-        myDBObj.Set("value", Value)
-        SetObj(SettingName, myDBObj)
+        SetObjGet(
+            SettingName,
+            Sub(myDBObj As PlayerIOClient.DatabaseObject)
+                myDBObj.Set("value", Value)
+                SetObj(SettingName, myDBObj)
+            End Sub)
+    End Sub
+
+    Private Sub SetObjGet(SettingName As String, Callback As PlayerIOClient.Callback(Of PlayerIOClient.DatabaseObject))
+        myBot.Service.ServiceClient.BigDB.Load("SettingsDB", SettingName, Callback,
+            Sub(ex As PlayerIOError)
+                myBot.Logger.Log(LogPriority.Serve, "Failed to save Setting: " & SettingName)
+            End Sub)
     End Sub
 
     Private Sub SetObj(SettingName As String, Value As DatabaseObject)
         Try
-            'myBot.Service.SetObject("SettingsDB", SettingName, Value)
+            myBot.Service.ServiceClient.BigDB.SaveChanges(False, False, Value)
         Catch ex As Exception
             myBot.Logger.Log(LogPriority.Serve, "Failed to save Setting: " & SettingName)
         End Try

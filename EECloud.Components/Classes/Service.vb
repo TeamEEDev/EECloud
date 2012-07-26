@@ -4,13 +4,13 @@
 
     Public Sub New(PBot As Bot, PLicenceUsername As String, PLicencePassword As String)
         MyBase.New(PBot)
-        myClient = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.TBPGameID, PLicenceUsername, PLicencePassword)
+        myServiceClient = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.TBPGameID, PLicenceUsername, PLicencePassword)
     End Sub
 
-    Private myClient As PlayerIOClient.Client
-    Public ReadOnly Property Client As Client Implements IService.Client
+    Private myServiceClient As PlayerIOClient.Client
+    Public ReadOnly Property ServiceClient As Client Implements IService.ServiceClient
         Get
-            Return myClient
+            Return myServiceClient
         End Get
     End Property
 End Class
