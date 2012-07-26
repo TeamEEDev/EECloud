@@ -6,21 +6,10 @@
         MyBase.New(PBot)
     End Sub
 
-    Public Property Client As Client Implements IDatabase.Client
-
-    Public Function GetObject(Table As String, Key As String) As DatabaseObject Implements IDatabase.GetObject
-
-    End Function
-
-    Public Sub SetObject(Table As String, Key As String, Obj As DatabaseObject) Implements IDatabase.SetObject
-
-    End Sub
-
-    Public Sub SetProperty(Table As String, Key As String, PropertyName As String, Value As Object) Implements IDatabase.SetProperty
-
-    End Sub
-
-    Public Sub SetRelativeNumber(Table As String, Key As String, PropertyName As String, RelativeValue As Integer) Implements IDatabase.SetRelativeNumber
-
-    End Sub
+    Private myClient As PlayerIOClient.Client
+    Public ReadOnly Property Client As Client Implements IDatabase.Client
+        Get
+            Return myClient
+        End Get
+    End Property
 End Class
