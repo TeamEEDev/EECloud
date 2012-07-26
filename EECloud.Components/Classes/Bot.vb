@@ -71,8 +71,8 @@
         myLogger = New Logger(Me)
         myService = New Service(Me, LicenceUsername, LicenceKey)
         mySettings = New Settings(Me)
-        'TODO: Finish SettingManager
-        myGameVersionSetting = 110 'mySettingManager.GetInteger("GameVersion")
+
+        myGameVersionSetting = Settings.GetInteger("GameVersion")
     End Sub
 
     Private Overloads Function Connect(PConnection As PlayerIOClient.Connection, PWorldID As String) As IConnection
@@ -119,7 +119,7 @@
             CurrentRoomType = ErrorMessage(N)
             If CurrentRoomType.StartsWith(Config.NormalRoom) Then
                 myGameVersionSetting = CInt(CurrentRoomType.Substring(Config.NormalRoom.Length, CurrentRoomType.Length - Config.NormalRoom.Length - 1))
-                'mySettings.SetSetting("GameVersion", myGameVersionSetting)
+                mySettings.SetSetting("GameVersion", myGameVersionSetting)
                 Exit Sub
             End If
         Next

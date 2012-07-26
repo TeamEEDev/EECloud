@@ -1,3 +1,3 @@
 ﻿Public Interface IService
-    ReadOnly Property Client As PlayerIOClient.Client
+    ReadOnly Property ServiceClient As PlayerIOClient.Client
 End Interface
