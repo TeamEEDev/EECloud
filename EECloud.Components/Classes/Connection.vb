@@ -56,6 +56,9 @@
         myConnection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
         myConnection.AddOnMessage(AddressOf MessageReciver)
 
+        RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoin_ReciveMessage))
+        RegisterMessage("info", GetType(Info_ReciveMessage))
+        RegisterMessage("upgrade", GetType(Upgrade_ReciveMessage))
         RegisterMessage("init", GetType(Init_ReciveMessage))
         Send(New Init_SendMessage)
     End Sub
@@ -64,6 +67,7 @@
         If e.Type = GetType(Init_ReciveMessage) Then
             Dim m As Init_ReciveMessage = CType(e.Message, Init_ReciveMessage)
             UnRegisterMessage("init")
+            UnRegisterMessage("groupdisallowedjoin")
             RegisterMessages()
             Send(New Init2_SendMessage)
         End If
@@ -97,9 +101,6 @@
     Private Sub RegisterMessages()
         If RegisteredMessages = False Then
             RegisteredMessages = True
-            RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoin_ReciveMessage))
-            RegisterMessage("upgrade", GetType(Upgrade_ReciveMessage))
-            RegisterMessage("info", GetType(Info_ReciveMessage))
             RegisterMessage("updatemeta", GetType(UpdateMeta_ReciveMessage))
             RegisterMessage("add", GetType(Add_ReciveMessage))
             RegisterMessage("left", GetType(Left_ReciveMessage))
