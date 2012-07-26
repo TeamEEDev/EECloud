@@ -34,14 +34,14 @@
         End Get
     End Property
 
-    Friend myLogger As New Logger(Me)
+    Friend myLogger As Logger
     Public ReadOnly Property Logger As ILogger Implements IBot.Logger
         Get
             Return myLogger
         End Get
     End Property
 
-    Friend myDatabase As New Database(Me, LicenceUsername, LicenceKey)
+    Friend myDatabase As Database
     Public ReadOnly Property Database As IDatabase Implements IBot.Database
         Get
             Return myDatabase
@@ -55,10 +55,9 @@
         End Get
     End Property
 
-    Friend myBlocks As New Blocks(myConnection)
     Public ReadOnly Property Blocks As IBlocks Implements IBot.Blocks
         Get
-            Return myBlocks
+            Return myConnection.myBlocks
         End Get
     End Property
 #End Region
@@ -68,6 +67,10 @@
         myAppEnvironment = PAppEnvironment
         myLicenceUsername = PLicenceUsername
         myLicenceKey = PLicenceKey
+
+        myLogger = New Logger(Me)
+        myDatabase = New Database(Me, LicenceUsername, LicenceKey)
+        mySettings = New Settings(Me)
         'TODO: Finish SettingManager
         myGameVersionSetting = 110 'mySettingManager.GetInteger("GameVersion")
     End Sub
