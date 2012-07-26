@@ -8,7 +8,7 @@
         Dim myBot As New Bot(AppEnvironment)
         'TODO: well, ask for login defails somehow
         myBot.Logger.Log(LogPriority.Info, "Joining world...")
-        myBot.Connect("guest", "guest", "PWPC-Tjtqxa0I",
+        myBot.Connect("guest", "guest", "PWWOfglOCdbEI",
             Sub(PConnection As IConnection)
                 myBot.Logger.Log(LogPriority.Info, "Successfully joined.")
             End Sub,

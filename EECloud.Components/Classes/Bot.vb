@@ -53,7 +53,7 @@
     Public Sub New(PAppEnvironment As AppEnvironment)
         myAppEnvironment = PAppEnvironment
         'TODO: Finish SettingManager
-        myGameVersionSetting = 119 'mySettingManager.GetInteger("GameVersion")
+        myGameVersionSetting = 110 'mySettingManager.GetInteger("GameVersion")
     End Sub
 
     Public Overloads Function Connect(PConnection As PlayerIOClient.Connection, PWorldID As String) As IConnection
@@ -75,12 +75,10 @@
                 If ex.ErrorCode = PlayerIOClient.ErrorCode.UnknownRoomType Then
                     Try
                         UpdateVersion(ex)
+                        Connect(PClient, PWorldID, PSuccessCallback, PErrorCallback)
                     Catch ex2 As EECloudException
                         PErrorCallback.Invoke(New EECloudException(API.ErrorCode.PlayerIOError))
-                        Exit Sub
                     End Try
-
-                    Connect(PClient, PWorldID, PSuccessCallback, PErrorCallback)
                 Else
                     PErrorCallback.Invoke(New EECloudPlayerIOException(ex))
                 End If
@@ -98,15 +96,17 @@
     End Sub
 
     Private Sub UpdateVersion(ex As PlayerIOClient.PlayerIOError)
-        Dim ErrorMessage() As String = ex.Message.Substring(102).Split(CChar(" "))
+        Dim ErrorMessage() As String = ex.Message.Split("["c)(1).Split(CChar(" "))
         For N = ErrorMessage.Length - 1 To 0 Step -1
             Dim CurrentRoomType As String
             CurrentRoomType = ErrorMessage(N)
             If CurrentRoomType.StartsWith(Config.NormalRoom) Then
                 myGameVersionSetting = CInt(CurrentRoomType.Substring(Config.NormalRoom.Length, CurrentRoomType.Length - Config.NormalRoom.Length - 1))
+                'mySettings.SetSetting("GameVersion", myGameVersionSetting)
+                Exit Sub
             End If
-        Next
-        Throw New KeyNotFoundException("Unable to get GameVersion")
+        Next 
+        Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get GameVersion")
     End Sub
 #End Region
 End Class
