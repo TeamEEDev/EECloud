@@ -86,8 +86,6 @@
     Public Overloads Sub Connect(PClient As PlayerIOClient.Client, PWorldID As String, PSuccessCallback As PlayerIOClient.Callback(Of IConnection), PErrorCallback As PlayerIOClient.Callback(Of EECloudException)) Implements IBot.Connect
         PClient.Multiplayer.CreateJoinRoom(PWorldID, Config.NormalRoom & myGameVersionSetting, True, Nothing, Nothing,
             Sub(PConnection As PlayerIOClient.Connection)
-                Dim myConnection As PlayerIOClient.Connection = PConnection
-                Connect(myConnection, PWorldID)
                 PSuccessCallback.Invoke(Connect(PConnection, PWorldID))
             End Sub,
             Sub(ex As PlayerIOClient.PlayerIOError)
