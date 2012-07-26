@@ -34,6 +34,4 @@
 
     Function GetDatabaseArray(SettingName As String) As PlayerIOClient.DatabaseArray
     Function GetDatabaseObject(SettingName As String) As PlayerIOClient.DatabaseObject
-
-    Function GetObj(SettingName As String) As Object
 End Interface
