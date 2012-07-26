@@ -78,6 +78,8 @@ Friend NotInheritable Class Logger
             Overwrite(Input.Length + 1, Output)
             Console.WriteLine()
             Console.Write(">" & Input)
+        ElseIf priority = LogPriority.Serve Then
+            Throw New ApplicationException(str)
         End If
     End Sub
 
