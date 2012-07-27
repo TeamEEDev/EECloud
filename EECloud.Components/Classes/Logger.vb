@@ -4,15 +4,20 @@ Friend NotInheritable Class Logger
     Inherits BaseGlobalComponent
     Implements ILogger
 
+    Dim OldTop As Integer
+    Dim OldLeft As Integer
+
     Private myInput As String = String.Empty
     Public Property Input As String Implements ILogger.Input
         Get
             Return myInput
         End Get
         Set(value As String)
-            Overwrite(Input.Length + 1, ">" & value)
-            Console.CursorLeft = value.Length + 1
-            myInput = value
+            If Not myBot.AppEnvironment = AppEnvironment.Release Then
+                Overwrite(Input.Length + 1, ">" & value)
+                Console.CursorLeft = value.Length + 1
+                myInput = value
+            End If
         End Set
     End Property
 
@@ -20,7 +25,7 @@ Friend NotInheritable Class Logger
     Public Sub New(PBot As Bot)
         MyBase.New(PBot)
         If Not myBot.AppEnvironment = AppEnvironment.Release Then
-            Console.Write(">") 'Init
+            Console.Write(">")
             Dim Worker As New Thread(AddressOf HandleInput)
             Worker.Start()
         End If
@@ -29,8 +34,8 @@ Friend NotInheritable Class Logger
     Public Sub HandleInput()
         Try
             Do
-                Dim OldTop As Integer = Console.CursorTop
-                Dim OldLeft As Integer = Console.CursorLeft
+                OldTop = Console.CursorTop
+                OldLeft = Console.CursorLeft
                 Dim InputKey As System.ConsoleKeyInfo = Console.ReadKey
                 If InputKey.Key = ConsoleKey.Backspace Then
                     If Input.Length >= 1 Then
@@ -74,6 +79,7 @@ Friend NotInheritable Class Logger
 
     Public Sub Log(priority As LogPriority, str As String) Implements ILogger.Log
         If Not myBot.AppEnvironment = AppEnvironment.Release Then
+            OldTop += 1
             Dim Output As String = String.Format("{0} [{1}] {2}", Now.ToLongTimeString, priority.ToString.ToUpper, str)
             Overwrite(Input.Length + 1, Output)
             Console.WriteLine()
