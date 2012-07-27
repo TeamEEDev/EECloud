@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <StartupObject>EECloud.ModuleMain</StartupObject>
+    <StartupObject>Sub Main</StartupObject>
     <RootNamespace>EECloud</RootNamespace>
     <AssemblyName>EECloud</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -58,6 +58,7 @@
     </NoWarn>
     <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -75,9 +76,15 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="le_nlog">
+      <HintPath>..\packages\le_nlog.2.0.3\lib\4.0\le_nlog.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="PlayerIOClient">
       <HintPath>..\PlayerIOClient.dll</HintPath>
     </Reference>
@@ -95,7 +102,6 @@
   <ItemGroup>
     <Import Include="EECloud" />
     <Import Include="EECloud.API" />
-    <Import Include="EECloud.Components" />
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
     <Import Include="System.Collections" />
@@ -107,8 +113,20 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CloudApplicationContext.vb" />
-    <Compile Include="ModuleMain.vb" />
+    <Compile Include="Classes\BaseComponent.vb" />
+    <Compile Include="Classes\BaseGlobalComponent.vb" />
+    <Compile Include="Classes\Blocks.vb" />
+    <Compile Include="Classes\Bot.vb" />
+    <Compile Include="Classes\Config.vb" />
+    <Compile Include="Classes\Connection.vb" />
+    <Compile Include="Classes\Logger.vb" />
+    <Compile Include="Namespaces\Recive.vb" />
+    <Compile Include="Namespaces\Send.vb" />
+    <Compile Include="Classes\OnMessageEventArgs.vb" />
+    <Compile Include="Classes\Service.vb" />
+    <Compile Include="Classes\Settings.vb" />
+    <Compile Include="Classes\CloudApplicationContext.vb" />
+    <Compile Include="Classes\ModuleMain.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -121,7 +139,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="Resources\app.config" />
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
@@ -132,15 +150,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EECloud.API\EECloud.API.vbproj">
       <Project>{580ddf14-7848-4318-b9d8-55cbc3a2bc9e}</Project>
       <Name>EECloud.PluginAPI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EECloud.Components\EECloud.Components.vbproj">
-      <Project>{3db6f763-a8a9-4edd-8149-7b96063ff00c}</Project>
-      <Name>EECloud.Components</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -166,7 +181,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Icon.ico" />
+    <Content Include="Resources\Icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
