@@ -91,7 +91,7 @@ Public NotInheritable Class Logger
             If myLogger Is Nothing Then
                 myLogger = New LeLogger()
             End If
-            myLogger.Write(str)
+            myLogger.Write(Output)
         End If
     End Sub
 
