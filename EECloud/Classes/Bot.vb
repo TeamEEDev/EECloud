@@ -48,10 +48,17 @@
         End Get
     End Property
 
-    Friend mySettings As New Settings(Me)
+    Friend mySettings As Settings
     Public ReadOnly Property Settings As ISettings Implements IBot.Settings
         Get
             Return mySettings
+        End Get
+    End Property
+
+    Friend myPluginManager As PluginManager
+    Public ReadOnly Property PluginManager As IPluginManager Implements IBot.PluginManager
+        Get
+            Return myPluginManager
         End Get
     End Property
 
@@ -69,8 +76,9 @@
         myLicenceKey = PLicenceKey
 
         myLogger = New Logger(Me)
-        myService = New Service(Me, LicenceUsername, LicenceKey)
+        myService = New Service(Me)
         mySettings = New Settings(Me)
+        myPluginManager = New PluginManager(Me)
 
         myGameVersionSetting = Settings.GetInteger("GameVersion")
     End Sub

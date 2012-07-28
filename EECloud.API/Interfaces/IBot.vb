@@ -11,6 +11,7 @@
     ReadOnly Property Logger As ILogger
     ReadOnly Property Service As IService
     ReadOnly Property Settings As ISettings
+    ReadOnly Property PluginManager As IPluginManager
 
     ReadOnly Property Blocks As IBlocks
 End Interface

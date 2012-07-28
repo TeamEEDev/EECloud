@@ -2,9 +2,9 @@
     Inherits BaseGlobalComponent
     Implements IService
 
-    Public Sub New(PBot As Bot, PLicenceUsername As String, PLicencePassword As String)
+    Public Sub New(PBot As Bot)
         MyBase.New(PBot)
-        myServiceClient = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.TBPGameID, PLicenceUsername, PLicencePassword)
+        myServiceClient = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.TBPGameID, myBot.LicenceUsername, myBot.LicenceKey)
     End Sub
 
     Private myServiceClient As PlayerIOClient.Client

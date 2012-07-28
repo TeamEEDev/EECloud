@@ -1,4 +1,4 @@
-﻿Public Interface IPlugin(Of CloudPlayer)
+﻿Public Interface IPlugin
     Sub AttemptSetup(Host As IBot)
     Sub OnEnable()
     Sub OnDisable()

@@ -4,7 +4,7 @@ Public NotInheritable Class Logger
     Inherits BaseGlobalComponent
     Implements ILogger
 
-    Private Shared myLogger As NLog.Logger = NLog.LogManager.GetCurrentClassLogger()
+    Private Shared myLogger As LeLogger
 
     Dim OldTop As Integer
     Dim OldLeft As Integer
@@ -76,27 +76,22 @@ Public NotInheritable Class Logger
                 End If
             Loop
         Catch ex As Exception
-            Log(LogPriority.Error, "Log Manager has crashed! Console input is disabled.")
+            Log(LogPriority.Fatal, "Log Manager has crashed! Console input is disabled.")
         End Try
     End Sub
 
     Public Sub Log(priority As LogPriority, str As String) Implements ILogger.Log
+        Dim Output As String = String.Format("{0} [{1}] {2}", Now.ToLongTimeString, priority.ToString.ToUpper, str)
         If Not myBot.AppEnvironment = AppEnvironment.Release Then
             OldTop += 1
-            Dim Output As String = String.Format("{0} [{1}] {2}", Now.ToLongTimeString, priority.ToString.ToUpper, str)
             Overwrite(Input.Length + 1, Output)
             Console.WriteLine()
             Console.Write(">" & Input)
-        ElseIf priority = LogPriority.Info Then
-            myLogger.Info(str)
-        ElseIf priority = LogPriority.Warning Then
-            myLogger.Warn(str)
-        ElseIf priority = LogPriority.Error Then
-            myLogger.Error(str)
-        ElseIf priority = LogPriority.Fatal Then
-            myLogger.Fatal(str)
-        ElseIf priority = LogPriority.Debug Then
-            myLogger.Debug(str)
+        Else
+            If myLogger Is Nothing Then
+                myLogger = New LeLogger()
+            End If
+            myLogger.Write(str)
         End If
     End Sub
 
