@@ -8,9 +8,9 @@
 
     Public ReadOnly Property CorrectLayer(PID As Block, PLayer As Layer) As Layer Implements IBlocks.CorrectLayer
         Get
-            If (PID > 0 And PID < 500) Or PID = 1000 Then
+            If (PID > 0 AndAlso PID < 500) Or PID = 1000 Then
                 Return Layer.Foreground
-            ElseIf PID >= 500 And PID < 1000 Then
+            ElseIf PID >= 500 AndAlso PID < 1000 Then
                 Return Layer.Background
             Else
                 Return PLayer

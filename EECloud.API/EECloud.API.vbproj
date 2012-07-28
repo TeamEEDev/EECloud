@@ -81,9 +81,11 @@
     <Compile Include="Classes\CloudPlugin.vb" />
     <Compile Include="Classes\EECloudPlayerIOException.vb" />
     <Compile Include="Classes\EECloudException.vb" />
+    <Compile Include="Attributes\PluginAttribute.vb" />
     <Compile Include="Enums\AppEnvironment.vb" />
     <Compile Include="Enums\ErrorCode.vb" />
     <Compile Include="Enums\LogPriority.vb" />
+    <Compile Include="Interfaces\IPluginManager.vb" />
     <Compile Include="Interfaces\IService.vb" />
     <Compile Include="Interfaces\ILogger.vb" />
     <Compile Include="Interfaces\ISettings.vb" />
@@ -99,6 +101,7 @@
     <Compile Include="Enums\Layer.vb" />
     <Compile Include="Interfaces\IBot.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="Testplugin.vb" />
   </ItemGroup>
   <ItemGroup>
     <None Include="My Project\Application.myapp">

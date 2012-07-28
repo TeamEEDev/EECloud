@@ -61,7 +61,7 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AllowedReferenceRelatedFileExtensions>
       .allowedextension
-    </AllowedReferenceRelatedFileExtensions> 
+    </AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -82,12 +82,6 @@
     <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="le_nlog">
-      <HintPath>..\packages\le_nlog.2.0.3\lib\4.0\le_nlog.dll</HintPath>
-    </Reference>
-    <Reference Include="NLog">
-      <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
-    </Reference>
     <Reference Include="PlayerIOClient">
       <HintPath>..\PlayerIOClient.dll</HintPath>
     </Reference>
@@ -122,7 +116,9 @@
     <Compile Include="Classes\Bot.vb" />
     <Compile Include="Classes\Config.vb" />
     <Compile Include="Classes\Connection.vb" />
+    <Compile Include="Classes\LeLogger.vb" />
     <Compile Include="Classes\Logger.vb" />
+    <Compile Include="Classes\PluginManager.vb" />
     <Compile Include="Namespaces\Recive.vb" />
     <Compile Include="Namespaces\Send.vb" />
     <Compile Include="Classes\OnMessageEventArgs.vb" />
@@ -153,7 +149,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EECloud.API\EECloud.API.vbproj">
