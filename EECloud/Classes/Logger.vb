@@ -91,7 +91,7 @@ Public NotInheritable Class Logger
             If myLogger Is Nothing Then
                 myLogger = New LeLogger()
             End If
-            myLogger.Write(Output)
+            myLogger.Write(Now.ToShortDateString & " " & Output)
         End If
     End Sub
 
