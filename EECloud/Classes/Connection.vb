@@ -69,6 +69,7 @@
             UnRegisterMessage("init")
             UnRegisterMessage("groupdisallowedjoin")
             RegisterMessages()
+            myBot.PluginManager.ReloadAll()
             Send(New Init2_SendMessage)
         End If
     End Sub
