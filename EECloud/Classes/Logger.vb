@@ -83,7 +83,7 @@ Public NotInheritable Class Logger
     Public Sub Log(priority As LogPriority, str As String) Implements ILogger.Log
         Dim Output As String = String.Format("{0} [{1}] {2}", Now.ToLongTimeString, priority.ToString.ToUpper, str)
         If Not myBot.AppEnvironment = AppEnvironment.Release Then
-            OldTop += 1
+            OldTop = Console.CursorTop
             Overwrite(Input.Length + 1, Output)
             Console.WriteLine()
             Console.Write(">" & Input)
