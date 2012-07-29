@@ -51,7 +51,7 @@ Public Class PluginManager
     End Property
 
     Public Sub ReloadAll() Implements IPluginManager.ReloadAll
-        For Each Plugin As IPlugin In myPlugins.Values
+        For Each Plugin As Type In myPlugins.Keys
             Unload(Plugin)
         Next
         For Each Type As Type In myPluginTypes
@@ -72,9 +72,7 @@ Public Class PluginManager
                 Catch ex As Exception
                     myBot.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled: {1} {2}", ex.ToString, ex.Message, ex.StackTrace))
                     myBot.Logger.Log(LogPriority.Error, String.Format("Failed to start plugin {0}. Disabling...", PPlugin.Name))
-                    If myInstance IsNot Nothing Then
-                        Unload(myInstance)
-                    End If
+                    Unload(PPlugin)
                 End Try
             Else
                 Throw New ApplicationException("Plugin already loaded.")
@@ -84,18 +82,14 @@ Public Class PluginManager
         End If
     End Sub
 
-    Public Sub Unload(PPlugin As IPlugin) Implements IPluginManager.Unload
-        If myPlugins.ContainsValue(PPlugin) Then
-            myBot.Logger.Log(LogPriority.Info, String.Format("Disabling {0}...", PPlugin.GetType.Name))
-            Try
-                PPlugin.OnDisable()
-                myPlugins.Remove(PPlugin.GetType)
-            Catch ex As Exception
-                myBot.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled: {1} {2}", ex.ToString, ex.Message, ex.StackTrace))
-                myBot.Logger.Log(LogPriority.Error, String.Format("Failed to disable Plugin {0}.", PPlugin.GetType.Name))
-            End Try
-        Else
-            Throw New ApplicationException("Plugin could not be found.")
-        End If
+    Public Sub Unload(PPlugin As Type) Implements IPluginManager.Unload
+        myBot.Logger.Log(LogPriority.Info, String.Format("Disabling {0}...", PPlugin.GetType.Name))
+        Try
+            myPlugins(PPlugin).OnDisable()
+            myPlugins.Remove(PPlugin)
+        Catch ex As Exception
+            myBot.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled: {1} {2}", ex.ToString, ex.Message, ex.StackTrace))
+            myBot.Logger.Log(LogPriority.Error, String.Format("Failed to disable Plugin {0}.", PPlugin.Name))
+        End Try
     End Sub
 End Class
