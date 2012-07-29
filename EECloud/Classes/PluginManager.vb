@@ -75,10 +75,10 @@ Public Class PluginManager
                     Unload(PPlugin)
                 End Try
             Else
-                Throw New ApplicationException("Plugin already loaded.")
+                Throw New EECloudException(ErrorCode.InvalidPlugin, "Plugin already loaded.")
             End If
         Else
-            Throw New ArgumentException("Type does not inherit from EECloud.API.IPlugin")
+            Throw New EECloudException(ErrorCode.InvalidPlugin, "Type does not inherit from EECloud.API.IPlugin")
         End If
     End Sub
 
