@@ -3,6 +3,7 @@
 
 #Region "Fields"
     Private myGameVersionSetting As Integer = 0
+    Friend myConnection As Connection
 #End Region
 
 #Region "Properties"
@@ -24,13 +25,6 @@
     Public ReadOnly Property AppEnvironment As AppEnvironment Implements IBot.AppEnvironment
         Get
             Return myAppEnvironment
-        End Get
-    End Property
-
-    Friend myConnection As Connection
-    Public ReadOnly Property Connection As IConnection Implements IBot.Connection
-        Get
-            Return myConnection
         End Get
     End Property
 
@@ -91,7 +85,7 @@
         Return mConnection
     End Function
 
-    Public Overloads Sub Connect(PClient As PlayerIOClient.Client, PWorldID As String, PSuccessCallback As PlayerIOClient.Callback(Of IConnection), PErrorCallback As PlayerIOClient.Callback(Of EECloudException)) Implements IBot.Connect
+    Private Overloads Sub Connect(PClient As PlayerIOClient.Client, PWorldID As String, PSuccessCallback As PlayerIOClient.Callback(Of IConnection), PErrorCallback As PlayerIOClient.Callback(Of EECloudException))
         PClient.Multiplayer.CreateJoinRoom(PWorldID, Config.NormalRoom & myGameVersionSetting, True, Nothing, Nothing,
             Sub(PConnection As PlayerIOClient.Connection)
                 PSuccessCallback.Invoke(Connect(PConnection, PWorldID))

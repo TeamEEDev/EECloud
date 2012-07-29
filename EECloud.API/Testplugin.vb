@@ -1,16 +1,12 @@
 ﻿<Plugin()>
 Public Class Testplugin
-    Implements IPlugin
+    Inherits EEPlugin(Of EEPlayer)
 
-    Public Sub AttemptSetup(Host As IBot) Implements IPlugin.AttemptSetup
-
+    Public Overrides Sub OnDisable()
+        Throw New Exception
     End Sub
 
-    Public Sub OnDisable() Implements IPlugin.OnDisable
-
-    End Sub
-
-    Public Sub OnEnable() Implements IPlugin.OnEnable
-
+    Public Overrides Sub OnEnable()
+        Throw New Exception
     End Sub
 End Class

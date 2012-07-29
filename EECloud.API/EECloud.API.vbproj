@@ -77,8 +77,8 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\CloudPlayer.vb" />
-    <Compile Include="Classes\CloudPlugin.vb" />
+    <Compile Include="Classes\EEPlayer.vb" />
+    <Compile Include="Classes\EEPlugin.vb" />
     <Compile Include="Classes\EECloudPlayerIOException.vb" />
     <Compile Include="Classes\EECloudException.vb" />
     <Compile Include="Attributes\PluginAttribute.vb" />
