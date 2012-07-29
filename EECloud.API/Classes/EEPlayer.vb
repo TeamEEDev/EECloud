@@ -1,4 +1,4 @@
-﻿Public Class CloudPlayer
+﻿Public Class EEPlayer
     Implements IPlayer
 
     Public Property Coins As String Implements IPlayer.Coins

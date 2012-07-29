@@ -1,5 +1,5 @@
 ﻿Public Interface IPlugin
-    Sub AttemptSetup(Host As IBot)
+    Sub SetupPlugin(Host As IBot)
     Sub OnEnable()
     Sub OnDisable()
 End Interface
