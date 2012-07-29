@@ -54,27 +54,63 @@ Namespace My
             End Get
         End Property
         
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("")> _
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property LicenceUsername() As String
             Get
-                Return CType(Me("LicenceUsername"), String)
+                Return CType(Me("LicenceUsername"),String)
             End Get
-            Set(value As String)
+            Set
                 Me("LicenceUsername") = value
             End Set
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("")> _
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property LicenceKey() As String
             Get
-                Return CType(Me("LicenceKey"), String)
+                Return CType(Me("LicenceKey"),String)
             End Get
-            Set(value As String)
+            Set
                 Me("LicenceKey") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property LoginEmail() As String
+            Get
+                Return CType(Me("LoginEmail"),String)
+            End Get
+            Set
+                Me("LoginEmail") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property LoginPassword() As String
+            Get
+                Return CType(Me("LoginPassword"),String)
+            End Get
+            Set
+                Me("LoginPassword") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property LoginWorldID() As String
+            Get
+                Return CType(Me("LoginWorldID"),String)
+            End Get
+            Set
+                Me("LoginWorldID") = value
             End Set
         End Property
     End Class

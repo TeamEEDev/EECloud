@@ -90,6 +90,7 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -119,6 +120,12 @@
     <Compile Include="Classes\LeLogger.vb" />
     <Compile Include="Classes\Logger.vb" />
     <Compile Include="Classes\PluginManager.vb" />
+    <Compile Include="Forms\LoginForm.Designer.vb">
+      <DependentUpon>LoginForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LoginForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Namespaces\Recive.vb" />
     <Compile Include="Namespaces\Send.vb" />
     <Compile Include="Classes\OnMessageEventArgs.vb" />
@@ -138,6 +145,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Resources\app.config" />
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
@@ -180,6 +188,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Windows\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
