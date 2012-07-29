@@ -49,6 +49,7 @@ Partial Class LoginForm
         '
         Me.TextBoxPassword.Location = New System.Drawing.Point(74, 38)
         Me.TextBoxPassword.Name = "TextBoxPassword"
+        Me.TextBoxPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.TextBoxPassword.Size = New System.Drawing.Size(150, 20)
         Me.TextBoxPassword.TabIndex = 1
         '
