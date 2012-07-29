@@ -26,18 +26,6 @@
         myHost.Connect(Username, Password, WorldID, SuccessCallback, ErrorCallback)
     End Sub
 
-    Public ReadOnly Property LicenceKey As String Implements IBot.LicenceKey
-        Get
-            Return myHost.LicenceKey
-        End Get
-    End Property
-
-    Public ReadOnly Property LicenceUsername As String Implements IBot.LicenceUsername
-        Get
-            Return myHost.LicenceUsername
-        End Get
-    End Property
-
     Public ReadOnly Property Logger As ILogger Implements IBot.Logger
         Get
             Return myHost.Logger
@@ -50,7 +38,7 @@
         End Get
     End Property
 
-    Public ReadOnly Property Service As IService Implements IBot.Service
+    Public ReadOnly Property Service As PlayerIOClient.Client Implements IBot.Service
         Get
             Return myHost.Service
         End Get

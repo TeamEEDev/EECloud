@@ -120,6 +120,12 @@
     <Compile Include="Classes\LeLogger.vb" />
     <Compile Include="Classes\Logger.vb" />
     <Compile Include="Classes\PluginManager.vb" />
+    <Compile Include="Forms\LicenceForm.Designer.vb">
+      <DependentUpon>LicenceForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LicenceForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\LoginForm.Designer.vb">
       <DependentUpon>LoginForm.vb</DependentUpon>
     </Compile>
@@ -134,7 +140,6 @@
     <Compile Include="Namespaces\Recive.vb" />
     <Compile Include="Namespaces\Send.vb" />
     <Compile Include="Classes\OnMessageEventArgs.vb" />
-    <Compile Include="Classes\Service.vb" />
     <Compile Include="Classes\Settings.vb" />
     <Compile Include="Classes\CloudApplicationContext.vb" />
     <Compile Include="Classes\ModuleMain.vb" />
@@ -150,8 +155,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="Resources\app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
@@ -195,6 +201,9 @@
     <None Include="Resources\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\LicenceForm.resx">
+      <DependentUpon>LicenceForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.vb</DependentUpon>
     </EmbeddedResource>

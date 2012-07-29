@@ -7,20 +7,6 @@
 #End Region
 
 #Region "Properties"
-    Private myLicenceUsername As String
-    Public ReadOnly Property LicenceUsername As String Implements IBot.LicenceUsername
-        Get
-            Return myLicenceUsername
-        End Get
-    End Property
-
-    Private myLicenceKey As String
-    Public ReadOnly Property LicenceKey As String Implements IBot.LicenceKey
-        Get
-            Return myLicenceKey
-        End Get
-    End Property
-
     Private myAppEnvironment As AppEnvironment
     Public ReadOnly Property AppEnvironment As AppEnvironment Implements IBot.AppEnvironment
         Get
@@ -35,8 +21,8 @@
         End Get
     End Property
 
-    Friend myService As Service
-    Public ReadOnly Property Service As IService Implements IBot.Service
+    Friend myService As PlayerIOClient.Client
+    Public ReadOnly Property Service As PlayerIOClient.Client Implements IBot.Service
         Get
             Return myService
         End Get
@@ -64,13 +50,9 @@
 #End Region
 
 #Region "Methods"
-    Public Sub New(PAppEnvironment As AppEnvironment, PLicenceUsername As String, PLicenceKey As String)
+    Public Sub New(PAppEnvironment As AppEnvironment, PServiceClient As PlayerIOClient.Client)
         myAppEnvironment = PAppEnvironment
-        myLicenceUsername = PLicenceUsername
-        myLicenceKey = PLicenceKey
-
         myLogger = New Logger(Me)
-        myService = New Service(Me)
         mySettings = New Settings(Me)
         myPluginManager = New PluginManager(Me)
 
