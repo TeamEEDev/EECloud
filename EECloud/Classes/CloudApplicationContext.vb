@@ -1,41 +1,47 @@
-﻿Public Class CloudApplicationContext
+﻿Imports System.Configuration.ConfigurationManager
+
+Public Class CloudApplicationContext
     Inherits System.Windows.Forms.ApplicationContext
     Dim myBot As Bot
 
     Public Sub New()
-        Console.Title = "EECloud"
-
-        Dim AppEnvironment As AppEnvironment = CType([Enum].Parse(GetType(AppEnvironment), System.Configuration.ConfigurationManager.AppSettings("Environment"), True), AppEnvironment)
-        If AppEnvironment = API.AppEnvironment.Release Then
-            My.Settings.LicenceUsername = System.Configuration.ConfigurationManager.AppSettings("cloud.username")
-            My.Settings.LicenceKey = System.Configuration.ConfigurationManager.AppSettings("cloud.key")
-        Else
-            If My.Settings.LicenceKey = "" Then
-                Console.Write("Please enter licence username: ")
-                My.Settings.LicenceUsername = Console.ReadLine()
-                Console.Write("Please enter licence key: ")
-                My.Settings.LicenceKey = Console.ReadLine()
-                My.Settings.Save()
+        Dim myAppEnvironment As AppEnvironment = CType([Enum].Parse(GetType(AppEnvironment), AppSettings("Environment"), True), AppEnvironment)
+        If myAppEnvironment = API.AppEnvironment.Release Then
+            My.Settings.LicenceUsername = AppSettings("cloud.username")
+            My.Settings.LicenceKey = AppSettings("cloud.key")
+            My.Settings.LoginWorldID = AppSettings("cloud.worldid")
+            Dim AccData As String() = AppSettings("cloud.acc").Split(":"c)
+            If AccData.Length >= 2 Then
+                My.Settings.LoginEmail = AccData(0)
+                My.Settings.LoginPassword = AccData(1)
             End If
-            If SystemInformation.UserInteractive Then 'Does the current operating system support a user interface?
-                Dim DialogResult As DialogResult = New LoginForm().ShowDialog()
-                If DialogResult = Windows.Forms.DialogResult.Cancel Then
-                    End
-                End If
-            End If
+        ElseIf Not New LoginForm().ShowDialog() = Windows.Forms.DialogResult.OK Then
+            Environment.Exit(0)
         End If
 
+        myBot = New Bot(myAppEnvironment, GetService(myAppEnvironment))
 
-
-        myBot = New Bot(AppEnvironment, My.Settings.LicenceUsername, My.Settings.LicenceKey)
-        'TODO: well, ask for login defails somehow
         myBot.Logger.Log(LogPriority.Info, "Joining world...")
-        myBot.Connect("guest", "guest", "PWWOfglOCdbEI",
+        myBot.Connect(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID,
             Sub(PConnection As IConnection)
-                    myBot.Logger.Log(LogPriority.Info, "Successfully joined.")
-                End Sub,
+                myBot.Logger.Log(LogPriority.Info, "Successfully joined.")
+            End Sub,
             Sub(ex As EECloudException)
-                    myBot.Logger.Log(LogPriority.Error, "Failed to join.")
-                End Sub)
+                myBot.Logger.Log(LogPriority.Error, "Failed to join.")
+            End Sub)
     End Sub
+
+    Private Function GetService(myAppEnvironment As AppEnvironment) As PlayerIOClient.Client
+        Try
+            Return PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.ServiceGameID, My.Settings.LicenceUsername, My.Settings.LicenceKey)
+        Catch ex As Exception
+            If myAppEnvironment = API.AppEnvironment.Dev Then
+                If Not New LicenceForm().ShowDialog() = Windows.Forms.DialogResult.OK Then
+                    Environment.Exit(0)
+                Else
+                    GetService(myAppEnvironment)
+                End If
+            End If
+        End Try
+    End Function
 End Class

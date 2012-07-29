@@ -1,6 +1,6 @@
 ﻿Imports System.Runtime.InteropServices
 
-Public Class LoginForm
+Public Class LicenceForm
     <DllImport("user32.dll")> _
     Private Shared Function SetForegroundWindow(ByVal hWnd As IntPtr) As <MarshalAs(UnmanagedType.Bool)> Boolean
     End Function
@@ -9,9 +9,8 @@ Public Class LoginForm
         Me.Icon = My.Resources.Icon
         InitializeComponent()
 
-        TextBoxEmail.Text = My.Settings.LoginEmail
-        TextBoxPassword.Text = My.Settings.LoginPassword
-        TextBoxWorldID.Text = My.Settings.LoginWorldID
+        TextBoxUsername.Text = My.Settings.LicenceUsername
+        TextBoxKey.Text = My.Settings.LicenceKey
     End Sub
 
     Private Sub LoginForm_Load(sender As Object, e As EventArgs) Handles MyBase.Shown
@@ -21,10 +20,9 @@ Public Class LoginForm
     End Sub
 
     Private Sub ButtonJoinWorld_Click(sender As Object, e As EventArgs) Handles ButtonJoinWorld.Click
-        If Not TextBoxEmail.Text = "" AndAlso Not TextBoxPassword.Text = "" AndAlso Not TextBoxWorldID.Text = "" Then
-            My.Settings.LoginEmail = TextBoxEmail.Text
-            My.Settings.LoginPassword = TextBoxPassword.Text
-            My.Settings.LoginWorldID = TextBoxWorldID.Text
+        If Not TextBoxUsername.Text = "" AndAlso Not TextBoxKey.Text = "" Then
+            My.Settings.LicenceUsername = TextBoxUsername.Text
+            My.Settings.LicenceKey = TextBoxKey.Text
             My.Settings.Save()
             Me.DialogResult = Windows.Forms.DialogResult.OK
             Me.Close()

@@ -71,7 +71,7 @@
     End Function
 
     Private Function GetObj(SettingName As String) As Object
-        Return myBot.Service.ServiceClient.BigDB.Load("SettingsDB", SettingName).Item("value")
+        Return myBot.Service.BigDB.Load("SettingsDB", SettingName).Item("value")
     End Function
 
     Public Function GetSingle(SettingName As String) As Single Implements ISettings.GetSingle
@@ -198,7 +198,7 @@
     End Sub
 
     Private Sub SetObjGet(SettingName As String, Callback As PlayerIOClient.Callback(Of PlayerIOClient.DatabaseObject))
-        myBot.Service.ServiceClient.BigDB.Load("SettingsDB", SettingName, Callback,
+        myBot.Service.BigDB.Load("SettingsDB", SettingName, Callback,
             Sub(ex As PlayerIOClient.PlayerIOError)
                 myBot.Logger.Log(LogPriority.Error, "Failed to save Setting: " & SettingName)
             End Sub)
@@ -206,7 +206,7 @@
 
     Private Sub SetObj(SettingName As String, Value As PlayerIOClient.DatabaseObject)
         Try
-            myBot.Service.ServiceClient.BigDB.SaveChanges(False, False, Value)
+            myBot.Service.BigDB.SaveChanges(False, False, Value)
         Catch ex As Exception
             myBot.Logger.Log(LogPriority.Error, "Failed to save Setting: " & SettingName)
         End Try

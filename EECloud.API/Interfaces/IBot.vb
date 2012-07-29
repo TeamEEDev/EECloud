@@ -1,13 +1,9 @@
 ﻿Public Interface IBot
-    ReadOnly Property AppEnvironment As AppEnvironment
-
     Overloads Sub Connect(Username As String, Password As String, WorldID As String, SuccessCallback As PlayerIOClient.Callback(Of IConnection), ErrorCallback As PlayerIOClient.Callback(Of EECloudException))
 
-    ReadOnly Property LicenceUsername As String
-    ReadOnly Property LicenceKey As String
-
+    ReadOnly Property AppEnvironment As AppEnvironment
+    ReadOnly Property Service As PlayerIOClient.Client
     ReadOnly Property Logger As ILogger
-    ReadOnly Property Service As IService
     ReadOnly Property Settings As ISettings
     ReadOnly Property PluginManager As IPluginManager
 
