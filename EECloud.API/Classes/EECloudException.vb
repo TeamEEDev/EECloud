@@ -23,4 +23,3 @@
         myMessage = PMessage
     End Sub
 End Class
-

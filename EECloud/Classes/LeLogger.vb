@@ -46,6 +46,8 @@ Imports System.Threading
 Imports System.Text
 
 Public NotInheritable Class LeLogger
+    Implements IDisposable
+
     Public Shared ReadOnly QUEUE_SIZE As Integer = 32768
     Shared ReadOnly LE_API As [String] = "api.logentries.com"
     Shared ReadOnly LE_PORT As Integer = 80
@@ -63,11 +65,11 @@ Public NotInheritable Class LeLogger
     Public Queue As BlockingCollection(Of Byte())
 
     Public Sub New()
-        queue = New BlockingCollection(Of Byte())(QUEUE_SIZE)
+        Queue = New BlockingCollection(Of Byte())(QUEUE_SIZE)
 
-        thread = New Thread(New ThreadStart(AddressOf RunLoop))
+        Thread = New Thread(New ThreadStart(AddressOf RunLoop))
         Thread.Name = "Logentries logger"
-        thread.IsBackground = True
+        Thread.IsBackground = True
     End Sub
 
     Private Sub ReopenConnection()
@@ -78,10 +80,10 @@ Public NotInheritable Class LeLogger
             Try
                 Dim api_addr As [String] = LE_API
                 Try
-                    Me.socket = New MyTcpClient(LE_API)
+                    Me.Socket = New MyTcpClient(LE_API)
 
                     Dim header As [String] = [String].Format("PUT /{0}/hosts/{1}/?realtime=1 HTTP/1.1" & vbCr & vbLf & vbCr & vbLf, Me.SubstituteAppSetting(CONFIG_KEY), Me.SubstituteAppSetting(CONFIG_LOCATION))
-                    Me.socket.Write(ASCII.GetBytes(header), 0, header.Length)
+                    Me.Socket.Write(ASCII.GetBytes(header), 0, header.Length)
                 Catch
                     Throw New IOException()
                 End Try
@@ -94,7 +96,7 @@ Public NotInheritable Class LeLogger
             End If
             Dim wait_for As Integer = root_delay + random.[Next](root_delay)
             Try
-                thread.Sleep(wait_for)
+                Thread.Sleep(wait_for)
             Catch
                 Throw New ThreadInterruptedException()
             End Try
@@ -102,23 +104,23 @@ Public NotInheritable Class LeLogger
     End Sub
 
     Private Sub CloseConnection()
-        If Me.socket IsNot Nothing Then
-            Me.socket.Close()
+        If Me.Socket IsNot Nothing Then
+            Me.Socket.Close()
         End If
     End Sub
 
     Public Sub RunLoop()
         Try
-            reopenConnection()
+            ReopenConnection()
 
             While True
-                Dim data As Byte() = queue.Take()
+                Dim data As Byte() = Queue.Take()
                 While True
                     Try
-                        socket.Write(data, 0, data.Length)
-                        socket.Flush()
+                        Socket.Write(data, 0, data.Length)
+                        Socket.Flush()
                     Catch e As IOException
-                        reopenConnection()
+                        ReopenConnection()
                         Continue While
                     End Try
                     Exit While
@@ -127,16 +129,16 @@ Public NotInheritable Class LeLogger
         Catch e As ThreadInterruptedException
         End Try
 
-        closeConnection()
+        CloseConnection()
     End Sub
 
     Private Sub AddLine(line As [String])
         Dim data As Byte() = UTF8.GetBytes(line & ControlChars.Lf)
-        Dim is_full As Boolean = Not queue.TryAdd(data)
+        Dim is_full As Boolean = Not Queue.TryAdd(data)
 
         If is_full Then
-            queue.Take()
-            queue.TryAdd(data)
+            Queue.Take()
+            Queue.TryAdd(data)
         End If
     End Sub
 
@@ -153,21 +155,21 @@ Public NotInheritable Class LeLogger
     End Function
 
     Sub Write(str As String)
-        If Not checkCredentials() Then
+        If Not CheckCredentials() Then
             Return
         End If
-        If Not started Then
-            thread.Start()
-            started = True
+        If Not Started Then
+            Thread.Start()
+            Started = True
         End If
 
-        addLine(str)
+        AddLine(str)
 
         Try
             Dim excep As [String] = str
             If excep.Length > 0 Then
                 excep = excep.Replace(vbLf, Chr(&H2028))
-                addLine(excep)
+                AddLine(excep)
             End If
         Catch
 
@@ -175,8 +177,8 @@ Public NotInheritable Class LeLogger
     End Sub
 
     Sub Shutdown()
-        thread.Interrupt()
-        started = False
+        Thread.Interrupt()
+        Started = False
     End Sub
 
     Private Function SubstituteAppSetting(key As String) As String
@@ -189,6 +191,8 @@ Public NotInheritable Class LeLogger
     End Function
 
     Private Class MyTcpClient
+        Implements IDisposable
+
         Dim client As TcpClient
         Dim stream As Stream
 
@@ -216,5 +220,28 @@ Public NotInheritable Class LeLogger
             End If
             Me.client = Nothing
         End Sub
+
+        Protected Overloads Sub Dispose(disposing As Boolean)
+            If disposing Then
+                client.Close()
+            End If
+        End Sub
+
+        Public Overloads Sub Dispose() Implements IDisposable.Dispose
+            Dispose(True)
+            GC.SuppressFinalize(Me)
+        End Sub
     End Class
+
+    Protected Overloads Sub Dispose(disposing As Boolean)
+        If disposing Then
+            Queue.Dispose()
+            Socket.Dispose()
+        End If
+    End Sub
+
+    Public Overloads Sub Dispose() Implements IDisposable.Dispose
+        Dispose(True)
+        GC.SuppressFinalize(Me)
+    End Sub
 End Class
