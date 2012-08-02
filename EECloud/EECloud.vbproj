@@ -120,10 +120,10 @@
     <Compile Include="Classes\LeLogger.vb" />
     <Compile Include="Classes\Logger.vb" />
     <Compile Include="Classes\PluginManager.vb" />
-    <Compile Include="Forms\LicenceForm.Designer.vb">
-      <DependentUpon>LicenceForm.vb</DependentUpon>
+    <Compile Include="Forms\LicenseForm.Designer.vb">
+      <DependentUpon>LicenseForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\LicenceForm.vb">
+    <Compile Include="Forms\LicenseForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\LoginForm.Designer.vb">
@@ -155,7 +155,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config">
+    <None Include="Miscellaneous\app.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="My Project\app.manifest" />
@@ -201,8 +201,8 @@
     <None Include="Resources\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\LicenceForm.resx">
-      <DependentUpon>LicenceForm.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\LicenseForm.resx">
+      <DependentUpon>LicenseForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.vb</DependentUpon>

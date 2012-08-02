@@ -55,9 +55,9 @@ Partial Class LoginForm
         '
         'ButtonJoinWorld
         '
-        Me.ButtonJoinWorld.Location = New System.Drawing.Point(15, 90)
+        Me.ButtonJoinWorld.Location = New System.Drawing.Point(12, 90)
         Me.ButtonJoinWorld.Name = "ButtonJoinWorld"
-        Me.ButtonJoinWorld.Size = New System.Drawing.Size(209, 23)
+        Me.ButtonJoinWorld.Size = New System.Drawing.Size(212, 23)
         Me.ButtonJoinWorld.TabIndex = 3
         Me.ButtonJoinWorld.Text = "Join world"
         Me.ButtonJoinWorld.UseVisualStyleBackColor = True
