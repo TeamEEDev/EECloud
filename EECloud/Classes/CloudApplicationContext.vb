@@ -36,7 +36,7 @@ Public Class CloudApplicationContext
             Return PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.ServiceGameID, My.Settings.LicenceUsername, My.Settings.LicenceKey)
         Catch ex As Exception
             If myAppEnvironment = API.AppEnvironment.Dev Then
-                If Not New LicenceForm().ShowDialog() = Windows.Forms.DialogResult.OK Then
+                If Not New LicenseForm().ShowDialog() = Windows.Forms.DialogResult.OK Then
                     Environment.Exit(0)
                 Else
                     GetService(myAppEnvironment)
