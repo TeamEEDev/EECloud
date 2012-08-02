@@ -49,7 +49,7 @@ Partial Class LicenseForm
         Me.ButtonJoinWorld.Name = "ButtonJoinWorld"
         Me.ButtonJoinWorld.Size = New System.Drawing.Size(214, 23)
         Me.ButtonJoinWorld.TabIndex = 2
-        Me.ButtonJoinWorld.Text = "Connect"
+        Me.ButtonJoinWorld.Text = "Ok"
         Me.ButtonJoinWorld.UseVisualStyleBackColor = True
         '
         'LabelUsername

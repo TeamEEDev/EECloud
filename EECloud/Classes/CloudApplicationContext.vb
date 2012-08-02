@@ -39,7 +39,7 @@ Public Class CloudApplicationContext
                 If Not New LicenseForm().ShowDialog() = Windows.Forms.DialogResult.OK Then
                     Environment.Exit(0)
                 Else
-                    GetService(myAppEnvironment)
+                    Return GetService(myAppEnvironment)
                 End If
             End If
         End Try
