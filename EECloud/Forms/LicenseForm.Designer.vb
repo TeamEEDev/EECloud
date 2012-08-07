@@ -24,7 +24,7 @@ Partial Class LicenseForm
     Private Sub InitializeComponent()
         Me.TextBoxUsername = New System.Windows.Forms.TextBox()
         Me.TextBoxKey = New System.Windows.Forms.TextBox()
-        Me.ButtonJoinWorld = New System.Windows.Forms.Button()
+        Me.ButtonOk = New System.Windows.Forms.Button()
         Me.LabelUsername = New System.Windows.Forms.Label()
         Me.LabelKey = New System.Windows.Forms.Label()
         Me.SuspendLayout()
@@ -43,14 +43,14 @@ Partial Class LicenseForm
         Me.TextBoxKey.Size = New System.Drawing.Size(150, 20)
         Me.TextBoxKey.TabIndex = 1
         '
-        'ButtonJoinWorld
+        'ButtonOk
         '
-        Me.ButtonJoinWorld.Location = New System.Drawing.Point(12, 64)
-        Me.ButtonJoinWorld.Name = "ButtonJoinWorld"
-        Me.ButtonJoinWorld.Size = New System.Drawing.Size(214, 23)
-        Me.ButtonJoinWorld.TabIndex = 2
-        Me.ButtonJoinWorld.Text = "Ok"
-        Me.ButtonJoinWorld.UseVisualStyleBackColor = True
+        Me.ButtonOk.Location = New System.Drawing.Point(12, 64)
+        Me.ButtonOk.Name = "ButtonOk"
+        Me.ButtonOk.Size = New System.Drawing.Size(214, 23)
+        Me.ButtonOk.TabIndex = 2
+        Me.ButtonOk.Text = "Ok"
+        Me.ButtonOk.UseVisualStyleBackColor = True
         '
         'LabelUsername
         '
@@ -72,13 +72,13 @@ Partial Class LicenseForm
         '
         'LicenseForm
         '
-        Me.AcceptButton = Me.ButtonJoinWorld
+        Me.AcceptButton = Me.ButtonOk
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(238, 99)
         Me.Controls.Add(Me.LabelKey)
         Me.Controls.Add(Me.LabelUsername)
-        Me.Controls.Add(Me.ButtonJoinWorld)
+        Me.Controls.Add(Me.ButtonOk)
         Me.Controls.Add(Me.TextBoxKey)
         Me.Controls.Add(Me.TextBoxUsername)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -92,7 +92,7 @@ Partial Class LicenseForm
     End Sub
     Friend WithEvents TextBoxUsername As System.Windows.Forms.TextBox
     Friend WithEvents TextBoxKey As System.Windows.Forms.TextBox
-    Friend WithEvents ButtonJoinWorld As System.Windows.Forms.Button
+    Friend WithEvents ButtonOk As System.Windows.Forms.Button
     Friend WithEvents LabelUsername As System.Windows.Forms.Label
     Friend WithEvents LabelKey As System.Windows.Forms.Label
 End Class
