@@ -104,7 +104,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("PWPC-Tjtqxa0I")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("PWWOfglOCdbEI")>  _
         Public Property LoginWorldID() As String
             Get
                 Return CType(Me("LoginWorldID"),String)
