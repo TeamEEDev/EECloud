@@ -9,13 +9,13 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="LoginEmail" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">sepehr1376@gmail.com</Value>
     </Setting>
     <Setting Name="LoginPassword" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">159159ss</Value>
     </Setting>
     <Setting Name="LoginWorldID" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">PWPC-Tjtqxa0I</Value>
     </Setting>
   </Settings>
 </SettingsFile>
