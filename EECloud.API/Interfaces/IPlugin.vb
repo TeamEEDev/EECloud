@@ -1,5 +1,4 @@
-﻿Public Interface IPlugin
-    Sub SetupPlugin(Host As IBot)
-    Sub OnEnable()
-    Sub OnDisable()
+﻿Friend Interface IPlugin 'Just because generics suck atm
+    Sub SetupPlugin(host As IBot)
+    Sub Disable()
 End Interface

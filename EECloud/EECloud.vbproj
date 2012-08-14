@@ -33,7 +33,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
@@ -86,16 +86,12 @@
       <HintPath>..\PlayerIOClient.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.configuration" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="EECloud" />
@@ -104,25 +100,19 @@
     <Import Include="System" />
     <Import Include="System.Collections" />
     <Import Include="System.Collections.Generic" />
-    <Import Include="System.Data" />
     <Import Include="System.Diagnostics" />
     <Import Include="System.Linq" />
     <Import Include="System.Windows.Forms" />
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\BaseComponent.vb" />
-    <Compile Include="Classes\BaseGlobalComponent.vb" />
-    <Compile Include="Classes\Blocks.vb" />
-    <Compile Include="Classes\Bot.vb" />
-    <Compile Include="Classes\Config.vb" />
-    <Compile Include="Classes\Connection.vb" />
-    <Compile Include="Classes\LeLogger.vb" />
-    <Compile Include="Classes\Logger.vb" />
-    <Compile Include="Classes\PluginManager.vb" />
     <Compile Include="Forms\LicenseForm.Designer.vb">
       <DependentUpon>LicenseForm.vb</DependentUpon>
     </Compile>
+    <Compile Include="BaseGlobalComponent.vb" />
+    <Compile Include="Components\Bot.vb" />
+    <Compile Include="Components\InternalConnection.vb" />
+    <Compile Include="Components\InternalPlayer.vb" />
     <Compile Include="Forms\LicenseForm.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -132,17 +122,18 @@
     <Compile Include="Forms\LoginForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Misc\Config.vb" />
+    <Compile Include="Components\Logger\LeLogger.vb" />
+    <Compile Include="Components\Logger\Logger.vb" />
+    <Compile Include="Components\PluginManager.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Namespaces\Recive.vb" />
-    <Compile Include="Namespaces\Send.vb" />
-    <Compile Include="Classes\OnMessageEventArgs.vb" />
-    <Compile Include="Classes\Settings.vb" />
-    <Compile Include="Classes\CloudApplicationContext.vb" />
-    <Compile Include="Classes\ModuleMain.vb" />
+    <Compile Include="Components\Settings.vb" />
+    <Compile Include="Startup\CloudApplicationContext.vb" />
+    <Compile Include="Startup\ModuleMain.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -153,9 +144,13 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Components\PluginObject.vb" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Miscellaneous\app.config" />
+    <None Include="Resources\app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
