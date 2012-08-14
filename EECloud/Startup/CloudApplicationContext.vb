@@ -34,8 +34,6 @@ Friend NotInheritable Class CloudApplicationContext
 
     Private Function GetService(myAppEnvironment As AppEnvironment) As PlayerIOClient.Client
         Try
-            'TODO
-            Return Nothing
             Return PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.ServiceGameID, My.Settings.LicenceUsername, My.Settings.LicenceKey)
         Catch ex As Exception
             If myAppEnvironment = API.AppEnvironment.Dev Then
