@@ -1,6 +1,6 @@
 ﻿Friend Interface IInternalConnection
     Event OnMessage As EventHandler(Of ReciveMessage)
-    Event OnDisconnect As EventHandler
+    Event OnDisconnect(sender As Object, message As String)
     Event OnAddUser(sender As Object, e As IPlayer)
     Event OnRemoveUser(sender As Object, e As Left_ReciveMessage)
 
