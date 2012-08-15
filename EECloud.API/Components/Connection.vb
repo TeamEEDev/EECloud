@@ -1436,8 +1436,8 @@
     End Sub
 
     Private Sub OnEventError(eventName As String, ex As Exception)
-        myBot.Logger.Log(LogPriority.Error, String.Format("Unable to pass event {0} to {1}.", eventName, ex.Source))
-        myBot.Logger.Log(LogPriority.Error, ex.StackTrace)
+        myBot.Logger.Log(LogPriority.Fatal, String.Format("Unable to pass event {0} to {1}.", eventName, ex.Source))
+        myBot.Logger.Log(LogPriority.Fatal, ex.StackTrace)
     End Sub
 
     Private Sub myInternalConnection_OnAddUser(sender As Object, e As IPlayer) Handles myInternalConnection.OnAddUser
