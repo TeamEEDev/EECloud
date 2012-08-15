@@ -57,7 +57,7 @@
         myLogger = New Logger(Me)
         mySettings = New Settings(Me)
         myPluginManager = New PluginManager(Me)
-        PluginManager.ReloadAll()
+
         If myGameVersionSetting = 0 Then
             myGameVersionSetting = Settings.GetInteger(GameVersionSetting)
         End If

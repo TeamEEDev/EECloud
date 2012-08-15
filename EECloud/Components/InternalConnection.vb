@@ -54,7 +54,7 @@
 #End Region
 
 #Region "Events"
-    Friend Event OnDisconnect(sender As Object, e As EventArgs) Implements IInternalConnection.OnDisconnect
+    Friend Event OnDisconnect(sender As Object, e As String) Implements IInternalConnection.OnDisconnect
 
     Friend Event OnMessage(sender As Object, e As ReciveMessage) Implements IInternalConnection.OnMessage
 
@@ -69,7 +69,7 @@
         myConnection = PConnection
         myWorldID = PWorldID
         myBot = PBot
-        myConnection.AddOnDisconnect(Sub() RaiseEvent OnDisconnect(Me, New EventArgs))
+        myConnection.AddOnDisconnect(Sub(sender As Object, message As String) RaiseEvent OnDisconnect(Me, message))
         myConnection.AddOnMessage(AddressOf MessageReciver)
 
         RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoin_ReciveMessage))
