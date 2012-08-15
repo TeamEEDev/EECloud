@@ -21,7 +21,7 @@
             myInternalHandle.Send()
             myInternalHandle = Nothing
         Else
-            Throw New ApplicationException("The current message is already sent")
+            Throw New EECloudException(ErrorCode.MessageAlreadySent, "The current message is already sent")
         End If
     End Sub
 

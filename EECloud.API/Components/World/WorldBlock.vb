@@ -1,24 +1,6 @@
 ﻿Public Class WorldBlock
 
-#Region "Fields"
-    Private WithEvents myConenction As Connection(Of Player)
-#End Region
-
 #Region "Properties"
-    Private myX As Integer
-    Public ReadOnly Property X As Integer
-        Get
-            Return myX
-        End Get
-    End Property
-
-    Private myY As Integer
-    Public ReadOnly Property Y As Integer
-        Get
-            Return myY
-        End Get
-    End Property
-
     Private myLayer As Layer
     Public ReadOnly Property Layer As Layer
         Get
@@ -36,9 +18,15 @@
 
 #Region "Methods"
     Friend Sub New(layer As Layer, x As Integer, y As Integer, block As BlockType)
-        Me.myX = x
-        Me.myY = y
         Me.myBlock = block
     End Sub
+
+    Public Shared Operator =(b1 As WorldBlock, b2 As WorldBlock) As Boolean
+        Return b1.myBlock = b2.myBlock AndAlso b1.myLayer = b2.myLayer
+    End Operator
+
+    Public Shared Operator <>(b1 As WorldBlock, b2 As WorldBlock) As Boolean
+        Return b1.myBlock <> b2.myBlock OrElse b1.myLayer <> b2.myLayer
+    End Operator
 #End Region
 End Class

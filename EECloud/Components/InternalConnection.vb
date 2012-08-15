@@ -87,8 +87,6 @@
                 UnRegisterMessage("init")
                 UnRegisterMessage("groupdisallowedjoin")
                 RegisterMessages()
-                'TODO: dont call it here, insead, do it from IBot
-                myBot.PluginManager.ReloadAll()
                 DefaultConnection.SendInit2()
             Case GetType(Add_ReciveMessage)
                 Dim m As Add_ReciveMessage = CType(e, Add_ReciveMessage)

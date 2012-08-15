@@ -76,7 +76,7 @@ Friend NotInheritable Class Logger
                 End If
             Loop
         Catch ex As Exception
-            Log(LogPriority.Fatal, "Log Manager has crashed! Console input is disabled.")
+            Log(LogPriority.Error, "Log Manager has crashed! Console input is disabled.")
         End Try
     End Sub
 

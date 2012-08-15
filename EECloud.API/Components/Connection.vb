@@ -42,6 +42,16 @@
         End Get
     End Property
 
+    Public ReadOnly Property Players As IEnumerable(Of P)
+        Get
+            Try
+                Return myPlayersDictionary.Values
+            Catch
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
     Private myCrown As P
     Public ReadOnly Property Crown As P
         Get
@@ -1436,8 +1446,8 @@
     End Sub
 
     Private Sub OnEventError(eventName As String, ex As Exception)
-        myBot.Logger.Log(LogPriority.Fatal, String.Format("Unable to pass event {0} to {1}.", eventName, ex.Source))
-        myBot.Logger.Log(LogPriority.Fatal, ex.StackTrace)
+        myBot.Logger.Log(LogPriority.Error, String.Format("Unable to pass event {0} to {1}.", eventName, ex.Source))
+        myBot.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled: {1} {2}", ex.ToString, ex.Message, ex.StackTrace))
     End Sub
 
     Private Sub myInternalConnection_OnAddUser(sender As Object, e As IPlayer) Handles myInternalConnection.OnAddUser
@@ -1445,8 +1455,7 @@
             Dim myPlayer As New P
             myPlayer.SetupPlayer(e)
             myPlayersDictionary.Add(e.UserID, myPlayer)
-        Catch ex As Exception
-
+        Catch
         End Try
     End Sub
 
@@ -1609,8 +1618,7 @@
     Private Sub myInternalConnection_OnRemoveUser(sender As Object, e As Left_ReciveMessage) Handles myInternalConnection.OnRemoveUser
         Try
             myPlayersDictionary.Remove(e.UserID)
-        Catch ex As Exception
-
+        Catch
         End Try
     End Sub
 
