@@ -37,9 +37,8 @@
 
         Friend Sub Send()
             myHandleCount -= 1
-            If myHandleCount = 0 Then
+            If myHandleCount = 0 And myInternalConnection IsNot Nothing Then
                 myInternalConnection.Send(myMessage)
-                myMessage = Nothing
                 myInternalConnection = Nothing
             End If
         End Sub
