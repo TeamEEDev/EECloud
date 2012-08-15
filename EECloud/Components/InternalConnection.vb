@@ -1,4 +1,6 @@
-﻿Friend Class InternalConnection
+﻿Imports System.Reflection
+
+Friend Class InternalConnection
     Inherits BaseGlobalComponent
     Implements IInternalConnection
 
@@ -76,7 +78,7 @@
         RegisterMessage("info", GetType(Info_ReciveMessage))
         RegisterMessage("upgrade", GetType(Upgrade_ReciveMessage))
         RegisterMessage("init", GetType(Init_ReciveMessage))
-        DefaultConnection.SendInit()
+        Send(New Init_SendMessage)
     End Sub
 
     Private Sub MessageHandler(sender As Object, e As ReciveMessage) Handles Me.OnMessage
@@ -87,7 +89,7 @@
                 UnRegisterMessage("init")
                 UnRegisterMessage("groupdisallowedjoin")
                 RegisterMessages()
-                DefaultConnection.SendInit2()
+                Send(New Init2_SendMessage)
             Case GetType(Add_ReciveMessage)
                 Dim m As Add_ReciveMessage = CType(e, Add_ReciveMessage)
                 Dim myPlayer As New InternalPlayer(Me.DefaultConnection, m)
@@ -100,11 +102,17 @@
 
     Private Sub MessageReciver(sender As Object, e As PlayerIOClient.Message)
         Try
-            Dim messageType As Type = MessageDictionary(e.Type)
-            Dim myMessage As ReciveMessage = CType(Activator.CreateInstance(messageType, e), ReciveMessage)
-            RaiseEvent OnMessage(Me, myMessage)
+            If MessageDictionary.ContainsKey(e.Type) Then
+                Dim messageType As Type = MessageDictionary(e.Type)
+                Dim myConstructorInfo As ConstructorInfo = messageType.GetConstructor(BindingFlags.NonPublic Or BindingFlags.Instance, Nothing, New Type() {GetType(PlayerIOClient.Message)}, Nothing)
+                Dim myMessage As ReciveMessage = CType(myConstructorInfo.Invoke(New Object() {e}), ReciveMessage)
+                RaiseEvent OnMessage(Me, myMessage)
+            Else
+                myBot.Logger.Log(LogPriority.Warning, "Recived not registered message: " & e.Type)
+            End If
         Catch ex As KeyNotFoundException
-            myBot.Logger.Log(LogPriority.Warning, "Recived not registered message: " & e.Type)
+            myBot.Logger.Log(LogPriority.Error, "Failed to parse message: " & e.Type)
+            myBot.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled: {1} {2}", ex.ToString, ex.Message, ex.StackTrace))
         End Try
     End Sub
 
