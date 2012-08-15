@@ -3,4 +3,7 @@
     PlayerIOError
     InvalidPlugin
     PluginLoadError
+    PluginUnloadError
+    MessageAlreadySent
+    ServiceConnectionFailed
 End Enum

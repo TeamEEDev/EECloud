@@ -44,7 +44,7 @@ Friend NotInheritable Class CloudApplicationContext
                     Return GetService(myAppEnvironment)
                 End If
             Else
-                Throw New ApplicationException("Failed to create Service connection.")
+                Throw New EECloudException(ErrorCode.ServiceConnectionFailed, "Failed to create Service connection.")
             End If
         End Try
     End Function
