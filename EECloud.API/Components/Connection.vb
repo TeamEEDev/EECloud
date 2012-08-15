@@ -74,6 +74,7 @@
 
         RaiseEvent(sender As Object, e As ReciveMessage)
             Try
+
                 Call CType(myEvents("OnReciveMessage"), EventHandler(Of ReciveMessage))(sender, e)
             Catch ex As Exception
                 OnEventError("OnReciveMessage", ex)
@@ -110,7 +111,10 @@
 
         RaiseEvent(sender As Object, e As Access_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveAccess"), EventHandler(Of Access_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of Access_ReciveMessage) = CType(myEvents("OnReciveAccess"), EventHandler(Of Access_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveAccess", ex)
             End Try
@@ -128,7 +132,10 @@
 
         RaiseEvent(sender As Object, e As Add_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveAdd"), EventHandler(Of Add_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of Add_ReciveMessage) = CType(myEvents("OnReciveAdd"), EventHandler(Of Add_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveAdd", ex)
             End Try
@@ -146,7 +153,10 @@
 
         RaiseEvent(sender As Object, e As AutoText_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveAutoText"), EventHandler(Of AutoText_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of AutoText_ReciveMessage) = CType(myEvents("OnReciveAutoText"), EventHandler(Of AutoText_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveAutoText", ex)
             End Try
@@ -164,7 +174,10 @@
 
         RaiseEvent(sender As Object, e As BlockPlace_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveBlockPlace"), EventHandler(Of BlockPlace_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of BlockPlace_ReciveMessage) = CType(myEvents("OnReciveBlockPlace"), EventHandler(Of BlockPlace_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveBlockPlace", ex)
             End Try
@@ -182,7 +195,10 @@
 
         RaiseEvent(sender As Object, e As Clear_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveClear"), EventHandler(Of Clear_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of Clear_ReciveMessage) = CType(myEvents("OnReciveClear"), EventHandler(Of Clear_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveClear", ex)
             End Try
@@ -200,7 +216,10 @@
 
         RaiseEvent(sender As Object, e As Coin_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveCoin"), EventHandler(Of Coin_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of Coin_ReciveMessage) = CType(myEvents("OnReciveCoin"), EventHandler(Of Coin_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveCoin", ex)
             End Try
@@ -218,7 +237,10 @@
 
         RaiseEvent(sender As Object, e As CoinDoorPlace_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveCoinDoorPlace"), EventHandler(Of CoinDoorPlace_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of CoinDoorPlace_ReciveMessage) = CType(myEvents("OnReciveCoinDoorPlace"), EventHandler(Of CoinDoorPlace_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveCoinDoorPlace", ex)
             End Try
@@ -236,7 +258,10 @@
 
         RaiseEvent(sender As Object, e As Crown_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveCrown"), EventHandler(Of Crown_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of Crown_ReciveMessage) = CType(myEvents("OnReciveCrown"), EventHandler(Of Crown_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveCrown", ex)
             End Try
@@ -254,7 +279,10 @@
 
         RaiseEvent(sender As Object, e As Face_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveFace"), EventHandler(Of Face_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of Face_ReciveMessage) = CType(myEvents("OnReciveFace"), EventHandler(Of Face_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveFace", ex)
             End Try
@@ -272,7 +300,10 @@
 
         RaiseEvent(sender As Object, e As GiveFireWizard_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveGiveFireWizard"), EventHandler(Of GiveFireWizard_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of GiveFireWizard_ReciveMessage) = CType(myEvents("OnReciveGiveFireWizard"), EventHandler(Of GiveFireWizard_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveGiveFireWizard", ex)
             End Try
@@ -290,7 +321,10 @@
 
         RaiseEvent(sender As Object, e As GiveGrinch_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveGiveGrinch"), EventHandler(Of GiveGrinch_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of GiveGrinch_ReciveMessage) = CType(myEvents("OnReciveGiveGrinch"), EventHandler(Of GiveGrinch_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveGiveGrinch", ex)
             End Try
@@ -308,7 +342,10 @@
 
         RaiseEvent(sender As Object, e As GiveWitch_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveGiveWitch"), EventHandler(Of GiveWitch_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of GiveWitch_ReciveMessage) = CType(myEvents("OnReciveGiveWitch"), EventHandler(Of GiveWitch_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveGiveWitch", ex)
             End Try
@@ -326,7 +363,10 @@
 
         RaiseEvent(sender As Object, e As GiveWizard_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveGiveWizard"), EventHandler(Of GiveWizard_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of GiveWizard_ReciveMessage) = CType(myEvents("OnReciveGiveWizard"), EventHandler(Of GiveWizard_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveGiveWizard", ex)
             End Try
@@ -344,7 +384,10 @@
 
         RaiseEvent(sender As Object, e As Godmode_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveGodmode"), EventHandler(Of Godmode_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of Godmode_ReciveMessage) = CType(myEvents("OnReciveGodmode"), EventHandler(Of Godmode_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveGodmode", ex)
             End Try
@@ -362,7 +405,10 @@
 
         RaiseEvent(sender As Object, e As GroupDisallowedJoin_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveGroupDisallowedJoin"), EventHandler(Of GroupDisallowedJoin_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of GroupDisallowedJoin_ReciveMessage) = CType(myEvents("OnReciveGroupDisallowedJoin"), EventHandler(Of GroupDisallowedJoin_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveGroupDisallowedJoin", ex)
             End Try
@@ -380,7 +426,10 @@
 
         RaiseEvent(sender As Object, e As HideKey_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveHideKey"), EventHandler(Of HideKey_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of HideKey_ReciveMessage) = CType(myEvents("OnReciveHideKey"), EventHandler(Of HideKey_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveHideKey", ex)
             End Try
@@ -398,7 +447,10 @@
 
         RaiseEvent(sender As Object, e As Info_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveInfo"), EventHandler(Of Info_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of Info_ReciveMessage) = CType(myEvents("OnReciveInfo"), EventHandler(Of Info_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveInfo", ex)
             End Try
@@ -416,7 +468,10 @@
 
         RaiseEvent(sender As Object, e As Init_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveInit"), EventHandler(Of Init_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of Init_ReciveMessage) = CType(myEvents("OnReciveInit"), EventHandler(Of Init_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveInit", ex)
             End Try
@@ -434,7 +489,10 @@
 
         RaiseEvent(sender As Object, e As LabelPlace_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveLabelPlace"), EventHandler(Of LabelPlace_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of LabelPlace_ReciveMessage) = CType(myEvents("OnReciveLabelPlace"), EventHandler(Of LabelPlace_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveLabelPlace", ex)
             End Try
@@ -452,7 +510,10 @@
 
         RaiseEvent(sender As Object, e As Left_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveLeft"), EventHandler(Of Left_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of Left_ReciveMessage) = CType(myEvents("OnReciveLeft"), EventHandler(Of Left_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveLeft", ex)
             End Try
@@ -470,7 +531,10 @@
 
         RaiseEvent(sender As Object, e As LostAccess_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveLostAccess"), EventHandler(Of LostAccess_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of LostAccess_ReciveMessage) = CType(myEvents("OnReciveLostAccess"), EventHandler(Of LostAccess_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveLostAccess", ex)
             End Try
@@ -488,7 +552,10 @@
 
         RaiseEvent(sender As Object, e As Modmode_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveModmode"), EventHandler(Of Modmode_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of Modmode_ReciveMessage) = CType(myEvents("OnReciveModmode"), EventHandler(Of Modmode_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveModmode", ex)
             End Try
@@ -506,7 +573,10 @@
 
         RaiseEvent(sender As Object, e As Move_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveMove"), EventHandler(Of Move_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of Move_ReciveMessage) = CType(myEvents("OnReciveMove"), EventHandler(Of Move_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveMove", ex)
             End Try
@@ -524,7 +594,10 @@
 
         RaiseEvent(sender As Object, e As PortalPlace_ReciveMessage)
             Try
-                Call CType(myEvents("OnRecivePortalPlace"), EventHandler(Of PortalPlace_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of PortalPlace_ReciveMessage) = CType(myEvents("OnRecivePortalPlace"), EventHandler(Of PortalPlace_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnRecivePortalPlace", ex)
             End Try
@@ -542,7 +615,10 @@
 
         RaiseEvent(sender As Object, e As RefreshShop_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveRefreshShop"), EventHandler(Of RefreshShop_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of RefreshShop_ReciveMessage) = CType(myEvents("OnReciveRefreshShop"), EventHandler(Of RefreshShop_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveRefreshShop", ex)
             End Try
@@ -560,7 +636,10 @@
 
         RaiseEvent(sender As Object, e As Reset_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveReset"), EventHandler(Of Reset_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of Reset_ReciveMessage) = CType(myEvents("OnReciveReset"), EventHandler(Of Reset_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveReset", ex)
             End Try
@@ -578,7 +657,10 @@
 
         RaiseEvent(sender As Object, e As SaveDone_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveSaveDone"), EventHandler(Of SaveDone_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of SaveDone_ReciveMessage) = CType(myEvents("OnReciveSaveDone"), EventHandler(Of SaveDone_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveSaveDone", ex)
             End Try
@@ -596,7 +678,10 @@
 
         RaiseEvent(sender As Object, e As Say_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveSay"), EventHandler(Of Say_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of Say_ReciveMessage) = CType(myEvents("OnReciveSay"), EventHandler(Of Say_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveSay", ex)
             End Try
@@ -614,7 +699,10 @@
 
         RaiseEvent(sender As Object, e As SayOld_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveSayOld"), EventHandler(Of SayOld_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of SayOld_ReciveMessage) = CType(myEvents("OnReciveSayOld"), EventHandler(Of SayOld_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveSayOld", ex)
             End Try
@@ -632,7 +720,10 @@
 
         RaiseEvent(sender As Object, e As ShowKey_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveShowKey"), EventHandler(Of ShowKey_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of ShowKey_ReciveMessage) = CType(myEvents("OnReciveShowKey"), EventHandler(Of ShowKey_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveShowKey", ex)
             End Try
@@ -650,7 +741,10 @@
 
         RaiseEvent(sender As Object, e As SilverCrown_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveSilverCrown"), EventHandler(Of SilverCrown_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of SilverCrown_ReciveMessage) = CType(myEvents("OnReciveSilverCrown"), EventHandler(Of SilverCrown_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveSilverCrown", ex)
             End Try
@@ -668,7 +762,10 @@
 
         RaiseEvent(sender As Object, e As SoundPlace_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveSoundPlace"), EventHandler(Of SoundPlace_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of SoundPlace_ReciveMessage) = CType(myEvents("OnReciveSoundPlace"), EventHandler(Of SoundPlace_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveSoundPlace", ex)
             End Try
@@ -686,7 +783,10 @@
 
         RaiseEvent(sender As Object, e As Teleport_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveTeleport"), EventHandler(Of Teleport_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of Teleport_ReciveMessage) = CType(myEvents("OnReciveTeleport"), EventHandler(Of Teleport_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveTeleport", ex)
             End Try
@@ -704,7 +804,10 @@
 
         RaiseEvent(sender As Object, e As UpdateMeta_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveUpdateMeta"), EventHandler(Of UpdateMeta_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of UpdateMeta_ReciveMessage) = CType(myEvents("OnReciveUpdateMeta"), EventHandler(Of UpdateMeta_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveUpdateMeta", ex)
             End Try
@@ -722,7 +825,10 @@
 
         RaiseEvent(sender As Object, e As Upgrade_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveUpgrade"), EventHandler(Of Upgrade_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of Upgrade_ReciveMessage) = CType(myEvents("OnReciveUpgrade"), EventHandler(Of Upgrade_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveUpgrade", ex)
             End Try
@@ -740,7 +846,10 @@
 
         RaiseEvent(sender As Object, e As Write_ReciveMessage)
             Try
-                Call CType(myEvents("OnReciveWrite"), EventHandler(Of Write_ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of Write_ReciveMessage) = CType(myEvents("OnReciveWrite"), EventHandler(Of Write_ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveWrite", ex)
             End Try
@@ -758,7 +867,10 @@
 
         RaiseEvent(sender As Object, e As SendMessage)
             Try
-                Call CType(myEvents("OnSendMessage"), EventHandler(Of SendMessage))(sender, e)
+                Dim myEvent As EventHandler(Of SendMessage) = CType(myEvents("OnSendMessage"), EventHandler(Of SendMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendMessage", ex)
             End Try
@@ -776,7 +888,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of Init_SendMessage))
             Try
-                Call CType(myEvents("OnSendInit"), EventHandler(Of OnSendMessageEventArgs(Of Init_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of Init_SendMessage)) = CType(myEvents("OnSendInit"), EventHandler(Of OnSendMessageEventArgs(Of Init_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendInit", ex)
             End Try
@@ -794,7 +909,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of Init2_SendMessage))
             Try
-                Call CType(myEvents("OnSendInit2"), EventHandler(Of OnSendMessageEventArgs(Of Init2_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of Init2_SendMessage)) = CType(myEvents("OnSendInit2"), EventHandler(Of OnSendMessageEventArgs(Of Init2_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendInit2", ex)
             End Try
@@ -812,7 +930,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of BlockPlace_SendMessage))
             Try
-                Call CType(myEvents("OnSendBlockPlace"), EventHandler(Of OnSendMessageEventArgs(Of BlockPlace_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of BlockPlace_SendMessage)) = CType(myEvents("OnSendBlockPlace"), EventHandler(Of OnSendMessageEventArgs(Of BlockPlace_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendBlockPlace", ex)
             End Try
@@ -830,7 +951,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of CoinDoorPlace_SendMessage))
             Try
-                Call CType(myEvents("OnSendCoindoorPlace"), EventHandler(Of OnSendMessageEventArgs(Of CoinDoorPlace_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of CoindoorPlace_SendMessage)) = CType(myEvents("OnSendCoindoorPlace"), EventHandler(Of OnSendMessageEventArgs(Of CoindoorPlace_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendCoindoorPlace", ex)
             End Try
@@ -848,7 +972,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of SoundPlace_SendMessage))
             Try
-                Call CType(myEvents("OnSendSoundPlace"), EventHandler(Of OnSendMessageEventArgs(Of SoundPlace_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of SoundPlace_SendMessage)) = CType(myEvents("OnSendSoundPlace"), EventHandler(Of OnSendMessageEventArgs(Of SoundPlace_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendSoundPlace", ex)
             End Try
@@ -866,7 +993,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of PortalPlace_SendMessage))
             Try
-                Call CType(myEvents("OnSendPortalPlace"), EventHandler(Of OnSendMessageEventArgs(Of PortalPlace_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of PortalPlace_SendMessage)) = CType(myEvents("OnSendPortalPlace"), EventHandler(Of OnSendMessageEventArgs(Of PortalPlace_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendPortalPlace", ex)
             End Try
@@ -884,7 +1014,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of LabelPlace_SendMessage))
             Try
-                Call CType(myEvents("OnSendLabelPlace"), EventHandler(Of OnSendMessageEventArgs(Of LabelPlace_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of LabelPlace_SendMessage)) = CType(myEvents("OnSendLabelPlace"), EventHandler(Of OnSendMessageEventArgs(Of LabelPlace_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendLabelPlace", ex)
             End Try
@@ -902,7 +1035,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of Coin_SendMessage))
             Try
-                Call CType(myEvents("OnSendCoin"), EventHandler(Of OnSendMessageEventArgs(Of Coin_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of Coin_SendMessage)) = CType(myEvents("OnSendCoin"), EventHandler(Of OnSendMessageEventArgs(Of Coin_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendCoin", ex)
             End Try
@@ -920,7 +1056,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of PressRedKey_SendMessage))
             Try
-                Call CType(myEvents("OnSendPressRedKey"), EventHandler(Of OnSendMessageEventArgs(Of PressRedKey_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of PressRedKey_SendMessage)) = CType(myEvents("OnSendPressRedKey"), EventHandler(Of OnSendMessageEventArgs(Of PressRedKey_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendPressRedKey", ex)
             End Try
@@ -938,7 +1077,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of PressGreenKey_SendMessage))
             Try
-                Call CType(myEvents("OnSendPressGreenKey"), EventHandler(Of OnSendMessageEventArgs(Of PressGreenKey_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of PressGreenKey_SendMessage)) = CType(myEvents("OnSendPressGreenKey"), EventHandler(Of OnSendMessageEventArgs(Of PressGreenKey_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendPressGreenKey", ex)
             End Try
@@ -956,7 +1098,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of PressBlueKey_SendMessage))
             Try
-                Call CType(myEvents("OnSendPressBlueKey"), EventHandler(Of OnSendMessageEventArgs(Of PressBlueKey_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of PressBlueKey_SendMessage)) = CType(myEvents("OnSendPressBlueKey"), EventHandler(Of OnSendMessageEventArgs(Of PressBlueKey_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendPressBlueKey", ex)
             End Try
@@ -974,7 +1119,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of GetCrown_SendMessage))
             Try
-                Call CType(myEvents("OnSendGetCrown"), EventHandler(Of OnSendMessageEventArgs(Of GetCrown_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of GetCrown_SendMessage)) = CType(myEvents("OnSendGetCrown"), EventHandler(Of OnSendMessageEventArgs(Of GetCrown_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendGetCrown", ex)
             End Try
@@ -992,7 +1140,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of TouchDiamond_SendMessage))
             Try
-                Call CType(myEvents("OnSendTouchDiamond"), EventHandler(Of OnSendMessageEventArgs(Of TouchDiamond_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of TouchDiamond_SendMessage)) = CType(myEvents("OnSendTouchDiamond"), EventHandler(Of OnSendMessageEventArgs(Of TouchDiamond_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendTouchDiamond", ex)
             End Try
@@ -1010,7 +1161,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of CompleteLevel_SendMessage))
             Try
-                Call CType(myEvents("OnSendCompleteLevel"), EventHandler(Of OnSendMessageEventArgs(Of CompleteLevel_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of CompleteLevel_SendMessage)) = CType(myEvents("OnSendCompleteLevel"), EventHandler(Of OnSendMessageEventArgs(Of CompleteLevel_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendCompleteLevel", ex)
             End Try
@@ -1028,7 +1182,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of GodMode_SendMessage))
             Try
-                Call CType(myEvents("OnSendGodMode"), EventHandler(Of OnSendMessageEventArgs(Of GodMode_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of GodMode_SendMessage)) = CType(myEvents("OnSendGodMode"), EventHandler(Of OnSendMessageEventArgs(Of GodMode_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendGodMode", ex)
             End Try
@@ -1046,7 +1203,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of ModMode_SendMessage))
             Try
-                Call CType(myEvents("OnSendModMode"), EventHandler(Of OnSendMessageEventArgs(Of ModMode_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of ModMode_SendMessage)) = CType(myEvents("OnSendModMode"), EventHandler(Of OnSendMessageEventArgs(Of ModMode_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendModMode", ex)
             End Try
@@ -1064,7 +1224,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of Move_SendMessage))
             Try
-                Call CType(myEvents("OnSendMove"), EventHandler(Of OnSendMessageEventArgs(Of Move_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of Move_SendMessage)) = CType(myEvents("OnSendMove"), EventHandler(Of OnSendMessageEventArgs(Of Move_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendMove", ex)
             End Try
@@ -1082,7 +1245,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of Say_SendMessage))
             Try
-                Call CType(myEvents("OnSendSay"), EventHandler(Of OnSendMessageEventArgs(Of Say_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of Say_SendMessage)) = CType(myEvents("OnSendSay"), EventHandler(Of OnSendMessageEventArgs(Of Say_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendSay", ex)
             End Try
@@ -1100,7 +1266,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of AutoSay_SendMessage))
             Try
-                Call CType(myEvents("OnSendAutoSay"), EventHandler(Of OnSendMessageEventArgs(Of AutoSay_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of AutoSay_SendMessage)) = CType(myEvents("OnSendAutoSay"), EventHandler(Of OnSendMessageEventArgs(Of AutoSay_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendAutoSay", ex)
             End Try
@@ -1118,7 +1287,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of Access_SendMessage))
             Try
-                Call CType(myEvents("OnSendAccess"), EventHandler(Of OnSendMessageEventArgs(Of Access_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of Access_SendMessage)) = CType(myEvents("OnSendAccess"), EventHandler(Of OnSendMessageEventArgs(Of Access_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendAccess", ex)
             End Try
@@ -1136,7 +1308,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of ChangeFace_SendMessage))
             Try
-                Call CType(myEvents("OnSendChangeFace"), EventHandler(Of OnSendMessageEventArgs(Of ChangeFace_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of ChangeFace_SendMessage)) = CType(myEvents("OnSendChangeFace"), EventHandler(Of OnSendMessageEventArgs(Of ChangeFace_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendChangeFace", ex)
             End Try
@@ -1154,7 +1329,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of SaveWorld_SendMessage))
             Try
-                Call CType(myEvents("OnSendSaveWorld"), EventHandler(Of OnSendMessageEventArgs(Of SaveWorld_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of SaveWorld_SendMessage)) = CType(myEvents("OnSendSaveWorld"), EventHandler(Of OnSendMessageEventArgs(Of SaveWorld_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendSaveWorld", ex)
             End Try
@@ -1172,7 +1350,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of ChangeWorldName_SendMessage))
             Try
-                Call CType(myEvents("OnSendChangeWorldName"), EventHandler(Of OnSendMessageEventArgs(Of ChangeWorldName_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of ChangeWorldName_SendMessage)) = CType(myEvents("OnSendChangeWorldName"), EventHandler(Of OnSendMessageEventArgs(Of ChangeWorldName_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendChangeWorldName", ex)
             End Try
@@ -1190,7 +1371,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of ChangeWorldEditKey_SendMessage))
             Try
-                Call CType(myEvents("OnSendChangeWorldEditKey"), EventHandler(Of OnSendMessageEventArgs(Of ChangeWorldEditKey_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of ChangeWorldEditKey_SendMessage)) = CType(myEvents("OnSendChangeWorldEditKey"), EventHandler(Of OnSendMessageEventArgs(Of ChangeWorldEditKey_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendChangeWorldEditKey", ex)
             End Try
@@ -1208,7 +1392,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of ClearWorld_SendMessage))
             Try
-                Call CType(myEvents("OnSendClearWorld"), EventHandler(Of OnSendMessageEventArgs(Of ClearWorld_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of ClearWorld_SendMessage)) = CType(myEvents("OnSendClearWorld"), EventHandler(Of OnSendMessageEventArgs(Of ClearWorld_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendClearWorld", ex)
             End Try
@@ -1226,7 +1413,10 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of KillWorld_SendMessage))
             Try
-                Call CType(myEvents("OnSendKillWorld"), EventHandler(Of OnSendMessageEventArgs(Of KillWorld_SendMessage)))(sender, e)
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of KillWorld_SendMessage)) = CType(myEvents("OnSendKillWorld"), EventHandler(Of OnSendMessageEventArgs(Of KillWorld_SendMessage)))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnSendKillWorld", ex)
             End Try
@@ -1255,8 +1445,8 @@
         End Try
     End Sub
 
-    Private Sub myInternalConnection_OnDisconnect(sender As Object, e As EventArgs) Handles myInternalConnection.OnDisconnect
-        RaiseEvent OnDisconnect(Me, e)
+    Private Sub myInternalConnection_OnDisconnect(sender As Object, e As String) Handles myInternalConnection.OnDisconnect
+        'RaiseEvent OnDisconnect(Me, e)
     End Sub
 
     Private Sub myInternalConnection_OnMessage(sender As Object, e As ReciveMessage) Handles myInternalConnection.OnMessage
