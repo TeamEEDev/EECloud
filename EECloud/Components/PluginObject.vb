@@ -24,7 +24,7 @@
 
 #Region "Methods"
     Friend Sub New(bot As IBot, plugin As Type)
-        If GetType(IPlugin).IsAssignableFrom(myPluginType) Then
+        If GetType(IPlugin).IsAssignableFrom(plugin) Then
             myPluginType = plugin
             myBot = bot
         Else
