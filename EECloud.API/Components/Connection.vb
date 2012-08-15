@@ -74,8 +74,10 @@
 
         RaiseEvent(sender As Object, e As ReciveMessage)
             Try
-
-                Call CType(myEvents("OnReciveMessage"), EventHandler(Of ReciveMessage))(sender, e)
+                Dim myEvent As EventHandler(Of ReciveMessage) = CType(myEvents("OnReciveMessage"), EventHandler(Of ReciveMessage))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnReciveMessage", ex)
             End Try
@@ -93,7 +95,10 @@
 
         RaiseEvent(sender As Object, e As EventArgs)
             Try
-                Call CType(myEvents("OnDisconnect"), EventHandler(Of EventArgs))(sender, e)
+                Dim myEvent As EventHandler(Of EventArgs) = CType(myEvents("OnDisconnect"), EventHandler(Of EventArgs))
+                If myEvent IsNot Nothing Then
+                    Call myEvent(sender, e)
+                End If
             Catch ex As Exception
                 OnEventError("OnDisconnect", ex)
             End Try

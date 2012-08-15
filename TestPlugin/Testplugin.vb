@@ -12,6 +12,8 @@ Public Class Testplugin
 
     Protected Overrides Sub OnEnable(mainConnection As Connection(Of TestPlayer))
         Me.Connection = mainConnection
+
+        Connection.Disconnect()
     End Sub
 
     Private Sub Connection_OnSendMove(sender As Object, e As OnSendMessageEventArgs(Of Move_SendMessage)) Handles Connection.OnSendMove
