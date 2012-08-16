@@ -1460,7 +1460,7 @@
     End Sub
 
     Private Sub myInternalConnection_OnDisconnect(sender As Object, e As String) Handles myInternalConnection.OnDisconnect
-        'RaiseEvent OnDisconnect(Me, e)
+        RaiseEvent OnDisconnect(Me, EventArgs.Empty)
     End Sub
 
     Private Sub myInternalConnection_OnMessage(sender As Object, e As ReciveMessage) Handles myInternalConnection.OnMessage

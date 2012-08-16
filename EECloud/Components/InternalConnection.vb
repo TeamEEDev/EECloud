@@ -110,6 +110,7 @@ Friend Class InternalConnection
                 Dim m As Upgrade_ReciveMessage = CType(e, Upgrade_ReciveMessage)
 
                 Bot.myGameVersionSetting += 1
+                myBot.Logger.Log(LogPriority.Info, "The game has been updated!")
         End Select
     End Sub
 
