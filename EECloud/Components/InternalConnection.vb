@@ -71,11 +71,16 @@ Friend Class InternalConnection
         myConnection = PConnection
         myWorldID = PWorldID
         myBot = PBot
+
+        myConnection.AddOnMessage(AddressOf MessageReciver)
         myConnection.AddOnDisconnect(
             Sub(sender As Object, message As String)
                 RaiseEvent OnDisconnect(Me, message)
             End Sub)
-        myConnection.AddOnMessage(AddressOf MessageReciver)
+        If Not myConnection.Connected Then 'Just in case we are too late to catch the error
+            RaiseEvent OnDisconnect(Me, "")
+        End If
+
 
         RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoin_ReciveMessage))
         RegisterMessage("info", GetType(Info_ReciveMessage))
