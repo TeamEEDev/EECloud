@@ -71,7 +71,10 @@ Friend Class InternalConnection
         myConnection = PConnection
         myWorldID = PWorldID
         myBot = PBot
-        myConnection.AddOnDisconnect(Sub(sender As Object, message As String) RaiseEvent OnDisconnect(Me, message))
+        myConnection.AddOnDisconnect(
+            Sub(sender As Object, message As String)
+                RaiseEvent OnDisconnect(Me, message)
+            End Sub)
         myConnection.AddOnMessage(AddressOf MessageReciver)
 
         RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoin_ReciveMessage))
@@ -85,6 +88,7 @@ Friend Class InternalConnection
         Select Case e.GetType
             Case GetType(Init_ReciveMessage)
                 Dim m As Init_ReciveMessage = CType(e, Init_ReciveMessage)
+                myWorld = New World(Me.DefaultConnection, m)
 
                 UnRegisterMessage("init")
                 UnRegisterMessage("groupdisallowedjoin")
