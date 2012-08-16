@@ -66,7 +66,7 @@ Friend Class InternalConnection
 #End Region
 
 #Region "Methods"
-    Friend Sub New(PBot As IBot, PConnection As PlayerIOClient.Connection, PWorldID As String)
+    Friend Sub New(PBot As Bot, PConnection As PlayerIOClient.Connection, PWorldID As String)
         MyBase.New(PBot)
         myConnection = PConnection
         myWorldID = PWorldID
@@ -97,6 +97,10 @@ Friend Class InternalConnection
             Case GetType(Left_ReciveMessage)
                 Dim m As Left_ReciveMessage = CType(e, Left_ReciveMessage)
                 RaiseEvent OnRemoveUser(Me, m)
+            Case GetType(Upgrade_ReciveMessage)
+                Dim m As Upgrade_ReciveMessage = CType(e, Upgrade_ReciveMessage)
+
+                Bot.myGameVersionSetting += 1
         End Select
     End Sub
 

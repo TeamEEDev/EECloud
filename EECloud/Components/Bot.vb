@@ -3,7 +3,7 @@
 
 #Region "Fields"
     Private Const GameVersionSetting As String = "GameVersion"
-    Private Shared myGameVersionSetting As Integer = 0
+    Friend Shared myGameVersionSetting As Integer = 0
 #End Region
 
 #Region "Properties"
