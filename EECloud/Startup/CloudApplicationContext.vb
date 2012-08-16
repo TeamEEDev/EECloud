@@ -25,7 +25,15 @@ Friend NotInheritable Class CloudApplicationContext
         myBot.Logger.Log(LogPriority.Info, "Joining world...")
         myBot.Connect(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID,
             Sub(PConnection As Connection(Of Player))
-                myBot.Logger.Log(LogPriority.Info, "Successfully joined.")
+                AddHandler PConnection.OnDisconnect,
+                    Sub()
+                        myBot.Logger.Log(LogPriority.Info, "Disconnected.")
+                    End Sub
+                If Not PConnection.Connected Then
+                    myBot.Logger.Log(LogPriority.Error, "Disconnected.")
+                Else
+                    myBot.Logger.Log(LogPriority.Info, "Successfully joined.")
+                End If
             End Sub,
             Sub(ex As EECloudException)
                 myBot.Logger.Log(LogPriority.Error, "Failed to join.")
