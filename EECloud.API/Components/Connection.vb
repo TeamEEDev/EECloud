@@ -1773,34 +1773,6 @@
         End If
     End Sub
 
-    Public Sub SendInit()
-        Send(New Init_SendMessage)
-    End Sub
-
-    Public Sub SendInit2()
-        Send(New Init_SendMessage)
-    End Sub
-
-    Public Sub SendBlockPlace(layer As Layer, x As Integer, y As Integer, block As BlockType)
-        Send(New BlockPlace_SendMessage(layer, x, y, block))
-    End Sub
-
-    Public Sub SendCoindoorPlace(x As Integer, y As Integer, coinsToCollect As Integer)
-        Send(New CoinDoorPlace_SendMessage(Layer.Foreground, x, y, CoindoorBlockType.Block_Door_Coindoor, coinsToCollect))
-    End Sub
-
-    Public Sub SendSoundPlace(x As Integer, y As Integer, soundBlockType As SoundBlockType, soundID As Integer)
-        Send(New SoundPlace_SendMessage(Layer.Foreground, x, y, soundBlockType, soundID))
-    End Sub
-
-    Public Sub SendPortalPlace(x As Integer, y As Integer, portalID As Integer, portalTarget As Integer, portalRotation As PortalRotation)
-        Send(New PortalPlace_SendMessage(Layer.Foreground, x, y, PortalBlockType.Block_Portal, portalID, portalTarget, portalRotation))
-    End Sub
-
-    Public Sub SendLabelPlace(x As Integer, y As Integer, text As String)
-        Send(New LabelPlace_SendMessage(Layer.Foreground, x, y, LabelBlockType.Block_Label, text))
-    End Sub
-
     Public Sub Disconnect()
         myInternalConnection.Disconnect()
     End Sub
