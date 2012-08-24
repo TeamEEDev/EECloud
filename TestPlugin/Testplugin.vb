@@ -1,5 +1,5 @@
 ﻿<Plugin(Authors:={"Processor", "Jojatekok"},
-        Category:=PluginCategory.Test And PluginCategory.Fun,
+        Category:=PluginCategory.Test Or PluginCategory.Fun,
         Description:="A Test plugin",
         StartupPriority:=PluginStartupPriority.Normal,
         Version:="1.0.0.0")>
