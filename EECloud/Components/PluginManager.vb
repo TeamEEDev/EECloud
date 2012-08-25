@@ -50,10 +50,6 @@ Friend NotInheritable Class PluginManager
                 End Try
             Loop
         End Using
-
-        For Each myPlugin As IPluginObject In myPluginsList
-            myPlugin.Start()
-        Next
     End Sub
 #End Region
 End Class

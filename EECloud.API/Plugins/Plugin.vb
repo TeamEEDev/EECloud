@@ -2,13 +2,12 @@
     Implements IPlugin
     Private myHost As IBot
 
-    Friend Sub SetupPlugin(host As IBot) Implements IPlugin.SetupPlugin
+    Friend Sub SetupPlugin(host As IBot, isStartup As Boolean) Implements IPlugin.SetupPlugin
         myHost = host
         OnEnable()
+        AddHandler myHost.OnConnect, AddressOf myHost_OnConnect
         If host.Connection IsNot Nothing Then
             OnConnect(New Connection(Of P)(myHost, myHost.Connection))
-        Else
-            AddHandler myHost.OnConnect, AddressOf myHost_OnConnect
         End If
     End Sub
 

@@ -28,18 +28,19 @@
         If GetType(IPlugin).IsAssignableFrom(plugin) Then
             myPluginType = plugin
             myBot = bot
+            Enable(True)
         Else
             Throw New EECloudException(ErrorCode.InvalidPlugin, "Type does not inherit from EECloud.API.IPlugin")
         End If
     End Sub
 
-    Friend Sub Start() Implements IPluginObject.Start
+    Private Sub Enable(isStartup As Boolean)
         SyncLock lockObj
             If Not Started Then
                 myBot.Logger.Log(LogPriority.Info, String.Format("Enabling {0}...", myPluginType.Name))
                 Try
                     myPlugin = CType(Activator.CreateInstance(myPluginType, True), IPlugin)
-                    myPlugin.SetupPlugin(myBot)
+                    myPlugin.SetupPlugin(myBot, True)
                 Catch ex As Exception
                     myBot.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled: {1} {2}", ex.ToString, ex.Message, ex.StackTrace))
                     myBot.Logger.Log(LogPriority.Error, String.Format("Failed to start plugin {0}. Disabling...", myPluginType.Name))
@@ -70,12 +71,12 @@
         End SyncLock
     End Sub
 
-    Public Sub Restart() Implements IPluginObject.Restart
+    Public Sub Start() Implements IPluginObject.Start
         If Started Then
             [Stop]()
         End If
         If Not Started Then
-            Start()
+            Enable(False)
         End If
     End Sub
 #End Region

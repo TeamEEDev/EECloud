@@ -29,11 +29,7 @@ Friend NotInheritable Class CloudApplicationContext
                     Sub()
                         myBot.Logger.Log(LogPriority.Info, "Disconnected.")
                     End Sub
-                If Not PConnection.Connected Then
-                    myBot.Logger.Log(LogPriority.Error, "Disconnected.")
-                Else
-                    myBot.Logger.Log(LogPriority.Info, "Successfully joined.")
-                End If
+                myBot.Logger.Log(LogPriority.Info, "Successfully joined.")
             End Sub,
             Sub(ex As EECloudException)
                 myBot.Logger.Log(LogPriority.Error, "Failed to join.")

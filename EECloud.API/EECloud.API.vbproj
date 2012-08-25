@@ -87,7 +87,7 @@
     <Compile Include="Interfaces\IInternalConnection.vb" />
     <Compile Include="Interfaces\IPlayer.vb" />
     <Compile Include="Components\Messages\Send.vb" />
-    <Compile Include="Internals\EventHandlerList.vb" />
+    <Compile Include="Components\EventHandlerList.vb" />
     <Compile Include="Interfaces\IPlugin.vb" />
     <Compile Include="Plugins\Plugin.vb" />
     <Compile Include="Exceptions\EECloudPlayerIOException.vb" />
