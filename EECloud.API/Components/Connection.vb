@@ -966,7 +966,7 @@
 
         RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of CoinDoorPlace_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of CoindoorPlace_SendMessage)) = CType(myEvents("OnSendCoindoorPlace"), EventHandler(Of OnSendMessageEventArgs(Of CoindoorPlace_SendMessage)))
+                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of CoinDoorPlace_SendMessage)) = CType(myEvents("OnSendCoindoorPlace"), EventHandler(Of OnSendMessageEventArgs(Of CoinDoorPlace_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
