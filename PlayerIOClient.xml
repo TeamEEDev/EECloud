@@ -346,13 +346,14 @@
             <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs.</param>
         </member>
         <member name="M:PlayerIOClient.PayVault.GetBuyDirectInfo(System.String,System.Collections.Generic.Dictionary{System.String,System.String},PlayerIOClient.BuyItemInfo[])">
-            <summary>Gets information about how to make a coin purchase with the specified PayVault provider.</summary>
+            <summary>Gets information about how to make a direct item purchase with the specified PayVault provider.</summary>
             <param name="provider">The name of the PayVault provider to use for the coin purchase.</param>
             <param name="purchaseArguments">Any additional information that will be given to the PayVault provider to configure this purchase.</param> 
+            <param name="items">Each BuyItemInfo instance contains the key of the item to buy and any additional payload.</param>
             <returns>A dictionary with PayVault provider-specific information about how to proceed with the purchase.</returns>
         </member>
         <member name="M:PlayerIOClient.PayVault.GetBuyDirectInfo(System.String,System.Collections.Generic.Dictionary{System.String,System.String},PlayerIOClient.BuyItemInfo[],PlayerIOClient.Callback{System.Collections.Generic.Dictionary{System.String,System.String}})">
-            <summary>Gets information about how to make a coin purchase with the specified PayVault provider.</summary>
+            <summary>Gets information about how to make a direct item purchase with the specified PayVault provider.</summary>
             <param name="provider">The name of the PayVault provider to use for the coin purchase.</param>
             <param name="purchaseArguments">Any additional information that will be given to the PayVault provider to configure this purchase.</param>
             <param name="items">Each BuyItemInfo instance contains the key of the item to buy and any additional payload.</param>
@@ -364,6 +365,25 @@
             <param name="purchaseArguments">Any additional information that will be given to the PayVault provider to configure this purchase.</param> 
             <param name="items">Each BuyItemInfo instance contains the key of the item to buy and any additional payload.</param>
             <param name="successCallback">Callback that will be called with information about how to proceed with the purchase.</param>
+            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs.</param>
+        </member>
+        <member name="M:PlayerIOClient.PayVault.UseBuyInfo(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>Use information from a provider to finalize a purchase with the specified PayVault provider.</summary>
+            <param name="provider">The name of the PayVault provider to use.</param>
+            <param name="providerArguments">The information needed to finalize this purchase.</param> 
+            <returns>A dictionary with PayVault provider-specific information about the purchase.</returns>
+        </member>
+        <member name="M:PlayerIOClient.PayVault.UseBuyInfo(System.String,System.Collections.Generic.Dictionary{System.String,System.String},PlayerIOClient.Callback{System.Collections.Generic.Dictionary{System.String,System.String}})">
+            <summary>Use information from a provider to finalize a purchase with the specified PayVault provider.</summary>
+            <param name="provider">The name of the PayVault provider to use.</param>
+            <param name="providerArguments">The information needed to finalize this purchase.</param> 
+            <param name="successCallback">Callback that will be called with PayVault provider-specific information about the purchase.</param>
+        </member>
+        <member name="M:PlayerIOClient.PayVault.UseBuyInfo(System.String,System.Collections.Generic.Dictionary{System.String,System.String},PlayerIOClient.Callback{System.Collections.Generic.Dictionary{System.String,System.String}},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Use information from a provider to finalize a purchase with the specified PayVault provider.</summary>
+            <param name="provider">The name of the PayVault provider to use.</param>
+            <param name="providerArguments">The information needed to finalize this purchase.</param> 
+            <param name="successCallback">Callback that will be called with PayVault provider-specific information about the purchase.</param>
             <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs.</param>
         </member>
         <member name="P:PlayerIOClient.PayVault.Coins">
@@ -502,6 +522,10 @@
         <member name="T:PlayerIOClient.GameFS">
             <summary>
             The Player.IO GameFS Service
+            <para>Here is a simple example on how to use GameFS:</para>
+            <code>
+            string assetUrl = client.GameFS.GetUrl("/assets/image.png");
+            </code>
             </summary>
         </member>
         <member name="M:PlayerIOClient.GameFS.GetUrl(System.String)">
@@ -855,7 +879,7 @@
             <param name="start">Where to start the range search. For instance, if the index is [Mode,Map,Score] and indexPath is ["expert","skyland"], then start defines the minimum score to include in the results</param>
             <param name="stop">Where to stop the range search. For instance, if the index is [Mode,Map,Score] and indexPath is ["expert","skyland"], then stop defines the maximum score to include in the results</param>
             <param name="limit">The max amount of objects to return</param>
-            <returns>The database objects found, or null if no object was found.</returns>
+            <returns>The database objects found.</returns>
         </member>
         <member name="M:PlayerIOClient.BigDB.LoadRange(System.String,System.String,System.Object[],System.Object,System.Object,System.Int32,PlayerIOClient.Callback{PlayerIOClient.DatabaseObject[]})">
             <summary>Load a range of database objects from a table using the specified index.</summary>
@@ -865,7 +889,7 @@
             <param name="start">Where to start the range search. For instance, if the index is [Mode,Map,Score] and indexPath is ["expert","skyland"], then start defines the minimum score to include in the results</param>
             <param name="stop">Where to stop the range search. For instance, if the index is [Mode,Map,Score] and indexPath is ["expert","skyland"], then stop defines the maximum score to include in the results</param>
             <param name="limit">The max amount of objects to return</param>
-            <param name="successCallback">Callback with the database objects found, or null if no object was found</param>
+            <param name="successCallback">Callback with the database objects found.</param>
         </member>
         <member name="M:PlayerIOClient.BigDB.LoadRange(System.String,System.String,System.Object[],System.Object,System.Object,System.Int32,PlayerIOClient.Callback{PlayerIOClient.DatabaseObject[]},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
             <summary>Load a range of database objects from a table using the specified index.</summary>
@@ -875,24 +899,27 @@
             <param name="start">Where to start the range search. For instance, if the index is [Mode,Map,Score] and indexPath is ["expert","skyland"], then start defines the minimum score to include in the results</param>
             <param name="stop">Where to stop the range search. For instance, if the index is [Mode,Map,Score] and indexPath is ["expert","skyland"], then stop defines the maximum score to include in the results</param>
             <param name="limit">The max amount of objects to return</param>
-            <param name="successCallback">Callback with the database objects found, or null if no object was found</param>
+            <param name="successCallback">Callback with the database objects found.</param>
             <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs during the load.</param>
         </member>
         <member name="M:PlayerIOClient.BigDB.SaveChanges(System.Boolean,System.Boolean,PlayerIOClient.DatabaseObject[])">
             <summary>Save changes to one or more database objects in one go.</summary>
             <param name="useOptimisticLocks">Should the save only go through, if no other process has modified the object since it was loaded?</param>
+            <param name="fullOverwrite">Overwrite the stored object with the data from this object instead of only sending in the changed properties</param>
             <param name="objects">The objects with changes to save</param>
             <returns>True if the save succeded, false if not (only if using optimistic locking and newer version exists in database).</returns>
         </member>
         <member name="M:PlayerIOClient.BigDB.SaveChanges(System.Boolean,System.Boolean,PlayerIOClient.DatabaseObject[],PlayerIOClient.Callback)">
             <summary>Save changes to one or more database objects in one go.</summary>
             <param name="useOptimisticLocks">Should the save only go through, if no other process has modified the object since it was loaded?</param>
+            <param name="fullOverwrite">Overwrite the stored object with the data from this object instead of only sending in the changed properties</param>
             <param name="objects">The objects with changes to save</param>
             <param name="successCallback">Callback with true if the save succeded and false if it failed (only if using optimistic locking and newer version exists in database)</param>
         </member>
         <member name="M:PlayerIOClient.BigDB.SaveChanges(System.Boolean,System.Boolean,PlayerIOClient.DatabaseObject[],PlayerIOClient.Callback,PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
             <summary>Save changes to one or more database objects in one go.</summary>
             <param name="useOptimisticLocks">Should the save only go through, if no other process has modified the object since it was loaded?</param>
+            <param name="fullOverwrite">Overwrite the stored object with the data from this object instead of only sending in the changed properties</param>
             <param name="objects">The objects with changes to save</param>
             <param name="successCallback">Callback with true if the save succeded and false if it failed (only if using optimistic locking and newer version exists in database)</param>
             <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs during the save.</param>
@@ -1024,22 +1051,6 @@
             <param name="onSuccess">Callback method to be executed when request completes successfully</param>
             <param name="onError">Callback method to be executed if request fails</param>
         </member>
-        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.FacebookConnect(System.String,System.String,System.String,System.String)">
-            <summary>Authenticates a Facebook user and session and returns a connection token.</summary>
-            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
-            <param name="uid">The Facebook uid of the user you wish to authenticate.</param>
-            <param name="sessionKey">The Facebook session key of the user's session.</param>
-            <param name="partnerId">The partner id of the user connecting, if any.</param>
-        </member>
-        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.FacebookConnect(System.String,System.String,System.String,System.String,PlayerIOClient.Callback{PlayerIOClient.Internal.PlayerIOChannel.FacebookConnectOutput},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
-            <summary>Authenticates a Facebook user and session and returns a connection token.</summary>
-            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
-            <param name="uid">The Facebook uid of the user you wish to authenticate.</param>
-            <param name="sessionKey">The Facebook session key of the user's session.</param>
-            <param name="partnerId">The partner id of the user connecting, if any.</param>
-            <param name="onSuccess">Callback method to be executed when request completes successfully</param>
-            <param name="onError">Callback method to be executed if request fails</param>
-        </member>
         <member name="M:PlayerIOClient.Internal.PlayerIOChannel.KongregateConnect(System.String,System.String,System.String)">
             <summary>Authenticates a Kongregate user and returns a connection token.</summary>
             <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
@@ -1166,23 +1177,39 @@
             <param name="onSuccess">Callback method to be executed when request completes successfully</param>
             <param name="onError">Callback method to be executed if request fails</param>
         </member>
-        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.JoinCluster(System.String,System.Boolean,System.Collections.Generic.List{System.Int32},System.String,System.String,System.UInt32)">
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.JoinCluster(System.String,System.Boolean,System.Collections.Generic.List{System.Int32},System.String,System.String,System.String,System.String,System.String,System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.UInt32)">
             <summary>A new server has booted and wants to join the cluster</summary>
             <param name="clusterAccessKey">The accesskey to for the cluster to join</param>
             <param name="isDevelopmentServer">Is it a development server</param>
             <param name="ports">the ports which the joining server is listening on</param>
             <param name="machineName">The name of the machine running the server</param>
-            <param name="version">The version of the server running on the machine</param>
-            <param name="maxRooms">The maximum amount of rooms that should run on this server</param>
+            <param name="version">The version of the production server running on the machine</param>
+            <param name="machineId">The unique id of this server</param>
+            <param name="os">The operating system of this server</param>
+            <param name="cpu">CPU Information of this server</param>
+            <param name="cpuCores">How many cores does this server have</param>
+            <param name="cpuLogicalCores">How many logical cores does this server have</param>
+            <param name="cpuAddressWidth">What is the addresswidth of the server</param>
+            <param name="cpuMaxClockSpeed">What is the max clock speed of the server</param>
+            <param name="ramMegabytes">How much ram does this server have</param>
+            <param name="ramSpeed">How fast is the ram of this server</param>
         </member>
-        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.JoinCluster(System.String,System.Boolean,System.Collections.Generic.List{System.Int32},System.String,System.String,System.UInt32,PlayerIOClient.Callback{PlayerIOClient.Internal.PlayerIOChannel.JoinClusterOutput},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.JoinCluster(System.String,System.Boolean,System.Collections.Generic.List{System.Int32},System.String,System.String,System.String,System.String,System.String,System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.UInt32,PlayerIOClient.Callback{PlayerIOClient.Internal.PlayerIOChannel.JoinClusterOutput},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
             <summary>A new server has booted and wants to join the cluster</summary>
             <param name="clusterAccessKey">The accesskey to for the cluster to join</param>
             <param name="isDevelopmentServer">Is it a development server</param>
             <param name="ports">the ports which the joining server is listening on</param>
             <param name="machineName">The name of the machine running the server</param>
-            <param name="version">The version of the server running on the machine</param>
-            <param name="maxRooms">The maximum amount of rooms that should run on this server</param>
+            <param name="version">The version of the production server running on the machine</param>
+            <param name="machineId">The unique id of this server</param>
+            <param name="os">The operating system of this server</param>
+            <param name="cpu">CPU Information of this server</param>
+            <param name="cpuCores">How many cores does this server have</param>
+            <param name="cpuLogicalCores">How many logical cores does this server have</param>
+            <param name="cpuAddressWidth">What is the addresswidth of the server</param>
+            <param name="cpuMaxClockSpeed">What is the max clock speed of the server</param>
+            <param name="ramMegabytes">How much ram does this server have</param>
+            <param name="ramSpeed">How fast is the ram of this server</param>
             <param name="onSuccess">Callback method to be executed when request completes successfully</param>
             <param name="onError">Callback method to be executed if request fails</param>
         </member>
@@ -1451,6 +1478,18 @@
             <param name="provider">Which PayVault provider to use.</param>
             <param name="purchaseArguments">PayVault provider specific data required to initiate payment</param>
             <param name="items">The list of items for BuyDirect, if any, otherwise the call is to buy coins</param>
+            <param name="onSuccess">Callback method to be executed when request completes successfully</param>
+            <param name="onError">Callback method to be executed if request fails</param>
+        </member>
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultUsePaymentInfo(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>Use payment-provider specific arguments for finalizing a purchase</summary>
+            <param name="provider">Which PayVault provider to use.</param>
+            <param name="providerArguments">PayVault provider specific arguments required to finalize payment</param>
+        </member>
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultUsePaymentInfo(System.String,System.Collections.Generic.Dictionary{System.String,System.String},PlayerIOClient.Callback{System.Collections.Generic.Dictionary{System.String,System.String}},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Use payment-provider specific arguments for finalizing a purchase</summary>
+            <param name="provider">Which PayVault provider to use.</param>
+            <param name="providerArguments">PayVault provider specific arguments required to finalize payment</param>
             <param name="onSuccess">Callback method to be executed when request completes successfully</param>
             <param name="onError">Callback method to be executed if request fails</param>
         </member>
@@ -1775,7 +1814,7 @@
             <summary>
             Represents an BigDB array of values that can be accessed by index.
             <para>DatabaseArray is very similar to the DatabaseObject class since it has methods for getting, setting, checking and removing values. But unlike DatabaseObject, this class also has methods for adding and inserting values, and there is no Save method, since these cannot be saved to a BigDB table, they always have to be a property of an object.</para>
-            <para>If we for exameple have an object that can be visualized like this:</para>
+            <para>If we for example have an object that can be visualized like this:</para>
             <code>
             'car54321' = {
             	Name: 'OldSpeedy',
@@ -1899,49 +1938,49 @@
         <member name="M:PlayerIOClient.DatabaseArray.GetInt(System.Int32)">
             <summary>Get the int value at the given index</summary>
         </member>
-        <member name="M:PlayerIOClient.DatabaseArray.GetString(System.Int32,System.Int32)">
+        <member name="M:PlayerIOClient.DatabaseArray.GetInt(System.Int32,System.Int32)">
             <summary>Get the int value at the given index, falling back to the given default value if the value was at the index is null</summary>
         </member>
         <member name="M:PlayerIOClient.DatabaseArray.GetUInt(System.Int32)">
             <summary>Get the uint value at the given index</summary>
         </member>
-        <member name="M:PlayerIOClient.DatabaseArray.GetString(System.Int32,System.UInt32)">
+        <member name="M:PlayerIOClient.DatabaseArray.GetUInt(System.Int32,System.UInt32)">
             <summary>Get the uint value at the given index, falling back to the given default value if the value was at the index is null</summary>
         </member>
         <member name="M:PlayerIOClient.DatabaseArray.GetLong(System.Int32)">
             <summary>Get the long value at the given index</summary>
         </member>
-        <member name="M:PlayerIOClient.DatabaseArray.GetString(System.Int32,System.Int64)">
+        <member name="M:PlayerIOClient.DatabaseArray.GetLong(System.Int32,System.Int64)">
             <summary>Get the long value at the given index, falling back to the given default value if the value was at the index is null</summary>
         </member>
         <member name="M:PlayerIOClient.DatabaseArray.GetBool(System.Int32)">
             <summary>Get the bool value at the given index</summary>
         </member>
-        <member name="M:PlayerIOClient.DatabaseArray.GetString(System.Int32,System.Boolean)">
+        <member name="M:PlayerIOClient.DatabaseArray.GetBool(System.Int32,System.Boolean)">
             <summary>Get the bool value at the given index, falling back to the given default value if the value was at the index is null</summary>
         </member>
         <member name="M:PlayerIOClient.DatabaseArray.GetFloat(System.Int32)">
             <summary>Get the float value at the given index</summary>
         </member>
-        <member name="M:PlayerIOClient.DatabaseArray.GetString(System.Int32,System.Single)">
+        <member name="M:PlayerIOClient.DatabaseArray.GetFloat(System.Int32,System.Single)">
             <summary>Get the float value at the given index, falling back to the given default value if the value was at the index is null</summary>
         </member>
         <member name="M:PlayerIOClient.DatabaseArray.GetDouble(System.Int32)">
             <summary>Get the double value at the given index</summary>
         </member>
-        <member name="M:PlayerIOClient.DatabaseArray.GetString(System.Int32,System.Double)">
+        <member name="M:PlayerIOClient.DatabaseArray.GetDouble(System.Int32,System.Double)">
             <summary>Get the double value at the given index, falling back to the given default value if the value was at the index is null</summary>
         </member>
         <member name="M:PlayerIOClient.DatabaseArray.GetBytes(System.Int32)">
             <summary>Get the byte array value at the given index</summary>
         </member>
-        <member name="M:PlayerIOClient.DatabaseArray.GetString(System.Int32,System.Byte[])">
+        <member name="M:PlayerIOClient.DatabaseArray.GetBytes(System.Int32,System.Byte[])">
             <summary>Get the byte value at the given index, falling back to the given default value if the value was at the index is null</summary>
         </member>
         <member name="M:PlayerIOClient.DatabaseArray.GetDateTime(System.Int32)">
             <summary>Get the datetime value at the given index</summary>
         </member>
-        <member name="M:PlayerIOClient.DatabaseArray.GetString(System.Int32,System.DateTime)">
+        <member name="M:PlayerIOClient.DatabaseArray.GetDateTime(System.Int32,System.DateTime)">
             <summary>Get the datetime value at the given index, falling back to the given default value if the value was at the index is null</summary>
         </member>
         <member name="M:PlayerIOClient.DatabaseArray.GetObject(System.Int32)">
@@ -2163,8 +2202,26 @@
         <member name="P:PlayerIOClient.DatabaseArray.Item(System.Int32)">
             <summary>Get the value at the given index as an object</summary>
         </member>
+        <member name="P:PlayerIOClient.DatabaseArray.Indexes">
+            <summary>Returns an enumerator that iterates over the indexes in this array that contain values.</summary>
+        </member>
+        <member name="P:PlayerIOClient.DatabaseArray.IndexesAndValues">
+            <summary>Returns an enumerator that iterates over all the indexes and values in this array.</summary>
+        </member>
         <member name="T:PlayerIOClient.ErrorLog">
-            <summary>The Player.IO ErrorLog service</summary>
+            <summary>
+            The Player.IO ErrorLog service
+            <para>Here are some simple examples:</para>
+            <code>
+            PlayerIO.ErrorLog.WriteError("Error in my method");
+            
+            try {
+            	//Some code that can throw an exception...
+            } catch (Exception e) {
+            	PlayerIO.ErrorLog.WriteError("Exception in my method", e);
+            }
+            </code>
+            </summary>
         </member>
         <member name="M:PlayerIOClient.ErrorLog.WriteError(System.String)">
             <summary>Write an entry to the game's error log. In development the errors are just written to the console, in production they're written to a database and browseable from the admin panel</summary>
@@ -2247,7 +2304,6 @@
             <param name="resultLimit">The maximum amount of rooms you want to receive. Use 0 for 'as many as possible'.</param>
             <param name="resultOffset">The offset into the list you wish</param>
             <param name="successCallback">Callback with a list of rooms matching the search criteria</param>
-            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs</param>
         </member>
         <member name="M:PlayerIOClient.Multiplayer.ListRooms(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Int32,System.Int32,PlayerIOClient.Callback{PlayerIOClient.RoomInfo[]},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
             <summary>List the currently running multiplayer rooms</summary>
@@ -2432,31 +2488,6 @@
             <param name="successCallback">Callback if successful</param>
             <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs.</param>
         </member>
-        <member name="M:PlayerIOClient.QuickConnect.FacebookConnect(System.String,System.String,System.String,System.String)">
-            <summary>Authenticates a Facebook user and session and returns a connection token.</summary>
-            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
-            <param name="uid">The Facebook uid of the user you wish to authenticate.</param>
-            <param name="sessionKey">The Facebook session key of the user's session.</param>
-            <param name="partnerId">The PartnerPay partner id this user should be tagged with, if you are using the PartnerPay system.</param>
-            <returns>The connected client</returns>
-        </member>
-        <member name="M:PlayerIOClient.QuickConnect.FacebookConnect(System.String,System.String,System.String,System.String,PlayerIOClient.Callback{PlayerIOClient.Client})">
-            <summary>Authenticates a Facebook user and session and returns a connection token.</summary>
-            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
-            <param name="uid">The Facebook uid of the user you wish to authenticate.</param>
-            <param name="sessionKey">The Facebook session key of the user's session.</param>
-            <param name="partnerId">The PartnerPay partner id this user should be tagged with, if you are using the PartnerPay system.</param>
-            <param name="successCallback">Callback with the connected client, if successful</param>
-        </member>
-        <member name="M:PlayerIOClient.QuickConnect.FacebookConnect(System.String,System.String,System.String,System.String,PlayerIOClient.Callback{PlayerIOClient.Client},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
-            <summary>Authenticates a Facebook user and session and returns a connection token.</summary>
-            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
-            <param name="uid">The Facebook uid of the user you wish to authenticate.</param>
-            <param name="sessionKey">The Facebook session key of the user's session.</param>
-            <param name="partnerId">The PartnerPay partner id this user should be tagged with, if you are using the PartnerPay system.</param>
-            <param name="successCallback">Callback with the connected client, if successful</param>
-            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs.</param>
-        </member>
         <member name="M:PlayerIOClient.QuickConnect.FacebookOAuthConnect(System.String,System.String,System.String)">
             <summary>Authenticates a Facebook user using a Facebook access_token.</summary>
             <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
@@ -2587,15 +2618,6 @@
             Creates a new CodedInputStream reading data from the given
             byte array.
             </summary>
-        </member>
-        <member name="M:PlayerIOClient.Internal.MPB.CodedInputStream.CheckLastTagWas(System.UInt32)">
-            <summary>
-            Verifies that the last call to ReadTag() returned the given tag value.
-            This is used to verify that a nested group ended with the correct
-            end tag.
-            </summary>
-            <exception cref="!:InvalidProtocolBufferException">The last
-            tag read was not the one specified</exception>
         </member>
         <member name="M:PlayerIOClient.Internal.MPB.CodedInputStream.ReadTag">
             <summary>
@@ -2803,22 +2825,6 @@
             <param name="mustSucceed"></param>
             <returns></returns>
         </member>
-        <member name="M:PlayerIOClient.Internal.MPB.CodedInputStream.ReadRawByte">
-            <summary>
-            Read one byte from the input.
-            </summary>
-            <exception cref="!:InvalidProtocolBufferException">
-            the end of the stream or the current limit was reached
-            </exception>
-        </member>
-        <member name="M:PlayerIOClient.Internal.MPB.CodedInputStream.ReadRawBytes(System.Int32)">
-            <summary>
-            Read a fixed size of bytes from the input.
-            </summary>
-            <exception cref="!:InvalidProtocolBufferException">
-            the end of the stream or the current limit was reached
-            </exception>
-        </member>
         <member name="M:PlayerIOClient.Internal.MPB.CodedInputStream.SkipField(System.UInt32)">
             <summary>
             Reads and discards a single field, given its tag value.
@@ -2831,13 +2837,6 @@
             Reads and discards an entire message.  This will read either until EOF
             or until an endgroup tag, whichever comes first.
             </summary>
-        </member>
-        <member name="M:PlayerIOClient.Internal.MPB.CodedInputStream.SkipRawBytes(System.Int32)">
-            <summary>
-            Reads and discards <paramref name="size"/> bytes.
-            </summary>
-            <exception cref="!:InvalidProtocolBufferException">the end of the stream
-            or the current limit was reached</exception>
         </member>
         <member name="M:PlayerIOClient.Internal.MPB.CodedInputStream.SkipImpl(System.Int32)">
             <summary>
