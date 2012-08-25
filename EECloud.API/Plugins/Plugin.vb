@@ -2,19 +2,26 @@
     Implements IPlugin
     Private myHost As IBot
 
-    Public Sub New()
-
-    End Sub
-
     Friend Sub SetupPlugin(host As IBot) Implements IPlugin.SetupPlugin
         myHost = host
-        OnEnable(New Connection(Of P)(myHost, myHost.Connection))
+        OnEnable()
+        If host.Connection IsNot Nothing Then
+            OnConnect(New Connection(Of P)(myHost, myHost.Connection))
+        Else
+            AddHandler myHost.OnConnect, AddressOf myHost_OnConnect
+        End If
     End Sub
+
+    Private Sub myHost_OnConnect()
+        OnConnect(New Connection(Of P)(myHost, myHost.Connection))
+    End Sub
+
     Friend Sub Disable() Implements IPlugin.Disable
         OnDisable()
     End Sub
 
-    Protected MustOverride Sub OnEnable(mainConnection As Connection(Of P))
+    Protected MustOverride Sub OnEnable()
+    Protected MustOverride Sub OnConnect(mainConnection As Connection(Of P))
     Protected MustOverride Sub OnDisable()
 
     Protected ReadOnly Property AppEnvironment As AppEnvironment
