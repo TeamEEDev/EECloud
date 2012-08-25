@@ -76,10 +76,10 @@
     <Compile Include="Components\World\WorldSoundBlock.vb" />
     <Compile Include="Components\World\WorldPortalBlock.vb" />
     <Compile Include="Components\World\WorldBlock.vb" />
-    <Compile Include="Components\Connection.vb" />
     <Compile Include="Components\Player.vb" />
     <Compile Include="Components\World\World.vb" />
     <Compile Include="Components\World\WorldCoindoorBlock.vb" />
+    <Compile Include="Components\Connection.vb" />
     <Compile Include="Enums\BlockType\CoindoorBlockType.vb" />
     <Compile Include="Enums\BlockType\LabelBlockType.vb" />
     <Compile Include="Enums\BlockType\PortalBlockType.vb" />

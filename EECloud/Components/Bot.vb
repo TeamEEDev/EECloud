@@ -1,6 +1,10 @@
 ﻿Friend NotInheritable Class Bot
     Implements IBot
 
+#Region "Events"
+    Public Event OnConnect() Implements IBot.OnConnect
+#End Region
+
 #Region "Fields"
     Private Const GameVersionSetting As String = "GameVersion"
     Friend Shared myGameVersionSetting As Integer = 0
@@ -64,11 +68,12 @@
     End Sub
 
     Private Function Connect(Of P As {Player, New})(PConnection As PlayerIOClient.Connection, PWorldID As String) As Connection(Of P)
-        Dim myConnection As Connection(Of P) = New Connection(Of P)(Me, New InternalConnection(Me, PConnection, PWorldID))
+        Dim mConnection As New InternalConnection(Me, PConnection, PWorldID)
         If myConnection Is Nothing Then
-            myConnection = myConnection
+            myConnection = mConnection
+            RaiseEvent OnConnect()
         End If
-        Return myConnection
+        Return New Connection(Of P)(Me, mConnection)
     End Function
 
     Private Sub Connect(Of P As {Player, New})(PClient As PlayerIOClient.Client, PWorldID As String, PSuccessCallback As Action(Of Connection(Of P)), PErrorCallback As Action(Of EECloudException))

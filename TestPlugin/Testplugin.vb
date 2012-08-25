@@ -10,10 +10,14 @@ Public Class Testplugin
 
     End Sub
 
-    Protected Overrides Sub OnEnable(mainConnection As Connection(Of TestPlayer))
+    Protected Overrides Sub OnConnect(mainConnection As Connection(Of TestPlayer))
         Me.Connection = mainConnection
 
         Connection.Disconnect()
+    End Sub
+
+    Protected Overrides Sub OnEnable()
+
     End Sub
 
     Private Sub Connection_OnSendMove(sender As Object, e As OnSendMessageEventArgs(Of Move_SendMessage)) Handles Connection.OnSendMove
@@ -24,6 +28,8 @@ Public Class Testplugin
         'The difference of that send is that it wont call the events; but nope, you can call it once per handle
         'What if two plugins call the GetHandle method? The message will be sent once Send() has been called on all handles!
     End Sub
+
+
 End Class
 
 Public Class TestPlayer

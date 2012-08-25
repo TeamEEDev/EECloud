@@ -1,4 +1,6 @@
 ﻿Friend Interface IBot
+    Event OnConnect()
+
     ReadOnly Property AppEnvironment As AppEnvironment
     ReadOnly Property Service As PlayerIOClient.Client
     ReadOnly Property Logger As ILogger

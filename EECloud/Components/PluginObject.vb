@@ -5,6 +5,7 @@
     Private myBot As IBot
     Private myPlugin As IPlugin
     Private ReadOnly myPluginType As Type
+    Private lockObj As New Object
 #End Region
 
 #Region "Properties"
@@ -33,7 +34,7 @@
     End Sub
 
     Friend Sub Start() Implements IPluginObject.Start
-        SyncLock myPlugin
+        SyncLock lockObj
             If Not Started Then
                 myBot.Logger.Log(LogPriority.Info, String.Format("Enabling {0}...", myPluginType.Name))
                 Try
@@ -52,7 +53,7 @@
 
 
     Friend Sub [Stop]() Implements IPluginObject.Stop
-        SyncLock myPlugin
+        SyncLock lockObj
             If Started Then
                 myBot.Logger.Log(LogPriority.Info, String.Format("Disabling {0}...", myPluginType.Name))
                 Try
