@@ -6,6 +6,7 @@
 Public Class TestPlugin
     Inherits Plugin(Of TestPlayer)
     Private WithEvents Connection As Connection(Of TestPlayer)
+    Private Chatter As IChatter
 
     Protected Overrides Sub OnEnable()
 
@@ -17,8 +18,8 @@ Public Class TestPlugin
 
     Protected Overrides Sub OnConnect(mainConnection As Connection(Of TestPlayer))
         Me.Connection = mainConnection
-
-        Connection.Send(New Say_SendMessage("Hi"))
+        Chatter = Connection.GetChatter("TestPlugin")
+        Chatter.Chat("Hi")
     End Sub
 
     Private Sub Connection_OnSendMove(sender As Object, e As OnSendMessageEventArgs(Of Move_SendMessage)) Handles Connection.OnSendMove

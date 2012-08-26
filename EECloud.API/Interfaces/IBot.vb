@@ -9,4 +9,5 @@
     ReadOnly Property Connection As IInternalConnection
 
     Sub Connect(Of P As {Player, New})(Username As String, Password As String, WorldID As String, SuccessCallback As Action(Of Connection(Of P)), ErrorCallback As Action(Of EECloudException))
+    Function GetChatter(connection As Connection(Of Player), name As String) As IChatter
 End Interface
