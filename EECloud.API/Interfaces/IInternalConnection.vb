@@ -4,6 +4,7 @@
     Event OnAddUser(sender As Object, e As IPlayer)
     Event OnRemoveUser(sender As Object, e As Left_ReciveMessage)
 
+    ReadOnly Property DefaultChatter As IChatter
     ReadOnly Property WorldID As String
     ReadOnly Property Connected As Boolean
     ReadOnly Property IsMainConnection As Boolean

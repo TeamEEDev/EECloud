@@ -1,4 +1,5 @@
-﻿Public Class CommandAttribute
+﻿<AttributeUsage(AttributeTargets.Method)>
+Public Class CommandAttribute
     Inherits Attribute
 
     Sub New(type As String)
@@ -11,4 +12,8 @@
             Return myType
         End Get
     End Property
+
+    Public Property Syntax As String
+
+    Public Property Aliases As String() = {}
 End Class

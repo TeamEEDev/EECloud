@@ -70,8 +70,11 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\Command.vb" />
-    <Compile Include="Components\CommandAttribute.vb" />
+    <Compile Include="Components\Command\Command.vb" />
+    <Compile Include="Components\Command\CommandAttribute.vb" />
+    <Compile Include="Components\Command\CommandHandle.vb" />
+    <Compile Include="Components\Command\CommandManager.vb" />
+    <Compile Include="Components\Command\CommandSyntax.vb" />
     <Compile Include="Components\OnSendMessageEventArgs.vb" />
     <Compile Include="Components\SendMessageHandle.vb" />
     <Compile Include="Components\World\WorldLabelBlock.vb" />
