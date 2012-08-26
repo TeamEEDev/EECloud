@@ -1,5 +1,4 @@
 ﻿Public NotInheritable Class Connection(Of P As {Player, New})
-
 #Region "Fields"
     Private myBot As IBot
     Private WithEvents myInternalConnection As IInternalConnection
@@ -68,6 +67,12 @@
     Public ReadOnly Property Encryption As String
         Get
             Return myInternalConnection.Encryption
+        End Get
+    End Property
+
+    Public ReadOnly Property GetChatter(name As String) As IChatter
+        Get
+            Return myBot.GetChatter(Me.DefaultConnection, name)
         End Get
     End Property
 #End Region

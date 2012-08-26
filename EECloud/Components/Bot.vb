@@ -123,5 +123,9 @@
         Next
         Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get room version")
     End Sub
+
+    Public Function GetChatter(connection As Connection(Of Player), name As String) As IChatter Implements IBot.GetChatter
+        Return New Chatter(connection, name)
+    End Function
 #End Region
 End Class
