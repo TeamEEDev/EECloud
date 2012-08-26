@@ -85,6 +85,7 @@
     <Compile Include="Enums\BlockType\PortalBlockType.vb" />
     <Compile Include="Enums\BlockType\SoundBlockType.vb" />
     <Compile Include="Interfaces\IChatter.vb" />
+    <Compile Include="Interfaces\ICommand.vb" />
     <Compile Include="Interfaces\IInternalConnection.vb" />
     <Compile Include="Interfaces\IPlayer.vb" />
     <Compile Include="Components\Messages\Send.vb" />
