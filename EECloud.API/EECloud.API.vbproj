@@ -70,6 +70,8 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\Command.vb" />
+    <Compile Include="Components\CommandAttribute.vb" />
     <Compile Include="Components\OnSendMessageEventArgs.vb" />
     <Compile Include="Components\SendMessageHandle.vb" />
     <Compile Include="Components\World\WorldLabelBlock.vb" />
@@ -85,7 +87,6 @@
     <Compile Include="Enums\BlockType\PortalBlockType.vb" />
     <Compile Include="Enums\BlockType\SoundBlockType.vb" />
     <Compile Include="Interfaces\IChatter.vb" />
-    <Compile Include="Interfaces\ICommand.vb" />
     <Compile Include="Interfaces\IInternalConnection.vb" />
     <Compile Include="Interfaces\IPlayer.vb" />
     <Compile Include="Components\Messages\Send.vb" />
