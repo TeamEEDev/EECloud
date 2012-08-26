@@ -42,8 +42,8 @@
                     myPlugin = CType(Activator.CreateInstance(myPluginType, True), IPlugin)
                     myPlugin.SetupPlugin(myBot, True)
                 Catch ex As Exception
-                    myBot.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled: {1} {2}", ex.ToString, ex.Message, ex.StackTrace))
                     myBot.Logger.Log(LogPriority.Error, String.Format("Failed to start plugin {0}. Disabling...", myPluginType.Name))
+                    myBot.Logger.Log(ex)
                     [Stop]()
                 End Try
             Else
@@ -60,8 +60,8 @@
                 Try
                     myPlugin.Disable()
                 Catch ex As Exception
-                    myBot.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled: {1} {2}", ex.ToString, ex.Message, ex.StackTrace))
                     myBot.Logger.Log(LogPriority.Error, String.Format("Failed to disable Plugin {0}.", myPluginType.Name))
+                    myBot.Logger.Log(ex)
                 Finally
                     myPlugin = Nothing
                 End Try

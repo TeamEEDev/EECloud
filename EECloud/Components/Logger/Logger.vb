@@ -95,6 +95,10 @@ Friend NotInheritable Class Logger
         End If
     End Sub
 
+    Friend Sub Log(ex As Exception) Implements ILogger.Log
+        myBot.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled: {1} {2}", ex.ToString, ex.Message, ex.StackTrace))
+    End Sub
+
     Private Sub Overwrite(oldLength As Integer, newStr As String)
         Console.CursorLeft = 0
         Dim Spaces As Integer = oldLength - newStr.Length
