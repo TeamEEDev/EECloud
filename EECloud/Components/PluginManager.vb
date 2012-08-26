@@ -46,7 +46,8 @@ Friend NotInheritable Class PluginManager
                     If Not hasNext Then Exit Do
 
                     myPluginsList.Add(New PluginObject(myBot, myEnumrator.Current))
-                Catch
+                Catch ex As Exception
+                    myBot.Logger.Log(ex)
                 End Try
             Loop
         End Using
