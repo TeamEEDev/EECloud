@@ -31,7 +31,7 @@ Public Class TestPlugin
         'What if two plugins call the GetHandle method? The message will be sent once Send() has been called on all handles!
     End Sub
 
-    <Command("test")>
+    <Command("test", Syntax:="/command username password")>
     Public Sub TestCommand(cmd As Command)
         Chatter.Chat(":D")
     End Sub

@@ -6,6 +6,13 @@
 #End Region
 
 #Region "Properties"
+    Friend ReadOnly Property DefaultChatter As IChatter
+        Get
+            Return myInternalConnection.DefaultChatter
+        End Get
+    End Property
+
+
     Public ReadOnly Property WorldID As String
         Get
             Return myInternalConnection.WorldID

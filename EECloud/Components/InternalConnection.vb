@@ -53,6 +53,13 @@ Friend Class InternalConnection
             Return myEncryption
         End Get
     End Property
+
+    Private myChatter As IChatter = New Chatter(Me.DefaultConnection, "Bot")
+    Public ReadOnly Property DefaultChatter As IChatter Implements IInternalConnection.DefaultChatter
+        Get
+            Return myChatter
+        End Get
+    End Property
 #End Region
 
 #Region "Events"

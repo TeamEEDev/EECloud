@@ -6,4 +6,5 @@
     PluginUnloadError
     MessageAlreadySent
     ServiceConnectionFailed
+    CommandSyntaxInvalid
 End Enum
