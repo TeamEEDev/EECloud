@@ -30,6 +30,11 @@ Public Class TestPlugin
         'The difference of that send is that it won't call the events; but nope, you can call it once per handle
         'What if two plugins call the GetHandle method? The message will be sent once Send() has been called on all handles!
     End Sub
+
+    <Command("test")>
+    Public Sub TestCommand(cmd As Command)
+        Chatter.Chat(":D")
+    End Sub
 End Class
 
 Public Class TestPlayer
