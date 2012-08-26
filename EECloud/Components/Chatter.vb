@@ -6,7 +6,7 @@
 
     Friend Sub New(connection As Connection(Of Player), name As String)
         myConnection = connection
-        prefix = "<" & name & ">"
+        prefix = "<" & name & "> "
     End Sub
 
     Public Sub Chat(msg As String) Implements IChatter.Chat

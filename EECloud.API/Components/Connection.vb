@@ -1456,12 +1456,11 @@
     End Sub
 
     Private Sub myInternalConnection_OnAddUser(sender As Object, e As IPlayer) Handles myInternalConnection.OnAddUser
-        Try
+        If Not myPlayersDictionary.ContainsKey(e.UserID) Then
             Dim myPlayer As New P
             myPlayer.SetupPlayer(e)
             myPlayersDictionary.Add(e.UserID, myPlayer)
-        Catch
-        End Try
+        End If
     End Sub
 
     Private Sub myInternalConnection_OnDisconnect(sender As Object, e As String) Handles myInternalConnection.OnDisconnect
