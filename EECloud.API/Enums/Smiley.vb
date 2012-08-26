@@ -61,7 +61,10 @@
     Diver = 59
     Tanned = 60
     Propeller = 61
-    'Hard_Hat = 62
-    'Gas_Mask = 63
-    'Robot = 64
+    Hard_Hat = 62
+    Gas_Mask = 63
+    Robot = 64
+    Peasant = 65
+    Soldier = 66
+    Blacksmith = 67
 End Enum
