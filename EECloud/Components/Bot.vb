@@ -71,10 +71,15 @@
         Dim mConnection As New InternalConnection(Me, PConnection, PWorldID)
         If myConnection Is Nothing Then
             myConnection = mConnection
-            RaiseEvent OnConnect()
+            AddHandler myConnection.DefaultConnection.OnReciveInit, AddressOf raiseConnect
         End If
         Return New Connection(Of P)(Me, mConnection)
     End Function
+
+    Private Sub raiseConnect(sender As Object, e As Init_ReciveMessage)
+        RemoveHandler myConnection.DefaultConnection.OnReciveInit, AddressOf raiseConnect
+        RaiseEvent OnConnect()
+    End Sub
 
     Private Sub Connect(Of P As {Player, New})(PClient As PlayerIOClient.Client, PWorldID As String, PSuccessCallback As Action(Of Connection(Of P)), PErrorCallback As Action(Of EECloudException))
         PClient.Multiplayer.CreateJoinRoom(PWorldID, Config.NormalRoom & myGameVersionSetting, True, Nothing, Nothing,
