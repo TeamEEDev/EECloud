@@ -176,7 +176,6 @@
 
     Block_Ninja_White = 96
     Block_Ninja_Grey = 97
-    Block_Ninja_Ladder = 120
     Decoration_Ninja_1 = 276
     Decoration_Ninja_2 = 277
     Decoration_Ninja_3 = 278
@@ -201,6 +200,8 @@
     Background_Water_Fish = 576
     Background_Water_SeaHorse = 577
     Background_Water_Seaweed = 578
+
+    Block_Ladder = 120
 
     Block_Tool_WinTrophy = 121
     Block_Tool_SpawnPoint = 255
