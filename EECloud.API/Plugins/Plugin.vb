@@ -77,6 +77,7 @@
         Try
             myHost.Connect(Of P)(username, password, worldID, successCallback, errorCallback)
         Catch
+            errorCallback.Invoke(Nothing)
         End Try
     End Sub
 End Class
