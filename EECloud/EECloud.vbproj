@@ -122,7 +122,7 @@
     <Compile Include="Forms\LoginForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Misc\Config.vb" />
+    <Compile Include="Miscellaneous\Config.vb" />
     <Compile Include="Components\Logger\LeLogger.vb" />
     <Compile Include="Components\Logger\Logger.vb" />
     <Compile Include="Components\PluginManager.vb" />
