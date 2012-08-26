@@ -80,7 +80,7 @@
     <Compile Include="Components\World\World.vb" />
     <Compile Include="Components\World\WorldCoindoorBlock.vb" />
     <Compile Include="Components\Connection.vb" />
-    <Compile Include="Enums\BlockType\CoindoorBlockType.vb" />
+    <Compile Include="Enums\BlockType\CoinDoorBlockType.vb" />
     <Compile Include="Enums\BlockType\LabelBlockType.vb" />
     <Compile Include="Enums\BlockType\PortalBlockType.vb" />
     <Compile Include="Enums\BlockType\SoundBlockType.vb" />

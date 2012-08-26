@@ -48,10 +48,12 @@
     Block_Door_Green = 24
     Block_Door_Blue = 25
     Block_Door_CoinDoor = 43
+    Block_Door_TimedDoor = 156
 
     Block_Gate_Red = 26
     Block_Gate_Green = 27
     Block_Gate_Blue = 28
+    Block_Gate_TimedGate = 157
 
     Block_Metal_White = 29
     Block_Metal_Red = 30
@@ -269,6 +271,36 @@
     Decoration_Cloud_7 = 317
     Decoration_Cloud_8 = 318
 
+    Block_PlateIron_1 = 144
+    Block_PlateIron_2 = 145
+
+    Block_Industrial_OneWay = 146
+    Block_Industrial_2 = 147
+    Block_Industrial_3 = 148
+    Block_Industrial_4 = 149
+    Block_Industrial_ConveyorBelt1 = 150
+    Block_Industrial_ConveyorBelt2 = 151
+    Block_Industrial_ConveyorBelt3 = 152
+    Block_Industrial_ConveyorBelt4 = 153
+    Background_Industrial_NoPlate = 585
+    Background_Industrial_GreyPlate = 586
+    Background_Industrial_BluePlate = 587
+    Background_Industrial_GreenPlate = 588
+    Background_Industrial_YellowPlate = 589
+
+    Block_Timbered = 154
+    Background_Timbered_HouseTopHay = 590
+    Background_Timbered_HouseTopRed = 591
+    Background_Timbered_HouseTopGrey = 592
+    Background_Timbered_4 = 593
+    Background_Timbered_5 = 594
+    Background_Timbered_6 = 595
+    Background_Timbered_7 = 596
+    Background_Timbered_8 = 597
+    Background_Timbered_9 = 598
+
+    Decoration_Prize_Trophy = 223
+
     Decoration_Spring2011_Grass1 = 233
     Decoration_Spring2011_Grass2 = 234
     Decoration_Spring2011_Grass3 = 235
@@ -315,6 +347,13 @@
     Decoration_Summer2012_Bucket = 308
     Decoration_Summer2012_Grubber = 309
     Decoration_Summer2012_Cocktail = 310
+
+    Decoration_WarningSign_Fire = 319
+    Decoration_WarningSign_Skull = 320
+    Decoration_WarningSign_Lightning = 321
+    Decoration_WarningSign_Cross = 322
+    Decoration_WarningSign_HorizontalLine = 323
+    Decoration_WarningSign_VerticalLine = 324
 
     Background_Checkered_Grey = 513
     Background_Checkered_DarkBlue = 514
