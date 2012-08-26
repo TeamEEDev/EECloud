@@ -1768,7 +1768,7 @@
     End Function
 
     Public Sub Send(message As SendMessage)
-        If RaiseSendEvent(message) Then
+        If Not RaiseSendEvent(message) Then
             myInternalConnection.Send(message)
         End If
     End Sub
