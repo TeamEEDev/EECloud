@@ -18,7 +18,6 @@ Public Class Command
         End Get
     End Property
 
-
     Private myType As String
     Public ReadOnly Property Type As String Implements ICommand.Type
         Get
