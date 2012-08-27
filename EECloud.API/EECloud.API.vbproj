@@ -119,9 +119,9 @@
     <Compile Include="Interfaces\IBot.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="Components\Messages\Recive.vb" />
-    <Compile Include="Recive\GroupDisallowedJoin_ReciveMessage.vb" />
-    <Compile Include="Recive\ReciveMessage.vb" />
-    <Compile Include="Recive\Upgrade_ReciveMessage.vb" />
+    <Compile Include="Messages\Recive\GroupDisallowedJoin_ReciveMessage.vb" />
+    <Compile Include="Messages\Recive\ReciveMessage.vb" />
+    <Compile Include="Messages\Recive\Upgrade_ReciveMessage.vb" />
     <Compile Include="Utils.vb" />
   </ItemGroup>
   <ItemGroup>
