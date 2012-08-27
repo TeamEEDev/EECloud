@@ -40,24 +40,6 @@
 
     Private Sub myConnection_OnReciveSay(sender As Object, e As Say_ReciveMessage)
         If e.Text.StartsWith("!") Then
-<<<<<<< HEAD
-            Dim cmd As String() = e.Text.Substring(1).Split(" "c)
-            Dim type As String = cmd(0).ToLower
-            If commandsDictionary.ContainsKey(type) Then
-                Dim handle As CommandHandle = commandsDictionary(type)
-                If handle.Syntax.MinimumArgs <= cmd.Length - 1 Then
-                    Dim args() As String = {}
-                    If cmd.Length > 1 Then
-                        ReDim args(cmd.Length - 2)
-                        For i = 1 To cmd.Length - 1
-                            args(i - 1) = cmd(i)
-                        Next
-                    End If
-                    Dim myCommand As New Command(myConnection.Players(e.UserID), type, args)
-                    handle.Action.Invoke(myCommand)
-                Else
-                    myConnection.DefaultChatter.Chat("Command usage: !" & type & " " & handle.Syntax.ToString.Substring(9))
-=======
             processMessage(e.Text.Substring(1), myConnection.Players(e.UserID))
         End If
     End Sub
@@ -74,7 +56,6 @@
                     For i = 1 To cmd.Length - 1
                         args(i - 1) = cmd(i)
                     Next
->>>>>>> Added groups
                 End If
                 Dim myCommand As New Command(sender, type, args)
                 handle.Action.Invoke(myCommand)
