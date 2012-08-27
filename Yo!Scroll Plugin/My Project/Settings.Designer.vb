@@ -64,9 +64,9 @@ Namespace My
     Friend Module MySettingsProperty
 
         <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")> _
-        Friend ReadOnly Property Settings() As Global.YoScroll_Plugin.My.MySettings
+        Friend ReadOnly Property Settings() As Global.YoScrollPlugin.My.MySettings
             Get
-                Return Global.YoScroll_Plugin.My.MySettings.Default
+                Return Global.YoScrollPlugin.My.MySettings.Default
             End Get
         End Property
     End Module
