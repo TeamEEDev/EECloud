@@ -58,7 +58,12 @@
                     Next
                 End If
                 Dim myCommand As New Command(sender, type, args)
-                handle.Action.Invoke(myCommand)
+                Try
+                    handle.Action.Invoke(myCommand)
+                Catch ex As Exception
+                    myBot.Logger.Log(LogPriority.Error, "Failed to run command " & type)
+                    myBot.Logger.Log(ex)
+                End Try
             Else
                 myConnection.DefaultChatter.Chat("Command usage: " & handle.Syntax.ToString)
             End If
