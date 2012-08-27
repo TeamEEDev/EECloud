@@ -45,7 +45,7 @@
     End Sub
 
     Private Sub processMessage(msg As String, sender As Player)
-        Dim cmd As String() = msg.Substring(1).Split(" "c)
+        Dim cmd As String() = msg.Split(" "c)
         Dim type As String = cmd(0).ToLower
         If commandsDictionary.ContainsKey(type) Then
             Dim handle As CommandHandle = commandsDictionary(type)

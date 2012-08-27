@@ -40,11 +40,11 @@
     Private myPlayersDictionary As New Dictionary(Of Integer, P)
     Public ReadOnly Property Players(number As Integer) As P
         Get
-            Try
+            If myPlayersDictionary.ContainsKey(number) Then
                 Return myPlayersDictionary(number)
-            Catch
+            Else
                 Return Nothing
-            End Try
+            End If
         End Get
     End Property
 
