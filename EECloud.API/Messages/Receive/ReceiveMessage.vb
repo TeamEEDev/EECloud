@@ -1,4 +1,4 @@
-﻿Public MustInherit Class ReciveMessage
+﻿Public MustInherit Class ReceiveMessage
     Inherits EventArgs
     <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)>
     Public ReadOnly PlayerIOMessage As PlayerIOClient.Message

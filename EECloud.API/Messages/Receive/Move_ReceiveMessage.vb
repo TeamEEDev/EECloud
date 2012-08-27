@@ -1,5 +1,5 @@
-﻿Public Class Upgrade_ReciveMessage
-    Inherits ReciveMessage
+﻿Public Class Move_ReceiveMessage
+    Inherits ReceiveMessage
     'No arguments
 
     Friend Sub New(message As PlayerIOClient.Message)

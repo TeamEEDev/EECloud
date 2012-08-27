@@ -65,11 +65,11 @@ Friend Class InternalConnection
 #Region "Events"
     Friend Event OnDisconnect(sender As Object, e As String) Implements IInternalConnection.OnDisconnect
 
-    Friend Event OnMessage(sender As Object, e As ReciveMessage) Implements IInternalConnection.OnMessage
+    Friend Event OnMessage(sender As Object, e As ReceiveMessage) Implements IInternalConnection.OnMessage
 
     Friend Event OnAddUser(sender As Object, e As IPlayer) Implements IInternalConnection.OnAddUser
 
-    Friend Event OnRemoveUser(sender As Object, e As Left_ReciveMessage) Implements IInternalConnection.OnRemoveUser
+    Friend Event OnRemoveUser(sender As Object, e As Left_ReceiveMessage) Implements IInternalConnection.OnRemoveUser
 #End Region
 
 #Region "Methods"
@@ -79,7 +79,7 @@ Friend Class InternalConnection
         myWorldID = PWorldID
         myBot = PBot
 
-        myConnection.AddOnMessage(AddressOf MessageReciver)
+        myConnection.AddOnMessage(AddressOf MessageReceiver)
         myConnection.AddOnDisconnect(
             Sub(sender As Object, message As String)
                 RaiseEvent OnDisconnect(Me, message)
@@ -89,47 +89,47 @@ Friend Class InternalConnection
         End If
 
 
-        RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoin_ReciveMessage))
-        RegisterMessage("info", GetType(Info_ReciveMessage))
-        RegisterMessage("upgrade", GetType(Upgrade_ReciveMessage))
-        RegisterMessage("init", GetType(Init_ReciveMessage))
+        RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoin_ReceiveMessage))
+        RegisterMessage("info", GetType(Info_ReceiveMessage))
+        RegisterMessage("upgrade", GetType(Upgrade_ReceiveMessage))
+        RegisterMessage("init", GetType(Init_ReceiveMessage))
         Send(New Init_SendMessage)
     End Sub
 
-    Private Sub MessageHandler(sender As Object, e As ReciveMessage) Handles Me.OnMessage
+    Private Sub MessageHandler(sender As Object, e As ReceiveMessage) Handles Me.OnMessage
         Select Case e.GetType
-            Case GetType(Init_ReciveMessage)
-                Dim m As Init_ReciveMessage = CType(e, Init_ReciveMessage)
+            Case GetType(Init_ReceiveMessage)
+                Dim m As Init_ReceiveMessage = CType(e, Init_ReceiveMessage)
                 myWorld = New World(Me.DefaultConnection, m)
 
                 UnRegisterMessage("init")
                 UnRegisterMessage("groupdisallowedjoin")
                 RegisterMessages()
                 Send(New Init2_SendMessage)
-            Case GetType(Add_ReciveMessage)
-                Dim m As Add_ReciveMessage = CType(e, Add_ReciveMessage)
+            Case GetType(Add_ReceiveMessage)
+                Dim m As Add_ReceiveMessage = CType(e, Add_ReceiveMessage)
                 Dim myPlayer As New InternalPlayer(Me.DefaultConnection, m)
                 RaiseEvent OnAddUser(Me, myPlayer)
-            Case GetType(Left_ReciveMessage)
-                Dim m As Left_ReciveMessage = CType(e, Left_ReciveMessage)
+            Case GetType(Left_ReceiveMessage)
+                Dim m As Left_ReceiveMessage = CType(e, Left_ReceiveMessage)
                 RaiseEvent OnRemoveUser(Me, m)
-            Case GetType(Upgrade_ReciveMessage)
-                Dim m As Upgrade_ReciveMessage = CType(e, Upgrade_ReciveMessage)
+            Case GetType(Upgrade_ReceiveMessage)
+                Dim m As Upgrade_ReceiveMessage = CType(e, Upgrade_ReceiveMessage)
 
                 Bot.myGameVersionSetting += 1
                 myBot.Logger.Log(LogPriority.Info, "The game has been updated!")
         End Select
     End Sub
 
-    Private Sub MessageReciver(sender As Object, e As PlayerIOClient.Message)
+    Private Sub MessageReceiver(sender As Object, e As PlayerIOClient.Message)
         Try
             If MessageDictionary.ContainsKey(e.Type) Then
                 Dim messageType As Type = MessageDictionary(e.Type)
                 Dim myConstructorInfo As ConstructorInfo = messageType.GetConstructor(BindingFlags.NonPublic Or BindingFlags.Instance, Nothing, New Type() {GetType(PlayerIOClient.Message)}, Nothing)
-                Dim myMessage As ReciveMessage = CType(myConstructorInfo.Invoke(New Object() {e}), ReciveMessage)
+                Dim myMessage As ReceiveMessage = CType(myConstructorInfo.Invoke(New Object() {e}), ReceiveMessage)
                 RaiseEvent OnMessage(Me, myMessage)
             Else
-                myBot.Logger.Log(LogPriority.Warning, "Recived not registered message: " & e.Type)
+                myBot.Logger.Log(LogPriority.Warning, "Received not registered message: " & e.Type)
             End If
         Catch ex As KeyNotFoundException
             myBot.Logger.Log(LogPriority.Error, "Failed to parse message: " & e.Type)
@@ -153,46 +153,46 @@ Friend Class InternalConnection
     Private Sub RegisterMessages()
         If RegisteredMessages = False Then
             RegisteredMessages = True
-            RegisterMessage("updatemeta", GetType(UpdateMeta_ReciveMessage))
-            RegisterMessage("add", GetType(Add_ReciveMessage))
-            RegisterMessage("left", GetType(Left_ReciveMessage))
-            RegisterMessage("m", GetType(Move_ReciveMessage))
-            RegisterMessage("c", GetType(Coin_ReciveMessage))
-            RegisterMessage("k", GetType(Crown_ReciveMessage))
-            RegisterMessage("ks", GetType(SilverCrown_ReciveMessage))
-            RegisterMessage("face", GetType(Face_ReciveMessage))
-            RegisterMessage("show", GetType(ShowKey_ReciveMessage))
-            RegisterMessage("hide", GetType(HideKey_ReciveMessage))
-            RegisterMessage("say", GetType(Say_ReciveMessage))
-            RegisterMessage("say_old", GetType(SayOld_ReciveMessage))
-            RegisterMessage("autotext", GetType(AutoText_ReciveMessage))
-            RegisterMessage("write", GetType(Write_ReciveMessage))
-            RegisterMessage("b", GetType(BlockPlace_ReciveMessage))
-            RegisterMessage("bc", GetType(CoinDoorPlace_ReciveMessage))
-            RegisterMessage("bs", GetType(SoundPlace_ReciveMessage))
-            RegisterMessage("pt", GetType(PortalPlace_ReciveMessage))
-            RegisterMessage("lb", GetType(LabelPlace_ReciveMessage))
-            RegisterMessage("god", GetType(Godmode_ReciveMessage))
-            RegisterMessage("mod", GetType(Modmode_ReciveMessage))
-            RegisterMessage("access", GetType(Access_ReciveMessage))
-            RegisterMessage("lostaccess", GetType(LostAccess_ReciveMessage))
-            RegisterMessage("tele", GetType(Teleport_ReciveMessage))
-            RegisterMessage("reset", GetType(Reset_ReciveMessage))
-            RegisterMessage("clear", GetType(Clear_ReciveMessage))
-            RegisterMessage("saved", GetType(SaveDone_ReciveMessage))
-            RegisterMessage("refreshshop", GetType(RefreshShop_ReciveMessage))
-            RegisterMessage("givewizard", GetType(GiveWizard_ReciveMessage))
-            RegisterMessage("givewizard2", GetType(GiveFireWizard_ReciveMessage))
-            RegisterMessage("givewitch", GetType(GiveWitch_ReciveMessage))
-            RegisterMessage("givegrinch", GetType(GiveGrinch_ReciveMessage))
+            RegisterMessage("updatemeta", GetType(UpdateMeta_ReceiveMessage))
+            RegisterMessage("add", GetType(Add_ReceiveMessage))
+            RegisterMessage("left", GetType(Left_ReceiveMessage))
+            RegisterMessage("m", GetType(Move_ReceiveMessage))
+            RegisterMessage("c", GetType(Coin_ReceiveMessage))
+            RegisterMessage("k", GetType(Crown_ReceiveMessage))
+            RegisterMessage("ks", GetType(SilverCrown_ReceiveMessage))
+            RegisterMessage("face", GetType(Face_ReceiveMessage))
+            RegisterMessage("show", GetType(ShowKey_ReceiveMessage))
+            RegisterMessage("hide", GetType(HideKey_ReceiveMessage))
+            RegisterMessage("say", GetType(Say_ReceiveMessage))
+            RegisterMessage("say_old", GetType(SayOld_ReceiveMessage))
+            RegisterMessage("autotext", GetType(AutoText_ReceiveMessage))
+            RegisterMessage("write", GetType(Write_ReceiveMessage))
+            RegisterMessage("b", GetType(BlockPlace_ReceiveMessage))
+            RegisterMessage("bc", GetType(CoinDoorPlace_ReceiveMessage))
+            RegisterMessage("bs", GetType(SoundPlace_ReceiveMessage))
+            RegisterMessage("pt", GetType(PortalPlace_ReceiveMessage))
+            RegisterMessage("lb", GetType(LabelPlace_ReceiveMessage))
+            RegisterMessage("god", GetType(Godmode_ReceiveMessage))
+            RegisterMessage("mod", GetType(Modmode_ReceiveMessage))
+            RegisterMessage("access", GetType(Access_ReceiveMessage))
+            RegisterMessage("lostaccess", GetType(LostAccess_ReceiveMessage))
+            RegisterMessage("tele", GetType(Teleport_ReceiveMessage))
+            RegisterMessage("reset", GetType(Reset_ReceiveMessage))
+            RegisterMessage("clear", GetType(Clear_ReceiveMessage))
+            RegisterMessage("saved", GetType(SaveDone_ReceiveMessage))
+            RegisterMessage("refreshshop", GetType(RefreshShop_ReceiveMessage))
+            RegisterMessage("givewizard", GetType(GiveWizard_ReceiveMessage))
+            RegisterMessage("givewizard2", GetType(GiveFireWizard_ReceiveMessage))
+            RegisterMessage("givewitch", GetType(GiveWitch_ReceiveMessage))
+            RegisterMessage("givegrinch", GetType(GiveGrinch_ReceiveMessage))
         End If
     End Sub
 
     Private MessageDictionary As New Dictionary(Of String, Type)
     Private Sub RegisterMessage(PString As String, PType As Type)
         Try
-            If Not PType.IsSubclassOf(GetType(ReciveMessage)) Then
-                Throw New InvalidOperationException("Invalid message class! Must inherit " & GetType(ReciveMessage).ToString)
+            If Not PType.IsSubclassOf(GetType(ReceiveMessage)) Then
+                Throw New InvalidOperationException("Invalid message class! Must inherit " & GetType(ReceiveMessage).ToString)
             Else
                 MessageDictionary.Add(PString, PType)
             End If

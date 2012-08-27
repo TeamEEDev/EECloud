@@ -71,13 +71,13 @@
         Dim mConnection As New InternalConnection(Me, PConnection, PWorldID)
         If myConnection Is Nothing Then
             myConnection = mConnection
-            AddHandler myConnection.DefaultConnection.OnReciveInit, AddressOf raiseConnect
+            AddHandler myConnection.DefaultConnection.OnReceiveInit, AddressOf raiseConnect
         End If
         Return New Connection(Of P)(Me, mConnection)
     End Function
 
-    Private Sub raiseConnect(sender As Object, e As Init_ReciveMessage)
-        RemoveHandler myConnection.DefaultConnection.OnReciveInit, AddressOf raiseConnect
+    Private Sub raiseConnect(sender As Object, e As Init_ReceiveMessage)
+        RemoveHandler myConnection.DefaultConnection.OnReceiveInit, AddressOf raiseConnect
         RaiseEvent OnConnect()
     End Sub
 

@@ -3,7 +3,7 @@
     Private Blocks(,,) As WorldBlock
     Private myConnection As Connection(Of Player)
 
-    Friend Sub New(connection As Connection(Of Player), initMessage As Init_ReciveMessage)
+    Friend Sub New(connection As Connection(Of Player), initMessage As Init_ReceiveMessage)
         Me.myConnection = connection
         Blocks = ParseWorld(initMessage.PlayerIOMessage, initMessage.SizeX, initMessage.SizeY, INIT_OFFSET)
     End Sub

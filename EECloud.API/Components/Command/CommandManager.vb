@@ -6,7 +6,7 @@
     Sub New(connection As Connection(Of Player), bot As IBot, target As Object)
         myConnection = connection
         Me.myBot = bot
-        AddHandler myConnection.OnReciveSay, AddressOf myConnection_OnReciveSay
+        AddHandler myConnection.OnReceiveSay, AddressOf myConnection_OnReceiveSay
         AddHandler myBot.Logger.OnInput, Sub(sender As Object, e As System.EventArgs) processMessage(myBot.Logger.Input, Nothing)
 
         For Each method As Reflection.MethodInfo In target.GetType.GetMethods
@@ -38,7 +38,7 @@
         Next
     End Sub
 
-    Private Sub myConnection_OnReciveSay(sender As Object, e As Say_ReciveMessage)
+    Private Sub myConnection_OnReceiveSay(sender As Object, e As Say_ReceiveMessage)
         If e.Text.StartsWith("!") Then
             processMessage(e.Text.Substring(1), myConnection.Players(e.UserID))
         End If
