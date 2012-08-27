@@ -54,7 +54,7 @@
                     Dim myCommand As New Command(myConnection.Players(e.UserID), type, args)
                     handle.Action.Invoke(myCommand)
                 Else
-                    myConnection.DefaultChatter.Chat("Command usage: !" & type & " " & handle.Syntax.ToString)
+                    myConnection.DefaultChatter.Chat("Command usage: !" & type & " " & handle.Syntax.ToString.Substring(9))
                 End If
             End If
         End If
