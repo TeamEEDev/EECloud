@@ -1,9 +1,9 @@
 ﻿Public Class World
     Private Const INIT_OFFSET As UInteger = 13
     Private Blocks(,,) As WorldBlock
-    Private myConnection As Connection(Of Player)
+    Private myConnection As IConnection(Of Player)
 
-    Friend Sub New(connection As Connection(Of Player), initMessage As Init_ReceiveMessage)
+    Friend Sub New(connection As IConnection(Of Player), initMessage As Init_ReceiveMessage)
         Me.myConnection = connection
         Blocks = ParseWorld(initMessage.PlayerIOMessage, initMessage.SizeX, initMessage.SizeY, INIT_OFFSET)
     End Sub

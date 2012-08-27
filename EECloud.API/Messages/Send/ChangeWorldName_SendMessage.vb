@@ -5,7 +5,7 @@
         Me.WorldName = worldName
     End Sub
 
-    Friend Overrides Function GetMessage(connection As IInternalConnection) As PlayerIOClient.Message
+    Friend Overrides Function GetMessage(connection As IConnection(Of player)) As PlayerIOClient.Message
         Return PlayerIOClient.Message.Create("name", WorldName)
     End Function
 End Class

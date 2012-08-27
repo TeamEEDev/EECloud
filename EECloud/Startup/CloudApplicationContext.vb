@@ -24,7 +24,7 @@ Friend NotInheritable Class CloudApplicationContext
 
         myBot.Logger.Log(LogPriority.Info, "Joining world...")
         myBot.Connect(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID,
-            Sub(PConnection As Connection(Of Player))
+            Sub(PConnection As IConnection(Of Player))
                 AddHandler PConnection.OnDisconnect,
                     Sub()
                         myBot.Logger.Log(LogPriority.Info, "Disconnected.")

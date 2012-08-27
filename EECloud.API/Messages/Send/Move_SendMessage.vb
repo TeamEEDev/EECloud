@@ -19,7 +19,7 @@
         Me.Vertical = vertical
     End Sub
 
-    Friend Overrides Function GetMessage(connection As IInternalConnection) As PlayerIOClient.Message
+    Friend Overrides Function GetMessage(connection As IConnection(Of player)) As PlayerIOClient.Message
         Return PlayerIOClient.Message.Create("m", PosX, PosY, SpeedX, SpeedY, ModifierX, ModifierY, Horizontal, Vertical)
     End Function
 End Class

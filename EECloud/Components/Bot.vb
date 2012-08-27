@@ -8,6 +8,7 @@
 #Region "Fields"
     Private Const GameVersionSetting As String = "GameVersion"
     Friend Shared myGameVersionSetting As Integer = 0
+    Friend myConnection As InternalConnection
 #End Region
 
 #Region "Properties"
@@ -46,10 +47,9 @@
         End Get
     End Property
 
-    Private myConnection As IInternalConnection
-    Friend ReadOnly Property Connection As IInternalConnection Implements IBot.Connection
+    Public ReadOnly Property HasConnection As Boolean Implements IBot.HasConnection
         Get
-            Return myConnection
+            Return myConnection IsNot Nothing
         End Get
     End Property
 #End Region
@@ -100,7 +100,7 @@
             End Sub)
     End Sub
 
-    Friend Sub Connect(Of P As {Player, New})(PUsername As String, PPassword As String, PWorldID As String, PSuccessCallback As Action(Of Connection(Of P)), PErrorCallback As Action(Of EECloudException)) Implements IBot.Connect
+    Friend Sub Connect(Of P As {Player, New})(PUsername As String, PPassword As String, PWorldID As String, PSuccessCallback As Action(Of IConnection(Of P)), PErrorCallback As Action(Of EECloudException)) Implements IBot.Connect
         PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.GameID, PUsername, PPassword,
             Sub(PClient As PlayerIOClient.Client)
                 Connect(Of P)(PClient, PWorldID, PSuccessCallback, PErrorCallback)
@@ -124,8 +124,28 @@
         Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get room version")
     End Sub
 
-    Public Function GetChatter(connection As Connection(Of Player), name As String) As IChatter Implements IBot.GetChatter
+    Public Function GetChatter(connection As IConnection(Of Player), name As String) As IChatter Implements IBot.GetChatter
         Return New Chatter(connection, name)
+    End Function
+
+    Friend Function GetConnection(Of P As {Player, New})() As IConnection(Of P) Implements IBot.GetConnection
+        Return New Connection(Of P)(Me, myConnection)
+    End Function
+
+    Public Function GetDefaultChatter(connection As IConnection(Of Player)) As IChatter Implements IBot.GetDefaultChatter
+        Try
+            Return CType(connection, Connection(Of Player)).DefaultChatter
+        Catch ex As Exception
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function GetDefaultConnection(Of P As {New, Player})(connection As IConnection(Of P)) As IConnection(Of Player) Implements IBot.GetDefaultConnection
+        Try
+            Return CType(connection, Connection(Of P)).DefaultConnection
+        Catch ex As Exception
+            Return Nothing
+        End Try
     End Function
 #End Region
 End Class

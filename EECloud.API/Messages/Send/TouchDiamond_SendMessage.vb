@@ -7,7 +7,7 @@
         Me.Y = y
     End Sub
 
-    Friend Overrides Function GetMessage(connection As IInternalConnection) As PlayerIOClient.Message
+    Friend Overrides Function GetMessage(connection As IConnection(Of player)) As PlayerIOClient.Message
         Return PlayerIOClient.Message.Create("diamondtouch", X, Y)
     End Function
 End Class

@@ -5,7 +5,7 @@
         Me.EditKey = editKey
     End Sub
 
-    Friend Overrides Function GetMessage(connection As IInternalConnection) As PlayerIOClient.Message
+    Friend Overrides Function GetMessage(connection As IConnection(Of Player)) As PlayerIOClient.Message
         Return PlayerIOClient.Message.Create("access", EditKey)
     End Function
 End Class

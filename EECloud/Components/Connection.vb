@@ -1,7 +1,9 @@
 ﻿Public NotInheritable Class Connection(Of P As {Player, New})
+    Implements IConnection(Of p)
+
 #Region "Fields"
     Private myBot As IBot
-    Private WithEvents myInternalConnection As IInternalConnection
+    Private WithEvents myInternalConnection As InternalConnection
     Private myEvents As New EventHandlerList
 #End Region
 
@@ -12,33 +14,32 @@
         End Get
     End Property
 
-
-    Public ReadOnly Property WorldID As String
+    Public ReadOnly Property WorldID As String Implements IConnection(Of P).WorldID
         Get
             Return myInternalConnection.WorldID
         End Get
     End Property
 
-    Public ReadOnly Property World As World
+    Public ReadOnly Property World As World Implements IConnection(Of P).World
         Get
             Return myInternalConnection.World
         End Get
     End Property
 
-    Public ReadOnly Property IsMainConnection As Boolean
+    Public ReadOnly Property IsMainConnection As Boolean Implements IConnection(Of P).IsMainConnection
         Get
             Return myInternalConnection.IsMainConnection
         End Get
     End Property
 
-    Public ReadOnly Property Connected As Boolean
+    Public ReadOnly Property Connected As Boolean Implements IConnection(Of P).Connected
         Get
             Return myInternalConnection.Connected
         End Get
     End Property
 
     Private myPlayersDictionary As New Dictionary(Of Integer, P)
-    Public ReadOnly Property Players(number As Integer) As P
+    Public ReadOnly Property Players(number As Integer) As P Implements IConnection(Of P).Players
         Get
             If myPlayersDictionary.ContainsKey(number) Then
                 Return myPlayersDictionary(number)
@@ -48,7 +49,7 @@
         End Get
     End Property
 
-    Public ReadOnly Property Players As IEnumerable(Of P)
+    Public ReadOnly Property Players As IEnumerable(Of P) Implements IConnection(Of P).Players
         Get
             Try
                 Return myPlayersDictionary.Values
@@ -59,7 +60,7 @@
     End Property
 
     Private myCrown As P
-    Public ReadOnly Property Crown As P
+    Public ReadOnly Property Crown As P Implements IConnection(Of P).Crown
         Get
             Return myCrown
         End Get
@@ -71,13 +72,13 @@
         End Get
     End Property
 
-    Public ReadOnly Property Encryption As String
+    Public ReadOnly Property Encryption As String Implements IConnection(Of P).Encryption
         Get
             Return myInternalConnection.Encryption
         End Get
     End Property
 
-    Public ReadOnly Property GetChatter(name As String) As IChatter
+    Public ReadOnly Property GetChatter(name As String) As IChatter Implements IConnection(Of P).GetChatter
         Get
             Return myBot.GetChatter(Me.DefaultConnection, name)
         End Get
@@ -85,7 +86,7 @@
 #End Region
 
 #Region "Events"
-    Public Custom Event OnReceiveMessage As EventHandler(Of ReceiveMessage)
+    Public Custom Event OnReceiveMessage As EventHandler(Of ReceiveMessage) Implements IConnection(Of P).OnReceiveMessage
         AddHandler(value As EventHandler(Of ReceiveMessage))
             myEvents.Add("OnReceiveMessage", value)
         End AddHandler
@@ -106,7 +107,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnDisconnect As EventHandler(Of EventArgs)
+    Public Custom Event OnDisconnect As EventHandler(Of EventArgs) Implements IConnection(Of P).OnDisconnect
         AddHandler(value As EventHandler(Of EventArgs))
             myEvents.Add("OnDisconnect", value)
         End AddHandler
@@ -127,7 +128,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveAccess As EventHandler(Of Access_ReceiveMessage)
+    Public Custom Event OnReceiveAccess As EventHandler(Of Access_ReceiveMessage) Implements IConnection(Of P).OnReceiveAccess
         AddHandler(value As EventHandler(Of Access_ReceiveMessage))
             myEvents.Add("OnReceiveAccess", value)
         End AddHandler
@@ -148,7 +149,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveAdd As EventHandler(Of Add_ReceiveMessage)
+    Public Custom Event OnReceiveAdd As EventHandler(Of Add_ReceiveMessage) Implements IConnection(Of P).OnReceiveAdd
         AddHandler(value As EventHandler(Of Add_ReceiveMessage))
             myEvents.Add("OnReceiveAdd", value)
         End AddHandler
@@ -169,7 +170,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveAutoText As EventHandler(Of AutoText_ReceiveMessage)
+    Public Custom Event OnReceiveAutoText As EventHandler(Of AutoText_ReceiveMessage) Implements IConnection(Of P).OnReceiveAutoText
         AddHandler(value As EventHandler(Of AutoText_ReceiveMessage))
             myEvents.Add("OnReceiveAutoText", value)
         End AddHandler
@@ -190,7 +191,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveBlockPlace As EventHandler(Of BlockPlace_ReceiveMessage)
+    Public Custom Event OnReceiveBlockPlace As EventHandler(Of BlockPlace_ReceiveMessage) Implements IConnection(Of P).OnReceiveBlockPlace
         AddHandler(value As EventHandler(Of BlockPlace_ReceiveMessage))
             myEvents.Add("OnReceiveBlockPlace", value)
         End AddHandler
@@ -211,7 +212,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveClear As EventHandler(Of Clear_ReceiveMessage)
+    Public Custom Event OnReceiveClear As EventHandler(Of Clear_ReceiveMessage) Implements IConnection(Of P).OnReceiveClear
         AddHandler(value As EventHandler(Of Clear_ReceiveMessage))
             myEvents.Add("OnReceiveClear", value)
         End AddHandler
@@ -232,7 +233,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveCoin As EventHandler(Of Coin_ReceiveMessage)
+    Public Custom Event OnReceiveCoin As EventHandler(Of Coin_ReceiveMessage) Implements IConnection(Of P).OnReceiveCoin
         AddHandler(value As EventHandler(Of Coin_ReceiveMessage))
             myEvents.Add("OnReceiveCoin", value)
         End AddHandler
@@ -253,7 +254,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveCoinDoorPlace As EventHandler(Of CoinDoorPlace_ReceiveMessage)
+    Public Custom Event OnReceiveCoinDoorPlace As EventHandler(Of CoinDoorPlace_ReceiveMessage) Implements IConnection(Of P).OnReceiveCoinDoorPlace
         AddHandler(value As EventHandler(Of CoinDoorPlace_ReceiveMessage))
             myEvents.Add("OnReceiveCoinDoorPlace", value)
         End AddHandler
@@ -274,7 +275,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveCrown As EventHandler(Of Crown_ReceiveMessage)
+    Public Custom Event OnReceiveCrown As EventHandler(Of Crown_ReceiveMessage) Implements IConnection(Of P).OnReceiveCrown
         AddHandler(value As EventHandler(Of Crown_ReceiveMessage))
             myEvents.Add("OnReceiveCrown", value)
         End AddHandler
@@ -295,7 +296,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveFace As EventHandler(Of Face_ReceiveMessage)
+    Public Custom Event OnReceiveFace As EventHandler(Of Face_ReceiveMessage) Implements IConnection(Of P).OnReceiveFace
         AddHandler(value As EventHandler(Of Face_ReceiveMessage))
             myEvents.Add("OnReceiveFace", value)
         End AddHandler
@@ -316,7 +317,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveGiveFireWizard As EventHandler(Of GiveFireWizard_ReceiveMessage)
+    Public Custom Event OnReceiveGiveFireWizard As EventHandler(Of GiveFireWizard_ReceiveMessage) Implements IConnection(Of P).OnReceiveGiveFireWizard
         AddHandler(value As EventHandler(Of GiveFireWizard_ReceiveMessage))
             myEvents.Add("OnReceiveGiveFireWizard", value)
         End AddHandler
@@ -337,7 +338,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveGiveGrinch As EventHandler(Of GiveGrinch_ReceiveMessage)
+    Public Custom Event OnReceiveGiveGrinch As EventHandler(Of GiveGrinch_ReceiveMessage) Implements IConnection(Of P).OnReceiveGiveGrinch
         AddHandler(value As EventHandler(Of GiveGrinch_ReceiveMessage))
             myEvents.Add("OnReceiveGiveGrinch", value)
         End AddHandler
@@ -358,7 +359,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveGiveWitch As EventHandler(Of GiveWitch_ReceiveMessage)
+    Public Custom Event OnReceiveGiveWitch As EventHandler(Of GiveWitch_ReceiveMessage) Implements IConnection(Of P).OnReceiveGiveWitch
         AddHandler(value As EventHandler(Of GiveWitch_ReceiveMessage))
             myEvents.Add("OnReceiveGiveWitch", value)
         End AddHandler
@@ -379,7 +380,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveGiveWizard As EventHandler(Of GiveWizard_ReceiveMessage)
+    Public Custom Event OnReceiveGiveWizard As EventHandler(Of GiveWizard_ReceiveMessage) Implements IConnection(Of P).OnReceiveGiveWizard
         AddHandler(value As EventHandler(Of GiveWizard_ReceiveMessage))
             myEvents.Add("OnReceiveGiveWizard", value)
         End AddHandler
@@ -400,7 +401,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveGodMode As EventHandler(Of GodMode_ReceiveMessage)
+    Public Custom Event OnReceiveGodMode As EventHandler(Of GodMode_ReceiveMessage) Implements IConnection(Of P).OnReceiveGodMode
         AddHandler(value As EventHandler(Of GodMode_ReceiveMessage))
             myEvents.Add("OnReceiveGodMode", value)
         End AddHandler
@@ -411,7 +412,7 @@
 
         RaiseEvent(sender As Object, e As GodMode_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of Godmode_ReceiveMessage) = CType(myEvents("OnReceiveGodMode"), EventHandler(Of Godmode_ReceiveMessage))
+                Dim myEvent As EventHandler(Of GodMode_ReceiveMessage) = CType(myEvents("OnReceiveGodMode"), EventHandler(Of GodMode_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -421,7 +422,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveGroupDisallowedJoin As EventHandler(Of GroupDisallowedJoin_ReceiveMessage)
+    Public Custom Event OnReceiveGroupDisallowedJoin As EventHandler(Of GroupDisallowedJoin_ReceiveMessage) Implements IConnection(Of P).OnReceiveGroupDisallowedJoin
         AddHandler(value As EventHandler(Of GroupDisallowedJoin_ReceiveMessage))
             myEvents.Add("OnReceiveGroupDisallowedJoin", value)
         End AddHandler
@@ -442,7 +443,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveHideKey As EventHandler(Of HideKey_ReceiveMessage)
+    Public Custom Event OnReceiveHideKey As EventHandler(Of HideKey_ReceiveMessage) Implements IConnection(Of P).OnReceiveHideKey
         AddHandler(value As EventHandler(Of HideKey_ReceiveMessage))
             myEvents.Add("OnReceiveHideKey", value)
         End AddHandler
@@ -463,7 +464,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveInfo As EventHandler(Of Info_ReceiveMessage)
+    Public Custom Event OnReceiveInfo As EventHandler(Of Info_ReceiveMessage) Implements IConnection(Of P).OnReceiveInfo
         AddHandler(value As EventHandler(Of Info_ReceiveMessage))
             myEvents.Add("OnReceiveInfo", value)
         End AddHandler
@@ -484,7 +485,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveInit As EventHandler(Of Init_ReceiveMessage)
+    Public Custom Event OnReceiveInit As EventHandler(Of Init_ReceiveMessage) Implements IConnection(Of P).OnReceiveInit
         AddHandler(value As EventHandler(Of Init_ReceiveMessage))
             myEvents.Add("OnReceiveInit", value)
         End AddHandler
@@ -505,7 +506,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveLabelPlace As EventHandler(Of LabelPlace_ReceiveMessage)
+    Public Custom Event OnReceiveLabelPlace As EventHandler(Of LabelPlace_ReceiveMessage) Implements IConnection(Of P).OnReceiveLabelPlace
         AddHandler(value As EventHandler(Of LabelPlace_ReceiveMessage))
             myEvents.Add("OnReceiveLabelPlace", value)
         End AddHandler
@@ -526,7 +527,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveLeft As EventHandler(Of Left_ReceiveMessage)
+    Public Custom Event OnReceiveLeft As EventHandler(Of Left_ReceiveMessage) Implements IConnection(Of P).OnReceiveLeft
         AddHandler(value As EventHandler(Of Left_ReceiveMessage))
             myEvents.Add("OnReceiveLeft", value)
         End AddHandler
@@ -547,7 +548,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveLostAccess As EventHandler(Of LostAccess_ReceiveMessage)
+    Public Custom Event OnReceiveLostAccess As EventHandler(Of LostAccess_ReceiveMessage) Implements IConnection(Of P).OnReceiveLostAccess
         AddHandler(value As EventHandler(Of LostAccess_ReceiveMessage))
             myEvents.Add("OnReceiveLostAccess", value)
         End AddHandler
@@ -568,7 +569,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveModMode As EventHandler(Of ModMode_ReceiveMessage)
+    Public Custom Event OnReceiveModMode As EventHandler(Of ModMode_ReceiveMessage) Implements IConnection(Of P).OnReceiveModMode
         AddHandler(value As EventHandler(Of ModMode_ReceiveMessage))
             myEvents.Add("OnReceiveModMode", value)
         End AddHandler
@@ -579,7 +580,7 @@
 
         RaiseEvent(sender As Object, e As ModMode_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of Modmode_ReceiveMessage) = CType(myEvents("OnReceiveModMode"), EventHandler(Of Modmode_ReceiveMessage))
+                Dim myEvent As EventHandler(Of ModMode_ReceiveMessage) = CType(myEvents("OnReceiveModMode"), EventHandler(Of ModMode_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -589,7 +590,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveMove As EventHandler(Of Move_ReceiveMessage)
+    Public Custom Event OnReceiveMove As EventHandler(Of Move_ReceiveMessage) Implements IConnection(Of P).OnReceiveMove
         AddHandler(value As EventHandler(Of Move_ReceiveMessage))
             myEvents.Add("OnReceiveMove", value)
         End AddHandler
@@ -610,7 +611,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceivePortalPlace As EventHandler(Of PortalPlace_ReceiveMessage)
+    Public Custom Event OnReceivePortalPlace As EventHandler(Of PortalPlace_ReceiveMessage) Implements IConnection(Of P).OnReceivePortalPlace
         AddHandler(value As EventHandler(Of PortalPlace_ReceiveMessage))
             myEvents.Add("OnReceivePortalPlace", value)
         End AddHandler
@@ -631,7 +632,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveRefreshShop As EventHandler(Of RefreshShop_ReceiveMessage)
+    Public Custom Event OnReceiveRefreshShop As EventHandler(Of RefreshShop_ReceiveMessage) Implements IConnection(Of P).OnReceiveRefreshShop
         AddHandler(value As EventHandler(Of RefreshShop_ReceiveMessage))
             myEvents.Add("OnReceiveRefreshShop", value)
         End AddHandler
@@ -652,7 +653,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveReset As EventHandler(Of Reset_ReceiveMessage)
+    Public Custom Event OnReceiveReset As EventHandler(Of Reset_ReceiveMessage) Implements IConnection(Of P).OnReceiveReset
         AddHandler(value As EventHandler(Of Reset_ReceiveMessage))
             myEvents.Add("OnReceiveReset", value)
         End AddHandler
@@ -673,7 +674,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveSaveDone As EventHandler(Of SaveDone_ReceiveMessage)
+    Public Custom Event OnReceiveSaveDone As EventHandler(Of SaveDone_ReceiveMessage) Implements IConnection(Of P).OnReceiveSaveDone
         AddHandler(value As EventHandler(Of SaveDone_ReceiveMessage))
             myEvents.Add("OnReceiveSaveDone", value)
         End AddHandler
@@ -694,7 +695,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveSay As EventHandler(Of Say_ReceiveMessage)
+    Public Custom Event OnReceiveSay As EventHandler(Of Say_ReceiveMessage) Implements IConnection(Of P).OnReceiveSay
         AddHandler(value As EventHandler(Of Say_ReceiveMessage))
             myEvents.Add("OnReceiveSay", value)
         End AddHandler
@@ -715,7 +716,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveSayOld As EventHandler(Of SayOld_ReceiveMessage)
+    Public Custom Event OnReceiveSayOld As EventHandler(Of SayOld_ReceiveMessage) Implements IConnection(Of P).OnReceiveSayOld
         AddHandler(value As EventHandler(Of SayOld_ReceiveMessage))
             myEvents.Add("OnReceiveSayOld", value)
         End AddHandler
@@ -736,7 +737,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveShowKey As EventHandler(Of ShowKey_ReceiveMessage)
+    Public Custom Event OnReceiveShowKey As EventHandler(Of ShowKey_ReceiveMessage) Implements IConnection(Of P).OnReceiveShowKey
         AddHandler(value As EventHandler(Of ShowKey_ReceiveMessage))
             myEvents.Add("OnReceiveShowKey", value)
         End AddHandler
@@ -757,7 +758,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveSilverCrown As EventHandler(Of SilverCrown_ReceiveMessage)
+    Public Custom Event OnReceiveSilverCrown As EventHandler(Of SilverCrown_ReceiveMessage) Implements IConnection(Of P).OnReceiveSilverCrown
         AddHandler(value As EventHandler(Of SilverCrown_ReceiveMessage))
             myEvents.Add("OnReceiveSilverCrown", value)
         End AddHandler
@@ -778,7 +779,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveSoundPlace As EventHandler(Of SoundPlace_ReceiveMessage)
+    Public Custom Event OnReceiveSoundPlace As EventHandler(Of SoundPlace_ReceiveMessage) Implements IConnection(Of P).OnReceiveSoundPlace
         AddHandler(value As EventHandler(Of SoundPlace_ReceiveMessage))
             myEvents.Add("OnReceiveSoundPlace", value)
         End AddHandler
@@ -799,7 +800,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveTeleport As EventHandler(Of Teleport_ReceiveMessage)
+    Public Custom Event OnReceiveTeleport As EventHandler(Of Teleport_ReceiveMessage) Implements IConnection(Of P).OnReceiveTeleport
         AddHandler(value As EventHandler(Of Teleport_ReceiveMessage))
             myEvents.Add("OnReceiveTeleport", value)
         End AddHandler
@@ -820,7 +821,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveUpdateMeta As EventHandler(Of UpdateMeta_ReceiveMessage)
+    Public Custom Event OnReceiveUpdateMeta As EventHandler(Of UpdateMeta_ReceiveMessage) Implements IConnection(Of P).OnReceiveUpdateMeta
         AddHandler(value As EventHandler(Of UpdateMeta_ReceiveMessage))
             myEvents.Add("OnReceiveUpdateMeta", value)
         End AddHandler
@@ -841,7 +842,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveUpgrade As EventHandler(Of Upgrade_ReceiveMessage)
+    Public Custom Event OnReceiveUpgrade As EventHandler(Of Upgrade_ReceiveMessage) Implements IConnection(Of P).OnReceiveUpgrade
         AddHandler(value As EventHandler(Of Upgrade_ReceiveMessage))
             myEvents.Add("OnReceiveUpgrade", value)
         End AddHandler
@@ -862,7 +863,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReceiveWrite As EventHandler(Of Write_ReceiveMessage)
+    Public Custom Event OnReceiveWrite As EventHandler(Of Write_ReceiveMessage) Implements IConnection(Of P).OnReceiveWrite
         AddHandler(value As EventHandler(Of Write_ReceiveMessage))
             myEvents.Add("OnReceiveWrite", value)
         End AddHandler
@@ -883,7 +884,7 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendMessage As EventHandler(Of SendMessage)
+    Public Custom Event OnSendMessage As EventHandler(Of SendMessage) Implements IConnection(Of P).OnSendMessage
         AddHandler(value As EventHandler(Of SendMessage))
             myEvents.Add("OnSendMessage", value)
         End AddHandler
@@ -904,18 +905,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendInit As EventHandler(Of OnSendMessageEventArgs(Of Init_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of Init_SendMessage)))
+    Public Custom Event OnSendInit As EventHandler(Of SendEventArgs(Of Init_SendMessage)) Implements IConnection(Of P).OnSendInit
+        AddHandler(value As EventHandler(Of SendEventArgs(Of Init_SendMessage)))
             myEvents.Add("OnSendInit", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of Init_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of Init_SendMessage)))
             myEvents.Remove("OnSendInit", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of Init_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of Init_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of Init_SendMessage)) = CType(myEvents("OnSendInit"), EventHandler(Of OnSendMessageEventArgs(Of Init_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of Init_SendMessage)) = CType(myEvents("OnSendInit"), EventHandler(Of SendEventArgs(Of Init_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -925,18 +926,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendInit2 As EventHandler(Of OnSendMessageEventArgs(Of Init2_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of Init2_SendMessage)))
+    Public Custom Event OnSendInit2 As EventHandler(Of SendEventArgs(Of Init2_SendMessage)) Implements IConnection(Of P).OnSendInit2
+        AddHandler(value As EventHandler(Of SendEventArgs(Of Init2_SendMessage)))
             myEvents.Add("OnSendInit2", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of Init2_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of Init2_SendMessage)))
             myEvents.Remove("OnSendInit2", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of Init2_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of Init2_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of Init2_SendMessage)) = CType(myEvents("OnSendInit2"), EventHandler(Of OnSendMessageEventArgs(Of Init2_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of Init2_SendMessage)) = CType(myEvents("OnSendInit2"), EventHandler(Of SendEventArgs(Of Init2_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -946,18 +947,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendBlockPlace As EventHandler(Of OnSendMessageEventArgs(Of BlockPlace_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of BlockPlace_SendMessage)))
+    Public Custom Event OnSendBlockPlace As EventHandler(Of SendEventArgs(Of BlockPlace_SendMessage)) Implements IConnection(Of P).OnSendBlockPlace
+        AddHandler(value As EventHandler(Of SendEventArgs(Of BlockPlace_SendMessage)))
             myEvents.Add("OnSendBlockPlace", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of BlockPlace_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of BlockPlace_SendMessage)))
             myEvents.Remove("OnSendBlockPlace", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of BlockPlace_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of BlockPlace_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of BlockPlace_SendMessage)) = CType(myEvents("OnSendBlockPlace"), EventHandler(Of OnSendMessageEventArgs(Of BlockPlace_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of BlockPlace_SendMessage)) = CType(myEvents("OnSendBlockPlace"), EventHandler(Of SendEventArgs(Of BlockPlace_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -967,18 +968,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendCoindoorPlace As EventHandler(Of OnSendMessageEventArgs(Of CoinDoorPlace_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of CoinDoorPlace_SendMessage)))
+    Public Custom Event OnSendCoindoorPlace As EventHandler(Of SendEventArgs(Of CoinDoorPlace_SendMessage)) Implements IConnection(Of P).OnSendCoindoorPlace
+        AddHandler(value As EventHandler(Of SendEventArgs(Of CoinDoorPlace_SendMessage)))
             myEvents.Add("OnSendCoindoorPlace", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of CoinDoorPlace_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of CoinDoorPlace_SendMessage)))
             myEvents.Remove("OnSendCoindoorPlace", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of CoinDoorPlace_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of CoinDoorPlace_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of CoinDoorPlace_SendMessage)) = CType(myEvents("OnSendCoindoorPlace"), EventHandler(Of OnSendMessageEventArgs(Of CoinDoorPlace_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of CoinDoorPlace_SendMessage)) = CType(myEvents("OnSendCoindoorPlace"), EventHandler(Of SendEventArgs(Of CoinDoorPlace_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -988,18 +989,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendSoundPlace As EventHandler(Of OnSendMessageEventArgs(Of SoundPlace_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of SoundPlace_SendMessage)))
+    Public Custom Event OnSendSoundPlace As EventHandler(Of SendEventArgs(Of SoundPlace_SendMessage)) Implements IConnection(Of P).OnSendSoundPlace
+        AddHandler(value As EventHandler(Of SendEventArgs(Of SoundPlace_SendMessage)))
             myEvents.Add("OnSendSoundPlace", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of SoundPlace_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of SoundPlace_SendMessage)))
             myEvents.Remove("OnSendSoundPlace", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of SoundPlace_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of SoundPlace_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of SoundPlace_SendMessage)) = CType(myEvents("OnSendSoundPlace"), EventHandler(Of OnSendMessageEventArgs(Of SoundPlace_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of SoundPlace_SendMessage)) = CType(myEvents("OnSendSoundPlace"), EventHandler(Of SendEventArgs(Of SoundPlace_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -1009,18 +1010,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendPortalPlace As EventHandler(Of OnSendMessageEventArgs(Of PortalPlace_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of PortalPlace_SendMessage)))
+    Public Custom Event OnSendPortalPlace As EventHandler(Of SendEventArgs(Of PortalPlace_SendMessage)) Implements IConnection(Of P).OnSendPortalPlace
+        AddHandler(value As EventHandler(Of SendEventArgs(Of PortalPlace_SendMessage)))
             myEvents.Add("OnSendPortalPlace", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of PortalPlace_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of PortalPlace_SendMessage)))
             myEvents.Remove("OnSendPortalPlace", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of PortalPlace_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of PortalPlace_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of PortalPlace_SendMessage)) = CType(myEvents("OnSendPortalPlace"), EventHandler(Of OnSendMessageEventArgs(Of PortalPlace_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of PortalPlace_SendMessage)) = CType(myEvents("OnSendPortalPlace"), EventHandler(Of SendEventArgs(Of PortalPlace_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -1030,18 +1031,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendLabelPlace As EventHandler(Of OnSendMessageEventArgs(Of LabelPlace_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of LabelPlace_SendMessage)))
+    Public Custom Event OnSendLabelPlace As EventHandler(Of SendEventArgs(Of LabelPlace_SendMessage)) Implements IConnection(Of P).OnSendLabelPlace
+        AddHandler(value As EventHandler(Of SendEventArgs(Of LabelPlace_SendMessage)))
             myEvents.Add("OnSendLabelPlace", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of LabelPlace_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of LabelPlace_SendMessage)))
             myEvents.Remove("OnSendLabelPlace", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of LabelPlace_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of LabelPlace_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of LabelPlace_SendMessage)) = CType(myEvents("OnSendLabelPlace"), EventHandler(Of OnSendMessageEventArgs(Of LabelPlace_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of LabelPlace_SendMessage)) = CType(myEvents("OnSendLabelPlace"), EventHandler(Of SendEventArgs(Of LabelPlace_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -1051,18 +1052,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendCoin As EventHandler(Of OnSendMessageEventArgs(Of Coin_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of Coin_SendMessage)))
+    Public Custom Event OnSendCoin As EventHandler(Of SendEventArgs(Of Coin_SendMessage)) Implements IConnection(Of P).OnSendCoin
+        AddHandler(value As EventHandler(Of SendEventArgs(Of Coin_SendMessage)))
             myEvents.Add("OnSendCoin", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of Coin_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of Coin_SendMessage)))
             myEvents.Remove("OnSendCoin", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of Coin_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of Coin_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of Coin_SendMessage)) = CType(myEvents("OnSendCoin"), EventHandler(Of OnSendMessageEventArgs(Of Coin_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of Coin_SendMessage)) = CType(myEvents("OnSendCoin"), EventHandler(Of SendEventArgs(Of Coin_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -1072,18 +1073,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendPressRedKey As EventHandler(Of OnSendMessageEventArgs(Of PressRedKey_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of PressRedKey_SendMessage)))
+    Public Custom Event OnSendPressRedKey As EventHandler(Of SendEventArgs(Of PressRedKey_SendMessage)) Implements IConnection(Of P).OnSendPressRedKey
+        AddHandler(value As EventHandler(Of SendEventArgs(Of PressRedKey_SendMessage)))
             myEvents.Add("OnSendPressRedKey", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of PressRedKey_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of PressRedKey_SendMessage)))
             myEvents.Remove("OnSendPressRedKey", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of PressRedKey_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of PressRedKey_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of PressRedKey_SendMessage)) = CType(myEvents("OnSendPressRedKey"), EventHandler(Of OnSendMessageEventArgs(Of PressRedKey_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of PressRedKey_SendMessage)) = CType(myEvents("OnSendPressRedKey"), EventHandler(Of SendEventArgs(Of PressRedKey_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -1093,18 +1094,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendPressGreenKey As EventHandler(Of OnSendMessageEventArgs(Of PressGreenKey_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of PressGreenKey_SendMessage)))
+    Public Custom Event OnSendPressGreenKey As EventHandler(Of SendEventArgs(Of PressGreenKey_SendMessage)) Implements IConnection(Of P).OnSendPressGreenKey
+        AddHandler(value As EventHandler(Of SendEventArgs(Of PressGreenKey_SendMessage)))
             myEvents.Add("OnSendPressGreenKey", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of PressGreenKey_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of PressGreenKey_SendMessage)))
             myEvents.Remove("OnSendPressGreenKey", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of PressGreenKey_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of PressGreenKey_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of PressGreenKey_SendMessage)) = CType(myEvents("OnSendPressGreenKey"), EventHandler(Of OnSendMessageEventArgs(Of PressGreenKey_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of PressGreenKey_SendMessage)) = CType(myEvents("OnSendPressGreenKey"), EventHandler(Of SendEventArgs(Of PressGreenKey_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -1114,18 +1115,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendPressBlueKey As EventHandler(Of OnSendMessageEventArgs(Of PressBlueKey_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of PressBlueKey_SendMessage)))
+    Public Custom Event OnSendPressBlueKey As EventHandler(Of SendEventArgs(Of PressBlueKey_SendMessage)) Implements IConnection(Of P).OnSendPressBlueKey
+        AddHandler(value As EventHandler(Of SendEventArgs(Of PressBlueKey_SendMessage)))
             myEvents.Add("OnSendPressBlueKey", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of PressBlueKey_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of PressBlueKey_SendMessage)))
             myEvents.Remove("OnSendPressBlueKey", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of PressBlueKey_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of PressBlueKey_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of PressBlueKey_SendMessage)) = CType(myEvents("OnSendPressBlueKey"), EventHandler(Of OnSendMessageEventArgs(Of PressBlueKey_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of PressBlueKey_SendMessage)) = CType(myEvents("OnSendPressBlueKey"), EventHandler(Of SendEventArgs(Of PressBlueKey_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -1135,18 +1136,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendGetCrown As EventHandler(Of OnSendMessageEventArgs(Of GetCrown_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of GetCrown_SendMessage)))
+    Public Custom Event OnSendGetCrown As EventHandler(Of SendEventArgs(Of GetCrown_SendMessage)) Implements IConnection(Of P).OnSendGetCrown
+        AddHandler(value As EventHandler(Of SendEventArgs(Of GetCrown_SendMessage)))
             myEvents.Add("OnSendGetCrown", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of GetCrown_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of GetCrown_SendMessage)))
             myEvents.Remove("OnSendGetCrown", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of GetCrown_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of GetCrown_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of GetCrown_SendMessage)) = CType(myEvents("OnSendGetCrown"), EventHandler(Of OnSendMessageEventArgs(Of GetCrown_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of GetCrown_SendMessage)) = CType(myEvents("OnSendGetCrown"), EventHandler(Of SendEventArgs(Of GetCrown_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -1156,18 +1157,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendTouchDiamond As EventHandler(Of OnSendMessageEventArgs(Of TouchDiamond_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of TouchDiamond_SendMessage)))
+    Public Custom Event OnSendTouchDiamond As EventHandler(Of SendEventArgs(Of TouchDiamond_SendMessage)) Implements IConnection(Of P).OnSendTouchDiamond
+        AddHandler(value As EventHandler(Of SendEventArgs(Of TouchDiamond_SendMessage)))
             myEvents.Add("OnSendTouchDiamond", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of TouchDiamond_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of TouchDiamond_SendMessage)))
             myEvents.Remove("OnSendTouchDiamond", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of TouchDiamond_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of TouchDiamond_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of TouchDiamond_SendMessage)) = CType(myEvents("OnSendTouchDiamond"), EventHandler(Of OnSendMessageEventArgs(Of TouchDiamond_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of TouchDiamond_SendMessage)) = CType(myEvents("OnSendTouchDiamond"), EventHandler(Of SendEventArgs(Of TouchDiamond_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -1177,18 +1178,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendCompleteLevel As EventHandler(Of OnSendMessageEventArgs(Of CompleteLevel_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of CompleteLevel_SendMessage)))
+    Public Custom Event OnSendCompleteLevel As EventHandler(Of SendEventArgs(Of CompleteLevel_SendMessage)) Implements IConnection(Of P).OnSendCompleteLevel
+        AddHandler(value As EventHandler(Of SendEventArgs(Of CompleteLevel_SendMessage)))
             myEvents.Add("OnSendCompleteLevel", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of CompleteLevel_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of CompleteLevel_SendMessage)))
             myEvents.Remove("OnSendCompleteLevel", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of CompleteLevel_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of CompleteLevel_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of CompleteLevel_SendMessage)) = CType(myEvents("OnSendCompleteLevel"), EventHandler(Of OnSendMessageEventArgs(Of CompleteLevel_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of CompleteLevel_SendMessage)) = CType(myEvents("OnSendCompleteLevel"), EventHandler(Of SendEventArgs(Of CompleteLevel_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -1198,18 +1199,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendGodMode As EventHandler(Of OnSendMessageEventArgs(Of GodMode_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of GodMode_SendMessage)))
+    Public Custom Event OnSendGodMode As EventHandler(Of SendEventArgs(Of GodMode_SendMessage)) Implements IConnection(Of P).OnSendGodMode
+        AddHandler(value As EventHandler(Of SendEventArgs(Of GodMode_SendMessage)))
             myEvents.Add("OnSendGodMode", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of GodMode_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of GodMode_SendMessage)))
             myEvents.Remove("OnSendGodMode", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of GodMode_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of GodMode_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of GodMode_SendMessage)) = CType(myEvents("OnSendGodMode"), EventHandler(Of OnSendMessageEventArgs(Of GodMode_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of GodMode_SendMessage)) = CType(myEvents("OnSendGodMode"), EventHandler(Of SendEventArgs(Of GodMode_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -1219,18 +1220,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendModMode As EventHandler(Of OnSendMessageEventArgs(Of ModMode_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of ModMode_SendMessage)))
+    Public Custom Event OnSendModMode As EventHandler(Of SendEventArgs(Of ModMode_SendMessage)) Implements IConnection(Of P).OnSendModMode
+        AddHandler(value As EventHandler(Of SendEventArgs(Of ModMode_SendMessage)))
             myEvents.Add("OnSendModMode", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of ModMode_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of ModMode_SendMessage)))
             myEvents.Remove("OnSendModMode", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of ModMode_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of ModMode_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of ModMode_SendMessage)) = CType(myEvents("OnSendModMode"), EventHandler(Of OnSendMessageEventArgs(Of ModMode_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of ModMode_SendMessage)) = CType(myEvents("OnSendModMode"), EventHandler(Of SendEventArgs(Of ModMode_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -1240,18 +1241,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendMove As EventHandler(Of OnSendMessageEventArgs(Of Move_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of Move_SendMessage)))
+    Public Custom Event OnSendMove As EventHandler(Of SendEventArgs(Of Move_SendMessage)) Implements IConnection(Of P).OnSendMove
+        AddHandler(value As EventHandler(Of SendEventArgs(Of Move_SendMessage)))
             myEvents.Add("OnSendMove", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of Move_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of Move_SendMessage)))
             myEvents.Remove("OnSendMove", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of Move_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of Move_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of Move_SendMessage)) = CType(myEvents("OnSendMove"), EventHandler(Of OnSendMessageEventArgs(Of Move_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of Move_SendMessage)) = CType(myEvents("OnSendMove"), EventHandler(Of SendEventArgs(Of Move_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -1261,18 +1262,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendSay As EventHandler(Of OnSendMessageEventArgs(Of Say_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of Say_SendMessage)))
+    Public Custom Event OnSendSay As EventHandler(Of SendEventArgs(Of Say_SendMessage)) Implements IConnection(Of P).OnSendSay
+        AddHandler(value As EventHandler(Of SendEventArgs(Of Say_SendMessage)))
             myEvents.Add("OnSendSay", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of Say_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of Say_SendMessage)))
             myEvents.Remove("OnSendSay", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of Say_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of Say_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of Say_SendMessage)) = CType(myEvents("OnSendSay"), EventHandler(Of OnSendMessageEventArgs(Of Say_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of Say_SendMessage)) = CType(myEvents("OnSendSay"), EventHandler(Of SendEventArgs(Of Say_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -1282,18 +1283,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendAutoSay As EventHandler(Of OnSendMessageEventArgs(Of AutoSay_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of AutoSay_SendMessage)))
+    Public Custom Event OnSendAutoSay As EventHandler(Of SendEventArgs(Of AutoSay_SendMessage)) Implements IConnection(Of P).OnSendAutoSay
+        AddHandler(value As EventHandler(Of SendEventArgs(Of AutoSay_SendMessage)))
             myEvents.Add("OnSendAutoSay", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of AutoSay_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of AutoSay_SendMessage)))
             myEvents.Remove("OnSendAutoSay", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of AutoSay_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of AutoSay_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of AutoSay_SendMessage)) = CType(myEvents("OnSendAutoSay"), EventHandler(Of OnSendMessageEventArgs(Of AutoSay_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of AutoSay_SendMessage)) = CType(myEvents("OnSendAutoSay"), EventHandler(Of SendEventArgs(Of AutoSay_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -1303,18 +1304,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendAccess As EventHandler(Of OnSendMessageEventArgs(Of Access_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of Access_SendMessage)))
+    Public Custom Event OnSendAccess As EventHandler(Of SendEventArgs(Of Access_SendMessage)) Implements IConnection(Of P).OnSendAccess
+        AddHandler(value As EventHandler(Of SendEventArgs(Of Access_SendMessage)))
             myEvents.Add("OnSendAccess", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of Access_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of Access_SendMessage)))
             myEvents.Remove("OnSendAccess", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of Access_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of Access_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of Access_SendMessage)) = CType(myEvents("OnSendAccess"), EventHandler(Of OnSendMessageEventArgs(Of Access_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of Access_SendMessage)) = CType(myEvents("OnSendAccess"), EventHandler(Of SendEventArgs(Of Access_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -1324,18 +1325,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendChangeFace As EventHandler(Of OnSendMessageEventArgs(Of ChangeFace_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of ChangeFace_SendMessage)))
+    Public Custom Event OnSendChangeFace As EventHandler(Of SendEventArgs(Of ChangeFace_SendMessage)) Implements IConnection(Of P).OnSendChangeFace
+        AddHandler(value As EventHandler(Of SendEventArgs(Of ChangeFace_SendMessage)))
             myEvents.Add("OnSendChangeFace", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of ChangeFace_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of ChangeFace_SendMessage)))
             myEvents.Remove("OnSendChangeFace", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of ChangeFace_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of ChangeFace_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of ChangeFace_SendMessage)) = CType(myEvents("OnSendChangeFace"), EventHandler(Of OnSendMessageEventArgs(Of ChangeFace_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of ChangeFace_SendMessage)) = CType(myEvents("OnSendChangeFace"), EventHandler(Of SendEventArgs(Of ChangeFace_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -1345,18 +1346,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendSaveWorld As EventHandler(Of OnSendMessageEventArgs(Of SaveWorld_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of SaveWorld_SendMessage)))
+    Public Custom Event OnSendSaveWorld As EventHandler(Of SendEventArgs(Of SaveWorld_SendMessage)) Implements IConnection(Of P).OnSendSaveWorld
+        AddHandler(value As EventHandler(Of SendEventArgs(Of SaveWorld_SendMessage)))
             myEvents.Add("OnSendSaveWorld", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of SaveWorld_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of SaveWorld_SendMessage)))
             myEvents.Remove("OnSendSaveWorld", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of SaveWorld_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of SaveWorld_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of SaveWorld_SendMessage)) = CType(myEvents("OnSendSaveWorld"), EventHandler(Of OnSendMessageEventArgs(Of SaveWorld_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of SaveWorld_SendMessage)) = CType(myEvents("OnSendSaveWorld"), EventHandler(Of SendEventArgs(Of SaveWorld_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -1366,18 +1367,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendChangeWorldName As EventHandler(Of OnSendMessageEventArgs(Of ChangeWorldName_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of ChangeWorldName_SendMessage)))
+    Public Custom Event OnSendChangeWorldName As EventHandler(Of SendEventArgs(Of ChangeWorldName_SendMessage)) Implements IConnection(Of P).OnSendChangeWorldName
+        AddHandler(value As EventHandler(Of SendEventArgs(Of ChangeWorldName_SendMessage)))
             myEvents.Add("OnSendChangeWorldName", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of ChangeWorldName_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of ChangeWorldName_SendMessage)))
             myEvents.Remove("OnSendChangeWorldName", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of ChangeWorldName_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of ChangeWorldName_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of ChangeWorldName_SendMessage)) = CType(myEvents("OnSendChangeWorldName"), EventHandler(Of OnSendMessageEventArgs(Of ChangeWorldName_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of ChangeWorldName_SendMessage)) = CType(myEvents("OnSendChangeWorldName"), EventHandler(Of SendEventArgs(Of ChangeWorldName_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -1387,18 +1388,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendChangeWorldEditKey As EventHandler(Of OnSendMessageEventArgs(Of ChangeWorldEditKey_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of ChangeWorldEditKey_SendMessage)))
+    Public Custom Event OnSendChangeWorldEditKey As EventHandler(Of SendEventArgs(Of ChangeWorldEditKey_SendMessage)) Implements IConnection(Of P).OnSendChangeWorldEditKey
+        AddHandler(value As EventHandler(Of SendEventArgs(Of ChangeWorldEditKey_SendMessage)))
             myEvents.Add("OnSendChangeWorldEditKey", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of ChangeWorldEditKey_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of ChangeWorldEditKey_SendMessage)))
             myEvents.Remove("OnSendChangeWorldEditKey", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of ChangeWorldEditKey_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of ChangeWorldEditKey_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of ChangeWorldEditKey_SendMessage)) = CType(myEvents("OnSendChangeWorldEditKey"), EventHandler(Of OnSendMessageEventArgs(Of ChangeWorldEditKey_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of ChangeWorldEditKey_SendMessage)) = CType(myEvents("OnSendChangeWorldEditKey"), EventHandler(Of SendEventArgs(Of ChangeWorldEditKey_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -1408,18 +1409,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendClearWorld As EventHandler(Of OnSendMessageEventArgs(Of ClearWorld_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of ClearWorld_SendMessage)))
+    Public Custom Event OnSendClearWorld As EventHandler(Of SendEventArgs(Of ClearWorld_SendMessage)) Implements IConnection(Of P).OnSendClearWorld
+        AddHandler(value As EventHandler(Of SendEventArgs(Of ClearWorld_SendMessage)))
             myEvents.Add("OnSendClearWorld", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of ClearWorld_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of ClearWorld_SendMessage)))
             myEvents.Remove("OnSendClearWorld", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of ClearWorld_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of ClearWorld_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of ClearWorld_SendMessage)) = CType(myEvents("OnSendClearWorld"), EventHandler(Of OnSendMessageEventArgs(Of ClearWorld_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of ClearWorld_SendMessage)) = CType(myEvents("OnSendClearWorld"), EventHandler(Of SendEventArgs(Of ClearWorld_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -1429,18 +1430,18 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnSendKillWorld As EventHandler(Of OnSendMessageEventArgs(Of KillWorld_SendMessage))
-        AddHandler(value As EventHandler(Of OnSendMessageEventArgs(Of KillWorld_SendMessage)))
+    Public Custom Event OnSendKillWorld As EventHandler(Of SendEventArgs(Of KillWorld_SendMessage)) Implements IConnection(Of P).OnSendKillWorld
+        AddHandler(value As EventHandler(Of SendEventArgs(Of KillWorld_SendMessage)))
             myEvents.Add("OnSendKillWorld", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of OnSendMessageEventArgs(Of KillWorld_SendMessage)))
+        RemoveHandler(value As EventHandler(Of SendEventArgs(Of KillWorld_SendMessage)))
             myEvents.Remove("OnSendKillWorld", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As OnSendMessageEventArgs(Of KillWorld_SendMessage))
+        RaiseEvent(sender As Object, e As SendEventArgs(Of KillWorld_SendMessage))
             Try
-                Dim myEvent As EventHandler(Of OnSendMessageEventArgs(Of KillWorld_SendMessage)) = CType(myEvents("OnSendKillWorld"), EventHandler(Of OnSendMessageEventArgs(Of KillWorld_SendMessage)))
+                Dim myEvent As EventHandler(Of SendEventArgs(Of KillWorld_SendMessage)) = CType(myEvents("OnSendKillWorld"), EventHandler(Of SendEventArgs(Of KillWorld_SendMessage)))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
@@ -1452,7 +1453,7 @@
 #End Region
 
 #Region "Methods"
-    Friend Sub New(bot As IBot, internalConnection As IInternalConnection)
+    Friend Sub New(bot As IBot, internalConnection As InternalConnection)
         myBot = bot
         myInternalConnection = internalConnection
     End Sub
@@ -1572,12 +1573,12 @@
                 RaiseEvent OnReceiveLabelPlace(Me, m)
                 RaiseEvent OnReceiveBlockPlace(Me, m)
 
-            Case GetType(Godmode_ReceiveMessage)
-                Dim m As Godmode_ReceiveMessage = CType(e, Godmode_ReceiveMessage)
+            Case GetType(GodMode_ReceiveMessage)
+                Dim m As GodMode_ReceiveMessage = CType(e, GodMode_ReceiveMessage)
                 RaiseEvent OnReceiveGodMode(Me, m)
 
-            Case GetType(Modmode_ReceiveMessage)
-                Dim m As Modmode_ReceiveMessage = CType(e, Modmode_ReceiveMessage)
+            Case GetType(ModMode_ReceiveMessage)
+                Dim m As ModMode_ReceiveMessage = CType(e, ModMode_ReceiveMessage)
                 RaiseEvent OnReceiveModMode(Me, m)
 
             Case GetType(Access_ReceiveMessage)
@@ -1637,140 +1638,140 @@
         RaiseEvent OnSendMessage(Me, message)
         Select Case message.GetType
             Case GetType(Init_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of Init_SendMessage)(CType(message, Init_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of Init_SendMessage)(CType(message, Init_SendMessage), myInternalConnection)
                 RaiseEvent OnSendInit(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(Init2_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of Init2_SendMessage)(CType(message, Init2_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of Init2_SendMessage)(CType(message, Init2_SendMessage), myInternalConnection)
                 RaiseEvent OnSendInit2(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(BlockPlace_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of BlockPlace_SendMessage)(CType(message, BlockPlace_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of BlockPlace_SendMessage)(CType(message, BlockPlace_SendMessage), myInternalConnection)
                 RaiseEvent OnSendBlockPlace(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(CoinDoorPlace_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of CoinDoorPlace_SendMessage)(CType(message, CoinDoorPlace_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of CoinDoorPlace_SendMessage)(CType(message, CoinDoorPlace_SendMessage), myInternalConnection)
                 RaiseEvent OnSendCoindoorPlace(Me, myEventArgs)
-                Dim myBlockEventArgs As New OnSendMessageEventArgs(Of BlockPlace_SendMessage)(CType(message, BlockPlace_SendMessage), myInternalConnection)
+                Dim myBlockEventArgs As New EESendEventArgs(Of BlockPlace_SendMessage)(CType(message, BlockPlace_SendMessage), myInternalConnection)
                 RaiseEvent OnSendBlockPlace(Me, myBlockEventArgs)
                 Return myEventArgs.Handled And myBlockEventArgs.Handled
 
             Case GetType(SoundPlace_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of SoundPlace_SendMessage)(CType(message, SoundPlace_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of SoundPlace_SendMessage)(CType(message, SoundPlace_SendMessage), myInternalConnection)
                 RaiseEvent OnSendSoundPlace(Me, myEventArgs)
-                Dim myBlockEventArgs As New OnSendMessageEventArgs(Of BlockPlace_SendMessage)(CType(message, BlockPlace_SendMessage), myInternalConnection)
+                Dim myBlockEventArgs As New EESendEventArgs(Of BlockPlace_SendMessage)(CType(message, BlockPlace_SendMessage), myInternalConnection)
                 RaiseEvent OnSendBlockPlace(Me, myBlockEventArgs)
                 Return myEventArgs.Handled And myBlockEventArgs.Handled
 
             Case GetType(PortalPlace_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of PortalPlace_SendMessage)(CType(message, PortalPlace_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of PortalPlace_SendMessage)(CType(message, PortalPlace_SendMessage), myInternalConnection)
                 RaiseEvent OnSendPortalPlace(Me, myEventArgs)
-                Dim myBlockEventArgs As New OnSendMessageEventArgs(Of BlockPlace_SendMessage)(CType(message, BlockPlace_SendMessage), myInternalConnection)
+                Dim myBlockEventArgs As New EESendEventArgs(Of BlockPlace_SendMessage)(CType(message, BlockPlace_SendMessage), myInternalConnection)
                 RaiseEvent OnSendBlockPlace(Me, myBlockEventArgs)
                 Return myEventArgs.Handled And myBlockEventArgs.Handled
 
             Case GetType(LabelPlace_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of LabelPlace_SendMessage)(CType(message, LabelPlace_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of LabelPlace_SendMessage)(CType(message, LabelPlace_SendMessage), myInternalConnection)
                 RaiseEvent OnSendLabelPlace(Me, myEventArgs)
-                Dim myBlockEventArgs As New OnSendMessageEventArgs(Of BlockPlace_SendMessage)(CType(message, BlockPlace_SendMessage), myInternalConnection)
+                Dim myBlockEventArgs As New EESendEventArgs(Of BlockPlace_SendMessage)(CType(message, BlockPlace_SendMessage), myInternalConnection)
                 RaiseEvent OnSendBlockPlace(Me, myBlockEventArgs)
                 Return myEventArgs.Handled And myBlockEventArgs.Handled
 
             Case GetType(Coin_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of Coin_SendMessage)(CType(message, Coin_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of Coin_SendMessage)(CType(message, Coin_SendMessage), myInternalConnection)
                 RaiseEvent OnSendCoin(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(PressRedKey_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of PressRedKey_SendMessage)(CType(message, PressRedKey_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of PressRedKey_SendMessage)(CType(message, PressRedKey_SendMessage), myInternalConnection)
                 RaiseEvent OnSendPressRedKey(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(PressGreenKey_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of PressGreenKey_SendMessage)(CType(message, PressGreenKey_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of PressGreenKey_SendMessage)(CType(message, PressGreenKey_SendMessage), myInternalConnection)
                 RaiseEvent OnSendPressGreenKey(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(PressBlueKey_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of PressBlueKey_SendMessage)(CType(message, PressBlueKey_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of PressBlueKey_SendMessage)(CType(message, PressBlueKey_SendMessage), myInternalConnection)
                 RaiseEvent OnSendPressBlueKey(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(GetCrown_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of GetCrown_SendMessage)(CType(message, GetCrown_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of GetCrown_SendMessage)(CType(message, GetCrown_SendMessage), myInternalConnection)
                 RaiseEvent OnSendGetCrown(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(TouchDiamond_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of TouchDiamond_SendMessage)(CType(message, TouchDiamond_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of TouchDiamond_SendMessage)(CType(message, TouchDiamond_SendMessage), myInternalConnection)
                 RaiseEvent OnSendTouchDiamond(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(CompleteLevel_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of CompleteLevel_SendMessage)(CType(message, CompleteLevel_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of CompleteLevel_SendMessage)(CType(message, CompleteLevel_SendMessage), myInternalConnection)
                 RaiseEvent OnSendCompleteLevel(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(GodMode_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of GodMode_SendMessage)(CType(message, GodMode_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of GodMode_SendMessage)(CType(message, GodMode_SendMessage), myInternalConnection)
                 RaiseEvent OnSendGodMode(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(ModMode_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of ModMode_SendMessage)(CType(message, ModMode_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of ModMode_SendMessage)(CType(message, ModMode_SendMessage), myInternalConnection)
                 RaiseEvent OnSendModMode(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(Move_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of Move_SendMessage)(CType(message, Move_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of Move_SendMessage)(CType(message, Move_SendMessage), myInternalConnection)
                 RaiseEvent OnSendMove(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(Say_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of Say_SendMessage)(CType(message, Say_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of Say_SendMessage)(CType(message, Say_SendMessage), myInternalConnection)
                 RaiseEvent OnSendSay(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(AutoSay_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of AutoSay_SendMessage)(CType(message, AutoSay_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of AutoSay_SendMessage)(CType(message, AutoSay_SendMessage), myInternalConnection)
                 RaiseEvent OnSendAutoSay(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(Access_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of Access_SendMessage)(CType(message, Access_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of Access_SendMessage)(CType(message, Access_SendMessage), myInternalConnection)
                 RaiseEvent OnSendAccess(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(ChangeFace_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of ChangeFace_SendMessage)(CType(message, ChangeFace_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of ChangeFace_SendMessage)(CType(message, ChangeFace_SendMessage), myInternalConnection)
                 RaiseEvent OnSendChangeFace(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(SaveWorld_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of SaveWorld_SendMessage)(CType(message, SaveWorld_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of SaveWorld_SendMessage)(CType(message, SaveWorld_SendMessage), myInternalConnection)
                 RaiseEvent OnSendSaveWorld(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(ChangeWorldName_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of ChangeWorldName_SendMessage)(CType(message, ChangeWorldName_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of ChangeWorldName_SendMessage)(CType(message, ChangeWorldName_SendMessage), myInternalConnection)
                 RaiseEvent OnSendChangeWorldName(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(ChangeWorldEditKey_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of ChangeWorldEditKey_SendMessage)(CType(message, ChangeWorldEditKey_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of ChangeWorldEditKey_SendMessage)(CType(message, ChangeWorldEditKey_SendMessage), myInternalConnection)
                 RaiseEvent OnSendChangeWorldEditKey(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(ClearWorld_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of ClearWorld_SendMessage)(CType(message, ClearWorld_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of ClearWorld_SendMessage)(CType(message, ClearWorld_SendMessage), myInternalConnection)
                 RaiseEvent OnSendClearWorld(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(KillWorld_SendMessage)
-                Dim myEventArgs As New OnSendMessageEventArgs(Of KillWorld_SendMessage)(CType(message, KillWorld_SendMessage), myInternalConnection)
+                Dim myEventArgs As New EESendEventArgs(Of KillWorld_SendMessage)(CType(message, KillWorld_SendMessage), myInternalConnection)
                 RaiseEvent OnSendKillWorld(Me, myEventArgs)
                 Return myEventArgs.Handled
             Case Else
@@ -1778,13 +1779,13 @@
         End Select
     End Function
 
-    Public Sub Send(message As SendMessage)
+    Public Sub Send(message As SendMessage) Implements IConnection(Of P).Send
         If Not RaiseSendEvent(message) Then
             myInternalConnection.Send(message)
         End If
     End Sub
 
-    Public Sub Disconnect()
+    Public Sub Disconnect() Implements IConnection(Of P).Disconnect
         myInternalConnection.Disconnect()
     End Sub
 #End Region

@@ -1,21 +1,21 @@
 ﻿Public MustInherit Class Plugin(Of P As {Player, New})
     Implements IPlugin
     Private myHost As IBot
-    Private myConnection As Connection(Of P)
+    Private myConnection As IConnection(Of P)
     Private myCommandManager As CommandManager
 
     Friend Sub SetupPlugin(host As IBot, isStartup As Boolean) Implements IPlugin.SetupPlugin
         myHost = host
         OnEnable()
         AddHandler myHost.OnConnect, AddressOf myHost_OnConnect
-        If host.Connection IsNot Nothing Then
+        If host.HasConnection Then
             myHost_OnConnect()
         End If
     End Sub
 
     Private Sub myHost_OnConnect()
-        myConnection = New Connection(Of P)(myHost, myHost.Connection)
-        myCommandManager = New CommandManager(myConnection.DefaultConnection, myHost, Me)
+        myConnection = myHost.GetConnection(Of P)()
+        myCommandManager = New CommandManager(myHost.GetDefaultConnection(Of P)(myConnection), myHost, Me)
         OnConnect(myConnection)
     End Sub
 
@@ -24,7 +24,7 @@
     End Sub
 
     Protected MustOverride Sub OnEnable()
-    Protected MustOverride Sub OnConnect(mainConnection As Connection(Of P))
+    Protected MustOverride Sub OnConnect(mainConnection As IConnection(Of P))
     Protected MustOverride Sub OnDisable()
 
     Protected ReadOnly Property AppEnvironment As AppEnvironment
@@ -77,7 +77,7 @@
         End Get
     End Property
 
-    Protected Sub Connect(username As String, password As String, worldID As String, successCallback As Action(Of Connection(Of P)), errorCallback As Action(Of EECloudException))
+    Protected Sub Connect(username As String, password As String, worldID As String, successCallback As Action(Of IConnection(Of P)), errorCallback As Action(Of EECloudException))
         Try
             myHost.Connect(Of P)(username, password, worldID, successCallback, errorCallback)
         Catch
