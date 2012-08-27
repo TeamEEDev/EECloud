@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>YoScroll_Plugin</RootNamespace>
-    <AssemblyName>Yo!Scroll Plugin</AssemblyName>
+    <RootNamespace>YoScrollPlugin</RootNamespace>
+    <AssemblyName>Yo!ScrollPlugin</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -69,7 +69,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Yo!Scroll Plugin.vb" />
+    <Compile Include="Yo!ScrollPlugin.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

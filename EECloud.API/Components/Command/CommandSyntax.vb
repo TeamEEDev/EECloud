@@ -4,12 +4,12 @@
     Friend Sub New(syntaxStr As String)
         Try
             Me.mySyntaxStr = syntaxStr
-            If Not mySyntaxStr.StartsWith("/command") Then
+            If Not mySyntaxStr.StartsWith("!command") Then
                 Throw New Exception
             End If
             Dim args As String() = mySyntaxStr.Split(" "c)
             For i = 1 To args.Length - 1
-                If Not (args(i).StartsWith("["c) AndAlso Not args(i).EndsWith("]"c)) Then
+                If Not (args(i).StartsWith("["c) AndAlso args(i).EndsWith("]"c)) Then
                     myMinimumArgs += 1
                 End If
             Next
