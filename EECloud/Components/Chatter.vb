@@ -5,8 +5,7 @@
     Dim prefix As String
 
     Dim chatQueue As New Queue(Of Say_SendMessage)
-    Dim WithEvents SendTimer As New Timers.Timer With {.Enabled = True, .AutoReset = True, .Interval = 700}
-
+    Dim WithEvents SendTimer As New Timers.Timer With {.AutoReset = True, .Interval = 700}
 
     Friend Sub New(connection As Connection(Of Player), name As String)
         myConnection = connection
@@ -16,7 +15,8 @@
     Private Sub SendChat(msg As String)
         chatQueue.Enqueue(New Say_SendMessage(msg))
         If Not SendTimer.Enabled Then
-            SendTimer.Enabled = True
+            SendTimer_Elapsed(Nothing, Nothing)
+            SendTimer.Start()
         End If
     End Sub
 
@@ -37,11 +37,11 @@
     End Sub
 
     Private Sub SendTimer_Elapsed(sender As Object, e As Timers.ElapsedEventArgs) Handles SendTimer.Elapsed
-        SyncLock chatQueue 'Super important to make code thread safe
+        SyncLock chatQueue 'Super important to make the code thread safe
             If chatQueue.Count > 0 Then
-                myConnection.Send(chatQueue.Dequeue)
+                myConnection.Send(chatQueue.Dequeue())
             Else
-                SendTimer.Enabled = False
+                SendTimer.Stop()
             End If
         End SyncLock
     End Sub
