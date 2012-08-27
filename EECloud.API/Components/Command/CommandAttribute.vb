@@ -2,8 +2,10 @@
 Public Class CommandAttribute
     Inherits Attribute
 
-    Sub New(type As String)
+    Sub New(type As String, syntax As String, minPermission As Group)
         Me.myType = type
+        Me.mySyntax = syntax
+        Me.myMinPermission = minPermission
     End Sub
 
     Dim myType As String
@@ -13,7 +15,19 @@ Public Class CommandAttribute
         End Get
     End Property
 
-    Public Property Syntax As String
+    Private mySyntax As String
+    Public ReadOnly Property Syntax As String
+        Get
+            Return mySyntax
+        End Get
+    End Property
+
+    Private myMinPermission As Group
+    Public ReadOnly Property MinPermission As Group
+        Get
+            Return myMinPermission
+        End Get
+    End Property
 
     Public Property Aliases As String() = {}
 End Class
