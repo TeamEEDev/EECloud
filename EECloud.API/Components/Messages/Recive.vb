@@ -1,32 +1,4 @@
-﻿Public MustInherit Class ReciveMessage
-    Inherits EventArgs
-    <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)>
-    Public ReadOnly PlayerIOMessage As PlayerIOClient.Message
-
-    Friend Sub New(message As PlayerIOClient.Message)
-        PlayerIOMessage = message
-    End Sub
-End Class
-
-Public Class GroupDisallowedJoin_ReciveMessage
-    Inherits ReciveMessage
-    'No arguments
-
-    Friend Sub New(message As PlayerIOClient.Message)
-        MyBase.New(message)
-    End Sub
-End Class
-
-Public Class Upgrade_ReciveMessage
-    Inherits ReciveMessage
-    'No arguments
-
-    Friend Sub New(message As PlayerIOClient.Message)
-        MyBase.New(message)
-    End Sub
-End Class
-
-Public Class Info_ReciveMessage
+﻿Public Class Info_ReciveMessage
     Inherits ReciveMessage
     Public ReadOnly Title As String '0
     Public ReadOnly Text As String '1
