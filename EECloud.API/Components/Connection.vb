@@ -85,23 +85,23 @@
 #End Region
 
 #Region "Events"
-    Public Custom Event OnReciveMessage As EventHandler(Of ReciveMessage)
-        AddHandler(value As EventHandler(Of ReciveMessage))
-            myEvents.Add("OnReciveMessage", value)
+    Public Custom Event OnReceiveMessage As EventHandler(Of ReceiveMessage)
+        AddHandler(value As EventHandler(Of ReceiveMessage))
+            myEvents.Add("OnReceiveMessage", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of ReciveMessage))
-            myEvents.Remove("OnReciveMessage", value)
+        RemoveHandler(value As EventHandler(Of ReceiveMessage))
+            myEvents.Remove("OnReceiveMessage", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As ReciveMessage)
+        RaiseEvent(sender As Object, e As ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of ReciveMessage) = CType(myEvents("OnReciveMessage"), EventHandler(Of ReciveMessage))
+                Dim myEvent As EventHandler(Of ReceiveMessage) = CType(myEvents("OnReceiveMessage"), EventHandler(Of ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveMessage", ex)
+                OnEventError("OnReceiveMessage", ex)
             End Try
         End RaiseEvent
     End Event
@@ -127,758 +127,758 @@
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveAccess As EventHandler(Of Access_ReciveMessage)
-        AddHandler(value As EventHandler(Of Access_ReciveMessage))
-            myEvents.Add("OnReciveAccess", value)
+    Public Custom Event OnReceiveAccess As EventHandler(Of Access_ReceiveMessage)
+        AddHandler(value As EventHandler(Of Access_ReceiveMessage))
+            myEvents.Add("OnReceiveAccess", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of Access_ReciveMessage))
-            myEvents.Remove("OnReciveAccess", value)
+        RemoveHandler(value As EventHandler(Of Access_ReceiveMessage))
+            myEvents.Remove("OnReceiveAccess", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As Access_ReciveMessage)
+        RaiseEvent(sender As Object, e As Access_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of Access_ReciveMessage) = CType(myEvents("OnReciveAccess"), EventHandler(Of Access_ReciveMessage))
+                Dim myEvent As EventHandler(Of Access_ReceiveMessage) = CType(myEvents("OnReceiveAccess"), EventHandler(Of Access_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveAccess", ex)
+                OnEventError("OnReceiveAccess", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveAdd As EventHandler(Of Add_ReciveMessage)
-        AddHandler(value As EventHandler(Of Add_ReciveMessage))
-            myEvents.Add("OnReciveAdd", value)
+    Public Custom Event OnReceiveAdd As EventHandler(Of Add_ReceiveMessage)
+        AddHandler(value As EventHandler(Of Add_ReceiveMessage))
+            myEvents.Add("OnReceiveAdd", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of Add_ReciveMessage))
-            myEvents.Remove("OnReciveAdd", value)
+        RemoveHandler(value As EventHandler(Of Add_ReceiveMessage))
+            myEvents.Remove("OnReceiveAdd", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As Add_ReciveMessage)
+        RaiseEvent(sender As Object, e As Add_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of Add_ReciveMessage) = CType(myEvents("OnReciveAdd"), EventHandler(Of Add_ReciveMessage))
+                Dim myEvent As EventHandler(Of Add_ReceiveMessage) = CType(myEvents("OnReceiveAdd"), EventHandler(Of Add_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveAdd", ex)
+                OnEventError("OnReceiveAdd", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveAutoText As EventHandler(Of AutoText_ReciveMessage)
-        AddHandler(value As EventHandler(Of AutoText_ReciveMessage))
-            myEvents.Add("OnReciveAutoText", value)
+    Public Custom Event OnReceiveAutoText As EventHandler(Of AutoText_ReceiveMessage)
+        AddHandler(value As EventHandler(Of AutoText_ReceiveMessage))
+            myEvents.Add("OnReceiveAutoText", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of AutoText_ReciveMessage))
-            myEvents.Remove("OnReciveAutoText", value)
+        RemoveHandler(value As EventHandler(Of AutoText_ReceiveMessage))
+            myEvents.Remove("OnReceiveAutoText", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As AutoText_ReciveMessage)
+        RaiseEvent(sender As Object, e As AutoText_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of AutoText_ReciveMessage) = CType(myEvents("OnReciveAutoText"), EventHandler(Of AutoText_ReciveMessage))
+                Dim myEvent As EventHandler(Of AutoText_ReceiveMessage) = CType(myEvents("OnReceiveAutoText"), EventHandler(Of AutoText_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveAutoText", ex)
+                OnEventError("OnReceiveAutoText", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveBlockPlace As EventHandler(Of BlockPlace_ReciveMessage)
-        AddHandler(value As EventHandler(Of BlockPlace_ReciveMessage))
-            myEvents.Add("OnReciveBlockPlace", value)
+    Public Custom Event OnReceiveBlockPlace As EventHandler(Of BlockPlace_ReceiveMessage)
+        AddHandler(value As EventHandler(Of BlockPlace_ReceiveMessage))
+            myEvents.Add("OnReceiveBlockPlace", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of BlockPlace_ReciveMessage))
-            myEvents.Remove("OnReciveBlockPlace", value)
+        RemoveHandler(value As EventHandler(Of BlockPlace_ReceiveMessage))
+            myEvents.Remove("OnReceiveBlockPlace", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As BlockPlace_ReciveMessage)
+        RaiseEvent(sender As Object, e As BlockPlace_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of BlockPlace_ReciveMessage) = CType(myEvents("OnReciveBlockPlace"), EventHandler(Of BlockPlace_ReciveMessage))
+                Dim myEvent As EventHandler(Of BlockPlace_ReceiveMessage) = CType(myEvents("OnReceiveBlockPlace"), EventHandler(Of BlockPlace_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveBlockPlace", ex)
+                OnEventError("OnReceiveBlockPlace", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveClear As EventHandler(Of Clear_ReciveMessage)
-        AddHandler(value As EventHandler(Of Clear_ReciveMessage))
-            myEvents.Add("OnReciveClear", value)
+    Public Custom Event OnReceiveClear As EventHandler(Of Clear_ReceiveMessage)
+        AddHandler(value As EventHandler(Of Clear_ReceiveMessage))
+            myEvents.Add("OnReceiveClear", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of Clear_ReciveMessage))
-            myEvents.Remove("OnReciveClear", value)
+        RemoveHandler(value As EventHandler(Of Clear_ReceiveMessage))
+            myEvents.Remove("OnReceiveClear", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As Clear_ReciveMessage)
+        RaiseEvent(sender As Object, e As Clear_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of Clear_ReciveMessage) = CType(myEvents("OnReciveClear"), EventHandler(Of Clear_ReciveMessage))
+                Dim myEvent As EventHandler(Of Clear_ReceiveMessage) = CType(myEvents("OnReceiveClear"), EventHandler(Of Clear_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveClear", ex)
+                OnEventError("OnReceiveClear", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveCoin As EventHandler(Of Coin_ReciveMessage)
-        AddHandler(value As EventHandler(Of Coin_ReciveMessage))
-            myEvents.Add("OnReciveCoin", value)
+    Public Custom Event OnReceiveCoin As EventHandler(Of Coin_ReceiveMessage)
+        AddHandler(value As EventHandler(Of Coin_ReceiveMessage))
+            myEvents.Add("OnReceiveCoin", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of Coin_ReciveMessage))
-            myEvents.Remove("OnReciveCoin", value)
+        RemoveHandler(value As EventHandler(Of Coin_ReceiveMessage))
+            myEvents.Remove("OnReceiveCoin", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As Coin_ReciveMessage)
+        RaiseEvent(sender As Object, e As Coin_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of Coin_ReciveMessage) = CType(myEvents("OnReciveCoin"), EventHandler(Of Coin_ReciveMessage))
+                Dim myEvent As EventHandler(Of Coin_ReceiveMessage) = CType(myEvents("OnReceiveCoin"), EventHandler(Of Coin_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveCoin", ex)
+                OnEventError("OnReceiveCoin", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveCoinDoorPlace As EventHandler(Of CoinDoorPlace_ReciveMessage)
-        AddHandler(value As EventHandler(Of CoinDoorPlace_ReciveMessage))
-            myEvents.Add("OnReciveCoinDoorPlace", value)
+    Public Custom Event OnReceiveCoinDoorPlace As EventHandler(Of CoinDoorPlace_ReceiveMessage)
+        AddHandler(value As EventHandler(Of CoinDoorPlace_ReceiveMessage))
+            myEvents.Add("OnReceiveCoinDoorPlace", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of CoinDoorPlace_ReciveMessage))
-            myEvents.Remove("OnReciveCoinDoorPlace", value)
+        RemoveHandler(value As EventHandler(Of CoinDoorPlace_ReceiveMessage))
+            myEvents.Remove("OnReceiveCoinDoorPlace", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As CoinDoorPlace_ReciveMessage)
+        RaiseEvent(sender As Object, e As CoinDoorPlace_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of CoinDoorPlace_ReciveMessage) = CType(myEvents("OnReciveCoinDoorPlace"), EventHandler(Of CoinDoorPlace_ReciveMessage))
+                Dim myEvent As EventHandler(Of CoinDoorPlace_ReceiveMessage) = CType(myEvents("OnReceiveCoinDoorPlace"), EventHandler(Of CoinDoorPlace_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveCoinDoorPlace", ex)
+                OnEventError("OnReceiveCoinDoorPlace", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveCrown As EventHandler(Of Crown_ReciveMessage)
-        AddHandler(value As EventHandler(Of Crown_ReciveMessage))
-            myEvents.Add("OnReciveCrown", value)
+    Public Custom Event OnReceiveCrown As EventHandler(Of Crown_ReceiveMessage)
+        AddHandler(value As EventHandler(Of Crown_ReceiveMessage))
+            myEvents.Add("OnReceiveCrown", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of Crown_ReciveMessage))
-            myEvents.Remove("OnReciveCrown", value)
+        RemoveHandler(value As EventHandler(Of Crown_ReceiveMessage))
+            myEvents.Remove("OnReceiveCrown", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As Crown_ReciveMessage)
+        RaiseEvent(sender As Object, e As Crown_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of Crown_ReciveMessage) = CType(myEvents("OnReciveCrown"), EventHandler(Of Crown_ReciveMessage))
+                Dim myEvent As EventHandler(Of Crown_ReceiveMessage) = CType(myEvents("OnReceiveCrown"), EventHandler(Of Crown_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveCrown", ex)
+                OnEventError("OnReceiveCrown", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveFace As EventHandler(Of Face_ReciveMessage)
-        AddHandler(value As EventHandler(Of Face_ReciveMessage))
-            myEvents.Add("OnReciveFace", value)
+    Public Custom Event OnReceiveFace As EventHandler(Of Face_ReceiveMessage)
+        AddHandler(value As EventHandler(Of Face_ReceiveMessage))
+            myEvents.Add("OnReceiveFace", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of Face_ReciveMessage))
-            myEvents.Remove("OnReciveFace", value)
+        RemoveHandler(value As EventHandler(Of Face_ReceiveMessage))
+            myEvents.Remove("OnReceiveFace", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As Face_ReciveMessage)
+        RaiseEvent(sender As Object, e As Face_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of Face_ReciveMessage) = CType(myEvents("OnReciveFace"), EventHandler(Of Face_ReciveMessage))
+                Dim myEvent As EventHandler(Of Face_ReceiveMessage) = CType(myEvents("OnReceiveFace"), EventHandler(Of Face_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveFace", ex)
+                OnEventError("OnReceiveFace", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveGiveFireWizard As EventHandler(Of GiveFireWizard_ReciveMessage)
-        AddHandler(value As EventHandler(Of GiveFireWizard_ReciveMessage))
-            myEvents.Add("OnReciveGiveFireWizard", value)
+    Public Custom Event OnReceiveGiveFireWizard As EventHandler(Of GiveFireWizard_ReceiveMessage)
+        AddHandler(value As EventHandler(Of GiveFireWizard_ReceiveMessage))
+            myEvents.Add("OnReceiveGiveFireWizard", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of GiveFireWizard_ReciveMessage))
-            myEvents.Remove("OnReciveGiveFireWizard", value)
+        RemoveHandler(value As EventHandler(Of GiveFireWizard_ReceiveMessage))
+            myEvents.Remove("OnReceiveGiveFireWizard", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As GiveFireWizard_ReciveMessage)
+        RaiseEvent(sender As Object, e As GiveFireWizard_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of GiveFireWizard_ReciveMessage) = CType(myEvents("OnReciveGiveFireWizard"), EventHandler(Of GiveFireWizard_ReciveMessage))
+                Dim myEvent As EventHandler(Of GiveFireWizard_ReceiveMessage) = CType(myEvents("OnReceiveGiveFireWizard"), EventHandler(Of GiveFireWizard_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveGiveFireWizard", ex)
+                OnEventError("OnReceiveGiveFireWizard", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveGiveGrinch As EventHandler(Of GiveGrinch_ReciveMessage)
-        AddHandler(value As EventHandler(Of GiveGrinch_ReciveMessage))
-            myEvents.Add("OnReciveGiveGrinch", value)
+    Public Custom Event OnReceiveGiveGrinch As EventHandler(Of GiveGrinch_ReceiveMessage)
+        AddHandler(value As EventHandler(Of GiveGrinch_ReceiveMessage))
+            myEvents.Add("OnReceiveGiveGrinch", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of GiveGrinch_ReciveMessage))
-            myEvents.Remove("OnReciveGiveGrinch", value)
+        RemoveHandler(value As EventHandler(Of GiveGrinch_ReceiveMessage))
+            myEvents.Remove("OnReceiveGiveGrinch", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As GiveGrinch_ReciveMessage)
+        RaiseEvent(sender As Object, e As GiveGrinch_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of GiveGrinch_ReciveMessage) = CType(myEvents("OnReciveGiveGrinch"), EventHandler(Of GiveGrinch_ReciveMessage))
+                Dim myEvent As EventHandler(Of GiveGrinch_ReceiveMessage) = CType(myEvents("OnReceiveGiveGrinch"), EventHandler(Of GiveGrinch_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveGiveGrinch", ex)
+                OnEventError("OnReceiveGiveGrinch", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveGiveWitch As EventHandler(Of GiveWitch_ReciveMessage)
-        AddHandler(value As EventHandler(Of GiveWitch_ReciveMessage))
-            myEvents.Add("OnReciveGiveWitch", value)
+    Public Custom Event OnReceiveGiveWitch As EventHandler(Of GiveWitch_ReceiveMessage)
+        AddHandler(value As EventHandler(Of GiveWitch_ReceiveMessage))
+            myEvents.Add("OnReceiveGiveWitch", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of GiveWitch_ReciveMessage))
-            myEvents.Remove("OnReciveGiveWitch", value)
+        RemoveHandler(value As EventHandler(Of GiveWitch_ReceiveMessage))
+            myEvents.Remove("OnReceiveGiveWitch", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As GiveWitch_ReciveMessage)
+        RaiseEvent(sender As Object, e As GiveWitch_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of GiveWitch_ReciveMessage) = CType(myEvents("OnReciveGiveWitch"), EventHandler(Of GiveWitch_ReciveMessage))
+                Dim myEvent As EventHandler(Of GiveWitch_ReceiveMessage) = CType(myEvents("OnReceiveGiveWitch"), EventHandler(Of GiveWitch_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveGiveWitch", ex)
+                OnEventError("OnReceiveGiveWitch", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveGiveWizard As EventHandler(Of GiveWizard_ReciveMessage)
-        AddHandler(value As EventHandler(Of GiveWizard_ReciveMessage))
-            myEvents.Add("OnReciveGiveWizard", value)
+    Public Custom Event OnReceiveGiveWizard As EventHandler(Of GiveWizard_ReceiveMessage)
+        AddHandler(value As EventHandler(Of GiveWizard_ReceiveMessage))
+            myEvents.Add("OnReceiveGiveWizard", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of GiveWizard_ReciveMessage))
-            myEvents.Remove("OnReciveGiveWizard", value)
+        RemoveHandler(value As EventHandler(Of GiveWizard_ReceiveMessage))
+            myEvents.Remove("OnReceiveGiveWizard", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As GiveWizard_ReciveMessage)
+        RaiseEvent(sender As Object, e As GiveWizard_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of GiveWizard_ReciveMessage) = CType(myEvents("OnReciveGiveWizard"), EventHandler(Of GiveWizard_ReciveMessage))
+                Dim myEvent As EventHandler(Of GiveWizard_ReceiveMessage) = CType(myEvents("OnReceiveGiveWizard"), EventHandler(Of GiveWizard_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveGiveWizard", ex)
+                OnEventError("OnReceiveGiveWizard", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveGodmode As EventHandler(Of Godmode_ReciveMessage)
-        AddHandler(value As EventHandler(Of Godmode_ReciveMessage))
-            myEvents.Add("OnReciveGodmode", value)
+    Public Custom Event OnReceiveGodMode As EventHandler(Of GodMode_ReceiveMessage)
+        AddHandler(value As EventHandler(Of GodMode_ReceiveMessage))
+            myEvents.Add("OnReceiveGodMode", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of Godmode_ReciveMessage))
-            myEvents.Remove("OnReciveGodmode", value)
+        RemoveHandler(value As EventHandler(Of GodMode_ReceiveMessage))
+            myEvents.Remove("OnReceiveGodMode", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As Godmode_ReciveMessage)
+        RaiseEvent(sender As Object, e As GodMode_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of Godmode_ReciveMessage) = CType(myEvents("OnReciveGodmode"), EventHandler(Of Godmode_ReciveMessage))
+                Dim myEvent As EventHandler(Of Godmode_ReceiveMessage) = CType(myEvents("OnReceiveGodMode"), EventHandler(Of Godmode_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveGodmode", ex)
+                OnEventError("OnReceiveGodMode", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveGroupDisallowedJoin As EventHandler(Of GroupDisallowedJoin_ReciveMessage)
-        AddHandler(value As EventHandler(Of GroupDisallowedJoin_ReciveMessage))
-            myEvents.Add("OnReciveGroupDisallowedJoin", value)
+    Public Custom Event OnReceiveGroupDisallowedJoin As EventHandler(Of GroupDisallowedJoin_ReceiveMessage)
+        AddHandler(value As EventHandler(Of GroupDisallowedJoin_ReceiveMessage))
+            myEvents.Add("OnReceiveGroupDisallowedJoin", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of GroupDisallowedJoin_ReciveMessage))
-            myEvents.Remove("OnReciveGroupDisallowedJoin", value)
+        RemoveHandler(value As EventHandler(Of GroupDisallowedJoin_ReceiveMessage))
+            myEvents.Remove("OnReceiveGroupDisallowedJoin", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As GroupDisallowedJoin_ReciveMessage)
+        RaiseEvent(sender As Object, e As GroupDisallowedJoin_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of GroupDisallowedJoin_ReciveMessage) = CType(myEvents("OnReciveGroupDisallowedJoin"), EventHandler(Of GroupDisallowedJoin_ReciveMessage))
+                Dim myEvent As EventHandler(Of GroupDisallowedJoin_ReceiveMessage) = CType(myEvents("OnReceiveGroupDisallowedJoin"), EventHandler(Of GroupDisallowedJoin_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveGroupDisallowedJoin", ex)
+                OnEventError("OnReceiveGroupDisallowedJoin", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveHideKey As EventHandler(Of HideKey_ReciveMessage)
-        AddHandler(value As EventHandler(Of HideKey_ReciveMessage))
-            myEvents.Add("OnReciveHideKey", value)
+    Public Custom Event OnReceiveHideKey As EventHandler(Of HideKey_ReceiveMessage)
+        AddHandler(value As EventHandler(Of HideKey_ReceiveMessage))
+            myEvents.Add("OnReceiveHideKey", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of HideKey_ReciveMessage))
-            myEvents.Remove("OnReciveHideKey", value)
+        RemoveHandler(value As EventHandler(Of HideKey_ReceiveMessage))
+            myEvents.Remove("OnReceiveHideKey", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As HideKey_ReciveMessage)
+        RaiseEvent(sender As Object, e As HideKey_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of HideKey_ReciveMessage) = CType(myEvents("OnReciveHideKey"), EventHandler(Of HideKey_ReciveMessage))
+                Dim myEvent As EventHandler(Of HideKey_ReceiveMessage) = CType(myEvents("OnReceiveHideKey"), EventHandler(Of HideKey_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveHideKey", ex)
+                OnEventError("OnReceiveHideKey", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveInfo As EventHandler(Of Info_ReciveMessage)
-        AddHandler(value As EventHandler(Of Info_ReciveMessage))
-            myEvents.Add("OnReciveInfo", value)
+    Public Custom Event OnReceiveInfo As EventHandler(Of Info_ReceiveMessage)
+        AddHandler(value As EventHandler(Of Info_ReceiveMessage))
+            myEvents.Add("OnReceiveInfo", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of Info_ReciveMessage))
-            myEvents.Remove("OnReciveInfo", value)
+        RemoveHandler(value As EventHandler(Of Info_ReceiveMessage))
+            myEvents.Remove("OnReceiveInfo", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As Info_ReciveMessage)
+        RaiseEvent(sender As Object, e As Info_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of Info_ReciveMessage) = CType(myEvents("OnReciveInfo"), EventHandler(Of Info_ReciveMessage))
+                Dim myEvent As EventHandler(Of Info_ReceiveMessage) = CType(myEvents("OnReceiveInfo"), EventHandler(Of Info_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveInfo", ex)
+                OnEventError("OnReceiveInfo", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveInit As EventHandler(Of Init_ReciveMessage)
-        AddHandler(value As EventHandler(Of Init_ReciveMessage))
-            myEvents.Add("OnReciveInit", value)
+    Public Custom Event OnReceiveInit As EventHandler(Of Init_ReceiveMessage)
+        AddHandler(value As EventHandler(Of Init_ReceiveMessage))
+            myEvents.Add("OnReceiveInit", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of Init_ReciveMessage))
-            myEvents.Remove("OnReciveInit", value)
+        RemoveHandler(value As EventHandler(Of Init_ReceiveMessage))
+            myEvents.Remove("OnReceiveInit", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As Init_ReciveMessage)
+        RaiseEvent(sender As Object, e As Init_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of Init_ReciveMessage) = CType(myEvents("OnReciveInit"), EventHandler(Of Init_ReciveMessage))
+                Dim myEvent As EventHandler(Of Init_ReceiveMessage) = CType(myEvents("OnReceiveInit"), EventHandler(Of Init_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveInit", ex)
+                OnEventError("OnReceiveInit", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveLabelPlace As EventHandler(Of LabelPlace_ReciveMessage)
-        AddHandler(value As EventHandler(Of LabelPlace_ReciveMessage))
-            myEvents.Add("OnReciveLabelPlace", value)
+    Public Custom Event OnReceiveLabelPlace As EventHandler(Of LabelPlace_ReceiveMessage)
+        AddHandler(value As EventHandler(Of LabelPlace_ReceiveMessage))
+            myEvents.Add("OnReceiveLabelPlace", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of LabelPlace_ReciveMessage))
-            myEvents.Remove("OnReciveLabelPlace", value)
+        RemoveHandler(value As EventHandler(Of LabelPlace_ReceiveMessage))
+            myEvents.Remove("OnReceiveLabelPlace", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As LabelPlace_ReciveMessage)
+        RaiseEvent(sender As Object, e As LabelPlace_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of LabelPlace_ReciveMessage) = CType(myEvents("OnReciveLabelPlace"), EventHandler(Of LabelPlace_ReciveMessage))
+                Dim myEvent As EventHandler(Of LabelPlace_ReceiveMessage) = CType(myEvents("OnReceiveLabelPlace"), EventHandler(Of LabelPlace_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveLabelPlace", ex)
+                OnEventError("OnReceiveLabelPlace", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveLeft As EventHandler(Of Left_ReciveMessage)
-        AddHandler(value As EventHandler(Of Left_ReciveMessage))
-            myEvents.Add("OnReciveLeft", value)
+    Public Custom Event OnReceiveLeft As EventHandler(Of Left_ReceiveMessage)
+        AddHandler(value As EventHandler(Of Left_ReceiveMessage))
+            myEvents.Add("OnReceiveLeft", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of Left_ReciveMessage))
-            myEvents.Remove("OnReciveLeft", value)
+        RemoveHandler(value As EventHandler(Of Left_ReceiveMessage))
+            myEvents.Remove("OnReceiveLeft", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As Left_ReciveMessage)
+        RaiseEvent(sender As Object, e As Left_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of Left_ReciveMessage) = CType(myEvents("OnReciveLeft"), EventHandler(Of Left_ReciveMessage))
+                Dim myEvent As EventHandler(Of Left_ReceiveMessage) = CType(myEvents("OnReceiveLeft"), EventHandler(Of Left_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveLeft", ex)
+                OnEventError("OnReceiveLeft", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveLostAccess As EventHandler(Of LostAccess_ReciveMessage)
-        AddHandler(value As EventHandler(Of LostAccess_ReciveMessage))
-            myEvents.Add("OnReciveLostAccess", value)
+    Public Custom Event OnReceiveLostAccess As EventHandler(Of LostAccess_ReceiveMessage)
+        AddHandler(value As EventHandler(Of LostAccess_ReceiveMessage))
+            myEvents.Add("OnReceiveLostAccess", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of LostAccess_ReciveMessage))
-            myEvents.Remove("OnReciveLostAccess", value)
+        RemoveHandler(value As EventHandler(Of LostAccess_ReceiveMessage))
+            myEvents.Remove("OnReceiveLostAccess", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As LostAccess_ReciveMessage)
+        RaiseEvent(sender As Object, e As LostAccess_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of LostAccess_ReciveMessage) = CType(myEvents("OnReciveLostAccess"), EventHandler(Of LostAccess_ReciveMessage))
+                Dim myEvent As EventHandler(Of LostAccess_ReceiveMessage) = CType(myEvents("OnReceiveLostAccess"), EventHandler(Of LostAccess_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveLostAccess", ex)
+                OnEventError("OnReceiveLostAccess", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveModmode As EventHandler(Of Modmode_ReciveMessage)
-        AddHandler(value As EventHandler(Of Modmode_ReciveMessage))
-            myEvents.Add("OnReciveModmode", value)
+    Public Custom Event OnReceiveModMode As EventHandler(Of ModMode_ReceiveMessage)
+        AddHandler(value As EventHandler(Of ModMode_ReceiveMessage))
+            myEvents.Add("OnReceiveModMode", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of Modmode_ReciveMessage))
-            myEvents.Remove("OnReciveModmode", value)
+        RemoveHandler(value As EventHandler(Of ModMode_ReceiveMessage))
+            myEvents.Remove("OnReceiveModMode", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As Modmode_ReciveMessage)
+        RaiseEvent(sender As Object, e As ModMode_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of Modmode_ReciveMessage) = CType(myEvents("OnReciveModmode"), EventHandler(Of Modmode_ReciveMessage))
+                Dim myEvent As EventHandler(Of Modmode_ReceiveMessage) = CType(myEvents("OnReceiveModMode"), EventHandler(Of Modmode_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveModmode", ex)
+                OnEventError("OnReceiveModMode", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveMove As EventHandler(Of Move_ReciveMessage)
-        AddHandler(value As EventHandler(Of Move_ReciveMessage))
-            myEvents.Add("OnReciveMove", value)
+    Public Custom Event OnReceiveMove As EventHandler(Of Move_ReceiveMessage)
+        AddHandler(value As EventHandler(Of Move_ReceiveMessage))
+            myEvents.Add("OnReceiveMove", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of Move_ReciveMessage))
-            myEvents.Remove("OnReciveMove", value)
+        RemoveHandler(value As EventHandler(Of Move_ReceiveMessage))
+            myEvents.Remove("OnReceiveMove", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As Move_ReciveMessage)
+        RaiseEvent(sender As Object, e As Move_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of Move_ReciveMessage) = CType(myEvents("OnReciveMove"), EventHandler(Of Move_ReciveMessage))
+                Dim myEvent As EventHandler(Of Move_ReceiveMessage) = CType(myEvents("OnReceiveMove"), EventHandler(Of Move_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveMove", ex)
+                OnEventError("OnReceiveMove", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnRecivePortalPlace As EventHandler(Of PortalPlace_ReciveMessage)
-        AddHandler(value As EventHandler(Of PortalPlace_ReciveMessage))
-            myEvents.Add("OnRecivePortalPlace", value)
+    Public Custom Event OnReceivePortalPlace As EventHandler(Of PortalPlace_ReceiveMessage)
+        AddHandler(value As EventHandler(Of PortalPlace_ReceiveMessage))
+            myEvents.Add("OnReceivePortalPlace", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of PortalPlace_ReciveMessage))
-            myEvents.Remove("OnRecivePortalPlace", value)
+        RemoveHandler(value As EventHandler(Of PortalPlace_ReceiveMessage))
+            myEvents.Remove("OnReceivePortalPlace", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As PortalPlace_ReciveMessage)
+        RaiseEvent(sender As Object, e As PortalPlace_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of PortalPlace_ReciveMessage) = CType(myEvents("OnRecivePortalPlace"), EventHandler(Of PortalPlace_ReciveMessage))
+                Dim myEvent As EventHandler(Of PortalPlace_ReceiveMessage) = CType(myEvents("OnReceivePortalPlace"), EventHandler(Of PortalPlace_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnRecivePortalPlace", ex)
+                OnEventError("OnReceivePortalPlace", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveRefreshShop As EventHandler(Of RefreshShop_ReciveMessage)
-        AddHandler(value As EventHandler(Of RefreshShop_ReciveMessage))
-            myEvents.Add("OnReciveRefreshShop", value)
+    Public Custom Event OnReceiveRefreshShop As EventHandler(Of RefreshShop_ReceiveMessage)
+        AddHandler(value As EventHandler(Of RefreshShop_ReceiveMessage))
+            myEvents.Add("OnReceiveRefreshShop", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of RefreshShop_ReciveMessage))
-            myEvents.Remove("OnReciveRefreshShop", value)
+        RemoveHandler(value As EventHandler(Of RefreshShop_ReceiveMessage))
+            myEvents.Remove("OnReceiveRefreshShop", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As RefreshShop_ReciveMessage)
+        RaiseEvent(sender As Object, e As RefreshShop_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of RefreshShop_ReciveMessage) = CType(myEvents("OnReciveRefreshShop"), EventHandler(Of RefreshShop_ReciveMessage))
+                Dim myEvent As EventHandler(Of RefreshShop_ReceiveMessage) = CType(myEvents("OnReceiveRefreshShop"), EventHandler(Of RefreshShop_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveRefreshShop", ex)
+                OnEventError("OnReceiveRefreshShop", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveReset As EventHandler(Of Reset_ReciveMessage)
-        AddHandler(value As EventHandler(Of Reset_ReciveMessage))
-            myEvents.Add("OnReciveReset", value)
+    Public Custom Event OnReceiveReset As EventHandler(Of Reset_ReceiveMessage)
+        AddHandler(value As EventHandler(Of Reset_ReceiveMessage))
+            myEvents.Add("OnReceiveReset", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of Reset_ReciveMessage))
-            myEvents.Remove("OnReciveReset", value)
+        RemoveHandler(value As EventHandler(Of Reset_ReceiveMessage))
+            myEvents.Remove("OnReceiveReset", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As Reset_ReciveMessage)
+        RaiseEvent(sender As Object, e As Reset_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of Reset_ReciveMessage) = CType(myEvents("OnReciveReset"), EventHandler(Of Reset_ReciveMessage))
+                Dim myEvent As EventHandler(Of Reset_ReceiveMessage) = CType(myEvents("OnReceiveReset"), EventHandler(Of Reset_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveReset", ex)
+                OnEventError("OnReceiveReset", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveSaveDone As EventHandler(Of SaveDone_ReciveMessage)
-        AddHandler(value As EventHandler(Of SaveDone_ReciveMessage))
-            myEvents.Add("OnReciveSaveDone", value)
+    Public Custom Event OnReceiveSaveDone As EventHandler(Of SaveDone_ReceiveMessage)
+        AddHandler(value As EventHandler(Of SaveDone_ReceiveMessage))
+            myEvents.Add("OnReceiveSaveDone", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of SaveDone_ReciveMessage))
-            myEvents.Remove("OnReciveSaveDone", value)
+        RemoveHandler(value As EventHandler(Of SaveDone_ReceiveMessage))
+            myEvents.Remove("OnReceiveSaveDone", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As SaveDone_ReciveMessage)
+        RaiseEvent(sender As Object, e As SaveDone_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of SaveDone_ReciveMessage) = CType(myEvents("OnReciveSaveDone"), EventHandler(Of SaveDone_ReciveMessage))
+                Dim myEvent As EventHandler(Of SaveDone_ReceiveMessage) = CType(myEvents("OnReceiveSaveDone"), EventHandler(Of SaveDone_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveSaveDone", ex)
+                OnEventError("OnReceiveSaveDone", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveSay As EventHandler(Of Say_ReciveMessage)
-        AddHandler(value As EventHandler(Of Say_ReciveMessage))
-            myEvents.Add("OnReciveSay", value)
+    Public Custom Event OnReceiveSay As EventHandler(Of Say_ReceiveMessage)
+        AddHandler(value As EventHandler(Of Say_ReceiveMessage))
+            myEvents.Add("OnReceiveSay", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of Say_ReciveMessage))
-            myEvents.Remove("OnReciveSay", value)
+        RemoveHandler(value As EventHandler(Of Say_ReceiveMessage))
+            myEvents.Remove("OnReceiveSay", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As Say_ReciveMessage)
+        RaiseEvent(sender As Object, e As Say_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of Say_ReciveMessage) = CType(myEvents("OnReciveSay"), EventHandler(Of Say_ReciveMessage))
+                Dim myEvent As EventHandler(Of Say_ReceiveMessage) = CType(myEvents("OnReceiveSay"), EventHandler(Of Say_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveSay", ex)
+                OnEventError("OnReceiveSay", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveSayOld As EventHandler(Of SayOld_ReciveMessage)
-        AddHandler(value As EventHandler(Of SayOld_ReciveMessage))
-            myEvents.Add("OnReciveSayOld", value)
+    Public Custom Event OnReceiveSayOld As EventHandler(Of SayOld_ReceiveMessage)
+        AddHandler(value As EventHandler(Of SayOld_ReceiveMessage))
+            myEvents.Add("OnReceiveSayOld", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of SayOld_ReciveMessage))
-            myEvents.Remove("OnReciveSayOld", value)
+        RemoveHandler(value As EventHandler(Of SayOld_ReceiveMessage))
+            myEvents.Remove("OnReceiveSayOld", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As SayOld_ReciveMessage)
+        RaiseEvent(sender As Object, e As SayOld_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of SayOld_ReciveMessage) = CType(myEvents("OnReciveSayOld"), EventHandler(Of SayOld_ReciveMessage))
+                Dim myEvent As EventHandler(Of SayOld_ReceiveMessage) = CType(myEvents("OnReceiveSayOld"), EventHandler(Of SayOld_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveSayOld", ex)
+                OnEventError("OnReceiveSayOld", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveShowKey As EventHandler(Of ShowKey_ReciveMessage)
-        AddHandler(value As EventHandler(Of ShowKey_ReciveMessage))
-            myEvents.Add("OnReciveShowKey", value)
+    Public Custom Event OnReceiveShowKey As EventHandler(Of ShowKey_ReceiveMessage)
+        AddHandler(value As EventHandler(Of ShowKey_ReceiveMessage))
+            myEvents.Add("OnReceiveShowKey", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of ShowKey_ReciveMessage))
-            myEvents.Remove("OnReciveShowKey", value)
+        RemoveHandler(value As EventHandler(Of ShowKey_ReceiveMessage))
+            myEvents.Remove("OnReceiveShowKey", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As ShowKey_ReciveMessage)
+        RaiseEvent(sender As Object, e As ShowKey_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of ShowKey_ReciveMessage) = CType(myEvents("OnReciveShowKey"), EventHandler(Of ShowKey_ReciveMessage))
+                Dim myEvent As EventHandler(Of ShowKey_ReceiveMessage) = CType(myEvents("OnReceiveShowKey"), EventHandler(Of ShowKey_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveShowKey", ex)
+                OnEventError("OnReceiveShowKey", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveSilverCrown As EventHandler(Of SilverCrown_ReciveMessage)
-        AddHandler(value As EventHandler(Of SilverCrown_ReciveMessage))
-            myEvents.Add("OnReciveSilverCrown", value)
+    Public Custom Event OnReceiveSilverCrown As EventHandler(Of SilverCrown_ReceiveMessage)
+        AddHandler(value As EventHandler(Of SilverCrown_ReceiveMessage))
+            myEvents.Add("OnReceiveSilverCrown", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of SilverCrown_ReciveMessage))
-            myEvents.Remove("OnReciveSilverCrown", value)
+        RemoveHandler(value As EventHandler(Of SilverCrown_ReceiveMessage))
+            myEvents.Remove("OnReceiveSilverCrown", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As SilverCrown_ReciveMessage)
+        RaiseEvent(sender As Object, e As SilverCrown_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of SilverCrown_ReciveMessage) = CType(myEvents("OnReciveSilverCrown"), EventHandler(Of SilverCrown_ReciveMessage))
+                Dim myEvent As EventHandler(Of SilverCrown_ReceiveMessage) = CType(myEvents("OnReceiveSilverCrown"), EventHandler(Of SilverCrown_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveSilverCrown", ex)
+                OnEventError("OnReceiveSilverCrown", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveSoundPlace As EventHandler(Of SoundPlace_ReciveMessage)
-        AddHandler(value As EventHandler(Of SoundPlace_ReciveMessage))
-            myEvents.Add("OnReciveSoundPlace", value)
+    Public Custom Event OnReceiveSoundPlace As EventHandler(Of SoundPlace_ReceiveMessage)
+        AddHandler(value As EventHandler(Of SoundPlace_ReceiveMessage))
+            myEvents.Add("OnReceiveSoundPlace", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of SoundPlace_ReciveMessage))
-            myEvents.Remove("OnReciveSoundPlace", value)
+        RemoveHandler(value As EventHandler(Of SoundPlace_ReceiveMessage))
+            myEvents.Remove("OnReceiveSoundPlace", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As SoundPlace_ReciveMessage)
+        RaiseEvent(sender As Object, e As SoundPlace_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of SoundPlace_ReciveMessage) = CType(myEvents("OnReciveSoundPlace"), EventHandler(Of SoundPlace_ReciveMessage))
+                Dim myEvent As EventHandler(Of SoundPlace_ReceiveMessage) = CType(myEvents("OnReceiveSoundPlace"), EventHandler(Of SoundPlace_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveSoundPlace", ex)
+                OnEventError("OnReceiveSoundPlace", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveTeleport As EventHandler(Of Teleport_ReciveMessage)
-        AddHandler(value As EventHandler(Of Teleport_ReciveMessage))
-            myEvents.Add("OnReciveTeleport", value)
+    Public Custom Event OnReceiveTeleport As EventHandler(Of Teleport_ReceiveMessage)
+        AddHandler(value As EventHandler(Of Teleport_ReceiveMessage))
+            myEvents.Add("OnReceiveTeleport", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of Teleport_ReciveMessage))
-            myEvents.Remove("OnReciveTeleport", value)
+        RemoveHandler(value As EventHandler(Of Teleport_ReceiveMessage))
+            myEvents.Remove("OnReceiveTeleport", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As Teleport_ReciveMessage)
+        RaiseEvent(sender As Object, e As Teleport_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of Teleport_ReciveMessage) = CType(myEvents("OnReciveTeleport"), EventHandler(Of Teleport_ReciveMessage))
+                Dim myEvent As EventHandler(Of Teleport_ReceiveMessage) = CType(myEvents("OnReceiveTeleport"), EventHandler(Of Teleport_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveTeleport", ex)
+                OnEventError("OnReceiveTeleport", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveUpdateMeta As EventHandler(Of UpdateMeta_ReciveMessage)
-        AddHandler(value As EventHandler(Of UpdateMeta_ReciveMessage))
-            myEvents.Add("OnReciveUpdateMeta", value)
+    Public Custom Event OnReceiveUpdateMeta As EventHandler(Of UpdateMeta_ReceiveMessage)
+        AddHandler(value As EventHandler(Of UpdateMeta_ReceiveMessage))
+            myEvents.Add("OnReceiveUpdateMeta", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of UpdateMeta_ReciveMessage))
-            myEvents.Remove("OnReciveUpdateMeta", value)
+        RemoveHandler(value As EventHandler(Of UpdateMeta_ReceiveMessage))
+            myEvents.Remove("OnReceiveUpdateMeta", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As UpdateMeta_ReciveMessage)
+        RaiseEvent(sender As Object, e As UpdateMeta_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of UpdateMeta_ReciveMessage) = CType(myEvents("OnReciveUpdateMeta"), EventHandler(Of UpdateMeta_ReciveMessage))
+                Dim myEvent As EventHandler(Of UpdateMeta_ReceiveMessage) = CType(myEvents("OnReceiveUpdateMeta"), EventHandler(Of UpdateMeta_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveUpdateMeta", ex)
+                OnEventError("OnReceiveUpdateMeta", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveUpgrade As EventHandler(Of Upgrade_ReciveMessage)
-        AddHandler(value As EventHandler(Of Upgrade_ReciveMessage))
-            myEvents.Add("OnReciveUpgrade", value)
+    Public Custom Event OnReceiveUpgrade As EventHandler(Of Upgrade_ReceiveMessage)
+        AddHandler(value As EventHandler(Of Upgrade_ReceiveMessage))
+            myEvents.Add("OnReceiveUpgrade", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of Upgrade_ReciveMessage))
-            myEvents.Remove("OnReciveUpgrade", value)
+        RemoveHandler(value As EventHandler(Of Upgrade_ReceiveMessage))
+            myEvents.Remove("OnReceiveUpgrade", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As Upgrade_ReciveMessage)
+        RaiseEvent(sender As Object, e As Upgrade_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of Upgrade_ReciveMessage) = CType(myEvents("OnReciveUpgrade"), EventHandler(Of Upgrade_ReciveMessage))
+                Dim myEvent As EventHandler(Of Upgrade_ReceiveMessage) = CType(myEvents("OnReceiveUpgrade"), EventHandler(Of Upgrade_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveUpgrade", ex)
+                OnEventError("OnReceiveUpgrade", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Public Custom Event OnReciveWrite As EventHandler(Of Write_ReciveMessage)
-        AddHandler(value As EventHandler(Of Write_ReciveMessage))
-            myEvents.Add("OnReciveWrite", value)
+    Public Custom Event OnReceiveWrite As EventHandler(Of Write_ReceiveMessage)
+        AddHandler(value As EventHandler(Of Write_ReceiveMessage))
+            myEvents.Add("OnReceiveWrite", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of Write_ReciveMessage))
-            myEvents.Remove("OnReciveWrite", value)
+        RemoveHandler(value As EventHandler(Of Write_ReceiveMessage))
+            myEvents.Remove("OnReceiveWrite", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As Write_ReciveMessage)
+        RaiseEvent(sender As Object, e As Write_ReceiveMessage)
             Try
-                Dim myEvent As EventHandler(Of Write_ReciveMessage) = CType(myEvents("OnReciveWrite"), EventHandler(Of Write_ReciveMessage))
+                Dim myEvent As EventHandler(Of Write_ReceiveMessage) = CType(myEvents("OnReceiveWrite"), EventHandler(Of Write_ReceiveMessage))
                 If myEvent IsNot Nothing Then
                     Call myEvent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReciveWrite", ex)
+                OnEventError("OnReceiveWrite", ex)
             End Try
         End RaiseEvent
     End Event
@@ -1474,159 +1474,159 @@
         RaiseEvent OnDisconnect(Me, EventArgs.Empty)
     End Sub
 
-    Private Sub myInternalConnection_OnMessage(sender As Object, e As ReciveMessage) Handles myInternalConnection.OnMessage
-        RaiseEvent OnReciveMessage(Me, e)
+    Private Sub myInternalConnection_OnMessage(sender As Object, e As ReceiveMessage) Handles myInternalConnection.OnMessage
+        RaiseEvent OnReceiveMessage(Me, e)
         Select Case e.GetType
-            Case GetType(Init_ReciveMessage)
-                Dim m As Init_ReciveMessage = CType(e, Init_ReciveMessage)
-                RaiseEvent OnReciveInit(Me, m)
+            Case GetType(Init_ReceiveMessage)
+                Dim m As Init_ReceiveMessage = CType(e, Init_ReceiveMessage)
+                RaiseEvent OnReceiveInit(Me, m)
 
-            Case GetType(GroupDisallowedJoin_ReciveMessage)
-                Dim m As GroupDisallowedJoin_ReciveMessage = CType(e, GroupDisallowedJoin_ReciveMessage)
-                RaiseEvent OnReciveGroupDisallowedJoin(Me, m)
+            Case GetType(GroupDisallowedJoin_ReceiveMessage)
+                Dim m As GroupDisallowedJoin_ReceiveMessage = CType(e, GroupDisallowedJoin_ReceiveMessage)
+                RaiseEvent OnReceiveGroupDisallowedJoin(Me, m)
 
-            Case GetType(Info_ReciveMessage)
-                Dim m As Info_ReciveMessage = CType(e, Info_ReciveMessage)
-                RaiseEvent OnReciveInfo(Me, m)
+            Case GetType(Info_ReceiveMessage)
+                Dim m As Info_ReceiveMessage = CType(e, Info_ReceiveMessage)
+                RaiseEvent OnReceiveInfo(Me, m)
 
-            Case GetType(Upgrade_ReciveMessage)
-                Dim m As Upgrade_ReciveMessage = CType(e, Upgrade_ReciveMessage)
-                RaiseEvent OnReciveUpgrade(Me, m)
+            Case GetType(Upgrade_ReceiveMessage)
+                Dim m As Upgrade_ReceiveMessage = CType(e, Upgrade_ReceiveMessage)
+                RaiseEvent OnReceiveUpgrade(Me, m)
 
-            Case GetType(UpdateMeta_ReciveMessage)
-                Dim m As UpdateMeta_ReciveMessage = CType(e, UpdateMeta_ReciveMessage)
-                RaiseEvent OnReciveUpdateMeta(Me, m)
+            Case GetType(UpdateMeta_ReceiveMessage)
+                Dim m As UpdateMeta_ReceiveMessage = CType(e, UpdateMeta_ReceiveMessage)
+                RaiseEvent OnReceiveUpdateMeta(Me, m)
 
-            Case GetType(Add_ReciveMessage)
-                Dim m As Add_ReciveMessage = CType(e, Add_ReciveMessage)
-                RaiseEvent OnReciveAdd(Me, m)
+            Case GetType(Add_ReceiveMessage)
+                Dim m As Add_ReceiveMessage = CType(e, Add_ReceiveMessage)
+                RaiseEvent OnReceiveAdd(Me, m)
 
-            Case GetType(Left_ReciveMessage)
-                Dim m As Left_ReciveMessage = CType(e, Left_ReciveMessage)
-                RaiseEvent OnReciveLeft(Me, m)
+            Case GetType(Left_ReceiveMessage)
+                Dim m As Left_ReceiveMessage = CType(e, Left_ReceiveMessage)
+                RaiseEvent OnReceiveLeft(Me, m)
 
-            Case GetType(Move_ReciveMessage)
-                Dim m As Move_ReciveMessage = CType(e, Move_ReciveMessage)
-                RaiseEvent OnReciveMove(Me, m)
+            Case GetType(Move_ReceiveMessage)
+                Dim m As Move_ReceiveMessage = CType(e, Move_ReceiveMessage)
+                RaiseEvent OnReceiveMove(Me, m)
 
-            Case GetType(Coin_ReciveMessage)
-                Dim m As Coin_ReciveMessage = CType(e, Coin_ReciveMessage)
-                RaiseEvent OnReciveCoin(Me, m)
+            Case GetType(Coin_ReceiveMessage)
+                Dim m As Coin_ReceiveMessage = CType(e, Coin_ReceiveMessage)
+                RaiseEvent OnReceiveCoin(Me, m)
 
-            Case GetType(Crown_ReciveMessage)
-                Dim m As Crown_ReciveMessage = CType(e, Crown_ReciveMessage)
-                RaiseEvent OnReciveCrown(Me, m)
+            Case GetType(Crown_ReceiveMessage)
+                Dim m As Crown_ReceiveMessage = CType(e, Crown_ReceiveMessage)
+                RaiseEvent OnReceiveCrown(Me, m)
 
-            Case GetType(SilverCrown_ReciveMessage)
-                Dim m As SilverCrown_ReciveMessage = CType(e, SilverCrown_ReciveMessage)
-                RaiseEvent OnReciveSilverCrown(Me, m)
-            Case GetType(Face_ReciveMessage)
-                Dim m As Face_ReciveMessage = CType(e, Face_ReciveMessage)
-                RaiseEvent OnReciveFace(Me, m)
+            Case GetType(SilverCrown_ReceiveMessage)
+                Dim m As SilverCrown_ReceiveMessage = CType(e, SilverCrown_ReceiveMessage)
+                RaiseEvent OnReceiveSilverCrown(Me, m)
+            Case GetType(Face_ReceiveMessage)
+                Dim m As Face_ReceiveMessage = CType(e, Face_ReceiveMessage)
+                RaiseEvent OnReceiveFace(Me, m)
 
-            Case GetType(ShowKey_ReciveMessage)
-                Dim m As ShowKey_ReciveMessage = CType(e, ShowKey_ReciveMessage)
-                RaiseEvent OnReciveShowKey(Me, m)
+            Case GetType(ShowKey_ReceiveMessage)
+                Dim m As ShowKey_ReceiveMessage = CType(e, ShowKey_ReceiveMessage)
+                RaiseEvent OnReceiveShowKey(Me, m)
 
-            Case GetType(HideKey_ReciveMessage)
-                Dim m As HideKey_ReciveMessage = CType(e, HideKey_ReciveMessage)
-                RaiseEvent OnReciveHideKey(Me, m)
+            Case GetType(HideKey_ReceiveMessage)
+                Dim m As HideKey_ReceiveMessage = CType(e, HideKey_ReceiveMessage)
+                RaiseEvent OnReceiveHideKey(Me, m)
 
-            Case GetType(Say_ReciveMessage)
-                Dim m As Say_ReciveMessage = CType(e, Say_ReciveMessage)
-                RaiseEvent OnReciveSay(Me, m)
+            Case GetType(Say_ReceiveMessage)
+                Dim m As Say_ReceiveMessage = CType(e, Say_ReceiveMessage)
+                RaiseEvent OnReceiveSay(Me, m)
 
-            Case GetType(SayOld_ReciveMessage)
-                Dim m As SayOld_ReciveMessage = CType(e, SayOld_ReciveMessage)
-                RaiseEvent OnReciveSayOld(Me, m)
+            Case GetType(SayOld_ReceiveMessage)
+                Dim m As SayOld_ReceiveMessage = CType(e, SayOld_ReceiveMessage)
+                RaiseEvent OnReceiveSayOld(Me, m)
 
-            Case GetType(AutoText_ReciveMessage)
-                Dim m As AutoText_ReciveMessage = CType(e, AutoText_ReciveMessage)
-                RaiseEvent OnReciveAutoText(Me, m)
+            Case GetType(AutoText_ReceiveMessage)
+                Dim m As AutoText_ReceiveMessage = CType(e, AutoText_ReceiveMessage)
+                RaiseEvent OnReceiveAutoText(Me, m)
 
-            Case GetType(Write_ReciveMessage)
-                Dim m As Write_ReciveMessage = CType(e, Write_ReciveMessage)
-                RaiseEvent OnReciveWrite(Me, m)
+            Case GetType(Write_ReceiveMessage)
+                Dim m As Write_ReceiveMessage = CType(e, Write_ReceiveMessage)
+                RaiseEvent OnReceiveWrite(Me, m)
 
-            Case GetType(BlockPlace_ReciveMessage)
-                Dim m As BlockPlace_ReciveMessage = CType(e, BlockPlace_ReciveMessage)
-                RaiseEvent OnReciveBlockPlace(Me, m)
+            Case GetType(BlockPlace_ReceiveMessage)
+                Dim m As BlockPlace_ReceiveMessage = CType(e, BlockPlace_ReceiveMessage)
+                RaiseEvent OnReceiveBlockPlace(Me, m)
 
-            Case GetType(CoinDoorPlace_ReciveMessage)
-                Dim m As CoinDoorPlace_ReciveMessage = CType(e, CoinDoorPlace_ReciveMessage)
-                RaiseEvent OnReciveCoinDoorPlace(Me, m)
-                RaiseEvent OnReciveBlockPlace(Me, m)
+            Case GetType(CoinDoorPlace_ReceiveMessage)
+                Dim m As CoinDoorPlace_ReceiveMessage = CType(e, CoinDoorPlace_ReceiveMessage)
+                RaiseEvent OnReceiveCoinDoorPlace(Me, m)
+                RaiseEvent OnReceiveBlockPlace(Me, m)
 
-            Case GetType(SoundPlace_ReciveMessage)
-                Dim m As SoundPlace_ReciveMessage = CType(e, SoundPlace_ReciveMessage)
-                RaiseEvent OnReciveSoundPlace(Me, m)
-                RaiseEvent OnReciveBlockPlace(Me, m)
+            Case GetType(SoundPlace_ReceiveMessage)
+                Dim m As SoundPlace_ReceiveMessage = CType(e, SoundPlace_ReceiveMessage)
+                RaiseEvent OnReceiveSoundPlace(Me, m)
+                RaiseEvent OnReceiveBlockPlace(Me, m)
 
-            Case GetType(PortalPlace_ReciveMessage)
-                Dim m As PortalPlace_ReciveMessage = CType(e, PortalPlace_ReciveMessage)
-                RaiseEvent OnRecivePortalPlace(Me, m)
-                RaiseEvent OnReciveBlockPlace(Me, m)
+            Case GetType(PortalPlace_ReceiveMessage)
+                Dim m As PortalPlace_ReceiveMessage = CType(e, PortalPlace_ReceiveMessage)
+                RaiseEvent OnReceivePortalPlace(Me, m)
+                RaiseEvent OnReceiveBlockPlace(Me, m)
 
-            Case GetType(LabelPlace_ReciveMessage)
-                Dim m As LabelPlace_ReciveMessage = CType(e, LabelPlace_ReciveMessage)
-                RaiseEvent OnReciveLabelPlace(Me, m)
-                RaiseEvent OnReciveBlockPlace(Me, m)
+            Case GetType(LabelPlace_ReceiveMessage)
+                Dim m As LabelPlace_ReceiveMessage = CType(e, LabelPlace_ReceiveMessage)
+                RaiseEvent OnReceiveLabelPlace(Me, m)
+                RaiseEvent OnReceiveBlockPlace(Me, m)
 
-            Case GetType(Godmode_ReciveMessage)
-                Dim m As Godmode_ReciveMessage = CType(e, Godmode_ReciveMessage)
-                RaiseEvent OnReciveGodmode(Me, m)
+            Case GetType(Godmode_ReceiveMessage)
+                Dim m As Godmode_ReceiveMessage = CType(e, Godmode_ReceiveMessage)
+                RaiseEvent OnReceiveGodMode(Me, m)
 
-            Case GetType(Modmode_ReciveMessage)
-                Dim m As Modmode_ReciveMessage = CType(e, Modmode_ReciveMessage)
-                RaiseEvent OnReciveModmode(Me, m)
+            Case GetType(Modmode_ReceiveMessage)
+                Dim m As Modmode_ReceiveMessage = CType(e, Modmode_ReceiveMessage)
+                RaiseEvent OnReceiveModMode(Me, m)
 
-            Case GetType(Access_ReciveMessage)
-                Dim m As Access_ReciveMessage = CType(e, Access_ReciveMessage)
-                RaiseEvent OnReciveAccess(Me, m)
+            Case GetType(Access_ReceiveMessage)
+                Dim m As Access_ReceiveMessage = CType(e, Access_ReceiveMessage)
+                RaiseEvent OnReceiveAccess(Me, m)
 
-            Case GetType(LostAccess_ReciveMessage)
-                Dim m As LostAccess_ReciveMessage = CType(e, LostAccess_ReciveMessage)
-                RaiseEvent OnReciveLostAccess(Me, m)
+            Case GetType(LostAccess_ReceiveMessage)
+                Dim m As LostAccess_ReceiveMessage = CType(e, LostAccess_ReceiveMessage)
+                RaiseEvent OnReceiveLostAccess(Me, m)
 
-            Case GetType(Teleport_ReciveMessage)
-                Dim m As Teleport_ReciveMessage = CType(e, Teleport_ReciveMessage)
-                RaiseEvent OnReciveTeleport(Me, m)
+            Case GetType(Teleport_ReceiveMessage)
+                Dim m As Teleport_ReceiveMessage = CType(e, Teleport_ReceiveMessage)
+                RaiseEvent OnReceiveTeleport(Me, m)
 
-            Case GetType(Reset_ReciveMessage)
-                Dim m As Reset_ReciveMessage = CType(e, Reset_ReciveMessage)
-                RaiseEvent OnReciveReset(Me, m)
+            Case GetType(Reset_ReceiveMessage)
+                Dim m As Reset_ReceiveMessage = CType(e, Reset_ReceiveMessage)
+                RaiseEvent OnReceiveReset(Me, m)
 
-            Case GetType(Clear_ReciveMessage)
-                Dim m As Clear_ReciveMessage = CType(e, Clear_ReciveMessage)
-                RaiseEvent OnReciveClear(Me, m)
+            Case GetType(Clear_ReceiveMessage)
+                Dim m As Clear_ReceiveMessage = CType(e, Clear_ReceiveMessage)
+                RaiseEvent OnReceiveClear(Me, m)
 
-            Case GetType(SaveDone_ReciveMessage)
-                Dim m As SaveDone_ReciveMessage = CType(e, SaveDone_ReciveMessage)
-                RaiseEvent OnReciveSaveDone(Me, m)
+            Case GetType(SaveDone_ReceiveMessage)
+                Dim m As SaveDone_ReceiveMessage = CType(e, SaveDone_ReceiveMessage)
+                RaiseEvent OnReceiveSaveDone(Me, m)
 
-            Case GetType(RefreshShop_ReciveMessage)
-                Dim m As RefreshShop_ReciveMessage = CType(e, RefreshShop_ReciveMessage)
-                RaiseEvent OnReciveRefreshShop(Me, m)
+            Case GetType(RefreshShop_ReceiveMessage)
+                Dim m As RefreshShop_ReceiveMessage = CType(e, RefreshShop_ReceiveMessage)
+                RaiseEvent OnReceiveRefreshShop(Me, m)
 
-            Case GetType(GiveWizard_ReciveMessage)
-                Dim m As GiveWizard_ReciveMessage = CType(e, GiveWizard_ReciveMessage)
-                RaiseEvent OnReciveGiveWizard(Me, m)
+            Case GetType(GiveWizard_ReceiveMessage)
+                Dim m As GiveWizard_ReceiveMessage = CType(e, GiveWizard_ReceiveMessage)
+                RaiseEvent OnReceiveGiveWizard(Me, m)
 
-            Case GetType(GiveFireWizard_ReciveMessage)
-                Dim m As GiveFireWizard_ReciveMessage = CType(e, GiveFireWizard_ReciveMessage)
-                RaiseEvent OnReciveGiveFireWizard(Me, m)
+            Case GetType(GiveFireWizard_ReceiveMessage)
+                Dim m As GiveFireWizard_ReceiveMessage = CType(e, GiveFireWizard_ReceiveMessage)
+                RaiseEvent OnReceiveGiveFireWizard(Me, m)
 
-            Case GetType(GiveWitch_ReciveMessage)
-                Dim m As GiveWitch_ReciveMessage = CType(e, GiveWitch_ReciveMessage)
-                RaiseEvent OnReciveGiveWitch(Me, m)
+            Case GetType(GiveWitch_ReceiveMessage)
+                Dim m As GiveWitch_ReceiveMessage = CType(e, GiveWitch_ReceiveMessage)
+                RaiseEvent OnReceiveGiveWitch(Me, m)
 
-            Case GetType(GiveGrinch_ReciveMessage)
-                Dim m As GiveGrinch_ReciveMessage = CType(e, GiveGrinch_ReciveMessage)
-                RaiseEvent OnReciveGiveGrinch(Me, m)
+            Case GetType(GiveGrinch_ReceiveMessage)
+                Dim m As GiveGrinch_ReceiveMessage = CType(e, GiveGrinch_ReceiveMessage)
+                RaiseEvent OnReceiveGiveGrinch(Me, m)
         End Select
     End Sub
 
-    Private Sub myInternalConnection_OnRemoveUser(sender As Object, e As Left_ReciveMessage) Handles myInternalConnection.OnRemoveUser
+    Private Sub myInternalConnection_OnRemoveUser(sender As Object, e As Left_ReceiveMessage) Handles myInternalConnection.OnRemoveUser
         Try
             myPlayersDictionary.Remove(e.UserID)
         Catch

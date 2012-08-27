@@ -1,8 +1,8 @@
 ﻿Friend Interface IInternalConnection
-    Event OnMessage As EventHandler(Of ReciveMessage)
+    Event OnMessage As EventHandler(Of ReceiveMessage)
     Event OnDisconnect(sender As Object, message As String)
     Event OnAddUser(sender As Object, e As IPlayer)
-    Event OnRemoveUser(sender As Object, e As Left_ReciveMessage)
+    Event OnRemoveUser(sender As Object, e As Left_ReceiveMessage)
 
     ReadOnly Property DefaultChatter As IChatter
     ReadOnly Property WorldID As String

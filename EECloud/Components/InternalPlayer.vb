@@ -137,7 +137,7 @@
 #End Region
 
 #Region "Methods"
-    Friend Sub New(PConnection As Connection(Of Player), PAddMessage As Add_ReciveMessage)
+    Friend Sub New(PConnection As Connection(Of Player), PAddMessage As Add_ReceiveMessage)
         myConnection = PConnection
         myUserID = PAddMessage.UserID
         myUsername = PAddMessage.Username
@@ -151,19 +151,19 @@
         myPlayerPosY = PAddMessage.PlayerPosY
     End Sub
 
-    Private Sub myConnection_OnReciveCoin(sender As Object, e As Coin_ReciveMessage) Handles myConnection.OnReciveCoin
+    Private Sub myConnection_OnReceiveCoin(sender As Object, e As Coin_ReceiveMessage) Handles myConnection.OnReceiveCoin
         If e.UserID = myUserID Then
             myCoins = e.Coins
         End If
     End Sub
 
-    Private Sub myConnection_OnReciveFace(sender As Object, e As Face_ReciveMessage) Handles myConnection.OnReciveFace
+    Private Sub myConnection_OnReceiveFace(sender As Object, e As Face_ReceiveMessage) Handles myConnection.OnReceiveFace
         If e.UserID = myUserID Then
             myFace = e.Face
         End If
     End Sub
 
-    Private Sub myConnection_OnReciveMove(sender As Object, e As Move_ReciveMessage) Handles myConnection.OnReciveMove
+    Private Sub myConnection_OnReceiveMove(sender As Object, e As Move_ReceiveMessage) Handles myConnection.OnReceiveMove
         If e.UserID = myUserID Then
             myCoins = e.Coins
             myHorizontal = e.Horizontal
@@ -177,31 +177,31 @@
         End If
     End Sub
 
-    Private Sub myConnection_OnReciveCrown(sender As Object, e As Crown_ReciveMessage) Handles myConnection.OnReciveCrown
+    Private Sub myConnection_OnReceiveCrown(sender As Object, e As Crown_ReceiveMessage) Handles myConnection.OnReceiveCrown
         If e.UserID = myUserID Then
 
         End If
     End Sub
 
-    Private Sub myConnection_OnReciveGodmode(sender As Object, e As Godmode_ReciveMessage) Handles myConnection.OnReciveGodmode
+    Private Sub myConnection_OnReceiveGodMode(sender As Object, e As Godmode_ReceiveMessage) Handles myConnection.OnReceiveGodMode
         If e.UserID = myUserID Then
             myIsGod = e.IsGod
         End If
     End Sub
 
-    Private Sub myConnection_OnReciveModmode(sender As Object, e As Modmode_ReciveMessage) Handles myConnection.OnReciveModmode
+    Private Sub myConnection_OnReceiveModMode(sender As Object, e As Modmode_ReceiveMessage) Handles myConnection.OnReceiveModMode
         If e.UserID = myUserID Then
             myIsMod = True
         End If
     End Sub
 
-    Private Sub myConnection_OnReciveSilverCrown(sender As Object, e As SilverCrown_ReciveMessage) Handles myConnection.OnReciveSilverCrown
+    Private Sub myConnection_OnReceiveSilverCrown(sender As Object, e As SilverCrown_ReceiveMessage) Handles myConnection.OnReceiveSilverCrown
         If e.UserID = myUserID Then
 
         End If
     End Sub
 
-    Private Sub myConnection_OnReciveTeleport(sender As Object, e As Teleport_ReciveMessage) Handles myConnection.OnReciveTeleport
+    Private Sub myConnection_OnReceiveTeleport(sender As Object, e As Teleport_ReceiveMessage) Handles myConnection.OnReceiveTeleport
         If e.ResetCoins = True Then
             myCoins = 0
         End If

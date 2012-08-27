@@ -1,5 +1,5 @@
-﻿Public Class GroupDisallowedJoin_ReciveMessage
-    Inherits ReciveMessage
+﻿Public Class Write_ReceiveMessage
+    Inherits ReceiveMessage
     'No arguments
 
     Friend Sub New(message As PlayerIOClient.Message)

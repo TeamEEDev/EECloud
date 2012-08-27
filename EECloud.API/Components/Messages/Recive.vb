@@ -1,5 +1,5 @@
-﻿Public Class Info_ReciveMessage
-    Inherits ReciveMessage
+﻿Public Class Info_ReceiveMessage
+    Inherits ReceiveMessage
     Public ReadOnly Title As String '0
     Public ReadOnly Text As String '1
 
@@ -11,8 +11,8 @@
     End Sub
 End Class
 
-Public Class Init_ReciveMessage
-    Inherits ReciveMessage
+Public Class Init_ReceiveMessage
+    Inherits ReceiveMessage
     Public ReadOnly UsernameOwner As String '0
     Public ReadOnly WorldName As String '1
     Public ReadOnly Plays As Integer '2
@@ -46,8 +46,8 @@ Public Class Init_ReciveMessage
     End Sub
 End Class
 
-Public Class UpdateMeta_ReciveMessage
-    Inherits ReciveMessage
+Public Class UpdateMeta_ReceiveMessage
+    Inherits ReceiveMessage
     Public ReadOnly Owner As String '0
     Public ReadOnly Title As String '1
     Public ReadOnly Plays As Integer '2
@@ -61,8 +61,8 @@ Public Class UpdateMeta_ReciveMessage
     End Sub
 End Class
 
-Public Class Add_ReciveMessage
-    Inherits ReciveMessage
+Public Class Add_ReceiveMessage
+    Inherits ReceiveMessage
     Public ReadOnly UserID As Integer '0
     Public ReadOnly Username As String '1
     Public ReadOnly Face As Smiley '2
@@ -90,8 +90,8 @@ Public Class Add_ReciveMessage
     End Sub
 End Class
 
-Public Class Left_ReciveMessage
-    Inherits ReciveMessage
+Public Class Left_ReceiveMessage
+    Inherits ReceiveMessage
     Public ReadOnly UserID As Integer '0
 
     Friend Sub New(message As PlayerIOClient.Message)
@@ -101,8 +101,8 @@ Public Class Left_ReciveMessage
     End Sub
 End Class
 
-Public Class Move_ReciveMessage
-    Inherits ReciveMessage
+Public Class Move_ReceiveMessage
+    Inherits ReceiveMessage
     Public ReadOnly UserID As Integer '0
     Public ReadOnly PlayerPosX As Integer '1
     Public ReadOnly PlayerPosY As Integer '2
@@ -130,8 +130,8 @@ Public Class Move_ReciveMessage
     End Sub
 End Class
 
-Public Class Coin_ReciveMessage
-    Inherits ReciveMessage
+Public Class Coin_ReceiveMessage
+    Inherits ReceiveMessage
     Public ReadOnly UserID As Integer '0
     Public ReadOnly Coins As Integer '1
 
@@ -143,8 +143,8 @@ Public Class Coin_ReciveMessage
     End Sub
 End Class
 
-Public Class Crown_ReciveMessage
-    Inherits ReciveMessage
+Public Class Crown_ReceiveMessage
+    Inherits ReceiveMessage
     Public ReadOnly UserID As Integer '0
 
     Friend Sub New(message As PlayerIOClient.Message)
@@ -154,8 +154,8 @@ Public Class Crown_ReciveMessage
     End Sub
 End Class
 
-Public Class SilverCrown_ReciveMessage
-    Inherits ReciveMessage
+Public Class SilverCrown_ReceiveMessage
+    Inherits ReceiveMessage
     Public ReadOnly UserID As Integer '0
 
     Friend Sub New(message As PlayerIOClient.Message)
@@ -165,8 +165,8 @@ Public Class SilverCrown_ReciveMessage
     End Sub
 End Class
 
-Public Class Face_ReciveMessage
-    Inherits ReciveMessage
+Public Class Face_ReceiveMessage
+    Inherits ReceiveMessage
     Public ReadOnly UserID As Integer '0
     Public ReadOnly Face As Smiley  '1
 
@@ -178,8 +178,8 @@ Public Class Face_ReciveMessage
     End Sub
 End Class
 
-Public Class ShowKey_ReciveMessage
-    Inherits ReciveMessage
+Public Class ShowKey_ReceiveMessage
+    Inherits ReceiveMessage
     Public ReadOnly KeyColor As DoorID '0
 
     Friend Sub New(message As PlayerIOClient.Message)
@@ -189,8 +189,8 @@ Public Class ShowKey_ReciveMessage
     End Sub
 End Class
 
-Public Class HideKey_ReciveMessage
-    Inherits ReciveMessage
+Public Class HideKey_ReceiveMessage
+    Inherits ReceiveMessage
     Public ReadOnly KeyColor As DoorID '0
 
     Friend Sub New(message As PlayerIOClient.Message)
@@ -200,8 +200,8 @@ Public Class HideKey_ReciveMessage
     End Sub
 End Class
 
-Public Class Say_ReciveMessage
-    Inherits ReciveMessage
+Public Class Say_ReceiveMessage
+    Inherits ReceiveMessage
     Public ReadOnly UserID As Integer '0
     Public ReadOnly Text As String '1
 
@@ -213,8 +213,8 @@ Public Class Say_ReciveMessage
     End Sub
 End Class
 
-Public Class SayOld_ReciveMessage
-    Inherits ReciveMessage
+Public Class SayOld_ReceiveMessage
+    Inherits ReceiveMessage
     Public ReadOnly UserName As String '0
     Public ReadOnly Text As String '1
 
@@ -226,8 +226,8 @@ Public Class SayOld_ReciveMessage
     End Sub
 End Class
 
-Public Class AutoText_ReciveMessage
-    Inherits ReciveMessage
+Public Class AutoText_ReceiveMessage
+    Inherits ReceiveMessage
     Public ReadOnly UserID As Integer '0
     Public ReadOnly Text As String '1
 
@@ -239,8 +239,8 @@ Public Class AutoText_ReciveMessage
     End Sub
 End Class
 
-Public Class Write_ReciveMessage
-    Inherits ReciveMessage
+Public Class Write_ReceiveMessage
+    Inherits ReceiveMessage
     Public ReadOnly Title As String '0
     Public ReadOnly Text As String '1
 
@@ -252,8 +252,8 @@ Public Class Write_ReciveMessage
     End Sub
 End Class
 
-Public Class BlockPlace_ReciveMessage
-    Inherits ReciveMessage
+Public Class BlockPlace_ReceiveMessage
+    Inherits ReceiveMessage
     Public ReadOnly Layer As Layer '0
     Public ReadOnly PosX As Integer '1
     Public ReadOnly PosY As Integer '2
@@ -278,8 +278,8 @@ Public Class BlockPlace_ReciveMessage
     End Sub
 End Class
 
-Public Class CoinDoorPlace_ReciveMessage
-    Inherits BlockPlace_ReciveMessage
+Public Class CoinDoorPlace_ReceiveMessage
+    Inherits BlockPlace_ReceiveMessage
     Public ReadOnly CoinsToOpen As Integer '3
 
     Friend Sub New(message As PlayerIOClient.Message)
@@ -289,8 +289,8 @@ Public Class CoinDoorPlace_ReciveMessage
     End Sub
 End Class
 
-Public Class SoundPlace_ReciveMessage
-    Inherits BlockPlace_ReciveMessage
+Public Class SoundPlace_ReceiveMessage
+    Inherits BlockPlace_ReceiveMessage
     Public Shadows ReadOnly SoundBlock As CoindoorBlockType '2
     Public ReadOnly SoundID As Integer '3
 
@@ -301,8 +301,8 @@ Public Class SoundPlace_ReciveMessage
     End Sub
 End Class
 
-Public Class PortalPlace_ReciveMessage
-    Inherits BlockPlace_ReciveMessage
+Public Class PortalPlace_ReceiveMessage
+    Inherits BlockPlace_ReceiveMessage
     Public ReadOnly PortalRotation As PortalRotation '3
     Public ReadOnly PortalID As Integer '4
     Public ReadOnly PortalTarget As Integer '5
@@ -316,8 +316,8 @@ Public Class PortalPlace_ReciveMessage
     End Sub
 End Class
 
-Public Class LabelPlace_ReciveMessage
-    Inherits BlockPlace_ReciveMessage
+Public Class LabelPlace_ReceiveMessage
+    Inherits BlockPlace_ReceiveMessage
     Public ReadOnly Text As String '3
 
     Friend Sub New(message As PlayerIOClient.Message)
@@ -327,8 +327,8 @@ Public Class LabelPlace_ReciveMessage
     End Sub
 End Class
 
-Public Class Godmode_ReciveMessage
-    Inherits ReciveMessage
+Public Class Godmode_ReceiveMessage
+    Inherits ReceiveMessage
     Public ReadOnly UserID As Integer '0
     Public ReadOnly IsGod As Boolean '1
 
@@ -340,8 +340,8 @@ Public Class Godmode_ReciveMessage
     End Sub
 End Class
 
-Public Class Modmode_ReciveMessage
-    Inherits ReciveMessage
+Public Class Modmode_ReceiveMessage
+    Inherits ReceiveMessage
     Public ReadOnly UserID As Integer '0
 
     Friend Sub New(message As PlayerIOClient.Message)
@@ -351,8 +351,8 @@ Public Class Modmode_ReciveMessage
     End Sub
 End Class
 
-Public Class Access_ReciveMessage
-    Inherits ReciveMessage
+Public Class Access_ReceiveMessage
+    Inherits ReceiveMessage
     'No arguments
 
     Friend Sub New(message As PlayerIOClient.Message)
@@ -360,8 +360,8 @@ Public Class Access_ReciveMessage
     End Sub
 End Class
 
-Public Class LostAccess_ReciveMessage
-    Inherits ReciveMessage
+Public Class LostAccess_ReceiveMessage
+    Inherits ReceiveMessage
     'No arguments
 
     Friend Sub New(message As PlayerIOClient.Message)
@@ -369,8 +369,8 @@ Public Class LostAccess_ReciveMessage
     End Sub
 End Class
 
-Public Class Teleport_ReciveMessage
-    Inherits ReciveMessage
+Public Class Teleport_ReceiveMessage
+    Inherits ReceiveMessage
     Public ReadOnly ResetCoins As Boolean '0
 
     Friend Sub New(message As PlayerIOClient.Message)
@@ -380,8 +380,8 @@ Public Class Teleport_ReciveMessage
     End Sub
 End Class
 
-Public Class Reset_ReciveMessage
-    Inherits ReciveMessage
+Public Class Reset_ReceiveMessage
+    Inherits ReceiveMessage
     'No arguments
 
     Friend Sub New(message As PlayerIOClient.Message)
@@ -389,8 +389,8 @@ Public Class Reset_ReciveMessage
     End Sub
 End Class
 
-Public Class Clear_ReciveMessage
-    Inherits ReciveMessage
+Public Class Clear_ReceiveMessage
+    Inherits ReceiveMessage
     Public ReadOnly RoomWidth As Integer '0
     Public ReadOnly RoomHeight As Integer '1
 
@@ -402,8 +402,8 @@ Public Class Clear_ReciveMessage
     End Sub
 End Class
 
-Public Class SaveDone_ReciveMessage
-    Inherits ReciveMessage
+Public Class SaveDone_ReceiveMessage
+    Inherits ReceiveMessage
     'No arguments
 
     Friend Sub New(message As PlayerIOClient.Message)
@@ -411,8 +411,8 @@ Public Class SaveDone_ReciveMessage
     End Sub
 End Class
 
-Public Class RefreshShop_ReciveMessage
-    Inherits ReciveMessage
+Public Class RefreshShop_ReceiveMessage
+    Inherits ReceiveMessage
     'TODO: Add arguments
 
     Friend Sub New(message As PlayerIOClient.Message)
@@ -420,8 +420,8 @@ Public Class RefreshShop_ReciveMessage
     End Sub
 End Class
 
-Public Class GiveWizard_ReciveMessage
-    Inherits ReciveMessage
+Public Class GiveWizard_ReceiveMessage
+    Inherits ReceiveMessage
     'No arguments
 
     Friend Sub New(message As PlayerIOClient.Message)
@@ -429,8 +429,8 @@ Public Class GiveWizard_ReciveMessage
     End Sub
 End Class
 
-Public Class GiveFireWizard_ReciveMessage
-    Inherits ReciveMessage
+Public Class GiveFireWizard_ReceiveMessage
+    Inherits ReceiveMessage
     'No arguments
 
     Friend Sub New(message As PlayerIOClient.Message)
@@ -438,8 +438,8 @@ Public Class GiveFireWizard_ReciveMessage
     End Sub
 End Class
 
-Public Class GiveWitch_ReciveMessage
-    Inherits ReciveMessage
+Public Class GiveWitch_ReceiveMessage
+    Inherits ReceiveMessage
     'No arguments
 
     Friend Sub New(message As PlayerIOClient.Message)
@@ -447,8 +447,8 @@ Public Class GiveWitch_ReciveMessage
     End Sub
 End Class
 
-Public Class GiveGrinch_ReciveMessage
-    Inherits ReciveMessage
+Public Class GiveGrinch_ReceiveMessage
+    Inherits ReceiveMessage
     'No arguments
 
     Friend Sub New(message As PlayerIOClient.Message)
