@@ -1,9 +1,9 @@
 ﻿Friend Class CommandManager
     Private commandsDictionary As New Dictionary(Of String, CommandHandle)
     Private myBot As IBot
-    Private myConnection As Connection(Of Player)
+    Private myConnection As IConnection(Of Player)
 
-    Sub New(connection As Connection(Of Player), bot As IBot, target As Object)
+    Sub New(connection As IConnection(Of Player), bot As IBot, target As Object)
         myConnection = connection
         Me.myBot = bot
         AddHandler myConnection.OnReceiveSay, AddressOf myConnection_OnReceiveSay
@@ -65,7 +65,7 @@
                     myBot.Logger.Log(ex)
                 End Try
             Else
-                myConnection.DefaultChatter.Chat("Command usage: " & handle.Syntax.ToString)
+                myBot.GetDefaultChatter(myConnection).Chat("Command usage: " & handle.Syntax.ToString)
             End If
         End If
     End Sub

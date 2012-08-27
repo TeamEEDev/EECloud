@@ -7,7 +7,7 @@
         Me.CoinsToCollect = coinsToCollect
     End Sub
 
-    Friend Overrides Function GetMessage(connection As IInternalConnection) As PlayerIOClient.Message
+    Friend Overrides Function GetMessage(connection As IConnection(Of player)) As PlayerIOClient.Message
         If IsCoinDoor(Block) Then
             Dim myMessage As PlayerIOClient.Message = MyBase.GetMessage(connection)
             myMessage.Add(CoinsToCollect)

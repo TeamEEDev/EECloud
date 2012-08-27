@@ -2,8 +2,6 @@
 
 Friend Class InternalConnection
     Inherits BaseGlobalComponent
-    Implements IInternalConnection
-
 
 #Region "Fields"
     Private myConnection As PlayerIOClient.Connection
@@ -11,26 +9,26 @@ Friend Class InternalConnection
 
 #Region "Properties"
     Private myWorldID As String
-    Friend ReadOnly Property WorldID As String Implements IInternalConnection.WorldID
+    Friend ReadOnly Property WorldID As String
         Get
             Return myWorldID
         End Get
     End Property
 
     Private myWorld As World
-    Friend ReadOnly Property World As World Implements IInternalConnection.World
+    Friend ReadOnly Property World As World
         Get
             Return myWorld
         End Get
     End Property
 
-    Friend ReadOnly Property IsMainConnection As Boolean Implements IInternalConnection.IsMainConnection
+    Friend ReadOnly Property IsMainConnection As Boolean
         Get
-            Return Me Is myBot.Connection
+            Return Me Is myBot.myConnection
         End Get
     End Property
 
-    Friend ReadOnly Property Connected As Boolean Implements IInternalConnection.Connected
+    Friend ReadOnly Property Connected As Boolean
         Get
             If myConnection IsNot Nothing Then
                 Return myConnection.Connected
@@ -41,21 +39,21 @@ Friend Class InternalConnection
     End Property
 
     Private myDefaultConnection As New Connection(Of Player)(myBot, Me)
-    Friend ReadOnly Property DefaultConnection As Connection(Of Player) Implements IInternalConnection.DefaultConnection
+    Friend ReadOnly Property DefaultConnection As Connection(Of Player)
         Get
             Return myDefaultConnection
         End Get
     End Property
 
     Private myEncryption As String
-    ReadOnly Property Encryption As String Implements IInternalConnection.Encryption
+    ReadOnly Property Encryption As String
         Get
             Return myEncryption
         End Get
     End Property
 
     Private myChatter As IChatter = New Chatter(Me.DefaultConnection, "Bot")
-    Public ReadOnly Property DefaultChatter As IChatter Implements IInternalConnection.DefaultChatter
+    Public ReadOnly Property DefaultChatter As IChatter
         Get
             Return myChatter
         End Get
@@ -63,13 +61,13 @@ Friend Class InternalConnection
 #End Region
 
 #Region "Events"
-    Friend Event OnDisconnect(sender As Object, e As String) Implements IInternalConnection.OnDisconnect
+    Friend Event OnDisconnect(sender As Object, e As String)
 
-    Friend Event OnMessage(sender As Object, e As ReceiveMessage) Implements IInternalConnection.OnMessage
+    Friend Event OnMessage(sender As Object, e As ReceiveMessage)
 
-    Friend Event OnAddUser(sender As Object, e As IPlayer) Implements IInternalConnection.OnAddUser
+    Friend Event OnAddUser(sender As Object, e As IPlayer)
 
-    Friend Event OnRemoveUser(sender As Object, e As Left_ReceiveMessage) Implements IInternalConnection.OnRemoveUser
+    Friend Event OnRemoveUser(sender As Object, e As Left_ReceiveMessage)
 #End Region
 
 #Region "Methods"
@@ -137,13 +135,13 @@ Friend Class InternalConnection
         End Try
     End Sub
 
-    Friend Sub Send(PMessage As SendMessage) Implements IInternalConnection.Send
+    Friend Sub Send(PMessage As SendMessage)
         If myConnection IsNot Nothing Then
-            myConnection.Send(PMessage.GetMessage(Me))
+            myConnection.Send(PMessage.GetMessage(Me.DefaultConnection))
         End If
     End Sub
 
-    Friend Sub Disconnect() Implements IInternalConnection.Disconnect
+    Friend Sub Disconnect()
         If myConnection IsNot Nothing Then
             myConnection.Disconnect()
         End If
@@ -172,8 +170,8 @@ Friend Class InternalConnection
             RegisterMessage("bs", GetType(SoundPlace_ReceiveMessage))
             RegisterMessage("pt", GetType(PortalPlace_ReceiveMessage))
             RegisterMessage("lb", GetType(LabelPlace_ReceiveMessage))
-            RegisterMessage("god", GetType(Godmode_ReceiveMessage))
-            RegisterMessage("mod", GetType(Modmode_ReceiveMessage))
+            RegisterMessage("god", GetType(GodMode_ReceiveMessage))
+            RegisterMessage("mod", GetType(ModMode_ReceiveMessage))
             RegisterMessage("access", GetType(Access_ReceiveMessage))
             RegisterMessage("lostaccess", GetType(LostAccess_ReceiveMessage))
             RegisterMessage("tele", GetType(Teleport_ReceiveMessage))

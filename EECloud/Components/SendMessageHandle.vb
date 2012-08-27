@@ -1,4 +1,6 @@
 ﻿Public Class SendMessageHandle(Of T As SendMessage)
+    Implements ISendMessageHandle(Of T)
+
     Friend ReadOnly Property Message As T
         Get
             Try
@@ -9,14 +11,14 @@
         End Get
     End Property
 
-    Public ReadOnly Property IsSent As Boolean
+    Public ReadOnly Property IsSent As Boolean Implements ISendMessageHandle(Of T).IsSent
         Get
             Return myInternalHandle Is Nothing
         End Get
     End Property
 
     Private myInternalHandle As InternalHandle
-    Public Sub Send()
+    Public Sub Send() Implements ISendMessageHandle(Of T).Send
         If myInternalHandle IsNot Nothing Then
             myInternalHandle.Send()
             myInternalHandle = Nothing
@@ -33,7 +35,7 @@
     Friend Class InternalHandle
         Friend myMessage As T
         Private myHandleCount As Integer
-        Private myInternalConnection As IInternalConnection
+        Private myInternalConnection As InternalConnection
 
         Friend Sub Send()
             myHandleCount -= 1
@@ -47,7 +49,7 @@
             myHandleCount += 1
         End Sub
 
-        Friend Sub New(message As T, internalConnection As IInternalConnection)
+        Friend Sub New(message As T, internalConnection As InternalConnection)
             Me.myMessage = message
             Me.myInternalConnection = internalConnection
         End Sub

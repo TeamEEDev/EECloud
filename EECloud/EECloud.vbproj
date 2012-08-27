@@ -150,6 +150,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Chatter.vb" />
+    <Compile Include="Components\Connection.vb" />
+    <Compile Include="Components\EventHandlerList.vb" />
+    <Compile Include="Components\InternalChatter.vb" />
+    <Compile Include="Components\EESendEventArgs.vb" />
+    <Compile Include="Components\SendMessageHandle.vb" />
     <Compile Include="Forms\LicenseForm.Designer.vb">
       <DependentUpon>LicenseForm.vb</DependentUpon>
     </Compile>

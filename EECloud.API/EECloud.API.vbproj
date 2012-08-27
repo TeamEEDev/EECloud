@@ -113,29 +113,29 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\Command\Command.vb" />
     <Compile Include="Components\Command\CommandAttribute.vb" />
+    <Compile Include="Components\Command\Command.vb" />
     <Compile Include="Components\Command\CommandHandle.vb" />
     <Compile Include="Components\Command\CommandManager.vb" />
     <Compile Include="Components\Command\CommandSyntax.vb" />
-    <Compile Include="Components\OnSendMessageEventArgs.vb" />
-    <Compile Include="Components\SendMessageHandle.vb" />
     <Compile Include="Components\World\WorldLabelBlock.vb" />
     <Compile Include="Components\World\WorldSoundBlock.vb" />
     <Compile Include="Components\World\WorldPortalBlock.vb" />
     <Compile Include="Components\World\WorldBlock.vb" />
-    <Compile Include="Components\Player.vb" />
+    <Compile Include="Interfaces\ICommand.vb" />
+    <Compile Include="Interfaces\IPlayer.vb" />
+    <Compile Include="Interfaces\SendEventArgs.vb" />
+    <Compile Include="Interfaces\ISendMessageHandle.vb" />
+    <Compile Include="Plugins\Player.vb" />
     <Compile Include="Components\World\World.vb" />
     <Compile Include="Components\World\WorldCoinDoorBlock.vb" />
-    <Compile Include="Components\Connection.vb" />
     <Compile Include="Enums\BlockType\CoinDoorBlockType.vb" />
     <Compile Include="Enums\BlockType\LabelBlockType.vb" />
     <Compile Include="Enums\BlockType\PortalBlockType.vb" />
     <Compile Include="Enums\BlockType\SoundBlockType.vb" />
     <Compile Include="Enums\Group.vb" />
     <Compile Include="Interfaces\IChatter.vb" />
-    <Compile Include="Interfaces\IInternalConnection.vb" />
-    <Compile Include="Interfaces\IPlayer.vb" />
+    <Compile Include="Interfaces\IConnection.vb" />
     <Compile Include="Messages\Send\SaveWorld_SendMessage.vb" />
     <Compile Include="Messages\Send\Say_SendMessage.vb" />
     <Compile Include="Messages\Send\ChangeFace_SendMessage.vb" />
@@ -163,7 +163,6 @@
     <Compile Include="Messages\Send\Init2_SendMessage.vb" />
     <Compile Include="Messages\Send\Init_SendMessage.vb" />
     <Compile Include="Messages\Send\SendMessage.vb" />
-    <Compile Include="Components\EventHandlerList.vb" />
     <Compile Include="Interfaces\IPlugin.vb" />
     <Compile Include="Messages\Receive\Access_ReceiveMessage.vb" />
     <Compile Include="Messages\Receive\Add_ReceiveMessage.vb" />
