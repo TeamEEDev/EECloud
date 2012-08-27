@@ -84,7 +84,7 @@
     <Compile Include="Components\World\WorldBlock.vb" />
     <Compile Include="Components\Player.vb" />
     <Compile Include="Components\World\World.vb" />
-    <Compile Include="Components\World\WorldCoinDoorBlock.vb" />
+    <Compile Include="Components\World\WorldCoindoorBlock.vb" />
     <Compile Include="Components\Connection.vb" />
     <Compile Include="Enums\BlockType\CoinDoorBlockType.vb" />
     <Compile Include="Enums\BlockType\LabelBlockType.vb" />

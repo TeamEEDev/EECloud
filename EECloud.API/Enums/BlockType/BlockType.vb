@@ -300,22 +300,6 @@
     Background_Timbered_8 = 597
     Background_Timbered_9 = 598
 
-    Block_Castle_OneWay = 158
-    Block_Castle_NoWindow = 159
-    Block_Castle_Window = 160
-    Decoration_Castle_1 = 325
-    Decoration_Castle_2 = 326
-    Background_Castle = 599
-
-    Block_Medieval_Anvil = 162
-    Block_Medieval_Barrel = 163
-    Decoration_Medieval_FlagBlue = 327
-    Decoration_Medieval_FlagRed = 328
-    Decoration_Medieval_Sword = 329
-    Decoration_Medieval_Shield = 330
-    Decoration_Medieval_Rocks = 331
-    Background_Medieval = 600
-
     Decoration_Prize_Trophy = 223
 
     Decoration_Spring2011_Grass1 = 233

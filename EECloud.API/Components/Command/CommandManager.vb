@@ -7,6 +7,7 @@
         myConnection = connection
         Me.myBot = bot
         AddHandler myConnection.OnReciveSay, AddressOf myConnection_OnReciveSay
+        AddHandler myBot.Logger.OnInput, Sub(sender As Object, e As System.EventArgs) processMessage(myBot.Logger.Input, Nothing)
 
         For Each method As Reflection.MethodInfo In target.GetType.GetMethods
             Dim myAttributes As Object() = method.GetCustomAttributes(GetType(CommandAttribute), True)
@@ -39,6 +40,7 @@
 
     Private Sub myConnection_OnReciveSay(sender As Object, e As Say_ReciveMessage)
         If e.Text.StartsWith("!") Then
+<<<<<<< HEAD
             Dim cmd As String() = e.Text.Substring(1).Split(" "c)
             Dim type As String = cmd(0).ToLower
             If commandsDictionary.ContainsKey(type) Then
@@ -55,7 +57,29 @@
                     handle.Action.Invoke(myCommand)
                 Else
                     myConnection.DefaultChatter.Chat("Command usage: !" & type & " " & handle.Syntax.ToString.Substring(9))
+=======
+            processMessage(e.Text.Substring(1), myConnection.Players(e.UserID))
+        End If
+    End Sub
+
+    Private Sub processMessage(msg As String, sender As Player)
+        Dim cmd As String() = msg.Substring(1).Split(" "c)
+        Dim type As String = cmd(0).ToLower
+        If commandsDictionary.ContainsKey(type) Then
+            Dim handle As CommandHandle = commandsDictionary(type)
+            If handle.Syntax.MinimumArgs <= cmd.Length - 1 Then
+                Dim args() As String = {}
+                If cmd.Length > 1 Then
+                    ReDim args(cmd.Length - 2)
+                    For i = 1 To cmd.Length - 1
+                        args(i - 1) = cmd(i)
+                    Next
+>>>>>>> Added groups
                 End If
+                Dim myCommand As New Command(sender, type, args)
+                handle.Action.Invoke(myCommand)
+            Else
+                myConnection.DefaultChatter.Chat("Command usage: " & handle.Syntax.ToString)
             End If
         End If
     End Sub

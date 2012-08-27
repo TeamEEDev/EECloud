@@ -5,7 +5,7 @@
         Try
             Me.mySyntaxStr = syntaxStr
             If Not mySyntaxStr.StartsWith("/command") Then
-                Exit Sub
+                Throw New Exception
             End If
             Dim args As String() = mySyntaxStr.Split(" "c)
             For i = 1 To args.Length - 1
