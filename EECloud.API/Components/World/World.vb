@@ -27,7 +27,7 @@
                     For i As Integer = 0 To myByteArrayX.Length - 1 Step 2
                         Dim myX = myByteArrayX(i) * 256 + myByteArrayX(i + 1)
                         Dim myY = myByteArrayY(i) * 256 + myByteArrayY(i + 1)
-                        value(myLayer, myX, myY) = New WorldCoindoorBlock(myLayer, myX, myY, CType(myBlock, CoindoorBlockType), myCoinsToCollect)
+                        value(myLayer, myX, myY) = New WorldCoinDoorBlock(myLayer, myX, myY, CType(myBlock, CoindoorBlockType), myCoinsToCollect)
                     Next
                 Case BlockType.Block_Portal
                     Dim myPortalRotation As PortalRotation = CType(m.GetInteger(pointer), PortalRotation)
