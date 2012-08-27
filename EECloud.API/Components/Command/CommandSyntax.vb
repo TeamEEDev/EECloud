@@ -4,11 +4,8 @@
     Friend Sub New(syntaxStr As String)
         Try
             Me.mySyntaxStr = syntaxStr
-            If Not mySyntaxStr.StartsWith("/command") Then
-                Exit Sub
-            End If
             Dim args As String() = mySyntaxStr.Split(" "c)
-            For i = 1 To args.Length - 1
+            For i = 0 To args.Length - 1
                 If Not (args(i).StartsWith("["c) AndAlso args(i).EndsWith("]"c)) Then
                     myMinimumArgs += 1
                 End If
