@@ -20,9 +20,6 @@ Public Class TestPlugin
         Me.Connection = mainConnection
         Chatter = Connection.GetChatter("TestPlugin")
         Chatter.Chat("Hi")
-        Chatter.Chat("Hi")
-        Chatter.Chat("Hi")
-        Chatter.Chat("Hi")
     End Sub
 
     Private Sub Connection_OnSendMove(sender As Object, e As SendEventArgs(Of Move_SendMessage)) Handles Connection.OnSendMove
