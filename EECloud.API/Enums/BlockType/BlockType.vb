@@ -201,7 +201,8 @@
     Background_Water_SeaHorse = 577
     Background_Water_Seaweed = 578
 
-    Block_Ladder = 120
+    Block_Ladder_Castle = 118
+    Block_Ladder_Ninja = 120
 
     Block_Tool_WinTrophy = 121
     Block_Tool_SpawnPoint = 255
