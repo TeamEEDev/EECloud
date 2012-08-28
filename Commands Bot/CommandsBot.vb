@@ -20,6 +20,12 @@ Public Class CommandsBot
         Chatter.Chat("[Debug] The Commands Bot is active.")
     End Sub
 
+    <Command("leave", "!command", Group.Admin, Aliases:={"leaveworld", "exit", "exitworld"})>
+    Public Sub LeaveWorldCommand(cmd As ICommand)
+        Chatter.Chat("Leaving world...")
+        Connection.Disconnect()
+    End Sub
+
     <Command("save", "!command", Group.Admin)>
     Public Sub SaveCommand(cmd As ICommand)
         Chatter.Chat("Saving world...")
@@ -32,10 +38,27 @@ Public Class CommandsBot
     <Command("loadlevel", "!command", Group.Admin, Aliases:={"load", "loadworld", "reload", "reloadworld"})>
     Public Sub LoadLevelCommand(cmd As ICommand)
         Chatter.Chat("Loading world...")
-        Chatter.Chat("/loadlevel")
+        Chatter.Loadlevel()
         'AddHandler Reset_ReceiveMessage, Sub()
         '                                     Chatter.Chat("World loaded.")
         '                                 End Sub
+
+    End Sub
+
+    <Command("reset", "!command", Group.Admin, Aliases:={"resetworld", "resetplayers"})>
+    Public Sub ResetCommand(cmd As ICommand)
+        Chatter.Reset()
+        'AddHandler Teleport_ReceiveMessage, Sub()
+        '                                        Chatter.Chat("Players' position reset.")
+        '                                    End Sub
+    End Sub
+
+    <Command("name", "!command [name]", Group.Admin, Aliases:={"rename", "worldname"})>
+    Public Sub ChangeWorldNameCommand(cmd As ICommand)
+        Connection.Send(New ChangeWorldName_SendMessage(cmd.Args.ToString))
+        'AddHandler UpdateMeta_ReceiveMessage_ReceiveMessage, Sub()
+        '                                                         Chatter.Chat("World name changed.")
+        '                                                     End Sub
     End Sub
 End Class
 
