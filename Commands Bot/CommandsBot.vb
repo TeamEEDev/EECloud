@@ -1,6 +1,6 @@
 ﻿<Plugin(Authors:={"Processor", "Jojatekok"},
-        Category:=PluginCategory.LevelBot,
-        Description:="Yo!Scroll level bot",
+        Category:=PluginCategory.Tool,
+        Description:="Commands Bot",
         StartupPriority:=PluginStartupPriority.Normal,
         Version:="1.0.0.0")>
 Public Class CommandsBot
@@ -20,13 +20,19 @@ Public Class CommandsBot
         Chatter.Chat("[Debug] The Commands Bot is active.")
     End Sub
 
+    <Command("end", "!command", Group.Admin, Aliases:={"shutdown", "killbot"})>
+    Public Sub EndCommand(cmd As ICommand)
+        Chatter.Chat("Terminating...")
+        'End
+    End Sub
+
     <Command("leave", "!command", Group.Admin, Aliases:={"leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
     Public Sub LeaveWorldCommand(cmd As ICommand)
         Chatter.Chat("Leaving world...")
         Connection.Disconnect()
     End Sub
 
-    <Command("clear", "!command", Group.Admin, Aliases:={"clearworld", "clearlevel"})>
+    <Command("clear", "!command", Group.Moderator, Aliases:={"clearworld", "clearlevel"})>
     Public Sub ClearWorldCommand(cmd As ICommand)
         Connection.Send(New ClearWorld_SendMessage)
         AddHandler Connection.OnReceiveClear, Sub()
@@ -34,7 +40,15 @@ Public Class CommandsBot
                                               End Sub
     End Sub
 
-    <Command("loadlevel", "!command", Group.Admin, Aliases:={"load", "loadworld", "reload", "reloadworld", "reloadlevel"})>
+    <Command("name", "!command [name]", Group.Moderator, Aliases:={"rename", "renameworld", "renamelevel", "worldname", "levelname"})>
+    Public Sub ChangeWorldNameCommand(cmd As ICommand)
+        Connection.Send(New ChangeWorldName_SendMessage(cmd.Args.ToString))
+        AddHandler Connection.OnReceiveUpdateMeta, Sub()
+                                                       Chatter.Chat("World name changed.")
+                                                   End Sub
+    End Sub
+
+    <Command("loadlevel", "!command", Group.Operator, Aliases:={"load", "loadworld", "reload", "reloadworld", "reloadlevel"})>
     Public Sub LoadWorldCommand(cmd As ICommand)
         Chatter.Chat("Loading world...")
         Chatter.Loadlevel()
@@ -43,7 +57,7 @@ Public Class CommandsBot
                                               End Sub
     End Sub
 
-    <Command("save", "!command", Group.Admin, Aliases:={"saveworld", "savelevel"})>
+    <Command("save", "!command", Group.Operator, Aliases:={"saveworld", "savelevel"})>
     Public Sub SaveWorldCommand(cmd As ICommand)
         Chatter.Chat("Saving world...")
         Connection.Send(New SaveWorld_SendMessage)
@@ -52,20 +66,12 @@ Public Class CommandsBot
                                                  End Sub
     End Sub
 
-    <Command("reset", "!command", Group.Admin, Aliases:={"resetworld", "resetlevel", "resetplayers"})>
+    <Command("reset", "!command", Group.Operator, Aliases:={"resetworld", "resetlevel", "resetplayers"})>
     Public Sub ResetCommand(cmd As ICommand)
         Chatter.Reset()
         AddHandler Connection.OnReceiveTeleport, Sub()
                                                      Chatter.Chat("Players' position reset.")
                                                  End Sub
-    End Sub
-
-    <Command("name", "!command [name]", Group.Admin, Aliases:={"rename", "renameworld", "renamelevel", "worldname", "levelname"})>
-    Public Sub ChangeWorldNameCommand(cmd As ICommand)
-        Connection.Send(New ChangeWorldName_SendMessage(cmd.Args.ToString))
-        AddHandler Connection.OnReceiveUpdateMeta, Sub()
-                                                       Chatter.Chat("World name changed.")
-                                                   End Sub
     End Sub
 End Class
 
