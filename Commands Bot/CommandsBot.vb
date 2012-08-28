@@ -30,35 +30,34 @@ Public Class CommandsBot
     Public Sub SaveCommand(cmd As ICommand)
         Chatter.Chat("Saving world...")
         Connection.Send(New SaveWorld_SendMessage)
-        'AddHandler SaveDone_ReceiveMessage, Sub()
-        '                                        Chatter.Chat("World saved.")
-        '                                    End Sub
+        AddHandler Connection.OnReceiveSaveDone, Sub()
+                                                     Chatter.Chat("World saved.")
+                                                 End Sub
     End Sub
 
     <Command("loadlevel", "!command", Group.Admin, Aliases:={"load", "loadworld", "reload", "reloadworld"})>
     Public Sub LoadLevelCommand(cmd As ICommand)
         Chatter.Chat("Loading world...")
         Chatter.Loadlevel()
-        'AddHandler Reset_ReceiveMessage, Sub()
-        '                                     Chatter.Chat("World loaded.")
-        '                                 End Sub
-
+        AddHandler Connection.OnReceiveReset, Sub()
+                                                  Chatter.Chat("World loaded.")
+                                              End Sub
     End Sub
 
     <Command("reset", "!command", Group.Admin, Aliases:={"resetworld", "resetplayers"})>
     Public Sub ResetCommand(cmd As ICommand)
         Chatter.Reset()
-        'AddHandler Teleport_ReceiveMessage, Sub()
-        '                                        Chatter.Chat("Players' position reset.")
-        '                                    End Sub
+        AddHandler Connection.OnReceiveTeleport, Sub()
+                                                     Chatter.Chat("Players' position reset.")
+                                                 End Sub
     End Sub
 
     <Command("name", "!command [name]", Group.Admin, Aliases:={"rename", "worldname"})>
     Public Sub ChangeWorldNameCommand(cmd As ICommand)
         Connection.Send(New ChangeWorldName_SendMessage(cmd.Args.ToString))
-        'AddHandler UpdateMeta_ReceiveMessage_ReceiveMessage, Sub()
-        '                                                         Chatter.Chat("World name changed.")
-        '                                                     End Sub
+        AddHandler Connection.OnReceiveUpdateMeta, Sub()
+                                                       Chatter.Chat("World name changed.")
+                                                   End Sub
     End Sub
 End Class
 
