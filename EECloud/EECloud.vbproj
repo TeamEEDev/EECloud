@@ -150,7 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Chatter.vb" />
-    <Compile Include="Components\Connection.vb" />
+    <Compile Include="Components\Connection\Connection.vb" />
     <Compile Include="Components\EventHandlerList.vb" />
     <Compile Include="Components\InternalChatter.vb" />
     <Compile Include="Components\EESendEventArgs.vb" />
@@ -160,7 +160,7 @@
     </Compile>
     <Compile Include="BaseGlobalComponent.vb" />
     <Compile Include="Components\Bot.vb" />
-    <Compile Include="Components\InternalConnection.vb" />
+    <Compile Include="Components\Connection\InternalConnection.vb" />
     <Compile Include="Components\InternalPlayer.vb" />
     <Compile Include="Forms\LicenseForm.vb">
       <SubType>Form</SubType>

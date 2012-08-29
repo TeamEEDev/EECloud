@@ -5,9 +5,16 @@
     Private myBot As IBot
     Private WithEvents myInternalConnection As InternalConnection
     Private myEvents As New EventHandlerList
+    Private myInternalChatter As InternalChatter
 #End Region
 
 #Region "Properties"
+    Friend ReadOnly Property InternalChatter As InternalChatter
+        Get
+            Return myInternalConnection.InternalChatter
+        End Get
+    End Property
+
     Friend ReadOnly Property DefaultChatter As IChatter
         Get
             Return myInternalConnection.DefaultChatter

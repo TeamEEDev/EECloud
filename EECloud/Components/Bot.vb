@@ -9,6 +9,7 @@
     Private Const GameVersionSetting As String = "GameVersion"
     Friend Shared myGameVersionSetting As Integer = 0
     Friend myConnection As InternalConnection
+
 #End Region
 
 #Region "Properties"
@@ -125,7 +126,7 @@
     End Sub
 
     Public Function GetChatter(connection As IConnection(Of Player), name As String) As IChatter Implements IBot.GetChatter
-        Return New Chatter(connection, name)
+        Return New Chatter(CType(connection, Connection(Of Player)).InternalChatter, name)
     End Function
 
     Friend Function GetConnection(Of P As {Player, New})() As IConnection(Of P) Implements IBot.GetConnection
