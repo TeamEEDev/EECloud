@@ -52,7 +52,14 @@ Friend Class InternalConnection
         End Get
     End Property
 
-    Private myChatter As IChatter = New Chatter(Me.DefaultConnection, "Bot")
+    Private myInternalChatter As New InternalChatter(Me.DefaultConnection)
+    Friend ReadOnly Property InternalChatter As InternalChatter
+        Get
+            Return myInternalChatter
+        End Get
+    End Property
+
+    Private myChatter As IChatter = New Chatter(myInternalChatter, "Bot")
     Public ReadOnly Property DefaultChatter As IChatter
         Get
             Return myChatter
