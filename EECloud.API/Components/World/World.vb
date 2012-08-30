@@ -1,5 +1,5 @@
 ﻿Public Class World
-    Private Const INIT_OFFSET As UInteger = 13
+    Private Const INIT_OFFSET As UInteger = 14
     Private Blocks(,,) As WorldBlock
     Private myConnection As IConnection(Of Player)
 
