@@ -8,9 +8,14 @@
                 Throw New Exception
             End If
             Dim args As String() = mySyntaxStr.Split(" "c)
+            Dim hadOptional As Boolean
             For i = 1 To args.Length - 1
+                myRecommendedArgs += 1
                 If Not (args(i).StartsWith("["c) AndAlso args(i).EndsWith("]"c)) Then
                     myMinimumArgs += 1
+                    hadOptional = True
+                ElseIf hadOptional Then
+                    Throw New Exception
                 End If
             Next
         Catch ex As Exception
@@ -22,6 +27,13 @@
     Public ReadOnly Property MinimumArgs As Integer
         Get
             Return myMinimumArgs
+        End Get
+    End Property
+
+    Private myRecommendedArgs As Integer
+    Public ReadOnly Property RecommendedArgs As Integer
+        Get
+            Return myRecommendedArgs
         End Get
     End Property
 
