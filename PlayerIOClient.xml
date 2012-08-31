@@ -173,10 +173,10 @@
             	});
             </code>
             
-            <para>Finally, there are methods for retrieveing the payment history of a user:</para>
+            <para>Finally, there are methods for retrieving the payment history of a user:</para>
             <code>
             PayVault vault = client.PayVault;
-            vault.ReadHistory(1, 10, delegate(PayVaultHistoryEntry[] history) {
+            vault.ReadHistory(0, 10, delegate(PayVaultHistoryEntry[] history) {
             	if (history.Length > 0) {
             		string lastprice = history[0].ProviderPrice;
             	}
@@ -1076,6 +1076,20 @@
             <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
             <param name="accessToken">The Facebook access_token you wish to authenticate with.</param>
             <param name="partnerId">The partner id of the user connecting, if any.</param>
+            <param name="onSuccess">Callback method to be executed when request completes successfully</param>
+            <param name="onError">Callback method to be executed if request fails</param>
+        </member>
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.SteamConnect(System.String,System.String,System.String)">
+            <summary>Authenticates a Steam session.</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
+            <param name="steamAppId">The Steam App Id of the game.</param>
+            <param name="steamSessionTicket">The Steam Session Ticket for the user.</param>
+        </member>
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.SteamConnect(System.String,System.String,System.String,PlayerIOClient.Callback{PlayerIOClient.Internal.PlayerIOChannel.SteamConnectOutput},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Authenticates a Steam session.</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
+            <param name="steamAppId">The Steam App Id of the game.</param>
+            <param name="steamSessionTicket">The Steam Session Ticket for the user.</param>
             <param name="onSuccess">Callback method to be executed when request completes successfully</param>
             <param name="onError">Callback method to be executed if request fails</param>
         </member>
@@ -2267,7 +2281,7 @@
             <param name="roomType">The name of the room type you wish to run the room as. This value should match one of the [RoomType(...)] attributes of your uploaded code. A room type of 'bounce' is always available.</param>
             <param name="visible">Should the room be visible when listing rooms with GetRooms</param>
             <param name="roomData">The data to initialize the room with, this can be read with ListRooms and changed from the serverside</param>
-            <param name="successCallback">Callback with the database object found, or null if no object was found</param>
+            <param name="successCallback">Callback with the id of the room that was created</param>
             <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs during the room creation.</param>
         </member>
         <member name="M:PlayerIOClient.Multiplayer.JoinRoom(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
@@ -3445,10 +3459,10 @@
             <summary>The method requested is not supported</summary>
         </member>
         <member name="F:PlayerIOClient.ErrorCode.GeneralError">
-            <summary>A general error occured</summary>
+            <summary>A general error occurred</summary>
         </member>
         <member name="F:PlayerIOClient.ErrorCode.InternalError">
-            <summary>An unexpected error occured inside the Player.IO webservice. Please try again.</summary>
+            <summary>An unexpected error occurred inside the Player.IO webservice. Please try again.</summary>
         </member>
         <member name="F:PlayerIOClient.ErrorCode.AccessDenied">
             <summary>Access is denied</summary>
@@ -3467,6 +3481,12 @@
         </member>
         <member name="F:PlayerIOClient.ErrorCode.ArgumentOutOfRange">
             <summary>The given argument value is outside the range of allowed values.</summary>
+        </member>
+        <member name="F:PlayerIOClient.ErrorCode.InvalidType">
+            <summary>The given type was invalid</summary>
+        </member>
+        <member name="F:PlayerIOClient.ErrorCode.IndexOutOfBounds">
+            <summary>The index was out of bounds from the range of acceptable values</summary>
         </member>
         <member name="F:PlayerIOClient.ErrorCode.GameDisabled">
             <summary>The game has been disabled, most likely because of missing payment.</summary>
@@ -3532,7 +3552,7 @@
             <summary>The specified index does not exist.</summary>
         </member>
         <member name="F:PlayerIOClient.ErrorCode.InvalidIndexValue">
-            <summary>The value given for the index, does not match the expeceded type.</summary>
+            <summary>The value given for the index, does not match the expected type.</summary>
         </member>
         <member name="F:PlayerIOClient.ErrorCode.NotObjectCreator">
             <summary>The operation was aborted because the user attempting the operation was not the original creator of the object accessed.</summary>
