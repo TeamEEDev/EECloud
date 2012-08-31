@@ -29,5 +29,12 @@ Public Class CommandAttribute
         End Get
     End Property
 
+    Private myAccessRight As AccessRight
+    Public ReadOnly Property AccessRight As AccessRight
+        Get
+            Return myAccessRight
+        End Get
+    End Property
+
     Public Property Aliases As String() = {}
 End Class

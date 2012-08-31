@@ -122,6 +122,7 @@
     <Compile Include="Components\World\WorldSoundBlock.vb" />
     <Compile Include="Components\World\WorldPortalBlock.vb" />
     <Compile Include="Components\World\WorldBlock.vb" />
+    <Compile Include="Enums\AccessRight.vb" />
     <Compile Include="Interfaces\ICommand.vb" />
     <Compile Include="Interfaces\IPlayer.vb" />
     <Compile Include="Components\SendEventArgs.vb" />
