@@ -50,14 +50,22 @@
         If commandsDictionary.ContainsKey(type) Then
             Dim handle As CommandHandle = commandsDictionary(type)
             If handle.Syntax.MinimumArgs <= cmd.Length - 1 Then
-                Dim args() As String = {}
+                Dim myCommand As Command
                 If cmd.Length > 1 Then
-                    ReDim args(cmd.Length - 2)
+
+                    Dim argnum = cmd.Length - 2
+                    If argnum < handle.Syntax.RecommendedArgs Then argnum = handle.Syntax.RecommendedArgs - 1
+                    Dim args(argnum) As String
                     For i = 1 To cmd.Length - 1
                         args(i - 1) = cmd(i)
                     Next
+                    For i = cmd.Length - 1 To argnum
+                        args(i) = String.Empty
+                    Next
+                    myCommand = New Command(sender, type, args)
+                Else
+                    myCommand = New Command(sender, type, {})
                 End If
-                Dim myCommand As New Command(sender, type, args)
                 Try
                     handle.Action.Invoke(myCommand)
                 Catch ex As Exception
