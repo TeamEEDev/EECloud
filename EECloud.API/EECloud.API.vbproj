@@ -124,7 +124,7 @@
     <Compile Include="Components\World\WorldBlock.vb" />
     <Compile Include="Interfaces\ICommand.vb" />
     <Compile Include="Interfaces\IPlayer.vb" />
-    <Compile Include="Interfaces\SendEventArgs.vb" />
+    <Compile Include="Components\SendEventArgs.vb" />
     <Compile Include="Interfaces\ISendMessageHandle.vb" />
     <Compile Include="Plugins\Player.vb" />
     <Compile Include="Components\World\World.vb" />
