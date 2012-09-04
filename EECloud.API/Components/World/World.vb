@@ -21,13 +21,21 @@
             pointer = CUInt(pointer + 1)
 
             Select Case myBlock
-                Case BlockType.Block_Door_CoinDoor
+                Case BlockType.Block_Door_CoinDoor Or BlockType.Block_Gate_CoinGate
                     Dim myCoinsToCollect As Integer = m.GetInteger(pointer)
                     pointer = CUInt(pointer + 1)
                     For i As Integer = 0 To myByteArrayX.Length - 1 Step 2
                         Dim myX = myByteArrayX(i) * 256 + myByteArrayX(i + 1)
                         Dim myY = myByteArrayY(i) * 256 + myByteArrayY(i + 1)
-                        value(myLayer, myX, myY) = New WorldCoindoorBlock(myLayer, myX, myY, CType(myBlock, CoindoorBlockType), myCoinsToCollect)
+                        value(myLayer, myX, myY) = New WorldCoinDoorBlock(myLayer, myX, myY, CType(myBlock, CoinDoorBlockType), myCoinsToCollect)
+                    Next
+                Case BlockType.Block_Music_Piano Or BlockType.Block_Music_Drum
+                    Dim mySoundID As Integer = m.GetInteger(pointer)
+                    pointer = CUInt(pointer + 1)
+                    For i As Integer = 0 To myByteArrayX.Length - 1 Step 2
+                        Dim myX = myByteArrayX(i) * 256 + myByteArrayX(i + 1)
+                        Dim myY = myByteArrayY(i) * 256 + myByteArrayY(i + 1)
+                        value(myLayer, myX, myY) = New WorldSoundBlock(myLayer, myX, myY, CType(myBlock, SoundBlockType), mySoundID)
                     Next
                 Case BlockType.Block_Portal
                     Dim myPortalRotation As PortalRotation = CType(m.GetInteger(pointer), PortalRotation)
@@ -40,14 +48,6 @@
                         Dim myX = myByteArrayX(i) * 256 + myByteArrayX(i + 1)
                         Dim myY = myByteArrayY(i) * 256 + myByteArrayY(i + 1)
                         value(myLayer, myX, myY) = New WorldPortalBlock(myLayer, myX, myY, CType(myBlock, PortalBlockType), myPortalRotation, myPortalID, myPortalTarget)
-                    Next
-                Case BlockType.Block_Music_Drum Or BlockType.Block_Music_Piano
-                    Dim mySoundID As Integer = m.GetInteger(pointer)
-                    pointer = CUInt(pointer + 1)
-                    For i As Integer = 0 To myByteArrayX.Length - 1 Step 2
-                        Dim myX = myByteArrayX(i) * 256 + myByteArrayX(i + 1)
-                        Dim myY = myByteArrayY(i) * 256 + myByteArrayY(i + 1)
-                        value(myLayer, myX, myY) = New WorldSoundBlock(myLayer, myX, myY, CType(myBlock, SoundBlockType), mySoundID)
                     Next
                 Case BlockType.Block_Label
                     Dim myText As String = m.GetString(pointer)
