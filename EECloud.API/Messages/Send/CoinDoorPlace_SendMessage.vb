@@ -1,7 +1,7 @@
 ﻿Public Class CoinDoorPlace_SendMessage
     Inherits BlockPlace_SendMessage
     Public ReadOnly CoinsToCollect As Integer
-    Public Sub New(layer As Layer, x As Integer, y As Integer, block As CoindoorBlockType, coinsToCollect As Integer)
+    Public Sub New(layer As Layer, x As Integer, y As Integer, block As CoinDoorBlockType, coinsToCollect As Integer)
         MyBase.New(layer, x, y, CType(block, BlockType))
 
         Me.CoinsToCollect = coinsToCollect

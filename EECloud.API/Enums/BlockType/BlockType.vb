@@ -54,6 +54,7 @@
     Block_Gate_Green = 27
     Block_Gate_Blue = 28
     Block_Gate_TimedGate = 157
+    Block_Gate_CoinGate = 165
 
     Block_Metal_White = 29
     Block_Metal_Red = 30
@@ -300,6 +301,13 @@
     Background_Timbered_7 = 596
     Background_Timbered_8 = 597
     Background_Timbered_9 = 598
+
+    Block_Pipe_HoleOnLeft = 166
+    Block_Pipe_HorizontalMiddle = 167
+    Block_Pipe_HoleOnRight = 168
+    Block_Pipe_HoleOnUp = 169
+    Block_Pipe_VerticalMiddle = 170
+    Block_Pipe_HoleOnDown = 171
 
     Decoration_Prize_Trophy = 223
 
