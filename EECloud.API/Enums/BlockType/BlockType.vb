@@ -309,6 +309,19 @@
     Block_Pipe_VerticalMiddle = 170
     Block_Pipe_HoleOnDown = 171
 
+    Block_Rocket_White = 172
+    Block_Rocket_Blue = 173
+    Block_Rocket_Green = 174
+    Block_Rocket_Red = 175
+    Decoration_Rocket_GreenSign = 332
+    Decoration_Rocket_Red = 333
+    Decoration_Rocket_Blue = 334
+    Decoration_Rocket_Computer = 335
+    Background_Rocket_White = 601
+    Background_Rocket_Blue = 602
+    Background_Rocket_Green = 603
+    Background_Rocket_Red = 604
+
     Decoration_Prize_Trophy = 223
 
     Decoration_Spring2011_Grass1 = 233
