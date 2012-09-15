@@ -20,7 +20,7 @@ Namespace EEService
      System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0"),  _
      System.Runtime.Serialization.DataContractAttribute(Name:="UserData", [Namespace]:="http://schemas.datacontract.org/2004/07/EEService"),  _
      System.SerializableAttribute()>  _
-    Partial Friend Class UserData
+    Partial Public Class UserData
         Inherits Object
         Implements System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged
         
@@ -47,7 +47,7 @@ Namespace EEService
         End Property
         
         <System.Runtime.Serialization.DataMemberAttribute()>  _
-        Friend Property GroupID() As UInteger
+        Public Property GroupID() As UInteger
             Get
                 Return Me.GroupIDField
             End Get
@@ -60,7 +60,7 @@ Namespace EEService
         End Property
         
         <System.Runtime.Serialization.DataMemberAttribute()>  _
-        Friend Property UserID() As String
+        Public Property UserID() As String
             Get
                 Return Me.UserIDField
             End Get
@@ -73,7 +73,7 @@ Namespace EEService
         End Property
         
         <System.Runtime.Serialization.DataMemberAttribute()>  _
-        Friend Property Username() As String
+        Public Property Username() As String
             Get
                 Return Me.UsernameField
             End Get
@@ -97,7 +97,7 @@ Namespace EEService
     
     <System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0"),  _
      System.ServiceModel.ServiceContractAttribute(ConfigurationName:="EEService.IEES")>  _
-    Friend Interface IEES
+    Public Interface IEES
         
         <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/GetSetting", ReplyAction:="http://tempuri.org/IEES/GetSettingResponse")>  _
         Function GetSetting(ByVal key As String) As String
@@ -113,13 +113,13 @@ Namespace EEService
     End Interface
     
     <System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")>  _
-    Friend Interface IEESChannel
+    Public Interface IEESChannel
         Inherits EEService.IEES, System.ServiceModel.IClientChannel
     End Interface
     
     <System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")>  _
-    Partial Friend Class EESClient
+    Partial Public Class EESClient
         Inherits System.ServiceModel.ClientBase(Of EEService.IEES)
         Implements EEService.IEES
         
