@@ -96,12 +96,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MySql.Data, Version=6.5.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="PlayerIOClient">
       <HintPath>..\PlayerIOClient.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -109,7 +110,6 @@
   <ItemGroup>
     <Import Include="EECloud.API" />
     <Import Include="Microsoft.VisualBasic" />
-    <Import Include="MySql.Data.MySqlClient" />
     <Import Include="System" />
     <Import Include="System.Collections" />
     <Import Include="System.Collections.Generic" />
@@ -228,14 +228,53 @@
     <Compile Include="Messages\Receive\GroupDisallowedJoin_ReceiveMessage.vb" />
     <Compile Include="Messages\Receive\ReceiveMessage.vb" />
     <Compile Include="Messages\Receive\Upgrade_ReceiveMessage.vb" />
+    <Compile Include="Service References\EEService\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Utils.vb" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
     </None>
+    <None Include="Service References\EEService\EECloud.API.EEService.UserData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\EEService\EES.wsdl" />
+    <None Include="Service References\EEService\EES.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\EEService\EES1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\EEService\EES2.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\EEService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EEService\EES.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EEService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EEService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EEService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

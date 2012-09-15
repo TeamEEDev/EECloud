@@ -26,10 +26,10 @@
         End Get
     End Property
 
-    Private mySQL As New MySqlConnection(Config.MySQLConnectionString)
-    Friend ReadOnly Property SQL As MySqlConnection Implements IBot.SQL
+    Private myEEService As New EEService.EESClient
+    Friend ReadOnly Property EEService As EEService.EESClient Implements IBot.EEService
         Get
-            Return mySQL
+            Return myEEService
         End Get
     End Property
 
