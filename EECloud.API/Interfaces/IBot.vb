@@ -7,7 +7,7 @@
     ReadOnly Property Settings As ISettings
     ReadOnly Property PluginManager As IPluginManager
     ReadOnly Property HasConnection As Boolean
-    ReadOnly Property SQL As MySqlConnection
+    ReadOnly Property EEService As EEService.EESClient
 
     Sub Connect(Of P As {Player, New})(Username As String, Password As String, WorldID As String, SuccessCallback As Action(Of IConnection(Of P)), ErrorCallback As Action(Of EECloudException))
     Function GetChatter(connection As IConnection(Of Player), name As String) As IChatter
