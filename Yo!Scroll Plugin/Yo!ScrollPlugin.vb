@@ -3,7 +3,7 @@
         Description:="Yo!Scroll level bot",
         StartupPriority:=PluginStartupPriority.Normal,
         Version:="1.0.0.0")>
-Public Class YoScroll_Plugin
+Public Class YoScrollPlugin
     Inherits Plugin(Of YoScrollPlayer)
     Private WithEvents Connection As IConnection(Of YoScrollPlayer)
     Private Chatter As IChatter

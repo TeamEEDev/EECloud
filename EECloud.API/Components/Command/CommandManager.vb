@@ -14,7 +14,7 @@
             If myAttributes IsNot Nothing AndAlso myAttributes.Length = 1 Then
                 Dim myAttribute As CommandAttribute = CType(myAttributes(0), CommandAttribute)
                 Try
-                    Dim action As Action(Of Command) = CType([Delegate].CreateDelegate(GetType(Action(Of Command)), target, method), Action(Of Command))
+                    Dim action As Action(Of ICommand) = CType([Delegate].CreateDelegate(GetType(Action(Of ICommand)), target, method), Action(Of ICommand))
                     Try
                         Dim syntax As New CommandSyntax(myAttribute.Syntax)
                         Dim handle As New CommandHandle(action, syntax)
@@ -47,34 +47,40 @@
     Private Sub processMessage(msg As String, sender As Player)
         Dim cmd As String() = msg.Split(" "c)
         Dim type As String = cmd(0).ToLower
-        If commandsDictionary.ContainsKey(type) Then
-            Dim handle As CommandHandle = commandsDictionary(type)
-            If handle.Syntax.MinimumArgs <= cmd.Length - 1 Then
-                Dim myCommand As Command
-                If cmd.Length > 1 Then
 
-                    Dim argnum = cmd.Length - 2
-                    If argnum < handle.Syntax.RecommendedArgs Then argnum = handle.Syntax.RecommendedArgs - 1
-                    Dim args(argnum) As String
-                    For i = 1 To cmd.Length - 1
-                        args(i - 1) = cmd(i)
-                    Next
-                    For i = cmd.Length - 1 To argnum
-                        args(i) = String.Empty
-                    Next
-                    myCommand = New Command(sender, type, args)
-                Else
-                    myCommand = New Command(sender, type, {})
-                End If
-                Try
-                    handle.Action.Invoke(myCommand)
-                Catch ex As Exception
-                    myBot.Logger.Log(LogPriority.Error, "Failed to run command " & type)
-                    myBot.Logger.Log(ex)
-                End Try
-            Else
-                myBot.GetDefaultChatter(myConnection).Chat("Command usage: " & handle.Syntax.ToString)
-            End If
+        If Not commandsDictionary.ContainsKey(type) Then
+
+            Exit Sub
         End If
+
+        Dim handle As CommandHandle = commandsDictionary(type)
+
+        If handle.Syntax.MinimumArgs > cmd.Length - 1 Then
+            myBot.GetDefaultChatter(myConnection).Chat("Command usage: " & handle.Syntax.ToString)
+            Exit Sub
+        End If
+
+        Dim myCommand As Command
+        If cmd.Length > 1 Then
+            Dim argnum = cmd.Length - 2
+            If argnum < handle.Syntax.RecommendedArgs Then argnum = handle.Syntax.RecommendedArgs - 1
+            Dim args(argnum) As String
+            For i = 1 To cmd.Length - 1
+                args(i - 1) = cmd(i)
+            Next
+            For i = cmd.Length - 1 To argnum
+                args(i) = String.Empty
+            Next
+            myCommand = New Command(sender, type, args)
+        Else
+            myCommand = New Command(sender, type, {})
+        End If
+
+        Try
+            handle.Action.Invoke(myCommand)
+        Catch ex As Exception
+            myBot.Logger.Log(LogPriority.Error, "Failed to run command " & type)
+            myBot.Logger.Log(ex)
+        End Try
     End Sub
 End Class

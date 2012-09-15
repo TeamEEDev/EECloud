@@ -1,7 +1,7 @@
 ﻿Imports System.IO
 Imports System.IO.IsolatedStorage
 
-Public Class Command
+Friend Class Command
     Implements ICommand
 
     Friend Sub New(sender As Player, type As String, args As String())
