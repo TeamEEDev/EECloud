@@ -1,4 +1,4 @@
-﻿Public Class CommandSyntax
+﻿Friend Class CommandSyntax
     Private mySyntaxStr As String
 
     Friend Sub New(syntaxStr As String)

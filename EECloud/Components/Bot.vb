@@ -9,7 +9,6 @@
     Private Const GameVersionSetting As String = "GameVersion"
     Friend Shared myGameVersionSetting As Integer = 0
     Friend myConnection As InternalConnection
-
 #End Region
 
 #Region "Properties"
@@ -24,6 +23,13 @@
     Friend ReadOnly Property Service As PlayerIOClient.Client Implements IBot.Service
         Get
             Return myService
+        End Get
+    End Property
+
+    Private mySQL As New MySqlConnection(Config.MySQLConnectionString)
+    Friend ReadOnly Property SQL As MySqlConnection Implements IBot.SQL
+        Get
+            Return mySQL
         End Get
     End Property
 
