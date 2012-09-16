@@ -28,7 +28,7 @@ Namespace EEService
         Private extensionDataField As System.Runtime.Serialization.ExtensionDataObject
         
         <System.Runtime.Serialization.OptionalFieldAttribute()>  _
-        Private GroupIDField As UInteger
+        Private GroupIDField As Integer
         
         <System.Runtime.Serialization.OptionalFieldAttribute()>  _
         Private UserIDField As String
@@ -47,7 +47,7 @@ Namespace EEService
         End Property
         
         <System.Runtime.Serialization.DataMemberAttribute()>  _
-        Public Property GroupID() As UInteger
+        Public Property GroupID() As Integer
             Get
                 Return Me.GroupIDField
             End Get
@@ -105,6 +105,12 @@ Namespace EEService
         <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/GetSetting", ReplyAction:="http://tempuri.org/IEES/GetSettingResponse")>  _
         Function GetSettingAsync(ByVal key As String) As System.Threading.Tasks.Task(Of String)
         
+        <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/SetSetting", ReplyAction:="http://tempuri.org/IEES/SetSettingResponse")>  _
+        Sub SetSetting(ByVal key As String, ByVal value As String)
+        
+        <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/SetSetting", ReplyAction:="http://tempuri.org/IEES/SetSettingResponse")>  _
+        Function SetSettingAsync(ByVal key As String, ByVal value As String) As System.Threading.Tasks.Task
+        
         <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/GetPlayerData", ReplyAction:="http://tempuri.org/IEES/GetPlayerDataResponse")>  _
         Function GetPlayerData(ByVal username As String) As EEService.UserData
         
@@ -149,6 +155,14 @@ Namespace EEService
         
         Public Function GetSettingAsync(ByVal key As String) As System.Threading.Tasks.Task(Of String) Implements EEService.IEES.GetSettingAsync
             Return MyBase.Channel.GetSettingAsync(key)
+        End Function
+        
+        Public Sub SetSetting(ByVal key As String, ByVal value As String) Implements EEService.IEES.SetSetting
+            MyBase.Channel.SetSetting(key, value)
+        End Sub
+        
+        Public Function SetSettingAsync(ByVal key As String, ByVal value As String) As System.Threading.Tasks.Task Implements EEService.IEES.SetSettingAsync
+            Return MyBase.Channel.SetSettingAsync(key, value)
         End Function
         
         Public Function GetPlayerData(ByVal username As String) As EEService.UserData Implements EEService.IEES.GetPlayerData

@@ -13,6 +13,12 @@
   <wsdl:message name="IEES_GetSetting_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetSettingResponse" />
   </wsdl:message>
+  <wsdl:message name="IEES_SetSetting_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetSetting" />
+  </wsdl:message>
+  <wsdl:message name="IEES_SetSetting_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetSettingResponse" />
+  </wsdl:message>
   <wsdl:message name="IEES_GetPlayerData_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPlayerData" />
   </wsdl:message>
@@ -24,6 +30,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEES/GetSetting" message="tns:IEES_GetSetting_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEES/GetSettingResponse" message="tns:IEES_GetSetting_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="SetSetting">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEES/SetSetting" message="tns:IEES_SetSetting_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEES/SetSettingResponse" message="tns:IEES_SetSetting_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetPlayerData">
       <wsdl:input wsaw:Action="http://tempuri.org/IEES/GetPlayerData" message="tns:IEES_GetPlayerData_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEES/GetPlayerDataResponse" message="tns:IEES_GetPlayerData_OutputMessage" />
@@ -33,6 +43,15 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetSetting">
       <soap:operation soapAction="http://tempuri.org/IEES/GetSetting" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetSetting">
+      <soap:operation soapAction="http://tempuri.org/IEES/SetSetting" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -15,6 +15,19 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="SetSetting">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="key" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="value" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetSettingResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetPlayerData">
     <xs:complexType>
       <xs:sequence>
