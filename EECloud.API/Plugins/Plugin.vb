@@ -57,26 +57,6 @@
         End Get
     End Property
 
-    Protected ReadOnly Property Service As PlayerIOClient.Client
-        Get
-            Try
-                Return myHost.Service
-            Catch ex As Exception
-                Return Nothing
-            End Try
-        End Get
-    End Property
-
-    Protected ReadOnly Property Settings As ISettings
-        Get
-            Try
-                Return myHost.Settings
-            Catch ex As Exception
-                Return Nothing
-            End Try
-        End Get
-    End Property
-
     Protected Sub Connect(username As String, password As String, worldID As String, successCallback As Action(Of IConnection(Of P)), errorCallback As Action(Of EECloudException))
         Try
             myHost.Connect(Of P)(username, password, worldID, successCallback, errorCallback)

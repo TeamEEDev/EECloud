@@ -19,13 +19,6 @@
         End Get
     End Property
 
-    Private myService As PlayerIOClient.Client
-    Friend ReadOnly Property Service As PlayerIOClient.Client Implements IBot.Service
-        Get
-            Return myService
-        End Get
-    End Property
-
     Private myEEService As New EEService.EESClient
     Friend ReadOnly Property EEService As EEService.EESClient Implements IBot.EEService
         Get
@@ -37,13 +30,6 @@
     Friend ReadOnly Property Logger As ILogger Implements IBot.Logger
         Get
             Return myLogger
-        End Get
-    End Property
-
-    Private mySettings As ISettings
-    Friend ReadOnly Property Settings As ISettings Implements IBot.Settings
-        Get
-            Return mySettings
         End Get
     End Property
 
@@ -62,15 +48,17 @@
 #End Region
 
 #Region "Methods"
-    Friend Sub New(PAppEnvironment As AppEnvironment, PService As PlayerIOClient.Client)
+    Friend Sub New(PAppEnvironment As AppEnvironment)
         myAppEnvironment = PAppEnvironment
-        myService = PService
         myLogger = New Logger(Me)
-        mySettings = New Settings(Me)
         myPluginManager = New PluginManager(Me)
 
         If myGameVersionSetting = 0 Then
-            myGameVersionSetting = Settings.GetInteger(GameVersionSetting)
+            Try
+                myGameVersionSetting = CInt(EEService.GetSetting(GameVersionSetting))
+            Catch
+                Logger.Log(LogPriority.Error, "Invalid GameVersion setting.")
+            End Try
         End If
     End Sub
 
@@ -124,7 +112,7 @@
             CurrentRoomType = ErrorMessage(N)
             If CurrentRoomType.StartsWith(Config.NormalRoom) Then
                 myGameVersionSetting = CInt(CurrentRoomType.Substring(Config.NormalRoom.Length, CurrentRoomType.Length - Config.NormalRoom.Length - 1))
-                Settings.SetSetting(GameVersionSetting, myGameVersionSetting)
+                EEService.SetSetting(GameVersionSetting, CStr(myGameVersionSetting))
                 Exit Sub
             End If
         Next

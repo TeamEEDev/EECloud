@@ -216,7 +216,6 @@
     <Compile Include="Interfaces\IPluginObject.vb" />
     <Compile Include="Interfaces\IPluginManager.vb" />
     <Compile Include="Interfaces\ILogger.vb" />
-    <Compile Include="Interfaces\ISettings.vb" />
     <Compile Include="Enums\DoorID.vb" />
     <Compile Include="Enums\PortalRotation.vb" />
     <Compile Include="Enums\AutoText.vb" />

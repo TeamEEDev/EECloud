@@ -31,9 +31,6 @@ Namespace EEService
         Private GroupIDField As Integer
         
         <System.Runtime.Serialization.OptionalFieldAttribute()>  _
-        Private UserIDField As String
-        
-        <System.Runtime.Serialization.OptionalFieldAttribute()>  _
         Private UsernameField As String
         
         <Global.System.ComponentModel.BrowsableAttribute(false)>  _
@@ -55,19 +52,6 @@ Namespace EEService
                 If (Me.GroupIDField.Equals(value) <> true) Then
                     Me.GroupIDField = value
                     Me.RaisePropertyChanged("GroupID")
-                End If
-            End Set
-        End Property
-        
-        <System.Runtime.Serialization.DataMemberAttribute()>  _
-        Public Property UserID() As String
-            Get
-                Return Me.UserIDField
-            End Get
-            Set
-                If (Object.ReferenceEquals(Me.UserIDField, value) <> true) Then
-                    Me.UserIDField = value
-                    Me.RaisePropertyChanged("UserID")
                 End If
             End Set
         End Property
@@ -116,6 +100,12 @@ Namespace EEService
         
         <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/GetPlayerData", ReplyAction:="http://tempuri.org/IEES/GetPlayerDataResponse")>  _
         Function GetPlayerDataAsync(ByVal username As String) As System.Threading.Tasks.Task(Of EEService.UserData)
+        
+        <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/SetPlayerData", ReplyAction:="http://tempuri.org/IEES/SetPlayerDataResponse")>  _
+        Sub SetPlayerData(ByVal data As EEService.UserData)
+        
+        <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/SetPlayerData", ReplyAction:="http://tempuri.org/IEES/SetPlayerDataResponse")>  _
+        Function SetPlayerDataAsync(ByVal data As EEService.UserData) As System.Threading.Tasks.Task
     End Interface
     
     <System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")>  _
@@ -171,6 +161,14 @@ Namespace EEService
         
         Public Function GetPlayerDataAsync(ByVal username As String) As System.Threading.Tasks.Task(Of EEService.UserData) Implements EEService.IEES.GetPlayerDataAsync
             Return MyBase.Channel.GetPlayerDataAsync(username)
+        End Function
+        
+        Public Sub SetPlayerData(ByVal data As EEService.UserData) Implements EEService.IEES.SetPlayerData
+            MyBase.Channel.SetPlayerData(data)
+        End Sub
+        
+        Public Function SetPlayerDataAsync(ByVal data As EEService.UserData) As System.Threading.Tasks.Task Implements EEService.IEES.SetPlayerDataAsync
+            Return MyBase.Channel.SetPlayerDataAsync(data)
         End Function
     End Class
 End Namespace

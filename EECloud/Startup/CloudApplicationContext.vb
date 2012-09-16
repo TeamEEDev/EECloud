@@ -20,7 +20,7 @@ Friend NotInheritable Class CloudApplicationContext
             Environment.Exit(0)
         End If
 
-        myBot = New Bot(myAppEnvironment, GetService(myAppEnvironment))
+        myBot = New Bot(myAppEnvironment)
 
         myBot.Logger.Log(LogPriority.Info, "Joining world...")
         myBot.Connect(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID,
@@ -35,22 +35,5 @@ Friend NotInheritable Class CloudApplicationContext
                 myBot.Logger.Log(LogPriority.Error, "Failed to join.")
             End Sub)
     End Sub
-
-    Private Function GetService(myAppEnvironment As AppEnvironment) As PlayerIOClient.Client
-        Try
-            Return PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.ServiceGameID, My.Settings.LicenceUsername, My.Settings.LicenceKey)
-        Catch ex As Exception
-            If myAppEnvironment = API.AppEnvironment.Dev Then
-                If Not New LicenseForm().ShowDialog() = Windows.Forms.DialogResult.OK Then
-                    Environment.Exit(0)
-                    Return Nothing
-                Else
-                    Return GetService(myAppEnvironment)
-                End If
-            Else
-                Throw New EECloudException(ErrorCode.ServiceConnectionFailed, "Failed to create Service connection.")
-            End If
-        End Try
-    End Function
 #End Region
 End Class
