@@ -186,7 +186,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Components\Settings.vb" />
     <Compile Include="Startup\CloudApplicationContext.vb" />
     <Compile Include="Startup\ModuleMain.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

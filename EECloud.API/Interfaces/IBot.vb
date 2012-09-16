@@ -2,9 +2,7 @@
     Event OnConnect()
 
     ReadOnly Property AppEnvironment As AppEnvironment
-    ReadOnly Property Service As PlayerIOClient.Client
     ReadOnly Property Logger As ILogger
-    ReadOnly Property Settings As ISettings
     ReadOnly Property PluginManager As IPluginManager
     ReadOnly Property HasConnection As Boolean
     ReadOnly Property EEService As EEService.EESClient

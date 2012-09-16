@@ -25,6 +25,12 @@
   <wsdl:message name="IEES_GetPlayerData_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPlayerDataResponse" />
   </wsdl:message>
+  <wsdl:message name="IEES_SetPlayerData_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetPlayerData" />
+  </wsdl:message>
+  <wsdl:message name="IEES_SetPlayerData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetPlayerDataResponse" />
+  </wsdl:message>
   <wsdl:portType name="IEES">
     <wsdl:operation name="GetSetting">
       <wsdl:input wsaw:Action="http://tempuri.org/IEES/GetSetting" message="tns:IEES_GetSetting_InputMessage" />
@@ -37,6 +43,10 @@
     <wsdl:operation name="GetPlayerData">
       <wsdl:input wsaw:Action="http://tempuri.org/IEES/GetPlayerData" message="tns:IEES_GetPlayerData_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEES/GetPlayerDataResponse" message="tns:IEES_GetPlayerData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetPlayerData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEES/SetPlayerData" message="tns:IEES_SetPlayerData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEES/SetPlayerDataResponse" message="tns:IEES_SetPlayerData_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IEES" type="tns:IEES">
@@ -61,6 +71,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetPlayerData">
       <soap:operation soapAction="http://tempuri.org/IEES/GetPlayerData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPlayerData">
+      <soap:operation soapAction="http://tempuri.org/IEES/SetPlayerData" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

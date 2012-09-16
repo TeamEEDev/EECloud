@@ -3,7 +3,10 @@
   <xs:complexType name="UserData">
     <xs:sequence>
       <xs:element minOccurs="0" name="GroupID" type="xs:int" />
+<<<<<<< HEAD
       <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+=======
+>>>>>>> Removed some unused classes
       <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

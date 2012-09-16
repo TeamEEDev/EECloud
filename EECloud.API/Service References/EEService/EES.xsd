@@ -42,4 +42,16 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="SetPlayerData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/EEService" minOccurs="0" name="data" nillable="true" type="q2:UserData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetPlayerDataResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
