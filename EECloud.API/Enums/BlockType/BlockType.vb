@@ -322,6 +322,17 @@
     Background_Rocket_Green = 603
     Background_Rocket_Red = 604
 
+    Block_Mars_1 = 176
+    Block_Mars_2 = 177
+    Block_Mars_3 = 178
+    Block_Mars_4 = 179
+    Block_Mars_5 = 180
+    Block_Mars_6 = 181
+    Decoration_Mars = 336
+    Background_Mars_NoStars = 605
+    Background_Mars_SmallStar = 606
+    Background_Mars_BigStar = 607
+
     Decoration_Prize_Trophy = 223
 
     Decoration_Spring2011_Grass1 = 233
