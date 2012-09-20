@@ -18,6 +18,7 @@
     Block_Basic_Yellow = 13
     Block_Basic_Green = 14
     Block_Basic_LightBlue = 15
+    Block_Basic_Black = 182
     Background_Basic_Grey = 500
     Background_Basic_DarkBlue = 501
     Background_Basic_Purple = 502
