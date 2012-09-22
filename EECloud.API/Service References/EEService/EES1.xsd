@@ -3,12 +3,15 @@
   <xs:complexType name="UserData">
     <xs:sequence>
       <xs:element minOccurs="0" name="GroupID" type="xs:int" />
-<<<<<<< HEAD
-      <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
-=======
->>>>>>> Removed some unused classes
       <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="YoScrollWins" type="xs:unsignedInt" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UserData" nillable="true" type="tns:UserData" />
+  <xs:complexType name="ArrayOfUserData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserData" nillable="true" type="tns:UserData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserData" nillable="true" type="tns:ArrayOfUserData" />
 </xs:schema>

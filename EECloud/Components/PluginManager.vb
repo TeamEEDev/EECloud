@@ -15,7 +15,7 @@ Friend NotInheritable Class PluginManager
 #End Region
 
 #Region "Methods"
-    Friend Sub New(PBot As Bot)
+    Friend Sub New(PBot As Host)
         MyBase.New(PBot)
         Dim allAssemblies As New List(Of Assembly)
         Dim path As String = My.Application.Info.DirectoryPath
@@ -24,9 +24,9 @@ Friend NotInheritable Class PluginManager
             Try
                 allAssemblies.Add(Assembly.LoadFile(dll))
             Catch ex As FileLoadException
-                myBot.Logger.Log(LogPriority.Error, "Failed to load Assembly: " & dll)
+                Cloud.Logger.Log(LogPriority.Error, "Failed to load Assembly: " & dll)
             Catch ex As BadImageFormatException
-                myBot.Logger.Log(LogPriority.Error, "Currupt assembly: " & dll)
+                Cloud.Logger.Log(LogPriority.Error, "Currupt assembly: " & dll)
             End Try
         Next
 
@@ -47,7 +47,7 @@ Friend NotInheritable Class PluginManager
 
                     myPluginsList.Add(New PluginObject(myBot, myEnumrator.Current))
                 Catch ex As Exception
-                    myBot.Logger.Log(ex)
+                    Cloud.Logger.Log(ex)
                 End Try
             Loop
         End Using

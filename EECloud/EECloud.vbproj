@@ -156,7 +156,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Chatter.vb" />
+    <Compile Include="Components\Command\CommandHandle.vb" />
+    <Compile Include="Components\Command\CommandManager.vb" />
+    <Compile Include="Components\Command\CommandSyntax.vb" />
     <Compile Include="Components\Connection\Connection.vb" />
+    <Compile Include="Components\Connection\ConnectionBase.vb" />
+    <Compile Include="Components\Connection\ConnectionHandle.vb" />
+    <Compile Include="Components\Connection\Connector.vb" />
     <Compile Include="Components\EventHandlerList.vb" />
     <Compile Include="Components\InternalChatter.vb" />
     <Compile Include="Components\EESendEventArgs.vb" />
@@ -164,8 +170,7 @@
     <Compile Include="Forms\LicenseForm.Designer.vb">
       <DependentUpon>LicenseForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="BaseGlobalComponent.vb" />
-    <Compile Include="Components\Bot.vb" />
+    <Compile Include="Components\Host.vb" />
     <Compile Include="Components\Connection\InternalConnection.vb" />
     <Compile Include="Components\InternalPlayer.vb" />
     <Compile Include="Forms\LicenseForm.vb">

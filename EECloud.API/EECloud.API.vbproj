@@ -118,17 +118,18 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cloud.vb" />
     <Compile Include="Components\Command\CommandAttribute.vb" />
     <Compile Include="Components\Command\Command.vb" />
-    <Compile Include="Components\Command\CommandHandle.vb" />
-    <Compile Include="Components\Command\CommandManager.vb" />
-    <Compile Include="Components\Command\CommandSyntax.vb" />
     <Compile Include="Components\World\WorldLabelBlock.vb" />
     <Compile Include="Components\World\WorldSoundBlock.vb" />
     <Compile Include="Components\World\WorldPortalBlock.vb" />
     <Compile Include="Components\World\WorldBlock.vb" />
     <Compile Include="Enums\AccessRight.vb" />
     <Compile Include="Interfaces\ICommand.vb" />
+    <Compile Include="Interfaces\IConnectionBase.vb" />
+    <Compile Include="Interfaces\IConnectionHandle.vb" />
+    <Compile Include="Interfaces\IConnector.vb" />
     <Compile Include="Interfaces\IPlayer.vb" />
     <Compile Include="Components\SendEventArgs.vb" />
     <Compile Include="Interfaces\ISendMessageHandle.vb" />
@@ -222,7 +223,6 @@
     <Compile Include="Enums\Smiley.vb" />
     <Compile Include="Enums\BlockType\BlockType.vb" />
     <Compile Include="Enums\Layer.vb" />
-    <Compile Include="Interfaces\IBot.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="Messages\Receive\GroupDisallowedJoin_ReceiveMessage.vb" />
     <Compile Include="Messages\Receive\ReceiveMessage.vb" />
@@ -235,6 +235,7 @@
     <Compile Include="Utils.vb" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
     </None>
@@ -268,6 +269,9 @@
     <None Include="Service References\EEService\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\EEService\EES3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\EEService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.vb</LastGenOutput>

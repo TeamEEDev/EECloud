@@ -1,11 +1,9 @@
 ﻿Public MustInherit Class Plugin(Of P As {Player, New})
     Implements IPlugin
-    Private myHost As IBot
     Private myConnection As IConnection(Of P)
-    Private myCommandManager As CommandManager
 
-    Friend Sub SetupPlugin(host As IBot, isStartup As Boolean) Implements IPlugin.SetupPlugin
-        myHost = host
+
+    Friend Sub SetupPlugin(isStartup As Boolean) Implements IPlugin.SetupPlugin
         OnEnable()
         AddHandler myHost.OnConnect, AddressOf myHost_OnConnect
         If host.HasConnection Then
@@ -30,7 +28,7 @@
     Protected ReadOnly Property AppEnvironment As AppEnvironment
         Get
             Try
-                Return myHost.AppEnvironment
+                Return Cloud.AppEnvironment
             Catch ex As Exception
                 Return Nothing
             End Try
@@ -40,17 +38,7 @@
     Protected ReadOnly Property Logger As ILogger
         Get
             Try
-                Return myHost.Logger
-            Catch ex As Exception
-                Return Nothing
-            End Try
-        End Get
-    End Property
-
-    Protected ReadOnly Property PluginManager As IPluginManager
-        Get
-            Try
-                Return myHost.PluginManager
+                Return Cloud.Logger
             Catch ex As Exception
                 Return Nothing
             End Try

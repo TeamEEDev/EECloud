@@ -1,13 +1,13 @@
 ﻿Friend Class CommandManager
     Private commandsDictionary As New Dictionary(Of String, CommandHandle)
-    Private myBot As IBot
+    Private myBot As IHost
     Private myConnection As IConnection(Of Player)
 
-    Sub New(connection As IConnection(Of Player), bot As IBot, target As Object)
+    Sub New(connection As IConnection(Of Player), bot As IHost, target As Object)
         myConnection = connection
         Me.myBot = bot
         AddHandler myConnection.OnReceiveSay, AddressOf myConnection_OnReceiveSay
-        AddHandler myBot.Logger.OnInput, Sub(sender As Object, e As System.EventArgs) processMessage(myBot.Logger.Input, Nothing)
+        AddHandler Cloud.Logger.OnInput, Sub(sender As Object, e As System.EventArgs) processMessage(Cloud.Logger.Input, Nothing)
 
         For Each method As Reflection.MethodInfo In target.GetType.GetMethods
             Dim myAttributes As Object() = method.GetCustomAttributes(GetType(CommandAttribute), True)
@@ -24,15 +24,15 @@
                                 commandsDictionary.Add(item, handle)
                             Next
                         Catch ex As Exception
-                            myBot.Logger.Log(LogPriority.Error, "Duplicate command: " & myAttribute.Type)
+                            Cloud.Logger.Log(LogPriority.Error, "Duplicate command: " & myAttribute.Type)
                         End Try
                     Catch ex As Exception
-                        myBot.Logger.Log(LogPriority.Error, "Command has bad syntax: " & myAttribute.Type)
-                        myBot.Logger.Log(ex)
+                        Cloud.Logger.Log(LogPriority.Error, "Command has bad syntax: " & myAttribute.Type)
+                        Cloud.Logger.Log(ex)
                     End Try
                 Catch ex As Exception
-                    myBot.Logger.Log(LogPriority.Error, "Method has bad signature: " & myAttribute.Type)
-                    myBot.Logger.Log(ex)
+                    Cloud.Logger.Log(LogPriority.Error, "Method has bad signature: " & myAttribute.Type)
+                    Cloud.Logger.Log(ex)
                 End Try
             End If
         Next
@@ -79,8 +79,8 @@
         Try
             handle.Action.Invoke(myCommand)
         Catch ex As Exception
-            myBot.Logger.Log(LogPriority.Error, "Failed to run command " & type)
-            myBot.Logger.Log(ex)
+            Cloud.Logger.Log(LogPriority.Error, "Failed to run command " & type)
+            Cloud.Logger.Log(ex)
         End Try
     End Sub
 End Class
