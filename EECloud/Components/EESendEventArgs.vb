@@ -15,7 +15,7 @@
         End Get
     End Property
 
-    Private myInternalConnection As ConnectionHandle
+    Private myInternalConnection As InternalConnection
     Public Overrides Function GetHandle() As ISendMessageHandle(Of T)
         If Not myHandle Is Nothing Then
             myHandle = New SendMessageHandle(Of T).InternalHandle(myMessage, myInternalConnection)
@@ -23,7 +23,7 @@
         Return New SendMessageHandle(Of T)(myHandle)
     End Function
 
-    Friend Sub New(message As T, internalConnection As ConnectionHandle)
+    Friend Sub New(message As T, internalConnection As InternalConnection)
         Me.myMessage = message
         Me.myInternalConnection = internalConnection
     End Sub

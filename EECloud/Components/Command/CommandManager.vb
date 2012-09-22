@@ -1,11 +1,9 @@
 ﻿Friend Class CommandManager
     Private commandsDictionary As New Dictionary(Of String, CommandHandle)
-    Private myBot As IHost
     Private myConnection As IConnection(Of Player)
 
-    Sub New(connection As IConnection(Of Player), bot As IHost, target As Object)
+    Sub New(connection As IConnection(Of Player), target As Object)
         myConnection = connection
-        Me.myBot = bot
         AddHandler myConnection.OnReceiveSay, AddressOf myConnection_OnReceiveSay
         AddHandler Cloud.Logger.OnInput, Sub(sender As Object, e As System.EventArgs) processMessage(Cloud.Logger.Input, Nothing)
 
