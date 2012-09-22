@@ -25,7 +25,7 @@ Friend NotInheritable Class CloudApplicationContext
         End If
 
         Cloud.Logger.Log(LogPriority.Info, "Joining world...")
-        Cloud.Host.Connect(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID,
+        Cloud.Connector.Connect(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID,
             Sub(PConnection As IConnection(Of Player))
                 AddHandler PConnection.OnDisconnect,
                     Sub()

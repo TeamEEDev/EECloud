@@ -47,7 +47,7 @@
 
     Protected Sub Connect(username As String, password As String, worldID As String, successCallback As Action(Of IConnection(Of P)), errorCallback As Action(Of EECloudException))
         Try
-            myHost.Connect(Of P)(username, password, worldID, successCallback, errorCallback)
+            Cloud.Connector.Connect(Of P)(username, password, worldID, successCallback, errorCallback)
         Catch
             errorCallback.Invoke(Nothing)
         End Try

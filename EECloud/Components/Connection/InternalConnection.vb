@@ -1,7 +1,6 @@
 ﻿Imports System.Reflection
 
 Friend Class InternalConnection
-
 #Region "Fields"
     Private myConnection As PlayerIOClient.Connection
 #End Region
@@ -23,7 +22,7 @@ Friend Class InternalConnection
 
     Friend ReadOnly Property IsMainConnection As Boolean
         Get
-            Return Me Is myBot.myConnection
+            Return Me.DefaultConnection Is Cloud.ConnectionMain
         End Get
     End Property
 
@@ -77,11 +76,9 @@ Friend Class InternalConnection
 #End Region
 
 #Region "Methods"
-    Friend Sub New(PBot As Host, PConnection As PlayerIOClient.Connection, PWorldID As String)
-        MyBase.New(PBot)
+    Friend Sub New(PConnection As PlayerIOClient.Connection, PWorldID As String)
         myConnection = PConnection
         myWorldID = PWorldID
-        myBot = PBot
 
         myConnection.AddOnMessage(AddressOf MessageReceiver)
         myConnection.AddOnDisconnect(

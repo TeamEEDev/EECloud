@@ -127,7 +127,6 @@
     <Compile Include="Components\World\WorldBlock.vb" />
     <Compile Include="Enums\AccessRight.vb" />
     <Compile Include="Interfaces\ICommand.vb" />
-    <Compile Include="Interfaces\IConnectionBase.vb" />
     <Compile Include="Interfaces\IConnectionHandle.vb" />
     <Compile Include="Interfaces\IConnector.vb" />
     <Compile Include="Interfaces\IPlayer.vb" />
