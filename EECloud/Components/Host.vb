@@ -17,7 +17,7 @@
     End Sub
 
     Private Function Connect(Of P As {Player, New})(PConnection As PlayerIOClient.Connection, PWorldID As String) As Connection(Of P)
-        Dim mConnection As New ConnectionHandle(Me, PConnection, PWorldID)
+        Dim mConnection As New InternalConnection(PConnection, PWorldID)
         If myConnection Is Nothing Then
             myConnection = mConnection
             AddHandler myConnection.DefaultConnection.OnReceiveInit, AddressOf raiseConnect

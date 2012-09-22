@@ -1,5 +1,5 @@
-﻿Public NotInheritable Class Connection(Of P As {Player, New})
-    Implements IConnection(Of p)
+﻿Public Class Connection(Of P As {Player, New})
+    Implements IConnection(Of P)
 
 #Region "Fields"
     Private WithEvents myInternalConnection As InternalConnection
@@ -1788,4 +1788,10 @@
         myInternalConnection.Disconnect()
     End Sub
 #End Region
+
+    Public ReadOnly Property GetChatter(name As String) As IChatter Implements IConnection(Of P).GetChatter
+        Get
+
+        End Get
+    End Property
 End Class

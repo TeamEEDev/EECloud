@@ -3,6 +3,6 @@
     Implements IConnectionHandle
 
     Sub New()
-
+        MyBase.New(Nothing)
     End Sub
 End Class
