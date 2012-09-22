@@ -2,7 +2,6 @@
 Imports System.Reflection
 
 Friend NotInheritable Class PluginManager
-    Inherits BaseGlobalComponent
     Implements IPluginManager
 
 #Region "Properties"
@@ -15,8 +14,7 @@ Friend NotInheritable Class PluginManager
 #End Region
 
 #Region "Methods"
-    Friend Sub New(PBot As Host)
-        MyBase.New(PBot)
+    Friend Sub New()
         Dim allAssemblies As New List(Of Assembly)
         Dim path As String = My.Application.Info.DirectoryPath
 
@@ -45,7 +43,7 @@ Friend NotInheritable Class PluginManager
                     Dim hasNext As Boolean = myEnumrator.MoveNext()
                     If Not hasNext Then Exit Do
 
-                    myPluginsList.Add(New PluginObject(myBot, myEnumrator.Current))
+                    myPluginsList.Add(New PluginObject(myEnumrator.Current))
                 Catch ex As Exception
                     Cloud.Logger.Log(ex)
                 End Try

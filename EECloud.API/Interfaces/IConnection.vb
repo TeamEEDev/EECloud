@@ -1,6 +1,4 @@
 ﻿Public Interface IConnection(Of P As {Player, New})
-    Inherits IConnectionBase
-
     Event OnReceiveMessage As EventHandler(Of ReceiveMessage)
     Event OnDisconnect As EventHandler(Of EventArgs)
     Event OnReceiveAccess As EventHandler(Of Access_ReceiveMessage)
