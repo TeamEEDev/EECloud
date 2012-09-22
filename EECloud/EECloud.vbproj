@@ -160,7 +160,6 @@
     <Compile Include="Components\Command\CommandManager.vb" />
     <Compile Include="Components\Command\CommandSyntax.vb" />
     <Compile Include="Components\Connection\Connection.vb" />
-    <Compile Include="Components\Connection\ConnectionBase.vb" />
     <Compile Include="Components\Connection\ConnectionHandle.vb" />
     <Compile Include="Components\Connection\Connector.vb" />
     <Compile Include="Components\EventHandlerList.vb" />

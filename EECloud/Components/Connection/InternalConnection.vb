@@ -1,6 +1,6 @@
 ﻿Imports System.Reflection
 
-Friend Class ConnectionHandle
+Friend Class InternalConnection
 
 #Region "Fields"
     Private myConnection As PlayerIOClient.Connection
