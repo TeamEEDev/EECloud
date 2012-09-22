@@ -169,7 +169,6 @@
     <Compile Include="Forms\LicenseForm.Designer.vb">
       <DependentUpon>LicenseForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="Components\Host.vb" />
     <Compile Include="Components\Connection\InternalConnection.vb" />
     <Compile Include="Components\InternalPlayer.vb" />
     <Compile Include="Forms\LicenseForm.vb">
