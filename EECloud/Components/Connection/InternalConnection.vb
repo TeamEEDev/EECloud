@@ -117,7 +117,7 @@ Friend Class InternalConnection
             Case GetType(Upgrade_ReceiveMessage)
                 Dim m As Upgrade_ReceiveMessage = CType(e, Upgrade_ReceiveMessage)
 
-                Host.myGameVersionSetting += 1
+                ConnectionHandle.myGameVersionSetting += 1
                 Cloud.Logger.Log(LogPriority.Info, "The game has been updated!")
         End Select
     End Sub

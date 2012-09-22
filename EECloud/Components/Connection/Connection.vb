@@ -1,8 +1,8 @@
-﻿Public Class Connection(Of P As {Player, New})
+﻿Friend Class Connection(Of P As {Player, New})
     Implements IConnection(Of P)
 
 #Region "Fields"
-    Private WithEvents myInternalConnection As InternalConnection
+    Protected WithEvents myInternalConnection As InternalConnection
     Private myEvents As New EventHandlerList
     Private myInternalChatter As InternalChatter
 #End Region
@@ -1457,6 +1457,9 @@
         myInternalConnection = internalConnection
     End Sub
 
+    Protected Sub New()
+    End Sub
+
     Private Sub OnEventError(eventName As String, ex As Exception)
         Cloud.Logger.Log(LogPriority.Error, String.Format("Unable to pass event {0} to {1}.", eventName, ex.Source))
         Cloud.Logger.Log(ex)
@@ -1784,9 +1787,7 @@
         End If
     End Sub
 
-    Public Sub Disconnect() Implements IConnection(Of P).Disconnect
-        myInternalConnection.Disconnect()
-    End Sub
+
 #End Region
 
     Public ReadOnly Property GetChatter(name As String) As IChatter Implements IConnection(Of P).GetChatter
