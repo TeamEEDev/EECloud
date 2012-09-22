@@ -1,80 +1,29 @@
-﻿Friend NotInheritable Class Bot
-    Implements IBot
-
-#Region "Events"
-    Public Event OnConnect() Implements IBot.OnConnect
-#End Region
-
+﻿Friend NotInheritable Class Host
 #Region "Fields"
     Private Const GameVersionSetting As String = "GameVersion"
     Friend Shared myGameVersionSetting As Integer = 0
-    Friend myConnection As InternalConnection
-#End Region
-
-#Region "Properties"
-    Private myAppEnvironment As AppEnvironment
-    Friend ReadOnly Property AppEnvironment As AppEnvironment Implements IBot.AppEnvironment
-        Get
-            Return myAppEnvironment
-        End Get
-    End Property
-
-    Private myEEService As New EEService.EESClient
-    Friend ReadOnly Property EEService As EEService.EESClient Implements IBot.EEService
-        Get
-            Return myEEService
-        End Get
-    End Property
-
-    Private myLogger As ILogger
-    Friend ReadOnly Property Logger As ILogger Implements IBot.Logger
-        Get
-            Return myLogger
-        End Get
-    End Property
-
-    Private myPluginManager As IPluginManager
-    Friend ReadOnly Property PluginManager As IPluginManager Implements IBot.PluginManager
-        Get
-            Return myPluginManager
-        End Get
-    End Property
-
-    Public ReadOnly Property HasConnection As Boolean Implements IBot.HasConnection
-        Get
-            Return myConnection IsNot Nothing
-        End Get
-    End Property
+    Friend myConnection As ConnectionHandle
 #End Region
 
 #Region "Methods"
-    Friend Sub New(PAppEnvironment As AppEnvironment)
-        myAppEnvironment = PAppEnvironment
-        myLogger = New Logger(Me)
-        myPluginManager = New PluginManager(Me)
-
+    Friend Sub New()
         If myGameVersionSetting = 0 Then
             Try
-                myGameVersionSetting = CInt(EEService.GetSetting(GameVersionSetting))
+                myGameVersionSetting = CInt(Cloud.Service.GetSetting(GameVersionSetting))
             Catch
-                Logger.Log(LogPriority.Error, "Invalid GameVersion setting.")
+                Cloud.Logger.Log(LogPriority.Error, "Invalid GameVersion setting.")
             End Try
         End If
     End Sub
 
     Private Function Connect(Of P As {Player, New})(PConnection As PlayerIOClient.Connection, PWorldID As String) As Connection(Of P)
-        Dim mConnection As New InternalConnection(Me, PConnection, PWorldID)
+        Dim mConnection As New ConnectionHandle(Me, PConnection, PWorldID)
         If myConnection Is Nothing Then
             myConnection = mConnection
             AddHandler myConnection.DefaultConnection.OnReceiveInit, AddressOf raiseConnect
         End If
         Return New Connection(Of P)(Me, mConnection)
     End Function
-
-    Private Sub raiseConnect(sender As Object, e As Init_ReceiveMessage)
-        RemoveHandler myConnection.DefaultConnection.OnReceiveInit, AddressOf raiseConnect
-        RaiseEvent OnConnect()
-    End Sub
 
     Private Sub Connect(Of P As {Player, New})(PClient As PlayerIOClient.Client, PWorldID As String, PSuccessCallback As Action(Of Connection(Of P)), PErrorCallback As Action(Of EECloudException))
         PClient.Multiplayer.CreateJoinRoom(PWorldID, Config.NormalRoom & myGameVersionSetting, True, Nothing, Nothing,
@@ -95,7 +44,7 @@
             End Sub)
     End Sub
 
-    Friend Sub Connect(Of P As {Player, New})(PUsername As String, PPassword As String, PWorldID As String, PSuccessCallback As Action(Of IConnection(Of P)), PErrorCallback As Action(Of EECloudException)) Implements IBot.Connect
+    Friend Sub Connect(Of P As {Player, New})(PUsername As String, PPassword As String, PWorldID As String, PSuccessCallback As Action(Of IConnection(Of P)), PErrorCallback As Action(Of EECloudException))
         PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.GameID, PUsername, PPassword,
             Sub(PClient As PlayerIOClient.Client)
                 Connect(Of P)(PClient, PWorldID, PSuccessCallback, PErrorCallback)
@@ -112,22 +61,22 @@
             CurrentRoomType = ErrorMessage(N)
             If CurrentRoomType.StartsWith(Config.NormalRoom) Then
                 myGameVersionSetting = CInt(CurrentRoomType.Substring(Config.NormalRoom.Length, CurrentRoomType.Length - Config.NormalRoom.Length - 1))
-                EEService.SetSetting(GameVersionSetting, CStr(myGameVersionSetting))
+                Cloud.Service.SetSetting(GameVersionSetting, CStr(myGameVersionSetting))
                 Exit Sub
             End If
         Next
         Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get room version")
     End Sub
 
-    Public Function GetChatter(connection As IConnection(Of Player), name As String) As IChatter Implements IBot.GetChatter
+    Public Function GetChatter(connection As IConnection(Of Player), name As String) As IChatter
         Return New Chatter(CType(connection, Connection(Of Player)).InternalChatter, name)
     End Function
 
-    Friend Function GetConnection(Of P As {Player, New})() As IConnection(Of P) Implements IBot.GetConnection
+    Friend Function GetConnection(Of P As {Player, New})() As IConnection(Of P)
         Return New Connection(Of P)(Me, myConnection)
     End Function
 
-    Public Function GetDefaultChatter(connection As IConnection(Of Player)) As IChatter Implements IBot.GetDefaultChatter
+    Public Function GetDefaultChatter(connection As IConnection(Of Player)) As IChatter
         Try
             Return CType(connection, Connection(Of Player)).DefaultChatter
         Catch ex As Exception
@@ -135,7 +84,7 @@
         End Try
     End Function
 
-    Public Function GetDefaultConnection(Of P As {New, Player})(connection As IConnection(Of P)) As IConnection(Of Player) Implements IBot.GetDefaultConnection
+    Public Function GetDefaultConnection(Of P As {New, Player})(connection As IConnection(Of P)) As IConnection(Of Player)
         Try
             Return CType(connection, Connection(Of P)).DefaultConnection
         Catch ex As Exception

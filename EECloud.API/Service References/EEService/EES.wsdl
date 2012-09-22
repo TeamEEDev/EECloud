@@ -5,6 +5,7 @@
       <xsd:import schemaLocation="http://eeservice.apphb.com/EES.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://eeservice.apphb.com/EES.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://eeservice.apphb.com/EES.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/EEService" />
+      <xsd:import schemaLocation="http://eeservice.apphb.com/EES.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IEES_GetSetting_InputMessage">
@@ -25,6 +26,18 @@
   <wsdl:message name="IEES_GetPlayerData_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPlayerDataResponse" />
   </wsdl:message>
+  <wsdl:message name="IEES_GetPlayerDatas_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlayerDatas" />
+  </wsdl:message>
+  <wsdl:message name="IEES_GetPlayerDatas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlayerDatasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEES_GetPlayerDataRange_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlayerDataRange" />
+  </wsdl:message>
+  <wsdl:message name="IEES_GetPlayerDataRange_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlayerDataRangeResponse" />
+  </wsdl:message>
   <wsdl:message name="IEES_SetPlayerData_InputMessage">
     <wsdl:part name="parameters" element="tns:SetPlayerData" />
   </wsdl:message>
@@ -43,6 +56,14 @@
     <wsdl:operation name="GetPlayerData">
       <wsdl:input wsaw:Action="http://tempuri.org/IEES/GetPlayerData" message="tns:IEES_GetPlayerData_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEES/GetPlayerDataResponse" message="tns:IEES_GetPlayerData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerDatas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEES/GetPlayerDatas" message="tns:IEES_GetPlayerDatas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEES/GetPlayerDatasResponse" message="tns:IEES_GetPlayerDatas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerDataRange">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEES/GetPlayerDataRange" message="tns:IEES_GetPlayerDataRange_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEES/GetPlayerDataRangeResponse" message="tns:IEES_GetPlayerDataRange_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SetPlayerData">
       <wsdl:input wsaw:Action="http://tempuri.org/IEES/SetPlayerData" message="tns:IEES_SetPlayerData_InputMessage" />
@@ -71,6 +92,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetPlayerData">
       <soap:operation soapAction="http://tempuri.org/IEES/GetPlayerData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerDatas">
+      <soap:operation soapAction="http://tempuri.org/IEES/GetPlayerDatas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerDataRange">
+      <soap:operation soapAction="http://tempuri.org/IEES/GetPlayerDataRange" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

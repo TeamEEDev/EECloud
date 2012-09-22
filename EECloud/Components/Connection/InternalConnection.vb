@@ -1,7 +1,6 @@
 ﻿Imports System.Reflection
 
-Friend Class InternalConnection
-    Inherits BaseGlobalComponent
+Friend Class ConnectionHandle
 
 #Region "Fields"
     Private myConnection As PlayerIOClient.Connection
@@ -78,7 +77,7 @@ Friend Class InternalConnection
 #End Region
 
 #Region "Methods"
-    Friend Sub New(PBot As Bot, PConnection As PlayerIOClient.Connection, PWorldID As String)
+    Friend Sub New(PBot As Host, PConnection As PlayerIOClient.Connection, PWorldID As String)
         MyBase.New(PBot)
         myConnection = PConnection
         myWorldID = PWorldID
@@ -121,8 +120,8 @@ Friend Class InternalConnection
             Case GetType(Upgrade_ReceiveMessage)
                 Dim m As Upgrade_ReceiveMessage = CType(e, Upgrade_ReceiveMessage)
 
-                Bot.myGameVersionSetting += 1
-                myBot.Logger.Log(LogPriority.Info, "The game has been updated!")
+                Host.myGameVersionSetting += 1
+                Cloud.Logger.Log(LogPriority.Info, "The game has been updated!")
         End Select
     End Sub
 
@@ -134,11 +133,11 @@ Friend Class InternalConnection
                 Dim myMessage As ReceiveMessage = CType(myConstructorInfo.Invoke(New Object() {e}), ReceiveMessage)
                 RaiseEvent OnMessage(Me, myMessage)
             Else
-                myBot.Logger.Log(LogPriority.Warning, "Received not registered message: " & e.Type)
+                Cloud.Logger.Log(LogPriority.Warning, "Received not registered message: " & e.Type)
             End If
         Catch ex As KeyNotFoundException
-            myBot.Logger.Log(LogPriority.Error, "Failed to parse message: " & e.Type)
-            myBot.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled: {1} {2}", ex.ToString, ex.Message, ex.StackTrace))
+            Cloud.Logger.Log(LogPriority.Error, "Failed to parse message: " & e.Type)
+            Cloud.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled: {1} {2}", ex.ToString, ex.Message, ex.StackTrace))
         End Try
     End Sub
 
@@ -202,7 +201,7 @@ Friend Class InternalConnection
                 MessageDictionary.Add(PString, PType)
             End If
         Catch ex As Exception
-            myBot.Logger.Log(LogPriority.Error, "Failed to register message: " & PString)
+            Cloud.Logger.Log(LogPriority.Error, "Failed to register message: " & PString)
         End Try
     End Sub
 
@@ -210,7 +209,7 @@ Friend Class InternalConnection
         Try
             MessageDictionary.Remove(PString)
         Catch ex As Exception
-            myBot.Logger.Log(LogPriority.Error, "Failed to unregister message: " & PString)
+            Cloud.Logger.Log(LogPriority.Error, "Failed to unregister message: " & PString)
         End Try
     End Sub
 #End Region

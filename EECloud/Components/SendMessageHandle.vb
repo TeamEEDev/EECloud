@@ -35,7 +35,7 @@
     Friend Class InternalHandle
         Friend myMessage As T
         Private myHandleCount As Integer
-        Private myInternalConnection As InternalConnection
+        Private myInternalConnection As ConnectionHandle
 
         Friend Sub Send()
             myHandleCount -= 1
@@ -49,7 +49,7 @@
             myHandleCount += 1
         End Sub
 
-        Friend Sub New(message As T, internalConnection As InternalConnection)
+        Friend Sub New(message As T, internalConnection As ConnectionHandle)
             Me.myMessage = message
             Me.myInternalConnection = internalConnection
         End Sub

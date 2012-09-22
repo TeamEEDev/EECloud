@@ -2,7 +2,6 @@
     Implements IPluginObject
 
 #Region "Fields"
-    Private myBot As IBot
     Private myPlugin As IPlugin
     Private ReadOnly myPluginType As Type
     Private lockObj As New Object
@@ -24,10 +23,9 @@
 #End Region
 
 #Region "Methods"
-    Friend Sub New(bot As IBot, plugin As Type)
+    Friend Sub New(plugin As Type)
         If GetType(IPlugin).IsAssignableFrom(plugin) Then
             myPluginType = plugin
-            myBot = bot
             Enable(True)
         Else
             Throw New EECloudException(ErrorCode.InvalidPlugin, "Type does not inherit from EECloud.API.IPlugin")
@@ -37,13 +35,13 @@
     Private Sub Enable(isStartup As Boolean)
         SyncLock lockObj
             If Not Started Then
-                myBot.Logger.Log(LogPriority.Info, String.Format("Enabling {0}...", myPluginType.Name))
+                Cloud.Logger.Log(LogPriority.Info, String.Format("Enabling {0}...", myPluginType.Name))
                 Try
                     myPlugin = CType(Activator.CreateInstance(myPluginType, True), IPlugin)
                     myPlugin.SetupPlugin(myBot, True)
                 Catch ex As Exception
-                    myBot.Logger.Log(LogPriority.Error, String.Format("Failed to start plugin {0}. Disabling...", myPluginType.Name))
-                    myBot.Logger.Log(ex)
+                    Cloud.Logger.Log(LogPriority.Error, String.Format("Failed to start plugin {0}. Disabling...", myPluginType.Name))
+                    Cloud.Logger.Log(ex)
                     [Stop]()
                 End Try
             Else
@@ -56,12 +54,12 @@
     Friend Sub [Stop]() Implements IPluginObject.Stop
         SyncLock lockObj
             If Started Then
-                myBot.Logger.Log(LogPriority.Info, String.Format("Disabling {0}...", myPluginType.Name))
+                Cloud.Logger.Log(LogPriority.Info, String.Format("Disabling {0}...", myPluginType.Name))
                 Try
                     myPlugin.Disable()
                 Catch ex As Exception
-                    myBot.Logger.Log(LogPriority.Error, String.Format("Failed to disable Plugin {0}.", myPluginType.Name))
-                    myBot.Logger.Log(ex)
+                    Cloud.Logger.Log(LogPriority.Error, String.Format("Failed to disable Plugin {0}.", myPluginType.Name))
+                    Cloud.Logger.Log(ex)
                 Finally
                     myPlugin = Nothing
                 End Try

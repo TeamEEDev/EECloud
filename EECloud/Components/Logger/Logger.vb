@@ -1,7 +1,6 @@
 ﻿Imports System.Threading
 
 Friend NotInheritable Class Logger
-    Inherits BaseGlobalComponent
     Implements ILogger
 
     Private Shared myLogger As LeLogger
@@ -15,7 +14,7 @@ Friend NotInheritable Class Logger
             Return myInput
         End Get
         Set(value As String)
-            If Not myBot.AppEnvironment = AppEnvironment.Release Then
+            If Not Cloud.AppEnvironment = AppEnvironment.Release Then
                 Overwrite(Input.Length + 1, ">" & value)
                 Console.CursorLeft = value.Length + 1
                 myInput = value
@@ -25,9 +24,8 @@ Friend NotInheritable Class Logger
 
     Friend Event OnInput As EventHandler Implements ILogger.OnInput
 
-    Friend Sub New(PBot As Bot)
-        MyBase.New(PBot)
-        If Not myBot.AppEnvironment = AppEnvironment.Release Then
+    Friend Sub New()
+        If Not Cloud.AppEnvironment = AppEnvironment.Release Then
             Console.Write(">")
             Dim Worker As New Thread(AddressOf HandleInput)
             Worker.Start()
@@ -82,7 +80,7 @@ Friend NotInheritable Class Logger
 
     Friend Sub Log(priority As LogPriority, str As String) Implements ILogger.Log
         Dim Output As String = String.Format("{0} [{1}] {2}", Now.ToLongTimeString, priority.ToString.ToUpper, str)
-        If Not myBot.AppEnvironment = AppEnvironment.Release Then
+        If Not Cloud.AppEnvironment = AppEnvironment.Release Then
             OldTop = Console.CursorTop
             Overwrite(Input.Length + 1, Output)
             Console.WriteLine()
@@ -96,7 +94,7 @@ Friend NotInheritable Class Logger
     End Sub
 
     Friend Sub Log(ex As Exception) Implements ILogger.Log
-        myBot.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled: {1} {2}", ex.ToString, ex.Message, ex.StackTrace))
+        Cloud.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled: {1} {2}", ex.ToString, ex.Message, ex.StackTrace))
     End Sub
 
     Private Sub Overwrite(oldLength As Integer, newStr As String)
