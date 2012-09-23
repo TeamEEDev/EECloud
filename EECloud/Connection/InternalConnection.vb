@@ -36,7 +36,7 @@ Friend Class InternalConnection
         End Get
     End Property
 
-    Private myDefaultConnection As New Connection(Of Player)(myBot, Me)
+    Private myDefaultConnection As New Connection(Of Player)(Me)
     Friend ReadOnly Property DefaultConnection As Connection(Of Player)
         Get
             Return myDefaultConnection

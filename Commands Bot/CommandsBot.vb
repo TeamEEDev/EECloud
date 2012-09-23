@@ -28,11 +28,12 @@ Public Class CommandsBot
         'End
     End Sub
 
-    <Command("leave", "!command", Group.Admin, Aliases:={"leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
-    Public Sub LeaveWorldCommand(cmd As ICommand)
-        Chatter.Chat("Leaving world...")
-        Connection.Disconnect()
-    End Sub
+    'TODOD: make this possible somehow, waiting to see how CommandManager will look like when finished
+    '<Command("leave", "!command", Group.Admin, Aliases:={"leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
+    'Public Sub LeaveWorldCommand(cmd As ICommand)
+    '    Chatter.Chat("Leaving world...")
+    '    Connection.Disconnect()
+    'End Sub
 
     <Command("clear", "!command", Group.Moderator, Aliases:={"clearworld", "clearlevel"})>
     Public Sub ClearWorldCommand(cmd As ICommand)

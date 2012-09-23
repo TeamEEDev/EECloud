@@ -1786,13 +1786,5 @@
             myInternalConnection.Send(message)
         End If
     End Sub
-
-
 #End Region
-
-    Public ReadOnly Property GetChatter(name As String) As IChatter Implements IConnection(Of P).GetChatter
-        Get
-
-        End Get
-    End Property
 End Class

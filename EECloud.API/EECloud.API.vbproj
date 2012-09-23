@@ -129,6 +129,7 @@
     <Compile Include="Interfaces\ICommand.vb" />
     <Compile Include="Interfaces\IConnectionHandle.vb" />
     <Compile Include="Interfaces\IConnector.vb" />
+    <Compile Include="Interfaces\ICreator.vb" />
     <Compile Include="Interfaces\IPlayer.vb" />
     <Compile Include="Components\SendEventArgs.vb" />
     <Compile Include="Interfaces\ISendMessageHandle.vb" />

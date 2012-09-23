@@ -71,11 +71,9 @@
     ReadOnly Property Connected As Boolean
     ReadOnly Property Encryption As String
     ReadOnly Property GetChatter(name As String) As IChatter
-
-    Sub Send(message As SendMessage)
     ReadOnly Property Players(number As Integer) As P
     ReadOnly Property Players As IEnumerable(Of P)
     ReadOnly Property Crown As P
 
-    Sub Disconnect()
+    Sub Send(message As SendMessage)
 End Interface

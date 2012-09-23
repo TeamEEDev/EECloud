@@ -4,9 +4,21 @@ Friend Class ConnectionHandle
     Inherits Connection(Of Player)
     Implements IConnectionHandle
 
+#Region "Fields"
     Private Const GameVersionSetting As String = "GameVersion"
     Friend Shared myGameVersionSetting As Integer = 0
+#End Region
 
+#Region "Properties"
+    Private myCreator As ICreator
+    Friend ReadOnly Property Creator As ICreator
+        Get
+            Return myCreator
+        End Get
+    End Property
+#End Region
+
+#Region "Methods"
     Friend Sub New()
         If myGameVersionSetting = 0 Then
             Try
@@ -17,13 +29,14 @@ Friend Class ConnectionHandle
         End If
     End Sub
 
-    Friend Async Function Join(Username As String, password As String, worldID As String) As Task Implements IConnectionHandle.Join
+    Friend Async Function JoinAsync(Username As String, password As String, worldID As String) As Task Implements IConnectionHandle.JoinAsync
         Await Task.Run(
             Sub()
                 Try
                     Dim IOClient As PlayerIOClient.Client = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.GameID, Username, password)
                     Dim IOConnection As PlayerIOClient.Connection = GetIOConnection(IOClient, worldID)
                     myInternalConnection = New InternalConnection(IOConnection, worldID)
+                    myCreator = New Creator(myInternalConnection)
                 Catch ex As PlayerIOClient.PlayerIOError
                     Throw New EECloudPlayerIOException(ex)
                 End Try
@@ -60,4 +73,5 @@ Friend Class ConnectionHandle
     Public Sub Disconnect() Implements IConnectionHandle.Disconnect
         myInternalConnection.Disconnect()
     End Sub
+#End Region
 End Class
