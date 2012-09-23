@@ -63,6 +63,13 @@ Friend Class InternalConnection
             Return myChatter
         End Get
     End Property
+
+    Private myPluginManager As IPluginManager = New PluginManager
+    Public ReadOnly Property PluginManager As IPluginManager
+        Get
+            Return myPluginManager
+        End Get
+    End Property
 #End Region
 
 #Region "Events"
