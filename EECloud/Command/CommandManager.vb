@@ -47,7 +47,6 @@
         Dim type As String = cmd(0).ToLower
 
         If Not commandsDictionary.ContainsKey(type) Then
-
             Exit Sub
         End If
 

@@ -5,12 +5,6 @@ Friend NotInheritable Class CloudApplicationContext
 
 #Region "Methods"
     Friend Sub New()
-        Cloud.AppEnvironment = CType([Enum].Parse(GetType(AppEnvironment), AppSettings("Environment"), True), AppEnvironment)
-        Cloud.Logger = New Logger
-        Cloud.Service = New EEService.EESClient
-        Cloud.Connector = New Connector
-        Cloud.ConnectionMain = Cloud.Connector.CreateConnection
-
         If Cloud.AppEnvironment = API.AppEnvironment.Release Then
             My.Settings.LicenceUsername = AppSettings("cloud.username")
             My.Settings.LicenceKey = AppSettings("cloud.key")
@@ -24,18 +18,15 @@ Friend NotInheritable Class CloudApplicationContext
             Environment.Exit(0)
         End If
 
+
+        Cloud.AppEnvironment = CType([Enum].Parse(GetType(AppEnvironment), AppSettings("Environment"), True), AppEnvironment)
+        Cloud.Logger = New Logger
+        Cloud.Service = New EEService.EESClient
+        Cloud.Connector = New Connector
+
+        Dim Handle As IConnectionHandle = Cloud.Connector.CreateConnection
         Cloud.Logger.Log(LogPriority.Info, "Joining world...")
-        Cloud.Connector.Connect(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID,
-            Sub(PConnection As IConnection(Of Player))
-                AddHandler PConnection.OnDisconnect,
-                    Sub()
-                        Cloud.Logger.Log(LogPriority.Info, "Disconnected.")
-                    End Sub
-                Cloud.Logger.Log(LogPriority.Info, "Successfully joined.")
-            End Sub,
-            Sub(ex As EECloudException)
-                Cloud.Logger.Log(LogPriority.Error, "Failed to join.")
-            End Sub)
+        Handle.JoinAsync(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID)
     End Sub
 #End Region
 End Class

@@ -155,13 +155,14 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connection\Creator.vb" />
     <Compile Include="Components\Chatter.vb" />
-    <Compile Include="Components\Command\CommandHandle.vb" />
-    <Compile Include="Components\Command\CommandManager.vb" />
-    <Compile Include="Components\Command\CommandSyntax.vb" />
-    <Compile Include="Components\Connection\Connection.vb" />
-    <Compile Include="Components\Connection\ConnectionHandle.vb" />
-    <Compile Include="Components\Connection\Connector.vb" />
+    <Compile Include="Command\CommandHandle.vb" />
+    <Compile Include="Command\CommandManager.vb" />
+    <Compile Include="Command\CommandSyntax.vb" />
+    <Compile Include="Connection\Connection.vb" />
+    <Compile Include="Connection\ConnectionHandle.vb" />
+    <Compile Include="Connection\Connector.vb" />
     <Compile Include="Components\EventHandlerList.vb" />
     <Compile Include="Components\InternalChatter.vb" />
     <Compile Include="Components\EESendEventArgs.vb" />
@@ -169,7 +170,7 @@
     <Compile Include="Forms\LicenseForm.Designer.vb">
       <DependentUpon>LicenseForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="Components\Connection\InternalConnection.vb" />
+    <Compile Include="Connection\InternalConnection.vb" />
     <Compile Include="Components\InternalPlayer.vb" />
     <Compile Include="Forms\LicenseForm.vb">
       <SubType>Form</SubType>
@@ -181,8 +182,8 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Miscellaneous\Config.vb" />
-    <Compile Include="Components\Logger\LeLogger.vb" />
-    <Compile Include="Components\Logger\Logger.vb" />
+    <Compile Include="Logger\LeLogger.vb" />
+    <Compile Include="Logger\Logger.vb" />
     <Compile Include="Components\PluginManager.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
