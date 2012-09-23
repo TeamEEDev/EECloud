@@ -1,6 +1,7 @@
 ﻿Friend Class Connection(Of P As {Player, New})
     Implements IConnection(Of P)
 
+
 #Region "Fields"
     Protected WithEvents myInternalConnection As InternalConnection
     Private myEvents As New EventHandlerList
@@ -26,12 +27,6 @@
         End Get
     End Property
 
-    Public ReadOnly Property World As World Implements IConnection(Of P).World
-        Get
-            Return myInternalConnection.World
-        End Get
-    End Property
-
     Public ReadOnly Property IsMainConnection As Boolean Implements IConnection(Of P).IsMainConnection
         Get
             Return myInternalConnection.IsMainConnection
@@ -43,6 +38,31 @@
             Return myInternalConnection.Connected
         End Get
     End Property
+
+    Friend ReadOnly Property DefaultConnection As Connection(Of Player)
+        Get
+            Return myInternalConnection.DefaultConnection
+        End Get
+    End Property
+
+    Public ReadOnly Property Encryption As String Implements IConnection(Of P).Encryption
+        Get
+            Return myInternalConnection.Encryption
+        End Get
+    End Property
+
+    Public ReadOnly Property World As World Implements IConnection(Of P).World
+        Get
+            Return myInternalConnection.World
+        End Get
+    End Property
+
+    Public ReadOnly Property PluginManager As IPluginManager Implements IConnection(Of P).PluginManager
+        Get
+            Return myInternalConnection.PluginManager
+        End Get
+    End Property
+
 
     Private myPlayersDictionary As New Dictionary(Of Integer, P)
     Public ReadOnly Property Players(number As Integer) As P Implements IConnection(Of P).Players
@@ -69,18 +89,6 @@
     Public ReadOnly Property Crown As P Implements IConnection(Of P).Crown
         Get
             Return myCrown
-        End Get
-    End Property
-
-    Friend ReadOnly Property DefaultConnection As Connection(Of Player)
-        Get
-            Return myInternalConnection.DefaultConnection
-        End Get
-    End Property
-
-    Public ReadOnly Property Encryption As String Implements IConnection(Of P).Encryption
-        Get
-            Return myInternalConnection.Encryption
         End Get
     End Property
 #End Region

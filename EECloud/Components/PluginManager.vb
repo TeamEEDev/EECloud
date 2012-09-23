@@ -15,40 +15,21 @@ Friend NotInheritable Class PluginManager
 
 #Region "Methods"
     Friend Sub New()
-        Dim allAssemblies As New List(Of Assembly)
-        Dim path As String = My.Application.Info.DirectoryPath
 
-        For Each dll As String In Directory.GetFiles(path, "*.dll")
-            Try
-                allAssemblies.Add(Assembly.LoadFile(dll))
-            Catch ex As FileLoadException
-                Cloud.Logger.Log(LogPriority.Error, "Failed to load Assembly: " & dll)
-            Catch ex As BadImageFormatException
-                Cloud.Logger.Log(LogPriority.Error, "Currupt assembly: " & dll)
-            End Try
-        Next
-
-
-        Dim myPlugins As IEnumerable(Of Type) =
-            From myAssembly As Assembly In allAssemblies
-            From myType As Type In myAssembly.GetTypes
-            Where GetType(IPlugin).IsAssignableFrom(myType)
-            Let myAttributes As Object() = myType.GetCustomAttributes(GetType(PluginAttribute), True)
-            Where myAttributes IsNot Nothing AndAlso myAttributes.Length = 1
-            Select myType
-
-        Using myEnumrator As IEnumerator(Of Type) = myPlugins.GetEnumerator
-            Do
-                Try
-                    Dim hasNext As Boolean = myEnumrator.MoveNext()
-                    If Not hasNext Then Exit Do
-
-                    myPluginsList.Add(New PluginObject(myEnumrator.Current))
-                Catch ex As Exception
-                    Cloud.Logger.Log(ex)
-                End Try
-            Loop
-        End Using
     End Sub
+
+    Public Function Add(t As Type) As IPluginObject Implements IPluginManager.Add
+        If GetType(IPlugin).IsAssignableFrom(t) Then
+            Dim myAttributes As Object() = t.GetCustomAttributes(GetType(PluginAttribute), True)
+            If myAttributes IsNot Nothing AndAlso myAttributes.Length = 1 Then
+                Dim pluginObj As IPluginObject = New PluginObject(t)
+                myPluginsList.Add(pluginObj)
+                Return pluginObj
+            End If
+        End If
+        Throw New EECloudException(ErrorCode.InvalidPlugin)
+    End Function
 #End Region
+
+
 End Class

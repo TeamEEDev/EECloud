@@ -75,6 +75,7 @@
     ReadOnly Property Crown As P
 
     ReadOnly Property World As World
+    ReadOnly Property PluginManager As IPluginManager
 
     Sub Send(message As SendMessage)
 End Interface
