@@ -1640,140 +1640,140 @@
         RaiseEvent OnSendMessage(Me, message)
         Select Case message.GetType
             Case GetType(Init_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of Init_SendMessage)(CType(message, Init_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of Init_SendMessage)(CType(message, Init_SendMessage))
                 RaiseEvent OnSendInit(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(Init2_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of Init2_SendMessage)(CType(message, Init2_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of Init2_SendMessage)(CType(message, Init2_SendMessage))
                 RaiseEvent OnSendInit2(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(BlockPlace_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of BlockPlace_SendMessage)(CType(message, BlockPlace_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of BlockPlace_SendMessage)(CType(message, BlockPlace_SendMessage))
                 RaiseEvent OnSendBlockPlace(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(CoinDoorPlace_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of CoinDoorPlace_SendMessage)(CType(message, CoinDoorPlace_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of CoinDoorPlace_SendMessage)(CType(message, CoinDoorPlace_SendMessage))
                 RaiseEvent OnSendCoindoorPlace(Me, myEventArgs)
-                Dim myBlockEventArgs As New EESendEventArgs(Of BlockPlace_SendMessage)(CType(message, BlockPlace_SendMessage), myInternalConnection)
+                Dim myBlockEventArgs As New SendEventArgs(Of BlockPlace_SendMessage)(CType(message, BlockPlace_SendMessage))
                 RaiseEvent OnSendBlockPlace(Me, myBlockEventArgs)
                 Return myEventArgs.Handled And myBlockEventArgs.Handled
 
             Case GetType(SoundPlace_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of SoundPlace_SendMessage)(CType(message, SoundPlace_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of SoundPlace_SendMessage)(CType(message, SoundPlace_SendMessage))
                 RaiseEvent OnSendSoundPlace(Me, myEventArgs)
-                Dim myBlockEventArgs As New EESendEventArgs(Of BlockPlace_SendMessage)(CType(message, BlockPlace_SendMessage), myInternalConnection)
+                Dim myBlockEventArgs As New SendEventArgs(Of BlockPlace_SendMessage)(CType(message, BlockPlace_SendMessage))
                 RaiseEvent OnSendBlockPlace(Me, myBlockEventArgs)
                 Return myEventArgs.Handled And myBlockEventArgs.Handled
 
             Case GetType(PortalPlace_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of PortalPlace_SendMessage)(CType(message, PortalPlace_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of PortalPlace_SendMessage)(CType(message, PortalPlace_SendMessage))
                 RaiseEvent OnSendPortalPlace(Me, myEventArgs)
-                Dim myBlockEventArgs As New EESendEventArgs(Of BlockPlace_SendMessage)(CType(message, BlockPlace_SendMessage), myInternalConnection)
+                Dim myBlockEventArgs As New SendEventArgs(Of BlockPlace_SendMessage)(CType(message, BlockPlace_SendMessage))
                 RaiseEvent OnSendBlockPlace(Me, myBlockEventArgs)
                 Return myEventArgs.Handled And myBlockEventArgs.Handled
 
             Case GetType(LabelPlace_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of LabelPlace_SendMessage)(CType(message, LabelPlace_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of LabelPlace_SendMessage)(CType(message, LabelPlace_SendMessage))
                 RaiseEvent OnSendLabelPlace(Me, myEventArgs)
-                Dim myBlockEventArgs As New EESendEventArgs(Of BlockPlace_SendMessage)(CType(message, BlockPlace_SendMessage), myInternalConnection)
+                Dim myBlockEventArgs As New SendEventArgs(Of BlockPlace_SendMessage)(CType(message, BlockPlace_SendMessage))
                 RaiseEvent OnSendBlockPlace(Me, myBlockEventArgs)
                 Return myEventArgs.Handled And myBlockEventArgs.Handled
 
             Case GetType(Coin_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of Coin_SendMessage)(CType(message, Coin_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of Coin_SendMessage)(CType(message, Coin_SendMessage))
                 RaiseEvent OnSendCoin(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(PressRedKey_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of PressRedKey_SendMessage)(CType(message, PressRedKey_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of PressRedKey_SendMessage)(CType(message, PressRedKey_SendMessage))
                 RaiseEvent OnSendPressRedKey(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(PressGreenKey_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of PressGreenKey_SendMessage)(CType(message, PressGreenKey_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of PressGreenKey_SendMessage)(CType(message, PressGreenKey_SendMessage))
                 RaiseEvent OnSendPressGreenKey(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(PressBlueKey_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of PressBlueKey_SendMessage)(CType(message, PressBlueKey_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of PressBlueKey_SendMessage)(CType(message, PressBlueKey_SendMessage))
                 RaiseEvent OnSendPressBlueKey(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(GetCrown_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of GetCrown_SendMessage)(CType(message, GetCrown_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of GetCrown_SendMessage)(CType(message, GetCrown_SendMessage))
                 RaiseEvent OnSendGetCrown(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(TouchDiamond_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of TouchDiamond_SendMessage)(CType(message, TouchDiamond_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of TouchDiamond_SendMessage)(CType(message, TouchDiamond_SendMessage))
                 RaiseEvent OnSendTouchDiamond(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(CompleteLevel_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of CompleteLevel_SendMessage)(CType(message, CompleteLevel_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of CompleteLevel_SendMessage)(CType(message, CompleteLevel_SendMessage))
                 RaiseEvent OnSendCompleteLevel(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(GodMode_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of GodMode_SendMessage)(CType(message, GodMode_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of GodMode_SendMessage)(CType(message, GodMode_SendMessage))
                 RaiseEvent OnSendGodMode(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(ModMode_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of ModMode_SendMessage)(CType(message, ModMode_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of ModMode_SendMessage)(CType(message, ModMode_SendMessage))
                 RaiseEvent OnSendModMode(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(Move_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of Move_SendMessage)(CType(message, Move_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of Move_SendMessage)(CType(message, Move_SendMessage))
                 RaiseEvent OnSendMove(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(Say_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of Say_SendMessage)(CType(message, Say_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of Say_SendMessage)(CType(message, Say_SendMessage))
                 RaiseEvent OnSendSay(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(AutoSay_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of AutoSay_SendMessage)(CType(message, AutoSay_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of AutoSay_SendMessage)(CType(message, AutoSay_SendMessage))
                 RaiseEvent OnSendAutoSay(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(Access_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of Access_SendMessage)(CType(message, Access_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of Access_SendMessage)(CType(message, Access_SendMessage))
                 RaiseEvent OnSendAccess(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(ChangeFace_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of ChangeFace_SendMessage)(CType(message, ChangeFace_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of ChangeFace_SendMessage)(CType(message, ChangeFace_SendMessage))
                 RaiseEvent OnSendChangeFace(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(SaveWorld_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of SaveWorld_SendMessage)(CType(message, SaveWorld_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of SaveWorld_SendMessage)(CType(message, SaveWorld_SendMessage))
                 RaiseEvent OnSendSaveWorld(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(ChangeWorldName_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of ChangeWorldName_SendMessage)(CType(message, ChangeWorldName_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of ChangeWorldName_SendMessage)(CType(message, ChangeWorldName_SendMessage))
                 RaiseEvent OnSendChangeWorldName(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(ChangeWorldEditKey_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of ChangeWorldEditKey_SendMessage)(CType(message, ChangeWorldEditKey_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of ChangeWorldEditKey_SendMessage)(CType(message, ChangeWorldEditKey_SendMessage))
                 RaiseEvent OnSendChangeWorldEditKey(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(ClearWorld_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of ClearWorld_SendMessage)(CType(message, ClearWorld_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of ClearWorld_SendMessage)(CType(message, ClearWorld_SendMessage))
                 RaiseEvent OnSendClearWorld(Me, myEventArgs)
                 Return myEventArgs.Handled
 
             Case GetType(KillWorld_SendMessage)
-                Dim myEventArgs As New EESendEventArgs(Of KillWorld_SendMessage)(CType(message, KillWorld_SendMessage), myInternalConnection)
+                Dim myEventArgs As New SendEventArgs(Of KillWorld_SendMessage)(CType(message, KillWorld_SendMessage))
                 RaiseEvent OnSendKillWorld(Me, myEventArgs)
                 Return myEventArgs.Handled
             Case Else

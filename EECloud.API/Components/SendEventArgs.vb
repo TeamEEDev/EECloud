@@ -1,9 +1,14 @@
-﻿Public MustInherit Class SendEventArgs(Of T As SendMessage)
-    Inherits EventArgs
+﻿Public Class SendEventArgs(Of T As SendMessage)
+    Private myMessage As T
+    Public ReadOnly Property Message As T
+        Get
+            Return myMessage
+        End Get
+    End Property
 
-    MustOverride ReadOnly Property Message As T
+    Public Property Handled As Boolean
 
-    MustOverride ReadOnly Property Handled As Boolean
-
-    MustOverride Function GetHandle() As ISendMessageHandle(Of T)
+    Friend Sub New(message As T)
+        myMessage = message
+    End Sub
 End Class

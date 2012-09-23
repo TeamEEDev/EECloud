@@ -121,6 +121,7 @@
     <Compile Include="Cloud.vb" />
     <Compile Include="Components\Command\CommandAttribute.vb" />
     <Compile Include="Components\Command\Command.vb" />
+    <Compile Include="Components\SendEventArgs.vb" />
     <Compile Include="Components\World\WorldLabelBlock.vb" />
     <Compile Include="Components\World\WorldSoundBlock.vb" />
     <Compile Include="Components\World\WorldPortalBlock.vb" />
@@ -131,8 +132,6 @@
     <Compile Include="Interfaces\IConnector.vb" />
     <Compile Include="Interfaces\ICreator.vb" />
     <Compile Include="Interfaces\IPlayer.vb" />
-    <Compile Include="Components\SendEventArgs.vb" />
-    <Compile Include="Interfaces\ISendMessageHandle.vb" />
     <Compile Include="Plugins\Player.vb" />
     <Compile Include="Components\World\World.vb" />
     <Compile Include="Components\World\WorldCoinDoorBlock.vb" />
