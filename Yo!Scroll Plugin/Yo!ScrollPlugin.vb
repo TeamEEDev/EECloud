@@ -5,8 +5,6 @@
         Version:="1.0.0.0")>
 Public Class YoScrollPlugin
     Inherits Plugin(Of YoScrollPlayer)
-    Private WithEvents Connection As IConnection(Of YoScrollPlayer)
-    Private Chatter As IChatter
 
     Protected Overrides Sub OnEnable()
 
@@ -16,9 +14,7 @@ Public Class YoScrollPlugin
 
     End Sub
 
-    Protected Overrides Sub OnConnect(mainConnection As IConnection(Of YoScrollPlayer))
-        Me.Connection = mainConnection
-        Chatter = Connection.GetChatter("Yo!Scroll Plugin")
+    Protected Overrides Sub OnConnect()
         Chatter.Chat("Welcome to Yo!Scroll!")
     End Sub
 End Class

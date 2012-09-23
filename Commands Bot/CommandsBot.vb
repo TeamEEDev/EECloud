@@ -5,8 +5,6 @@
         Version:="1.0.0.0")>
 Public Class CommandsBot
     Inherits Plugin(Of CommandsBotPlayer)
-    Private WithEvents Connection As IConnection(Of CommandsBotPlayer)
-    Private Chatter As IChatter
 
     Protected Overrides Sub OnEnable()
 
@@ -16,9 +14,7 @@ Public Class CommandsBot
 
     End Sub
 
-    Protected Overrides Sub OnConnect(mainConnection As IConnection(Of CommandsBotPlayer))
-        Me.Connection = mainConnection
-        Chatter = Connection.GetChatter("Commands Bot")
+    Protected Overrides Sub OnConnect()
         Chatter.Chat("[Debug] The Commands Bot is active.")
     End Sub
 

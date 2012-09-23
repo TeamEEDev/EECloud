@@ -1,11 +1,16 @@
 ﻿Public MustInherit Class Plugin(Of P As {Player, New})
     Implements IPlugin
-    Private myConnection As IConnection(Of P)
+    Protected WithEvents Connection As IConnection(Of P)
+    Protected Chatter As IChatter
 
-
-    Friend Sub SetupPlugin(creator As ICreator) Implements IPlugin.SetupPlugin
-        myConnection = creator.GenerateConnection(Of P)()
+    Friend Sub Enable(chatter As IChatter) Implements IPlugin.Enable
+        Me.Chatter = chatter
         OnEnable()
+    End Sub
+
+    Friend Sub Connect(creator As ICreator) Implements IPlugin.Connect
+        Me.Connection = creator.GenerateConnection(Of P)()
+        OnConnect()
     End Sub
 
     Friend Sub Disable() Implements IPlugin.Disable
@@ -13,6 +18,6 @@
     End Sub
 
     Protected MustOverride Sub OnEnable()
-    Protected MustOverride Sub OnConnect(mainConnection As IConnection(Of P))
+    Protected MustOverride Sub OnConnect()
     Protected MustOverride Sub OnDisable()
 End Class
