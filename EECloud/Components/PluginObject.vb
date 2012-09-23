@@ -38,7 +38,7 @@
                 Cloud.Logger.Log(LogPriority.Info, String.Format("Enabling {0}...", myPluginType.Name))
                 Try
                     myPlugin = CType(Activator.CreateInstance(myPluginType, True), IPlugin)
-                    myPlugin.SetupPlugin(True)
+                    myPlugin.Enable()
                 Catch ex As Exception
                     Cloud.Logger.Log(LogPriority.Error, String.Format("Failed to start plugin {0}. Disabling...", myPluginType.Name))
                     Cloud.Logger.Log(ex)

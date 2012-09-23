@@ -66,14 +66,15 @@
     Event OnSendKillWorld As EventHandler(Of SendEventArgs(Of KillWorld_SendMessage))
 
     ReadOnly Property WorldID As String
-    ReadOnly Property World As World
     ReadOnly Property IsMainConnection As Boolean
     ReadOnly Property Connected As Boolean
     ReadOnly Property Encryption As String
-    ReadOnly Property GetChatter(name As String) As IChatter
+
     ReadOnly Property Players(number As Integer) As P
     ReadOnly Property Players As IEnumerable(Of P)
     ReadOnly Property Crown As P
+
+    ReadOnly Property World As World
 
     Sub Send(message As SendMessage)
 End Interface
