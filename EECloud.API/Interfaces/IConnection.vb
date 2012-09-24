@@ -66,7 +66,6 @@
     Event OnSendKillWorld As EventHandler(Of SendEventArgs(Of KillWorld_SendMessage))
 
     ReadOnly Property WorldID As String
-    ReadOnly Property IsMainConnection As Boolean
     ReadOnly Property Connected As Boolean
     ReadOnly Property Encryption As String
 

@@ -13,17 +13,6 @@
         End Set
     End Property
 
-    Private Shared myConnectionMain As IConnection(Of Player)
-    Public Shared Property ConnectionMain As IConnection(Of Player)
-        Get
-            Return myConnectionMain
-        End Get
-
-        Friend Set(value As IConnection(Of Player))
-            myConnectionMain = value
-        End Set
-    End Property
-
     Private Shared myLogger As ILogger
     Public Shared Property Logger As ILogger
         Get

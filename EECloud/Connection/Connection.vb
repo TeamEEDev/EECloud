@@ -27,11 +27,6 @@
         End Get
     End Property
 
-    Public ReadOnly Property IsMainConnection As Boolean Implements IConnection(Of P).IsMainConnection
-        Get
-            Return myInternalConnection.IsMainConnection
-        End Get
-    End Property
 
     Public ReadOnly Property Connected As Boolean Implements IConnection(Of P).Connected
         Get

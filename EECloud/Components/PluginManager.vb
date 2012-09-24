@@ -14,10 +14,6 @@ Friend NotInheritable Class PluginManager
 #End Region
 
 #Region "Methods"
-    Friend Sub New()
-
-    End Sub
-
     Public Function Add(t As Type) As IPluginObject Implements IPluginManager.Add
         If GetType(IPlugin).IsAssignableFrom(t) Then
             Dim myAttributes As Object() = t.GetCustomAttributes(GetType(PluginAttribute), True)
@@ -30,6 +26,4 @@ Friend NotInheritable Class PluginManager
         Throw New EECloudException(ErrorCode.InvalidPlugin)
     End Function
 #End Region
-
-
 End Class
