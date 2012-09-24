@@ -17,8 +17,11 @@ Friend NotInheritable Class CloudApplicationContext
                 My.Settings.LoginEmail = AccData(0)
                 My.Settings.LoginPassword = AccData(1)
             End If
-        ElseIf Not New LoginForm().ShowDialog() = Windows.Forms.DialogResult.OK Then
-            Environment.Exit(0)
+        Else
+            Application.EnableVisualStyles() 'SUPER FACEPALM FOR NOT KNOWING THIS AT THE FIRST PLACE
+            If Not New LoginForm().ShowDialog() = Windows.Forms.DialogResult.OK Then
+                Environment.Exit(0)
+            End If
         End If
 
         'Creating singletons

@@ -20,12 +20,6 @@ Friend Class InternalConnection
         End Get
     End Property
 
-    Friend ReadOnly Property IsMainConnection As Boolean
-        Get
-            Return Me.DefaultConnection Is Cloud.ConnectionMain
-        End Get
-    End Property
-
     Friend ReadOnly Property Connected As Boolean
         Get
             If myConnection IsNot Nothing Then

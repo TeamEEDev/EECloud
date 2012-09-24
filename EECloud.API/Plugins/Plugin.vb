@@ -3,9 +3,14 @@
     Protected WithEvents Connection As IConnection(Of P)
     Protected Chatter As IChatter
 
-    Friend Sub Enable(chatter As IChatter) Implements IPlugin.Enable
-        Me.Chatter = chatter
+    Friend Sub Enable() Implements IPlugin.Enable
         OnEnable()
+    End Sub
+
+    Friend Sub Enable(creator As ICreator) Implements IPlugin.Enable
+        Me.Connection = creator.GenerateConnection(Of P)()
+        OnEnable()
+        OnConnect()
     End Sub
 
     Friend Sub Connect(creator As ICreator) Implements IPlugin.Connect
