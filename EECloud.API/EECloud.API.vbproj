@@ -127,7 +127,6 @@
     <Compile Include="Components\World\WorldPortalBlock.vb" />
     <Compile Include="Components\World\WorldBlock.vb" />
     <Compile Include="Enums\AccessRight.vb" />
-    <Compile Include="Enums\Gravity.vb" />
     <Compile Include="Interfaces\ICommand.vb" />
     <Compile Include="Interfaces\IConnectionHandle.vb" />
     <Compile Include="Interfaces\IConnector.vb" />
