@@ -13,6 +13,7 @@
     Public ReadOnly SizeX As Integer '10
     Public ReadOnly SizeY As Integer '11
     Public ReadOnly IsTutorialRoom As Boolean '12
+    Public ReadOnly Gravity As Double '13
 
     Friend Sub New(message As PlayerIOClient.Message)
         MyBase.New(message)
@@ -30,5 +31,6 @@
         SizeX = message.GetInteger(10)
         SizeY = message.GetInteger(11)
         IsTutorialRoom = message.GetBoolean(12)
+        Gravity = message.GetDouble(13)
     End Sub
 End Class
