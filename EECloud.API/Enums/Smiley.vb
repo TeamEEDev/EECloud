@@ -67,4 +67,8 @@
     Peasant = 65
     Soldier = 66
     Blacksmith = 67
+    Laughing_Out_Loud = 68
+    Laika = 69
+    Alien = 70
+    Astronaut = 71
 End Enum

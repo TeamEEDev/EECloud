@@ -390,6 +390,8 @@
     Decoration_WarningSign_HorizontalLine = 323
     Decoration_WarningSign_VerticalLine = 324
 
+    Decoration_Cake = 337
+
     Background_Checkered_Grey = 513
     Background_Checkered_DarkBlue = 514
     Background_Checkered_Purple = 515
