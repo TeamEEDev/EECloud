@@ -44,8 +44,8 @@ Friend Class InternalConnection
         End Get
     End Property
 
-    Private myPluginManager As IPluginManager = New PluginManager
-    Public ReadOnly Property PluginManager As IPluginManager
+    Private myPluginManager As IPluginManager
+    Friend ReadOnly Property PluginManager As IPluginManager
         Get
             Return myPluginManager
         End Get
@@ -58,9 +58,10 @@ Friend Class InternalConnection
 #End Region
 
 #Region "Methods"
-    Friend Sub New(PConnection As PlayerIOClient.Connection, PWorldID As String)
+    Friend Sub New(PConnection As PlayerIOClient.Connection, PWorldID As String, PPluginManager As IPluginManager)
         myConnection = PConnection
         myWorldID = PWorldID
+        myPluginManager = PPluginManager
 
         myConnection.AddOnMessage(AddressOf MessageReceiver)
         myConnection.AddOnDisconnect(
@@ -79,7 +80,7 @@ Friend Class InternalConnection
         Send(New Init_SendMessage)
     End Sub
 
-    Private Sub MessageHandler(sender As Object, e As ReceiveMessage) Handles Me.OnMessage
+    Private Async Sub MessageHandler(sender As Object, e As ReceiveMessage) Handles Me.OnMessage
         Select Case e.GetType
             Case GetType(Init_ReceiveMessage)
                 Dim m As Init_ReceiveMessage = CType(e, Init_ReceiveMessage)
@@ -94,6 +95,7 @@ Friend Class InternalConnection
 
                 ConnectionHandle.myGameVersionSetting += 1
                 Cloud.Logger.Log(LogPriority.Info, "The game has been updated!")
+                Await Cloud.Service.SetSettingAsync("GameVersion", CStr(ConnectionHandle.myGameVersionSetting))
         End Select
     End Sub
 

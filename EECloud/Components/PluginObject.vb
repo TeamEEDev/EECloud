@@ -20,6 +20,12 @@
             Return myPlugin IsNot Nothing
         End Get
     End Property
+
+    Friend ReadOnly Property Name As String Implements IPluginObject.Name
+        Get
+            Return myPluginType.Name
+        End Get
+    End Property
 #End Region
 
 #Region "Methods"
@@ -69,7 +75,7 @@
         End SyncLock
     End Sub
 
-    Public Sub Start() Implements IPluginObject.Start
+    Friend Sub Start() Implements IPluginObject.Start
         If Started Then
             [Stop]()
         End If
