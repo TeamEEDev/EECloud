@@ -1,8 +1,20 @@
 ﻿Public Class World
+#Region "Fields"
     Private Const INIT_OFFSET As UInteger = 14
     Private Blocks(,,) As WorldBlock
     Private myConnection As IConnection(Of Player)
+#End Region
 
+#Region "Properties"
+    Private myEncryption As String
+    Public ReadOnly Property Encryption As String
+        Get
+            Return myEncryption
+        End Get
+    End Property
+#End Region
+
+#Region "Methods"
     Friend Sub New(connection As IConnection(Of Player), initMessage As Init_ReceiveMessage)
         Me.myConnection = connection
         Blocks = ParseWorld(initMessage.PlayerIOMessage, initMessage.SizeX, initMessage.SizeY, INIT_OFFSET)
@@ -73,4 +85,5 @@
             Return Blocks(layer, x, y)
         End Get
     End Property
+#End Region
 End Class

@@ -1,27 +1,60 @@
-﻿Friend Class CommandHandle
-    Friend Sub New(action As Action(Of ICommand), syntax As CommandSyntax)
-        Me.myAction = action
-        Me.mySyntax = syntax
+﻿Imports System.Reflection
+
+Friend Class CommandHandle
+    Private del As [Delegate]
+
+    Friend Sub New(name As String, method As MethodInfo, obj As Object)
+        Dim prams As ParameterInfo() = method.GetParameters
+        If Not prams(0).ParameterType = GetType(ICommand) Then
+            Cloud.Logger.Log(LogPriority.Error, "First parameter must be a Command: " & name)
+            Throw New EECloudException(ErrorCode.CommandSyntaxInvalid)
+        End If
+
+        mySyntaxStr = "/command"
+        For i = 1 To prams.Count - 1
+            Dim pram As ParameterInfo = prams(i)
+            If pram.ParameterType = GetType(String) Then
+                myRecommendedArgs += 1
+
+                mySyntaxStr += " "
+                If Not pram.IsOptional Then
+                    myMinimumArgs += 1
+                    mySyntaxStr += "[" & pram.Name & "]"
+                Else
+                    mySyntaxStr += pram.Name
+                End If
+            Else
+                Cloud.Logger.Log(LogPriority.Error, "Arguments must all be type of String: " & name)
+                Throw New EECloudException(ErrorCode.CommandSyntaxInvalid)
+            End If
+        Next
+        del = method.CreateDelegate(GetType([Delegate]), obj)
     End Sub
 
-    Private myAction As Action(Of ICommand)
-    Public ReadOnly Property Action As Action(Of ICommand)
+    Public Sub Run(cmd As Command, ParamArray args As String())
+        Try
+            del.DynamicInvoke(cmd, args)
+        Catch ex As Exception
+            Cloud.Logger.Log(LogPriority.Error, "Command failed to excecute: " & cmd.Type)
+        End Try
+    End Sub
+
+    Private myMinimumArgs As Integer
+    Public ReadOnly Property MinimumArgs As Integer
         Get
-            Return myAction
+            Return myMinimumArgs
         End Get
     End Property
 
-    Private mySyntax As CommandSyntax
-    Public ReadOnly Property Syntax As CommandSyntax
+    Private myRecommendedArgs As Integer
+    Public ReadOnly Property RecommendedArgs As Integer
         Get
-            Return mySyntax
+            Return myRecommendedArgs
         End Get
     End Property
 
-    Private myAccessRight As AccessRight
-    Public ReadOnly Property AccessRight As AccessRight
-        Get
-            Return myAccessRight
-        End Get
-    End Property
+    Private mySyntaxStr As String
+    Public Overrides Function ToString() As String
+        Return mySyntaxStr
+    End Function
 End Class

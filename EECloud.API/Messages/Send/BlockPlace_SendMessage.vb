@@ -12,6 +12,6 @@
     End Sub
 
     Friend Overrides Function GetMessage(connection As IConnection(Of Player)) As PlayerIOClient.Message
-        Return PlayerIOClient.Message.Create(connection.Encryption, CorrectLayer(Block, Layer), X, Y, Block)
+        Return PlayerIOClient.Message.Create(connection.World.Encryption, CorrectLayer(Block, Layer), X, Y, Block)
     End Function
 End Class

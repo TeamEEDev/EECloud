@@ -1,7 +1,6 @@
 ﻿Friend Class Connection(Of P As {Player, New})
     Implements IConnection(Of P)
 
-
 #Region "Fields"
     Protected WithEvents myInternalConnection As InternalConnection
     Private myEvents As New EventHandlerList
@@ -15,34 +14,15 @@
         End Get
     End Property
 
-    Friend ReadOnly Property DefaultChatter As IChatter
-        Get
-            Return myInternalConnection.DefaultChatter
-        End Get
-    End Property
-
     Public ReadOnly Property WorldID As String Implements IConnection(Of P).WorldID
         Get
             Return myInternalConnection.WorldID
         End Get
     End Property
 
-
     Public ReadOnly Property Connected As Boolean Implements IConnection(Of P).Connected
         Get
             Return myInternalConnection.Connected
-        End Get
-    End Property
-
-    Friend ReadOnly Property DefaultConnection As Connection(Of Player)
-        Get
-            Return myInternalConnection.DefaultConnection
-        End Get
-    End Property
-
-    Public ReadOnly Property Encryption As String Implements IConnection(Of P).Encryption
-        Get
-            Return myInternalConnection.Encryption
         End Get
     End Property
 
@@ -58,32 +38,17 @@
         End Get
     End Property
 
-
-    Private myPlayersDictionary As New Dictionary(Of Integer, P)
-    Public ReadOnly Property Players(number As Integer) As P Implements IConnection(Of P).Players
+    Private myChatter As IChatter
+    Public ReadOnly Property Chatter As IChatter Implements IConnection(Of P).Chatter
         Get
-            If myPlayersDictionary.ContainsKey(number) Then
-                Return myPlayersDictionary(number)
-            Else
-                Return Nothing
-            End If
+            Return myChatter
         End Get
     End Property
 
-    Public ReadOnly Property Players As IEnumerable(Of P) Implements IConnection(Of P).Players
+    Private myPlayerManager As PlayerManager(Of P)
+    Public ReadOnly Property PlayerManager As IPlayerManager(Of P) Implements IConnection(Of P).PlayerManager
         Get
-            Try
-                Return myPlayersDictionary.Values
-            Catch
-                Return Nothing
-            End Try
-        End Get
-    End Property
-
-    Private myCrown As P
-    Public ReadOnly Property Crown As P Implements IConnection(Of P).Crown
-        Get
-            Return myCrown
+            Return myPlayerManager
         End Get
     End Property
 #End Region
@@ -1456,7 +1421,7 @@
 #End Region
 
 #Region "Methods"
-    Friend Sub New(internalConnection As InternalConnection)
+    Friend Sub New(internalConnection As InternalConnection, chatter As IChatter)
         myInternalConnection = internalConnection
     End Sub
 
@@ -1466,14 +1431,6 @@
     Private Sub OnEventError(eventName As String, ex As Exception)
         Cloud.Logger.Log(LogPriority.Error, String.Format("Unable to pass event {0} to {1}.", eventName, ex.Source))
         Cloud.Logger.Log(ex)
-    End Sub
-
-    Private Sub myInternalConnection_OnAddUser(sender As Object, e As IPlayer) Handles myInternalConnection.OnAddUser
-        If Not myPlayersDictionary.ContainsKey(e.UserID) Then
-            Dim myPlayer As New P
-            myPlayer.SetupPlayer(e)
-            myPlayersDictionary.Add(e.UserID, myPlayer)
-        End If
     End Sub
 
     Private Sub myInternalConnection_OnDisconnect(sender As Object, e As String) Handles myInternalConnection.OnDisconnect
@@ -1630,13 +1587,6 @@
                 Dim m As GiveGrinch_ReceiveMessage = CType(e, GiveGrinch_ReceiveMessage)
                 RaiseEvent OnReceiveGiveGrinch(Me, m)
         End Select
-    End Sub
-
-    Private Sub myInternalConnection_OnRemoveUser(sender As Object, e As Left_ReceiveMessage) Handles myInternalConnection.OnRemoveUser
-        Try
-            myPlayersDictionary.Remove(e.UserID)
-        Catch
-        End Try
     End Sub
 
     Private Function RaiseSendEvent(message As SendMessage) As Boolean

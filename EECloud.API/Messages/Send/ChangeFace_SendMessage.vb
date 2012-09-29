@@ -6,6 +6,6 @@
     End Sub
 
     Friend Overrides Function GetMessage(connection As IConnection(Of player)) As PlayerIOClient.Message
-        Return PlayerIOClient.Message.Create(connection.Encryption & "f", Face)
+        Return PlayerIOClient.Message.Create(connection.World.Encryption & "f", Face)
     End Function
 End Class
