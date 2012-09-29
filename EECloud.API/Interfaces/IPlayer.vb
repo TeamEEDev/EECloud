@@ -15,4 +15,6 @@
     ReadOnly Property ModifierY As Double
     ReadOnly Property Horizontal As Double
     ReadOnly Property Vertical As Double
+    ReadOnly Property HasSilverCrown As Boolean
+    ReadOnly Property HasCrown As Boolean
 End Interface

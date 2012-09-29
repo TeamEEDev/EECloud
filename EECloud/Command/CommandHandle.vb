@@ -1,6 +1,6 @@
 ﻿Imports System.Reflection
 
-Friend Class CommandHandle
+Friend NotInheritable Class CommandHandle
     Private ReadOnly myDel As [Delegate]
 
     Friend Sub New(name As String, method As MethodInfo, obj As Object)

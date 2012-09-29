@@ -4,7 +4,7 @@
 #End Region
 
 #Region "Properties"
-    Default Friend Property Item(ByVal key As Object) As [Delegate]
+    Default Friend ReadOnly Property Item(ByVal key As Object) As [Delegate]
         Get
             Dim listEntry As ListEntry = Find(key)
             If listEntry Is Nothing Then
@@ -13,14 +13,6 @@
                 Return listEntry.Handler
             End If
         End Get
-        Set(ByVal value As [Delegate])
-            Dim listEntry As ListEntry = Find(key)
-            If listEntry Is Nothing Then
-                myMyHead = New ListEntry(key, value, myMyHead)
-            Else
-                listEntry.Handler = value
-            End If
-        End Set
     End Property
 #End Region
 
