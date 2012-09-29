@@ -1,4 +1,4 @@
-﻿Friend Class Connector
+﻿Friend NotInheritable Class Connector
     Implements IConnector
 
     Friend Function CreateConnection() As IConnectionHandle Implements IConnector.CreateConnection

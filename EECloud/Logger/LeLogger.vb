@@ -40,28 +40,27 @@ Friend NotInheritable Class LeLogger
     Private Sub ReopenConnection()
         CloseConnection()
 
-        Dim root_delay As Integer = MinDelay
+        Dim rootDelay As Integer = MinDelay
         While True
             Try
-                Dim api_addr As [String] = LeApi
                 Try
-                    Me.mySocket = New MyTcpClient(LeApi)
+                    mySocket = New MyTcpClient(LeApi)
 
-                    Dim header As [String] = [String].Format("PUT /{0}/hosts/{1}/?realtime=1 HTTP/1.1" & vbCr & vbLf & vbCr & vbLf, Me.SubstituteAppSetting(ConfigKey), Me.SubstituteAppSetting(ConfigLocation))
-                    Me.mySocket.Write(Ascii.GetBytes(header), 0, header.Length)
+                    Dim header As [String] = [String].Format("PUT /{0}/hosts/{1}/?realtime=1 HTTP/1.1" & vbCr & vbLf & vbCr & vbLf, SubstituteAppSetting(ConfigKey), SubstituteAppSetting(ConfigLocation))
+                    mySocket.Write(Ascii.GetBytes(header), 0, header.Length)
                 Catch
                     Throw New IOException()
                 End Try
                 Return
             Catch
             End Try
-            root_delay *= 2
-            If root_delay > MaxDelay Then
-                root_delay = MaxDelay
+            rootDelay *= 2
+            If rootDelay > MaxDelay Then
+                rootDelay = MaxDelay
             End If
-            Dim wait_for As Integer = root_delay + myRandom.[Next](root_delay)
+            Dim waitFor As Integer = rootDelay + myRandom.[Next](rootDelay)
             Try
-                Thread.Sleep(wait_for)
+                Thread.Sleep(waitFor)
             Catch
                 Throw New ThreadInterruptedException()
             End Try
@@ -69,8 +68,8 @@ Friend NotInheritable Class LeLogger
     End Sub
 
     Private Sub CloseConnection()
-        If Me.mySocket IsNot Nothing Then
-            Me.mySocket.Close()
+        If mySocket IsNot Nothing Then
+            mySocket.Close()
         End If
     End Sub
 
@@ -99,9 +98,9 @@ Friend NotInheritable Class LeLogger
 
     Private Sub AddLine(line As [String])
         Dim data As Byte() = Utf8.GetBytes(line & ControlChars.Lf)
-        Dim is_full As Boolean = Not myQueue.TryAdd(data)
+        Dim isFull As Boolean = Not myQueue.TryAdd(data)
 
-        If is_full Then
+        If isFull Then
             myQueue.Take()
             myQueue.TryAdd(data)
         End If
@@ -141,11 +140,6 @@ Friend NotInheritable Class LeLogger
         End Try
     End Sub
 
-    Private Sub Shutdown()
-        myThread.Interrupt()
-        myStarted = False
-    End Sub
-
     Private Function SubstituteAppSetting(key As String) As String
         Dim appSettings = ConfigurationManager.AppSettings
         If appSettings.HasKeys() AndAlso appSettings.AllKeys.Contains(key) Then
@@ -155,51 +149,50 @@ Friend NotInheritable Class LeLogger
         End If
     End Function
 
-    Private Class MyTcpClient
+    Private NotInheritable Class MyTcpClient
         Implements IDisposable
-        Dim client As TcpClient
-        Dim stream As Stream
+        Dim myClient As TcpClient
+        ReadOnly myStream As Stream
 
         Friend Sub New(host As [String])
-            Dim port As Integer = LePort
-            client = New TcpClient(host, port)
-            client.NoDelay = True
-            Me.stream = client.GetStream()
+            Const port As Integer = LePort
+            myClient = New TcpClient(host, port)
+            myClient.NoDelay = True
+            myStream = myClient.GetStream()
         End Sub
 
         Friend Sub Write(buffer As Byte(), offset As Integer, count As Integer)
-            Me.stream.Write(buffer, offset, count)
+            myStream.Write(buffer, offset, count)
         End Sub
 
         Friend Sub Flush()
-            Me.stream.Flush()
+            myStream.Flush()
         End Sub
 
         Friend Sub Close()
-            If Me.client IsNot Nothing Then
+            If myClient IsNot Nothing Then
                 Try
-                    Me.client.Close()
+                    myClient.Close()
                 Catch
                 End Try
             End If
-            Me.client = Nothing
+            myClient = Nothing
         End Sub
 
 #Region "IDisposable Support"
-        Private disposedValue As Boolean ' To detect redundant calls
+        Private myDisposedValue As Boolean ' To detect redundant calls
 
-        Protected Overridable Sub Dispose(disposing As Boolean)
-            If Not Me.disposedValue Then
+        Private Sub Dispose(disposing As Boolean)
+            If Not myDisposedValue Then
                 If disposing Then
-                    stream.Dispose()
+                    myStream.Dispose()
                 End If
             End If
-            Me.disposedValue = True
+            myDisposedValue = True
         End Sub
 
         Friend Sub Dispose() Implements IDisposable.Dispose
             Dispose(True)
-            GC.SuppressFinalize(Me)
         End Sub
 #End Region
     End Class
@@ -209,18 +202,17 @@ Friend NotInheritable Class LeLogger
     Private myDisposedValue As Boolean
 
     Private Sub Dispose(disposing As Boolean)
-        If Not Me.myDisposedValue Then
+        If Not myDisposedValue Then
             If disposing Then
                 If mySocket IsNot Nothing Then
                     mySocket.Dispose()
                 End If
             End If
         End If
-        Me.myDisposedValue = True
+        myDisposedValue = True
     End Sub
     Friend Sub Dispose() Implements IDisposable.Dispose
         Dispose(True)
-        GC.SuppressFinalize(Me)
     End Sub
 #End Region
 End Class
