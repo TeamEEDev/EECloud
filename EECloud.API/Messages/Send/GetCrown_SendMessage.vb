@@ -3,6 +3,6 @@
     'No arguments
 
     Friend Overrides Function GetMessage(connection As IConnection(Of player)) As PlayerIOClient.Message
-        Return PlayerIOClient.Message.Create(connection.Encryption & "k")
+        Return PlayerIOClient.Message.Create(connection.World.Encryption & "k")
     End Function
 End Class

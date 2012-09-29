@@ -65,16 +65,12 @@
     Event OnSendClearWorld As EventHandler(Of SendEventArgs(Of ClearWorld_SendMessage))
     Event OnSendKillWorld As EventHandler(Of SendEventArgs(Of KillWorld_SendMessage))
 
-    ReadOnly Property WorldID As String
-    ReadOnly Property Connected As Boolean
-    ReadOnly Property Encryption As String
-
-    ReadOnly Property Players(number As Integer) As P
-    ReadOnly Property Players As IEnumerable(Of P)
-    ReadOnly Property Crown As P
-
+    ReadOnly Property Chatter As IChatter
     ReadOnly Property World As World
     ReadOnly Property PluginManager As IPluginManager
+    ReadOnly Property PlayerManager As IPlayerManager(Of P)
 
+    ReadOnly Property WorldID As String
+    ReadOnly Property Connected As Boolean
     Sub Send(message As SendMessage)
 End Interface

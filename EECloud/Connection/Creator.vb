@@ -5,7 +5,7 @@
         myInternalConnection = internalConnection
     End Sub
 
-    Public Function GenerateConnection(Of P As {New, Player})() As IConnection(Of P) Implements ICreator.GenerateConnection
-        Return New Connection(Of P)(myInternalConnection)
+    Public Function GenerateConnection(Of P As {New, Player})(plugin As IPluginObject) As IConnection(Of P) Implements ICreator.GenerateConnection
+        Return New Connection(Of P)(myInternalConnection, plugin.Attribute.ChatName)
     End Function
 End Class

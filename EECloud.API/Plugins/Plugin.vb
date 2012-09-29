@@ -7,14 +7,14 @@
         OnEnable()
     End Sub
 
-    Friend Sub Enable(creator As ICreator) Implements IPlugin.Enable
-        Me.Connection = creator.GenerateConnection(Of P)()
+    Friend Sub Enable(creator As ICreator, pluginObj As IPluginObject) Implements IPlugin.Enable
+        Me.Connection = creator.GenerateConnection(Of P)(pluginObj)
         OnEnable()
         OnConnect()
     End Sub
 
-    Friend Sub Connect(creator As ICreator) Implements IPlugin.Connect
-        Me.Connection = creator.GenerateConnection(Of P)()
+    Friend Sub Connect(creator As ICreator, pluginObj As IPluginObject) Implements IPlugin.Connect
+        Me.Connection = creator.GenerateConnection(Of P)(pluginObj)
         OnConnect()
     End Sub
 

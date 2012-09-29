@@ -128,7 +128,7 @@
     Friend ReadOnly Property HasCrown As Boolean
         Get
             Try
-                Return myConnection.Crown.UserID = myUserID
+                Return myConnection.PlayerManager.Crown.UserID = myUserID
             Catch
                 Return False
             End Try

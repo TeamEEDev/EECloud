@@ -6,6 +6,16 @@ Friend Class InternalConnection
 #End Region
 
 #Region "Properties"
+    Friend ReadOnly Property Connected As Boolean
+        Get
+            If myConnection IsNot Nothing Then
+                Return myConnection.Connected
+            Else
+                Return False
+            End If
+        End Get
+    End Property
+
     Private myWorldID As String
     Friend ReadOnly Property WorldID As String
         Get
@@ -20,27 +30,10 @@ Friend Class InternalConnection
         End Get
     End Property
 
-    Friend ReadOnly Property Connected As Boolean
-        Get
-            If myConnection IsNot Nothing Then
-                Return myConnection.Connected
-            Else
-                Return False
-            End If
-        End Get
-    End Property
-
-    Private myDefaultConnection As New Connection(Of Player)(Me)
+    Private myDefaultConnection As New Connection(Of Player)(Me, New Chatter(myInternalChatter, "Bot"))
     Friend ReadOnly Property DefaultConnection As Connection(Of Player)
         Get
             Return myDefaultConnection
-        End Get
-    End Property
-
-    Private myEncryption As String
-    ReadOnly Property Encryption As String
-        Get
-            Return myEncryption
         End Get
     End Property
 
@@ -48,13 +41,6 @@ Friend Class InternalConnection
     Friend ReadOnly Property InternalChatter As InternalChatter
         Get
             Return myInternalChatter
-        End Get
-    End Property
-
-    Private myChatter As IChatter = New Chatter(myInternalChatter, "Bot")
-    Public ReadOnly Property DefaultChatter As IChatter
-        Get
-            Return myChatter
         End Get
     End Property
 
@@ -68,12 +54,7 @@ Friend Class InternalConnection
 
 #Region "Events"
     Friend Event OnDisconnect(sender As Object, e As String)
-
     Friend Event OnMessage(sender As Object, e As ReceiveMessage)
-
-    Friend Event OnAddUser(sender As Object, e As IPlayer)
-
-    Friend Event OnRemoveUser(sender As Object, e As Left_ReceiveMessage)
 #End Region
 
 #Region "Methods"
@@ -108,13 +89,6 @@ Friend Class InternalConnection
                 UnRegisterMessage("groupdisallowedjoin")
                 RegisterMessages()
                 Send(New Init2_SendMessage)
-            Case GetType(Add_ReceiveMessage)
-                Dim m As Add_ReceiveMessage = CType(e, Add_ReceiveMessage)
-                Dim myPlayer As New InternalPlayer(Me.DefaultConnection, m)
-                RaiseEvent OnAddUser(Me, myPlayer)
-            Case GetType(Left_ReceiveMessage)
-                Dim m As Left_ReceiveMessage = CType(e, Left_ReceiveMessage)
-                RaiseEvent OnRemoveUser(Me, m)
             Case GetType(Upgrade_ReceiveMessage)
                 Dim m As Upgrade_ReceiveMessage = CType(e, Upgrade_ReceiveMessage)
 
