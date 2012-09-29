@@ -1,13 +1,16 @@
-﻿Friend Class CommandManager
+﻿Imports System.Reflection
+
+Friend Class CommandManager
     Private ReadOnly myCommandsDictionary As New Dictionary(Of String, CommandHandle)
     Private ReadOnly myConnection As IConnection(Of Player)
 
     Sub New(connection As IConnection(Of Player), target As Object)
         myConnection = connection
         AddHandler myConnection.OnReceiveSay, AddressOf myConnection_OnReceiveSay
-        AddHandler Cloud.Logger.OnInput, Sub(sender As Object, e As EventArgs) ProcessMessage(Cloud.Logger.Input, Nothing)
+        AddHandler Cloud.Logger.OnInput,
+            Sub(sender As Object, e As EventArgs) ProcessMessage(Cloud.Logger.Input, Nothing)
 
-        For Each method As Reflection.MethodInfo In target.GetType.GetMethods
+        For Each method As MethodInfo In target.GetType.GetMethods
             Dim attributes As Object() = method.GetCustomAttributes(GetType(CommandAttribute), True)
             If attributes IsNot Nothing AndAlso attributes.Length = 1 Then
                 Dim attribute As CommandAttribute = CType(attributes(0), CommandAttribute)

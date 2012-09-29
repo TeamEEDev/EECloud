@@ -119,13 +119,13 @@
     End Property
 
     Private myHasSilverCrown As Boolean
-    Friend ReadOnly Property HasSilverCrown As Boolean
+    Friend ReadOnly Property HasSilverCrown As Boolean Implements IPlayer.HasSilverCrown
         Get
             Return myHasSilverCrown
         End Get
     End Property
 
-    Friend ReadOnly Property HasCrown As Boolean
+    Friend ReadOnly Property HasCrown As Boolean Implements IPlayer.HasCrown
         Get
             Try
                 Return myConnection.PlayerManager.Crown.UserID = myUserID

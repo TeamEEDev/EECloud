@@ -165,6 +165,26 @@
             End Try
         End Get
     End Property
+
+    Friend ReadOnly Property HasSilverCrown As Boolean Implements IPlayer.HasSilverCrown
+        Get
+            Try
+                Return myPlayer.HasSilverCrown
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Friend ReadOnly Property HasCrown As Boolean Implements IPlayer.HasCrown
+        Get
+            Try
+                Return myPlayer.HasCrown
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
 #End Region
 
 #Region "Methods"
