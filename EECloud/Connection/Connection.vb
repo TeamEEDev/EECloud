@@ -7,12 +7,6 @@
 #End Region
 
 #Region "Properties"
-    Friend ReadOnly Property InternalChatter As InternalChatter
-        Get
-            Return InternalConnection.InternalChatter
-        End Get
-    End Property
-
     Friend ReadOnly Property WorldID As String Implements IConnection(Of TPlayer).WorldID
         Get
             Return InternalConnection.WorldID
@@ -50,6 +44,7 @@
             Return myPlayerManager
         End Get
     End Property
+
 #End Region
 
 #Region "Events"

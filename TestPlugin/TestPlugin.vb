@@ -29,7 +29,7 @@ Public Class TestPlugin
     End Sub
 End Class
 
-Public Class TestPlayer
+Public NotInheritable Class TestPlayer
     Inherits Player
 
 End Class

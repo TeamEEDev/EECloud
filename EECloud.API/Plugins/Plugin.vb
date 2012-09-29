@@ -7,13 +7,13 @@
     End Sub
 
     Friend Sub Enable(creator As ICreator, pluginObj As IPluginObject) Implements IPlugin.Enable
-        Me.Connection = creator.GenerateConnection(Of TPlayer)(pluginObj)
+        Connection = creator.GenerateConnection(Of TPlayer)(pluginObj)
         OnEnable()
         OnConnect()
     End Sub
 
     Friend Sub Connect(creator As ICreator, pluginObj As IPluginObject) Implements IPlugin.Connect
-        Me.Connection = creator.GenerateConnection(Of TPlayer)(pluginObj)
+        Connection = creator.GenerateConnection(Of TPlayer)(pluginObj)
         OnConnect()
     End Sub
 
