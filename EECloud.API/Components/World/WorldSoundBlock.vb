@@ -1,13 +1,13 @@
-﻿Public Class WorldSoundBlock
+﻿Friend NotInheritable Class WorldSoundBlock
     Inherits WorldBlock
 
-    Friend Sub New(layer As Layer, x As Integer, y As Integer, block As SoundBlockType, soundID As Integer)
-        MyBase.New(layer, x, y, CType(block, BlockType))
+    Friend Sub New(layer As Layer, block As SoundBlockType, soundID As Integer)
+        MyBase.New(layer, CType(block, BlockType))
 
-        Me.mySoundID = soundID
+        mySoundID = soundID
     End Sub
 
-    Private mySoundID As Integer
+    Private ReadOnly mySoundID As Integer
     Public ReadOnly Property SoundID As Integer
         Get
             Return mySoundID

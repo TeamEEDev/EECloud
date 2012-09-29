@@ -1,13 +1,13 @@
-﻿Public Class WorldLabelBlock
+﻿Public NotInheritable Class WorldLabelBlock
     Inherits WorldBlock
 
-    Friend Sub New(layer As Layer, x As Integer, y As Integer, block As LabelBlockType, text As String)
-        MyBase.New(layer, x, y, CType(block, BlockType))
+    Friend Sub New(layer As Layer, block As LabelBlockType, text As String)
+        MyBase.New(layer, CType(block, BlockType))
 
-        Me.myText = text
+        myText = text
     End Sub
 
-    Private myText As String
+    Private ReadOnly myText As String
     Public ReadOnly Property Text As String
         Get
             Return myText
