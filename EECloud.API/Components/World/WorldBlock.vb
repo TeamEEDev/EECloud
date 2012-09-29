@@ -2,6 +2,7 @@
 
 #Region "Properties"
     Private ReadOnly myLayer As Layer
+
     Public ReadOnly Property Layer As Layer
         Get
             Return myLayer
@@ -17,7 +18,7 @@
 #End Region
 
 #Region "Methods"
-    Friend Sub New(layer As Layer, x As Integer, y As Integer, block As BlockType)
+    Friend Sub New(layer As Layer, block As BlockType)
         myBlock = block
         myLayer = layer
     End Sub

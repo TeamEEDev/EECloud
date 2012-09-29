@@ -1,12 +1,12 @@
-﻿Public Class World
+﻿Public NotInheritable Class World
 #Region "Fields"
-    Private Const INIT_OFFSET As UInteger = 14
-    Private Blocks(,,) As WorldBlock
+    Private Const InitOffset As UInteger = 14
+    Private ReadOnly myBlocks(,,) As WorldBlock
     Private myConnection As IConnection(Of Player)
 #End Region
 
 #Region "Properties"
-    Private myEncryption As String
+    Private ReadOnly myEncryption As String
     Public ReadOnly Property Encryption As String
         Get
             Return myEncryption
@@ -16,64 +16,65 @@
 
 #Region "Methods"
     Friend Sub New(connection As IConnection(Of Player), initMessage As Init_ReceiveMessage)
-        Me.myConnection = connection
-        Blocks = ParseWorld(initMessage.PlayerIOMessage, initMessage.SizeX, initMessage.SizeY, INIT_OFFSET)
+        myConnection = connection
+        myEncryption = initMessage.Encryption
+        myBlocks = ParseWorld(initMessage.PlayerIOMessage, initMessage.SizeX, initMessage.SizeY, InitOffset)
     End Sub
 
     Private Function ParseWorld(m As PlayerIOClient.Message, sizeX As Integer, sizeY As Integer, offset As UInteger) As WorldBlock(,,)
         Dim value(1, sizeX, sizeY) As WorldBlock
         For pointer As UInteger = offset To CUInt(m.Count - 1) Step 0
-            Dim myBlock As BlockType = CType(m.Item(pointer), BlockType)
+            Dim block As BlockType = CType(m.Item(pointer), BlockType)
             pointer = CUInt(pointer + 1)
-            Dim myLayer As Layer = CType(m.Item(pointer), Layer)
+            Dim layer As Layer = CType(m.Item(pointer), Layer)
             pointer = CUInt(pointer + 1)
-            Dim myByteArrayX As Byte() = m.GetByteArray(pointer)
+            Dim byteArrayX As Byte() = m.GetByteArray(pointer)
             pointer = CUInt(pointer + 1)
-            Dim myByteArrayY As Byte() = m.GetByteArray(pointer)
+            Dim byteArrayY As Byte() = m.GetByteArray(pointer)
             pointer = CUInt(pointer + 1)
 
-            Select Case myBlock
-                Case BlockType.Block_Door_CoinDoor Or BlockType.Block_Gate_CoinGate
-                    Dim myCoinsToCollect As Integer = m.GetInteger(pointer)
+            Select Case block
+                Case BlockType.BlockDoorCoinDoor Or BlockType.BlockGateCoinGate
+                    Dim coinsToCollect As Integer = m.GetInteger(pointer)
                     pointer = CUInt(pointer + 1)
-                    For i As Integer = 0 To myByteArrayX.Length - 1 Step 2
-                        Dim myX = myByteArrayX(i) * 256 + myByteArrayX(i + 1)
-                        Dim myY = myByteArrayY(i) * 256 + myByteArrayY(i + 1)
-                        value(myLayer, myX, myY) = New WorldCoinDoorBlock(myLayer, myX, myY, CType(myBlock, CoinDoorBlockType), myCoinsToCollect)
+                    For i As Integer = 0 To byteArrayX.Length - 1 Step 2
+                        Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
+                        Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
+                        value(layer, x, y) = New WorldCoinDoorBlock(layer, CType(block, CoinDoorBlockType), coinsToCollect)
                     Next
-                Case BlockType.Block_Music_Piano Or BlockType.Block_Music_Drum
-                    Dim mySoundID As Integer = m.GetInteger(pointer)
+                Case BlockType.BlockMusicPiano Or BlockType.BlockMusicDrum
+                    Dim soundID As Integer = m.GetInteger(pointer)
                     pointer = CUInt(pointer + 1)
-                    For i As Integer = 0 To myByteArrayX.Length - 1 Step 2
-                        Dim myX = myByteArrayX(i) * 256 + myByteArrayX(i + 1)
-                        Dim myY = myByteArrayY(i) * 256 + myByteArrayY(i + 1)
-                        value(myLayer, myX, myY) = New WorldSoundBlock(myLayer, myX, myY, CType(myBlock, SoundBlockType), mySoundID)
+                    For i As Integer = 0 To byteArrayX.Length - 1 Step 2
+                        Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
+                        Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
+                        value(layer, x, y) = New WorldSoundBlock(layer, CType(block, SoundBlockType), soundID)
                     Next
-                Case BlockType.Block_Portal
-                    Dim myPortalRotation As PortalRotation = CType(m.GetInteger(pointer), PortalRotation)
+                Case BlockType.BlockPortal
+                    Dim portalRotation As PortalRotation = CType(m.GetInteger(pointer), PortalRotation)
                     pointer = CUInt(pointer + 1)
-                    Dim myPortalID As Integer = m.GetInteger(pointer)
+                    Dim portalID As Integer = m.GetInteger(pointer)
                     pointer = CUInt(pointer + 1)
-                    Dim myPortalTarget As Integer = m.GetInteger(pointer)
+                    Dim portalTarget As Integer = m.GetInteger(pointer)
                     pointer = CUInt(pointer + 1)
-                    For i As Integer = 0 To myByteArrayX.Length - 1 Step 2
-                        Dim myX = myByteArrayX(i) * 256 + myByteArrayX(i + 1)
-                        Dim myY = myByteArrayY(i) * 256 + myByteArrayY(i + 1)
-                        value(myLayer, myX, myY) = New WorldPortalBlock(myLayer, myX, myY, CType(myBlock, PortalBlockType), myPortalRotation, myPortalID, myPortalTarget)
+                    For i As Integer = 0 To byteArrayX.Length - 1 Step 2
+                        Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
+                        Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
+                        value(layer, x, y) = New WorldPortalBlock(layer, CType(block, PortalBlockType), portalRotation, portalID, portalTarget)
                     Next
-                Case BlockType.Block_Label
-                    Dim myText As String = m.GetString(pointer)
+                Case BlockType.BlockLabel
+                    Dim text As String = m.GetString(pointer)
                     pointer = CUInt(pointer + 1)
-                    For i As Integer = 0 To myByteArrayX.Length - 1 Step 2
-                        Dim myX = myByteArrayX(i) * 256 + myByteArrayX(i + 1)
-                        Dim myY = myByteArrayY(i) * 256 + myByteArrayY(i + 1)
-                        value(myLayer, myX, myY) = New WorldLabelBlock(myLayer, myX, myY, CType(myBlock, LabelBlockType), myText)
+                    For i As Integer = 0 To byteArrayX.Length - 1 Step 2
+                        Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
+                        Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
+                        value(layer, x, y) = New WorldLabelBlock(layer, CType(block, LabelBlockType), text)
                     Next
                 Case Else
-                    For i As Integer = 0 To myByteArrayX.Length - 1 Step 2
-                        Dim myX = myByteArrayX(i) * 256 + myByteArrayX(i + 1)
-                        Dim myY = myByteArrayY(i) * 256 + myByteArrayY(i + 1)
-                        value(myLayer, myX, myY) = New WorldBlock(myLayer, myX, myY, myBlock)
+                    For i As Integer = 0 To byteArrayX.Length - 1 Step 2
+                        Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
+                        Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
+                        value(layer, x, y) = New WorldBlock(layer, block)
                     Next
             End Select
         Next
@@ -82,7 +83,7 @@
 
     Default Public ReadOnly Property Item(x As Integer, y As Integer, Optional layer As Layer = Layer.Foreground) As WorldBlock
         Get
-            Return Blocks(layer, x, y)
+            Return myBlocks(layer, x, y)
         End Get
     End Property
 #End Region
