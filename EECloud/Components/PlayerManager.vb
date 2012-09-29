@@ -1,9 +1,9 @@
-﻿Friend Class PlayerManager(Of TPlayer As {Player, New})
+﻿Friend NotInheritable Class PlayerManager(Of TPlayer As {Player, New})
     Implements IPlayerManager(Of TPlayer)
 
 #Region "Fields"
     Private WithEvents myInternalPlayerManager As InternalPlayerManager
-    Private WithEvents myConnection As Connection(Of TPlayer)
+    Private WithEvents myConnection As Connection(Of Player)
 #End Region
 
 #Region "Properties"
@@ -37,9 +37,9 @@
 #End Region
 
 #Region "Methods"
-    Sub New(internalPlayerManager As InternalPlayerManager, ByVal connection As Connection(Of TPlayer))
+    Sub New(internalPlayerManager As InternalPlayerManager, ByVal connection As Connection(Of Player))
         myInternalPlayerManager = internalPlayerManager
-        myConnection = Connection
+        myConnection = connection
         For Each player As InternalPlayer In myInternalPlayerManager.Players.Values
             AddPlayer(player)
         Next

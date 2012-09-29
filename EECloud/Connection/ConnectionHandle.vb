@@ -68,13 +68,13 @@ Friend NotInheritable Class ConnectionHandle
         For N = errorMessage.Length - 1 To 0 Step -1
             Dim currentRoomType As String
             currentRoomType = errorMessage(N)
-            If currentRoomType.StartsWith(Config.NormalRoom, System.StringComparison.Ordinal) Then
+            If currentRoomType.StartsWith(Config.NormalRoom, StringComparison.Ordinal) Then
                 GameVersionNumber = CInt(currentRoomType.Substring(Config.NormalRoom.Length, currentRoomType.Length - Config.NormalRoom.Length - 1))
                 Cloud.Service.SetSetting(GameVersionSetting, CStr(GameVersionNumber))
                 Exit Sub
             End If
         Next
-        Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get room version")
+        Throw New EECloudException(ErrorCode.GameVersionNotInList, "Unable to get room version")
     End Sub
 
     Friend Sub Disconnect() Implements IConnectionHandle.Disconnect

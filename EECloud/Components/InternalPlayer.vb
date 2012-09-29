@@ -1,4 +1,4 @@
-﻿Friend Class InternalPlayer
+﻿Friend NotInheritable Class InternalPlayer
     Implements IPlayer
 
 #Region "Fields"
@@ -183,13 +183,13 @@
         End If
     End Sub
 
-    Private Sub myConnection_OnReceiveGodMode(sender As Object, e As Godmode_ReceiveMessage) Handles myConnection.OnReceiveGodMode
+    Private Sub myConnection_OnReceiveGodMode(sender As Object, e As GodMode_ReceiveMessage) Handles myConnection.OnReceiveGodMode
         If e.UserID = myUserID Then
             myIsGod = e.IsGod
         End If
     End Sub
 
-    Private Sub myConnection_OnReceiveModMode(sender As Object, e As Modmode_ReceiveMessage) Handles myConnection.OnReceiveModMode
+    Private Sub myConnection_OnReceiveModMode(sender As Object, e As ModMode_ReceiveMessage) Handles myConnection.OnReceiveModMode
         If e.UserID = myUserID Then
             myIsMod = True
         End If

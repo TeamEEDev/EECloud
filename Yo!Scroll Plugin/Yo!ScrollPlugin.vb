@@ -19,7 +19,7 @@ Public Class YoScrollPlugin
     End Sub
 End Class
 
-Public Class YoScrollPlayer
+Public NotInheritable Class YoScrollPlayer
     Inherits Player
 
 End Class

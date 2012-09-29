@@ -47,22 +47,22 @@ Friend NotInheritable Class CloudApplicationContext
         Next
 
         'Checking for valid plugins
-        Dim myPlugins As IEnumerable(Of Type) =
-            From myAssembly As Assembly In allAssemblies
-            From myType As Type In myAssembly.GetTypes
-            Where GetType(IPlugin).IsAssignableFrom(myType)
-            Let myAttributes As Object() = myType.GetCustomAttributes(GetType(PluginAttribute), True)
-            Where myAttributes IsNot Nothing AndAlso myAttributes.Length = 1
-            Select myType
+        Dim plugins As IEnumerable(Of Type) =
+            From assembly As Assembly In allAssemblies
+            From type As Type In assembly.GetTypes
+            Where GetType(IPlugin).IsAssignableFrom(type)
+            Let attributes As Object() = type.GetCustomAttributes(GetType(PluginAttribute), True)
+            Where attributes IsNot Nothing AndAlso attributes.Length = 1
+            Select type
 
         'Activating valid plugins
-        Using myEnumrator As IEnumerator(Of Type) = myPlugins.GetEnumerator
+        Using enumrator As IEnumerator(Of Type) = plugins.GetEnumerator
             Do
                 Try
-                    Dim hasNext As Boolean = myEnumrator.MoveNext()
+                    Dim hasNext As Boolean = enumrator.MoveNext()
                     If Not hasNext Then Exit Do
 
-                    handle.PluginManager.Add(myEnumrator.Current).Start()
+                    handle.PluginManager.Add(enumrator.Current).Start()
                 Catch ex As Exception
                     Cloud.Logger.Log(ex)
                 End Try

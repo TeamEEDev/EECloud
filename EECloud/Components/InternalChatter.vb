@@ -1,4 +1,4 @@
-﻿Friend Class InternalChatter
+﻿Friend NotInheritable Class InternalChatter
     ReadOnly myChatQueue As New Queue(Of Say_SendMessage)
 
     Dim WithEvents mySendTimer As New Timers.Timer With {.Enabled = True, .AutoReset = True, .Interval = 700}

@@ -3,10 +3,10 @@
 Friend NotInheritable Class Logger
     Implements ILogger
 
-    Private Shared myLogger As LeLogger
+    Private Shared LeLogger As LeLogger
 
-    Dim OldTop As Integer
-    Dim OldLeft As Integer
+    Dim myOldTop As Integer
+    Dim myOldLeft As Integer
 
     Private myInput As String = String.Empty
     Friend Property Input As String Implements ILogger.Input
@@ -27,50 +27,50 @@ Friend NotInheritable Class Logger
     Friend Sub New()
         If Not Cloud.AppEnvironment = AppEnvironment.Release Then
             Console.Write(">")
-            Dim Worker As New Thread(AddressOf HandleInput)
-            Worker.Start()
+            Dim worker As New Thread(AddressOf HandleInput)
+            worker.Start()
         End If
     End Sub
 
-    Friend Sub HandleInput()
+    Private Sub HandleInput()
         Try
             Do
-                OldTop = Console.CursorTop
-                OldLeft = Console.CursorLeft
-                Dim InputKey As System.ConsoleKeyInfo = Console.ReadKey
-                If InputKey.Key = ConsoleKey.Backspace Then
+                myOldTop = Console.CursorTop
+                myOldLeft = Console.CursorLeft
+                Dim inputKey As ConsoleKeyInfo = Console.ReadKey
+                If inputKey.Key = ConsoleKey.Backspace Then
                     If Input.Length >= 1 Then
                         Input = Input.Substring(0, Input.Length - 1)
                     Else 'Cancel
-                        Console.CursorTop = OldTop
-                        Console.CursorLeft = OldLeft
+                        Console.CursorTop = myOldTop
+                        Console.CursorLeft = myOldLeft
                     End If
-                ElseIf InputKey.Key = ConsoleKey.Enter Then
+                ElseIf inputKey.Key = ConsoleKey.Enter Then
                     If Input IsNot String.Empty Then
                         Console.CursorTop += 1
                         RaiseEvent OnInput(Me, New EventArgs)
                     End If
                     Input = String.Empty
-                ElseIf InputKey.Key = ConsoleKey.Tab Then
-                    Console.CursorTop = OldTop
-                    Console.CursorLeft = OldLeft
-                ElseIf InputKey.Modifiers = ConsoleModifiers.Control Then
-                    Console.CursorTop = OldTop
-                    Console.CursorLeft = OldLeft
+                ElseIf inputKey.Key = ConsoleKey.Tab Then
+                    Console.CursorTop = myOldTop
+                    Console.CursorLeft = myOldLeft
+                ElseIf inputKey.Modifiers = ConsoleModifiers.Control Then
+                    Console.CursorTop = myOldTop
+                    Console.CursorLeft = myOldLeft
                     Console.Write(" "c)
                     Console.CursorLeft -= 1
-                ElseIf InputKey.KeyChar <> Nothing Then
+                ElseIf inputKey.KeyChar <> Nothing Then
                     If Input.Length <= 76 Then
-                        myInput &= InputKey.KeyChar
+                        myInput &= inputKey.KeyChar
                     Else
                         Console.CursorLeft -= 1
                         Console.Write(" "c)
-                        Console.CursorTop = OldTop
-                        Console.CursorLeft = OldLeft
+                        Console.CursorTop = myOldTop
+                        Console.CursorLeft = myOldLeft
                     End If
                 Else
-                    Console.CursorTop = OldTop
-                    Console.CursorLeft = OldLeft
+                    Console.CursorTop = myOldTop
+                    Console.CursorLeft = myOldLeft
                 End If
             Loop
         Catch ex As Exception
@@ -79,17 +79,17 @@ Friend NotInheritable Class Logger
     End Sub
 
     Friend Sub Log(priority As LogPriority, str As String) Implements ILogger.Log
-        Dim Output As String = String.Format("{0} [{1}] {2}", Now.ToLongTimeString, priority.ToString.ToUpper, str)
+        Dim output As String = String.Format("{0} [{1}] {2}", Now.ToLongTimeString, priority.ToString.ToUpper, str)
         If Not Cloud.AppEnvironment = AppEnvironment.Release Then
-            OldTop = Console.CursorTop
-            Overwrite(Input.Length + 1, Output)
+            myOldTop = Console.CursorTop
+            Overwrite(Input.Length + 1, output)
             Console.WriteLine()
             Console.Write(">" & Input)
         Else
-            If myLogger Is Nothing Then
-                myLogger = New LeLogger()
+            If LeLogger Is Nothing Then
+                LeLogger = New LeLogger()
             End If
-            myLogger.Write(Now.ToShortDateString & " " & Output)
+            LeLogger.Write(Now.ToShortDateString & " " & output)
         End If
     End Sub
 
@@ -99,9 +99,9 @@ Friend NotInheritable Class Logger
 
     Private Sub Overwrite(oldLength As Integer, newStr As String)
         Console.CursorLeft = 0
-        Dim Spaces As Integer = oldLength - newStr.Length
-        If Spaces > 0 Then
-            Console.Write(newStr & Space(Spaces))
+        Dim spaces As Integer = oldLength - newStr.Length
+        If spaces > 0 Then
+            Console.Write(newStr & Space(spaces))
         Else
             Console.Write(newStr)
         End If

@@ -1,8 +1,9 @@
 ﻿Imports System.Reflection
 
-Friend Class InternalConnection
+Friend NotInheritable Class InternalConnection
 #Region "Fields"
     Private ReadOnly myConnection As PlayerIOClient.Connection
+    Private ReadOnly myMessageDictionary As New Dictionary(Of String, Type)
 #End Region
 
 #Region "Properties"
@@ -16,8 +17,8 @@ Friend Class InternalConnection
         End Get
     End Property
 
-    Private ReadOnly myWorldId As String
-    Friend ReadOnly Property WorldId As String
+    Private ReadOnly myWorldID As String
+    Friend ReadOnly Property WorldID As String
         Get
             Return myWorldID
         End Get
@@ -50,6 +51,14 @@ Friend Class InternalConnection
             Return myPluginManager
         End Get
     End Property
+
+    Private ReadOnly myInternalPlayerManager As New InternalPlayerManager(myDefaultConnection)
+    Public ReadOnly Property InternalPlayerManager() As InternalPlayerManager
+        Get
+            Return myInternalPlayerManager
+        End Get
+    End Property
+
 #End Region
 
 #Region "Events"
@@ -60,8 +69,8 @@ Friend Class InternalConnection
 #Region "Methods"
     Friend Sub New(pconnection As PlayerIOClient.Connection, worldID As String, pluginManager As IPluginManager)
         myConnection = pconnection
-        myWorldId = worldID
-        myPluginManager = PluginManager
+        myWorldID = worldID
+        myPluginManager = pluginManager
 
         myConnection.AddOnMessage(AddressOf MessageReceiver)
         myConnection.AddOnDisconnect(
@@ -164,7 +173,6 @@ Friend Class InternalConnection
         End If
     End Sub
 
-    Private ReadOnly myMessageDictionary As New Dictionary(Of String, Type)
     Private Sub RegisterMessage(str As String, type As Type)
         Try
             If Not type.IsSubclassOf(GetType(ReceiveMessage)) Then

@@ -1,14 +1,12 @@
 ﻿Imports System.Runtime.InteropServices
 
-Friend Class LoginForm
-    Private Class NativeMethods
-        <DllImport("user32.dll")> _
-        Friend Shared Function SetForegroundWindow(ByVal hWnd As IntPtr) As <MarshalAs(UnmanagedType.Bool)> Boolean
-        End Function
-    End Class
+Friend NotInheritable Class LoginForm
+    <DllImport("user32.dll")>
+    Private Shared Sub SetForegroundWindow(ByVal hWnd As IntPtr)
+    End Sub
 
     Friend Sub New()
-        Me.Icon = My.Resources.Icon
+        Icon = My.Resources.Icon
         InitializeComponent()
 
         TextBoxEmail.Text = My.Settings.LoginEmail
@@ -17,8 +15,8 @@ Friend Class LoginForm
     End Sub
 
     Private Sub LoginForm_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-        If Me.IsHandleCreated Then
-            NativeMethods.SetForegroundWindow(Me.Handle)
+        If IsHandleCreated Then
+            SetForegroundWindow(Handle)
         End If
     End Sub
 
@@ -48,8 +46,8 @@ Friend Class LoginForm
                     My.Settings.LoginPassword = TextBoxPassword.Text
                     My.Settings.LoginWorldID = TextBoxWorldID.Text
                     My.Settings.Save()
-                    Me.DialogResult = Windows.Forms.DialogResult.OK
-                    Me.Close()
+                    DialogResult = Windows.Forms.DialogResult.OK
+                    Close()
                 Else
                     MsgBox("You didn't enter the world's ID you want to join to.", MsgBoxStyle.Critical, "Error")
                     TextBoxWorldID.Focus()

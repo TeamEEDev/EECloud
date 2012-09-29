@@ -2,11 +2,11 @@
 
 Friend Class LicenseForm
     <DllImport("user32.dll")>
-    Friend Shared Function SetForegroundWindow(ByVal hWnd As IntPtr) As <MarshalAs(UnmanagedType.Bool)> Boolean
-    End Function
+    Private Shared Sub SetForegroundWindow(ByVal hWnd As IntPtr)
+    End Sub
 
     Friend Sub New()
-        Me.Icon = My.Resources.Icon
+        Icon = My.Resources.Icon
         InitializeComponent()
 
         TextBoxUsername.Text = My.Settings.LicenceUsername
@@ -14,8 +14,8 @@ Friend Class LicenseForm
     End Sub
 
     Private Sub LoginForm_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-        If Me.IsHandleCreated Then
-            SetForegroundWindow(Me.Handle)
+        If IsHandleCreated Then
+            SetForegroundWindow(Handle)
         End If
     End Sub
 
@@ -37,8 +37,8 @@ Friend Class LicenseForm
                 My.Settings.LicenceUsername = TextBoxUsername.Text
                 My.Settings.LicenceKey = TextBoxKey.Text
                 My.Settings.Save()
-                Me.DialogResult = Windows.Forms.DialogResult.OK
-                Me.Close()
+                DialogResult = Windows.Forms.DialogResult.OK
+                Close()
             Else
                 MsgBox("You didn't enter your license key.", MsgBoxStyle.Critical, "Error")
                 TextBoxKey.Focus()

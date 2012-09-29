@@ -1,4 +1,4 @@
-﻿Friend Class InternalPlayerManager
+﻿Friend NotInheritable Class InternalPlayerManager
 #Region "Fields"
     Private WithEvents myConnection As Connection(Of Player)
 #End Region
@@ -32,6 +32,10 @@
         End Try
     End Sub
 
+    Private Sub myConnection_OnReceiveCrown(sender As Object, e As Crown_ReceiveMessage) Handles myConnection.OnReceiveCrown
+        myCrown = Players(e.UserID)
+    End Sub
+
     Private Sub myConnection_OnReceiveLeft(sender As Object, e As Left_ReceiveMessage) Handles myConnection.OnReceiveLeft
         RaiseEvent OnRemoveUser(Me, e)
 
@@ -42,8 +46,8 @@
         End Try
     End Sub
 
-    Private myCrown As Player
-    Friend ReadOnly Property Crown As Player
+    Private myCrown As InternalPlayer
+    Friend ReadOnly Property Crown As InternalPlayer
         Get
             Return myCrown
         End Get
