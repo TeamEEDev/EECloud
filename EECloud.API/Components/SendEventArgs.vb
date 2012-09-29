@@ -1,14 +1,14 @@
 ﻿Public Class SendEventArgs(Of T As SendMessage)
-    Private myMessage As T
+    Private ReadOnly _message As T
     Public ReadOnly Property Message As T
         Get
-            Return myMessage
+            Return _Message
         End Get
     End Property
 
     Public Property Handled As Boolean
 
     Friend Sub New(message As T)
-        myMessage = message
+        _Message = message
     End Sub
 End Class

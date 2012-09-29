@@ -15,7 +15,7 @@ Public Class TestPlugin
     End Sub
 
     Protected Overrides Sub OnConnect()
-        Chatter.Chat("Hi")
+        Connection.Chatter.Chat("Hi")
     End Sub
 
     Private Sub Connection_OnSendMove(sender As Object, e As SendEventArgs(Of Move_SendMessage)) Handles Connection.OnSendMove
@@ -23,9 +23,9 @@ Public Class TestPlugin
         e.Handled = True
     End Sub
 
-    <Command("test", "!command [username] message", Group.Admin, Aliases:={"hi"})>
+    <Command("test", Group.Admin, Aliases:={"hi"})>
     Public Sub TestCommand(cmd As ICommand)
-        Chatter.Chat(":D")
+        Connection.Chatter.Chat(":D")
     End Sub
 End Class
 

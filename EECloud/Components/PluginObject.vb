@@ -4,11 +4,11 @@
 #Region "Fields"
     Private myPlugin As IPlugin
     Private ReadOnly myPluginType As Type
-    Private lockObj As New Object
+    Private ReadOnly myLockObj As New Object
 #End Region
 
 #Region "Properties"
-    Private myAttribute As PluginAttribute
+    Private ReadOnly myAttribute As PluginAttribute
     Friend ReadOnly Property Attribute As PluginAttribute Implements IPluginObject.Attribute
         Get
             Return myAttribute
@@ -29,7 +29,8 @@
 #End Region
 
 #Region "Methods"
-    Friend Sub New(plugin As Type)
+    Friend Sub New(plugin As Type, ByVal attribute As PluginAttribute)
+        myAttribute = attribute
         If GetType(IPlugin).IsAssignableFrom(plugin) Then
             myPluginType = plugin
             Enable(True)
@@ -39,7 +40,7 @@
     End Sub
 
     Private Sub Enable(isStartup As Boolean)
-        SyncLock lockObj
+        SyncLock myLockObj
             If Not Started Then
                 Cloud.Logger.Log(LogPriority.Info, String.Format("Enabling {0}...", myPluginType.Name))
                 Try
@@ -58,7 +59,7 @@
 
 
     Friend Sub [Stop]() Implements IPluginObject.Stop
-        SyncLock lockObj
+        SyncLock myLockObj
             If Started Then
                 Cloud.Logger.Log(LogPriority.Info, String.Format("Disabling {0}...", myPluginType.Name))
                 Try

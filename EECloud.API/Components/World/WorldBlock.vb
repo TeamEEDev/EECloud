@@ -1,14 +1,14 @@
 ﻿Public Class WorldBlock
 
 #Region "Properties"
-    Private myLayer As Layer
+    Private ReadOnly myLayer As Layer
     Public ReadOnly Property Layer As Layer
         Get
             Return myLayer
         End Get
     End Property
 
-    Private myBlock As BlockType
+    Private ReadOnly myBlock As BlockType
     Public ReadOnly Property Block As BlockType
         Get
             Return myBlock
@@ -18,7 +18,8 @@
 
 #Region "Methods"
     Friend Sub New(layer As Layer, x As Integer, y As Integer, block As BlockType)
-        Me.myBlock = block
+        myBlock = block
+        myLayer = layer
     End Sub
 
     Public Shared Operator =(b1 As WorldBlock, b2 As WorldBlock) As Boolean

@@ -1,7 +1,7 @@
 ﻿Imports System.Reflection
 
 Friend Class CommandHandle
-    Private del As [Delegate]
+    Private ReadOnly myDel As [Delegate]
 
     Friend Sub New(name As String, method As MethodInfo, obj As Object)
         Dim prams As ParameterInfo() = method.GetParameters
@@ -28,32 +28,32 @@ Friend Class CommandHandle
                 Throw New EECloudException(ErrorCode.CommandSyntaxInvalid)
             End If
         Next
-        del = method.CreateDelegate(GetType([Delegate]), obj)
+        myDel = method.CreateDelegate(GetType([Delegate]), obj)
     End Sub
 
     Friend Sub Run(cmd As Command, ParamArray args As String())
         Try
-            del.DynamicInvoke(cmd, args)
+            myDel.DynamicInvoke(cmd, args)
         Catch ex As Exception
-            Cloud.Logger.Log(LogPriority.Error, "Command failed to excecute: " & cmd.Type)
+            Cloud.Logger.Log(LogPriority.Error, "Command failed to excecute: " & cmd.Label)
         End Try
     End Sub
 
-    Private myMinimumArgs As Integer
+    Private ReadOnly myMinimumArgs As Integer
     Friend ReadOnly Property MinimumArgs As Integer
         Get
             Return myMinimumArgs
         End Get
     End Property
 
-    Private myRecommendedArgs As Integer
+    Private ReadOnly myRecommendedArgs As Integer
     Friend ReadOnly Property RecommendedArgs As Integer
         Get
             Return myRecommendedArgs
         End Get
     End Property
 
-    Private mySyntaxStr As String
+    Private ReadOnly mySyntaxStr As String
     Public Overrides Function ToString() As String
         Return mySyntaxStr
     End Function

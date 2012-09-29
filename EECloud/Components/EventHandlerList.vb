@@ -1,24 +1,24 @@
 ﻿Friend NotInheritable Class EventHandlerList
 #Region "Fields"
-    Private myHead As EventHandlerList.ListEntry
+    Private myMyHead As ListEntry
 #End Region
 
 #Region "Properties"
     Default Friend Property Item(ByVal key As Object) As [Delegate]
         Get
-            Dim myListEntry As EventHandlerList.ListEntry = Me.Find(key)
-            If myListEntry Is Nothing Then
+            Dim listEntry As ListEntry = Find(key)
+            If listEntry Is Nothing Then
                 Return Nothing
             Else
-                Return myListEntry.Handler
+                Return listEntry.Handler
             End If
         End Get
         Set(ByVal value As [Delegate])
-            Dim myListEntry As EventHandlerList.ListEntry = Me.Find(key)
-            If myListEntry Is Nothing Then
-                myHead = New EventHandlerList.ListEntry(key, value, myHead)
+            Dim listEntry As ListEntry = Find(key)
+            If listEntry Is Nothing Then
+                myMyHead = New ListEntry(key, value, myMyHead)
             Else
-                myListEntry.Handler = value
+                listEntry.Handler = value
             End If
         End Set
     End Property
@@ -26,37 +26,37 @@
 
 #Region "Methods"
     Friend Sub Add(ByVal key As Object, ByVal value As [Delegate])
-        Dim listEntry As EventHandlerList.ListEntry = Me.Find(key)
+        Dim listEntry As ListEntry = Find(key)
         If listEntry Is Nothing Then
-            myHead = New EventHandlerList.ListEntry(key, value, myHead)
+            myMyHead = New ListEntry(key, value, myMyHead)
         Else
             listEntry.Handler = [Delegate].Combine(listEntry.Handler, value)
         End If
     End Sub
 
     Friend Sub Remove(ByVal key As Object, ByVal value As [Delegate])
-        Dim myListEntry As EventHandlerList.ListEntry = Me.Find(key)
-        If (myListEntry IsNot Nothing) Then
-            myListEntry.Handler = [Delegate].Remove(myListEntry.Handler, value)
+        Dim listEntry As ListEntry = Find(key)
+        If (listEntry IsNot Nothing) Then
+            listEntry.Handler = [Delegate].Remove(listEntry.Handler, value)
         End If
     End Sub
 
-    Private Function Find(ByVal key As Object) As EventHandlerList.ListEntry
-        Dim myListEntry As EventHandlerList.ListEntry = myHead
-        While myListEntry IsNot Nothing AndAlso myListEntry.Key IsNot key
-            myListEntry = myListEntry.NextEntry
+    Private Function Find(ByVal key As Object) As ListEntry
+        Dim listEntry As ListEntry = myMyHead
+        While listEntry IsNot Nothing AndAlso listEntry.Key IsNot key
+            listEntry = listEntry.NextEntry
         End While
-        Return myListEntry
+        Return listEntry
     End Function
 #End Region
 
 #Region "Nested Classes"
     Private NotInheritable Class ListEntry
         Friend Handler As [Delegate]
-        Friend Key As Object
-        Friend NextEntry As EventHandlerList.ListEntry
+        Friend ReadOnly Key As Object
+        Friend ReadOnly NextEntry As ListEntry
 
-        Friend Sub New(ByVal key As Object, ByVal handler As [Delegate], ByVal nextEntry As EventHandlerList.ListEntry)
+        Friend Sub New(ByVal key As Object, ByVal handler As [Delegate], ByVal nextEntry As ListEntry)
             Me.NextEntry = nextEntry
             Me.Key = key
             Me.Handler = handler

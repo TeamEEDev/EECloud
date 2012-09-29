@@ -27,14 +27,14 @@
         End Get
     End Property
 
-    Private myUserID As Integer
+    Private ReadOnly myUserID As Integer
     Friend ReadOnly Property UserID As Integer Implements IPlayer.UserID
         Get
             Return myUserID
         End Get
     End Property
 
-    Private myUsername As String
+    Private ReadOnly myUsername As String
     Friend ReadOnly Property Username As String Implements IPlayer.Username
         Get
             Return myUsername
@@ -48,7 +48,7 @@
         End Get
     End Property
 
-    Private myHasChat As Boolean
+    Private ReadOnly myHasChat As Boolean
     Friend ReadOnly Property HasChat As Boolean Implements IPlayer.HasChat
         Get
             Return myHasChat
@@ -76,7 +76,7 @@
         End Get
     End Property
 
-    Private myIsMyFriend As Boolean
+    Private ReadOnly myIsMyFriend As Boolean
     Friend ReadOnly Property IsMyFriend As Boolean Implements IPlayer.IsMyFriend
         Get
             Return myIsMyFriend
@@ -107,7 +107,7 @@
     Private mySpeedY As Double
     Friend ReadOnly Property SpeedY As Double Implements IPlayer.SpeedY
         Get
-            Return mySpeedX
+            Return mySpeedY
         End Get
     End Property
 
@@ -137,18 +137,18 @@
 #End Region
 
 #Region "Methods"
-    Friend Sub New(PConnection As Connection(Of Player), PAddMessage As Add_ReceiveMessage)
-        myConnection = PConnection
-        myUserID = PAddMessage.UserID
-        myUsername = PAddMessage.Username
-        myFace = PAddMessage.Face
-        myHasChat = PAddMessage.HasChat
-        myIsGod = PAddMessage.IsGod
-        myIsMod = PAddMessage.IsMod
-        myIsMyFriend = PAddMessage.IsMyFriend
-        myCoins = PAddMessage.Coins
-        myPlayerPosX = PAddMessage.PlayerPosX
-        myPlayerPosY = PAddMessage.PlayerPosY
+    Friend Sub New(connection As Connection(Of Player), addMessage As Add_ReceiveMessage)
+        myConnection = connection
+        myUserID = addMessage.UserID
+        myUsername = addMessage.Username
+        myFace = addMessage.Face
+        myHasChat = addMessage.HasChat
+        myIsGod = addMessage.IsGod
+        myIsMod = addMessage.IsMod
+        myIsMyFriend = addMessage.IsMyFriend
+        myCoins = addMessage.Coins
+        myPlayerPosX = addMessage.PlayerPosX
+        myPlayerPosY = addMessage.PlayerPosY
     End Sub
 
     Private Sub myConnection_OnReceiveCoin(sender As Object, e As Coin_ReceiveMessage) Handles myConnection.OnReceiveCoin
@@ -197,7 +197,7 @@
 
     Private Sub myConnection_OnReceiveSilverCrown(sender As Object, e As SilverCrown_ReceiveMessage) Handles myConnection.OnReceiveSilverCrown
         If e.UserID = myUserID Then
-
+            myHasSilverCrown = True
         End If
     End Sub
 

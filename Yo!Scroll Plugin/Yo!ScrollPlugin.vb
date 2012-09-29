@@ -15,7 +15,7 @@ Public Class YoScrollPlugin
     End Sub
 
     Protected Overrides Sub OnConnect()
-        Chatter.Chat("Welcome to Yo!Scroll!")
+        Connection.Chatter.Chat("Welcome to Yo!Scroll!")
     End Sub
 End Class
 

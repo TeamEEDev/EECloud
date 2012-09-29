@@ -1,20 +1,20 @@
 ﻿Friend Class Chatter
     Implements IChatter
 
-    Dim myInternalChatter As InternalChatter
-    Dim prefix As String
+    ReadOnly myInternalChatter As InternalChatter
+    ReadOnly myPrefix As String
 
     Friend Sub New(internalChatter As InternalChatter, name As String)
-        Me.myInternalChatter = internalChatter
-        prefix = "<" & name & "> "
+        myInternalChatter = internalChatter
+        myPrefix = "<" & name & "> "
     End Sub
 
     Friend Sub Chat(msg As String) Implements IChatter.Chat
-        myInternalChatter.SendChat(prefix & msg)
+        myInternalChatter.SendChat(myPrefix & msg)
     End Sub
 
     Friend Sub Kick(user As Player, msg As String) Implements IChatter.Kick
-        myInternalChatter.SendChat("/kick " & user.Username & " " & prefix & msg)
+        myInternalChatter.SendChat("/kick " & user.Username & " " & myPrefix & msg)
     End Sub
 
     Friend Sub Loadlevel() Implements IChatter.Loadlevel

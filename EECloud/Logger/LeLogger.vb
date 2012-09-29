@@ -1,12 +1,8 @@
 ﻿Imports System.Configuration
 Imports System.Collections.Concurrent
-Imports System.Diagnostics
 Imports System.Linq
-Imports System.Web
-Imports System.Net.Security
 Imports System.Net.Sockets
 Imports System.IO
-Imports System.Text.RegularExpressions
 Imports System.Threading
 
 Imports System.Text
@@ -15,44 +11,44 @@ Friend NotInheritable Class LeLogger
     Implements IDisposable
 
 #Region "Fields"
-    Private Shared ReadOnly QUEUE_SIZE As Integer = 32768
-    Private Shared ReadOnly LE_API As [String] = "api.logentries.com"
-    Private Shared ReadOnly LE_PORT As Integer = 80
-    Private Shared ReadOnly UTF8 As New UTF8Encoding()
-    Private Shared ReadOnly ASCII As New ASCIIEncoding()
-    Private Shared ReadOnly MIN_DELAY As Integer = 100
-    Private Shared ReadOnly MAX_DELAY As Integer = 10000
-    Private Shared ReadOnly CONFIG_KEY As [String] = "LOGENTRIES_ACCOUNT_KEY"
-    Private Shared ReadOnly CONFIG_LOCATION As [String] = "LOGENTRIES_LOCATION"
-    Private ReadOnly random As New Random()
+    Private Const QueueSize As Integer = 32768
+    Private Const LeApi As [String] = "api.logentries.com"
+    Private Const LePort As Integer = 80
+    Private Shared ReadOnly Utf8 As New UTF8Encoding()
+    Private Shared ReadOnly Ascii As New ASCIIEncoding()
+    Private Const MinDelay As Integer = 100
+    Private Const MaxDelay As Integer = 10000
+    Private Const ConfigKey As [String] = "LOGENTRIES_ACCOUNT_KEY"
+    Private Const ConfigLocation As [String] = "LOGENTRIES_LOCATION"
+    Private ReadOnly myRandom As New Random()
 
-    Private Socket As MyTcpClient = Nothing
-    Private Thread As Thread
-    Private Started As Boolean = False
-    Private Queue As BlockingCollection(Of Byte())
+    Private mySocket As MyTcpClient = Nothing
+    Private ReadOnly myThread As Thread
+    Private myStarted As Boolean = False
+    Private ReadOnly myQueue As BlockingCollection(Of Byte())
 #End Region
 
 #Region "Methods"
     Friend Sub New()
-        Queue = New BlockingCollection(Of Byte())(QUEUE_SIZE)
+        myQueue = New BlockingCollection(Of Byte())(QueueSize)
 
-        Thread = New Thread(New ThreadStart(AddressOf RunLoop))
-        Thread.Name = "Logentries logger"
-        Thread.IsBackground = True
+        myThread = New Thread(New ThreadStart(AddressOf RunLoop))
+        myThread.Name = "Logentries logger"
+        myThread.IsBackground = True
     End Sub
 
     Private Sub ReopenConnection()
         CloseConnection()
 
-        Dim root_delay As Integer = MIN_DELAY
+        Dim root_delay As Integer = MinDelay
         While True
             Try
-                Dim api_addr As [String] = LE_API
+                Dim api_addr As [String] = LeApi
                 Try
-                    Me.Socket = New MyTcpClient(LE_API)
+                    Me.mySocket = New MyTcpClient(LeApi)
 
-                    Dim header As [String] = [String].Format("PUT /{0}/hosts/{1}/?realtime=1 HTTP/1.1" & vbCr & vbLf & vbCr & vbLf, Me.SubstituteAppSetting(CONFIG_KEY), Me.SubstituteAppSetting(CONFIG_LOCATION))
-                    Me.Socket.Write(ASCII.GetBytes(header), 0, header.Length)
+                    Dim header As [String] = [String].Format("PUT /{0}/hosts/{1}/?realtime=1 HTTP/1.1" & vbCr & vbLf & vbCr & vbLf, Me.SubstituteAppSetting(ConfigKey), Me.SubstituteAppSetting(ConfigLocation))
+                    Me.mySocket.Write(Ascii.GetBytes(header), 0, header.Length)
                 Catch
                     Throw New IOException()
                 End Try
@@ -60,10 +56,10 @@ Friend NotInheritable Class LeLogger
             Catch
             End Try
             root_delay *= 2
-            If root_delay > MAX_DELAY Then
-                root_delay = MAX_DELAY
+            If root_delay > MaxDelay Then
+                root_delay = MaxDelay
             End If
-            Dim wait_for As Integer = root_delay + random.[Next](root_delay)
+            Dim wait_for As Integer = root_delay + myRandom.[Next](root_delay)
             Try
                 Thread.Sleep(wait_for)
             Catch
@@ -73,8 +69,8 @@ Friend NotInheritable Class LeLogger
     End Sub
 
     Private Sub CloseConnection()
-        If Me.Socket IsNot Nothing Then
-            Me.Socket.Close()
+        If Me.mySocket IsNot Nothing Then
+            Me.mySocket.Close()
         End If
     End Sub
 
@@ -83,11 +79,11 @@ Friend NotInheritable Class LeLogger
             ReopenConnection()
 
             While True
-                Dim data As Byte() = Queue.Take()
+                Dim data As Byte() = myQueue.Take()
                 While True
                     Try
-                        Socket.Write(data, 0, data.Length)
-                        Socket.Flush()
+                        mySocket.Write(data, 0, data.Length)
+                        mySocket.Flush()
                     Catch e As IOException
                         ReopenConnection()
                         Continue While
@@ -102,21 +98,21 @@ Friend NotInheritable Class LeLogger
     End Sub
 
     Private Sub AddLine(line As [String])
-        Dim data As Byte() = UTF8.GetBytes(line & ControlChars.Lf)
-        Dim is_full As Boolean = Not Queue.TryAdd(data)
+        Dim data As Byte() = Utf8.GetBytes(line & ControlChars.Lf)
+        Dim is_full As Boolean = Not myQueue.TryAdd(data)
 
         If is_full Then
-            Queue.Take()
-            Queue.TryAdd(data)
+            myQueue.Take()
+            myQueue.TryAdd(data)
         End If
     End Sub
 
     Private Function CheckCredentials() As Boolean
         Dim appSettings = ConfigurationManager.AppSettings
-        If Not appSettings.AllKeys.Contains(CONFIG_KEY) OrElse Not appSettings.AllKeys.Contains(CONFIG_LOCATION) Then
+        If Not appSettings.AllKeys.Contains(ConfigKey) OrElse Not appSettings.AllKeys.Contains(ConfigLocation) Then
             Return False
         End If
-        If appSettings(CONFIG_KEY) = "" OrElse appSettings(CONFIG_LOCATION) = "" Then
+        If appSettings(ConfigKey) = "" OrElse appSettings(ConfigLocation) = "" Then
             Return False
         End If
 
@@ -127,9 +123,9 @@ Friend NotInheritable Class LeLogger
         If Not CheckCredentials() Then
             Return
         End If
-        If Not Started Then
-            Thread.Start()
-            Started = True
+        If Not myStarted Then
+            myThread.Start()
+            myStarted = True
         End If
 
         AddLine(str)
@@ -146,8 +142,8 @@ Friend NotInheritable Class LeLogger
     End Sub
 
     Private Sub Shutdown()
-        Thread.Interrupt()
-        Started = False
+        myThread.Interrupt()
+        myStarted = False
     End Sub
 
     Private Function SubstituteAppSetting(key As String) As String
@@ -165,7 +161,7 @@ Friend NotInheritable Class LeLogger
         Dim stream As Stream
 
         Friend Sub New(host As [String])
-            Dim port As Integer = LE_PORT
+            Dim port As Integer = LePort
             client = New TcpClient(host, port)
             client.NoDelay = True
             Me.stream = client.GetStream()
@@ -210,16 +206,17 @@ Friend NotInheritable Class LeLogger
 #End Region
 
 #Region "IDisposable Support"
-    Private disposedValue As Boolean
-    Protected Sub Dispose(disposing As Boolean)
-        If Not Me.disposedValue Then
+    Private myDisposedValue As Boolean
+
+    Private Sub Dispose(disposing As Boolean)
+        If Not Me.myDisposedValue Then
             If disposing Then
-                If Socket IsNot Nothing Then
-                    Socket.Dispose()
+                If mySocket IsNot Nothing Then
+                    mySocket.Dispose()
                 End If
             End If
         End If
-        Me.disposedValue = True
+        Me.myDisposedValue = True
     End Sub
     Friend Sub Dispose() Implements IDisposable.Dispose
         Dispose(True)

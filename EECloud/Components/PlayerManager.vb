@@ -1,14 +1,14 @@
-﻿Friend Class PlayerManager(Of P As {Player, New})
-    Implements IPlayerManager(Of P)
+﻿Friend Class PlayerManager(Of TPlayer As {Player, New})
+    Implements IPlayerManager(Of TPlayer)
 
 #Region "Fields"
     Private WithEvents myInternalPlayerManager As InternalPlayerManager
-    Private WithEvents myConnection As IConnection(Of P)
+    Private WithEvents myConnection As Connection(Of TPlayer)
 #End Region
 
 #Region "Properties"
-    Private myPlayersDictionary As New Dictionary(Of Integer, P)
-    Friend ReadOnly Property Players(number As Integer) As P Implements IPlayerManager(Of P).Players
+    Private ReadOnly myPlayersDictionary As New Dictionary(Of Integer, TPlayer)
+    Friend ReadOnly Property Players(number As Integer) As TPlayer Implements IPlayerManager(Of TPlayer).Players
         Get
             If myPlayersDictionary.ContainsKey(number) Then
                 Return myPlayersDictionary(number)
@@ -18,7 +18,7 @@
         End Get
     End Property
 
-    Friend ReadOnly Property Players As IEnumerable(Of P) Implements IPlayerManager(Of P).Players
+    Friend ReadOnly Property Players As IEnumerable(Of TPlayer) Implements IPlayerManager(Of TPlayer).Players
         Get
             Try
                 Return myPlayersDictionary.Values
@@ -28,8 +28,8 @@
         End Get
     End Property
 
-    Private myCrown As P
-    Friend ReadOnly Property Crown As P Implements IPlayerManager(Of P).Crown
+    Private myCrown As TPlayer
+    Friend ReadOnly Property Crown As TPlayer Implements IPlayerManager(Of TPlayer).Crown
         Get
             Return myCrown
         End Get
@@ -37,12 +37,13 @@
 #End Region
 
 #Region "Methods"
-    Sub New(connection As Connection(Of P), internalPlayerManager As InternalPlayerManager)
-        myConnection = connection
+    Sub New(internalPlayerManager As InternalPlayerManager, ByVal connection As Connection(Of TPlayer))
         myInternalPlayerManager = internalPlayerManager
-        For Each Player As InternalPlayer In myInternalPlayerManager.Players.Values
-            AddPlayer(Player)
+        myConnection = Connection
+        For Each player As InternalPlayer In myInternalPlayerManager.Players.Values
+            AddPlayer(player)
         Next
+        myCrown = Players(myInternalPlayerManager.Crown.UserID)
     End Sub
 
     Private Sub myInternalPlayerManager_OnRemoveUser(sender As Object, e As Left_ReceiveMessage) Handles myInternalPlayerManager.OnRemoveUser
@@ -56,11 +57,15 @@
         AddPlayer(e)
     End Sub
 
-    Private Sub AddPlayer(player As InternalPlayer)
-        If Not myPlayersDictionary.ContainsKey(player.UserID) Then
-            Dim myPlayer As New P
-            myPlayer.SetupPlayer(player)
-            myPlayersDictionary.Add(player.UserID, myPlayer)
+    Private Sub myConnection_OnReceiveCrown(sender As Object, e As Crown_ReceiveMessage) Handles myConnection.OnReceiveCrown
+        myCrown = Players(e.UserID)
+    End Sub
+
+    Private Sub AddPlayer(internalPlayer As InternalPlayer)
+        If Not myPlayersDictionary.ContainsKey(internalPlayer.UserID) Then
+            Dim player As New TPlayer
+            player.SetupPlayer(player)
+            myPlayersDictionary.Add(player.UserID, player)
         End If
     End Sub
 #End Region
