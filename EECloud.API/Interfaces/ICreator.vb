@@ -1,3 +1,3 @@
 ﻿Public Interface ICreator
-    Function GenerateConnection(Of P As {Player, New})(plugin As IPluginObject) As IConnection(Of P)
+    Function GenerateConnection(Of TPlayer As {Player, New})(plugin As IPluginObject) As IConnection(Of TPlayer)
 End Interface

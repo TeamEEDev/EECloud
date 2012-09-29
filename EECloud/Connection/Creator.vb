@@ -1,6 +1,6 @@
-﻿Friend Class Creator
+﻿Friend NotInheritable Class Creator
     Implements ICreator
-    Private myInternalConnection As InternalConnection
+    Private ReadOnly myInternalConnection As InternalConnection
     Sub New(internalConnection As InternalConnection)
         myInternalConnection = internalConnection
     End Sub

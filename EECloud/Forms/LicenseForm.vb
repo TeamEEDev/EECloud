@@ -1,11 +1,9 @@
 ﻿Imports System.Runtime.InteropServices
 
 Friend Class LicenseForm
-    Private Class NativeMethods
-        <DllImport("user32.dll")> _
-        Friend Shared Function SetForegroundWindow(ByVal hWnd As IntPtr) As <MarshalAs(UnmanagedType.Bool)> Boolean
-        End Function
-    End Class
+    <DllImport("user32.dll")>
+    Friend Shared Function SetForegroundWindow(ByVal hWnd As IntPtr) As <MarshalAs(UnmanagedType.Bool)> Boolean
+    End Function
 
     Friend Sub New()
         Me.Icon = My.Resources.Icon
@@ -17,7 +15,7 @@ Friend Class LicenseForm
 
     Private Sub LoginForm_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         If Me.IsHandleCreated Then
-            NativeMethods.SetForegroundWindow(Me.Handle)
+            SetForegroundWindow(Me.Handle)
         End If
     End Sub
 

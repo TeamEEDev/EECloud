@@ -1,12 +1,12 @@
 ﻿Imports System.Threading.Tasks
 
-Friend Class ConnectionHandle
+Friend NotInheritable Class ConnectionHandle
     Inherits Connection(Of Player)
     Implements IConnectionHandle
 
 #Region "Fields"
     Private Const GameVersionSetting As String = "GameVersion"
-    Friend Shared myGameVersionSetting As Integer = 0
+    Friend Shared GameVersionNumber As Integer = 0
 #End Region
 
 #Region "Properties"
@@ -17,7 +17,7 @@ Friend Class ConnectionHandle
         End Get
     End Property
 
-    Private myPluginManager As IPluginManager = New PluginManager
+    Private ReadOnly myPluginManager As IPluginManager = New PluginManager
     Friend Overrides ReadOnly Property PluginManager As IPluginManager
         Get
             Return myPluginManager
@@ -27,36 +27,36 @@ Friend Class ConnectionHandle
 
 #Region "Methods"
     Friend Sub New()
-        If myGameVersionSetting = 0 Then
+        If GameVersionNumber = 0 Then
             Try
-                myGameVersionSetting = CInt(Cloud.Service.GetSetting(GameVersionSetting))
+                GameVersionNumber = CInt(Cloud.Service.GetSetting(GameVersionSetting))
             Catch
                 Cloud.Logger.Log(LogPriority.Error, "Invalid GameVersion setting.")
             End Try
         End If
     End Sub
 
-    Friend Async Function JoinAsync(Username As String, password As String, worldID As String) As Task Implements IConnectionHandle.JoinAsync
+    Friend Async Function JoinAsync(username As String, password As String, id As String) As Task Implements IConnectionHandle.JoinAsync
         Await Task.Run(
             Sub()
                 Try
-                    Dim IOClient As PlayerIOClient.Client = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.GameID, Username, password)
-                    Dim IOConnection As PlayerIOClient.Connection = GetIOConnection(IOClient, worldID)
-                    myInternalConnection = New InternalConnection(IOConnection, worldID, myPluginManager)
-                    myCreator = New Creator(myInternalConnection)
+                    Dim ioClient As PlayerIOClient.Client = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.GameID, username, password)
+                    Dim ioConnection As PlayerIOClient.Connection = GetIoConnection(ioClient, id)
+                    InternalConnection = New InternalConnection(ioConnection, id, myPluginManager)
+                    myCreator = New Creator(InternalConnection)
                 Catch ex As PlayerIOClient.PlayerIOError
                     Throw New EECloudPlayerIOException(ex)
                 End Try
             End Sub)
     End Function
 
-    Private Function GetIOConnection(PClient As PlayerIOClient.Client, PWorldID As String) As PlayerIOClient.Connection
+    Private Function GetIoConnection(client As PlayerIOClient.Client, id As String) As PlayerIOClient.Connection
         Try
-            Return PClient.Multiplayer.CreateJoinRoom(PWorldID, Config.NormalRoom & myGameVersionSetting, True, Nothing, Nothing)
+            Return client.Multiplayer.CreateJoinRoom(id, Config.NormalRoom & GameVersionNumber, True, Nothing, Nothing)
         Catch ex As PlayerIOClient.PlayerIOError
             If ex.ErrorCode = PlayerIOClient.ErrorCode.UnknownRoomType Then
                 UpdateVersion(ex)
-                Return GetIOConnection(PClient, PWorldID)
+                Return GetIoConnection(client, id)
             Else
                 Throw New EECloudPlayerIOException(ex)
             End If
@@ -64,13 +64,13 @@ Friend Class ConnectionHandle
     End Function
 
     Private Sub UpdateVersion(ex As PlayerIOClient.PlayerIOError)
-        Dim ErrorMessage() As String = ex.Message.Split("["c)(1).Split(CChar(" "))
-        For N = ErrorMessage.Length - 1 To 0 Step -1
-            Dim CurrentRoomType As String
-            CurrentRoomType = ErrorMessage(N)
-            If CurrentRoomType.StartsWith(Config.NormalRoom) Then
-                myGameVersionSetting = CInt(CurrentRoomType.Substring(Config.NormalRoom.Length, CurrentRoomType.Length - Config.NormalRoom.Length - 1))
-                Cloud.Service.SetSetting(GameVersionSetting, CStr(myGameVersionSetting))
+        Dim errorMessage() As String = ex.Message.Split("["c)(1).Split(CChar(" "))
+        For N = errorMessage.Length - 1 To 0 Step -1
+            Dim currentRoomType As String
+            currentRoomType = errorMessage(N)
+            If currentRoomType.StartsWith(Config.NormalRoom, System.StringComparison.Ordinal) Then
+                GameVersionNumber = CInt(currentRoomType.Substring(Config.NormalRoom.Length, currentRoomType.Length - Config.NormalRoom.Length - 1))
+                Cloud.Service.SetSetting(GameVersionSetting, CStr(GameVersionNumber))
                 Exit Sub
             End If
         Next
@@ -78,7 +78,7 @@ Friend Class ConnectionHandle
     End Sub
 
     Friend Sub Disconnect() Implements IConnectionHandle.Disconnect
-        myInternalConnection.Disconnect()
+        InternalConnection.Disconnect()
     End Sub
 #End Region
 End Class

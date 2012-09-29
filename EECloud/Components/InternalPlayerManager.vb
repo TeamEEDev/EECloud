@@ -9,7 +9,7 @@
 #End Region
 
 #Region "Properties"
-    Private myPlayers As Dictionary(Of Integer, InternalPlayer)
+    Private ReadOnly myPlayers As New Dictionary(Of Integer, InternalPlayer)
     Friend ReadOnly Property Players As Dictionary(Of Integer, InternalPlayer)
         Get
             Return myPlayers
@@ -24,9 +24,9 @@
 
     Private Sub myConnection_OnReceiveAdd(sender As Object, e As Add_ReceiveMessage) Handles myConnection.OnReceiveAdd
         Try
-            Dim myPlayer As New InternalPlayer(myConnection, e)
-            myPlayers.Add(myPlayer.UserID, myPlayer)
-            RaiseEvent OnAddUser(Me, myPlayer)
+            Dim player As New InternalPlayer(myConnection, e)
+            myPlayers.Add(player.UserID, player)
+            RaiseEvent OnAddUser(Me, player)
         Catch ex As Exception
             Cloud.Logger.Log(ex)
         End Try
@@ -41,5 +41,12 @@
             Cloud.Logger.Log(ex)
         End Try
     End Sub
+
+    Private myCrown As Player
+    Friend ReadOnly Property Crown As Player
+        Get
+            Return myCrown
+        End Get
+    End Property
 #End Region
 End Class

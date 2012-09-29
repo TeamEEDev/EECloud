@@ -3,22 +3,22 @@ Imports System.Reflection
 Imports System.IO
 
 Friend NotInheritable Class CloudApplicationContext
-    Inherits System.Windows.Forms.ApplicationContext
+    Inherits Windows.Forms.ApplicationContext
 
 #Region "Methods"
     Friend Sub New()
         'Loading settings
-        If Cloud.AppEnvironment = API.AppEnvironment.Release Then
+        If Cloud.AppEnvironment = AppEnvironment.Release Then
             My.Settings.LicenceUsername = AppSettings("cloud.username")
             My.Settings.LicenceKey = AppSettings("cloud.key")
             My.Settings.LoginWorldID = AppSettings("cloud.worldid")
-            Dim AccData As String() = AppSettings("cloud.acc").Split(":"c)
-            If AccData.Length >= 2 Then
-                My.Settings.LoginEmail = AccData(0)
-                My.Settings.LoginPassword = AccData(1)
+            Dim accData As String() = AppSettings("cloud.acc").Split(":"c)
+            If accData.Length >= 2 Then
+                My.Settings.LoginEmail = accData(0)
+                My.Settings.LoginPassword = accData(1)
             End If
         Else
-            Application.EnableVisualStyles() 'SUPER FACEPALM FOR NOT KNOWING THIS AT THE FIRST PLACE
+            Application.EnableVisualStyles()
             If Not New LoginForm().ShowDialog() = Windows.Forms.DialogResult.OK Then
                 Environment.Exit(0)
             End If
@@ -31,7 +31,7 @@ Friend NotInheritable Class CloudApplicationContext
         Cloud.Connector = New Connector
 
         'Loading Plugin assemblies
-        Dim Handle As IConnectionHandle = Cloud.Connector.CreateConnection
+        Dim handle As IConnectionHandle = Cloud.Connector.CreateConnection
 
         Dim allAssemblies As New List(Of Assembly)
         Dim path As String = My.Application.Info.DirectoryPath
@@ -62,7 +62,7 @@ Friend NotInheritable Class CloudApplicationContext
                     Dim hasNext As Boolean = myEnumrator.MoveNext()
                     If Not hasNext Then Exit Do
 
-                    Handle.PluginManager.Add(myEnumrator.Current).Start()
+                    handle.PluginManager.Add(myEnumrator.Current).Start()
                 Catch ex As Exception
                     Cloud.Logger.Log(ex)
                 End Try
@@ -71,7 +71,7 @@ Friend NotInheritable Class CloudApplicationContext
 
         'Login
         Cloud.Logger.Log(LogPriority.Info, "Joining world...")
-        Handle.JoinAsync(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID)
+        handle.JoinAsync(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID)
     End Sub
 #End Region
 End Class

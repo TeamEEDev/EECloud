@@ -2,7 +2,7 @@
 
 Friend Class InternalConnection
 #Region "Fields"
-    Private myConnection As PlayerIOClient.Connection
+    Private ReadOnly myConnection As PlayerIOClient.Connection
 #End Region
 
 #Region "Properties"
@@ -16,8 +16,8 @@ Friend Class InternalConnection
         End Get
     End Property
 
-    Private myWorldID As String
-    Friend ReadOnly Property WorldID As String
+    Private ReadOnly myWorldId As String
+    Friend ReadOnly Property WorldId As String
         Get
             Return myWorldID
         End Get
@@ -30,21 +30,21 @@ Friend Class InternalConnection
         End Get
     End Property
 
-    Private myDefaultConnection As New Connection(Of Player)(Me, New Chatter(myInternalChatter, "Bot"))
+    Private ReadOnly myDefaultConnection As New Connection(Of Player)(Me, New Chatter(myInternalChatter, "Bot"))
     Friend ReadOnly Property DefaultConnection As Connection(Of Player)
         Get
             Return myDefaultConnection
         End Get
     End Property
 
-    Private myInternalChatter As New InternalChatter(Me.DefaultConnection)
+    Private ReadOnly myInternalChatter As New InternalChatter(DefaultConnection)
     Friend ReadOnly Property InternalChatter As InternalChatter
         Get
             Return myInternalChatter
         End Get
     End Property
 
-    Private myPluginManager As IPluginManager
+    Private ReadOnly myPluginManager As IPluginManager
     Friend ReadOnly Property PluginManager As IPluginManager
         Get
             Return myPluginManager
@@ -58,10 +58,10 @@ Friend Class InternalConnection
 #End Region
 
 #Region "Methods"
-    Friend Sub New(PConnection As PlayerIOClient.Connection, PWorldID As String, PPluginManager As IPluginManager)
-        myConnection = PConnection
-        myWorldID = PWorldID
-        myPluginManager = PPluginManager
+    Friend Sub New(pconnection As PlayerIOClient.Connection, worldID As String, pluginManager As IPluginManager)
+        myConnection = pconnection
+        myWorldId = worldID
+        myPluginManager = PluginManager
 
         myConnection.AddOnMessage(AddressOf MessageReceiver)
         myConnection.AddOnDisconnect(
@@ -84,28 +84,26 @@ Friend Class InternalConnection
         Select Case e.GetType
             Case GetType(Init_ReceiveMessage)
                 Dim m As Init_ReceiveMessage = CType(e, Init_ReceiveMessage)
-                myWorld = New World(Me.DefaultConnection, m)
+                myWorld = New World(DefaultConnection, m)
 
                 UnRegisterMessage("init")
                 UnRegisterMessage("groupdisallowedjoin")
                 RegisterMessages()
                 Send(New Init2_SendMessage)
             Case GetType(Upgrade_ReceiveMessage)
-                Dim m As Upgrade_ReceiveMessage = CType(e, Upgrade_ReceiveMessage)
-
-                ConnectionHandle.myGameVersionSetting += 1
+                ConnectionHandle.GameVersionNumber += 1
                 Cloud.Logger.Log(LogPriority.Info, "The game has been updated!")
-                Await Cloud.Service.SetSettingAsync("GameVersion", CStr(ConnectionHandle.myGameVersionSetting))
+                Await Cloud.Service.SetSettingAsync("GameVersion", CStr(ConnectionHandle.GameVersionNumber))
         End Select
     End Sub
 
     Private Sub MessageReceiver(sender As Object, e As PlayerIOClient.Message)
         Try
-            If MessageDictionary.ContainsKey(e.Type) Then
-                Dim messageType As Type = MessageDictionary(e.Type)
-                Dim myConstructorInfo As ConstructorInfo = messageType.GetConstructor(BindingFlags.NonPublic Or BindingFlags.Instance, Nothing, New Type() {GetType(PlayerIOClient.Message)}, Nothing)
-                Dim myMessage As ReceiveMessage = CType(myConstructorInfo.Invoke(New Object() {e}), ReceiveMessage)
-                RaiseEvent OnMessage(Me, myMessage)
+            If myMessageDictionary.ContainsKey(e.Type) Then
+                Dim messageType As Type = myMessageDictionary(e.Type)
+                Dim constructorInfo As ConstructorInfo = messageType.GetConstructor(BindingFlags.NonPublic Or BindingFlags.Instance, Nothing, New Type() {GetType(PlayerIOClient.Message)}, Nothing)
+                Dim message As ReceiveMessage = CType(constructorInfo.Invoke(New Object() {e}), ReceiveMessage)
+                RaiseEvent OnMessage(Me, message)
             Else
                 Cloud.Logger.Log(LogPriority.Warning, "Received not registered message: " & e.Type)
             End If
@@ -115,9 +113,9 @@ Friend Class InternalConnection
         End Try
     End Sub
 
-    Friend Sub Send(PMessage As SendMessage)
+    Friend Sub Send(message As SendMessage)
         If myConnection IsNot Nothing Then
-            myConnection.Send(PMessage.GetMessage(Me.DefaultConnection))
+            myConnection.Send(message.GetMessage(DefaultConnection))
         End If
     End Sub
 
@@ -127,10 +125,10 @@ Friend Class InternalConnection
         End If
     End Sub
 
-    Private RegisteredMessages As Boolean
+    Private myRegisteredMessages As Boolean
     Private Sub RegisterMessages()
-        If RegisteredMessages = False Then
-            RegisteredMessages = True
+        If myRegisteredMessages = False Then
+            myRegisteredMessages = True
             RegisterMessage("updatemeta", GetType(UpdateMeta_ReceiveMessage))
             RegisterMessage("add", GetType(Add_ReceiveMessage))
             RegisterMessage("left", GetType(Left_ReceiveMessage))
@@ -166,24 +164,24 @@ Friend Class InternalConnection
         End If
     End Sub
 
-    Private MessageDictionary As New Dictionary(Of String, Type)
-    Private Sub RegisterMessage(PString As String, PType As Type)
+    Private ReadOnly myMessageDictionary As New Dictionary(Of String, Type)
+    Private Sub RegisterMessage(str As String, type As Type)
         Try
-            If Not PType.IsSubclassOf(GetType(ReceiveMessage)) Then
+            If Not type.IsSubclassOf(GetType(ReceiveMessage)) Then
                 Throw New InvalidOperationException("Invalid message class! Must inherit " & GetType(ReceiveMessage).ToString)
             Else
-                MessageDictionary.Add(PString, PType)
+                myMessageDictionary.Add(str, type)
             End If
         Catch ex As Exception
-            Cloud.Logger.Log(LogPriority.Error, "Failed to register message: " & PString)
+            Cloud.Logger.Log(LogPriority.Error, "Failed to register message: " & str)
         End Try
     End Sub
 
-    Private Sub UnRegisterMessage(PString As String)
+    Private Sub UnRegisterMessage(pString As String)
         Try
-            MessageDictionary.Remove(PString)
+            myMessageDictionary.Remove(pString)
         Catch ex As Exception
-            Cloud.Logger.Log(LogPriority.Error, "Failed to unregister message: " & PString)
+            Cloud.Logger.Log(LogPriority.Error, "Failed to unregister message: " & pString)
         End Try
     End Sub
 #End Region
