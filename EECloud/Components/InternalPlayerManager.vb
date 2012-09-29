@@ -18,7 +18,7 @@
 #End Region
 
 #Region "Methods"
-    Public Sub New(connection As Connection(Of Player))
+    Friend Sub New(connection As Connection(Of Player))
         myConnection = connection
     End Sub
 

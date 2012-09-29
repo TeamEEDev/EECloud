@@ -46,7 +46,7 @@ Public Class CommandsBot
     <Command("name", "!command [name]", Group.Moderator, Aliases:={"rename", "renameworld", "renamelevel", "worldname", "levelname"})>
     Public Sub ChangeWorldNameCommand(cmd As ICommand)
         'If Connection.Players(0).IsOwner Then
-        Connection.Send(New ChangeWorldName_SendMessage(cmd.Args.ToString))
+        'Connection.Send(New ChangeWorldName_SendMessage(cmd.Args.ToString))
         AddHandler Connection.OnReceiveUpdateMeta, Sub()
                                                        Chatter.Chat("World name changed.")
                                                    End Sub

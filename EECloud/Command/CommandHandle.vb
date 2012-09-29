@@ -31,7 +31,7 @@ Friend Class CommandHandle
         del = method.CreateDelegate(GetType([Delegate]), obj)
     End Sub
 
-    Public Sub Run(cmd As Command, ParamArray args As String())
+    Friend Sub Run(cmd As Command, ParamArray args As String())
         Try
             del.DynamicInvoke(cmd, args)
         Catch ex As Exception
@@ -40,14 +40,14 @@ Friend Class CommandHandle
     End Sub
 
     Private myMinimumArgs As Integer
-    Public ReadOnly Property MinimumArgs As Integer
+    Friend ReadOnly Property MinimumArgs As Integer
         Get
             Return myMinimumArgs
         End Get
     End Property
 
     Private myRecommendedArgs As Integer
-    Public ReadOnly Property RecommendedArgs As Integer
+    Friend ReadOnly Property RecommendedArgs As Integer
         Get
             Return myRecommendedArgs
         End Get

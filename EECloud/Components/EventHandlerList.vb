@@ -56,7 +56,7 @@
         Friend Key As Object
         Friend NextEntry As EventHandlerList.ListEntry
 
-        Public Sub New(ByVal key As Object, ByVal handler As [Delegate], ByVal nextEntry As EventHandlerList.ListEntry)
+        Friend Sub New(ByVal key As Object, ByVal handler As [Delegate], ByVal nextEntry As EventHandlerList.ListEntry)
             Me.NextEntry = nextEntry
             Me.Key = key
             Me.Handler = handler

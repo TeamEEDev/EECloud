@@ -8,7 +8,7 @@
 
 #Region "Properties"
     Private myPlayersDictionary As New Dictionary(Of Integer, P)
-    Public ReadOnly Property Players(number As Integer) As P Implements IPlayerManager(Of P).Players
+    Friend ReadOnly Property Players(number As Integer) As P Implements IPlayerManager(Of P).Players
         Get
             If myPlayersDictionary.ContainsKey(number) Then
                 Return myPlayersDictionary(number)
@@ -18,7 +18,7 @@
         End Get
     End Property
 
-    Public ReadOnly Property Players As IEnumerable(Of P) Implements IPlayerManager(Of P).Players
+    Friend ReadOnly Property Players As IEnumerable(Of P) Implements IPlayerManager(Of P).Players
         Get
             Try
                 Return myPlayersDictionary.Values
@@ -29,7 +29,7 @@
     End Property
 
     Private myCrown As P
-    Public ReadOnly Property Crown As P Implements IPlayerManager(Of P).Crown
+    Friend ReadOnly Property Crown As P Implements IPlayerManager(Of P).Crown
         Get
             Return myCrown
         End Get

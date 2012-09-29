@@ -14,7 +14,7 @@ Friend NotInheritable Class PluginManager
 #End Region
 
 #Region "Methods"
-    Public Function Add(t As Type) As IPluginObject Implements IPluginManager.Add
+    Friend Function Add(t As Type) As IPluginObject Implements IPluginManager.Add
         If GetType(IPlugin).IsAssignableFrom(t) Then
             Dim myAttributes As Object() = t.GetCustomAttributes(GetType(PluginAttribute), True)
             If myAttributes IsNot Nothing AndAlso myAttributes.Length = 1 Then

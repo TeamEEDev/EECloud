@@ -16,6 +16,13 @@ Friend Class ConnectionHandle
             Return myCreator
         End Get
     End Property
+
+    Private myPluginManager As IPluginManager = New PluginManager
+    Friend Overrides ReadOnly Property PluginManager As IPluginManager
+        Get
+            Return myPluginManager
+        End Get
+    End Property
 #End Region
 
 #Region "Methods"
@@ -35,7 +42,7 @@ Friend Class ConnectionHandle
                 Try
                     Dim IOClient As PlayerIOClient.Client = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.GameID, Username, password)
                     Dim IOConnection As PlayerIOClient.Connection = GetIOConnection(IOClient, worldID)
-                    myInternalConnection = New InternalConnection(IOConnection, worldID)
+                    myInternalConnection = New InternalConnection(IOConnection, worldID, myPluginManager)
                     myCreator = New Creator(myInternalConnection)
                 Catch ex As PlayerIOClient.PlayerIOError
                     Throw New EECloudPlayerIOException(ex)
@@ -70,7 +77,7 @@ Friend Class ConnectionHandle
         Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get room version")
     End Sub
 
-    Public Sub Disconnect() Implements IConnectionHandle.Disconnect
+    Friend Sub Disconnect() Implements IConnectionHandle.Disconnect
         myInternalConnection.Disconnect()
     End Sub
 #End Region

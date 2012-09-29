@@ -1,13 +1,13 @@
 ﻿Imports System.Runtime.InteropServices
 
-Public Class LicenseForm
+Friend Class LicenseForm
     Private Class NativeMethods
         <DllImport("user32.dll")> _
         Friend Shared Function SetForegroundWindow(ByVal hWnd As IntPtr) As <MarshalAs(UnmanagedType.Bool)> Boolean
         End Function
     End Class
 
-    Public Sub New()
+    Friend Sub New()
         Me.Icon = My.Resources.Icon
         InitializeComponent()
 
