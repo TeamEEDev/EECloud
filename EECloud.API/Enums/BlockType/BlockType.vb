@@ -390,7 +390,7 @@
     DecorationWarningSignHorizontalLine = 323
     DecorationWarningSignVerticalLine = 324
 
-    DecorationCake = 337
+    BlockCake = 337
 
     BackgroundCheckeredGrey = 513
     BackgroundCheckeredDarkBlue = 514
