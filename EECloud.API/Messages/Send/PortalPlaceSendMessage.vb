@@ -14,15 +14,15 @@ Public Class PortalPlaceSendMessage
         Me.PortalRotation = portalRotation
     End Sub
 
-    Friend Overrides Function GetMessage(connection As IConnection(Of player)) As Message
+    Friend Overrides Function GetMessage(world As World) As Message
         If IsPortal(Block) Then
-            Dim myMessage As Message = MyBase.GetMessage(connection)
-            myMessage.Add(PortalRotation)
-            myMessage.Add(PortalID)
-            myMessage.Add(PortalTarget)
-            Return myMessage
+            Dim message As Message = MyBase.GetMessage(world)
+            message.Add(PortalRotation)
+            message.Add(PortalID)
+            message.Add(PortalTarget)
+            Return message
         Else
-            Return MyBase.GetMessage(connection)
+            Return MyBase.GetMessage(world)
         End If
     End Function
 End Class

@@ -1,7 +1,7 @@
 ﻿Friend NotInheritable Class InternalPlayerManager
 
 #Region "Fields"
-    Private WithEvents myConnection As Connection(Of Player)
+    Private WithEvents myConnection As InternalConnection
 #End Region
 
 #Region "Events"
@@ -22,7 +22,7 @@
 
 #Region "Methods"
 
-    Friend Sub New(connection As Connection(Of Player))
+    Friend Sub New(connection As InternalConnection)
         myConnection = connection
     End Sub
 
@@ -37,7 +37,13 @@
     End Sub
 
     Private Sub myConnection_OnReceiveCrown(sender As Object, e As CrownReceiveMessage) Handles myConnection.OnReceiveCrown
-        myCrown = Players(e.UserID)
+        Try
+            If Not e.UserID = -1 Then
+                myCrown = Players(e.UserID)
+            End If
+        Catch ex As Exception
+            Cloud.Logger.Log(ex)
+        End Try
     End Sub
 
     Private Sub myConnection_OnReceiveLeft(sender As Object, e As LeftReceiveMessage) Handles myConnection.OnReceiveLeft

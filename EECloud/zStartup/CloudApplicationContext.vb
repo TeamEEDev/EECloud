@@ -75,7 +75,7 @@ Friend NotInheritable Class CloudApplicationContext
                     Dim hasNext As Boolean = enumrator.MoveNext()
                     If Not hasNext Then Exit Do
 
-                    pluginManager.Add(enumrator.Current).Start()
+                    pluginManager.Add(enumrator.Current)
                 Catch ex As Exception
                     Cloud.Logger.Log(ex)
                 End Try

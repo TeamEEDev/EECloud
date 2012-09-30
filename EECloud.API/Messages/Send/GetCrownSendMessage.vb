@@ -4,7 +4,7 @@ Public Class GetCrownSendMessage
     Inherits SendMessage
     'No arguments
 
-    Friend Overrides Function GetMessage(connection As IConnection(Of player)) As Message
-        Return Message.Create(connection.World.Encryption & "k")
+    Friend Overrides Function GetMessage(world As World) As Message
+        Return Message.Create(world.Encryption & "k")
     End Function
 End Class
