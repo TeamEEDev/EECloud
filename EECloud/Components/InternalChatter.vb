@@ -1,7 +1,7 @@
 ﻿Imports System.Timers
 
 Friend NotInheritable Class InternalChatter
-    ReadOnly myChatQueue As New Queue(Of Say_SendMessage)
+    ReadOnly myChatQueue As New Queue(Of SaySendMessage)
 
     Dim WithEvents mySendTimer As New Timer With {.Enabled = True, .AutoReset = True, .Interval = 700}
 
@@ -24,7 +24,7 @@ Friend NotInheritable Class InternalChatter
             End If
         End If
 
-        myChatQueue.Enqueue(New Say_SendMessage(msg))
+        myChatQueue.Enqueue(New SaySendMessage(msg))
         If Not mySendTimer.Enabled Then
             SendTimer_Elapsed(Nothing, Nothing)
             mySendTimer.Start()

@@ -32,7 +32,7 @@ Public Class CommandsBot
     <Command("clear", Group.Moderator, Aliases := {"clearworld", "clearlevel"})>
     Public Sub ClearWorldCommand(cmd As ICommand)
         'If Connection.Players(0).IsOwner Then
-        Connection.Send(New ClearWorld_SendMessage)
+        Connection.Send(New ClearWorldSendMessage)
         AddHandler Connection.OnReceiveClear, Sub()
             Connection.Chatter.Chat("World cleared.")
                                               End Sub
@@ -70,7 +70,7 @@ Public Class CommandsBot
     Public Sub SaveWorldCommand(cmd As ICommand)
         'If Connection.Players(0).IsOwner Then
         Connection.Chatter.Chat("Saving world...")
-        Connection.Send(New SaveWorld_SendMessage)
+        Connection.Send(New SaveWorldSendMessage)
         AddHandler Connection.OnReceiveSaveDone, Sub()
             Connection.Chatter.Chat("World saved.")
                                                  End Sub

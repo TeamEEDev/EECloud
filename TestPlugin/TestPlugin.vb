@@ -16,7 +16,7 @@ Public Class TestPlugin
         Connection.Chatter.Chat("Hi")
     End Sub
 
-    Private Sub Connection_OnSendMove(sender As Object, e As SendEventArgs(Of Move_SendMessage)) Handles Connection.OnSendMove
+    Private Sub Connection_OnSendMove(sender As Object, e As SendEventArgs(Of MoveSendMessage)) Handles Connection.OnSendMove
         'EAT ALL MOVE MESSAGES!!!
         e.Handled = True
     End Sub

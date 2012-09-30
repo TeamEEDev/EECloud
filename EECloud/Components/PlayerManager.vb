@@ -1,4 +1,4 @@
-﻿Friend NotInheritable Class PlayerManager(Of TPlayer As {Player, New})
+﻿Friend NotInheritable Class PlayerManager (Of TPlayer As {Player, New})
     Implements IPlayerManager(Of TPlayer)
 
 #Region "Fields"
@@ -8,6 +8,7 @@
 
 #Region "Properties"
     Private ReadOnly myPlayersDictionary As New Dictionary(Of Integer, TPlayer)
+
     Friend ReadOnly Property Players(number As Integer) As TPlayer Implements IPlayerManager(Of TPlayer).Players
         Get
             If myPlayersDictionary.ContainsKey(number) Then
@@ -29,14 +30,17 @@
     End Property
 
     Private myCrown As TPlayer
+
     Friend ReadOnly Property Crown As TPlayer Implements IPlayerManager(Of TPlayer).Crown
         Get
             Return myCrown
         End Get
     End Property
+
 #End Region
 
 #Region "Methods"
+
     Sub New(internalPlayerManager As InternalPlayerManager, ByVal connection As Connection(Of Player))
         myInternalPlayerManager = internalPlayerManager
         myConnection = connection
@@ -46,7 +50,7 @@
         myCrown = Players(myInternalPlayerManager.Crown.UserID)
     End Sub
 
-    Private Sub myInternalPlayerManager_OnRemoveUser(sender As Object, e As Left_ReceiveMessage) Handles myInternalPlayerManager.OnRemoveUser
+    Private Sub myInternalPlayerManager_OnRemoveUser(sender As Object, e As LeftReceiveMessage) Handles myInternalPlayerManager.OnRemoveUser
         Try
             myPlayersDictionary.Remove(e.UserID)
         Catch
@@ -57,7 +61,7 @@
         AddPlayer(e)
     End Sub
 
-    Private Sub myConnection_OnReceiveCrown(sender As Object, e As Crown_ReceiveMessage) Handles myConnection.OnReceiveCrown
+    Private Sub myConnection_OnReceiveCrown(sender As Object, e As CrownReceiveMessage) Handles myConnection.OnReceiveCrown
         myCrown = Players(e.UserID)
     End Sub
 
@@ -68,5 +72,6 @@
             myPlayersDictionary.Add(player.UserID, player)
         End If
     End Sub
+
 #End Region
 End Class

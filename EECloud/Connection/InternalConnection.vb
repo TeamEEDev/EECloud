@@ -1,12 +1,15 @@
-﻿Imports System.Reflection
+﻿Imports PlayerIOClient
+Imports System.Reflection
 
 Friend NotInheritable Class InternalConnection
+
 #Region "Fields"
-    Private WithEvents myConnection As PlayerIOClient.Connection
+    Private WithEvents myConnection As Connection
     Private ReadOnly myMessageDictionary As New Dictionary(Of String, Type)
 #End Region
 
 #Region "Properties"
+
     Friend ReadOnly Property Connected As Boolean
         Get
             If myConnection IsNot Nothing Then
@@ -18,6 +21,7 @@ Friend NotInheritable Class InternalConnection
     End Property
 
     Private ReadOnly myWorldID As String
+
     Friend ReadOnly Property WorldID As String
         Get
             Return myWorldID
@@ -25,6 +29,7 @@ Friend NotInheritable Class InternalConnection
     End Property
 
     Private myWorld As World
+
     Friend ReadOnly Property World As World
         Get
             Return myWorld
@@ -32,6 +37,7 @@ Friend NotInheritable Class InternalConnection
     End Property
 
     Private ReadOnly myDefaultConnection As New Connection(Of Player)(Me, New Chatter(myInternalChatter, "Bot"))
+
     Friend ReadOnly Property DefaultConnection As Connection(Of Player)
         Get
             Return myDefaultConnection
@@ -39,6 +45,7 @@ Friend NotInheritable Class InternalConnection
     End Property
 
     Private ReadOnly myInternalChatter As New InternalChatter(DefaultConnection)
+
     Friend ReadOnly Property InternalChatter As InternalChatter
         Get
             Return myInternalChatter
@@ -46,6 +53,7 @@ Friend NotInheritable Class InternalConnection
     End Property
 
     Private ReadOnly myPluginManager As IPluginManager
+
     Friend ReadOnly Property PluginManager As IPluginManager
         Get
             Return myPluginManager
@@ -53,6 +61,7 @@ Friend NotInheritable Class InternalConnection
     End Property
 
     Private ReadOnly myInternalPlayerManager As New InternalPlayerManager(myDefaultConnection)
+
     Public ReadOnly Property InternalPlayerManager() As InternalPlayerManager
         Get
             Return myInternalPlayerManager
@@ -67,29 +76,30 @@ Friend NotInheritable Class InternalConnection
 #End Region
 
 #Region "Methods"
-    Friend Sub New(pconnection As PlayerIOClient.Connection, worldID As String, pluginManager As IPluginManager)
+
+    Friend Sub New(pconnection As Connection, worldID As String, pluginManager As IPluginManager)
         myConnection = pconnection
         myWorldID = worldID
         myPluginManager = pluginManager
 
-        RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoin_ReceiveMessage))
-        RegisterMessage("info", GetType(Info_ReceiveMessage))
-        RegisterMessage("upgrade", GetType(Upgrade_ReceiveMessage))
-        RegisterMessage("init", GetType(Init_ReceiveMessage))
-        Send(New Init_SendMessage)
+        RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoinReceiveMessage))
+        RegisterMessage("info", GetType(InfoReceiveMessage))
+        RegisterMessage("upgrade", GetType(UpgradeReceiveMessage))
+        RegisterMessage("init", GetType(InitReceiveMessage))
+        Send(New InitSendMessage)
     End Sub
 
     Private Async Sub MessageHandler(sender As Object, e As ReceiveMessage) Handles Me.OnMessage
         Select Case e.GetType
-            Case GetType(Init_ReceiveMessage)
-                Dim m As Init_ReceiveMessage = CType(e, Init_ReceiveMessage)
+            Case GetType(InitReceiveMessage)
+                Dim m As InitReceiveMessage = CType(e, InitReceiveMessage)
                 myWorld = New World(DefaultConnection, m)
 
                 UnRegisterMessage("init")
                 UnRegisterMessage("groupdisallowedjoin")
                 RegisterMessages()
-                Send(New Init2_SendMessage)
-            Case GetType(Upgrade_ReceiveMessage)
+                Send(New Init2SendMessage)
+            Case GetType(UpgradeReceiveMessage)
                 ConnectionHandle.GameVersionNumber += 1
                 Cloud.Logger.Log(LogPriority.Info, "The game has been updated!")
                 Await Cloud.Service.SetSettingAsync("GameVersion", CStr(ConnectionHandle.GameVersionNumber))
@@ -109,41 +119,42 @@ Friend NotInheritable Class InternalConnection
     End Sub
 
     Private myRegisteredMessages As Boolean
+
     Private Sub RegisterMessages()
         If myRegisteredMessages = False Then
             myRegisteredMessages = True
-            RegisterMessage("updatemeta", GetType(UpdateMeta_ReceiveMessage))
-            RegisterMessage("add", GetType(Add_ReceiveMessage))
-            RegisterMessage("left", GetType(Left_ReceiveMessage))
-            RegisterMessage("m", GetType(Move_ReceiveMessage))
-            RegisterMessage("c", GetType(Coin_ReceiveMessage))
-            RegisterMessage("k", GetType(Crown_ReceiveMessage))
-            RegisterMessage("ks", GetType(SilverCrown_ReceiveMessage))
-            RegisterMessage("face", GetType(Face_ReceiveMessage))
-            RegisterMessage("show", GetType(ShowKey_ReceiveMessage))
-            RegisterMessage("hide", GetType(HideKey_ReceiveMessage))
-            RegisterMessage("say", GetType(Say_ReceiveMessage))
+            RegisterMessage("updatemeta", GetType(UpdateMetaReceiveMessage))
+            RegisterMessage("add", GetType(AddReceiveMessage))
+            RegisterMessage("left", GetType(LeftReceiveMessage))
+            RegisterMessage("m", GetType(MoveReceiveMessage))
+            RegisterMessage("c", GetType(CoinReceiveMessage))
+            RegisterMessage("k", GetType(CrownReceiveMessage))
+            RegisterMessage("ks", GetType(SilverCrownReceiveMessage))
+            RegisterMessage("face", GetType(FaceReceiveMessage))
+            RegisterMessage("show", GetType(ShowKeyReceiveMessage))
+            RegisterMessage("hide", GetType(HideKeyReceiveMessage))
+            RegisterMessage("say", GetType(SayReceiveMessage))
             RegisterMessage("say_old", GetType(SayOld_ReceiveMessage))
-            RegisterMessage("autotext", GetType(AutoText_ReceiveMessage))
-            RegisterMessage("write", GetType(Write_ReceiveMessage))
-            RegisterMessage("b", GetType(BlockPlace_ReceiveMessage))
+            RegisterMessage("autotext", GetType(AutoTextReceiveMessage))
+            RegisterMessage("write", GetType(WriteReceiveMessage))
+            RegisterMessage("b", GetType(BlockPlaceReceiveMessage))
             RegisterMessage("bc", GetType(CoinDoorPlace_ReceiveMessage))
-            RegisterMessage("bs", GetType(SoundPlace_ReceiveMessage))
-            RegisterMessage("pt", GetType(PortalPlace_ReceiveMessage))
-            RegisterMessage("lb", GetType(LabelPlace_ReceiveMessage))
-            RegisterMessage("god", GetType(GodMode_ReceiveMessage))
-            RegisterMessage("mod", GetType(ModMode_ReceiveMessage))
-            RegisterMessage("access", GetType(Access_ReceiveMessage))
-            RegisterMessage("lostaccess", GetType(LostAccess_ReceiveMessage))
-            RegisterMessage("tele", GetType(Teleport_ReceiveMessage))
-            RegisterMessage("reset", GetType(Reset_ReceiveMessage))
-            RegisterMessage("clear", GetType(Clear_ReceiveMessage))
-            RegisterMessage("saved", GetType(SaveDone_ReceiveMessage))
-            RegisterMessage("refreshshop", GetType(RefreshShop_ReceiveMessage))
-            RegisterMessage("givewizard", GetType(GiveWizard_ReceiveMessage))
-            RegisterMessage("givewizard2", GetType(GiveFireWizard_ReceiveMessage))
-            RegisterMessage("givewitch", GetType(GiveWitch_ReceiveMessage))
-            RegisterMessage("givegrinch", GetType(GiveGrinch_ReceiveMessage))
+            RegisterMessage("bs", GetType(SoundPlaceReceiveMessage))
+            RegisterMessage("pt", GetType(PortalPlaceReceiveMessage))
+            RegisterMessage("lb", GetType(LabelPlaceReceiveMessage))
+            RegisterMessage("god", GetType(GodModeReceiveMessage))
+            RegisterMessage("mod", GetType(ModModeReceiveMessage))
+            RegisterMessage("access", GetType(AccessReceiveMessage))
+            RegisterMessage("lostaccess", GetType(LostAccessReceiveMessage))
+            RegisterMessage("tele", GetType(TeleportReceiveMessage))
+            RegisterMessage("reset", GetType(ResetReceiveMessage))
+            RegisterMessage("clear", GetType(ClearReceiveMessage))
+            RegisterMessage("saved", GetType(SaveDoneReceiveMessage))
+            RegisterMessage("refreshshop", GetType(RefreshShopReceiveMessage))
+            RegisterMessage("givewizard", GetType(GiveWizardReceiveMessage))
+            RegisterMessage("givewizard2", GetType(GiveFireWizardReceiveMessage))
+            RegisterMessage("givewitch", GetType(GiveWitchReceiveMessage))
+            RegisterMessage("givegrinch", GetType(GiveGrinchReceiveMessage))
         End If
     End Sub
 
@@ -151,11 +162,11 @@ Friend NotInheritable Class InternalConnection
         RaiseEvent OnDisconnect(Me, message)
     End Sub
 
-    Private Sub myConnection_OnMessage(sender As Object, e As PlayerIOClient.Message) Handles myConnection.OnMessage
+    Private Sub myConnection_OnMessage(sender As Object, e As Message) Handles myConnection.OnMessage
         Try
             If myMessageDictionary.ContainsKey(e.Type) Then
                 Dim messageType As Type = myMessageDictionary(e.Type)
-                Dim constructorInfo As ConstructorInfo = messageType.GetConstructor(BindingFlags.NonPublic Or BindingFlags.Instance, Nothing, New Type() {GetType(PlayerIOClient.Message)}, Nothing)
+                Dim constructorInfo As ConstructorInfo = messageType.GetConstructor(BindingFlags.NonPublic Or BindingFlags.Instance, Nothing, New Type() {GetType(Message)}, Nothing)
                 Dim message As ReceiveMessage = CType(constructorInfo.Invoke(New Object() {e}), ReceiveMessage)
                 RaiseEvent OnMessage(Me, message)
             Else
@@ -186,5 +197,6 @@ Friend NotInheritable Class InternalConnection
             Cloud.Logger.Log(LogPriority.Error, "Failed to unregister message: " & pString)
         End Try
     End Sub
+
 #End Region
 End Class
