@@ -82,7 +82,7 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
+    <ApplicationIcon>zResources\Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -156,44 +156,44 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command\Command.vb" />
-    <Compile Include="Components\InternalPlayerManager.vb" />
-    <Compile Include="Components\MessageManager.vb" />
-    <Compile Include="Components\PlayerManager.vb" />
-    <Compile Include="Connection\ConnectionFactory.vb" />
-    <Compile Include="Components\Chatter.vb" />
-    <Compile Include="Command\CommandHandle.vb" />
-    <Compile Include="Command\CommandManager.vb" />
-    <Compile Include="Connection\Connection.vb" />
-    <Compile Include="Connection\ConnectionHandle.vb" />
-    <Compile Include="Connection\ConnectionHandleFactory.vb" />
-    <Compile Include="Components\EventHandlerList.vb" />
-    <Compile Include="Components\InternalChatter.vb" />
-    <Compile Include="Forms\LicenseForm.Designer.vb">
+    <Compile Include="CommandManager\Command.vb" />
+    <Compile Include="PlayerManager\InternalPlayerManager.vb" />
+    <Compile Include="MessageManager\MessageManager.vb" />
+    <Compile Include="PlayerManager\PlayerManager.vb" />
+    <Compile Include="ConnectionManager\ConnectionFactory.vb" />
+    <Compile Include="Chatter\Chatter.vb" />
+    <Compile Include="CommandManager\CommandHandle.vb" />
+    <Compile Include="CommandManager\CommandManager.vb" />
+    <Compile Include="ConnectionManager\Connection.vb" />
+    <Compile Include="ConnectionManager\ConnectionHandle.vb" />
+    <Compile Include="ConnectionManager\ConnectionHandleFactory.vb" />
+    <Compile Include="MessageManager\EventHandlerList.vb" />
+    <Compile Include="Chatter\InternalChatter.vb" />
+    <Compile Include="zForms\LicenseForm.Designer.vb">
       <DependentUpon>LicenseForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="Connection\InternalConnection.vb" />
-    <Compile Include="Components\InternalPlayer.vb" />
-    <Compile Include="Forms\LicenseForm.vb">
+    <Compile Include="ConnectionManager\InternalConnection.vb" />
+    <Compile Include="Player\InternalPlayer.vb" />
+    <Compile Include="zForms\LicenseForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\LoginForm.Designer.vb">
+    <Compile Include="zForms\LoginForm.Designer.vb">
       <DependentUpon>LoginForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\LoginForm.vb">
+    <Compile Include="zForms\LoginForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Miscellaneous\Config.vb" />
+    <Compile Include="zMisc\Config.vb" />
     <Compile Include="Logger\LeLogger.vb" />
     <Compile Include="Logger\Logger.vb" />
-    <Compile Include="Components\PluginManager.vb" />
+    <Compile Include="PluginManager\PluginManager.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Startup\CloudApplicationContext.vb" />
-    <Compile Include="Startup\ModuleMain.vb" />
+    <Compile Include="zStartup\CloudApplicationContext.vb" />
+    <Compile Include="zStartup\ModuleMain.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -204,8 +204,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Components\PluginObject.vb" />
-    <Compile Include="Startup\PluginLoader.vb" />
+    <Compile Include="PluginManager\PluginObject.vb" />
+    <Compile Include="PluginManager\PluginLoader.vb" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -249,13 +249,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Icon.ico" />
+    <None Include="zResources\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\LicenseForm.resx">
+    <EmbeddedResource Include="zForms\LicenseForm.resx">
       <DependentUpon>LicenseForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\LoginForm.resx">
+    <EmbeddedResource Include="zForms\LoginForm.resx">
       <DependentUpon>LoginForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -263,6 +263,9 @@
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ComponentManager\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
