@@ -1,4 +1,7 @@
-﻿Public NotInheritable Class World
+﻿Imports PlayerIOClient
+
+Public NotInheritable Class World
+
 #Region "Fields"
     Private Const InitOffset As UInteger = 14
     Private ReadOnly myBlocks(,,) As WorldBlock
@@ -7,21 +10,24 @@
 
 #Region "Properties"
     Private ReadOnly myEncryption As String
+
     Public ReadOnly Property Encryption As String
         Get
             Return myEncryption
         End Get
     End Property
+
 #End Region
 
 #Region "Methods"
-    Friend Sub New(connection As IConnection(Of Player), initMessage As Init_ReceiveMessage)
+
+    Friend Sub New(connection As IConnection(Of Player), initMessage As InitReceiveMessage)
         myConnection = connection
         myEncryption = initMessage.Encryption
         myBlocks = ParseWorld(initMessage.PlayerIOMessage, initMessage.SizeX, initMessage.SizeY, InitOffset)
     End Sub
 
-    Private Function ParseWorld(m As PlayerIOClient.Message, sizeX As Integer, sizeY As Integer, offset As UInteger) As WorldBlock(,,)
+    Private Function ParseWorld(m As Message, sizeX As Integer, sizeY As Integer, offset As UInteger) As WorldBlock(,,)
         Dim value(1, sizeX, sizeY) As WorldBlock
         Dim pointer As UInteger = offset
         Do Until pointer = CUInt(m.Count - 1)
@@ -87,5 +93,6 @@
             Return myBlocks(layer, x, y)
         End Get
     End Property
+
 #End Region
 End Class

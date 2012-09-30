@@ -32,7 +32,7 @@ Friend Class CommandManager
         Next
     End Sub
 
-    Private Sub myConnection_OnReceiveSay(sender As Object, e As Say_ReceiveMessage)
+    Private Sub myConnection_OnReceiveSay(sender As Object, e As SayReceiveMessage)
         If e.Text.StartsWith("!", StringComparison.Ordinal) Then
             ProcessMessage(e.Text.Substring(1), myConnection.PlayerManager.Players(e.UserID))
         End If
