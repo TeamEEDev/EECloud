@@ -10,13 +10,13 @@ Public Class SoundPlaceSendMessage
         Me.SoundID = soundID
     End Sub
 
-    Friend Overrides Function GetMessage(connection As IConnection(Of player)) As Message
+    Friend Overrides Function GetMessage(world As World) As Message
         If IsSound(Block) Then
-            Dim myMessage As Message = MyBase.GetMessage(connection)
+            Dim myMessage As Message = MyBase.GetMessage(world)
             myMessage.Add(SoundID)
             Return myMessage
         Else
-            Return MyBase.GetMessage(connection)
+            Return MyBase.GetMessage(world)
         End If
     End Function
 End Class

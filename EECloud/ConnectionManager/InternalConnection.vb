@@ -37,14 +37,6 @@ Friend NotInheritable Class InternalConnection
         End Get
     End Property
 
-    Private ReadOnly myDefaultConnection As Connection(Of Player)
-
-    Friend ReadOnly Property DefaultConnection As Connection(Of Player)
-        Get
-            Return myDefaultConnection
-        End Get
-    End Property
-
     Private ReadOnly myInternalChatter As InternalChatter
 
     Friend ReadOnly Property InternalChatter As InternalChatter
@@ -86,7 +78,6 @@ Friend NotInheritable Class InternalConnection
 
         myInternalChatter = New InternalChatter(Me)
         myInternalPlayerManager = New InternalPlayerManager(Me)
-        myDefaultConnection = New Connection(Of Player)(Me, New Chatter(myInternalChatter, "Bot"))
 
         RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoinReceiveMessage))
         RegisterMessage("info", GetType(InfoReceiveMessage))
@@ -100,7 +91,7 @@ Friend NotInheritable Class InternalConnection
         Select Case e.GetType
             Case GetType(InitReceiveMessage)
                 Dim m As InitReceiveMessage = CType(e, InitReceiveMessage)
-                myWorld = New World(DefaultConnection, m)
+                myWorld = New World(Me, m)
 
                 UnRegisterMessage("init")
                 UnRegisterMessage("groupdisallowedjoin")
@@ -115,7 +106,7 @@ Friend NotInheritable Class InternalConnection
 
     Friend Sub Send(message As SendMessage)
         If myConnection IsNot Nothing Then
-            myConnection.Send(message.GetMessage(DefaultConnection))
+            myConnection.Send(message.GetMessage(World))
         End If
     End Sub
 

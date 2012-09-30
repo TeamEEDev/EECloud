@@ -9,13 +9,13 @@ Public Class LabelPlaceSendMessage
         Me.Text = text
     End Sub
 
-    Friend Overrides Function GetMessage(connection As IConnection(Of player)) As Message
+    Friend Overrides Function GetMessage(world As World) As Message
         If IsLabel(Block) Then
-            Dim myMessage As Message = MyBase.GetMessage(connection)
-            myMessage.Add(Text)
-            Return myMessage
+            Dim message As Message = MyBase.GetMessage(world)
+            message.Add(Text)
+            Return message
         Else
-            Return MyBase.GetMessage(connection)
+            Return MyBase.GetMessage(world)
         End If
     End Function
 End Class

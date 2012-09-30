@@ -14,7 +14,7 @@ Public Class BlockPlaceSendMessage
         Me.Block = block
     End Sub
 
-    Friend Overrides Function GetMessage(connection As IConnection(Of Player)) As Message
-        Return Message.Create(connection.World.Encryption, CorrectLayer(Block, Layer), X, Y, Block)
+    Friend Overrides Function GetMessage(world As World) As Message
+        Return Message.Create(world.Encryption, CorrectLayer(Block, Layer), X, Y, Block)
     End Function
 End Class

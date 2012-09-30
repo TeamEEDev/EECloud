@@ -2,7 +2,7 @@
     Implements IPlayer
 
 #Region "Fields"
-    Private WithEvents myConnection As Connection(Of Player)
+    Private WithEvents myConnection As InternalConnection
 #End Region
 
 #Region "Properties"
@@ -145,7 +145,7 @@
     Friend ReadOnly Property HasCrown As Boolean Implements IPlayer.HasCrown
         Get
             Try
-                Return myConnection.PlayerManager.Crown.UserID = myUserID
+                Return myConnection.InternalPlayerManager.Crown.UserID = myUserID
             Catch
                 Return False
             End Try
@@ -156,7 +156,7 @@
 
 #Region "Methods"
 
-    Friend Sub New(connection As Connection(Of Player), addMessage As AddReceiveMessage)
+    Friend Sub New(connection As InternalConnection, addMessage As AddReceiveMessage)
         myConnection = connection
         myUserID = addMessage.UserID
         myUsername = addMessage.Username

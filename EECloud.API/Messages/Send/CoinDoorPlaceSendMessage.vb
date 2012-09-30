@@ -10,13 +10,13 @@ Public Class CoinDoorPlaceSendMessage
         Me.CoinsToCollect = coinsToCollect
     End Sub
 
-    Friend Overrides Function GetMessage(connection As IConnection(Of player)) As Message
+    Friend Overrides Function GetMessage(world As World) As Message
         If IsCoinDoor(Block) Then
-            Dim myMessage As Message = MyBase.GetMessage(connection)
-            myMessage.Add(CoinsToCollect)
-            Return myMessage
+            Dim message As Message = MyBase.GetMessage(world)
+            message.Add(CoinsToCollect)
+            Return message
         Else
-            Return MyBase.GetMessage(connection)
+            Return MyBase.GetMessage(world)
         End If
     End Function
 End Class

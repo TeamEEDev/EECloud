@@ -3,7 +3,7 @@
 
 #Region "Fields"
     Private WithEvents myInternalPlayerManager As InternalPlayerManager
-    Private WithEvents myConnection As Connection(Of Player)
+    Private WithEvents myConnection As InternalConnection
 #End Region
 
 #Region "Properties"
@@ -41,7 +41,7 @@
 
 #Region "Methods"
 
-    Sub New(internalPlayerManager As InternalPlayerManager, ByVal connection As Connection(Of Player))
+    Sub New(internalPlayerManager As InternalPlayerManager, ByVal connection As InternalConnection)
         myInternalPlayerManager = internalPlayerManager
         myConnection = connection
         For Each player As InternalPlayer In myInternalPlayerManager.Players.Values

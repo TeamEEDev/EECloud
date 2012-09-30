@@ -55,7 +55,7 @@
     Friend Sub New(internalConnection As InternalConnection, chatter As IChatter)
         Me.InternalConnection = internalConnection
         myChatter = chatter
-        myPlayerManager = New PlayerManager(Of TPlayer)(internalConnection.InternalPlayerManager, internalConnection.DefaultConnection)
+        myPlayerManager = New PlayerManager(Of TPlayer)(internalConnection.InternalPlayerManager, internalConnection)
     End Sub
 
     Protected Sub New()

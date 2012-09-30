@@ -8,7 +8,7 @@ Public Class GodModeSendMessage
         Me.GodModeEnabled = godModeEnabled
     End Sub
 
-    Friend Overrides Function GetMessage(connection As IConnection(Of player)) As Message
+    Friend Overrides Function GetMessage(world As World) As Message
         Return Message.Create("god", GodModeEnabled)
     End Function
 End Class
