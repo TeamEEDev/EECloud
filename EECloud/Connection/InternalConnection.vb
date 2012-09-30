@@ -2,7 +2,7 @@
 
 Friend NotInheritable Class InternalConnection
 #Region "Fields"
-    Private ReadOnly myConnection As PlayerIOClient.Connection
+    Private WithEvents myConnection As PlayerIOClient.Connection
     Private ReadOnly myMessageDictionary As New Dictionary(Of String, Type)
 #End Region
 
@@ -72,16 +72,6 @@ Friend NotInheritable Class InternalConnection
         myWorldID = worldID
         myPluginManager = pluginManager
 
-        myConnection.AddOnMessage(AddressOf MessageReceiver)
-        myConnection.AddOnDisconnect(
-            Sub(sender As Object, message As String)
-                RaiseEvent OnDisconnect(Me, message)
-            End Sub)
-        If Not myConnection.Connected Then 'Just in case we are too late to catch the error
-            RaiseEvent OnDisconnect(Me, "")
-        End If
-
-
         RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoin_ReceiveMessage))
         RegisterMessage("info", GetType(Info_ReceiveMessage))
         RegisterMessage("upgrade", GetType(Upgrade_ReceiveMessage))
@@ -104,22 +94,6 @@ Friend NotInheritable Class InternalConnection
                 Cloud.Logger.Log(LogPriority.Info, "The game has been updated!")
                 Await Cloud.Service.SetSettingAsync("GameVersion", CStr(ConnectionHandle.GameVersionNumber))
         End Select
-    End Sub
-
-    Private Sub MessageReceiver(sender As Object, e As PlayerIOClient.Message)
-        Try
-            If myMessageDictionary.ContainsKey(e.Type) Then
-                Dim messageType As Type = myMessageDictionary(e.Type)
-                Dim constructorInfo As ConstructorInfo = messageType.GetConstructor(BindingFlags.NonPublic Or BindingFlags.Instance, Nothing, New Type() {GetType(PlayerIOClient.Message)}, Nothing)
-                Dim message As ReceiveMessage = CType(constructorInfo.Invoke(New Object() {e}), ReceiveMessage)
-                RaiseEvent OnMessage(Me, message)
-            Else
-                Cloud.Logger.Log(LogPriority.Warning, "Received not registered message: " & e.Type)
-            End If
-        Catch ex As KeyNotFoundException
-            Cloud.Logger.Log(LogPriority.Error, "Failed to parse message: " & e.Type)
-            Cloud.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled: {1} {2}", ex.ToString, ex.Message, ex.StackTrace))
-        End Try
     End Sub
 
     Friend Sub Send(message As SendMessage)
@@ -171,6 +145,26 @@ Friend NotInheritable Class InternalConnection
             RegisterMessage("givewitch", GetType(GiveWitch_ReceiveMessage))
             RegisterMessage("givegrinch", GetType(GiveGrinch_ReceiveMessage))
         End If
+    End Sub
+
+    Private Sub myConnection_OnDisconnect(sender As Object, message As String) Handles myConnection.OnDisconnect
+        RaiseEvent OnDisconnect(Me, message)
+    End Sub
+
+    Private Sub myConnection_OnMessage(sender As Object, e As PlayerIOClient.Message) Handles myConnection.OnMessage
+        Try
+            If myMessageDictionary.ContainsKey(e.Type) Then
+                Dim messageType As Type = myMessageDictionary(e.Type)
+                Dim constructorInfo As ConstructorInfo = messageType.GetConstructor(BindingFlags.NonPublic Or BindingFlags.Instance, Nothing, New Type() {GetType(PlayerIOClient.Message)}, Nothing)
+                Dim message As ReceiveMessage = CType(constructorInfo.Invoke(New Object() {e}), ReceiveMessage)
+                RaiseEvent OnMessage(Me, message)
+            Else
+                Cloud.Logger.Log(LogPriority.Warning, "Received not registered message: " & e.Type)
+            End If
+        Catch ex As KeyNotFoundException
+            Cloud.Logger.Log(LogPriority.Error, "Failed to parse message: " & e.Type)
+            Cloud.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled: {1} {2}", ex.ToString, ex.Message, ex.StackTrace))
+        End Try
     End Sub
 
     Private Sub RegisterMessage(str As String, type As Type)

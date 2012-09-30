@@ -1,3 +1,3 @@
-﻿Public Interface IConnector
-    Function CreateConnection() As IConnectionHandle
+﻿Public Interface IConnectionHandleFactory
+    Function GetConnectionHandle() As IConnectionHandle
 End Interface

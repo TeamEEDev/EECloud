@@ -23,7 +23,8 @@
 
     Private Function ParseWorld(m As PlayerIOClient.Message, sizeX As Integer, sizeY As Integer, offset As UInteger) As WorldBlock(,,)
         Dim value(1, sizeX, sizeY) As WorldBlock
-        For pointer As UInteger = offset To CUInt(m.Count - 1) Step 0
+        Dim pointer As UInteger = offset
+        Do Until pointer = CUInt(m.Count - 1)
             Dim block As BlockType = CType(m.Item(pointer), BlockType)
             pointer = CUInt(pointer + 1)
             Dim layer As Layer = CType(m.Item(pointer), Layer)
@@ -77,7 +78,7 @@
                         value(layer, x, y) = New WorldBlock(layer, block)
                     Next
             End Select
-        Next
+        Loop
         Return value
     End Function
 

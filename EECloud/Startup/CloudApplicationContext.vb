@@ -28,10 +28,10 @@ Friend NotInheritable Class CloudApplicationContext
         Cloud.AppEnvironment = CType([Enum].Parse(GetType(AppEnvironment), AppSettings("Environment"), True), AppEnvironment)
         Cloud.Logger = New Logger
         Cloud.Service = New EEService.EESClient
-        Cloud.Connector = New Connector
+        Cloud.Connector = New ConnectionHandleFactory
 
         'Loading Plugin assemblies
-        Dim handle As IConnectionHandle = Cloud.Connector.CreateConnection
+        Dim handle As IConnectionHandle = Cloud.Connector.GetConnectionHandle
 
         Dim allAssemblies As New List(Of Assembly)
         Dim path As String = My.Application.Info.DirectoryPath

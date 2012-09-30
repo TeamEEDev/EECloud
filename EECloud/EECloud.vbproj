@@ -159,13 +159,13 @@
     <Compile Include="Command\Command.vb" />
     <Compile Include="Components\InternalPlayerManager.vb" />
     <Compile Include="Components\PlayerManager.vb" />
-    <Compile Include="Connection\Creator.vb" />
+    <Compile Include="Connection\ConnectionFactory.vb" />
     <Compile Include="Components\Chatter.vb" />
     <Compile Include="Command\CommandHandle.vb" />
     <Compile Include="Command\CommandManager.vb" />
     <Compile Include="Connection\Connection.vb" />
     <Compile Include="Connection\ConnectionHandle.vb" />
-    <Compile Include="Connection\Connector.vb" />
+    <Compile Include="Connection\ConnectionHandleFactory.vb" />
     <Compile Include="Components\EventHandlerList.vb" />
     <Compile Include="Components\InternalChatter.vb" />
     <Compile Include="Forms\LicenseForm.Designer.vb">
