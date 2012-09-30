@@ -1,4 +1,4 @@
-﻿Friend Class Connection (Of TPlayer As {Player, New})
+﻿Friend Class Connection(Of TPlayer As {Player, New})
     Implements IConnection(Of TPlayer)
 
 #Region "Fields"

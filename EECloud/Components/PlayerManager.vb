@@ -1,4 +1,4 @@
-﻿Friend NotInheritable Class PlayerManager (Of TPlayer As {Player, New})
+﻿Friend NotInheritable Class PlayerManager(Of TPlayer As {Player, New})
     Implements IPlayerManager(Of TPlayer)
 
 #Region "Fields"

@@ -1,4 +1,4 @@
-﻿Public NotInheritable Class SendEventArgs (Of T As SendMessage)
+﻿Public NotInheritable Class SendEventArgs(Of T As SendMessage)
     Private ReadOnly myMessage As T
 
     Public ReadOnly Property Message As T

@@ -1,6 +1,7 @@
 ﻿Friend NotInheritable Class ConnectionFactory
     Implements IConnectionFactory
     Private ReadOnly myInternalConnection As InternalConnection
+
     Sub New(internalConnection As InternalConnection)
         myInternalConnection = internalConnection
     End Sub
