@@ -1,8 +1,11 @@
-﻿Public Class Left_ReceiveMessage
-    Inherits ReceiveMessage
-    Public ReadOnly UserID As Integer '0
+﻿Imports PlayerIOClient
 
-    Friend Sub New(message As PlayerIOClient.Message)
+Public Class Left_ReceiveMessage
+    Inherits ReceiveMessage
+    Public ReadOnly UserID As Integer
+    '0
+
+    Friend Sub New(message As Message)
         MyBase.New(message)
 
         UserID = message.GetInteger(0)

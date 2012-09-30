@@ -1,11 +1,9 @@
-﻿Imports System.Configuration
+﻿Imports System.Text
+Imports System.Threading
 Imports System.Collections.Concurrent
-Imports System.Linq
 Imports System.Net.Sockets
 Imports System.IO
-Imports System.Threading
-
-Imports System.Text
+Imports System.Configuration
 
 Friend NotInheritable Class LeLogger
     Implements IDisposable
@@ -29,6 +27,7 @@ Friend NotInheritable Class LeLogger
 #End Region
 
 #Region "Methods"
+
     Friend Sub New()
         myQueue = New BlockingCollection(Of Byte())(QueueSize)
 
@@ -180,7 +179,8 @@ Friend NotInheritable Class LeLogger
         End Sub
 
 #Region "IDisposable Support"
-        Private myDisposedValue As Boolean ' To detect redundant calls
+        Private myDisposedValue As Boolean
+        ' To detect redundant calls
 
         Private Sub Dispose(disposing As Boolean)
             If Not myDisposedValue Then
@@ -194,8 +194,10 @@ Friend NotInheritable Class LeLogger
         Friend Sub Dispose() Implements IDisposable.Dispose
             Dispose(True)
         End Sub
+
 #End Region
     End Class
+
 #End Region
 
 #Region "IDisposable Support"
@@ -211,8 +213,10 @@ Friend NotInheritable Class LeLogger
         End If
         myDisposedValue = True
     End Sub
+
     Friend Sub Dispose() Implements IDisposable.Dispose
         Dispose(True)
     End Sub
+
 #End Region
 End Class

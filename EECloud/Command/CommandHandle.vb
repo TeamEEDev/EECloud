@@ -40,6 +40,7 @@ Friend NotInheritable Class CommandHandle
     End Sub
 
     Private ReadOnly myMinimumArgs As Integer
+
     Friend ReadOnly Property MinimumArgs As Integer
         Get
             Return myMinimumArgs
@@ -47,6 +48,7 @@ Friend NotInheritable Class CommandHandle
     End Property
 
     Private ReadOnly myRecommendedArgs As Integer
+
     Friend ReadOnly Property RecommendedArgs As Integer
         Get
             Return myRecommendedArgs
@@ -54,6 +56,7 @@ Friend NotInheritable Class CommandHandle
     End Property
 
     Private ReadOnly mySyntaxStr As String
+
     Public Overrides Function ToString() As String
         Return mySyntaxStr
     End Function

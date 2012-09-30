@@ -1,9 +1,13 @@
-﻿Public Class Face_ReceiveMessage
-    Inherits ReceiveMessage
-    Public ReadOnly UserID As Integer '0
-    Public ReadOnly Face As Smiley  '1
+﻿Imports PlayerIOClient
 
-    Friend Sub New(message As PlayerIOClient.Message)
+Public Class Face_ReceiveMessage
+    Inherits ReceiveMessage
+    Public ReadOnly UserID As Integer
+    '0
+    Public ReadOnly Face As Smiley
+    '1
+
+    Friend Sub New(message As Message)
         MyBase.New(message)
 
         UserID = message.GetInteger(0)

@@ -10,6 +10,7 @@
     End Sub
 
     Private ReadOnly myPortalRotation As PortalRotation
+
     Public ReadOnly Property PortalRotation As PortalRotation
         Get
             Return myPortalRotation
@@ -17,6 +18,7 @@
     End Property
 
     Private ReadOnly myPortalID As Integer
+
     Public ReadOnly Property PortalID As Integer
         Get
             Return myPortalID
@@ -24,6 +26,7 @@
     End Property
 
     Private ReadOnly myPortalTarget As Integer
+
     Public ReadOnly Property PortalTarget As Integer
         Get
             Return myPortalTarget

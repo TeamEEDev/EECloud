@@ -46,7 +46,7 @@ Friend NotInheritable Class LoginForm
                     My.Settings.LoginPassword = TextBoxPassword.Text
                     My.Settings.LoginWorldID = TextBoxWorldID.Text
                     My.Settings.Save()
-                    DialogResult = Windows.Forms.DialogResult.OK
+                    DialogResult = DialogResult.OK
                     Close()
                 Else
                     MsgBox("You didn't enter the world's ID you want to join to.", MsgBoxStyle.Critical, "Error")

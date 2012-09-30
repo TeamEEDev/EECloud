@@ -9,6 +9,7 @@
 
 #Region "Properties"
     Private ReadOnly myAttribute As PluginAttribute
+
     Friend ReadOnly Property Attribute As PluginAttribute Implements IPluginObject.Attribute
         Get
             Return myAttribute
@@ -26,9 +27,11 @@
             Return myPluginType.Name
         End Get
     End Property
+
 #End Region
 
 #Region "Methods"
+
     Friend Sub New(plugin As Type, ByVal attribute As PluginAttribute)
         myAttribute = attribute
         If GetType(IPlugin).IsAssignableFrom(plugin) Then
@@ -57,7 +60,6 @@
         End SyncLock
     End Sub
 
-
     Friend Sub [Stop]() Implements IPluginObject.Stop
         SyncLock myLockObj
             If Started Then
@@ -84,7 +86,6 @@
             Enable(False)
         End If
     End Sub
+
 #End Region
-
-
 End Class

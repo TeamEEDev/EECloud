@@ -1,6 +1,7 @@
 ﻿Public Class EECloudException
     Inherits Exception
     Private ReadOnly myErrorCode As ErrorCode
+
     Public ReadOnly Property ErrorCode As ErrorCode
         Get
             Return myErrorCode
@@ -8,6 +9,7 @@
     End Property
 
     Private ReadOnly myMessage As String
+
     Public Overrides ReadOnly Property Message As String
         Get
             Return myMessage

@@ -1,4 +1,5 @@
 ﻿Imports System.Threading.Tasks
+Imports PlayerIOClient
 
 Friend NotInheritable Class ConnectionHandle
     Inherits Connection(Of Player)
@@ -11,6 +12,7 @@ Friend NotInheritable Class ConnectionHandle
 
 #Region "Properties"
     Private myCreator As IConnectionFactory
+
     Friend ReadOnly Property Creator As IConnectionFactory
         Get
             Return myCreator
@@ -18,14 +20,17 @@ Friend NotInheritable Class ConnectionHandle
     End Property
 
     Private ReadOnly myPluginManager As IPluginManager = New PluginManager
+
     Friend Overrides ReadOnly Property PluginManager As IPluginManager
         Get
             Return myPluginManager
         End Get
     End Property
+
 #End Region
 
 #Region "Methods"
+
     Friend Sub New()
         If GameVersionNumber = 0 Then
             Try
@@ -40,21 +45,21 @@ Friend NotInheritable Class ConnectionHandle
         Await Task.Run(
             Sub()
                 Try
-                    Dim ioClient As PlayerIOClient.Client = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.GameID, username, password)
-                    Dim ioConnection As PlayerIOClient.Connection = GetIoConnection(ioClient, id)
+                    Dim ioClient As Client = PlayerIO.QuickConnect.SimpleConnect(Config.GameID, username, password)
+                    Dim ioConnection As Connection = GetIoConnection(ioClient, id)
                     InternalConnection = New InternalConnection(ioConnection, id, myPluginManager)
                     myCreator = New ConnectionFactory(InternalConnection)
-                Catch ex As PlayerIOClient.PlayerIOError
+                Catch ex As PlayerIOError
                     Throw New EECloudPlayerIOException(ex)
-                End Try
-            End Sub)
+                          End Try
+                          End Sub)
     End Function
 
-    Private Function GetIoConnection(client As PlayerIOClient.Client, id As String) As PlayerIOClient.Connection
+    Private Function GetIoConnection(client As Client, id As String) As Connection
         Try
             Return client.Multiplayer.CreateJoinRoom(id, Config.NormalRoom & GameVersionNumber, True, Nothing, Nothing)
-        Catch ex As PlayerIOClient.PlayerIOError
-            If ex.ErrorCode = PlayerIOClient.ErrorCode.UnknownRoomType Then
+        Catch ex As PlayerIOError
+            If ex.ErrorCode = ErrorCode.UnknownRoomType Then
                 UpdateVersion(ex)
                 Return GetIoConnection(client, id)
             Else
@@ -63,9 +68,9 @@ Friend NotInheritable Class ConnectionHandle
         End Try
     End Function
 
-    Private Sub UpdateVersion(ex As PlayerIOClient.PlayerIOError)
+    Private Sub UpdateVersion(ex As PlayerIOError)
         Dim errorMessage() As String = ex.Message.Split("["c)(1).Split(CChar(" "))
-        For N = errorMessage.Length - 1 To 0 Step -1
+        For N = errorMessage.Length - 1 To 0 Step - 1
             Dim currentRoomType As String
             currentRoomType = errorMessage(N)
             If currentRoomType.StartsWith(Config.NormalRoom, StringComparison.Ordinal) Then
@@ -74,11 +79,12 @@ Friend NotInheritable Class ConnectionHandle
                 Exit Sub
             End If
         Next
-        Throw New EECloudException(ErrorCode.GameVersionNotInList, "Unable to get room version")
+        Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get room version")
     End Sub
 
     Friend Sub Disconnect() Implements IConnectionHandle.Disconnect
         InternalConnection.Disconnect()
     End Sub
+
 #End Region
 End Class

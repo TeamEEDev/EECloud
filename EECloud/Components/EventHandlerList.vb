@@ -1,9 +1,11 @@
 ﻿Friend NotInheritable Class EventHandlerList
+
 #Region "Fields"
     Private myMyHead As ListEntry
 #End Region
 
 #Region "Properties"
+
     Default Friend ReadOnly Property Item(ByVal key As Object) As [Delegate]
         Get
             Dim listEntry As ListEntry = Find(key)
@@ -14,9 +16,11 @@
             End If
         End Get
     End Property
+
 #End Region
 
 #Region "Methods"
+
     Friend Sub Add(ByVal key As Object, ByVal value As [Delegate])
         Dim listEntry As ListEntry = Find(key)
         If listEntry Is Nothing Then
@@ -40,9 +44,11 @@
         End While
         Return listEntry
     End Function
+
 #End Region
 
 #Region "Nested Classes"
+
     Private NotInheritable Class ListEntry
         Friend Handler As [Delegate]
         Friend ReadOnly Key As Object
@@ -54,5 +60,6 @@
             Me.Handler = handler
         End Sub
     End Class
+
 #End Region
 End Class

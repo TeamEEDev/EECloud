@@ -1,8 +1,11 @@
-﻿Public Class Teleport_ReceiveMessage
-    Inherits ReceiveMessage
-    Public ReadOnly ResetCoins As Boolean '0
+﻿Imports PlayerIOClient
 
-    Friend Sub New(message As PlayerIOClient.Message)
+Public Class Teleport_ReceiveMessage
+    Inherits ReceiveMessage
+    Public ReadOnly ResetCoins As Boolean
+    '0
+
+    Friend Sub New(message As Message)
         MyBase.New(message)
 
         ResetCoins = message.GetBoolean(0)

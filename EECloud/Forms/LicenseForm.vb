@@ -37,7 +37,7 @@ Friend Class LicenseForm
                 My.Settings.LicenceUsername = TextBoxUsername.Text
                 My.Settings.LicenceKey = TextBoxKey.Text
                 My.Settings.Save()
-                DialogResult = Windows.Forms.DialogResult.OK
+                DialogResult = DialogResult.OK
                 Close()
             Else
                 MsgBox("You didn't enter your license key.", MsgBoxStyle.Critical, "Error")

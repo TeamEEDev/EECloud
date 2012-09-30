@@ -8,6 +8,7 @@
     End Sub
 
     Private ReadOnly myText As String
+
     Public ReadOnly Property Text As String
         Get
             Return myText
