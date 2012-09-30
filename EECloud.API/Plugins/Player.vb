@@ -6,6 +6,7 @@
 #End Region
 
 #Region "Properties"
+
     Public ReadOnly Property Coins As Integer Implements IPlayer.Coins
         Get
             Try
@@ -185,11 +186,14 @@
             End Try
         End Get
     End Property
+
 #End Region
 
 #Region "Methods"
+
     Friend Sub SetupPlayer(player As IPlayer)
         myPlayer = player
     End Sub
+
 #End Region
 End Class

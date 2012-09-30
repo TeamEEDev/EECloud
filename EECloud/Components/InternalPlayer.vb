@@ -7,6 +7,7 @@
 
 #Region "Properties"
     Private myCoins As Integer
+
     Friend ReadOnly Property Coins As Integer Implements IPlayer.Coins
         Get
             Return myCoins
@@ -14,6 +15,7 @@
     End Property
 
     Private myPlayerPosX As Integer
+
     Friend ReadOnly Property PlayerPosX As Integer Implements IPlayer.PlayerPosX
         Get
             Return myPlayerPosX
@@ -21,6 +23,7 @@
     End Property
 
     Private myPlayerPosY As Integer
+
     Friend ReadOnly Property PlayerPosY As Integer Implements IPlayer.PlayerPosY
         Get
             Return myPlayerPosY
@@ -28,6 +31,7 @@
     End Property
 
     Private ReadOnly myUserID As Integer
+
     Friend ReadOnly Property UserID As Integer Implements IPlayer.UserID
         Get
             Return myUserID
@@ -35,6 +39,7 @@
     End Property
 
     Private ReadOnly myUsername As String
+
     Friend ReadOnly Property Username As String Implements IPlayer.Username
         Get
             Return myUsername
@@ -42,6 +47,7 @@
     End Property
 
     Private myFace As Smiley
+
     Friend ReadOnly Property Face As Smiley Implements IPlayer.Face
         Get
             Return myFace
@@ -49,6 +55,7 @@
     End Property
 
     Private ReadOnly myHasChat As Boolean
+
     Friend ReadOnly Property HasChat As Boolean Implements IPlayer.HasChat
         Get
             Return myHasChat
@@ -56,6 +63,7 @@
     End Property
 
     Private myHorizontal As Double
+
     Friend ReadOnly Property Horizontal As Double Implements IPlayer.Horizontal
         Get
             Return myHorizontal
@@ -63,6 +71,7 @@
     End Property
 
     Private myIsGod As Boolean
+
     Friend ReadOnly Property IsGod As Boolean Implements IPlayer.IsGod
         Get
             Return myIsGod
@@ -70,6 +79,7 @@
     End Property
 
     Private myIsMod As Boolean
+
     Friend ReadOnly Property IsMod As Boolean Implements IPlayer.IsMod
         Get
             Return myIsMod
@@ -77,6 +87,7 @@
     End Property
 
     Private ReadOnly myIsMyFriend As Boolean
+
     Friend ReadOnly Property IsMyFriend As Boolean Implements IPlayer.IsMyFriend
         Get
             Return myIsMyFriend
@@ -84,6 +95,7 @@
     End Property
 
     Private myModifierX As Double
+
     Friend ReadOnly Property ModifierX As Double Implements IPlayer.ModifierX
         Get
             Return myModifierX
@@ -91,6 +103,7 @@
     End Property
 
     Private myModifierY As Double
+
     Friend ReadOnly Property ModifierY As Double Implements IPlayer.ModifierY
         Get
             Return myModifierY
@@ -98,6 +111,7 @@
     End Property
 
     Private mySpeedX As Double
+
     Friend ReadOnly Property SpeedX As Double Implements IPlayer.SpeedX
         Get
             Return mySpeedX
@@ -105,6 +119,7 @@
     End Property
 
     Private mySpeedY As Double
+
     Friend ReadOnly Property SpeedY As Double Implements IPlayer.SpeedY
         Get
             Return mySpeedY
@@ -112,6 +127,7 @@
     End Property
 
     Private myVertical As Double
+
     Friend ReadOnly Property Vertical As Double Implements IPlayer.Vertical
         Get
             Return myVertical
@@ -119,6 +135,7 @@
     End Property
 
     Private myHasSilverCrown As Boolean
+
     Friend ReadOnly Property HasSilverCrown As Boolean Implements IPlayer.HasSilverCrown
         Get
             Return myHasSilverCrown
@@ -134,9 +151,11 @@
             End Try
         End Get
     End Property
+
 #End Region
 
 #Region "Methods"
+
     Friend Sub New(connection As Connection(Of Player), addMessage As Add_ReceiveMessage)
         myConnection = connection
         myUserID = addMessage.UserID
@@ -207,5 +226,6 @@
         End If
         'TODO: update coordinates
     End Sub
+
 #End Region
 End Class

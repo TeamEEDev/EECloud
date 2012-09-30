@@ -1,17 +1,29 @@
-﻿Public Class Add_ReceiveMessage
-    Inherits ReceiveMessage
-    Public ReadOnly UserID As Integer '0
-    Public ReadOnly Username As String '1
-    Public ReadOnly Face As Smiley '2
-    Public ReadOnly PlayerPosX As Integer '3
-    Public ReadOnly PlayerPosY As Integer '4
-    Public ReadOnly IsGod As Boolean '5
-    Public ReadOnly IsMod As Boolean '6
-    Public ReadOnly HasChat As Boolean '7
-    Public ReadOnly Coins As Integer '8
-    Public ReadOnly IsMyFriend As Boolean '9
+﻿Imports PlayerIOClient
 
-    Friend Sub New(message As PlayerIOClient.Message)
+Public Class Add_ReceiveMessage
+    Inherits ReceiveMessage
+    Public ReadOnly UserID As Integer
+    '0
+    Public ReadOnly Username As String
+    '1
+    Public ReadOnly Face As Smiley
+    '2
+    Public ReadOnly PlayerPosX As Integer
+    '3
+    Public ReadOnly PlayerPosY As Integer
+    '4
+    Public ReadOnly IsGod As Boolean
+    '5
+    Public ReadOnly IsMod As Boolean
+    '6
+    Public ReadOnly HasChat As Boolean
+    '7
+    Public ReadOnly Coins As Integer
+    '8
+    Public ReadOnly IsMyFriend As Boolean
+    '9
+
+    Friend Sub New(message As Message)
         MyBase.New(message)
 
         UserID = message.GetInteger(0)

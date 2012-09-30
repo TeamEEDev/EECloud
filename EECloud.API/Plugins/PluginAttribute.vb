@@ -10,6 +10,7 @@ Public Class PluginAttribute
     Public Property StartupPriority As PluginStartupPriority
 
     Private _chatName As String = Nothing
+
     Public Property ChatName As String
         Get
             Return _ChatName

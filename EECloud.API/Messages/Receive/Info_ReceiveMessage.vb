@@ -1,9 +1,13 @@
-﻿Public Class Info_ReceiveMessage
-    Inherits ReceiveMessage
-    Public ReadOnly Title As String '0
-    Public ReadOnly Text As String '1
+﻿Imports PlayerIOClient
 
-    Friend Sub New(message As PlayerIOClient.Message)
+Public Class Info_ReceiveMessage
+    Inherits ReceiveMessage
+    Public ReadOnly Title As String
+    '0
+    Public ReadOnly Text As String
+    '1
+
+    Friend Sub New(message As Message)
         MyBase.New(message)
 
         Title = message.GetString(0)

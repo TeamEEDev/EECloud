@@ -1,8 +1,11 @@
-﻿Public NotInheritable Class EECloudPlayerIOException
+﻿Imports PlayerIOClient
+
+Public NotInheritable Class EECloudPlayerIOException
     Inherits EECloudException
 
-    Private ReadOnly myPlayerIOError As PlayerIOClient.PlayerIOError
-    Public ReadOnly Property PlayerIOError As PlayerIOClient.PlayerIOError
+    Private ReadOnly myPlayerIOError As PlayerIOError
+
+    Public ReadOnly Property PlayerIOError As PlayerIOError
         Get
             Return myPlayerIOError
         End Get
@@ -14,7 +17,7 @@
         End Get
     End Property
 
-    Sub New(playerIOError As PlayerIOClient.PlayerIOError)
+    Sub New(playerIOError As PlayerIOError)
         MyBase.New(ErrorCode.PlayerIOError)
         myPlayerIOError = playerIOError
     End Sub

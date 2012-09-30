@@ -1,4 +1,4 @@
-﻿Imports System.Configuration.ConfigurationManager
+﻿
 
 Friend NotInheritable Class Config
     Friend Const GameID As String = "everybody-edits-su9rn58o40itdbnw69plyw"

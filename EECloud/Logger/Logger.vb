@@ -9,6 +9,7 @@ Friend NotInheritable Class Logger
     Dim myOldLeft As Integer
 
     Private myInput As String = String.Empty
+
     Friend Property Input As String Implements ILogger.Input
         Get
             Return myInput

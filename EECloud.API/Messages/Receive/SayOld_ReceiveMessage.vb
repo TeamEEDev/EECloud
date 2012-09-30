@@ -1,9 +1,13 @@
-﻿Public Class SayOld_ReceiveMessage
-    Inherits ReceiveMessage
-    Public ReadOnly UserName As String '0
-    Public ReadOnly Text As String '1
+﻿Imports PlayerIOClient
 
-    Friend Sub New(message As PlayerIOClient.Message)
+Public Class SayOld_ReceiveMessage
+    Inherits ReceiveMessage
+    Public ReadOnly UserName As String
+    '0
+    Public ReadOnly Text As String
+    '1
+
+    Friend Sub New(message As Message)
         MyBase.New(message)
 
         UserName = message.GetString(0)

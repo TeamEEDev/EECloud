@@ -8,6 +8,7 @@
     End Sub
 
     Private ReadOnly myCoinsToCollect As Integer
+
     Public ReadOnly Property CoinsToCollect As Integer
         Get
             Return myCoinsToCollect

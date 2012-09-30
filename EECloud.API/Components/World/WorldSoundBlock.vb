@@ -8,6 +8,7 @@
     End Sub
 
     Private ReadOnly mySoundID As Integer
+
     Public ReadOnly Property SoundID As Integer
         Get
             Return mySoundID
