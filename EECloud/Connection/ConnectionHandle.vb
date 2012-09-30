@@ -10,8 +10,8 @@ Friend NotInheritable Class ConnectionHandle
 #End Region
 
 #Region "Properties"
-    Private myCreator As ICreator
-    Friend ReadOnly Property Creator As ICreator
+    Private myCreator As IConnectionFactory
+    Friend ReadOnly Property Creator As IConnectionFactory
         Get
             Return myCreator
         End Get
@@ -43,7 +43,7 @@ Friend NotInheritable Class ConnectionHandle
                     Dim ioClient As PlayerIOClient.Client = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(Config.GameID, username, password)
                     Dim ioConnection As PlayerIOClient.Connection = GetIoConnection(ioClient, id)
                     InternalConnection = New InternalConnection(ioConnection, id, myPluginManager)
-                    myCreator = New Creator(InternalConnection)
+                    myCreator = New ConnectionFactory(InternalConnection)
                 Catch ex As PlayerIOClient.PlayerIOError
                     Throw New EECloudPlayerIOException(ex)
                 End Try
