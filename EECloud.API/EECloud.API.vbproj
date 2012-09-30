@@ -130,6 +130,7 @@
     <Compile Include="Interfaces\IConnectionHandle.vb" />
     <Compile Include="Interfaces\IConnector.vb" />
     <Compile Include="Interfaces\ICreator.vb" />
+    <Compile Include="Interfaces\IMessageManager.vb" />
     <Compile Include="Interfaces\IPlayer.vb" />
     <Compile Include="Interfaces\IPlayerManager.vb" />
     <Compile Include="Plugins\Player.vb" />

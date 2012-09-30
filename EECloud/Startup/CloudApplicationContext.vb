@@ -32,25 +32,36 @@ Friend NotInheritable Class CloudApplicationContext
         Cloud.Service = New EESClient
         Cloud.Connector = New ConnectionHandleFactory
 
-        'Loading Plugin assemblies
+        'Creating Connection
         Dim handle As IConnectionHandle = Cloud.Connector.GetConnectionHandle
 
-        Dim allAssemblies As New List(Of Assembly)
-        Dim path As String = My.Application.Info.DirectoryPath
+        'Loading assemblies
+        LoadAssembies(handle.PluginManager)
 
-        For Each dll As String In Directory.GetFiles(path, "*.dll")
-            Try
-                allAssemblies.Add(Assembly.LoadFile(dll))
-            Catch ex As FileLoadException
-                Cloud.Logger.Log(LogPriority.Error, "Failed to load Assembly: " & dll)
-            Catch ex As BadImageFormatException
-                Cloud.Logger.Log(LogPriority.Error, "Currupt assembly: " & dll)
-            End Try
-        Next
+        'Login
+        Login(handle)
+    End Sub
 
+    Async Sub Login(handle As IConnectionHandle)
+        Try
+            Cloud.Logger.Log(LogPriority.Info, "Joining world...")
+            Await handle.JoinAsync(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID)
+            Cloud.Logger.Log(LogPriority.Info, "Connected!")
+            AddHandler handle.OnDisconnect,
+                Sub()
+                    Cloud.Logger.Log(LogPriority.Info, "Disconnected!")
+                End Sub
+        Catch ex As Exception
+            Cloud.Logger.Log(LogPriority.Info, "Failed to connect!")
+            Cloud.Logger.Log(ex)
+            Environment.Exit(1000)
+        End Try
+    End Sub
+
+    Private Sub LoadAssembies(pluginManager As IPluginManager)
         'Checking for valid plugins
         Dim plugins As IEnumerable(Of Type) =
-                From assembly As Assembly In allAssemblies
+                From assembly As Assembly In GetAssemblies(My.Application.Info.DirectoryPath)
                 From type As Type In assembly.GetTypes
                 Where GetType(IPlugin).IsAssignableFrom(type)
                 Let attributes As Object() = type.GetCustomAttributes(GetType(PluginAttribute), True)
@@ -64,17 +75,25 @@ Friend NotInheritable Class CloudApplicationContext
                     Dim hasNext As Boolean = enumrator.MoveNext()
                     If Not hasNext Then Exit Do
 
-                    handle.PluginManager.Add(enumrator.Current).Start()
+                    pluginManager.Add(enumrator.Current).Start()
                 Catch ex As Exception
                     Cloud.Logger.Log(ex)
                 End Try
             Loop
         End Using
-
-        'Login
-        Cloud.Logger.Log(LogPriority.Info, "Joining world...")
-        handle.JoinAsync(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID)
     End Sub
+
+    Private Iterator Function GetAssemblies(path As String) As IEnumerable(Of Assembly)
+        For Each dll As String In Directory.GetFiles(path, "*.dll")
+            Try
+                Yield Assembly.LoadFile(dll)
+            Catch ex As FileLoadException
+                Cloud.Logger.Log(LogPriority.Error, "Failed to load Assembly: " & dll)
+            Catch ex As BadImageFormatException
+                Cloud.Logger.Log(LogPriority.Error, "Currupt assembly: " & dll)
+            End Try
+        Next
+    End Function
 
 #End Region
 End Class

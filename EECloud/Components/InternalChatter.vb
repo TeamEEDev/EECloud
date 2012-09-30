@@ -7,9 +7,8 @@ Friend NotInheritable Class InternalChatter
 
     ReadOnly myHistoryList As New List(Of String)
 
-    ReadOnly myConnection As IConnection(Of Player)
-
-    Friend Sub New(connection As IConnection(Of Player))
+    ReadOnly myConnection As InternalConnection
+    Friend Sub New(connection As InternalConnection)
         myConnection = connection
     End Sub
 

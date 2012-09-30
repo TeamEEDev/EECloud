@@ -2,6 +2,7 @@
 Imports System.Reflection
 
 Friend NotInheritable Class InternalConnection
+    Inherits MessageManager
 
 #Region "Fields"
     Private WithEvents myConnection As Connection
@@ -36,7 +37,7 @@ Friend NotInheritable Class InternalConnection
         End Get
     End Property
 
-    Private ReadOnly myDefaultConnection As New Connection(Of Player)(Me, New Chatter(myInternalChatter, "Bot"))
+    Private ReadOnly myDefaultConnection As Connection(Of Player)
 
     Friend ReadOnly Property DefaultConnection As Connection(Of Player)
         Get
@@ -44,7 +45,7 @@ Friend NotInheritable Class InternalConnection
         End Get
     End Property
 
-    Private ReadOnly myInternalChatter As New InternalChatter(DefaultConnection)
+    Private ReadOnly myInternalChatter As InternalChatter
 
     Friend ReadOnly Property InternalChatter As InternalChatter
         Get
@@ -60,7 +61,7 @@ Friend NotInheritable Class InternalConnection
         End Get
     End Property
 
-    Private ReadOnly myInternalPlayerManager As New InternalPlayerManager(myDefaultConnection)
+    Private ReadOnly myInternalPlayerManager As InternalPlayerManager
 
     Public ReadOnly Property InternalPlayerManager() As InternalPlayerManager
         Get
@@ -71,25 +72,31 @@ Friend NotInheritable Class InternalConnection
 #End Region
 
 #Region "Events"
-    Friend Event OnDisconnect(sender As Object, e As String)
-    Friend Event OnMessage(sender As Object, e As ReceiveMessage)
+    Friend Event OnInternalDisconnect(sender As Object, e As String)
+    Friend Event OnInternalMessage(sender As Object, e As ReceiveMessage)
 #End Region
 
 #Region "Methods"
 
     Friend Sub New(pconnection As Connection, worldID As String, pluginManager As IPluginManager)
+        InternalConnection = Me
         myConnection = pconnection
         myWorldID = worldID
         myPluginManager = pluginManager
+
+        myInternalChatter = New InternalChatter(Me)
+        myInternalPlayerManager = New InternalPlayerManager(Me)
+        myDefaultConnection = New Connection(Of Player)(Me, New Chatter(myInternalChatter, "Bot"))
 
         RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoinReceiveMessage))
         RegisterMessage("info", GetType(InfoReceiveMessage))
         RegisterMessage("upgrade", GetType(UpgradeReceiveMessage))
         RegisterMessage("init", GetType(InitReceiveMessage))
+
         Send(New InitSendMessage)
     End Sub
 
-    Private Async Sub MessageHandler(sender As Object, e As ReceiveMessage) Handles Me.OnMessage
+    Private Async Sub MessageHandler(sender As Object, e As ReceiveMessage) Handles Me.OnInternalMessage
         Select Case e.GetType
             Case GetType(InitReceiveMessage)
                 Dim m As InitReceiveMessage = CType(e, InitReceiveMessage)
@@ -159,7 +166,7 @@ Friend NotInheritable Class InternalConnection
     End Sub
 
     Private Sub myConnection_OnDisconnect(sender As Object, message As String) Handles myConnection.OnDisconnect
-        RaiseEvent OnDisconnect(Me, message)
+        RaiseEvent OnInternalDisconnect(Me, message)
     End Sub
 
     Private Sub myConnection_OnMessage(sender As Object, e As Message) Handles myConnection.OnMessage
@@ -168,7 +175,7 @@ Friend NotInheritable Class InternalConnection
                 Dim messageType As Type = myMessageDictionary(e.Type)
                 Dim constructorInfo As ConstructorInfo = messageType.GetConstructor(BindingFlags.NonPublic Or BindingFlags.Instance, Nothing, New Type() {GetType(Message)}, Nothing)
                 Dim message As ReceiveMessage = CType(constructorInfo.Invoke(New Object() {e}), ReceiveMessage)
-                RaiseEvent OnMessage(Me, message)
+                RaiseEvent OnInternalMessage(Me, message)
             Else
                 Cloud.Logger.Log(LogPriority.Warning, "Received not registered message: " & e.Type)
             End If
