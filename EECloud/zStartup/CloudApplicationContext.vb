@@ -10,6 +10,22 @@ Friend NotInheritable Class CloudApplicationContext
 
     Friend Sub New()
         'Loading settings
+        LoadSettings()
+
+        'Creating singletons
+        CreateSingletons()
+
+        'Creating Connection
+        Dim handle As IConnectionHandle = Cloud.Connector.GetConnectionHandle
+
+        'Loading assemblies
+        LoadAssembies(handle.PluginManager)
+
+        'Login
+        Login(handle)
+    End Sub
+
+    Private Shared Sub LoadSettings()
         If Cloud.AppEnvironment = AppEnvironment.Release Then
             My.Settings.LicenceUsername = ConfigurationManager.AppSettings("cloud.username")
             My.Settings.LicenceKey = ConfigurationManager.AppSettings("cloud.key")
@@ -25,40 +41,16 @@ Friend NotInheritable Class CloudApplicationContext
                 Environment.Exit(0)
             End If
         End If
+    End Sub
 
-        'Creating singletons
+    Private Shared Sub CreateSingletons()
         Cloud.AppEnvironment = CType([Enum].Parse(GetType(AppEnvironment), ConfigurationManager.AppSettings("Environment"), True), AppEnvironment)
         Cloud.Logger = New Logger
         Cloud.Service = New EESClient
         Cloud.Connector = New ConnectionHandleFactory
-
-        'Creating Connection
-        Dim handle As IConnectionHandle = Cloud.Connector.GetConnectionHandle
-
-        'Loading assemblies
-        LoadAssembies(handle.PluginManager)
-
-        'Login
-        Login(handle)
     End Sub
 
-    Async Sub Login(handle As IConnectionHandle)
-        Try
-            Cloud.Logger.Log(LogPriority.Info, "Joining world...")
-            Await handle.JoinAsync(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID)
-            Cloud.Logger.Log(LogPriority.Info, "Connected!")
-            AddHandler handle.OnDisconnect,
-                Sub()
-                    Cloud.Logger.Log(LogPriority.Info, "Disconnected!")
-                End Sub
-        Catch ex As Exception
-            Cloud.Logger.Log(LogPriority.Info, "Failed to connect!")
-            Cloud.Logger.Log(ex)
-            Environment.Exit(1000)
-        End Try
-    End Sub
-
-    Private Sub LoadAssembies(pluginManager As IPluginManager)
+    Private Shared Sub LoadAssembies(pluginManager As IPluginManager)
         'Checking for valid plugins
         Dim plugins As IEnumerable(Of Type) =
                 From assembly As Assembly In GetAssemblies(My.Application.Info.DirectoryPath)
@@ -83,7 +75,7 @@ Friend NotInheritable Class CloudApplicationContext
         End Using
     End Sub
 
-    Private Iterator Function GetAssemblies(path As String) As IEnumerable(Of Assembly)
+    Private Shared Iterator Function GetAssemblies(path As String) As IEnumerable(Of Assembly)
         For Each dll As String In Directory.GetFiles(path, "*.dll")
             Try
                 Yield Assembly.LoadFile(dll)
@@ -94,6 +86,22 @@ Friend NotInheritable Class CloudApplicationContext
             End Try
         Next
     End Function
+
+    Private Shared Sub Login(handle As IConnectionHandle)
+        Try
+            Cloud.Logger.Log(LogPriority.Info, "Joining world...")
+            handle.JoinAsync(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID)
+            Cloud.Logger.Log(LogPriority.Info, "Connected!")
+            AddHandler handle.OnDisconnect,
+                Sub()
+                    Cloud.Logger.Log(LogPriority.Info, "Disconnected!")
+                End Sub
+        Catch ex As Exception
+            Cloud.Logger.Log(LogPriority.Info, "Failed to connect!")
+            Cloud.Logger.Log(ex)
+            Environment.Exit(1000)
+        End Try
+    End Sub
 
 #End Region
 End Class

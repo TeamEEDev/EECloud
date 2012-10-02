@@ -128,9 +128,8 @@
     <Compile Include="Enums\AccessRight.vb" />
     <Compile Include="Interfaces\ICommand.vb" />
     <Compile Include="Interfaces\IConnectionHandle.vb" />
-    <Compile Include="Interfaces\IConnector.vb" />
-    <Compile Include="Interfaces\ICreator.vb" />
-    <Compile Include="Interfaces\IMessageManager.vb" />
+    <Compile Include="Interfaces\IConnectionHandleFactory.vb" />
+    <Compile Include="Interfaces\IConnectionFactory.vb" />
     <Compile Include="Interfaces\IPlayer.vb" />
     <Compile Include="Interfaces\IPlayerManager.vb" />
     <Compile Include="Plugins\Player.vb" />
@@ -235,7 +234,6 @@
     <Compile Include="Utils.vb" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
     </None>

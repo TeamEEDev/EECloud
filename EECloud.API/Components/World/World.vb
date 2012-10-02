@@ -5,7 +5,7 @@ Public NotInheritable Class World
 #Region "Fields"
     Private Const InitOffset As UInteger = 14
     Private ReadOnly myBlocks(,,) As WorldBlock
-    Private myConnection As IMessageManager
+    Private myConnection As IConnection(Of Player)
 #End Region
 
 #Region "Properties"
@@ -21,7 +21,7 @@ Public NotInheritable Class World
 
 #Region "Methods"
 
-    Friend Sub New(connection As IMessageManager, initMessage As InitReceiveMessage)
+    Friend Sub New(connection As IConnection(Of Player), initMessage As InitReceiveMessage)
         myConnection = connection
         myEncryption = initMessage.Encryption
         myBlocks = ParseWorld(initMessage.PlayerIOMessage, initMessage.SizeX, initMessage.SizeY, InitOffset)
