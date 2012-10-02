@@ -2,7 +2,7 @@
 Imports System.Reflection
 
 Friend NotInheritable Class InternalConnection
-    Inherits MessageManager
+    Inherits ConnectionBase(Of Player)
 
 #Region "Fields"
     Private WithEvents myConnection As Connection
@@ -11,7 +11,7 @@ Friend NotInheritable Class InternalConnection
 
 #Region "Properties"
 
-    Friend ReadOnly Property Connected As Boolean
+    Friend Overrides ReadOnly Property Connected As Boolean
         Get
             If myConnection IsNot Nothing Then
                 Return myConnection.Connected
@@ -23,7 +23,7 @@ Friend NotInheritable Class InternalConnection
 
     Private ReadOnly myWorldID As String
 
-    Friend ReadOnly Property WorldID As String
+    Friend Overrides ReadOnly Property WorldID As String
         Get
             Return myWorldID
         End Get
@@ -31,9 +31,17 @@ Friend NotInheritable Class InternalConnection
 
     Private myWorld As World
 
-    Friend ReadOnly Property World As World
+    Friend Overrides ReadOnly Property World As World
         Get
             Return myWorld
+        End Get
+    End Property
+
+    Private ReadOnly myPluginManager As IPluginManager
+
+    Friend Overrides ReadOnly Property PluginManager As IPluginManager
+        Get
+            Return myPluginManager
         End Get
     End Property
 
@@ -45,19 +53,27 @@ Friend NotInheritable Class InternalConnection
         End Get
     End Property
 
-    Private ReadOnly myPluginManager As IPluginManager
-
-    Friend ReadOnly Property PluginManager As IPluginManager
-        Get
-            Return myPluginManager
-        End Get
-    End Property
-
     Private ReadOnly myInternalPlayerManager As InternalPlayerManager
 
     Public ReadOnly Property InternalPlayerManager() As InternalPlayerManager
         Get
             Return myInternalPlayerManager
+        End Get
+    End Property
+
+    Private ReadOnly myChatter As IChatter
+
+    Friend Overrides ReadOnly Property Chatter As IChatter
+        Get
+            Return myChatter
+        End Get
+    End Property
+
+    Private ReadOnly myPlayerManager As PlayerManager(Of Player)
+
+    Friend Overrides ReadOnly Property PlayerManager As IPlayerManager(Of Player)
+        Get
+            Return myPlayerManager
         End Get
     End Property
 
@@ -78,6 +94,8 @@ Friend NotInheritable Class InternalConnection
 
         myInternalChatter = New InternalChatter(Me)
         myInternalPlayerManager = New InternalPlayerManager(Me)
+        myChatter = New Chatter(myInternalChatter, "Bot")
+        myPlayerManager = New PlayerManager(Of Player)(myInternalPlayerManager, Me)
 
         RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoinReceiveMessage))
         RegisterMessage("info", GetType(InfoReceiveMessage))
@@ -104,7 +122,7 @@ Friend NotInheritable Class InternalConnection
         End Select
     End Sub
 
-    Friend Sub Send(message As SendMessage)
+    Friend Overrides Sub Send(message As SendMessage)
         If myConnection IsNot Nothing Then
             myConnection.Send(message.GetMessage(World))
         End If

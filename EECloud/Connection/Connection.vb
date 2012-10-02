@@ -1,6 +1,5 @@
 ﻿Friend Class Connection(Of TPlayer As {Player, New})
-    Inherits MessageManager
-    Implements IConnection(Of TPlayer)
+    Inherits ConnectionBase(Of TPlayer)
 
 #Region "Fields"
     Private ReadOnly myEvents As New EventHandlerList
@@ -8,25 +7,25 @@
 
 #Region "Properties"
 
-    Friend ReadOnly Property WorldID As String Implements IConnection(Of TPlayer).WorldID
+    Friend Overrides ReadOnly Property WorldID As String
         Get
             Return InternalConnection.WorldID
         End Get
     End Property
 
-    Friend ReadOnly Property Connected As Boolean Implements IConnection(Of TPlayer).Connected
+    Friend Overrides ReadOnly Property Connected As Boolean
         Get
             Return InternalConnection.Connected
         End Get
     End Property
 
-    Friend ReadOnly Property World As World Implements IConnection(Of TPlayer).World
+    Friend Overrides ReadOnly Property World As World
         Get
             Return InternalConnection.World
         End Get
     End Property
 
-    Friend Overridable ReadOnly Property PluginManager As IPluginManager Implements IConnection(Of TPlayer).PluginManager
+    Friend Overrides ReadOnly Property PluginManager As IPluginManager
         Get
             Return InternalConnection.PluginManager
         End Get
@@ -34,7 +33,7 @@
 
     Private ReadOnly myChatter As IChatter
 
-    Friend ReadOnly Property Chatter As IChatter Implements IConnection(Of TPlayer).Chatter
+    Friend Overrides ReadOnly Property Chatter As IChatter
         Get
             Return myChatter
         End Get
@@ -42,7 +41,7 @@
 
     Private ReadOnly myPlayerManager As PlayerManager(Of TPlayer)
 
-    Friend ReadOnly Property PlayerManager As IPlayerManager(Of TPlayer) Implements IConnection(Of TPlayer).PlayerManager
+    Friend Overrides ReadOnly Property PlayerManager As IPlayerManager(Of TPlayer)
         Get
             Return myPlayerManager
         End Get
@@ -61,7 +60,7 @@
     Protected Sub New()
     End Sub
 
-    Friend Sub Send(message As SendMessage) Implements IConnection(Of TPlayer).Send
+    Friend Overrides Sub Send(message As SendMessage)
         If Not RaiseSendEvent(message) Then
             InternalConnection.Send(message)
         End If

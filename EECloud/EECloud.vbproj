@@ -158,21 +158,21 @@
   <ItemGroup>
     <Compile Include="CommandManager\Command.vb" />
     <Compile Include="PlayerManager\InternalPlayerManager.vb" />
-    <Compile Include="MessageManager\MessageManager.vb" />
+    <Compile Include="Connection\ConnectionBase.vb" />
     <Compile Include="PlayerManager\PlayerManager.vb" />
-    <Compile Include="ConnectionManager\ConnectionFactory.vb" />
+    <Compile Include="Connection\ConnectionFactory.vb" />
     <Compile Include="Chatter\Chatter.vb" />
     <Compile Include="CommandManager\CommandHandle.vb" />
     <Compile Include="CommandManager\CommandManager.vb" />
-    <Compile Include="ConnectionManager\Connection.vb" />
-    <Compile Include="ConnectionManager\ConnectionHandle.vb" />
-    <Compile Include="ConnectionManager\ConnectionHandleFactory.vb" />
-    <Compile Include="MessageManager\EventHandlerList.vb" />
+    <Compile Include="Connection\Connection.vb" />
+    <Compile Include="Connection\ConnectionHandle.vb" />
+    <Compile Include="Connection\ConnectionHandleFactory.vb" />
+    <Compile Include="Connection\EventHandlerList.vb" />
     <Compile Include="Chatter\InternalChatter.vb" />
     <Compile Include="zForms\LicenseForm.Designer.vb">
       <DependentUpon>LicenseForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="ConnectionManager\InternalConnection.vb" />
+    <Compile Include="Connection\InternalConnection.vb" />
     <Compile Include="Player\InternalPlayer.vb" />
     <Compile Include="zForms\LicenseForm.vb">
       <SubType>Form</SubType>
@@ -264,9 +264,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ComponentManager\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
