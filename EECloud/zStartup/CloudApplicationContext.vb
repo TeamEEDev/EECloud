@@ -2,6 +2,7 @@
 Imports EECloud.API.EEService
 Imports System.Reflection
 Imports System.IO
+Imports System.Threading.Tasks
 
 Friend NotInheritable Class CloudApplicationContext
     Inherits ApplicationContext
@@ -19,7 +20,7 @@ Friend NotInheritable Class CloudApplicationContext
         Dim handle As IConnectionHandle = Cloud.Connector.GetConnectionHandle
 
         'Loading assemblies
-        LoadAssembies(handle.PluginManager)
+        LoadAssembies(handle.Connection.PluginManager)
 
         'Login
         Login(handle)
@@ -90,12 +91,19 @@ Friend NotInheritable Class CloudApplicationContext
     Private Shared Async Sub Login(handle As IConnectionHandle)
         Try
             Cloud.Logger.Log(LogPriority.Info, "Joining world...")
-            Await handle.JoinAsync(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID)
-            Cloud.Logger.Log(LogPriority.Info, "Connected!")
+            Dim task As Task = handle.ConnectAsync(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID)
+
             AddHandler handle.Connection.OnDisconnect,
                 Sub()
                     Cloud.Logger.Log(LogPriority.Info, "Disconnected!")
                 End Sub
+            AddHandler handle.Connection.OnReceiveCrown,
+                Sub()
+                    Cloud.Logger.Log(LogPriority.Info, "Got crown!")
+                End Sub
+
+            Await task
+            Cloud.Logger.Log(LogPriority.Info, "Connected!")
         Catch ex As Exception
             Cloud.Logger.Log(LogPriority.Info, "Failed to connect!")
             Cloud.Logger.Log(ex)

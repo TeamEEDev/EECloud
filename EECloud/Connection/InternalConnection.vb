@@ -21,7 +21,7 @@ Friend NotInheritable Class InternalConnection
         End Get
     End Property
 
-    Private ReadOnly myWorldID As String
+    Private myWorldID As String
 
     Friend Overrides ReadOnly Property WorldID As String
         Get
@@ -86,18 +86,16 @@ Friend NotInheritable Class InternalConnection
 
 #Region "Methods"
 
-    Friend Sub New(pconnection As Connection, worldID As String, pluginManager As IPluginManager)
+    Friend Sub New()
         'Setting variables
         InternalConnection = Me
-        myConnection = pconnection
-        myWorldID = worldID
-        myPluginManager = pluginManager
 
         'Creating instances
         myInternalChatter = New InternalChatter(Me)
         myInternalPlayerManager = New InternalPlayerManager(Me)
         myChatter = New Chatter(myInternalChatter, "Bot")
         myPlayerManager = New PlayerManager(Of Player)(myInternalPlayerManager, Me)
+        myPluginManager = New PluginManager()
 
         'Registering messages
         RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoinReceiveMessage))
@@ -107,6 +105,14 @@ Friend NotInheritable Class InternalConnection
 
         'Initing connection
         Send(New InitSendMessage)
+    End Sub
+
+    Friend Sub SetupConnection(pconnection As Connection, worldID As String)
+        If Not Connected Then
+
+            myConnection = pconnection
+            myWorldID = worldID
+        End If
     End Sub
 
     Private Async Sub MessageHandler(sender As Object, e As ReceiveMessage) Handles Me.OnInternalMessage

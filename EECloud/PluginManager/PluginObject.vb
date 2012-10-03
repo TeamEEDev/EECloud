@@ -87,5 +87,11 @@
         End If
     End Sub
 
+    Public Sub Connect(creator As IConnectionFactory) Implements IPluginObject.Connect
+        myPlugin.Connect(creator, Me)
+    End Sub
+
 #End Region
+
+
 End Class
