@@ -87,12 +87,12 @@ Friend NotInheritable Class CloudApplicationContext
         Next
     End Function
 
-    Private Shared Sub Login(handle As IConnectionHandle)
+    Private Shared Async Sub Login(handle As IConnectionHandle)
         Try
             Cloud.Logger.Log(LogPriority.Info, "Joining world...")
-            handle.JoinAsync(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID)
+            Await handle.JoinAsync(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID)
             Cloud.Logger.Log(LogPriority.Info, "Connected!")
-            AddHandler handle.OnDisconnect,
+            AddHandler handle.Connection.OnDisconnect,
                 Sub()
                     Cloud.Logger.Log(LogPriority.Info, "Disconnected!")
                 End Sub

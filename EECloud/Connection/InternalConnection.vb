@@ -87,21 +87,25 @@ Friend NotInheritable Class InternalConnection
 #Region "Methods"
 
     Friend Sub New(pconnection As Connection, worldID As String, pluginManager As IPluginManager)
+        'Setting variables
         InternalConnection = Me
         myConnection = pconnection
         myWorldID = worldID
         myPluginManager = pluginManager
 
+        'Creating instances
         myInternalChatter = New InternalChatter(Me)
         myInternalPlayerManager = New InternalPlayerManager(Me)
         myChatter = New Chatter(myInternalChatter, "Bot")
         myPlayerManager = New PlayerManager(Of Player)(myInternalPlayerManager, Me)
 
+        'Registering messages
         RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoinReceiveMessage))
         RegisterMessage("info", GetType(InfoReceiveMessage))
         RegisterMessage("upgrade", GetType(UpgradeReceiveMessage))
         RegisterMessage("init", GetType(InitReceiveMessage))
 
+        'Initing connection
         Send(New InitSendMessage)
     End Sub
 

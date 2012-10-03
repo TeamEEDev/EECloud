@@ -2,7 +2,6 @@
 Imports PlayerIOClient
 
 Friend NotInheritable Class ConnectionHandle
-    Inherits Connection(Of Player)
     Implements IConnectionHandle
 
 #Region "Fields"
@@ -21,9 +20,17 @@ Friend NotInheritable Class ConnectionHandle
 
     Private ReadOnly myPluginManager As IPluginManager = New PluginManager
 
-    Friend Overrides ReadOnly Property PluginManager As IPluginManager
+    Friend ReadOnly Property PluginManager As IPluginManager Implements IConnectionHandle.PluginManager
         Get
             Return myPluginManager
+        End Get
+    End Property
+
+    Private myInternalConnection As InternalConnection
+
+    Public ReadOnly Property Connection As IConnection(Of Player) Implements IConnectionHandle.Connection
+        Get
+            Return myInternalConnection
         End Get
     End Property
 
@@ -47,12 +54,12 @@ Friend NotInheritable Class ConnectionHandle
                 Try
                     Dim ioClient As Client = PlayerIO.QuickConnect.SimpleConnect(Config.GameID, username, password)
                     Dim ioConnection As Connection = GetIoConnection(ioClient, id)
-                    InternalConnection = New InternalConnection(ioConnection, id, myPluginManager)
-                    myCreator = New ConnectionFactory(InternalConnection)
+                    myInternalConnection = New InternalConnection(ioConnection, id, myPluginManager)
+                    myCreator = New ConnectionFactory(myInternalConnection)
                 Catch ex As PlayerIOError
                     Throw New EECloudPlayerIOException(ex)
-                          End Try
-                          End Sub)
+                End Try
+            End Sub)
     End Function
 
     Private Function GetIoConnection(client As Client, id As String) As Connection
@@ -70,7 +77,7 @@ Friend NotInheritable Class ConnectionHandle
 
     Private Sub UpdateVersion(ex As PlayerIOError)
         Dim errorMessage() As String = ex.Message.Split("["c)(1).Split(CChar(" "))
-        For N = errorMessage.Length - 1 To 0 Step - 1
+        For N = errorMessage.Length - 1 To 0 Step -1
             Dim currentRoomType As String
             currentRoomType = errorMessage(N)
             If currentRoomType.StartsWith(Config.NormalRoom, StringComparison.Ordinal) Then
@@ -83,7 +90,7 @@ Friend NotInheritable Class ConnectionHandle
     End Sub
 
     Friend Sub Disconnect() Implements IConnectionHandle.Disconnect
-        InternalConnection.Disconnect()
+        myInternalConnection.Disconnect()
     End Sub
 
 #End Region

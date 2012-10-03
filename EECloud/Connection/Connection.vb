@@ -57,9 +57,6 @@
         myPlayerManager = New PlayerManager(Of TPlayer)(internalConnection.InternalPlayerManager, internalConnection)
     End Sub
 
-    Protected Sub New()
-    End Sub
-
     Friend Overrides Sub Send(message As SendMessage)
         If Not RaiseSendEvent(message) Then
             InternalConnection.Send(message)
