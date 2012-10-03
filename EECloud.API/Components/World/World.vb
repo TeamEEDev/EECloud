@@ -23,7 +23,7 @@ Public NotInheritable Class World
 
     Friend Sub New(connection As IConnection(Of Player), initMessage As InitReceiveMessage)
         myConnection = connection
-        myEncryption = initMessage.Encryption
+        myEncryption = Derot(initMessage.Encryption)
         myBlocks = ParseWorld(initMessage.PlayerIOMessage, initMessage.SizeX, initMessage.SizeY, InitOffset)
     End Sub
 

@@ -14,11 +14,11 @@
 
 #Region "Methods"
 
-    Friend Function Add(t As Type) As IPluginObject Implements IPluginManager.Add
+    Friend Function Add(t As Type, factory As IConnectionFactory) As IPluginObject Implements IPluginManager.Add
         If GetType(IPlugin).IsAssignableFrom(t) Then
             Dim attributes As Object() = t.GetCustomAttributes(GetType(PluginAttribute), True)
             If attributes IsNot Nothing AndAlso attributes.Length = 1 Then
-                Dim pluginObj As IPluginObject = New PluginObject(t, CType(attributes(0), PluginAttribute))
+                Dim pluginObj As IPluginObject = New PluginObject(t, CType(attributes(0), PluginAttribute), factory)
                 myPluginsList.Add(pluginObj)
                 Return pluginObj
             End If

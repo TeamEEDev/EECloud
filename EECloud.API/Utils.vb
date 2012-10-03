@@ -38,21 +38,21 @@
     Friend Function Derot(str As String) As String
         Derot = String.Empty
         For N = 1 To str.Length
-            Dim CharNum As Integer = Asc(GetChar(str, N))
-            If CharNum >= Asc("a") And CharNum <= Asc("z") Then
-                If CharNum > Asc("m") Then
-                    CharNum -= 13
+            Dim charNum As Integer = Asc(GetChar(str, N))
+            If charNum >= Asc("a") And charNum <= Asc("z") Then
+                If charNum > Asc("m") Then
+                    charNum -= 13
                 Else
-                    CharNum += 13
+                    charNum += 13
                 End If
-            ElseIf CharNum >= Asc("A") And CharNum <= Asc("Z") Then
-                If CharNum > Asc("M") Then
-                    CharNum -= 13
+            ElseIf charNum >= Asc("A") And charNum <= Asc("Z") Then
+                If charNum > Asc("M") Then
+                    charNum -= 13
                 Else
-                    CharNum += 13
+                    charNum += 13
                 End If
             End If
-            Derot &= Chr(CharNum)
+            Derot &= Chr(charNum)
         Next
         Return Derot
     End Function
