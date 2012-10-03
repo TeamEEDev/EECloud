@@ -47,7 +47,10 @@
         For Each player As InternalPlayer In myInternalPlayerManager.Players.Values
             AddPlayer(player)
         Next
-        myCrown = Players(myInternalPlayerManager.Crown.UserID)
+
+        If myInternalPlayerManager.Crown IsNot Nothing Then
+            myCrown = Players(myInternalPlayerManager.Crown.UserID)
+        End If
     End Sub
 
     Private Sub myInternalPlayerManager_OnRemoveUser(sender As Object, e As LeftReceiveMessage) Handles myInternalPlayerManager.OnRemoveUser
@@ -68,7 +71,7 @@
     Private Sub AddPlayer(internalPlayer As InternalPlayer)
         If Not myPlayersDictionary.ContainsKey(internalPlayer.UserID) Then
             Dim player As New TPlayer
-            player.SetupPlayer(player)
+            player.SetupPlayer(internalPlayer)
             myPlayersDictionary.Add(player.UserID, player)
         End If
     End Sub
