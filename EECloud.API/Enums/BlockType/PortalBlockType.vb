@@ -1,3 +1,3 @@
 ﻿Public Enum PortalBlockType
-    Block_Portal = 242
+    BlockPortal = 242
 End Enum

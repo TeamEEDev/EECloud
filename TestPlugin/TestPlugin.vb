@@ -14,6 +14,8 @@ Public Class TestPlugin
 
     Protected Overrides Sub OnConnect()
         Connection.Chatter.Chat("Hi")
+        Connection.Send(New PortalPlaceSendMessage(Layer.Foreground, 0, 0, PortalBlockType.BlockPortal, 1, 2, PortalRotation.Up))
+        Connection.Send(New MoveSendMessage(0, 0, 0, 0, 0, 0, 0, 0))
     End Sub
 
     Private Sub Connection_OnSendMove(sender As Object, e As SendEventArgs(Of MoveSendMessage)) Handles Connection.OnSendMove

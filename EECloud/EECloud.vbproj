@@ -165,9 +165,9 @@
     <Compile Include="CommandManager\CommandHandle.vb" />
     <Compile Include="CommandManager\CommandManager.vb" />
     <Compile Include="Connection\Connection.vb" />
-    <Compile Include="Connection\ConnectionHandle.vb" />
-    <Compile Include="Connection\ConnectionHandleFactory.vb" />
-    <Compile Include="Connection\EventHandlerList.vb" />
+    <Compile Include="ConnectionHandle\ConnectionHandle.vb" />
+    <Compile Include="ConnectionHandle\ConnectionHandleFactory.vb" />
+    <Compile Include="zMisc\EventHandlerList.vb" />
     <Compile Include="Chatter\InternalChatter.vb" />
     <Compile Include="zForms\LicenseForm.Designer.vb">
       <DependentUpon>LicenseForm.vb</DependentUpon>
