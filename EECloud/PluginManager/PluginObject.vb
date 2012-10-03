@@ -5,6 +5,7 @@
     Private myPlugin As IPlugin
     Private ReadOnly myPluginType As Type
     Private ReadOnly myLockObj As New Object
+    Private ReadOnly myFactory As IConnectionFactory
 #End Region
 
 #Region "Properties"
@@ -32,23 +33,24 @@
 
 #Region "Methods"
 
-    Friend Sub New(plugin As Type, ByVal attribute As PluginAttribute)
+    Friend Sub New(plugin As Type, ByVal attribute As PluginAttribute, ByVal factory As IConnectionFactory)
         myAttribute = attribute
+        myFactory = factory
         If GetType(IPlugin).IsAssignableFrom(plugin) Then
             myPluginType = plugin
-            Enable(True)
+            Enable(factory)
         Else
             Throw New EECloudException(ErrorCode.InvalidPlugin, "Type does not inherit from EECloud.API.IPlugin")
         End If
     End Sub
 
-    Private Sub Enable(isStartup As Boolean)
+    Private Sub Enable(factory As IConnectionFactory)
         SyncLock myLockObj
             If Not Started Then
                 Cloud.Logger.Log(LogPriority.Info, String.Format("Enabling {0}...", myPluginType.Name))
                 Try
                     myPlugin = CType(Activator.CreateInstance(myPluginType, True), IPlugin)
-                    myPlugin.Enable()
+                    myPlugin.Enable(factory, Me)
                 Catch ex As Exception
                     Cloud.Logger.Log(LogPriority.Error, String.Format("Failed to start plugin {0}. Disabling...", myPluginType.Name))
                     Cloud.Logger.Log(ex)
@@ -83,14 +85,9 @@
             [Stop]()
         End If
         If Not Started Then
-            Enable(False)
+            Enable(myFactory)
         End If
     End Sub
-
-    Public Sub Connect(creator As IConnectionFactory) Implements IPluginObject.Connect
-        myPlugin.Connect(creator, Me)
-    End Sub
-
 #End Region
 
 

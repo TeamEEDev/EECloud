@@ -97,6 +97,13 @@ Friend NotInheritable Class InternalConnection
         myPlayerManager = New PlayerManager(Of Player)(myInternalPlayerManager, Me)
         myPluginManager = New PluginManager()
 
+    End Sub
+
+    Friend Sub SetupConnection(pconnection As Connection, worldID As String)
+        'Setting variables
+        myConnection = pconnection
+        myWorldID = worldID
+
         'Registering messages
         RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoinReceiveMessage))
         RegisterMessage("info", GetType(InfoReceiveMessage))
@@ -105,14 +112,6 @@ Friend NotInheritable Class InternalConnection
 
         'Initing connection
         Send(New InitSendMessage)
-    End Sub
-
-    Friend Sub SetupConnection(pconnection As Connection, worldID As String)
-        If Not Connected Then
-
-            myConnection = pconnection
-            myWorldID = worldID
-        End If
     End Sub
 
     Private Async Sub MessageHandler(sender As Object, e As ReceiveMessage) Handles Me.OnInternalMessage

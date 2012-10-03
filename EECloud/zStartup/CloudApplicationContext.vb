@@ -20,7 +20,7 @@ Friend NotInheritable Class CloudApplicationContext
         Dim handle As IConnectionHandle = Cloud.Connector.GetConnectionHandle
 
         'Loading assemblies
-        LoadAssembies(handle.Connection.PluginManager)
+        LoadAssembies(handle)
 
         'Login
         Login(handle)
@@ -51,7 +51,7 @@ Friend NotInheritable Class CloudApplicationContext
         Cloud.Connector = New ConnectionHandleFactory
     End Sub
 
-    Private Shared Sub LoadAssembies(pluginManager As IPluginManager)
+    Private Shared Sub LoadAssembies(connectionHandle As IConnectionHandle)
         'Checking for valid plugins
         Dim plugins As IEnumerable(Of Type) =
                 From assembly As Assembly In GetAssemblies(My.Application.Info.DirectoryPath)
@@ -68,7 +68,7 @@ Friend NotInheritable Class CloudApplicationContext
                     Dim hasNext As Boolean = enumrator.MoveNext()
                     If Not hasNext Then Exit Do
 
-                    pluginManager.Add(enumrator.Current)
+                    connectionHandle.Connection.PluginManager.Add(enumrator.Current, connectionHandle.ConnectionFactory)
                 Catch ex As Exception
                     Cloud.Logger.Log(ex)
                 End Try

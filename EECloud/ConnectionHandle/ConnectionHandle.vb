@@ -18,11 +18,19 @@ Friend NotInheritable Class ConnectionHandle
         End Get
     End Property
 
-    Private myInternalConnection As New InternalConnection
+    Private ReadOnly myInternalConnection As New InternalConnection
 
     Public ReadOnly Property Connection As IConnection(Of Player) Implements IConnectionHandle.Connection
         Get
             Return myInternalConnection
+        End Get
+    End Property
+
+    Private ReadOnly myConnectionFactory As New ConnectionFactory(myInternalConnection)
+
+    Public ReadOnly Property ConnectionFactory As IConnectionFactory Implements IConnectionHandle.ConnectionFactory
+        Get
+            Return myConnectionFactory
         End Get
     End Property
 
