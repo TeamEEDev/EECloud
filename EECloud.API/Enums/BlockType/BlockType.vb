@@ -195,6 +195,11 @@
     BlockCoinGold = 100
     BlockCoinBlue = 101
 
+    BlockBoostLeft = 114
+    BlockBoostRight = 115
+    BlockBoostUp = 116
+    BlockBoostDown = 117
+
     BlockWater = 119
     DecorationWater = 300
     BackgroundWaterBasic = 574
