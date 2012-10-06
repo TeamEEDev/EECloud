@@ -68,7 +68,7 @@ Friend NotInheritable Class CloudApplicationContext
                     Dim hasNext As Boolean = enumrator.MoveNext()
                     If Not hasNext Then Exit Do
 
-                    connectionHandle.Connection.PluginManager.Add(enumrator.Current, connectionHandle.ConnectionFactory)
+                    connectionHandle.Connection.PluginManager.Add(enumrator.Current)
                 Catch ex As Exception
                     Cloud.Logger.Log(ex)
                 End Try
@@ -96,10 +96,6 @@ Friend NotInheritable Class CloudApplicationContext
             AddHandler handle.Connection.OnDisconnect,
                 Sub()
                     Cloud.Logger.Log(LogPriority.Info, "Disconnected!")
-                End Sub
-            AddHandler handle.Connection.OnReceiveCrown,
-                Sub()
-                    Cloud.Logger.Log(LogPriority.Info, "Got crown!")
                 End Sub
 
             Await task

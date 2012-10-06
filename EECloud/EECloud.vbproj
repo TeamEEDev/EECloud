@@ -173,7 +173,7 @@
       <DependentUpon>LicenseForm.vb</DependentUpon>
     </Compile>
     <Compile Include="Connection\InternalConnection.vb" />
-    <Compile Include="Player\InternalPlayer.vb" />
+    <Compile Include="PlayerManager\InternalPlayer.vb" />
     <Compile Include="zForms\LicenseForm.vb">
       <SubType>Form</SubType>
     </Compile>

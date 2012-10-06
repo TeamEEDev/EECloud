@@ -1,6 +1,10 @@
 ﻿Friend NotInheritable Class PluginManager
     Implements IPluginManager
 
+#Region "Fields"
+    Private myFactory As IConnectionFactory
+#End Region
+
 #Region "Properties"
     Private ReadOnly myPluginsList As New List(Of IPluginObject)
 
@@ -14,11 +18,15 @@
 
 #Region "Methods"
 
-    Friend Function Add(t As Type, factory As IConnectionFactory) As IPluginObject Implements IPluginManager.Add
+    Sub New(factory As IConnectionFactory)
+        myFactory = factory
+    End Sub
+
+    Friend Function Add(t As Type) As IPluginObject Implements IPluginManager.Add
         If GetType(IPlugin).IsAssignableFrom(t) Then
             Dim attributes As Object() = t.GetCustomAttributes(GetType(PluginAttribute), True)
             If attributes IsNot Nothing AndAlso attributes.Length = 1 Then
-                Dim pluginObj As IPluginObject = New PluginObject(t, CType(attributes(0), PluginAttribute), factory)
+                Dim pluginObj As IPluginObject = New PluginObject(t, CType(attributes(0), PluginAttribute), myFactory)
                 myPluginsList.Add(pluginObj)
                 Return pluginObj
             End If

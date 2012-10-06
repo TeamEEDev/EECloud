@@ -1,8 +1,7 @@
-﻿Friend Class Connection(Of TPlayer As {Player, New})
+﻿Friend NotInheritable Class Connection(Of TPlayer As {Player, New})
     Inherits ConnectionBase(Of TPlayer)
 
 #Region "Fields"
-    Private ReadOnly myEvents As New EventHandlerList
 #End Region
 
 #Region "Properties"
@@ -39,7 +38,7 @@
         End Get
     End Property
 
-    Private ReadOnly myPlayerManager As PlayerManager(Of TPlayer)
+    Private ReadOnly myPlayerManager As IPlayerManager(Of TPlayer)
 
     Friend Overrides ReadOnly Property PlayerManager As IPlayerManager(Of TPlayer)
         Get
@@ -47,14 +46,20 @@
         End Get
     End Property
 
+    Private myCommandManager As CommandManager
 #End Region
 
 #Region "Methods"
 
-    Friend Sub New(internalConnection As InternalConnection, chatter As IChatter)
+    Friend Sub New(internalConnection As InternalConnection, pluginObject As IPluginObject, instance As Object)
         Me.InternalConnection = internalConnection
-        myChatter = chatter
+
+        Dim chatterName As String = pluginObject.Attribute.ChatName
+        If chatterName = Nothing Then chatterName = pluginObject.Name
+        myChatter = New Chatter(internalConnection.InternalChatter, chatterName)
+
         myPlayerManager = New PlayerManager(Of TPlayer)(internalConnection.InternalPlayerManager, internalConnection)
+        myCommandManager = New CommandManager(internalConnection, instance)
     End Sub
 
     Friend Overrides Sub Send(message As SendMessage)
