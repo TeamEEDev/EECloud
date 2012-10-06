@@ -1,8 +1,7 @@
-﻿<Plugin(Authors := {"Processor", "Jojatekok"},
-        Category := PluginCategory.LevelBot,
-        Description := "Yo!Scroll level bot",
-        StartupPriority := PluginStartupPriority.Normal,
-        Version := "1.0.0.0")>
+﻿<Plugin(Authors:={"Processor", "Jojatekok"},
+        Category:=PluginCategory.LevelBot,
+        Description:="Yo!Scroll level bot",
+        Version:="1.0.0.0")>
 Public Class YoScrollPlugin
     Inherits Plugin(Of YoScrollPlayer)
 
