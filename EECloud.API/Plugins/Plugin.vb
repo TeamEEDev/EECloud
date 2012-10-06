@@ -3,7 +3,7 @@
     Protected WithEvents Connection As IConnection(Of TPlayer)
 
     Friend Sub Enable(creator As IConnectionFactory, pluginObj As IPluginObject) Implements IPlugin.Enable
-        Connection = creator.GetConnection(Of TPlayer)(pluginObj)
+        Connection = creator.GetConnection(Of TPlayer)(pluginObj, Me)
         If Connection.Connected Then
             OnConnect()
         Else

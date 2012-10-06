@@ -10,27 +10,12 @@ Friend NotInheritable Class ConnectionHandle
 #End Region
 
 #Region "Properties"
-    Private myCreator As IConnectionFactory
-
-    Friend ReadOnly Property Creator As IConnectionFactory
-        Get
-            Return myCreator
-        End Get
-    End Property
 
     Private ReadOnly myInternalConnection As New InternalConnection
 
     Public ReadOnly Property Connection As IConnection(Of Player) Implements IConnectionHandle.Connection
         Get
             Return myInternalConnection
-        End Get
-    End Property
-
-    Private ReadOnly myConnectionFactory As New ConnectionFactory(myInternalConnection)
-
-    Public ReadOnly Property ConnectionFactory As IConnectionFactory Implements IConnectionHandle.ConnectionFactory
-        Get
-            Return myConnectionFactory
         End Get
     End Property
 
@@ -56,13 +41,12 @@ Friend NotInheritable Class ConnectionHandle
                         Dim ioClient As Client = PlayerIO.QuickConnect.SimpleConnect(Config.GameID, username, password)
                         Dim ioConnection As Connection = GetIOConnection(ioClient, id)
                         myInternalConnection.SetupConnection(ioConnection, id)
-                        myCreator = New ConnectionFactory(myInternalConnection)
                     Catch ex As PlayerIOError
                         Throw New EECloudPlayerIOException(ex)
                     End Try
                 End Sub)
         Else
-            Throw New Exception("Can not create a new connection while an other connection already exists ")
+            Throw New Exception("Can not create a new connection while an other connection already exists")
         End If
     End Function
 

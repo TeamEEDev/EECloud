@@ -19,22 +19,12 @@ Public Class TestPlugin
     End Sub
 
     <Command("test", Group.Admin, Aliases:={"hi"})>
-    Public Sub TestCommand(cmd As ICommand)
-        Connection.Chatter.Chat(":D")
+    Public Sub TestCommand(cmd As ICommand, vars As String())
+        Connection.Chatter.Chat("You said: " & String.Join("/", vars))
     End Sub
 
-    Protected Overrides Async Sub OnConnect()
+    Protected Overrides Sub OnConnect()
         Connection.Chatter.Chat("Hi")
-        Connection.Send(New MoveSendMessage(0, 0, 0, 0, 0, 0, 0, 0))
-
-        For m = 1 To 99
-            For n = 1 To 99
-                Await task.Delay(25)
-                Connection.Send(New BlockPlaceSendMessage(Layer.Foreground, n, m, BlockType.BlockGravityNothing))
-            Next
-        Next
-
-
     End Sub
 End Class
 

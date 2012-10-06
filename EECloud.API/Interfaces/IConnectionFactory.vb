@@ -1,3 +1,3 @@
-﻿Public Interface IConnectionFactory
-    Function GetConnection(Of TPlayer As {Player, New})(plugin As IPluginObject) As IConnection(Of TPlayer)
+﻿Friend Interface IConnectionFactory
+    Function GetConnection(Of TPlayer As {Player, New})(plugin As IPluginObject, ByVal instance As Object) As IConnection(Of TPlayer)
 End Interface

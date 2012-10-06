@@ -48,14 +48,32 @@ Friend Class CommandManager
 
         Dim handle As CommandHandle = myCommandsDictionary(type)
 
-        If handle.MinimumArgs > cmd.Length - 1 Then
+        If handle.Count > cmd.Length - 1 Then
             myConnection.Chatter.Chat("Command usage: " & handle.ToString)
             Exit Sub
         End If
 
-        Dim command As New Command(sender, type)
+        Dim toCount As Integer = cmd.Length - 1
+        If toCount > handle.Count Then toCount = handle.Count
+
+        Dim args(toCount + CInt(IIf(handle.HasParamArray, 1, 0))) As Object
+        args(0) = New Command(sender, type)
+
+        For i = 1 To toCount
+            args(i) = cmd(i)
+        Next
+
+        If handle.HasParamArray Then
+            Dim pramArgs(cmd.Length - toCount - 2) As String
+            For i = 0 To cmd.Length - toCount - 2
+                pramArgs(i) = cmd(i + toCount + 1)
+            Next
+
+            args(args.Length - 1) = pramArgs
+        End If
+
         Try
-            handle.Run(command)
+            handle.Run(args)
         Catch ex As Exception
             Cloud.Logger.Log(LogPriority.Error, "Failed to run command " & type)
             Cloud.Logger.Log(ex)

@@ -95,14 +95,14 @@ Friend NotInheritable Class InternalConnection
         myInternalPlayerManager = New InternalPlayerManager(Me)
         myChatter = New Chatter(myInternalChatter, "Bot")
         myPlayerManager = New PlayerManager(Of Player)(myInternalPlayerManager, Me)
-        myPluginManager = New PluginManager()
+        myPluginManager = New PluginManager(New ConnectionFactory(Me))
 
     End Sub
 
-    Friend Sub SetupConnection(pconnection As Connection, worldID As String)
+    Friend Sub SetupConnection(pconnection As Connection, id As String)
         'Setting variables
         myConnection = pconnection
-        myWorldID = worldID
+        myWorldID = id
 
         'Registering messages
         RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoinReceiveMessage))
@@ -184,6 +184,7 @@ Friend NotInheritable Class InternalConnection
     End Sub
 
     Private Sub myConnection_OnDisconnect(sender As Object, message As String) Handles myConnection.OnDisconnect
+        UnRegisterAll()
         RaiseEvent OnInternalDisconnect(Me, message)
     End Sub
 
@@ -221,6 +222,11 @@ Friend NotInheritable Class InternalConnection
         Catch ex As Exception
             Cloud.Logger.Log(LogPriority.Error, "Failed to unregister message: " & pString)
         End Try
+    End Sub
+
+    Private Sub UnRegisterAll()
+        myRegisteredMessages = False
+        myMessageDictionary.Clear()
     End Sub
 
 #End Region
