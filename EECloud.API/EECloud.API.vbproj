@@ -209,7 +209,6 @@
     <Compile Include="Exceptions\EECloudException.vb" />
     <Compile Include="Plugins\PluginAttribute.vb" />
     <Compile Include="Enums\AppEnvironment.vb" />
-    <Compile Include="Enums\PluginStartupPriority.vb" />
     <Compile Include="Enums\ErrorCode.vb" />
     <Compile Include="Enums\LogPriority.vb" />
     <Compile Include="Enums\PluginCategory.vb" />

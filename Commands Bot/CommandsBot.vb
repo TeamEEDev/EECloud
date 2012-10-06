@@ -1,7 +1,6 @@
 ﻿<Plugin(Authors := {"Processor", "Jojatekok"},
         Category := PluginCategory.Tool,
         Description := "Commands Bot",
-        StartupPriority := PluginStartupPriority.Normal,
         Version := "1.0.0.0")>
 Public Class CommandsBot
     Inherits Plugin(Of CommandsBotPlayer)
