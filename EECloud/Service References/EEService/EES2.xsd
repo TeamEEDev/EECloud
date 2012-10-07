@@ -73,14 +73,28 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="SetPlayerData">
+  <xs:element name="SetPlayerDataGroupID">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/EEService" minOccurs="0" name="data" nillable="true" type="q5:UserData" />
+        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="groupID" type="xs:short" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="SetPlayerDataResponse">
+  <xs:element name="SetPlayerDataGroupIDResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetPlayerDataYoScrollWins">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="yoScrollWins" type="xs:unsignedInt" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetPlayerDataYoScrollWinsResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
