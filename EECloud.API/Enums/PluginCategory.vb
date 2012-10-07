@@ -5,7 +5,7 @@
 <Flags>
 Public Enum PluginCategory
     ''' <summary>
-    ''' A bot that creates a funny gameplay.
+    ''' A bot that makes a fun gameplay.
     ''' </summary>
     ''' <remarks></remarks>
     Fun = 1
