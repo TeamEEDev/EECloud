@@ -17,7 +17,7 @@ Public Class TestPlugin
 
     <Command("test", Group.Admin, Aliases:={"hi"})>
     Public Sub TestCommand(cmd As ICommand(Of TestPlayer), vars As String())
-        cmd.Sender.Reply("You said: " & String.Join("/", vars))
+        cmd.Sender.Reply("You said: " & String.Join(" ", vars))
     End Sub
 
     Protected Overrides Sub OnConnect()
