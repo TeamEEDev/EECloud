@@ -136,6 +136,7 @@
     <Compile Include="Interfaces\IConnectionFactory.vb" />
     <Compile Include="Interfaces\IPlayer.vb" />
     <Compile Include="Interfaces\IPlayerManager.vb" />
+    <Compile Include="Interfaces\IService.vb" />
     <Compile Include="Plugins\Player.vb" />
     <Compile Include="Components\World\World.vb" />
     <Compile Include="Components\World\WorldCoinDoorBlock.vb" />
@@ -229,54 +230,12 @@
     <Compile Include="Messages\Receive\GroupDisallowedJoinReceiveMessage.vb" />
     <Compile Include="Messages\Receive\ReceiveMessage.vb" />
     <Compile Include="Messages\Receive\UpgradeReceiveMessage.vb" />
-    <Compile Include="Service References\EEService\Reference.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Utils.vb" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
-    </None>
-    <None Include="Service References\EEService\EECloud.API.EEService.UserData.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\EEService\EES.wsdl" />
-    <None Include="Service References\EEService\EES.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\EEService\EES1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\EEService\EES2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\EEService\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\EEService\EES.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\EEService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\EEService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\EEService\EES3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\EEService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.vb</LastGenOutput>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

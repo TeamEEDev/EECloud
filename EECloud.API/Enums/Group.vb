@@ -27,12 +27,12 @@ Public Enum Group
     ''' This rank is temprorary, most level bot commands (other than setting wins for ex.) should use this rank.
     ''' </summary>
     ''' <remarks></remarks>
-    Moderator = 300
+    Moderator = 200
     ''' <summary>
     ''' Should have the same rights as Admins, excluding setting ranks.
     ''' </summary>
     ''' <remarks></remarks>
-    [Operator] = 200
+    [Operator] = 300
     ''' <summary>
     ''' Has access to absolutely everything. Most commands should use Operator instead.
     ''' </summary>
