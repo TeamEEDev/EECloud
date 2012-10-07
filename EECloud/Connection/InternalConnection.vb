@@ -61,6 +61,14 @@ Friend NotInheritable Class InternalConnection
         End Get
     End Property
 
+    Private ReadOnly myInternalCommandManager As InternalCommandManager
+
+    Public ReadOnly Property InternalCommandManager As InternalCommandManager
+        Get
+            Return myInternalCommandManager
+        End Get
+    End Property
+
     Private ReadOnly myChatter As IChatter
 
     Friend Overrides ReadOnly Property Chatter As IChatter
@@ -93,10 +101,10 @@ Friend NotInheritable Class InternalConnection
         'Creating instances
         myInternalChatter = New InternalChatter(Me)
         myInternalPlayerManager = New InternalPlayerManager(Me)
+        myInternalCommandManager = New InternalCommandManager(Me)
         myChatter = New Chatter(myInternalChatter, "Bot")
         myPlayerManager = New PlayerManager(Of Player)(myInternalPlayerManager, Me, myChatter)
         myPluginManager = New PluginManager(New ConnectionFactory(Me))
-
     End Sub
 
     Friend Sub SetupConnection(pconnection As Connection, id As String)
