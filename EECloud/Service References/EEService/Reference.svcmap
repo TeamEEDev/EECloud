@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="74696586-4ad9-40cf-8386-834b1900ad8a" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://eeservice.apphb.com/ees.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="EES.xsd" MetadataType="Schema" ID="4693ca62-711d-4ac0-a70a-5ceb597780df" SourceId="1" SourceUrl="http://eeservice.apphb.com/EES.svc?xsd=xsd3" />
+    <MetadataFile FileName="EES.disco" MetadataType="Disco" ID="607e6a3c-008d-4881-8f81-fe3d3bd8bfd3" SourceId="1" SourceUrl="http://eeservice.apphb.com/EES.svc?disco" />
+    <MetadataFile FileName="EES1.xsd" MetadataType="Schema" ID="1929df82-75b1-4cac-be68-8d77efa76369" SourceId="1" SourceUrl="http://eeservice.apphb.com/EES.svc?xsd=xsd2" />
+    <MetadataFile FileName="EES2.xsd" MetadataType="Schema" ID="cf3c57cd-98d6-4365-94b2-e6d577b97d48" SourceId="1" SourceUrl="http://eeservice.apphb.com/EES.svc?xsd=xsd0" />
+    <MetadataFile FileName="EES.wsdl" MetadataType="Wsdl" ID="c63c4292-dd1e-4aed-9df0-c20cc6ade3b6" SourceId="1" SourceUrl="http://eeservice.apphb.com/EES.svc?wsdl" />
+    <MetadataFile FileName="EES3.xsd" MetadataType="Schema" ID="b9eef91a-5e30-4202-861b-dada0aa9c093" SourceId="1" SourceUrl="http://eeservice.apphb.com/EES.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
