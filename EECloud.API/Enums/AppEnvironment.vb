@@ -1,10 +1,10 @@
 ﻿''' <summary>
-''' Repesents the Environment where the application is currently running.
+''' Repesents the environment where the application is currently running.
 ''' </summary>
 ''' <remarks></remarks>
 Public Enum AppEnvironment
     ''' <summary>
-    ''' The state where the program is running localy on a pc.
+    ''' The state where the program is running locally on a PC.
     ''' </summary>
     ''' <remarks></remarks>
     Dev
@@ -14,7 +14,7 @@ Public Enum AppEnvironment
     ''' <remarks></remarks>
     Test
     ''' <summary>
-    ''' The state where the program is running on the cloud.
+    ''' The state where the program is running in the cloud.
     ''' </summary>
     ''' <remarks></remarks>
     Release

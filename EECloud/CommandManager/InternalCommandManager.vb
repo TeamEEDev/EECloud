@@ -22,9 +22,8 @@
         If eventArgs.Handled = False Then
             Dim sender As Player = myConnection.PlayerManager.Players(user)
             If sender IsNot Nothing AndAlso sender.UserData.GroupID >= Group.Trusted Then
-                sender.Reply("Unknown Command!")
+                sender.Reply("Unknown command")
             End If
         End If
     End Sub
-
 End Class
