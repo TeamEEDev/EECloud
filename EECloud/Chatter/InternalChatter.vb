@@ -23,7 +23,15 @@ Friend NotInheritable Class InternalChatter
             End If
         End If
 
-        myChatQueue.Enqueue(New SaySendMessage(msg))
+        For i = 0 To msg.Length Step 80
+            Dim left As Integer = msg.Length - i
+            If left >= 80 Then
+                myChatQueue.Enqueue(New SaySendMessage(msg.Substring(i, 80)))
+            Else
+                myChatQueue.Enqueue(New SaySendMessage(msg.Substring(i, left)))
+            End If
+        Next
+
         If Not mySendTimer.Enabled Then
             SendTimer_Elapsed(Nothing, Nothing)
             mySendTimer.Start()
