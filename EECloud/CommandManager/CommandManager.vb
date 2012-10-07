@@ -50,7 +50,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
 
         If Not handle.Attribute.MinPermission = sender.UserData.GroupID.Value Then
             If sender.UserData.GroupID >= Group.Trusted Then
-                myConnection.Chatter.Chat("You are not allowed to use this command!")
+                myConnection.Chatter.Chat("You're not allowed to use this command.")
             End If
         End If
 
