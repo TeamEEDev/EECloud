@@ -157,6 +157,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandManager\Command.vb" />
+    <Compile Include="CommandManager\CommandEventArgs.vb" />
+    <Compile Include="CommandManager\InternalCommandManager.vb" />
     <Compile Include="PlayerManager\InternalPlayerManager.vb" />
     <Compile Include="Connection\ConnectionBase.vb" />
     <Compile Include="PlayerManager\PlayerManager.vb" />

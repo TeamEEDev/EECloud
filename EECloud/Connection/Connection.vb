@@ -59,7 +59,8 @@
         myChatter = New Chatter(internalConnection.InternalChatter, chatterName)
 
         myPlayerManager = New PlayerManager(Of TPlayer)(internalConnection.InternalPlayerManager, internalConnection, myChatter)
-        myCommandManager = New CommandManager(Of TPlayer)(Me, instance)
+        myCommandManager = New CommandManager(Of TPlayer)(Me, internalConnection.InternalCommandManager)
+        myCommandManager.Add(instance)
     End Sub
 
     Friend Overrides Sub Send(message As SendMessage)
