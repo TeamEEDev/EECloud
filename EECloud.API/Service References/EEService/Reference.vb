@@ -28,13 +28,12 @@ Namespace EEService
         Private extensionDataField As System.Runtime.Serialization.ExtensionDataObject
         
         <System.Runtime.Serialization.OptionalFieldAttribute()>  _
-        Private GroupIDField As Integer
+        Private GroupIDField As System.Nullable(Of Short)
         
-        <System.Runtime.Serialization.OptionalFieldAttribute()>  _
         Private UsernameField As String
         
         <System.Runtime.Serialization.OptionalFieldAttribute()>  _
-        Private YoScrollWinsField As UInteger
+        Private YoScrollWinsField As System.Nullable(Of UInteger)
         
         <Global.System.ComponentModel.BrowsableAttribute(false)>  _
         Public Property ExtensionData() As System.Runtime.Serialization.ExtensionDataObject Implements System.Runtime.Serialization.IExtensibleDataObject.ExtensionData
@@ -47,7 +46,7 @@ Namespace EEService
         End Property
         
         <System.Runtime.Serialization.DataMemberAttribute()>  _
-        Public Property GroupID() As Integer
+        Public Property GroupID() As System.Nullable(Of Short)
             Get
                 Return Me.GroupIDField
             End Get
@@ -59,7 +58,7 @@ Namespace EEService
             End Set
         End Property
         
-        <System.Runtime.Serialization.DataMemberAttribute()>  _
+        <System.Runtime.Serialization.DataMemberAttribute(IsRequired:=true)>  _
         Public Property Username() As String
             Get
                 Return Me.UsernameField
@@ -73,7 +72,7 @@ Namespace EEService
         End Property
         
         <System.Runtime.Serialization.DataMemberAttribute()>  _
-        Public Property YoScrollWins() As UInteger
+        Public Property YoScrollWins() As System.Nullable(Of UInteger)
             Get
                 Return Me.YoScrollWinsField
             End Get
@@ -124,10 +123,10 @@ Namespace EEService
         Function GetPlayerDatasAsync(ByVal usernames() As String) As System.Threading.Tasks.Task(Of EEService.UserData())
         
         <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/GetPlayerDataRange", ReplyAction:="http://tempuri.org/IEES/GetPlayerDataRangeResponse")>  _
-        Function GetPlayerDataRange(ByVal limit As UInteger, ByVal offset As UInteger) As EEService.UserData()
+        Function GetPlayerDataRange(ByVal offset As UInteger, ByVal limit As UInteger, ByVal orderBy As String) As EEService.UserData()
         
         <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/GetPlayerDataRange", ReplyAction:="http://tempuri.org/IEES/GetPlayerDataRangeResponse")>  _
-        Function GetPlayerDataRangeAsync(ByVal limit As UInteger, ByVal offset As UInteger) As System.Threading.Tasks.Task(Of EEService.UserData())
+        Function GetPlayerDataRangeAsync(ByVal offset As UInteger, ByVal limit As UInteger, ByVal orderBy As String) As System.Threading.Tasks.Task(Of EEService.UserData())
         
         <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/SetPlayerData", ReplyAction:="http://tempuri.org/IEES/SetPlayerDataResponse")>  _
         Sub SetPlayerData(ByVal data As EEService.UserData)
@@ -199,12 +198,12 @@ Namespace EEService
             Return MyBase.Channel.GetPlayerDatasAsync(usernames)
         End Function
         
-        Public Function GetPlayerDataRange(ByVal limit As UInteger, ByVal offset As UInteger) As EEService.UserData() Implements EEService.IEES.GetPlayerDataRange
-            Return MyBase.Channel.GetPlayerDataRange(limit, offset)
+        Public Function GetPlayerDataRange(ByVal offset As UInteger, ByVal limit As UInteger, ByVal orderBy As String) As EEService.UserData() Implements EEService.IEES.GetPlayerDataRange
+            Return MyBase.Channel.GetPlayerDataRange(offset, limit, orderBy)
         End Function
         
-        Public Function GetPlayerDataRangeAsync(ByVal limit As UInteger, ByVal offset As UInteger) As System.Threading.Tasks.Task(Of EEService.UserData()) Implements EEService.IEES.GetPlayerDataRangeAsync
-            Return MyBase.Channel.GetPlayerDataRangeAsync(limit, offset)
+        Public Function GetPlayerDataRangeAsync(ByVal offset As UInteger, ByVal limit As UInteger, ByVal orderBy As String) As System.Threading.Tasks.Task(Of EEService.UserData()) Implements EEService.IEES.GetPlayerDataRangeAsync
+            Return MyBase.Channel.GetPlayerDataRangeAsync(offset, limit, orderBy)
         End Function
         
         Public Sub SetPlayerData(ByVal data As EEService.UserData) Implements EEService.IEES.SetPlayerData

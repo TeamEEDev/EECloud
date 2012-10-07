@@ -3,6 +3,7 @@
 
 #Region "Fields"
     Private myPlayer As IPlayer
+    Private myChatter As IChatter
 #End Region
 
 #Region "Properties"
@@ -197,13 +198,17 @@
 
 #Region "Methods"
 
-    Friend Sub SetupPlayer(player As IPlayer)
+    Friend Sub SetupPlayer(player As IPlayer, chatter As IChatter)
         myPlayer = player
+        myChatter = chatter
     End Sub
 
     Public Async Function ReloadUserDataAsync() As Task Implements IPlayer.ReloadUserDataAsync
         Await myPlayer.ReloadUserDataAsync()
     End Function
 
+    Public Sub Reply(msg As String) Implements IPlayer.Reply
+        myChatter.Reply(Username, msg)
+    End Sub
 #End Region
 End Class

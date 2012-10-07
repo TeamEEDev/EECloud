@@ -1,6 +1,6 @@
 ﻿Imports System.Reflection
 
-Friend NotInheritable Class CommandHandle
+Friend NotInheritable Class CommandHandle(Of TPlayer As {New, Player})
 #Region "Fields"
     Private ReadOnly myMethodInfo As MethodInfo
     Private ReadOnly myTarget As Object
@@ -39,7 +39,7 @@ Friend NotInheritable Class CommandHandle
         myTarget = target
 
         Dim prams As ParameterInfo() = method.GetParameters
-        If Not prams(0).ParameterType = GetType(ICommand) Then
+        If Not prams(0).ParameterType = GetType(ICommand(Of TPlayer)) Then
             Cloud.Logger.Log(LogPriority.Error, "First parameter must be a Command: " & attribute.Type)
             Throw New EECloudException(ErrorCode.CommandSyntaxInvalid)
         End If

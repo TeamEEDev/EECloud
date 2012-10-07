@@ -46,7 +46,7 @@
         End Get
     End Property
 
-    Private myCommandManager As CommandManager
+    Private myCommandManager As CommandManager(Of TPlayer)
 #End Region
 
 #Region "Methods"
@@ -58,8 +58,8 @@
         If chatterName = Nothing Then chatterName = pluginObject.Name
         myChatter = New Chatter(internalConnection.InternalChatter, chatterName)
 
-        myPlayerManager = New PlayerManager(Of TPlayer)(internalConnection.InternalPlayerManager, internalConnection)
-        myCommandManager = New CommandManager(internalConnection, instance)
+        myPlayerManager = New PlayerManager(Of TPlayer)(internalConnection.InternalPlayerManager, internalConnection, myChatter)
+        myCommandManager = New CommandManager(Of TPlayer)(Me, instance)
     End Sub
 
     Friend Overrides Sub Send(message As SendMessage)
