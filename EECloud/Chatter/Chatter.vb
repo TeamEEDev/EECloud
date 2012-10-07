@@ -15,7 +15,7 @@
 
     Private ReadOnly Property ReplyPrefix(username As String) As String
         Get
-            Return String.Format("<{0} -> {1}> ", myPrefix, username.ToUpper)
+            Return String.Format("<{0} (@{1})> ", myPrefix, StrConv(username, VbStrConv.ProperCase))
         End Get
     End Property
 #End Region
