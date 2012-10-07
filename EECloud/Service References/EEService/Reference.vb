@@ -48,11 +48,17 @@ Namespace EEService
         <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/GetPlayerDataRange", ReplyAction:="http://tempuri.org/IEES/GetPlayerDataRangeResponse")>  _
         Function GetPlayerDataRangeAsync(ByVal offset As UInteger, ByVal limit As UInteger, ByVal orderBy As String) As System.Threading.Tasks.Task(Of EECloud.API.EEService.UserData())
         
-        <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/SetPlayerData", ReplyAction:="http://tempuri.org/IEES/SetPlayerDataResponse")>  _
-        Sub SetPlayerData(ByVal data As EECloud.API.EEService.UserData)
+        <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/SetPlayerDataGroupID", ReplyAction:="http://tempuri.org/IEES/SetPlayerDataGroupIDResponse")>  _
+        Sub SetPlayerDataGroupID(ByVal username As String, ByVal groupID As Short)
         
-        <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/SetPlayerData", ReplyAction:="http://tempuri.org/IEES/SetPlayerDataResponse")>  _
-        Function SetPlayerDataAsync(ByVal data As EECloud.API.EEService.UserData) As System.Threading.Tasks.Task
+        <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/SetPlayerDataGroupID", ReplyAction:="http://tempuri.org/IEES/SetPlayerDataGroupIDResponse")>  _
+        Function SetPlayerDataGroupIDAsync(ByVal username As String, ByVal groupID As Short) As System.Threading.Tasks.Task
+        
+        <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/SetPlayerDataYoScrollWins", ReplyAction:="http://tempuri.org/IEES/SetPlayerDataYoScrollWinsResponse")>  _
+        Sub SetPlayerDataYoScrollWins(ByVal username As String, ByVal yoScrollWins As UInteger)
+        
+        <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/SetPlayerDataYoScrollWins", ReplyAction:="http://tempuri.org/IEES/SetPlayerDataYoScrollWinsResponse")>  _
+        Function SetPlayerDataYoScrollWinsAsync(ByVal username As String, ByVal yoScrollWins As UInteger) As System.Threading.Tasks.Task
     End Interface
     
     <System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")>  _
@@ -126,12 +132,20 @@ Namespace EEService
             Return MyBase.Channel.GetPlayerDataRangeAsync(offset, limit, orderBy)
         End Function
         
-        Public Sub SetPlayerData(ByVal data As EECloud.API.EEService.UserData) Implements EEService.IEES.SetPlayerData
-            MyBase.Channel.SetPlayerData(data)
+        Public Sub SetPlayerDataGroupID(ByVal username As String, ByVal groupID As Short) Implements EEService.IEES.SetPlayerDataGroupID
+            MyBase.Channel.SetPlayerDataGroupID(username, groupID)
         End Sub
         
-        Public Function SetPlayerDataAsync(ByVal data As EECloud.API.EEService.UserData) As System.Threading.Tasks.Task Implements EEService.IEES.SetPlayerDataAsync
-            Return MyBase.Channel.SetPlayerDataAsync(data)
+        Public Function SetPlayerDataGroupIDAsync(ByVal username As String, ByVal groupID As Short) As System.Threading.Tasks.Task Implements EEService.IEES.SetPlayerDataGroupIDAsync
+            Return MyBase.Channel.SetPlayerDataGroupIDAsync(username, groupID)
+        End Function
+        
+        Public Sub SetPlayerDataYoScrollWins(ByVal username As String, ByVal yoScrollWins As UInteger) Implements EEService.IEES.SetPlayerDataYoScrollWins
+            MyBase.Channel.SetPlayerDataYoScrollWins(username, yoScrollWins)
+        End Sub
+        
+        Public Function SetPlayerDataYoScrollWinsAsync(ByVal username As String, ByVal yoScrollWins As UInteger) As System.Threading.Tasks.Task Implements EEService.IEES.SetPlayerDataYoScrollWinsAsync
+            Return MyBase.Channel.SetPlayerDataYoScrollWinsAsync(username, yoScrollWins)
         End Function
     End Class
 End Namespace
