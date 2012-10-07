@@ -16,8 +16,8 @@ Public Class TestPlugin
     End Sub
 
     <Command("test", Group.Admin, Aliases:={"hi"})>
-    Public Sub TestCommand(cmd As ICommand, vars As String())
-        Connection.Chatter.Chat("You said: " & String.Join("/", vars))
+    Public Sub TestCommand(cmd As ICommand(Of TestPlayer), vars As String())
+        cmd.Sender.Reply("You said: " & String.Join("/", vars))
     End Sub
 
     Protected Overrides Sub OnConnect()

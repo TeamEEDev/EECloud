@@ -1,11 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-
-<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://eeservice.apphb.com/EES.svc?xsd=xsd2"
-             namespace="http://schemas.datacontract.org/2004/07/EEService" />
-  <xs:import schemaLocation="http://eeservice.apphb.com/EES.svc?xsd=xsd3"
-             namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://eeservice.apphb.com/EES.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/EEService" />
+  <xs:import schemaLocation="http://eeservice.apphb.com/EES.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:element name="GetSetting">
     <xs:complexType>
       <xs:sequence>
@@ -43,48 +39,44 @@
   <xs:element name="GetPlayerDataResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/EEService" minOccurs="0"
-                    name="GetPlayerDataResult" nillable="true" type="q1:UserData" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/EEService" minOccurs="0" name="GetPlayerDataResult" nillable="true" type="q1:UserData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetPlayerDatas">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="usernames"
-                    nillable="true" type="q2:ArrayOfstring" />
+        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="usernames" nillable="true" type="q2:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetPlayerDatasResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/EEService" minOccurs="0"
-                    name="GetPlayerDatasResult" nillable="true" type="q3:ArrayOfUserData" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/EEService" minOccurs="0" name="GetPlayerDatasResult" nillable="true" type="q3:ArrayOfUserData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetPlayerDataRange">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="limit" type="xs:unsignedInt" />
         <xs:element minOccurs="0" name="offset" type="xs:unsignedInt" />
+        <xs:element minOccurs="0" name="limit" type="xs:unsignedInt" />
+        <xs:element minOccurs="0" name="orderBy" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetPlayerDataRangeResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/EEService" minOccurs="0"
-                    name="GetPlayerDataRangeResult" nillable="true" type="q4:ArrayOfUserData" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/EEService" minOccurs="0" name="GetPlayerDataRangeResult" nillable="true" type="q4:ArrayOfUserData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SetPlayerData">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/EEService" minOccurs="0" name="data"
-                    nillable="true" type="q5:UserData" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/EEService" minOccurs="0" name="data" nillable="true" type="q5:UserData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

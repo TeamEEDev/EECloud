@@ -4,6 +4,7 @@
 #Region "Fields"
     Private WithEvents myInternalPlayerManager As InternalPlayerManager
     Private WithEvents myConnection As InternalConnection
+    Private ReadOnly myChatter As IChatter
 #End Region
 
 #Region "Properties"
@@ -41,9 +42,11 @@
 
 #Region "Methods"
 
-    Sub New(internalPlayerManager As InternalPlayerManager, ByVal connection As InternalConnection)
+    Sub New(internalPlayerManager As InternalPlayerManager, ByVal connection As InternalConnection, chatter As IChatter)
         myInternalPlayerManager = internalPlayerManager
         myConnection = connection
+        myChatter = chatter
+
         For Each player As InternalPlayer In myInternalPlayerManager.Players.Values
             AddPlayer(player)
         Next
@@ -71,7 +74,7 @@
     Private Sub AddPlayer(internalPlayer As InternalPlayer)
         If Not myPlayersDictionary.ContainsKey(internalPlayer.UserID) Then
             Dim player As New TPlayer
-            player.SetupPlayer(internalPlayer)
+            player.SetupPlayer(internalPlayer, myChatter)
             myPlayersDictionary.Add(player.UserID, player)
         End If
     End Sub

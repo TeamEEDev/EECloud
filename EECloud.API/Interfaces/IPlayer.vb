@@ -22,4 +22,5 @@ Friend Interface IPlayer
     ReadOnly Property UserData As UserData
 
     Function ReloadUserDataAsync() As Task
+    Sub Reply(msg As String)
 End Interface

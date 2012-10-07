@@ -31,7 +31,7 @@ Friend NotInheritable Class InternalChatter
     End Sub
 
     Private Sub SendTimer_Elapsed(sender As Object, e As ElapsedEventArgs) Handles mySendTimer.Elapsed
-        SyncLock myChatQueue 'Super important to make the code thread safe
+        SyncLock myChatQueue
             If myChatQueue.Count > 0 Then
                 myConnection.Send(myChatQueue.Dequeue())
             Else

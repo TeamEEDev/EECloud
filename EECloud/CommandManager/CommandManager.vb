@@ -1,10 +1,10 @@
 ﻿Imports System.Reflection
 
-Friend NotInheritable Class CommandManager
-    Private ReadOnly myCommandsDictionary As New Dictionary(Of String, CommandHandle)
-    Private ReadOnly myConnection As IConnection(Of Player)
+Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
+    Private ReadOnly myCommandsDictionary As New Dictionary(Of String, CommandHandle(Of TPlayer))
+    Private ReadOnly myConnection As IConnection(Of TPlayer)
 
-    Sub New(connection As IConnection(Of Player), target As Object)
+    Sub New(connection As IConnection(Of TPlayer), target As Object)
         myConnection = connection
         AddHandler myConnection.OnReceiveSay, AddressOf myConnection_OnReceiveSay
         AddHandler Cloud.Logger.OnInput,
@@ -15,7 +15,7 @@ Friend NotInheritable Class CommandManager
             If attributes IsNot Nothing AndAlso attributes.Length = 1 Then
                 Dim attribute As CommandAttribute = CType(attributes(0), CommandAttribute)
                 Try
-                    Dim handle As New CommandHandle(attribute, method, target)
+                    Dim handle As New CommandHandle(Of TPlayer)(attribute, method, target)
                     Try
                         myCommandsDictionary.Add(attribute.Type, handle)
                         For Each item As String In attribute.Aliases
@@ -38,7 +38,7 @@ Friend NotInheritable Class CommandManager
         End If
     End Sub
 
-    Private Sub ProcessMessage(msg As String, sender As Player)
+    Private Sub ProcessMessage(msg As String, sender As TPlayer)
         Dim cmd As String() = msg.Split(" "c)
         Dim type As String = cmd(0).ToLower
 
@@ -46,9 +46,9 @@ Friend NotInheritable Class CommandManager
             Exit Sub
         End If
 
-        Dim handle As CommandHandle = myCommandsDictionary(type)
+        Dim handle As CommandHandle(Of TPlayer) = myCommandsDictionary(type)
 
-        If Not handle.Attribute.MinPermission <= sender.UserData.GroupID Then
+        If Not handle.Attribute.MinPermission = sender.UserData.GroupID.Value Then
             If sender.UserData.GroupID >= Group.Trusted Then
                 myConnection.Chatter.Chat("You are not allowed to use this command!")
             End If
@@ -63,7 +63,7 @@ Friend NotInheritable Class CommandManager
         If toCount > handle.Count Then toCount = handle.Count
 
         Dim args(toCount + CInt(IIf(handle.HasParamArray, 1, 0))) As Object
-        args(0) = New Command(sender, type)
+        args(0) = New Command(Of TPlayer)(sender, type)
 
         For i = 1 To toCount
             args(i) = cmd(i)

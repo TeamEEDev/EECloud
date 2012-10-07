@@ -94,7 +94,7 @@ Friend NotInheritable Class InternalConnection
         myInternalChatter = New InternalChatter(Me)
         myInternalPlayerManager = New InternalPlayerManager(Me)
         myChatter = New Chatter(myInternalChatter, "Bot")
-        myPlayerManager = New PlayerManager(Of Player)(myInternalPlayerManager, Me)
+        myPlayerManager = New PlayerManager(Of Player)(myInternalPlayerManager, Me, myChatter)
         myPluginManager = New PluginManager(New ConnectionFactory(Me))
 
     End Sub

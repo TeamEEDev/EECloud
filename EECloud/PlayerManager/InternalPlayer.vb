@@ -182,6 +182,10 @@
         myUserData = Await Cloud.Service.GetPlayerDataAsync(myUsername)
     End Function
 
+    Public Sub Reply(msg As String) Implements IPlayer.Reply
+        myConnection.Chatter.Reply(myUsername, msg)
+    End Sub
+
     Private Sub myConnection_OnReceiveCoin(sender As Object, e As CoinReceiveMessage) Handles myConnection.OnReceiveCoin
         If e.UserID = myUserID Then
             myCoins = e.Coins
