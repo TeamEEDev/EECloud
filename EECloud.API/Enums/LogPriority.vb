@@ -1,5 +1,5 @@
 ﻿''' <summary>
-''' Describes the Priority of a log.
+''' Describes the priority of a log entry.
 ''' </summary>
 ''' <remarks></remarks>
 Public Enum LogPriority
@@ -8,16 +8,19 @@ Public Enum LogPriority
     ''' </summary>
     ''' <remarks></remarks>
     Info = 0
+
     ''' <summary>
-    ''' Something unusual happened but no operation was canceled.
+    ''' Something unusual happened, but no operation was cancelled.
     ''' </summary>
     ''' <remarks></remarks>
     Warning = 1
+
     ''' <summary>
-    ''' Something unexpected happened, the operation is likely canceled and the program might be unstable in the future.
+    ''' Something unexpected happened; the operation is likely cancelled and the program might become unstable.
     ''' </summary>
     ''' <remarks></remarks>
     [Error] = 2
+
     ''' <summary>
     ''' Temprorary information displayed to help debugging.
     ''' </summary>
