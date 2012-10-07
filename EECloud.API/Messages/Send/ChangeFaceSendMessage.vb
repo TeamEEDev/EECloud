@@ -8,7 +8,7 @@ Public Class ChangeFaceSendMessage
         Me.Face = face
     End Sub
 
-    Friend Overrides Function GetMessage(world As World) As Message
+    Friend Overrides Function GetMessage(world As IWorld) As Message
         Return Message.Create(world.Encryption & "f", Face)
     End Function
 End Class

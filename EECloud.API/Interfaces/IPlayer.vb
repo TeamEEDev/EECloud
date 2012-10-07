@@ -1,6 +1,4 @@
-﻿Imports EECloud.API.EEService
-
-Friend Interface IPlayer
+﻿Friend Interface IPlayer
     ReadOnly Property UserID As Integer
     ReadOnly Property Username As String
     ReadOnly Property Face As Smiley
@@ -19,7 +17,9 @@ Friend Interface IPlayer
     ReadOnly Property Vertical As Double
     ReadOnly Property HasSilverCrown As Boolean
     ReadOnly Property HasCrown As Boolean
-    ReadOnly Property UserData As UserData
+
+    Property Group As Group
+    Property YoScrollWins As UInteger
 
     Function ReloadUserDataAsync() As Task
     Sub Reply(msg As String)

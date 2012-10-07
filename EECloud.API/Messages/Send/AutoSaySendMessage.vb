@@ -8,7 +8,7 @@ Public Class AutoSaySendMessage
         Me.Text = text
     End Sub
 
-    Friend Overrides Function GetMessage(world As World) As Message
+    Friend Overrides Function GetMessage(world As IWorld) As Message
         Return Message.Create("autosay", Text)
     End Function
 End Class

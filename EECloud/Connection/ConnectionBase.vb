@@ -1384,9 +1384,11 @@
 
     Friend MustOverride ReadOnly Property PluginManager As IPluginManager Implements IConnection(Of TPlayer).PluginManager
 
-    Friend MustOverride ReadOnly Property World As World Implements IConnection(Of TPlayer).World
+    Friend MustOverride ReadOnly Property World As IWorld Implements IConnection(Of TPlayer).World
 
     Friend MustOverride ReadOnly Property WorldID As String Implements IConnection(Of TPlayer).WorldID
+
+    Public MustOverride ReadOnly Property CommandManager As ICommandManager Implements IConnection(Of TPlayer).CommandManager
 #End Region
 
 #Region "Methods"

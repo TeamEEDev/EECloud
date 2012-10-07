@@ -11,8 +11,88 @@
 Option Strict On
 Option Explicit On
 
+Imports System
+Imports System.Runtime.Serialization
 
 Namespace EEService
+    
+    <System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0"),  _
+     System.Runtime.Serialization.DataContractAttribute(Name:="UserData", [Namespace]:="http://schemas.datacontract.org/2004/07/EEService"),  _
+     System.SerializableAttribute()>  _
+    Partial Public Class UserData
+        Inherits Object
+        Implements System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged
+        
+        <System.NonSerializedAttribute()>  _
+        Private extensionDataField As System.Runtime.Serialization.ExtensionDataObject
+        
+        <System.Runtime.Serialization.OptionalFieldAttribute()>  _
+        Private GroupIDField As Short
+        
+        Private UsernameField As String
+        
+        <System.Runtime.Serialization.OptionalFieldAttribute()>  _
+        Private YoScrollWinsField As UInteger
+        
+        <Global.System.ComponentModel.BrowsableAttribute(false)>  _
+        Public Property ExtensionData() As System.Runtime.Serialization.ExtensionDataObject Implements System.Runtime.Serialization.IExtensibleDataObject.ExtensionData
+            Get
+                Return Me.extensionDataField
+            End Get
+            Set
+                Me.extensionDataField = value
+            End Set
+        End Property
+        
+        <System.Runtime.Serialization.DataMemberAttribute()>  _
+        Public Property GroupID() As Short
+            Get
+                Return Me.GroupIDField
+            End Get
+            Set
+                If (Me.GroupIDField.Equals(value) <> true) Then
+                    Me.GroupIDField = value
+                    Me.RaisePropertyChanged("GroupID")
+                End If
+            End Set
+        End Property
+        
+        <System.Runtime.Serialization.DataMemberAttribute(IsRequired:=true)>  _
+        Public Property Username() As String
+            Get
+                Return Me.UsernameField
+            End Get
+            Set
+                If (Object.ReferenceEquals(Me.UsernameField, value) <> true) Then
+                    Me.UsernameField = value
+                    Me.RaisePropertyChanged("Username")
+                End If
+            End Set
+        End Property
+        
+        <System.Runtime.Serialization.DataMemberAttribute()>  _
+        Public Property YoScrollWins() As UInteger
+            Get
+                Return Me.YoScrollWinsField
+            End Get
+            Set
+                If (Me.YoScrollWinsField.Equals(value) <> true) Then
+                    Me.YoScrollWinsField = value
+                    Me.RaisePropertyChanged("YoScrollWins")
+                End If
+            End Set
+        End Property
+        
+        Public Event PropertyChanged As System.ComponentModel.PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+        
+        Protected Sub RaisePropertyChanged(ByVal propertyName As String)
+            Dim propertyChanged As System.ComponentModel.PropertyChangedEventHandler = Me.PropertyChangedEvent
+            If (Not (propertyChanged) Is Nothing) Then
+                propertyChanged(Me, New System.ComponentModel.PropertyChangedEventArgs(propertyName))
+            End If
+        End Sub
+    End Class
     
     <System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0"),  _
      System.ServiceModel.ServiceContractAttribute(ConfigurationName:="EEService.IEES")>  _
@@ -31,22 +111,22 @@ Namespace EEService
         Function SetSettingAsync(ByVal key As String, ByVal value As String) As System.Threading.Tasks.Task
         
         <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/GetPlayerData", ReplyAction:="http://tempuri.org/IEES/GetPlayerDataResponse")>  _
-        Function GetPlayerData(ByVal username As String) As EECloud.API.EEService.UserData
+        Function GetPlayerData(ByVal username As String) As EEService.UserData
         
         <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/GetPlayerData", ReplyAction:="http://tempuri.org/IEES/GetPlayerDataResponse")>  _
-        Function GetPlayerDataAsync(ByVal username As String) As System.Threading.Tasks.Task(Of EECloud.API.EEService.UserData)
+        Function GetPlayerDataAsync(ByVal username As String) As System.Threading.Tasks.Task(Of EEService.UserData)
         
         <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/GetPlayerDatas", ReplyAction:="http://tempuri.org/IEES/GetPlayerDatasResponse")>  _
-        Function GetPlayerDatas(ByVal usernames() As String) As EECloud.API.EEService.UserData()
+        Function GetPlayerDatas(ByVal usernames() As String) As EEService.UserData()
         
         <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/GetPlayerDatas", ReplyAction:="http://tempuri.org/IEES/GetPlayerDatasResponse")>  _
-        Function GetPlayerDatasAsync(ByVal usernames() As String) As System.Threading.Tasks.Task(Of EECloud.API.EEService.UserData())
+        Function GetPlayerDatasAsync(ByVal usernames() As String) As System.Threading.Tasks.Task(Of EEService.UserData())
         
         <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/GetPlayerDataRange", ReplyAction:="http://tempuri.org/IEES/GetPlayerDataRangeResponse")>  _
-        Function GetPlayerDataRange(ByVal offset As UInteger, ByVal limit As UInteger, ByVal orderBy As String) As EECloud.API.EEService.UserData()
+        Function GetPlayerDataRange(ByVal offset As UInteger, ByVal limit As UInteger, ByVal orderBy As String) As EEService.UserData()
         
         <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/GetPlayerDataRange", ReplyAction:="http://tempuri.org/IEES/GetPlayerDataRangeResponse")>  _
-        Function GetPlayerDataRangeAsync(ByVal offset As UInteger, ByVal limit As UInteger, ByVal orderBy As String) As System.Threading.Tasks.Task(Of EECloud.API.EEService.UserData())
+        Function GetPlayerDataRangeAsync(ByVal offset As UInteger, ByVal limit As UInteger, ByVal orderBy As String) As System.Threading.Tasks.Task(Of EEService.UserData())
         
         <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/SetPlayerDataGroupID", ReplyAction:="http://tempuri.org/IEES/SetPlayerDataGroupIDResponse")>  _
         Sub SetPlayerDataGroupID(ByVal username As String, ByVal groupID As Short)
@@ -108,27 +188,27 @@ Namespace EEService
             Return MyBase.Channel.SetSettingAsync(key, value)
         End Function
         
-        Public Function GetPlayerData(ByVal username As String) As EECloud.API.EEService.UserData Implements EEService.IEES.GetPlayerData
+        Public Function GetPlayerData(ByVal username As String) As EEService.UserData Implements EEService.IEES.GetPlayerData
             Return MyBase.Channel.GetPlayerData(username)
         End Function
         
-        Public Function GetPlayerDataAsync(ByVal username As String) As System.Threading.Tasks.Task(Of EECloud.API.EEService.UserData) Implements EEService.IEES.GetPlayerDataAsync
+        Public Function GetPlayerDataAsync(ByVal username As String) As System.Threading.Tasks.Task(Of EEService.UserData) Implements EEService.IEES.GetPlayerDataAsync
             Return MyBase.Channel.GetPlayerDataAsync(username)
         End Function
         
-        Public Function GetPlayerDatas(ByVal usernames() As String) As EECloud.API.EEService.UserData() Implements EEService.IEES.GetPlayerDatas
+        Public Function GetPlayerDatas(ByVal usernames() As String) As EEService.UserData() Implements EEService.IEES.GetPlayerDatas
             Return MyBase.Channel.GetPlayerDatas(usernames)
         End Function
         
-        Public Function GetPlayerDatasAsync(ByVal usernames() As String) As System.Threading.Tasks.Task(Of EECloud.API.EEService.UserData()) Implements EEService.IEES.GetPlayerDatasAsync
+        Public Function GetPlayerDatasAsync(ByVal usernames() As String) As System.Threading.Tasks.Task(Of EEService.UserData()) Implements EEService.IEES.GetPlayerDatasAsync
             Return MyBase.Channel.GetPlayerDatasAsync(usernames)
         End Function
         
-        Public Function GetPlayerDataRange(ByVal offset As UInteger, ByVal limit As UInteger, ByVal orderBy As String) As EECloud.API.EEService.UserData() Implements EEService.IEES.GetPlayerDataRange
+        Public Function GetPlayerDataRange(ByVal offset As UInteger, ByVal limit As UInteger, ByVal orderBy As String) As EEService.UserData() Implements EEService.IEES.GetPlayerDataRange
             Return MyBase.Channel.GetPlayerDataRange(offset, limit, orderBy)
         End Function
         
-        Public Function GetPlayerDataRangeAsync(ByVal offset As UInteger, ByVal limit As UInteger, ByVal orderBy As String) As System.Threading.Tasks.Task(Of EECloud.API.EEService.UserData()) Implements EEService.IEES.GetPlayerDataRangeAsync
+        Public Function GetPlayerDataRangeAsync(ByVal offset As UInteger, ByVal limit As UInteger, ByVal orderBy As String) As System.Threading.Tasks.Task(Of EEService.UserData()) Implements EEService.IEES.GetPlayerDataRangeAsync
             Return MyBase.Channel.GetPlayerDataRangeAsync(offset, limit, orderBy)
         End Function
         

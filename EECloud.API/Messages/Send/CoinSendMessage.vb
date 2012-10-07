@@ -8,7 +8,7 @@ Public Class CoinSendMessage
         Me.Coins = coins
     End Sub
 
-    Friend Overrides Function GetMessage(world As World) As Message
+    Friend Overrides Function GetMessage(world As IWorld) As Message
         Return Message.Create("c", Coins)
     End Function
 End Class

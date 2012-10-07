@@ -129,7 +129,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EECloud.API, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86" />
     <Reference Include="PlayerIOClient">
       <HintPath>..\PlayerIOClient.dll</HintPath>
     </Reference>
@@ -170,11 +169,12 @@
     <Compile Include="Connection\Connection.vb" />
     <Compile Include="ConnectionHandle\ConnectionHandle.vb" />
     <Compile Include="ConnectionHandle\ConnectionHandleFactory.vb" />
-    <Compile Include="Service References\EEService\Reference.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
+    <Compile Include="World\World.vb" />
+    <Compile Include="World\WorldBlock.vb" />
+    <Compile Include="World\WorldCoinDoorBlock.vb" />
+    <Compile Include="World\WorldLabelBlock.vb" />
+    <Compile Include="World\WorldPortalBlock.vb" />
+    <Compile Include="World\WorldSoundBlock.vb" />
     <Compile Include="zMisc\EventHandlerList.vb" />
     <Compile Include="Chatter\InternalChatter.vb" />
     <Compile Include="zForms\LicenseForm.Designer.vb">
@@ -227,25 +227,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="Service References\EEService\EES.wsdl" />
-    <None Include="Service References\EEService\EES.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\EEService\EES1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\EEService\EES2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\EEService\EES3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\EECloud.API\EECloud.API.vbproj">
-      <Project>{580ddf14-7848-4318-b9d8-55cbc3a2bc9e}</Project>
-      <Name>EECloud.PluginAPI</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -287,25 +268,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\EEService\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\EEService\EES.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\EEService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\EEService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\EEService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.vb</LastGenOutput>
-    </None>
+    <ProjectReference Include="..\EECloud.API\EECloud.API.vbproj">
+      <Project>{580ddf14-7848-4318-b9d8-55cbc3a2bc9e}</Project>
+      <Name>EECloud.API</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -9,7 +9,7 @@ Public Class LabelPlaceSendMessage
         Me.Text = text
     End Sub
 
-    Friend Overrides Function GetMessage(world As World) As Message
+    Friend Overrides Function GetMessage(world As IWorld) As Message
         If IsLabel(Block) Then
             Dim message As Message = MyBase.GetMessage(world)
             message.Add(Text)

@@ -14,7 +14,7 @@ Public Class PortalPlaceSendMessage
         Me.PortalRotation = portalRotation
     End Sub
 
-    Friend Overrides Function GetMessage(world As World) As Message
+    Friend Overrides Function GetMessage(world As IWorld) As Message
         If IsPortal(Block) Then
             Dim message As Message = MyBase.GetMessage(world)
             message.Add(PortalRotation)
