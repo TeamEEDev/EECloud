@@ -4,22 +4,22 @@
 ''' <remarks></remarks>
 Public Enum PortalRotation
     ''' <summary>
-    ''' Portal pointing down
+    ''' Portal pointing downwards
     ''' </summary>
     ''' <remarks></remarks>
     Down = 0
     ''' <summary>
-    ''' Portal pointing left
+    ''' Portal pointing to the left
     ''' </summary>
     ''' <remarks></remarks>
     Left = 1
     ''' <summary>
-    ''' Portal pointing up
+    ''' Portal pointing upwards
     ''' </summary>
     ''' <remarks></remarks>
     Up = 2
     ''' <summary>
-    ''' Portal pointing right
+    ''' Portal pointing to the right
     ''' </summary>
     ''' <remarks></remarks>
     Right = 3

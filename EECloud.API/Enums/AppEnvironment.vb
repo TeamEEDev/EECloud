@@ -8,11 +8,13 @@ Public Enum AppEnvironment
     ''' </summary>
     ''' <remarks></remarks>
     Dev
+
     ''' <summary>
     ''' The state where unit tests are being done.
     ''' </summary>
     ''' <remarks></remarks>
     Test
+
     ''' <summary>
     ''' The state where the program is running in the cloud.
     ''' </summary>
