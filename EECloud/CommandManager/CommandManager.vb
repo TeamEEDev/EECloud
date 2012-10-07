@@ -1,6 +1,6 @@
 ﻿Imports System.Reflection
 
-Friend Class CommandManager
+Friend NotInheritable Class CommandManager
     Private ReadOnly myCommandsDictionary As New Dictionary(Of String, CommandHandle)
     Private ReadOnly myConnection As IConnection(Of Player)
 
@@ -15,7 +15,7 @@ Friend Class CommandManager
             If attributes IsNot Nothing AndAlso attributes.Length = 1 Then
                 Dim attribute As CommandAttribute = CType(attributes(0), CommandAttribute)
                 Try
-                    Dim handle As New CommandHandle(attribute.Type, method, target)
+                    Dim handle As New CommandHandle(attribute, method, target)
                     Try
                         myCommandsDictionary.Add(attribute.Type, handle)
                         For Each item As String In attribute.Aliases
@@ -47,6 +47,12 @@ Friend Class CommandManager
         End If
 
         Dim handle As CommandHandle = myCommandsDictionary(type)
+
+        If Not handle.Attribute.MinPermission <= sender.UserData.GroupID Then
+            If sender.UserData.GroupID >= Group.Trusted Then
+                myConnection.Chatter.Chat("You are not allowed to use this command!")
+            End If
+        End If
 
         If handle.Count > cmd.Length - 1 Then
             myConnection.Chatter.Chat("Command usage: " & handle.ToString)
