@@ -152,6 +152,14 @@
         End Get
     End Property
 
+    Private myUserData As EEService.UserData
+
+    Public ReadOnly Property UserData As EEService.UserData Implements IPlayer.UserData
+        Get
+            Return myUserData
+        End Get
+    End Property
+
 #End Region
 
 #Region "Methods"
@@ -169,6 +177,10 @@
         myPlayerPosX = addMessage.PlayerPosX
         myPlayerPosY = addMessage.PlayerPosY
     End Sub
+
+    Friend Async Function ReloadUserDataAsync() As Threading.Tasks.Task Implements IPlayer.ReloadUserDataAsync
+        myUserData = Await Cloud.Service.GetPlayerDataAsync(myUsername)
+    End Function
 
     Private Sub myConnection_OnReceiveCoin(sender As Object, e As CoinReceiveMessage) Handles myConnection.OnReceiveCoin
         If e.UserID = myUserID Then

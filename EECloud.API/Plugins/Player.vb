@@ -187,6 +187,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property UserData As EEService.UserData Implements IPlayer.UserData
+        Get
+            Return myPlayer.UserData
+        End Get
+    End Property
+
 #End Region
 
 #Region "Methods"
@@ -194,6 +200,10 @@
     Friend Sub SetupPlayer(player As IPlayer)
         myPlayer = player
     End Sub
+
+    Public Async Function ReloadUserDataAsync() As Task Implements IPlayer.ReloadUserDataAsync
+        Await myPlayer.ReloadUserDataAsync()
+    End Function
 
 #End Region
 End Class

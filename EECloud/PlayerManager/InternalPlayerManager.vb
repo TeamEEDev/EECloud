@@ -26,9 +26,10 @@
         myConnection = connection
     End Sub
 
-    Private Sub myConnection_OnReceiveAdd(sender As Object, e As AddReceiveMessage) Handles myConnection.OnReceiveAdd
+    Private Async Sub myConnection_OnReceiveAdd(sender As Object, e As AddReceiveMessage) Handles myConnection.OnReceiveAdd
         Try
             Dim player As New InternalPlayer(myConnection, e)
+            Await player.ReloadUserDataAsync
             myPlayers.Add(player.UserID, player)
             RaiseEvent OnAddUser(Me, player)
         Catch ex As Exception
