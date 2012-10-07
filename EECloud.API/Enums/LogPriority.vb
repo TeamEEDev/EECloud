@@ -16,7 +16,7 @@ Public Enum LogPriority
     Warning = 1
 
     ''' <summary>
-    ''' Something unexpected happened; the operation is likely cancelled and the program might become unstable.
+    ''' Something unexpected happened; the operation is likely cancelled and the program might be unstable from now.
     ''' </summary>
     ''' <remarks></remarks>
     [Error] = 2
