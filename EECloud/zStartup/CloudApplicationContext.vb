@@ -1,8 +1,8 @@
 ﻿Imports System.Configuration
-Imports EECloud.API.EEService
 Imports System.Reflection
 Imports System.IO
 Imports System.Threading.Tasks
+Imports EECloud.API.EEService
 
 Friend NotInheritable Class CloudApplicationContext
     Inherits ApplicationContext

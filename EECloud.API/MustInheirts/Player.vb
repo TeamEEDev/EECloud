@@ -188,10 +188,38 @@
         End Get
     End Property
 
-    Public ReadOnly Property UserData As EEService.UserData Implements IPlayer.UserData
+    Public Property Group As Group Implements IPlayer.Group
         Get
-            Return myPlayer.UserData
+            Try
+                Return myPlayer.Group
+            Catch ex As Exception
+                Return Nothing
+            End Try
         End Get
+
+        Set(value As Group)
+            Try
+                myPlayer.Group = value
+            Catch
+            End Try
+        End Set
+    End Property
+
+    Public Property YoScrollWins As UInteger Implements IPlayer.YoScrollWins
+        Get
+            Try
+                Return myPlayer.YoScrollWins
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+
+        Set(value As UInteger)
+            Try
+                myPlayer.YoScrollWins = value
+            Catch
+            End Try
+        End Set
     End Property
 
 #End Region
@@ -210,5 +238,6 @@
     Public Sub Reply(msg As String) Implements IPlayer.Reply
         myChatter.Reply(Username, msg)
     End Sub
+
 #End Region
 End Class

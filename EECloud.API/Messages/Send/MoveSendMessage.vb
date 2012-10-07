@@ -22,7 +22,7 @@ Public Class MoveSendMessage
         Me.Vertical = vertical
     End Sub
 
-    Friend Overrides Function GetMessage(world As World) As Message
+    Friend Overrides Function GetMessage(world As IWorld) As Message
         Return Message.Create("m", PosX, PosY, SpeedX, SpeedY, ModifierX, ModifierY, Horizontal, Vertical)
     End Function
 End Class

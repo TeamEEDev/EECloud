@@ -1,19 +1,26 @@
 ﻿Imports PlayerIOClient
 
 Public NotInheritable Class World
+    Implements IWorld
 
 #Region "Fields"
     Private Const InitOffset As UInteger = 14
-    Private ReadOnly myBlocks(,,) As WorldBlock
+    Private ReadOnly myBlocks(,,) As IWorldBlock
     Private myConnection As IConnection(Of Player)
 #End Region
 
 #Region "Properties"
     Private ReadOnly myEncryption As String
 
-    Public ReadOnly Property Encryption As String
+    Public ReadOnly Property Encryption As String Implements IWorld.Encryption
         Get
             Return myEncryption
+        End Get
+    End Property
+
+    Default Public ReadOnly Property Item(x As Integer, y As Integer, Optional layer As Layer = Layer.Foreground) As IWorldBlock Implements IWorld.Item
+        Get
+            Return myBlocks(layer, x, y)
         End Get
     End Property
 
@@ -47,7 +54,7 @@ Public NotInheritable Class World
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
-                        value(layer, x, y) = New WorldCoinDoorBlock(layer, CType(block, CoinDoorBlockType), coinsToCollect)
+                        value(layer, x, y) = New WorldCoinDoorBlock(CType(block, CoinDoorBlockType), coinsToCollect)
                     Next
                 Case BlockType.BlockMusicPiano Or BlockType.BlockMusicDrum
                     Dim soundID As Integer = m.GetInteger(pointer)
@@ -55,7 +62,7 @@ Public NotInheritable Class World
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
-                        value(layer, x, y) = New WorldSoundBlock(layer, CType(block, SoundBlockType), soundID)
+                        value(layer, x, y) = New WorldSoundBlock(CType(block, SoundBlockType), soundID)
                     Next
                 Case BlockType.BlockPortal
                     Dim portalRotation As PortalRotation = CType(m.GetInteger(pointer), PortalRotation)
@@ -67,7 +74,7 @@ Public NotInheritable Class World
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
-                        value(layer, x, y) = New WorldPortalBlock(layer, CType(block, PortalBlockType), portalRotation, portalID, portalTarget)
+                        value(layer, x, y) = New WorldPortalBlock(CType(block, PortalBlockType), portalRotation, portalID, portalTarget)
                     Next
                 Case BlockType.BlockLabel
                     Dim text As String = m.GetString(pointer)
@@ -75,24 +82,18 @@ Public NotInheritable Class World
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
-                        value(layer, x, y) = New WorldLabelBlock(layer, CType(block, LabelBlockType), text)
+                        value(layer, x, y) = New WorldLabelBlock(CType(block, LabelBlockType), text)
                     Next
                 Case Else
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
-                        value(layer, x, y) = New WorldBlock(layer, block)
+                        value(layer, x, y) = New WorldBlock(block)
                     Next
             End Select
         Loop
         Return value
     End Function
-
-    Default Public ReadOnly Property Item(x As Integer, y As Integer, Optional layer As Layer = Layer.Foreground) As WorldBlock
-        Get
-            Return myBlocks(layer, x, y)
-        End Get
-    End Property
 
 #End Region
 End Class

@@ -18,7 +18,7 @@
         End Get
     End Property
 
-    Friend Overrides ReadOnly Property World As World
+    Friend Overrides ReadOnly Property World As IWorld
         Get
             Return InternalConnection.World
         End Get
@@ -46,7 +46,13 @@
         End Get
     End Property
 
-    Private myCommandManager As CommandManager(Of TPlayer)
+    Private ReadOnly myCommandManager As CommandManager(Of TPlayer)
+
+    Public Overrides ReadOnly Property CommandManager As ICommandManager
+        Get
+            Return myCommandManager
+        End Get
+    End Property
 #End Region
 
 #Region "Methods"

@@ -1,6 +1,7 @@
 ﻿Friend NotInheritable Class InternalPlayer
     Implements IPlayer
 
+
 #Region "Fields"
     Private WithEvents myConnection As InternalConnection
 #End Region
@@ -152,12 +153,30 @@
         End Get
     End Property
 
-    Private myUserData As EEService.UserData
+    Private myGroup As Group
 
-    Public ReadOnly Property UserData As EEService.UserData Implements IPlayer.UserData
+    Public Property Group As Group Implements IPlayer.Group
         Get
-            Return myUserData
+            Return myGroup
         End Get
+
+        Set(value As Group)
+            myGroup = value
+            Cloud.Service.SetPlayerDataGroupIDAsync(Username, CShort(value))
+        End Set
+    End Property
+
+    Private myYoScrollWins As UInteger
+
+    Public Property YoScrollWins As UInteger Implements IPlayer.YoScrollWins
+        Get
+            Return myYoScrollWins
+        End Get
+
+        Set(value As UInteger)
+            myYoScrollWins  = value
+            Cloud.Service.SetPlayerDataYoScrollWinsAsync(Username, value)
+        End Set
     End Property
 
 #End Region
@@ -179,7 +198,11 @@
     End Sub
 
     Friend Async Function ReloadUserDataAsync() As Threading.Tasks.Task Implements IPlayer.ReloadUserDataAsync
-        myUserData = Await Cloud.Service.GetPlayerDataAsync(myUsername)
+        Dim userData As EEService.UserData = Await Cloud.Service.GetPlayerDataAsync(myUsername)
+        If userData IsNot Nothing Then
+            myGroup = CType(userData.GroupID, Group)
+            myYoScrollWins = userData.YoScrollWins
+        End If
     End Function
 
     Public Sub Reply(msg As String) Implements IPlayer.Reply
@@ -212,12 +235,6 @@
         End If
     End Sub
 
-    Private Sub myConnection_OnReceiveCrown(sender As Object, e As CrownReceiveMessage) Handles myConnection.OnReceiveCrown
-        If e.UserID = myUserID Then
-
-        End If
-    End Sub
-
     Private Sub myConnection_OnReceiveGodMode(sender As Object, e As GodModeReceiveMessage) Handles myConnection.OnReceiveGodMode
         If e.UserID = myUserID Then
             myIsGod = e.IsGod
@@ -240,7 +257,10 @@
         If e.ResetCoins = True Then
             myCoins = 0
         End If
-        'TODO: update coordinates
+
+        Dim loc As Location = e.Coordinates(myUserID)
+        myPlayerPosX = loc.X
+        myPlayerPosY = loc.Y
     End Sub
 
 #End Region

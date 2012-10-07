@@ -2,5 +2,5 @@
 
 Public MustInherit Class SendMessage
     Inherits EventArgs
-    Friend MustOverride Function GetMessage(world As World) As Message
+    Friend MustOverride Function GetMessage(world As IWorld) As Message
 End Class

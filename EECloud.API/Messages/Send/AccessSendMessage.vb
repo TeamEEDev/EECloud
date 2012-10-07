@@ -8,7 +8,7 @@ Public Class AccessSendMessage
         Me.EditKey = editKey
     End Sub
 
-    Friend Overrides Function GetMessage(world As World) As Message
+    Friend Overrides Function GetMessage(world As IWorld) As Message
         Return Message.Create("access", EditKey)
     End Function
 End Class

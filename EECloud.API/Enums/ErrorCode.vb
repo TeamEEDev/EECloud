@@ -7,4 +7,5 @@
     MessageAlreadySent
     ServiceConnectionFailed
     CommandSyntaxInvalid
+    CommandTargetAlreadyAdded
 End Enum

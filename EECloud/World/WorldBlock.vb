@@ -1,17 +1,11 @@
 ﻿Public Class WorldBlock
+    Implements IWorldBlock
 
 #Region "Properties"
-    Private ReadOnly myLayer As Layer
-
-    Public ReadOnly Property Layer As Layer
-        Get
-            Return myLayer
-        End Get
-    End Property
 
     Private ReadOnly myBlock As BlockType
 
-    Public ReadOnly Property Block As BlockType
+    Public ReadOnly Property Block As BlockType Implements IWorldBlock.Block
         Get
             Return myBlock
         End Get
@@ -21,17 +15,16 @@
 
 #Region "Methods"
 
-    Friend Sub New(layer As Layer, block As BlockType)
+    Friend Sub New(block As BlockType)
         myBlock = block
-        myLayer = layer
     End Sub
 
     Public Shared Operator =(b1 As WorldBlock, b2 As WorldBlock) As Boolean
-        Return b1.myBlock = b2.myBlock AndAlso b1.myLayer = b2.myLayer
+        Return b1.myBlock = b2.myBlock
     End Operator
 
     Public Shared Operator <>(b1 As WorldBlock, b2 As WorldBlock) As Boolean
-        Return b1.myBlock <> b2.myBlock OrElse b1.myLayer <> b2.myLayer
+        Return b1.myBlock <> b2.myBlock
     End Operator
 
 #End Region

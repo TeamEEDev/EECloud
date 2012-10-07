@@ -80,7 +80,7 @@
         End SyncLock
     End Sub
 
-    Friend Sub Start() Implements IPluginObject.Start
+    Friend Sub Restart() Implements IPluginObject.Restart
         If Started Then
             [Stop]()
         End If
@@ -89,6 +89,4 @@
         End If
     End Sub
 #End Region
-
-
 End Class

@@ -29,9 +29,9 @@ Friend NotInheritable Class InternalConnection
         End Get
     End Property
 
-    Private myWorld As World
+    Private myWorld As IWorld
 
-    Friend Overrides ReadOnly Property World As World
+    Friend Overrides ReadOnly Property World As IWorld
         Get
             Return myWorld
         End Get
@@ -85,6 +85,14 @@ Friend NotInheritable Class InternalConnection
         End Get
     End Property
 
+    Private myCommandManager As ICommandManager
+
+    Public Overrides ReadOnly Property CommandManager As ICommandManager
+        Get
+            Return myCommandManager
+        End Get
+    End Property
+
 #End Region
 
 #Region "Events"
@@ -95,16 +103,18 @@ Friend NotInheritable Class InternalConnection
 #Region "Methods"
 
     Friend Sub New()
+        myCommandManager = commandManager
         'Setting variables
         InternalConnection = Me
 
         'Creating instances
+        myPluginManager = New PluginManager(New ConnectionFactory(Me))
         myInternalChatter = New InternalChatter(Me)
         myInternalPlayerManager = New InternalPlayerManager(Me)
         myInternalCommandManager = New InternalCommandManager(Me)
         myChatter = New Chatter(myInternalChatter, "Bot")
         myPlayerManager = New PlayerManager(Of Player)(myInternalPlayerManager, Me, myChatter)
-        myPluginManager = New PluginManager(New ConnectionFactory(Me))
+        myCommandManager = New CommandManager(Of Player)(Me, myInternalCommandManager)
     End Sub
 
     Friend Sub SetupConnection(pconnection As Connection, id As String)

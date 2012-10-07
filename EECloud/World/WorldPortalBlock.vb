@@ -1,8 +1,9 @@
 ﻿Public NotInheritable Class WorldPortalBlock
     Inherits WorldBlock
+    Implements IWorldPortalBlock
 
-    Friend Sub New(layer As Layer, block As PortalBlockType, portalRotation As PortalRotation, portalID As Integer, portalTarget As Integer)
-        MyBase.New(layer, CType(block, BlockType))
+    Friend Sub New(block As PortalBlockType, portalRotation As PortalRotation, portalID As Integer, portalTarget As Integer)
+        MyBase.New(CType(block, BlockType))
 
         myPortalRotation = portalRotation
         myPortalID = portalID
@@ -11,7 +12,7 @@
 
     Private ReadOnly myPortalRotation As PortalRotation
 
-    Public ReadOnly Property PortalRotation As PortalRotation
+    Public ReadOnly Property PortalRotation As PortalRotation Implements IWorldPortalBlock.PortalRotation
         Get
             Return myPortalRotation
         End Get
@@ -19,7 +20,7 @@
 
     Private ReadOnly myPortalID As Integer
 
-    Public ReadOnly Property PortalID As Integer
+    Public ReadOnly Property PortalID As Integer Implements IWorldPortalBlock.PortalID
         Get
             Return myPortalID
         End Get
@@ -27,7 +28,7 @@
 
     Private ReadOnly myPortalTarget As Integer
 
-    Public ReadOnly Property PortalTarget As Integer
+    Public ReadOnly Property PortalTarget As Integer Implements IWorldPortalBlock.PortalTarget
         Get
             Return myPortalTarget
         End Get
