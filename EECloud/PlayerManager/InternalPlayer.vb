@@ -1,7 +1,6 @@
 ﻿Friend NotInheritable Class InternalPlayer
     Implements IPlayer
 
-
 #Region "Fields"
     Private WithEvents myConnection As InternalConnection
 #End Region
@@ -174,7 +173,7 @@
         End Get
 
         Set(value As UInteger)
-            myYoScrollWins  = value
+            myYoScrollWins = value
             Cloud.Service.SetPlayerDataYoScrollWinsAsync(Username, value)
         End Set
     End Property
@@ -261,6 +260,10 @@
         Dim loc As Location = e.Coordinates(myUserID)
         myPlayerPosX = loc.X
         myPlayerPosY = loc.Y
+    End Sub
+
+    Public Sub Kick(msg As String) Implements IPlayer.Kick
+        myConnection.Chatter.Kick(myUsername, msg)
     End Sub
 
 #End Region

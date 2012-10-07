@@ -35,8 +35,8 @@
         myInternalChatter.SendChat(ReplyPrefix(username) & msg)
     End Sub
 
-    Friend Sub Kick(user As Player, msg As String) Implements IChatter.Kick
-        myInternalChatter.SendChat("/kick " & user.Username & " " & ChatPrefix & msg)
+    Friend Sub Kick(username As String, msg As String) Implements IChatter.Kick
+        myInternalChatter.SendChat("/kick " & username & " " & ChatPrefix & msg)
     End Sub
 
     Friend Sub Loadlevel() Implements IChatter.Loadlevel

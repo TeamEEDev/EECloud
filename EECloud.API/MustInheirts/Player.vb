@@ -239,5 +239,9 @@
         myChatter.Reply(Username, msg)
     End Sub
 
+    Public Sub Kick(msg As String) Implements IPlayer.Kick
+            myChatter.Kick(myPlayer.Username, msg)
+    End Sub
+
 #End Region
 End Class
