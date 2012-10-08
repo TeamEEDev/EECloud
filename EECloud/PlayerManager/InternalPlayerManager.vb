@@ -26,7 +26,7 @@
         myConnection = connection
     End Sub
 
-    Private Async Sub myConnection_OnReceiveAdd(sender As Object, e As AddReceiveMessage) Handles myConnection.OnReceiveAdd
+    Private Async Sub myConnection_OnReceiveAdd(sender As Object, e As AddReceiveMessage) Handles myConnection.ReceiveAdd
         Try
             Dim player As New InternalPlayer(myConnection, e)
             Await player.ReloadUserDataAsync
@@ -37,7 +37,7 @@
         End Try
     End Sub
 
-    Private Sub myConnection_OnReceiveCrown(sender As Object, e As CrownReceiveMessage) Handles myConnection.OnReceiveCrown
+    Private Sub myConnection_OnReceiveCrown(sender As Object, e As CrownReceiveMessage) Handles myConnection.ReceiveCrown
         Try
             If Not e.UserID = -1 Then
                 myCrown = Players(e.UserID)
@@ -47,7 +47,7 @@
         End Try
     End Sub
 
-    Private Sub myConnection_OnReceiveLeft(sender As Object, e As LeftReceiveMessage) Handles myConnection.OnReceiveLeft
+    Private Sub myConnection_OnReceiveLeft(sender As Object, e As LeftReceiveMessage) Handles myConnection.ReceiveLeft
         RaiseEvent OnRemoveUser(Me, e)
 
         Try

@@ -8,1388 +8,1388 @@
 
 #Region "Events"
 
-    Friend Custom Event OnReceiveMessage As EventHandler(Of ReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveMessage
+    Friend Custom Event ReceiveMessage As EventHandler(Of ReceiveMessage) Implements IConnection(Of TPlayer).ReceiveMessage
         AddHandler(value As EventHandler(Of ReceiveMessage))
-            myEvents.Add("OnReceiveMessage", value)
+            myEvents.Add("ReceiveMessage", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of ReceiveMessage))
-            myEvents.Remove("OnReceiveMessage", value)
+            myEvents.Remove("ReceiveMessage", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As ReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of ReceiveMessage) = CType(myEvents("OnReceiveMessage"), EventHandler(Of ReceiveMessage))
+                Dim eevent As EventHandler(Of ReceiveMessage) = CType(myEvents("ReceiveMessage"), EventHandler(Of ReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveMessage", ex)
+                OnEventError("ReceiveMessage", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnDisconnect As EventHandler(Of DisconnectEventArgs) Implements IConnection(Of TPlayer).OnDisconnect
+    Friend Custom Event Disconnect As EventHandler(Of DisconnectEventArgs) Implements IConnection(Of TPlayer).Disconnect
         AddHandler(value As EventHandler(Of DisconnectEventArgs))
-            myEvents.Add("OnDisconnect", value)
+            myEvents.Add("Disconnect", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of DisconnectEventArgs))
-            myEvents.Remove("OnDisconnect", value)
+            myEvents.Remove("Disconnect", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As DisconnectEventArgs)
             Try
-                Dim eevent As EventHandler(Of DisconnectEventArgs) = CType(myEvents("OnDisconnect"), EventHandler(Of DisconnectEventArgs))
+                Dim eevent As EventHandler(Of DisconnectEventArgs) = CType(myEvents("Disconnect"), EventHandler(Of DisconnectEventArgs))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnDisconnect", ex)
+                OnEventError("Disconnect", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnDisconnecting As EventHandler(Of EventArgs) Implements IConnection(Of TPlayer).OnDisconnecting
+    Friend Custom Event Disconnecting As EventHandler(Of EventArgs) Implements IConnection(Of TPlayer).Disconnecting
         AddHandler(value As EventHandler(Of EventArgs))
-            myEvents.Add("OnDisconnecting", value)
+            myEvents.Add("Disconnecting", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of EventArgs))
-            myEvents.Remove("OnDisconnecting", value)
+            myEvents.Remove("Disconnecting", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As EventArgs)
             Try
-                Dim eevent As EventHandler(Of EventArgs) = CType(myEvents("OnDisconnecting"), EventHandler(Of EventArgs))
+                Dim eevent As EventHandler(Of EventArgs) = CType(myEvents("Disconnecting"), EventHandler(Of EventArgs))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnDisconnecting", ex)
+                OnEventError("Disconnecting", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveAccess As EventHandler(Of AccessReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveAccess
+    Friend Custom Event ReceiveAccess As EventHandler(Of AccessReceiveMessage) Implements IConnection(Of TPlayer).ReceiveAccess
         AddHandler(value As EventHandler(Of AccessReceiveMessage))
-            myEvents.Add("OnReceiveAccess", value)
+            myEvents.Add("ReceiveAccess", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of AccessReceiveMessage))
-            myEvents.Remove("OnReceiveAccess", value)
+            myEvents.Remove("ReceiveAccess", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As AccessReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of AccessReceiveMessage) = CType(myEvents("OnReceiveAccess"), EventHandler(Of AccessReceiveMessage))
+                Dim eevent As EventHandler(Of AccessReceiveMessage) = CType(myEvents("ReceiveAccess"), EventHandler(Of AccessReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveAccess", ex)
+                OnEventError("ReceiveAccess", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveAdd As EventHandler(Of AddReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveAdd
+    Friend Custom Event ReceiveAdd As EventHandler(Of AddReceiveMessage) Implements IConnection(Of TPlayer).ReceiveAdd
         AddHandler(value As EventHandler(Of AddReceiveMessage))
-            myEvents.Add("OnReceiveAdd", value)
+            myEvents.Add("ReceiveAdd", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of AddReceiveMessage))
-            myEvents.Remove("OnReceiveAdd", value)
+            myEvents.Remove("ReceiveAdd", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As AddReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of AddReceiveMessage) = CType(myEvents("OnReceiveAdd"), EventHandler(Of AddReceiveMessage))
+                Dim eevent As EventHandler(Of AddReceiveMessage) = CType(myEvents("ReceiveAdd"), EventHandler(Of AddReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveAdd", ex)
+                OnEventError("ReceiveAdd", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveAutoText As EventHandler(Of AutoTextReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveAutoText
+    Friend Custom Event ReceiveAutoText As EventHandler(Of AutoTextReceiveMessage) Implements IConnection(Of TPlayer).ReceiveAutoText
         AddHandler(value As EventHandler(Of AutoTextReceiveMessage))
-            myEvents.Add("OnReceiveAutoText", value)
+            myEvents.Add("ReceiveAutoText", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of AutoTextReceiveMessage))
-            myEvents.Remove("OnReceiveAutoText", value)
+            myEvents.Remove("ReceiveAutoText", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As AutoTextReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of AutoTextReceiveMessage) = CType(myEvents("OnReceiveAutoText"), EventHandler(Of AutoTextReceiveMessage))
+                Dim eevent As EventHandler(Of AutoTextReceiveMessage) = CType(myEvents("ReceiveAutoText"), EventHandler(Of AutoTextReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveAutoText", ex)
+                OnEventError("ReceiveAutoText", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveBlockPlace As EventHandler(Of BlockPlaceReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveBlockPlace
+    Friend Custom Event ReceiveBlockPlace As EventHandler(Of BlockPlaceReceiveMessage) Implements IConnection(Of TPlayer).ReceiveBlockPlace
         AddHandler(value As EventHandler(Of BlockPlaceReceiveMessage))
-            myEvents.Add("OnReceiveBlockPlace", value)
+            myEvents.Add("ReceiveBlockPlace", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of BlockPlaceReceiveMessage))
-            myEvents.Remove("OnReceiveBlockPlace", value)
+            myEvents.Remove("ReceiveBlockPlace", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As BlockPlaceReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of BlockPlaceReceiveMessage) = CType(myEvents("OnReceiveBlockPlace"), EventHandler(Of BlockPlaceReceiveMessage))
+                Dim eevent As EventHandler(Of BlockPlaceReceiveMessage) = CType(myEvents("ReceiveBlockPlace"), EventHandler(Of BlockPlaceReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveBlockPlace", ex)
+                OnEventError("ReceiveBlockPlace", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveClear As EventHandler(Of ClearReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveClear
+    Friend Custom Event ReceiveClear As EventHandler(Of ClearReceiveMessage) Implements IConnection(Of TPlayer).ReceiveClear
         AddHandler(value As EventHandler(Of ClearReceiveMessage))
-            myEvents.Add("OnReceiveClear", value)
+            myEvents.Add("ReceiveClear", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of ClearReceiveMessage))
-            myEvents.Remove("OnReceiveClear", value)
+            myEvents.Remove("ReceiveClear", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As ClearReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of ClearReceiveMessage) = CType(myEvents("OnReceiveClear"), EventHandler(Of ClearReceiveMessage))
+                Dim eevent As EventHandler(Of ClearReceiveMessage) = CType(myEvents("ReceiveClear"), EventHandler(Of ClearReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveClear", ex)
+                OnEventError("ReceiveClear", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveCoin As EventHandler(Of CoinReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveCoin
+    Friend Custom Event ReceiveCoin As EventHandler(Of CoinReceiveMessage) Implements IConnection(Of TPlayer).ReceiveCoin
         AddHandler(value As EventHandler(Of CoinReceiveMessage))
-            myEvents.Add("OnReceiveCoin", value)
+            myEvents.Add("ReceiveCoin", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of CoinReceiveMessage))
-            myEvents.Remove("OnReceiveCoin", value)
+            myEvents.Remove("ReceiveCoin", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As CoinReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of CoinReceiveMessage) = CType(myEvents("OnReceiveCoin"), EventHandler(Of CoinReceiveMessage))
+                Dim eevent As EventHandler(Of CoinReceiveMessage) = CType(myEvents("ReceiveCoin"), EventHandler(Of CoinReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveCoin", ex)
+                OnEventError("ReceiveCoin", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveCoinDoorPlace As EventHandler(Of CoinDoorPlace_ReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveCoinDoorPlace
+    Friend Custom Event ReceiveCoinDoorPlace As EventHandler(Of CoinDoorPlace_ReceiveMessage) Implements IConnection(Of TPlayer).ReceiveCoinDoorPlace
         AddHandler(value As EventHandler(Of CoinDoorPlace_ReceiveMessage))
-            myEvents.Add("OnReceiveCoinDoorPlace", value)
+            myEvents.Add("ReceiveCoinDoorPlace", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of CoinDoorPlace_ReceiveMessage))
-            myEvents.Remove("OnReceiveCoinDoorPlace", value)
+            myEvents.Remove("ReceiveCoinDoorPlace", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As CoinDoorPlace_ReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of CoinDoorPlace_ReceiveMessage) = CType(myEvents("OnReceiveCoinDoorPlace"), EventHandler(Of CoinDoorPlace_ReceiveMessage))
+                Dim eevent As EventHandler(Of CoinDoorPlace_ReceiveMessage) = CType(myEvents("ReceiveCoinDoorPlace"), EventHandler(Of CoinDoorPlace_ReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveCoinDoorPlace", ex)
+                OnEventError("ReceiveCoinDoorPlace", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveCrown As EventHandler(Of CrownReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveCrown
+    Friend Custom Event ReceiveCrown As EventHandler(Of CrownReceiveMessage) Implements IConnection(Of TPlayer).ReceiveCrown
         AddHandler(value As EventHandler(Of CrownReceiveMessage))
-            myEvents.Add("OnReceiveCrown", value)
+            myEvents.Add("ReceiveCrown", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of CrownReceiveMessage))
-            myEvents.Remove("OnReceiveCrown", value)
+            myEvents.Remove("ReceiveCrown", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As CrownReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of CrownReceiveMessage) = CType(myEvents("OnReceiveCrown"), EventHandler(Of CrownReceiveMessage))
+                Dim eevent As EventHandler(Of CrownReceiveMessage) = CType(myEvents("ReceiveCrown"), EventHandler(Of CrownReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveCrown", ex)
+                OnEventError("ReceiveCrown", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveFace As EventHandler(Of FaceReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveFace
+    Friend Custom Event ReceiveFace As EventHandler(Of FaceReceiveMessage) Implements IConnection(Of TPlayer).ReceiveFace
         AddHandler(value As EventHandler(Of FaceReceiveMessage))
-            myEvents.Add("OnReceiveFace", value)
+            myEvents.Add("ReceiveFace", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of FaceReceiveMessage))
-            myEvents.Remove("OnReceiveFace", value)
+            myEvents.Remove("ReceiveFace", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As FaceReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of FaceReceiveMessage) = CType(myEvents("OnReceiveFace"), EventHandler(Of FaceReceiveMessage))
+                Dim eevent As EventHandler(Of FaceReceiveMessage) = CType(myEvents("ReceiveFace"), EventHandler(Of FaceReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveFace", ex)
+                OnEventError("ReceiveFace", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveGiveFireWizard As EventHandler(Of GiveFireWizardReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveGiveFireWizard
+    Friend Custom Event ReceiveGiveFireWizard As EventHandler(Of GiveFireWizardReceiveMessage) Implements IConnection(Of TPlayer).ReceiveGiveFireWizard
         AddHandler(value As EventHandler(Of GiveFireWizardReceiveMessage))
-            myEvents.Add("OnReceiveGiveFireWizard", value)
+            myEvents.Add("ReceiveGiveFireWizard", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of GiveFireWizardReceiveMessage))
-            myEvents.Remove("OnReceiveGiveFireWizard", value)
+            myEvents.Remove("ReceiveGiveFireWizard", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As GiveFireWizardReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of GiveFireWizardReceiveMessage) = CType(myEvents("OnReceiveGiveFireWizard"), EventHandler(Of GiveFireWizardReceiveMessage))
+                Dim eevent As EventHandler(Of GiveFireWizardReceiveMessage) = CType(myEvents("ReceiveGiveFireWizard"), EventHandler(Of GiveFireWizardReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveGiveFireWizard", ex)
+                OnEventError("ReceiveGiveFireWizard", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveGiveGrinch As EventHandler(Of GiveGrinchReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveGiveGrinch
+    Friend Custom Event ReceiveGiveGrinch As EventHandler(Of GiveGrinchReceiveMessage) Implements IConnection(Of TPlayer).ReceiveGiveGrinch
         AddHandler(value As EventHandler(Of GiveGrinchReceiveMessage))
-            myEvents.Add("OnReceiveGiveGrinch", value)
+            myEvents.Add("ReceiveGiveGrinch", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of GiveGrinchReceiveMessage))
-            myEvents.Remove("OnReceiveGiveGrinch", value)
+            myEvents.Remove("ReceiveGiveGrinch", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As GiveGrinchReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of GiveGrinchReceiveMessage) = CType(myEvents("OnReceiveGiveGrinch"), EventHandler(Of GiveGrinchReceiveMessage))
+                Dim eevent As EventHandler(Of GiveGrinchReceiveMessage) = CType(myEvents("ReceiveGiveGrinch"), EventHandler(Of GiveGrinchReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveGiveGrinch", ex)
+                OnEventError("ReceiveGiveGrinch", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveGiveWitch As EventHandler(Of GiveWitchReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveGiveWitch
+    Friend Custom Event ReceiveGiveWitch As EventHandler(Of GiveWitchReceiveMessage) Implements IConnection(Of TPlayer).ReceiveGiveWitch
         AddHandler(value As EventHandler(Of GiveWitchReceiveMessage))
-            myEvents.Add("OnReceiveGiveWitch", value)
+            myEvents.Add("ReceiveGiveWitch", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of GiveWitchReceiveMessage))
-            myEvents.Remove("OnReceiveGiveWitch", value)
+            myEvents.Remove("ReceiveGiveWitch", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As GiveWitchReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of GiveWitchReceiveMessage) = CType(myEvents("OnReceiveGiveWitch"), EventHandler(Of GiveWitchReceiveMessage))
+                Dim eevent As EventHandler(Of GiveWitchReceiveMessage) = CType(myEvents("ReceiveGiveWitch"), EventHandler(Of GiveWitchReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveGiveWitch", ex)
+                OnEventError("ReceiveGiveWitch", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveGiveWizard As EventHandler(Of GiveWizardReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveGiveWizard
+    Friend Custom Event ReceiveGiveWizard As EventHandler(Of GiveWizardReceiveMessage) Implements IConnection(Of TPlayer).ReceiveGiveWizard
         AddHandler(value As EventHandler(Of GiveWizardReceiveMessage))
-            myEvents.Add("OnReceiveGiveWizard", value)
+            myEvents.Add("ReceiveGiveWizard", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of GiveWizardReceiveMessage))
-            myEvents.Remove("OnReceiveGiveWizard", value)
+            myEvents.Remove("ReceiveGiveWizard", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As GiveWizardReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of GiveWizardReceiveMessage) = CType(myEvents("OnReceiveGiveWizard"), EventHandler(Of GiveWizardReceiveMessage))
+                Dim eevent As EventHandler(Of GiveWizardReceiveMessage) = CType(myEvents("ReceiveGiveWizard"), EventHandler(Of GiveWizardReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveGiveWizard", ex)
+                OnEventError("ReceiveGiveWizard", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveGodMode As EventHandler(Of GodModeReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveGodMode
+    Friend Custom Event ReceiveGodMode As EventHandler(Of GodModeReceiveMessage) Implements IConnection(Of TPlayer).ReceiveGodMode
         AddHandler(value As EventHandler(Of GodModeReceiveMessage))
-            myEvents.Add("OnReceiveGodMode", value)
+            myEvents.Add("ReceiveGodMode", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of GodModeReceiveMessage))
-            myEvents.Remove("OnReceiveGodMode", value)
+            myEvents.Remove("ReceiveGodMode", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As GodModeReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of GodModeReceiveMessage) = CType(myEvents("OnReceiveGodMode"), EventHandler(Of GodModeReceiveMessage))
+                Dim eevent As EventHandler(Of GodModeReceiveMessage) = CType(myEvents("ReceiveGodMode"), EventHandler(Of GodModeReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveGodMode", ex)
+                OnEventError("ReceiveGodMode", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveGroupDisallowedJoin As EventHandler(Of GroupDisallowedJoinReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveGroupDisallowedJoin
+    Friend Custom Event ReceiveGroupDisallowedJoin As EventHandler(Of GroupDisallowedJoinReceiveMessage) Implements IConnection(Of TPlayer).ReceiveGroupDisallowedJoin
         AddHandler(value As EventHandler(Of GroupDisallowedJoinReceiveMessage))
-            myEvents.Add("OnReceiveGroupDisallowedJoin", value)
+            myEvents.Add("ReceiveGroupDisallowedJoin", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of GroupDisallowedJoinReceiveMessage))
-            myEvents.Remove("OnReceiveGroupDisallowedJoin", value)
+            myEvents.Remove("ReceiveGroupDisallowedJoin", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As GroupDisallowedJoinReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of GroupDisallowedJoinReceiveMessage) = CType(myEvents("OnReceiveGroupDisallowedJoin"), EventHandler(Of GroupDisallowedJoinReceiveMessage))
+                Dim eevent As EventHandler(Of GroupDisallowedJoinReceiveMessage) = CType(myEvents("ReceiveGroupDisallowedJoin"), EventHandler(Of GroupDisallowedJoinReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveGroupDisallowedJoin", ex)
+                OnEventError("ReceiveGroupDisallowedJoin", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveHideKey As EventHandler(Of HideKeyReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveHideKey
+    Friend Custom Event ReceiveHideKey As EventHandler(Of HideKeyReceiveMessage) Implements IConnection(Of TPlayer).ReceiveHideKey
         AddHandler(value As EventHandler(Of HideKeyReceiveMessage))
-            myEvents.Add("OnReceiveHideKey", value)
+            myEvents.Add("ReceiveHideKey", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of HideKeyReceiveMessage))
-            myEvents.Remove("OnReceiveHideKey", value)
+            myEvents.Remove("ReceiveHideKey", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As HideKeyReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of HideKeyReceiveMessage) = CType(myEvents("OnReceiveHideKey"), EventHandler(Of HideKeyReceiveMessage))
+                Dim eevent As EventHandler(Of HideKeyReceiveMessage) = CType(myEvents("ReceiveHideKey"), EventHandler(Of HideKeyReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveHideKey", ex)
+                OnEventError("ReceiveHideKey", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveInfo As EventHandler(Of InfoReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveInfo
+    Friend Custom Event ReceiveInfo As EventHandler(Of InfoReceiveMessage) Implements IConnection(Of TPlayer).ReceiveInfo
         AddHandler(value As EventHandler(Of InfoReceiveMessage))
-            myEvents.Add("OnReceiveInfo", value)
+            myEvents.Add("ReceiveInfo", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of InfoReceiveMessage))
-            myEvents.Remove("OnReceiveInfo", value)
+            myEvents.Remove("ReceiveInfo", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As InfoReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of InfoReceiveMessage) = CType(myEvents("OnReceiveInfo"), EventHandler(Of InfoReceiveMessage))
+                Dim eevent As EventHandler(Of InfoReceiveMessage) = CType(myEvents("ReceiveInfo"), EventHandler(Of InfoReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveInfo", ex)
+                OnEventError("ReceiveInfo", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveInit As EventHandler(Of InitReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveInit
+    Friend Custom Event ReceiveInit As EventHandler(Of InitReceiveMessage) Implements IConnection(Of TPlayer).ReceiveInit
         AddHandler(value As EventHandler(Of InitReceiveMessage))
-            myEvents.Add("OnReceiveInit", value)
+            myEvents.Add("ReceiveInit", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of InitReceiveMessage))
-            myEvents.Remove("OnReceiveInit", value)
+            myEvents.Remove("ReceiveInit", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As InitReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of InitReceiveMessage) = CType(myEvents("OnReceiveInit"), EventHandler(Of InitReceiveMessage))
+                Dim eevent As EventHandler(Of InitReceiveMessage) = CType(myEvents("ReceiveInit"), EventHandler(Of InitReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveInit", ex)
+                OnEventError("ReceiveInit", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveLabelPlace As EventHandler(Of LabelPlaceReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveLabelPlace
+    Friend Custom Event ReceiveLabelPlace As EventHandler(Of LabelPlaceReceiveMessage) Implements IConnection(Of TPlayer).ReceiveLabelPlace
         AddHandler(value As EventHandler(Of LabelPlaceReceiveMessage))
-            myEvents.Add("OnReceiveLabelPlace", value)
+            myEvents.Add("ReceiveLabelPlace", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of LabelPlaceReceiveMessage))
-            myEvents.Remove("OnReceiveLabelPlace", value)
+            myEvents.Remove("ReceiveLabelPlace", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As LabelPlaceReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of LabelPlaceReceiveMessage) = CType(myEvents("OnReceiveLabelPlace"), EventHandler(Of LabelPlaceReceiveMessage))
+                Dim eevent As EventHandler(Of LabelPlaceReceiveMessage) = CType(myEvents("ReceiveLabelPlace"), EventHandler(Of LabelPlaceReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveLabelPlace", ex)
+                OnEventError("ReceiveLabelPlace", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveLeft As EventHandler(Of LeftReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveLeft
+    Friend Custom Event ReceiveLeft As EventHandler(Of LeftReceiveMessage) Implements IConnection(Of TPlayer).ReceiveLeft
         AddHandler(value As EventHandler(Of LeftReceiveMessage))
-            myEvents.Add("OnReceiveLeft", value)
+            myEvents.Add("ReceiveLeft", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of LeftReceiveMessage))
-            myEvents.Remove("OnReceiveLeft", value)
+            myEvents.Remove("ReceiveLeft", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As LeftReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of LeftReceiveMessage) = CType(myEvents("OnReceiveLeft"), EventHandler(Of LeftReceiveMessage))
+                Dim eevent As EventHandler(Of LeftReceiveMessage) = CType(myEvents("ReceiveLeft"), EventHandler(Of LeftReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveLeft", ex)
+                OnEventError("ReceiveLeft", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveLostAccess As EventHandler(Of LostAccessReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveLostAccess
+    Friend Custom Event ReceiveLostAccess As EventHandler(Of LostAccessReceiveMessage) Implements IConnection(Of TPlayer).ReceiveLostAccess
         AddHandler(value As EventHandler(Of LostAccessReceiveMessage))
-            myEvents.Add("OnReceiveLostAccess", value)
+            myEvents.Add("ReceiveLostAccess", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of LostAccessReceiveMessage))
-            myEvents.Remove("OnReceiveLostAccess", value)
+            myEvents.Remove("ReceiveLostAccess", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As LostAccessReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of LostAccessReceiveMessage) = CType(myEvents("OnReceiveLostAccess"), EventHandler(Of LostAccessReceiveMessage))
+                Dim eevent As EventHandler(Of LostAccessReceiveMessage) = CType(myEvents("ReceiveLostAccess"), EventHandler(Of LostAccessReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveLostAccess", ex)
+                OnEventError("ReceiveLostAccess", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveModMode As EventHandler(Of ModModeReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveModMode
+    Friend Custom Event ReceiveModMode As EventHandler(Of ModModeReceiveMessage) Implements IConnection(Of TPlayer).ReceiveModMode
         AddHandler(value As EventHandler(Of ModModeReceiveMessage))
-            myEvents.Add("OnReceiveModMode", value)
+            myEvents.Add("ReceiveModMode", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of ModModeReceiveMessage))
-            myEvents.Remove("OnReceiveModMode", value)
+            myEvents.Remove("ReceiveModMode", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As ModModeReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of ModModeReceiveMessage) = CType(myEvents("OnReceiveModMode"), EventHandler(Of ModModeReceiveMessage))
+                Dim eevent As EventHandler(Of ModModeReceiveMessage) = CType(myEvents("ReceiveModMode"), EventHandler(Of ModModeReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveModMode", ex)
+                OnEventError("ReceiveModMode", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveMove As EventHandler(Of MoveReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveMove
+    Friend Custom Event ReceiveMove As EventHandler(Of MoveReceiveMessage) Implements IConnection(Of TPlayer).ReceiveMove
         AddHandler(value As EventHandler(Of MoveReceiveMessage))
-            myEvents.Add("OnReceiveMove", value)
+            myEvents.Add("ReceiveMove", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of MoveReceiveMessage))
-            myEvents.Remove("OnReceiveMove", value)
+            myEvents.Remove("ReceiveMove", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As MoveReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of MoveReceiveMessage) = CType(myEvents("OnReceiveMove"), EventHandler(Of MoveReceiveMessage))
+                Dim eevent As EventHandler(Of MoveReceiveMessage) = CType(myEvents("ReceiveMove"), EventHandler(Of MoveReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveMove", ex)
+                OnEventError("ReceiveMove", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceivePortalPlace As EventHandler(Of PortalPlaceReceiveMessage) Implements IConnection(Of TPlayer).OnReceivePortalPlace
+    Friend Custom Event ReceivePortalPlace As EventHandler(Of PortalPlaceReceiveMessage) Implements IConnection(Of TPlayer).ReceivePortalPlace
         AddHandler(value As EventHandler(Of PortalPlaceReceiveMessage))
-            myEvents.Add("OnReceivePortalPlace", value)
+            myEvents.Add("ReceivePortalPlace", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of PortalPlaceReceiveMessage))
-            myEvents.Remove("OnReceivePortalPlace", value)
+            myEvents.Remove("ReceivePortalPlace", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As PortalPlaceReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of PortalPlaceReceiveMessage) = CType(myEvents("OnReceivePortalPlace"), EventHandler(Of PortalPlaceReceiveMessage))
+                Dim eevent As EventHandler(Of PortalPlaceReceiveMessage) = CType(myEvents("ReceivePortalPlace"), EventHandler(Of PortalPlaceReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceivePortalPlace", ex)
+                OnEventError("ReceivePortalPlace", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveRefreshShop As EventHandler(Of RefreshShopReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveRefreshShop
+    Friend Custom Event ReceiveRefreshShop As EventHandler(Of RefreshShopReceiveMessage) Implements IConnection(Of TPlayer).ReceiveRefreshShop
         AddHandler(value As EventHandler(Of RefreshShopReceiveMessage))
-            myEvents.Add("OnReceiveRefreshShop", value)
+            myEvents.Add("ReceiveRefreshShop", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of RefreshShopReceiveMessage))
-            myEvents.Remove("OnReceiveRefreshShop", value)
+            myEvents.Remove("ReceiveRefreshShop", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As RefreshShopReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of RefreshShopReceiveMessage) = CType(myEvents("OnReceiveRefreshShop"), EventHandler(Of RefreshShopReceiveMessage))
+                Dim eevent As EventHandler(Of RefreshShopReceiveMessage) = CType(myEvents("ReceiveRefreshShop"), EventHandler(Of RefreshShopReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveRefreshShop", ex)
+                OnEventError("ReceiveRefreshShop", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveReset As EventHandler(Of ResetReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveReset
+    Friend Custom Event ReceiveReset As EventHandler(Of ResetReceiveMessage) Implements IConnection(Of TPlayer).ReceiveReset
         AddHandler(value As EventHandler(Of ResetReceiveMessage))
-            myEvents.Add("OnReceiveReset", value)
+            myEvents.Add("ReceiveReset", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of ResetReceiveMessage))
-            myEvents.Remove("OnReceiveReset", value)
+            myEvents.Remove("ReceiveReset", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As ResetReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of ResetReceiveMessage) = CType(myEvents("OnReceiveReset"), EventHandler(Of ResetReceiveMessage))
+                Dim eevent As EventHandler(Of ResetReceiveMessage) = CType(myEvents("ReceiveReset"), EventHandler(Of ResetReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveReset", ex)
+                OnEventError("ReceiveReset", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveSaveDone As EventHandler(Of SaveDoneReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveSaveDone
+    Friend Custom Event ReceiveSaveDone As EventHandler(Of SaveDoneReceiveMessage) Implements IConnection(Of TPlayer).ReceiveSaveDone
         AddHandler(value As EventHandler(Of SaveDoneReceiveMessage))
-            myEvents.Add("OnReceiveSaveDone", value)
+            myEvents.Add("ReceiveSaveDone", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SaveDoneReceiveMessage))
-            myEvents.Remove("OnReceiveSaveDone", value)
+            myEvents.Remove("ReceiveSaveDone", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SaveDoneReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of SaveDoneReceiveMessage) = CType(myEvents("OnReceiveSaveDone"), EventHandler(Of SaveDoneReceiveMessage))
+                Dim eevent As EventHandler(Of SaveDoneReceiveMessage) = CType(myEvents("ReceiveSaveDone"), EventHandler(Of SaveDoneReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveSaveDone", ex)
+                OnEventError("ReceiveSaveDone", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveSay As EventHandler(Of SayReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveSay
+    Friend Custom Event ReceiveSay As EventHandler(Of SayReceiveMessage) Implements IConnection(Of TPlayer).ReceiveSay
         AddHandler(value As EventHandler(Of SayReceiveMessage))
-            myEvents.Add("OnReceiveSay", value)
+            myEvents.Add("ReceiveSay", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SayReceiveMessage))
-            myEvents.Remove("OnReceiveSay", value)
+            myEvents.Remove("ReceiveSay", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SayReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of SayReceiveMessage) = CType(myEvents("OnReceiveSay"), EventHandler(Of SayReceiveMessage))
+                Dim eevent As EventHandler(Of SayReceiveMessage) = CType(myEvents("ReceiveSay"), EventHandler(Of SayReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveSay", ex)
+                OnEventError("ReceiveSay", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveSayOld As EventHandler(Of SayOld_ReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveSayOld
+    Friend Custom Event ReceiveSayOld As EventHandler(Of SayOld_ReceiveMessage) Implements IConnection(Of TPlayer).ReceiveSayOld
         AddHandler(value As EventHandler(Of SayOld_ReceiveMessage))
-            myEvents.Add("OnReceiveSayOld", value)
+            myEvents.Add("ReceiveSayOld", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SayOld_ReceiveMessage))
-            myEvents.Remove("OnReceiveSayOld", value)
+            myEvents.Remove("ReceiveSayOld", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SayOld_ReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of SayOld_ReceiveMessage) = CType(myEvents("OnReceiveSayOld"), EventHandler(Of SayOld_ReceiveMessage))
+                Dim eevent As EventHandler(Of SayOld_ReceiveMessage) = CType(myEvents("ReceiveSayOld"), EventHandler(Of SayOld_ReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveSayOld", ex)
+                OnEventError("ReceiveSayOld", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveShowKey As EventHandler(Of ShowKeyReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveShowKey
+    Friend Custom Event ReceiveShowKey As EventHandler(Of ShowKeyReceiveMessage) Implements IConnection(Of TPlayer).ReceiveShowKey
         AddHandler(value As EventHandler(Of ShowKeyReceiveMessage))
-            myEvents.Add("OnReceiveShowKey", value)
+            myEvents.Add("ReceiveShowKey", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of ShowKeyReceiveMessage))
-            myEvents.Remove("OnReceiveShowKey", value)
+            myEvents.Remove("ReceiveShowKey", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As ShowKeyReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of ShowKeyReceiveMessage) = CType(myEvents("OnReceiveShowKey"), EventHandler(Of ShowKeyReceiveMessage))
+                Dim eevent As EventHandler(Of ShowKeyReceiveMessage) = CType(myEvents("ReceiveShowKey"), EventHandler(Of ShowKeyReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveShowKey", ex)
+                OnEventError("ReceiveShowKey", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveSilverCrown As EventHandler(Of SilverCrownReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveSilverCrown
+    Friend Custom Event ReceiveSilverCrown As EventHandler(Of SilverCrownReceiveMessage) Implements IConnection(Of TPlayer).ReceiveSilverCrown
         AddHandler(value As EventHandler(Of SilverCrownReceiveMessage))
-            myEvents.Add("OnReceiveSilverCrown", value)
+            myEvents.Add("ReceiveSilverCrown", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SilverCrownReceiveMessage))
-            myEvents.Remove("OnReceiveSilverCrown", value)
+            myEvents.Remove("ReceiveSilverCrown", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SilverCrownReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of SilverCrownReceiveMessage) = CType(myEvents("OnReceiveSilverCrown"), EventHandler(Of SilverCrownReceiveMessage))
+                Dim eevent As EventHandler(Of SilverCrownReceiveMessage) = CType(myEvents("ReceiveSilverCrown"), EventHandler(Of SilverCrownReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveSilverCrown", ex)
+                OnEventError("ReceiveSilverCrown", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveSoundPlace As EventHandler(Of SoundPlaceReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveSoundPlace
+    Friend Custom Event ReceiveSoundPlace As EventHandler(Of SoundPlaceReceiveMessage) Implements IConnection(Of TPlayer).ReceiveSoundPlace
         AddHandler(value As EventHandler(Of SoundPlaceReceiveMessage))
-            myEvents.Add("OnReceiveSoundPlace", value)
+            myEvents.Add("ReceiveSoundPlace", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SoundPlaceReceiveMessage))
-            myEvents.Remove("OnReceiveSoundPlace", value)
+            myEvents.Remove("ReceiveSoundPlace", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SoundPlaceReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of SoundPlaceReceiveMessage) = CType(myEvents("OnReceiveSoundPlace"), EventHandler(Of SoundPlaceReceiveMessage))
+                Dim eevent As EventHandler(Of SoundPlaceReceiveMessage) = CType(myEvents("ReceiveSoundPlace"), EventHandler(Of SoundPlaceReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveSoundPlace", ex)
+                OnEventError("ReceiveSoundPlace", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveTeleport As EventHandler(Of TeleportReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveTeleport
+    Friend Custom Event ReceiveTeleport As EventHandler(Of TeleportReceiveMessage) Implements IConnection(Of TPlayer).ReceiveTeleport
         AddHandler(value As EventHandler(Of TeleportReceiveMessage))
-            myEvents.Add("OnReceiveTeleport", value)
+            myEvents.Add("ReceiveTeleport", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of TeleportReceiveMessage))
-            myEvents.Remove("OnReceiveTeleport", value)
+            myEvents.Remove("ReceiveTeleport", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As TeleportReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of TeleportReceiveMessage) = CType(myEvents("OnReceiveTeleport"), EventHandler(Of TeleportReceiveMessage))
+                Dim eevent As EventHandler(Of TeleportReceiveMessage) = CType(myEvents("ReceiveTeleport"), EventHandler(Of TeleportReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveTeleport", ex)
+                OnEventError("ReceiveTeleport", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveUpdateMeta As EventHandler(Of UpdateMetaReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveUpdateMeta
+    Friend Custom Event ReceiveUpdateMeta As EventHandler(Of UpdateMetaReceiveMessage) Implements IConnection(Of TPlayer).ReceiveUpdateMeta
         AddHandler(value As EventHandler(Of UpdateMetaReceiveMessage))
-            myEvents.Add("OnReceiveUpdateMeta", value)
+            myEvents.Add("ReceiveUpdateMeta", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of UpdateMetaReceiveMessage))
-            myEvents.Remove("OnReceiveUpdateMeta", value)
+            myEvents.Remove("ReceiveUpdateMeta", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As UpdateMetaReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of UpdateMetaReceiveMessage) = CType(myEvents("OnReceiveUpdateMeta"), EventHandler(Of UpdateMetaReceiveMessage))
+                Dim eevent As EventHandler(Of UpdateMetaReceiveMessage) = CType(myEvents("ReceiveUpdateMeta"), EventHandler(Of UpdateMetaReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveUpdateMeta", ex)
+                OnEventError("ReceiveUpdateMeta", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveUpgrade As EventHandler(Of UpgradeReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveUpgrade
+    Friend Custom Event ReceiveUpgrade As EventHandler(Of UpgradeReceiveMessage) Implements IConnection(Of TPlayer).ReceiveUpgrade
         AddHandler(value As EventHandler(Of UpgradeReceiveMessage))
-            myEvents.Add("OnReceiveUpgrade", value)
+            myEvents.Add("ReceiveUpgrade", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of UpgradeReceiveMessage))
-            myEvents.Remove("OnReceiveUpgrade", value)
+            myEvents.Remove("ReceiveUpgrade", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As UpgradeReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of UpgradeReceiveMessage) = CType(myEvents("OnReceiveUpgrade"), EventHandler(Of UpgradeReceiveMessage))
+                Dim eevent As EventHandler(Of UpgradeReceiveMessage) = CType(myEvents("ReceiveUpgrade"), EventHandler(Of UpgradeReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveUpgrade", ex)
+                OnEventError("ReceiveUpgrade", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnReceiveWrite As EventHandler(Of WriteReceiveMessage) Implements IConnection(Of TPlayer).OnReceiveWrite
+    Friend Custom Event ReceiveWrite As EventHandler(Of WriteReceiveMessage) Implements IConnection(Of TPlayer).ReceiveWrite
         AddHandler(value As EventHandler(Of WriteReceiveMessage))
-            myEvents.Add("OnReceiveWrite", value)
+            myEvents.Add("ReceiveWrite", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of WriteReceiveMessage))
-            myEvents.Remove("OnReceiveWrite", value)
+            myEvents.Remove("ReceiveWrite", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As WriteReceiveMessage)
             Try
-                Dim eevent As EventHandler(Of WriteReceiveMessage) = CType(myEvents("OnReceiveWrite"), EventHandler(Of WriteReceiveMessage))
+                Dim eevent As EventHandler(Of WriteReceiveMessage) = CType(myEvents("ReceiveWrite"), EventHandler(Of WriteReceiveMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnReceiveWrite", ex)
+                OnEventError("ReceiveWrite", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendMessage As EventHandler(Of SendMessage) Implements IConnection(Of TPlayer).OnSendMessage
+    Friend Custom Event SendMessage As EventHandler(Of SendMessage) Implements IConnection(Of TPlayer).SendMessage
         AddHandler(value As EventHandler(Of SendMessage))
-            myEvents.Add("OnSendMessage", value)
+            myEvents.Add("SendMessage", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendMessage))
-            myEvents.Remove("OnSendMessage", value)
+            myEvents.Remove("SendMessage", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendMessage)
             Try
-                Dim eevent As EventHandler(Of SendMessage) = CType(myEvents("OnSendMessage"), EventHandler(Of SendMessage))
+                Dim eevent As EventHandler(Of SendMessage) = CType(myEvents("SendMessage"), EventHandler(Of SendMessage))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendMessage", ex)
+                OnEventError("SendMessage", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendInit As EventHandler(Of SendEventArgs(Of InitSendMessage)) Implements IConnection(Of TPlayer).OnSendInit
+    Friend Custom Event SendInit As EventHandler(Of SendEventArgs(Of InitSendMessage)) Implements IConnection(Of TPlayer).SendInit
         AddHandler(value As EventHandler(Of SendEventArgs(Of InitSendMessage)))
-            myEvents.Add("OnSendInit", value)
+            myEvents.Add("SendInit", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of InitSendMessage)))
-            myEvents.Remove("OnSendInit", value)
+            myEvents.Remove("SendInit", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of InitSendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of InitSendMessage)) = CType(myEvents("OnSendInit"), EventHandler(Of SendEventArgs(Of InitSendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of InitSendMessage)) = CType(myEvents("SendInit"), EventHandler(Of SendEventArgs(Of InitSendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendInit", ex)
+                OnEventError("SendInit", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendInit2 As EventHandler(Of SendEventArgs(Of Init2SendMessage)) Implements IConnection(Of TPlayer).OnSendInit2
+    Friend Custom Event SendInit2 As EventHandler(Of SendEventArgs(Of Init2SendMessage)) Implements IConnection(Of TPlayer).SendInit2
         AddHandler(value As EventHandler(Of SendEventArgs(Of Init2SendMessage)))
-            myEvents.Add("OnSendInit2", value)
+            myEvents.Add("SendInit2", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of Init2SendMessage)))
-            myEvents.Remove("OnSendInit2", value)
+            myEvents.Remove("SendInit2", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of Init2SendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of Init2SendMessage)) = CType(myEvents("OnSendInit2"), EventHandler(Of SendEventArgs(Of Init2SendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of Init2SendMessage)) = CType(myEvents("SendInit2"), EventHandler(Of SendEventArgs(Of Init2SendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendInit2", ex)
+                OnEventError("SendInit2", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendBlockPlace As EventHandler(Of SendEventArgs(Of BlockPlaceSendMessage)) Implements IConnection(Of TPlayer).OnSendBlockPlace
+    Friend Custom Event SendBlockPlace As EventHandler(Of SendEventArgs(Of BlockPlaceSendMessage)) Implements IConnection(Of TPlayer).SendBlockPlace
         AddHandler(value As EventHandler(Of SendEventArgs(Of BlockPlaceSendMessage)))
-            myEvents.Add("OnSendBlockPlace", value)
+            myEvents.Add("SendBlockPlace", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of BlockPlaceSendMessage)))
-            myEvents.Remove("OnSendBlockPlace", value)
+            myEvents.Remove("SendBlockPlace", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of BlockPlaceSendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of BlockPlaceSendMessage)) = CType(myEvents("OnSendBlockPlace"), EventHandler(Of SendEventArgs(Of BlockPlaceSendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of BlockPlaceSendMessage)) = CType(myEvents("SendBlockPlace"), EventHandler(Of SendEventArgs(Of BlockPlaceSendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendBlockPlace", ex)
+                OnEventError("SendBlockPlace", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendCoindoorPlace As EventHandler(Of SendEventArgs(Of CoinDoorPlaceSendMessage)) Implements IConnection(Of TPlayer).OnSendCoindoorPlace
+    Friend Custom Event SendCoindoorPlace As EventHandler(Of SendEventArgs(Of CoinDoorPlaceSendMessage)) Implements IConnection(Of TPlayer).SendCoindoorPlace
         AddHandler(value As EventHandler(Of SendEventArgs(Of CoinDoorPlaceSendMessage)))
-            myEvents.Add("OnSendCoindoorPlace", value)
+            myEvents.Add("SendCoindoorPlace", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of CoinDoorPlaceSendMessage)))
-            myEvents.Remove("OnSendCoindoorPlace", value)
+            myEvents.Remove("SendCoindoorPlace", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of CoinDoorPlaceSendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of CoinDoorPlaceSendMessage)) = CType(myEvents("OnSendCoindoorPlace"), EventHandler(Of SendEventArgs(Of CoinDoorPlaceSendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of CoinDoorPlaceSendMessage)) = CType(myEvents("SendCoindoorPlace"), EventHandler(Of SendEventArgs(Of CoinDoorPlaceSendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendCoindoorPlace", ex)
+                OnEventError("SendCoindoorPlace", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendSoundPlace As EventHandler(Of SendEventArgs(Of SoundPlaceSendMessage)) Implements IConnection(Of TPlayer).OnSendSoundPlace
+    Friend Custom Event SendSoundPlace As EventHandler(Of SendEventArgs(Of SoundPlaceSendMessage)) Implements IConnection(Of TPlayer).SendSoundPlace
         AddHandler(value As EventHandler(Of SendEventArgs(Of SoundPlaceSendMessage)))
-            myEvents.Add("OnSendSoundPlace", value)
+            myEvents.Add("SendSoundPlace", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of SoundPlaceSendMessage)))
-            myEvents.Remove("OnSendSoundPlace", value)
+            myEvents.Remove("SendSoundPlace", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of SoundPlaceSendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of SoundPlaceSendMessage)) = CType(myEvents("OnSendSoundPlace"), EventHandler(Of SendEventArgs(Of SoundPlaceSendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of SoundPlaceSendMessage)) = CType(myEvents("SendSoundPlace"), EventHandler(Of SendEventArgs(Of SoundPlaceSendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendSoundPlace", ex)
+                OnEventError("SendSoundPlace", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendPortalPlace As EventHandler(Of SendEventArgs(Of PortalPlaceSendMessage)) Implements IConnection(Of TPlayer).OnSendPortalPlace
+    Friend Custom Event SendPortalPlace As EventHandler(Of SendEventArgs(Of PortalPlaceSendMessage)) Implements IConnection(Of TPlayer).SendPortalPlace
         AddHandler(value As EventHandler(Of SendEventArgs(Of PortalPlaceSendMessage)))
-            myEvents.Add("OnSendPortalPlace", value)
+            myEvents.Add("SendPortalPlace", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of PortalPlaceSendMessage)))
-            myEvents.Remove("OnSendPortalPlace", value)
+            myEvents.Remove("SendPortalPlace", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of PortalPlaceSendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of PortalPlaceSendMessage)) = CType(myEvents("OnSendPortalPlace"), EventHandler(Of SendEventArgs(Of PortalPlaceSendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of PortalPlaceSendMessage)) = CType(myEvents("SendPortalPlace"), EventHandler(Of SendEventArgs(Of PortalPlaceSendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendPortalPlace", ex)
+                OnEventError("SendPortalPlace", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendLabelPlace As EventHandler(Of SendEventArgs(Of LabelPlaceSendMessage)) Implements IConnection(Of TPlayer).OnSendLabelPlace
+    Friend Custom Event SendLabelPlace As EventHandler(Of SendEventArgs(Of LabelPlaceSendMessage)) Implements IConnection(Of TPlayer).SendLabelPlace
         AddHandler(value As EventHandler(Of SendEventArgs(Of LabelPlaceSendMessage)))
-            myEvents.Add("OnSendLabelPlace", value)
+            myEvents.Add("SendLabelPlace", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of LabelPlaceSendMessage)))
-            myEvents.Remove("OnSendLabelPlace", value)
+            myEvents.Remove("SendLabelPlace", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of LabelPlaceSendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of LabelPlaceSendMessage)) = CType(myEvents("OnSendLabelPlace"), EventHandler(Of SendEventArgs(Of LabelPlaceSendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of LabelPlaceSendMessage)) = CType(myEvents("SendLabelPlace"), EventHandler(Of SendEventArgs(Of LabelPlaceSendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendLabelPlace", ex)
+                OnEventError("SendLabelPlace", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendCoin As EventHandler(Of SendEventArgs(Of CoinSendMessage)) Implements IConnection(Of TPlayer).OnSendCoin
+    Friend Custom Event SendCoin As EventHandler(Of SendEventArgs(Of CoinSendMessage)) Implements IConnection(Of TPlayer).SendCoin
         AddHandler(value As EventHandler(Of SendEventArgs(Of CoinSendMessage)))
-            myEvents.Add("OnSendCoin", value)
+            myEvents.Add("SendCoin", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of CoinSendMessage)))
-            myEvents.Remove("OnSendCoin", value)
+            myEvents.Remove("SendCoin", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of CoinSendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of CoinSendMessage)) = CType(myEvents("OnSendCoin"), EventHandler(Of SendEventArgs(Of CoinSendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of CoinSendMessage)) = CType(myEvents("SendCoin"), EventHandler(Of SendEventArgs(Of CoinSendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendCoin", ex)
+                OnEventError("SendCoin", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendPressRedKey As EventHandler(Of SendEventArgs(Of PressRedKeySendMessage)) Implements IConnection(Of TPlayer).OnSendPressRedKey
+    Friend Custom Event SendPressRedKey As EventHandler(Of SendEventArgs(Of PressRedKeySendMessage)) Implements IConnection(Of TPlayer).SendPressRedKey
         AddHandler(value As EventHandler(Of SendEventArgs(Of PressRedKeySendMessage)))
-            myEvents.Add("OnSendPressRedKey", value)
+            myEvents.Add("SendPressRedKey", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of PressRedKeySendMessage)))
-            myEvents.Remove("OnSendPressRedKey", value)
+            myEvents.Remove("SendPressRedKey", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of PressRedKeySendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of PressRedKeySendMessage)) = CType(myEvents("OnSendPressRedKey"), EventHandler(Of SendEventArgs(Of PressRedKeySendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of PressRedKeySendMessage)) = CType(myEvents("SendPressRedKey"), EventHandler(Of SendEventArgs(Of PressRedKeySendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendPressRedKey", ex)
+                OnEventError("SendPressRedKey", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendPressGreenKey As EventHandler(Of SendEventArgs(Of PressGreenKeySendMessage)) Implements IConnection(Of TPlayer).OnSendPressGreenKey
+    Friend Custom Event SendPressGreenKey As EventHandler(Of SendEventArgs(Of PressGreenKeySendMessage)) Implements IConnection(Of TPlayer).SendPressGreenKey
         AddHandler(value As EventHandler(Of SendEventArgs(Of PressGreenKeySendMessage)))
-            myEvents.Add("OnSendPressGreenKey", value)
+            myEvents.Add("SendPressGreenKey", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of PressGreenKeySendMessage)))
-            myEvents.Remove("OnSendPressGreenKey", value)
+            myEvents.Remove("SendPressGreenKey", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of PressGreenKeySendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of PressGreenKeySendMessage)) = CType(myEvents("OnSendPressGreenKey"), EventHandler(Of SendEventArgs(Of PressGreenKeySendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of PressGreenKeySendMessage)) = CType(myEvents("SendPressGreenKey"), EventHandler(Of SendEventArgs(Of PressGreenKeySendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendPressGreenKey", ex)
+                OnEventError("SendPressGreenKey", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendPressBlueKey As EventHandler(Of SendEventArgs(Of PressBlueKeySendMessage)) Implements IConnection(Of TPlayer).OnSendPressBlueKey
+    Friend Custom Event SendPressBlueKey As EventHandler(Of SendEventArgs(Of PressBlueKeySendMessage)) Implements IConnection(Of TPlayer).SendPressBlueKey
         AddHandler(value As EventHandler(Of SendEventArgs(Of PressBlueKeySendMessage)))
-            myEvents.Add("OnSendPressBlueKey", value)
+            myEvents.Add("SendPressBlueKey", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of PressBlueKeySendMessage)))
-            myEvents.Remove("OnSendPressBlueKey", value)
+            myEvents.Remove("SendPressBlueKey", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of PressBlueKeySendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of PressBlueKeySendMessage)) = CType(myEvents("OnSendPressBlueKey"), EventHandler(Of SendEventArgs(Of PressBlueKeySendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of PressBlueKeySendMessage)) = CType(myEvents("SendPressBlueKey"), EventHandler(Of SendEventArgs(Of PressBlueKeySendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendPressBlueKey", ex)
+                OnEventError("SendPressBlueKey", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendGetCrown As EventHandler(Of SendEventArgs(Of GetCrownSendMessage)) Implements IConnection(Of TPlayer).OnSendGetCrown
+    Friend Custom Event SendGetCrown As EventHandler(Of SendEventArgs(Of GetCrownSendMessage)) Implements IConnection(Of TPlayer).SendGetCrown
         AddHandler(value As EventHandler(Of SendEventArgs(Of GetCrownSendMessage)))
-            myEvents.Add("OnSendGetCrown", value)
+            myEvents.Add("SendGetCrown", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of GetCrownSendMessage)))
-            myEvents.Remove("OnSendGetCrown", value)
+            myEvents.Remove("SendGetCrown", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of GetCrownSendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of GetCrownSendMessage)) = CType(myEvents("OnSendGetCrown"), EventHandler(Of SendEventArgs(Of GetCrownSendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of GetCrownSendMessage)) = CType(myEvents("SendGetCrown"), EventHandler(Of SendEventArgs(Of GetCrownSendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendGetCrown", ex)
+                OnEventError("SendGetCrown", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendTouchDiamond As EventHandler(Of SendEventArgs(Of TouchDiamondSendMessage)) Implements IConnection(Of TPlayer).OnSendTouchDiamond
+    Friend Custom Event SendTouchDiamond As EventHandler(Of SendEventArgs(Of TouchDiamondSendMessage)) Implements IConnection(Of TPlayer).SendTouchDiamond
         AddHandler(value As EventHandler(Of SendEventArgs(Of TouchDiamondSendMessage)))
-            myEvents.Add("OnSendTouchDiamond", value)
+            myEvents.Add("SendTouchDiamond", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of TouchDiamondSendMessage)))
-            myEvents.Remove("OnSendTouchDiamond", value)
+            myEvents.Remove("SendTouchDiamond", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of TouchDiamondSendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of TouchDiamondSendMessage)) = CType(myEvents("OnSendTouchDiamond"), EventHandler(Of SendEventArgs(Of TouchDiamondSendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of TouchDiamondSendMessage)) = CType(myEvents("SendTouchDiamond"), EventHandler(Of SendEventArgs(Of TouchDiamondSendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendTouchDiamond", ex)
+                OnEventError("SendTouchDiamond", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendCompleteLevel As EventHandler(Of SendEventArgs(Of CompleteLevelSendMessage)) Implements IConnection(Of TPlayer).OnSendCompleteLevel
+    Friend Custom Event SendCompleteLevel As EventHandler(Of SendEventArgs(Of CompleteLevelSendMessage)) Implements IConnection(Of TPlayer).SendCompleteLevel
         AddHandler(value As EventHandler(Of SendEventArgs(Of CompleteLevelSendMessage)))
-            myEvents.Add("OnSendCompleteLevel", value)
+            myEvents.Add("SendCompleteLevel", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of CompleteLevelSendMessage)))
-            myEvents.Remove("OnSendCompleteLevel", value)
+            myEvents.Remove("SendCompleteLevel", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of CompleteLevelSendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of CompleteLevelSendMessage)) = CType(myEvents("OnSendCompleteLevel"), EventHandler(Of SendEventArgs(Of CompleteLevelSendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of CompleteLevelSendMessage)) = CType(myEvents("SendCompleteLevel"), EventHandler(Of SendEventArgs(Of CompleteLevelSendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendCompleteLevel", ex)
+                OnEventError("SendCompleteLevel", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendGodMode As EventHandler(Of SendEventArgs(Of GodModeSendMessage)) Implements IConnection(Of TPlayer).OnSendGodMode
+    Friend Custom Event SendGodMode As EventHandler(Of SendEventArgs(Of GodModeSendMessage)) Implements IConnection(Of TPlayer).SendGodMode
         AddHandler(value As EventHandler(Of SendEventArgs(Of GodModeSendMessage)))
-            myEvents.Add("OnSendGodMode", value)
+            myEvents.Add("SendGodMode", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of GodModeSendMessage)))
-            myEvents.Remove("OnSendGodMode", value)
+            myEvents.Remove("SendGodMode", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of GodModeSendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of GodModeSendMessage)) = CType(myEvents("OnSendGodMode"), EventHandler(Of SendEventArgs(Of GodModeSendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of GodModeSendMessage)) = CType(myEvents("SendGodMode"), EventHandler(Of SendEventArgs(Of GodModeSendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendGodMode", ex)
+                OnEventError("SendGodMode", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendModMode As EventHandler(Of SendEventArgs(Of ModModeSendMessage)) Implements IConnection(Of TPlayer).OnSendModMode
+    Friend Custom Event SendModMode As EventHandler(Of SendEventArgs(Of ModModeSendMessage)) Implements IConnection(Of TPlayer).SendModMode
         AddHandler(value As EventHandler(Of SendEventArgs(Of ModModeSendMessage)))
-            myEvents.Add("OnSendModMode", value)
+            myEvents.Add("SendModMode", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of ModModeSendMessage)))
-            myEvents.Remove("OnSendModMode", value)
+            myEvents.Remove("SendModMode", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of ModModeSendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of ModModeSendMessage)) = CType(myEvents("OnSendModMode"), EventHandler(Of SendEventArgs(Of ModModeSendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of ModModeSendMessage)) = CType(myEvents("SendModMode"), EventHandler(Of SendEventArgs(Of ModModeSendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendModMode", ex)
+                OnEventError("SendModMode", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendMove As EventHandler(Of SendEventArgs(Of MoveSendMessage)) Implements IConnection(Of TPlayer).OnSendMove
+    Friend Custom Event SendMove As EventHandler(Of SendEventArgs(Of MoveSendMessage)) Implements IConnection(Of TPlayer).SendMove
         AddHandler(value As EventHandler(Of SendEventArgs(Of MoveSendMessage)))
-            myEvents.Add("OnSendMove", value)
+            myEvents.Add("SendMove", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of MoveSendMessage)))
-            myEvents.Remove("OnSendMove", value)
+            myEvents.Remove("SendMove", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of MoveSendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of MoveSendMessage)) = CType(myEvents("OnSendMove"), EventHandler(Of SendEventArgs(Of MoveSendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of MoveSendMessage)) = CType(myEvents("SendMove"), EventHandler(Of SendEventArgs(Of MoveSendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendMove", ex)
+                OnEventError("SendMove", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendSay As EventHandler(Of SendEventArgs(Of SaySendMessage)) Implements IConnection(Of TPlayer).OnSendSay
+    Friend Custom Event SendSay As EventHandler(Of SendEventArgs(Of SaySendMessage)) Implements IConnection(Of TPlayer).SendSay
         AddHandler(value As EventHandler(Of SendEventArgs(Of SaySendMessage)))
-            myEvents.Add("OnSendSay", value)
+            myEvents.Add("SendSay", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of SaySendMessage)))
-            myEvents.Remove("OnSendSay", value)
+            myEvents.Remove("SendSay", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of SaySendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of SaySendMessage)) = CType(myEvents("OnSendSay"), EventHandler(Of SendEventArgs(Of SaySendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of SaySendMessage)) = CType(myEvents("SendSay"), EventHandler(Of SendEventArgs(Of SaySendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendSay", ex)
+                OnEventError("SendSay", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendAutoSay As EventHandler(Of SendEventArgs(Of AutoSaySendMessage)) Implements IConnection(Of TPlayer).OnSendAutoSay
+    Friend Custom Event SendAutoSay As EventHandler(Of SendEventArgs(Of AutoSaySendMessage)) Implements IConnection(Of TPlayer).SendAutoSay
         AddHandler(value As EventHandler(Of SendEventArgs(Of AutoSaySendMessage)))
-            myEvents.Add("OnSendAutoSay", value)
+            myEvents.Add("SendAutoSay", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of AutoSaySendMessage)))
-            myEvents.Remove("OnSendAutoSay", value)
+            myEvents.Remove("SendAutoSay", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of AutoSaySendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of AutoSaySendMessage)) = CType(myEvents("OnSendAutoSay"), EventHandler(Of SendEventArgs(Of AutoSaySendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of AutoSaySendMessage)) = CType(myEvents("SendAutoSay"), EventHandler(Of SendEventArgs(Of AutoSaySendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendAutoSay", ex)
+                OnEventError("SendAutoSay", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendAccess As EventHandler(Of SendEventArgs(Of AccessSendMessage)) Implements IConnection(Of TPlayer).OnSendAccess
+    Friend Custom Event SendAccess As EventHandler(Of SendEventArgs(Of AccessSendMessage)) Implements IConnection(Of TPlayer).SendAccess
         AddHandler(value As EventHandler(Of SendEventArgs(Of AccessSendMessage)))
-            myEvents.Add("OnSendAccess", value)
+            myEvents.Add("SendAccess", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of AccessSendMessage)))
-            myEvents.Remove("OnSendAccess", value)
+            myEvents.Remove("SendAccess", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of AccessSendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of AccessSendMessage)) = CType(myEvents("OnSendAccess"), EventHandler(Of SendEventArgs(Of AccessSendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of AccessSendMessage)) = CType(myEvents("SendAccess"), EventHandler(Of SendEventArgs(Of AccessSendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendAccess", ex)
+                OnEventError("SendAccess", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendChangeFace As EventHandler(Of SendEventArgs(Of ChangeFaceSendMessage)) Implements IConnection(Of TPlayer).OnSendChangeFace
+    Friend Custom Event SendChangeFace As EventHandler(Of SendEventArgs(Of ChangeFaceSendMessage)) Implements IConnection(Of TPlayer).SendChangeFace
         AddHandler(value As EventHandler(Of SendEventArgs(Of ChangeFaceSendMessage)))
-            myEvents.Add("OnSendChangeFace", value)
+            myEvents.Add("SendChangeFace", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of ChangeFaceSendMessage)))
-            myEvents.Remove("OnSendChangeFace", value)
+            myEvents.Remove("SendChangeFace", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of ChangeFaceSendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of ChangeFaceSendMessage)) = CType(myEvents("OnSendChangeFace"), EventHandler(Of SendEventArgs(Of ChangeFaceSendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of ChangeFaceSendMessage)) = CType(myEvents("SendChangeFace"), EventHandler(Of SendEventArgs(Of ChangeFaceSendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendChangeFace", ex)
+                OnEventError("SendChangeFace", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendSaveWorld As EventHandler(Of SendEventArgs(Of SaveWorldSendMessage)) Implements IConnection(Of TPlayer).OnSendSaveWorld
+    Friend Custom Event SendSaveWorld As EventHandler(Of SendEventArgs(Of SaveWorldSendMessage)) Implements IConnection(Of TPlayer).SendSaveWorld
         AddHandler(value As EventHandler(Of SendEventArgs(Of SaveWorldSendMessage)))
-            myEvents.Add("OnSendSaveWorld", value)
+            myEvents.Add("SendSaveWorld", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of SaveWorldSendMessage)))
-            myEvents.Remove("OnSendSaveWorld", value)
+            myEvents.Remove("SendSaveWorld", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of SaveWorldSendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of SaveWorldSendMessage)) = CType(myEvents("OnSendSaveWorld"), EventHandler(Of SendEventArgs(Of SaveWorldSendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of SaveWorldSendMessage)) = CType(myEvents("SendSaveWorld"), EventHandler(Of SendEventArgs(Of SaveWorldSendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendSaveWorld", ex)
+                OnEventError("SendSaveWorld", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendChangeWorldName As EventHandler(Of SendEventArgs(Of ChangeWorldNameSendMessage)) Implements IConnection(Of TPlayer).OnSendChangeWorldName
+    Friend Custom Event SendChangeWorldName As EventHandler(Of SendEventArgs(Of ChangeWorldNameSendMessage)) Implements IConnection(Of TPlayer).SendChangeWorldName
         AddHandler(value As EventHandler(Of SendEventArgs(Of ChangeWorldNameSendMessage)))
-            myEvents.Add("OnSendChangeWorldName", value)
+            myEvents.Add("SendChangeWorldName", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of ChangeWorldNameSendMessage)))
-            myEvents.Remove("OnSendChangeWorldName", value)
+            myEvents.Remove("SendChangeWorldName", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of ChangeWorldNameSendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of ChangeWorldNameSendMessage)) = CType(myEvents("OnSendChangeWorldName"), EventHandler(Of SendEventArgs(Of ChangeWorldNameSendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of ChangeWorldNameSendMessage)) = CType(myEvents("SendChangeWorldName"), EventHandler(Of SendEventArgs(Of ChangeWorldNameSendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendChangeWorldName", ex)
+                OnEventError("SendChangeWorldName", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendChangeWorldEditKey As EventHandler(Of SendEventArgs(Of ChangeWorldEditKeySendMessage)) Implements IConnection(Of TPlayer).OnSendChangeWorldEditKey
+    Friend Custom Event SendChangeWorldEditKey As EventHandler(Of SendEventArgs(Of ChangeWorldEditKeySendMessage)) Implements IConnection(Of TPlayer).SendChangeWorldEditKey
         AddHandler(value As EventHandler(Of SendEventArgs(Of ChangeWorldEditKeySendMessage)))
-            myEvents.Add("OnSendChangeWorldEditKey", value)
+            myEvents.Add("SendChangeWorldEditKey", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of ChangeWorldEditKeySendMessage)))
-            myEvents.Remove("OnSendChangeWorldEditKey", value)
+            myEvents.Remove("SendChangeWorldEditKey", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of ChangeWorldEditKeySendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of ChangeWorldEditKeySendMessage)) = CType(myEvents("OnSendChangeWorldEditKey"), EventHandler(Of SendEventArgs(Of ChangeWorldEditKeySendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of ChangeWorldEditKeySendMessage)) = CType(myEvents("SendChangeWorldEditKey"), EventHandler(Of SendEventArgs(Of ChangeWorldEditKeySendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendChangeWorldEditKey", ex)
+                OnEventError("SendChangeWorldEditKey", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendClearWorld As EventHandler(Of SendEventArgs(Of ClearWorldSendMessage)) Implements IConnection(Of TPlayer).OnSendClearWorld
+    Friend Custom Event SendClearWorld As EventHandler(Of SendEventArgs(Of ClearWorldSendMessage)) Implements IConnection(Of TPlayer).SendClearWorld
         AddHandler(value As EventHandler(Of SendEventArgs(Of ClearWorldSendMessage)))
-            myEvents.Add("OnSendClearWorld", value)
+            myEvents.Add("SendClearWorld", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of ClearWorldSendMessage)))
-            myEvents.Remove("OnSendClearWorld", value)
+            myEvents.Remove("SendClearWorld", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of ClearWorldSendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of ClearWorldSendMessage)) = CType(myEvents("OnSendClearWorld"), EventHandler(Of SendEventArgs(Of ClearWorldSendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of ClearWorldSendMessage)) = CType(myEvents("SendClearWorld"), EventHandler(Of SendEventArgs(Of ClearWorldSendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendClearWorld", ex)
+                OnEventError("SendClearWorld", ex)
             End Try
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnSendKillWorld As EventHandler(Of SendEventArgs(Of KillWorldSendMessage)) Implements IConnection(Of TPlayer).OnSendKillWorld
+    Friend Custom Event SendKillWorld As EventHandler(Of SendEventArgs(Of KillWorldSendMessage)) Implements IConnection(Of TPlayer).SendKillWorld
         AddHandler(value As EventHandler(Of SendEventArgs(Of KillWorldSendMessage)))
-            myEvents.Add("OnSendKillWorld", value)
+            myEvents.Add("SendKillWorld", value)
         End AddHandler
 
         RemoveHandler(value As EventHandler(Of SendEventArgs(Of KillWorldSendMessage)))
-            myEvents.Remove("OnSendKillWorld", value)
+            myEvents.Remove("SendKillWorld", value)
         End RemoveHandler
 
         RaiseEvent(sender As Object, e As SendEventArgs(Of KillWorldSendMessage))
             Try
-                Dim eevent As EventHandler(Of SendEventArgs(Of KillWorldSendMessage)) = CType(myEvents("OnSendKillWorld"), EventHandler(Of SendEventArgs(Of KillWorldSendMessage)))
+                Dim eevent As EventHandler(Of SendEventArgs(Of KillWorldSendMessage)) = CType(myEvents("SendKillWorld"), EventHandler(Of SendEventArgs(Of KillWorldSendMessage)))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
-                OnEventError("OnSendKillWorld", ex)
+                OnEventError("SendKillWorld", ex)
             End Try
         End RaiseEvent
     End Event
@@ -1420,293 +1420,293 @@
     End Sub
 
     Private Sub myInternalConnection_OnDisconnect(sender As Object, e As DisconnectEventArgs) Handles InternalConnection.OnInternalDisconnect
-        RaiseEvent OnDisconnect(Me, e)
+        RaiseEvent Disconnect(Me, e)
     End Sub
 
     Private Sub InternalConnection_OnInternalDisconnecting(sender As Object, e As EventArgs) Handles InternalConnection.OnInternalDisconnecting
-        RaiseEvent OnDisconnecting(Me, e)
+        RaiseEvent Disconnecting(Me, e)
     End Sub
 
-    Private Sub myInternalConnection_OnMessage(sender As Object, e As ReceiveMessage) Handles InternalConnection.OnInternalMessage
-        RaiseEvent OnReceiveMessage(Me, e)
+    Private Sub myInternalConnection_OnInternalMessage(sender As Object, e As ReceiveMessage) Handles InternalConnection.OnInternalMessage
+        RaiseEvent ReceiveMessage(Me, e)
         Select Case e.GetType
             Case GetType(InitReceiveMessage)
                 Dim m As InitReceiveMessage = CType(e, InitReceiveMessage)
-                RaiseEvent OnReceiveInit(Me, m)
+                RaiseEvent ReceiveInit(Me, m)
 
             Case GetType(GroupDisallowedJoinReceiveMessage)
                 Dim m As GroupDisallowedJoinReceiveMessage = CType(e, GroupDisallowedJoinReceiveMessage)
-                RaiseEvent OnReceiveGroupDisallowedJoin(Me, m)
+                RaiseEvent ReceiveGroupDisallowedJoin(Me, m)
 
             Case GetType(InfoReceiveMessage)
                 Dim m As InfoReceiveMessage = CType(e, InfoReceiveMessage)
-                RaiseEvent OnReceiveInfo(Me, m)
+                RaiseEvent ReceiveInfo(Me, m)
 
             Case GetType(UpgradeReceiveMessage)
                 Dim m As UpgradeReceiveMessage = CType(e, UpgradeReceiveMessage)
-                RaiseEvent OnReceiveUpgrade(Me, m)
+                RaiseEvent ReceiveUpgrade(Me, m)
 
             Case GetType(UpdateMetaReceiveMessage)
                 Dim m As UpdateMetaReceiveMessage = CType(e, UpdateMetaReceiveMessage)
-                RaiseEvent OnReceiveUpdateMeta(Me, m)
+                RaiseEvent ReceiveUpdateMeta(Me, m)
 
             Case GetType(AddReceiveMessage)
                 Dim m As AddReceiveMessage = CType(e, AddReceiveMessage)
-                RaiseEvent OnReceiveAdd(Me, m)
+                RaiseEvent ReceiveAdd(Me, m)
 
             Case GetType(LeftReceiveMessage)
                 Dim m As LeftReceiveMessage = CType(e, LeftReceiveMessage)
-                RaiseEvent OnReceiveLeft(Me, m)
+                RaiseEvent ReceiveLeft(Me, m)
 
             Case GetType(MoveReceiveMessage)
                 Dim m As MoveReceiveMessage = CType(e, MoveReceiveMessage)
-                RaiseEvent OnReceiveMove(Me, m)
+                RaiseEvent ReceiveMove(Me, m)
 
             Case GetType(CoinReceiveMessage)
                 Dim m As CoinReceiveMessage = CType(e, CoinReceiveMessage)
-                RaiseEvent OnReceiveCoin(Me, m)
+                RaiseEvent ReceiveCoin(Me, m)
 
             Case GetType(CrownReceiveMessage)
                 Dim m As CrownReceiveMessage = CType(e, CrownReceiveMessage)
-                RaiseEvent OnReceiveCrown(Me, m)
+                RaiseEvent ReceiveCrown(Me, m)
 
             Case GetType(SilverCrownReceiveMessage)
                 Dim m As SilverCrownReceiveMessage = CType(e, SilverCrownReceiveMessage)
-                RaiseEvent OnReceiveSilverCrown(Me, m)
+                RaiseEvent ReceiveSilverCrown(Me, m)
 
             Case GetType(FaceReceiveMessage)
                 Dim m As FaceReceiveMessage = CType(e, FaceReceiveMessage)
-                RaiseEvent OnReceiveFace(Me, m)
+                RaiseEvent ReceiveFace(Me, m)
 
             Case GetType(ShowKeyReceiveMessage)
                 Dim m As ShowKeyReceiveMessage = CType(e, ShowKeyReceiveMessage)
-                RaiseEvent OnReceiveShowKey(Me, m)
+                RaiseEvent ReceiveShowKey(Me, m)
 
             Case GetType(HideKeyReceiveMessage)
                 Dim m As HideKeyReceiveMessage = CType(e, HideKeyReceiveMessage)
-                RaiseEvent OnReceiveHideKey(Me, m)
+                RaiseEvent ReceiveHideKey(Me, m)
 
             Case GetType(SayReceiveMessage)
                 Dim m As SayReceiveMessage = CType(e, SayReceiveMessage)
-                RaiseEvent OnReceiveSay(Me, m)
+                RaiseEvent ReceiveSay(Me, m)
 
             Case GetType(SayOld_ReceiveMessage)
                 Dim m As SayOld_ReceiveMessage = CType(e, SayOld_ReceiveMessage)
-                RaiseEvent OnReceiveSayOld(Me, m)
+                RaiseEvent ReceiveSayOld(Me, m)
 
             Case GetType(AutoTextReceiveMessage)
                 Dim m As AutoTextReceiveMessage = CType(e, AutoTextReceiveMessage)
-                RaiseEvent OnReceiveAutoText(Me, m)
+                RaiseEvent ReceiveAutoText(Me, m)
 
             Case GetType(WriteReceiveMessage)
                 Dim m As WriteReceiveMessage = CType(e, WriteReceiveMessage)
-                RaiseEvent OnReceiveWrite(Me, m)
+                RaiseEvent ReceiveWrite(Me, m)
 
             Case GetType(BlockPlaceReceiveMessage)
                 Dim m As BlockPlaceReceiveMessage = CType(e, BlockPlaceReceiveMessage)
-                RaiseEvent OnReceiveBlockPlace(Me, m)
+                RaiseEvent ReceiveBlockPlace(Me, m)
 
             Case GetType(CoinDoorPlace_ReceiveMessage)
                 Dim m As CoinDoorPlace_ReceiveMessage = CType(e, CoinDoorPlace_ReceiveMessage)
-                RaiseEvent OnReceiveCoinDoorPlace(Me, m)
+                RaiseEvent ReceiveCoinDoorPlace(Me, m)
 
             Case GetType(SoundPlaceReceiveMessage)
                 Dim m As SoundPlaceReceiveMessage = CType(e, SoundPlaceReceiveMessage)
-                RaiseEvent OnReceiveSoundPlace(Me, m)
+                RaiseEvent ReceiveSoundPlace(Me, m)
 
             Case GetType(PortalPlaceReceiveMessage)
                 Dim m As PortalPlaceReceiveMessage = CType(e, PortalPlaceReceiveMessage)
-                RaiseEvent OnReceivePortalPlace(Me, m)
+                RaiseEvent ReceivePortalPlace(Me, m)
 
             Case GetType(LabelPlaceReceiveMessage)
                 Dim m As LabelPlaceReceiveMessage = CType(e, LabelPlaceReceiveMessage)
-                RaiseEvent OnReceiveLabelPlace(Me, m)
+                RaiseEvent ReceiveLabelPlace(Me, m)
 
             Case GetType(GodModeReceiveMessage)
                 Dim m As GodModeReceiveMessage = CType(e, GodModeReceiveMessage)
-                RaiseEvent OnReceiveGodMode(Me, m)
+                RaiseEvent ReceiveGodMode(Me, m)
 
             Case GetType(ModModeReceiveMessage)
                 Dim m As ModModeReceiveMessage = CType(e, ModModeReceiveMessage)
-                RaiseEvent OnReceiveModMode(Me, m)
+                RaiseEvent ReceiveModMode(Me, m)
 
             Case GetType(AccessReceiveMessage)
                 Dim m As AccessReceiveMessage = CType(e, AccessReceiveMessage)
-                RaiseEvent OnReceiveAccess(Me, m)
+                RaiseEvent ReceiveAccess(Me, m)
 
             Case GetType(LostAccessReceiveMessage)
                 Dim m As LostAccessReceiveMessage = CType(e, LostAccessReceiveMessage)
-                RaiseEvent OnReceiveLostAccess(Me, m)
+                RaiseEvent ReceiveLostAccess(Me, m)
 
             Case GetType(TeleportReceiveMessage)
                 Dim m As TeleportReceiveMessage = CType(e, TeleportReceiveMessage)
-                RaiseEvent OnReceiveTeleport(Me, m)
+                RaiseEvent ReceiveTeleport(Me, m)
 
             Case GetType(ResetReceiveMessage)
                 Dim m As ResetReceiveMessage = CType(e, ResetReceiveMessage)
-                RaiseEvent OnReceiveReset(Me, m)
+                RaiseEvent ReceiveReset(Me, m)
 
             Case GetType(ClearReceiveMessage)
                 Dim m As ClearReceiveMessage = CType(e, ClearReceiveMessage)
-                RaiseEvent OnReceiveClear(Me, m)
+                RaiseEvent ReceiveClear(Me, m)
 
             Case GetType(SaveDoneReceiveMessage)
                 Dim m As SaveDoneReceiveMessage = CType(e, SaveDoneReceiveMessage)
-                RaiseEvent OnReceiveSaveDone(Me, m)
+                RaiseEvent ReceiveSaveDone(Me, m)
 
             Case GetType(RefreshShopReceiveMessage)
                 Dim m As RefreshShopReceiveMessage = CType(e, RefreshShopReceiveMessage)
-                RaiseEvent OnReceiveRefreshShop(Me, m)
+                RaiseEvent ReceiveRefreshShop(Me, m)
 
             Case GetType(GiveWizardReceiveMessage)
                 Dim m As GiveWizardReceiveMessage = CType(e, GiveWizardReceiveMessage)
-                RaiseEvent OnReceiveGiveWizard(Me, m)
+                RaiseEvent ReceiveGiveWizard(Me, m)
 
             Case GetType(GiveFireWizardReceiveMessage)
                 Dim m As GiveFireWizardReceiveMessage = CType(e, GiveFireWizardReceiveMessage)
-                RaiseEvent OnReceiveGiveFireWizard(Me, m)
+                RaiseEvent ReceiveGiveFireWizard(Me, m)
 
             Case GetType(GiveWitchReceiveMessage)
                 Dim m As GiveWitchReceiveMessage = CType(e, GiveWitchReceiveMessage)
-                RaiseEvent OnReceiveGiveWitch(Me, m)
+                RaiseEvent ReceiveGiveWitch(Me, m)
 
             Case GetType(GiveGrinchReceiveMessage)
                 Dim m As GiveGrinchReceiveMessage = CType(e, GiveGrinchReceiveMessage)
-                RaiseEvent OnReceiveGiveGrinch(Me, m)
+                RaiseEvent ReceiveGiveGrinch(Me, m)
         End Select
     End Sub
 
     Protected Function RaiseSendEvent(message As SendMessage) As Boolean
-        RaiseEvent OnSendMessage(Me, message)
+        RaiseEvent SendMessage(Me, message)
         Select Case message.GetType
             Case GetType(InitSendMessage)
                 Dim eventArgs As New SendEventArgs(Of InitSendMessage)(CType(message, InitSendMessage))
-                RaiseEvent OnSendInit(Me, eventArgs)
+                RaiseEvent SendInit(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(Init2SendMessage)
                 Dim eventArgs As New SendEventArgs(Of Init2SendMessage)(CType(message, Init2SendMessage))
-                RaiseEvent OnSendInit2(Me, eventArgs)
+                RaiseEvent SendInit2(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(BlockPlaceSendMessage)
                 Dim eventArgs As New SendEventArgs(Of BlockPlaceSendMessage)(CType(message, BlockPlaceSendMessage))
-                RaiseEvent OnSendBlockPlace(Me, eventArgs)
+                RaiseEvent SendBlockPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(CoinDoorPlaceSendMessage)
                 Dim eventArgs As New SendEventArgs(Of CoinDoorPlaceSendMessage)(CType(message, CoinDoorPlaceSendMessage))
-                RaiseEvent OnSendCoindoorPlace(Me, eventArgs)
+                RaiseEvent SendCoindoorPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(SoundPlaceSendMessage)
                 Dim eventArgs As New SendEventArgs(Of SoundPlaceSendMessage)(CType(message, SoundPlaceSendMessage))
-                RaiseEvent OnSendSoundPlace(Me, eventArgs)
+                RaiseEvent SendSoundPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(PortalPlaceSendMessage)
                 Dim eventArgs As New SendEventArgs(Of PortalPlaceSendMessage)(CType(message, PortalPlaceSendMessage))
-                RaiseEvent OnSendPortalPlace(Me, eventArgs)
+                RaiseEvent SendPortalPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(LabelPlaceSendMessage)
                 Dim eventArgs As New SendEventArgs(Of LabelPlaceSendMessage)(CType(message, LabelPlaceSendMessage))
-                RaiseEvent OnSendLabelPlace(Me, eventArgs)
+                RaiseEvent SendLabelPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(CoinSendMessage)
                 Dim eventArgs As New SendEventArgs(Of CoinSendMessage)(CType(message, CoinSendMessage))
-                RaiseEvent OnSendCoin(Me, eventArgs)
+                RaiseEvent SendCoin(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(PressRedKeySendMessage)
                 Dim eventArgs As New SendEventArgs(Of PressRedKeySendMessage)(CType(message, PressRedKeySendMessage))
-                RaiseEvent OnSendPressRedKey(Me, eventArgs)
+                RaiseEvent SendPressRedKey(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(PressGreenKeySendMessage)
                 Dim eventArgs As New SendEventArgs(Of PressGreenKeySendMessage)(CType(message, PressGreenKeySendMessage))
-                RaiseEvent OnSendPressGreenKey(Me, eventArgs)
+                RaiseEvent SendPressGreenKey(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(PressBlueKeySendMessage)
                 Dim eventArgs As New SendEventArgs(Of PressBlueKeySendMessage)(CType(message, PressBlueKeySendMessage))
-                RaiseEvent OnSendPressBlueKey(Me, eventArgs)
+                RaiseEvent SendPressBlueKey(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(GetCrownSendMessage)
                 Dim eventArgs As New SendEventArgs(Of GetCrownSendMessage)(CType(message, GetCrownSendMessage))
-                RaiseEvent OnSendGetCrown(Me, eventArgs)
+                RaiseEvent SendGetCrown(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(TouchDiamondSendMessage)
                 Dim eventArgs As New SendEventArgs(Of TouchDiamondSendMessage)(CType(message, TouchDiamondSendMessage))
-                RaiseEvent OnSendTouchDiamond(Me, eventArgs)
+                RaiseEvent SendTouchDiamond(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(CompleteLevelSendMessage)
                 Dim eventArgs As New SendEventArgs(Of CompleteLevelSendMessage)(CType(message, CompleteLevelSendMessage))
-                RaiseEvent OnSendCompleteLevel(Me, eventArgs)
+                RaiseEvent SendCompleteLevel(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(GodModeSendMessage)
                 Dim eventArgs As New SendEventArgs(Of GodModeSendMessage)(CType(message, GodModeSendMessage))
-                RaiseEvent OnSendGodMode(Me, eventArgs)
+                RaiseEvent SendGodMode(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(ModModeSendMessage)
                 Dim eventArgs As New SendEventArgs(Of ModModeSendMessage)(CType(message, ModModeSendMessage))
-                RaiseEvent OnSendModMode(Me, eventArgs)
+                RaiseEvent SendModMode(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(MoveSendMessage)
                 Dim eventArgs As New SendEventArgs(Of MoveSendMessage)(CType(message, MoveSendMessage))
-                RaiseEvent OnSendMove(Me, eventArgs)
+                RaiseEvent SendMove(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(SaySendMessage)
                 Dim eventArgs As New SendEventArgs(Of SaySendMessage)(CType(message, SaySendMessage))
-                RaiseEvent OnSendSay(Me, eventArgs)
+                RaiseEvent SendSay(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(AutoSaySendMessage)
                 Dim eventArgs As New SendEventArgs(Of AutoSaySendMessage)(CType(message, AutoSaySendMessage))
-                RaiseEvent OnSendAutoSay(Me, eventArgs)
+                RaiseEvent SendAutoSay(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(AccessSendMessage)
                 Dim eventArgs As New SendEventArgs(Of AccessSendMessage)(CType(message, AccessSendMessage))
-                RaiseEvent OnSendAccess(Me, eventArgs)
+                RaiseEvent SendAccess(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(ChangeFaceSendMessage)
                 Dim eventArgs As New SendEventArgs(Of ChangeFaceSendMessage)(CType(message, ChangeFaceSendMessage))
-                RaiseEvent OnSendChangeFace(Me, eventArgs)
+                RaiseEvent SendChangeFace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(SaveWorldSendMessage)
                 Dim eventArgs As New SendEventArgs(Of SaveWorldSendMessage)(CType(message, SaveWorldSendMessage))
-                RaiseEvent OnSendSaveWorld(Me, eventArgs)
+                RaiseEvent SendSaveWorld(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(ChangeWorldNameSendMessage)
                 Dim eventArgs As New SendEventArgs(Of ChangeWorldNameSendMessage)(CType(message, ChangeWorldNameSendMessage))
-                RaiseEvent OnSendChangeWorldName(Me, eventArgs)
+                RaiseEvent SendChangeWorldName(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(ChangeWorldEditKeySendMessage)
                 Dim eventArgs As New SendEventArgs(Of ChangeWorldEditKeySendMessage)(CType(message, ChangeWorldEditKeySendMessage))
-                RaiseEvent OnSendChangeWorldEditKey(Me, eventArgs)
+                RaiseEvent SendChangeWorldEditKey(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(ClearWorldSendMessage)
                 Dim eventArgs As New SendEventArgs(Of ClearWorldSendMessage)(CType(message, ClearWorldSendMessage))
-                RaiseEvent OnSendClearWorld(Me, eventArgs)
+                RaiseEvent SendClearWorld(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(KillWorldSendMessage)
                 Dim eventArgs As New SendEventArgs(Of KillWorldSendMessage)(CType(message, KillWorldSendMessage))
-                RaiseEvent OnSendKillWorld(Me, eventArgs)
+                RaiseEvent SendKillWorld(Me, eventArgs)
                 Return eventArgs.Handled
             Case Else
                 Return False

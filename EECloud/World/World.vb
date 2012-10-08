@@ -110,11 +110,11 @@ Public NotInheritable Class World
         Return value
     End Function
 
-    Private Sub myConnection_OnReceiveAccess(sender As Object, e As AccessReceiveMessage) Handles myConnection.OnReceiveAccess
+    Private Sub myConnection_OnReceiveAccess(sender As Object, e As AccessReceiveMessage) Handles myConnection.ReceiveAccess
         myAccessRight = AccessRight.Edit
     End Sub
 
-    Private Sub myConnection_OnReceiveLostAccess(sender As Object, e As LostAccessReceiveMessage) Handles myConnection.OnReceiveLostAccess
+    Private Sub myConnection_OnReceiveLostAccess(sender As Object, e As LostAccessReceiveMessage) Handles myConnection.ReceiveLostAccess
         myAccessRight = AccessRight.None
     End Sub
 
