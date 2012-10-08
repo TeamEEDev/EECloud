@@ -6,7 +6,7 @@ Public NotInheritable Class World
 #Region "Fields"
     Private Const InitOffset As UInteger = 14
     Private ReadOnly myBlocks(,,) As IWorldBlock
-    Private myConnection As IConnection(Of Player)
+    Private WithEvents myConnection As IConnection(Of Player)
 #End Region
 
 #Region "Properties"
@@ -15,6 +15,14 @@ Public NotInheritable Class World
     Public ReadOnly Property Encryption As String Implements IWorld.Encryption
         Get
             Return myEncryption
+        End Get
+    End Property
+
+    Private myAccessRight As AccessRight
+
+    Public ReadOnly Property AccessRight As AccessRight Implements IWorld.AccessRight
+        Get
+            Return myAccessRight
         End Get
     End Property
 
@@ -31,10 +39,17 @@ Public NotInheritable Class World
     Friend Sub New(connection As IConnection(Of Player), initMessage As InitReceiveMessage)
         myConnection = connection
         myEncryption = Derot(initMessage.Encryption)
+
+        If initMessage.IsOwner Then
+            myAccessRight = AccessRight.Owner
+        ElseIf initMessage.CanEdit Then
+            myAccessRight = AccessRight.Edit
+        End If
+
         myBlocks = ParseWorld(initMessage.PlayerIOMessage, initMessage.SizeX, initMessage.SizeY, InitOffset)
     End Sub
 
-    Private Function ParseWorld(m As Message, sizeX As Integer, sizeY As Integer, offset As UInteger) As WorldBlock(,,)
+    Private Shared Function ParseWorld(m As Message, sizeX As Integer, sizeY As Integer, offset As UInteger) As WorldBlock(,,)
         Dim value(1, sizeX, sizeY) As WorldBlock
         Dim pointer As UInteger = offset
         Do Until pointer >= CUInt(m.Count - 1)
@@ -95,5 +110,19 @@ Public NotInheritable Class World
         Return value
     End Function
 
+    Private Sub myConnection_OnReceiveAccess(sender As Object, e As AccessReceiveMessage) Handles myConnection.OnReceiveAccess
+        myAccessRight = AccessRight.Edit
+    End Sub
+
+    Private Sub myConnection_OnReceiveLostAccess(sender As Object, e As LostAccessReceiveMessage) Handles myConnection.OnReceiveLostAccess
+        myAccessRight = AccessRight.None
+    End Sub
+
 #End Region
+
+    Public ReadOnly Property Pos As Location Implements IWorld.Pos
+        Get
+
+        End Get
+    End Property
 End Class

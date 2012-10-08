@@ -1473,6 +1473,7 @@
             Case GetType(SilverCrownReceiveMessage)
                 Dim m As SilverCrownReceiveMessage = CType(e, SilverCrownReceiveMessage)
                 RaiseEvent OnReceiveSilverCrown(Me, m)
+
             Case GetType(FaceReceiveMessage)
                 Dim m As FaceReceiveMessage = CType(e, FaceReceiveMessage)
                 RaiseEvent OnReceiveFace(Me, m)
@@ -1508,22 +1509,18 @@
             Case GetType(CoinDoorPlace_ReceiveMessage)
                 Dim m As CoinDoorPlace_ReceiveMessage = CType(e, CoinDoorPlace_ReceiveMessage)
                 RaiseEvent OnReceiveCoinDoorPlace(Me, m)
-                RaiseEvent OnReceiveBlockPlace(Me, m)
 
             Case GetType(SoundPlaceReceiveMessage)
                 Dim m As SoundPlaceReceiveMessage = CType(e, SoundPlaceReceiveMessage)
                 RaiseEvent OnReceiveSoundPlace(Me, m)
-                RaiseEvent OnReceiveBlockPlace(Me, m)
 
             Case GetType(PortalPlaceReceiveMessage)
                 Dim m As PortalPlaceReceiveMessage = CType(e, PortalPlaceReceiveMessage)
                 RaiseEvent OnReceivePortalPlace(Me, m)
-                RaiseEvent OnReceiveBlockPlace(Me, m)
 
             Case GetType(LabelPlaceReceiveMessage)
                 Dim m As LabelPlaceReceiveMessage = CType(e, LabelPlaceReceiveMessage)
                 RaiseEvent OnReceiveLabelPlace(Me, m)
-                RaiseEvent OnReceiveBlockPlace(Me, m)
 
             Case GetType(GodModeReceiveMessage)
                 Dim m As GodModeReceiveMessage = CType(e, GodModeReceiveMessage)
@@ -1600,30 +1597,22 @@
             Case GetType(CoinDoorPlaceSendMessage)
                 Dim eventArgs As New SendEventArgs(Of CoinDoorPlaceSendMessage)(CType(message, CoinDoorPlaceSendMessage))
                 RaiseEvent OnSendCoindoorPlace(Me, eventArgs)
-                Dim blockEventArgs As New SendEventArgs(Of BlockPlaceSendMessage)(CType(message, BlockPlaceSendMessage))
-                RaiseEvent OnSendBlockPlace(Me, blockEventArgs)
-                Return eventArgs.Handled And blockEventArgs.Handled
+                Return eventArgs.Handled
 
             Case GetType(SoundPlaceSendMessage)
                 Dim eventArgs As New SendEventArgs(Of SoundPlaceSendMessage)(CType(message, SoundPlaceSendMessage))
                 RaiseEvent OnSendSoundPlace(Me, eventArgs)
-                Dim blockEventArgs As New SendEventArgs(Of BlockPlaceSendMessage)(CType(message, BlockPlaceSendMessage))
-                RaiseEvent OnSendBlockPlace(Me, blockEventArgs)
-                Return eventArgs.Handled And blockEventArgs.Handled
+                Return eventArgs.Handled
 
             Case GetType(PortalPlaceSendMessage)
                 Dim eventArgs As New SendEventArgs(Of PortalPlaceSendMessage)(CType(message, PortalPlaceSendMessage))
                 RaiseEvent OnSendPortalPlace(Me, eventArgs)
-                Dim blockEventArgs As New SendEventArgs(Of BlockPlaceSendMessage)(CType(message, BlockPlaceSendMessage))
-                RaiseEvent OnSendBlockPlace(Me, blockEventArgs)
-                Return eventArgs.Handled And blockEventArgs.Handled
+                Return eventArgs.Handled
 
             Case GetType(LabelPlaceSendMessage)
                 Dim eventArgs As New SendEventArgs(Of LabelPlaceSendMessage)(CType(message, LabelPlaceSendMessage))
                 RaiseEvent OnSendLabelPlace(Me, eventArgs)
-                Dim blockEventArgs As New SendEventArgs(Of BlockPlaceSendMessage)(CType(message, BlockPlaceSendMessage))
-                RaiseEvent OnSendBlockPlace(Me, blockEventArgs)
-                Return eventArgs.Handled And blockEventArgs.Handled
+                Return eventArgs.Handled
 
             Case GetType(CoinSendMessage)
                 Dim eventArgs As New SendEventArgs(Of CoinSendMessage)(CType(message, CoinSendMessage))

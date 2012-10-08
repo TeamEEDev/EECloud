@@ -1,4 +1,6 @@
-﻿Friend NotInheritable Class InternalPlayer
+﻿Imports System.Threading.Tasks
+
+Friend NotInheritable Class InternalPlayer
     Implements IPlayer
 
 #Region "Fields"
@@ -198,6 +200,7 @@
 
     Friend Async Function ReloadUserDataAsync() As Threading.Tasks.Task Implements IPlayer.ReloadUserDataAsync
         Dim userData As EEService.UserData = Await Cloud.Service.GetPlayerDataAsync(myUsername)
+        Await task.Delay(10000)
         If userData IsNot Nothing Then
             myGroup = CType(userData.GroupID, Group)
             myYoScrollWins = userData.YoScrollWins

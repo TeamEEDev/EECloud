@@ -16,7 +16,12 @@ Public Class TestPlugin
     End Sub
 
     <Command("test", Group.Admin, Aliases:={"hi"})>
-    Public Sub TestCommand(cmd As ICommand(Of TestPlayer), vars As String())
+    Public Sub TestCommand(cmd As ICommand(Of TestPlayer))
+        cmd.Sender.Reply("testin")
+    End Sub
+
+    <Command("test", Group.Admin, Aliases:={"hi"})>
+    Public Sub TestCommand(cmd As ICommand(Of TestPlayer), vars As String)
         cmd.Sender.Reply("You said: " & String.Join(" ", vars))
     End Sub
 

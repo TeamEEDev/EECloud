@@ -1,4 +1,4 @@
-﻿Public Class Location
+﻿Public Structure Location
     Public Property X As Integer
     Public Property Y As Integer
 
@@ -6,4 +6,4 @@
         Me.X = x
         Me.Y = y
     End Sub
-End Class
+End Structure

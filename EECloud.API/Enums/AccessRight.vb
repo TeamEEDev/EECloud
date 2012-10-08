@@ -19,5 +19,5 @@ Public Enum AccessRight
     ''' Represents the state where bot has command access and edit rights in the world.
     ''' </summary>
     ''' <remarks></remarks>
-    Full = 2
+    Owner = 2
 End Enum
