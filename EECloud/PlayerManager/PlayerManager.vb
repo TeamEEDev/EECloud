@@ -56,14 +56,14 @@
         End If
     End Sub
 
-    Private Sub myInternalPlayerManager_OnRemoveUser(sender As Object, e As LeftReceiveMessage) Handles myInternalPlayerManager.OnRemoveUser
+    Private Sub myInternalPlayerManager_OnRemoveUser(sender As Object, e As LeftReceiveMessage) Handles myInternalPlayerManager.RemoveUser
         Try
             myPlayersDictionary.Remove(e.UserID)
         Catch
         End Try
     End Sub
 
-    Private Sub myInternalPlayerManager_OnAddUser(sender As Object, e As InternalPlayer) Handles myInternalPlayerManager.OnAddUser
+    Private Sub myInternalPlayerManager_OnAddUser(sender As Object, e As InternalPlayer) Handles myInternalPlayerManager.AddUser
         AddPlayer(e)
     End Sub
 

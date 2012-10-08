@@ -97,9 +97,9 @@ Friend NotInheritable Class InternalConnection
 #End Region
 
 #Region "Events"
-    Friend Event OnInternalDisconnect(sender As Object, e As DisconnectEventArgs)
-    Friend Event OnInternalDisconnecting(sender As Object, e As EventArgs)
-    Friend Event OnInternalMessage(sender As Object, e As ReceiveMessage)
+    Friend Event InternalDisconnect(sender As Object, e As DisconnectEventArgs)
+    Friend Event InternalDisconnecting(sender As Object, e As EventArgs)
+    Friend Event InternalMessage(sender As Object, e As ReceiveMessage)
 #End Region
 
 #Region "Methods"
@@ -134,7 +134,7 @@ Friend NotInheritable Class InternalConnection
         Send(New InitSendMessage)
     End Sub
 
-    Private Async Sub MessageHandler(sender As Object, e As ReceiveMessage) Handles Me.OnInternalMessage
+    Private Async Sub MessageHandler(sender As Object, e As ReceiveMessage) Handles Me.InternalMessage
         Select Case e.GetType
             Case GetType(InitReceiveMessage)
                 Dim m As InitReceiveMessage = CType(e, InitReceiveMessage)
@@ -159,7 +159,7 @@ Friend NotInheritable Class InternalConnection
 
     Friend Sub Close()
         If myConnection IsNot Nothing Then
-            RaiseEvent OnInternalDisconnecting(Me, EventArgs.Empty)
+            RaiseEvent InternalDisconnecting(Me, EventArgs.Empty)
             myConnection.Disconnect()
         End If
     End Sub
@@ -206,7 +206,7 @@ Friend NotInheritable Class InternalConnection
 
     Private Sub myConnection_OnDisconnect(sender As Object, message As String) Handles myConnection.OnDisconnect
         UnRegisterAll()
-        RaiseEvent OnInternalDisconnect(Me, New DisconnectEventArgs(myExpectingDisconnect))
+        RaiseEvent InternalDisconnect(Me, New DisconnectEventArgs(myExpectingDisconnect))
         myExpectingDisconnect = False
     End Sub
 
@@ -216,7 +216,7 @@ Friend NotInheritable Class InternalConnection
                 Dim messageType As Type = myMessageDictionary(e.Type)
                 Dim constructorInfo As ConstructorInfo = messageType.GetConstructor(BindingFlags.NonPublic Or BindingFlags.Instance, Nothing, New Type() {GetType(Message)}, Nothing)
                 Dim message As ReceiveMessage = CType(constructorInfo.Invoke(New Object() {e}), ReceiveMessage)
-                RaiseEvent OnInternalMessage(Me, message)
+                RaiseEvent InternalMessage(Me, message)
             Else
                 Cloud.Logger.Log(LogPriority.Warning, "Received not registered message: " & e.Type)
             End If

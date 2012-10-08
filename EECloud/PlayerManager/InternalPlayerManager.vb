@@ -5,8 +5,8 @@
 #End Region
 
 #Region "Events"
-    Friend Event OnAddUser(sender As Object, e As InternalPlayer)
-    Friend Event OnRemoveUser(sender As Object, e As LeftReceiveMessage)
+    Friend Event AddUser(sender As Object, e As InternalPlayer)
+    Friend Event RemoveUser(sender As Object, e As LeftReceiveMessage)
 #End Region
 
 #Region "Properties"
@@ -31,7 +31,7 @@
             Dim player As New InternalPlayer(myConnection, e)
             Await player.ReloadUserDataAsync
             myPlayers.Add(player.UserID, player)
-            RaiseEvent OnAddUser(Me, player)
+            RaiseEvent AddUser(Me, player)
         Catch ex As Exception
             Cloud.Logger.LogEx(ex)
         End Try
@@ -48,7 +48,7 @@
     End Sub
 
     Private Sub myConnection_OnReceiveLeft(sender As Object, e As LeftReceiveMessage) Handles myConnection.ReceiveLeft
-        RaiseEvent OnRemoveUser(Me, e)
+        RaiseEvent RemoveUser(Me, e)
 
         Try
             myPlayers.Remove(e.UserID)
