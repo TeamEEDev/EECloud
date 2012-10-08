@@ -1419,15 +1419,15 @@
         Cloud.Logger.LogEx(ex)
     End Sub
 
-    Private Sub myInternalConnection_OnDisconnect(sender As Object, e As DisconnectEventArgs) Handles InternalConnection.OnInternalDisconnect
+    Private Sub myInternalConnection_OnDisconnect(sender As Object, e As DisconnectEventArgs) Handles InternalConnection.InternalDisconnect
         RaiseEvent Disconnect(Me, e)
     End Sub
 
-    Private Sub InternalConnection_OnInternalDisconnecting(sender As Object, e As EventArgs) Handles InternalConnection.OnInternalDisconnecting
+    Private Sub InternalConnection_OnInternalDisconnecting(sender As Object, e As EventArgs) Handles InternalConnection.InternalDisconnecting
         RaiseEvent Disconnecting(Me, e)
     End Sub
 
-    Private Sub myInternalConnection_OnInternalMessage(sender As Object, e As ReceiveMessage) Handles InternalConnection.OnInternalMessage
+    Private Sub myInternalConnection_OnInternalMessage(sender As Object, e As ReceiveMessage) Handles InternalConnection.InternalMessage
         RaiseEvent ReceiveMessage(Me, e)
         Select Case e.GetType
             Case GetType(InitReceiveMessage)
