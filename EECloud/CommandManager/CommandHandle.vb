@@ -52,8 +52,15 @@ Friend NotInheritable Class CommandHandle(Of TPlayer As {New, Player})
                     myCount += 1
                     mySyntaxStr += " [" & pram.Name & "]"
                 Case GetType(String())
-                    myHasParamArray = True
-                    mySyntaxStr += " [" & pram.Name & "...]"
+                    Dim attributes As ParamArrayAttribute() = CType(pram.GetCustomAttributes(GetType(ParamArrayAttribute)), ParamArrayAttribute())
+                    If attributes IsNot Nothing AndAlso attributes.Length >= 1 Then
+                        myHasParamArray = True
+                        mySyntaxStr += " [" & pram.Name & "...]"
+                    Else
+                        Cloud.Logger.Log(LogPriority.Error, "String Arrays in commands must have the ParamArrayAttribute on them: " & attribute.Type)
+                        Throw New EECloudException(ErrorCode.CommandSyntaxInvalid)
+                    End If
+
                 Case Else
                     Cloud.Logger.Log(LogPriority.Error, "Arguments must all be type of String: " & attribute.Type)
                     Throw New EECloudException(ErrorCode.CommandSyntaxInvalid)

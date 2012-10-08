@@ -176,7 +176,7 @@
     <Compile Include="World\WorldLabelBlock.vb" />
     <Compile Include="World\WorldPortalBlock.vb" />
     <Compile Include="World\WorldSoundBlock.vb" />
-    <Compile Include="zMisc\EventHandlerList.vb" />
+    <Compile Include="Connection\EventHandlerList.vb" />
     <Compile Include="Chatter\InternalChatter.vb" />
     <Compile Include="zForms\LicenseForm.Designer.vb">
       <DependentUpon>LicenseForm.vb</DependentUpon>
@@ -192,7 +192,6 @@
     <Compile Include="zForms\LoginForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="zMisc\Config.vb" />
     <Compile Include="Logger\LeLogger.vb" />
     <Compile Include="Logger\Logger.vb" />
     <Compile Include="PluginManager\PluginManager.vb" />
