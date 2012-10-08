@@ -97,7 +97,7 @@ Friend NotInheritable Class CloudApplicationContext
             Cloud.Logger.Log(LogPriority.Info, "Joining world...")
             Dim task As Task = handle.ConnectAsync(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID)
 
-            AddHandler handle.Connection.OnDisconnect,
+            AddHandler handle.Connection.Disconnect,
                 Sub()
                     Cloud.Logger.Log(LogPriority.Info, "Disconnected!")
                     Environment.Exit(1)

@@ -24,16 +24,16 @@ Public Class CommandsBot
     <Command("leave", Group.Operator, Aliases:={"leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
     Public Sub LeaveWorldCommand(cmd As ICommand(Of CommandsBotPlayer))
         Connection.Chatter.Chat("Leaving world...")
-        CType(Connection, Connection(Of CommandsBotPlayer)).InternalConnection.Disconnect()
+        CType(Connection, Connection(Of CommandsBotPlayer)).InternalConnection.Close()
     End Sub
 
     <Command("clear", Group.Moderator, Aliases:={"clearworld", "clearlevel"})>
     Public Sub ClearWorldCommand(cmd As ICommand(Of CommandsBotPlayer))
         'If Connection.Players(0).IsOwner Then
         Connection.Send(New ClearWorldSendMessage)
-        AddHandler Connection.OnReceiveClear, Sub()
-                                                  Connection.Chatter.Chat("World cleared.")
-                                              End Sub
+        AddHandler Connection.ReceiveClear, Sub()
+                                                Connection.Chatter.Chat("World cleared.")
+                                            End Sub
         'Else
         '    Chatter.Chat("Can't clear world.")
         'End If
@@ -43,9 +43,9 @@ Public Class CommandsBot
     Public Sub ChangeWorldNameCommand(cmd As ICommand(Of CommandsBotPlayer))
         'If Connection.Players(0).IsOwner Then
         'Connection.Send(New ChangeWorldName_SendMessage(cmd.Args.ToString))
-        AddHandler Connection.OnReceiveUpdateMeta, Sub()
-                                                       Connection.Chatter.Chat("World name changed.")
-                                                   End Sub
+        AddHandler Connection.ReceiveUpdateMeta, Sub()
+                                                     Connection.Chatter.Chat("World name changed.")
+                                                 End Sub
         'Else
         '    Chatter.Chat("Can't rename world.")
         'End If
@@ -56,9 +56,9 @@ Public Class CommandsBot
         'If Connection.Players(0).IsOwner Then
         Connection.Chatter.Chat("Loading world...")
         Connection.Chatter.Loadlevel()
-        AddHandler Connection.OnReceiveReset, Sub()
-                                                  Connection.Chatter.Chat("World loaded.")
-                                              End Sub
+        AddHandler Connection.ReceiveReset, Sub()
+                                                Connection.Chatter.Chat("World loaded.")
+                                            End Sub
         'Else
         '    Chatter.Chat("Can't load world.")
         'End If
@@ -69,9 +69,9 @@ Public Class CommandsBot
         'If Connection.Players(0).IsOwner Then
         Connection.Chatter.Chat("Saving world...")
         Connection.Send(New SaveWorldSendMessage)
-        AddHandler Connection.OnReceiveSaveDone, Sub()
-                                                     Connection.Chatter.Chat("World saved.")
-                                                 End Sub
+        AddHandler Connection.ReceiveSaveDone, Sub()
+                                                   Connection.Chatter.Chat("World saved.")
+                                               End Sub
         'Else
         '    Chatter.Chat("Can't save world.")
         'End If
@@ -81,9 +81,9 @@ Public Class CommandsBot
     Public Sub ResetCommand(cmd As ICommand(Of CommandsBotPlayer))
         'If Connection.Players(0).IsOwner Then
         Connection.Chatter.Reset()
-        AddHandler Connection.OnReceiveTeleport, Sub()
-                                                     Connection.Chatter.Chat("Players' position reset.")
-                                                 End Sub
+        AddHandler Connection.ReceiveTeleport, Sub()
+                                                   Connection.Chatter.Chat("Players' position reset.")
+                                               End Sub
         'Else
         '    Chatter.Chat("Can't reset players' position.")
         'End If

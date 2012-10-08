@@ -211,19 +211,19 @@ Friend NotInheritable Class InternalPlayer
         myConnection.Chatter.Reply(myUsername, msg)
     End Sub
 
-    Private Sub myConnection_OnReceiveCoin(sender As Object, e As CoinReceiveMessage) Handles myConnection.OnReceiveCoin
+    Private Sub myConnection_OnReceiveCoin(sender As Object, e As CoinReceiveMessage) Handles myConnection.ReceiveCoin
         If e.UserID = myUserID Then
             myCoins = e.Coins
         End If
     End Sub
 
-    Private Sub myConnection_OnReceiveFace(sender As Object, e As FaceReceiveMessage) Handles myConnection.OnReceiveFace
+    Private Sub myConnection_OnReceiveFace(sender As Object, e As FaceReceiveMessage) Handles myConnection.ReceiveFace
         If e.UserID = myUserID Then
             myFace = e.Face
         End If
     End Sub
 
-    Private Sub myConnection_OnReceiveMove(sender As Object, e As MoveReceiveMessage) Handles myConnection.OnReceiveMove
+    Private Sub myConnection_OnReceiveMove(sender As Object, e As MoveReceiveMessage) Handles myConnection.ReceiveMove
         If e.UserID = myUserID Then
             myCoins = e.Coins
             myHorizontal = e.Horizontal
@@ -237,25 +237,25 @@ Friend NotInheritable Class InternalPlayer
         End If
     End Sub
 
-    Private Sub myConnection_OnReceiveGodMode(sender As Object, e As GodModeReceiveMessage) Handles myConnection.OnReceiveGodMode
+    Private Sub myConnection_OnReceiveGodMode(sender As Object, e As GodModeReceiveMessage) Handles myConnection.ReceiveGodMode
         If e.UserID = myUserID Then
             myIsGod = e.IsGod
         End If
     End Sub
 
-    Private Sub myConnection_OnReceiveModMode(sender As Object, e As ModModeReceiveMessage) Handles myConnection.OnReceiveModMode
+    Private Sub myConnection_OnReceiveModMode(sender As Object, e As ModModeReceiveMessage) Handles myConnection.ReceiveModMode
         If e.UserID = myUserID Then
             myIsMod = True
         End If
     End Sub
 
-    Private Sub myConnection_OnReceiveSilverCrown(sender As Object, e As SilverCrownReceiveMessage) Handles myConnection.OnReceiveSilverCrown
+    Private Sub myConnection_OnReceiveSilverCrown(sender As Object, e As SilverCrownReceiveMessage) Handles myConnection.ReceiveSilverCrown
         If e.UserID = myUserID Then
             myHasSilverCrown = True
         End If
     End Sub
 
-    Private Sub myConnection_OnReceiveTeleport(sender As Object, e As TeleportReceiveMessage) Handles myConnection.OnReceiveTeleport
+    Private Sub myConnection_OnReceiveTeleport(sender As Object, e As TeleportReceiveMessage) Handles myConnection.ReceiveTeleport
         If e.ResetCoins = True Then
             myCoins = 0
         End If

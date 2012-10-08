@@ -79,8 +79,8 @@ Friend NotInheritable Class ConnectionHandle
         Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get room version")
     End Sub
 
-    Friend Sub Disconnect() Implements IConnectionHandle.Disconnect
-        myInternalConnection.Disconnect()
+    Friend Sub Close() Implements IConnectionHandle.Close
+        myInternalConnection.Close()
     End Sub
 
 #End Region

@@ -12,7 +12,7 @@ Public Class TestPlugin
     Protected Overrides Sub OnDisable()
     End Sub
 
-    Private Sub Connection_OnSendMove(sender As Object, e As SendEventArgs(Of MoveSendMessage)) Handles Connection.OnSendMove
+    Private Sub Connection_OnSendMove(sender As Object, e As SendEventArgs(Of MoveSendMessage)) Handles Connection.SendMove
     End Sub
 
     <Command("test", Group.Admin, Aliases:={"hi"})>

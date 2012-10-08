@@ -67,7 +67,7 @@
         AddPlayer(e)
     End Sub
 
-    Private Sub myConnection_OnReceiveCrown(sender As Object, e As CrownReceiveMessage) Handles myConnection.OnReceiveCrown
+    Private Sub myConnection_OnReceiveCrown(sender As Object, e As CrownReceiveMessage) Handles myConnection.ReceiveCrown
         myCrown = Players(e.UserID)
     End Sub
 

@@ -5,7 +5,7 @@
 
     Friend Sub New(connection As IConnection(Of Player))
         myConnection = connection
-        AddHandler myConnection.OnReceiveSay, AddressOf myConnection_OnReceiveSay
+        AddHandler myConnection.ReceiveSay, AddressOf myConnection_OnReceiveSay
         AddHandler Cloud.Logger.OnInput,
             Sub(sender As Object, e As EventArgs) HandleMessage(Cloud.Logger.Input, -1)
     End Sub

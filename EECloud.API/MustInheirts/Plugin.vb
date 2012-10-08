@@ -7,7 +7,7 @@
         If Connection.Connected Then
             OnConnect()
         Else
-            AddHandler Connection.OnReceiveInit, AddressOf Connect
+            AddHandler Connection.ReceiveInit, AddressOf Connect
         End If
 
         OnEnable()
@@ -18,7 +18,7 @@
     End Sub
 
     Private Sub Connect(sender As Object, e As InitReceiveMessage)
-        RemoveHandler Connection.OnReceiveInit, AddressOf Connect
+        RemoveHandler Connection.ReceiveInit, AddressOf Connect
         OnConnect()
     End Sub
 
