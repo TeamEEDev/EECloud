@@ -10,11 +10,11 @@ Friend NotInheritable Class CloudApplicationContext
 #Region "Methods"
 
     Friend Sub New()
-        'Loading settings
-        LoadSettings()
-
         'Creating singletons
         CreateSingletons()
+
+        'Loading settings
+        LoadSettings()
 
         'Creating Connection
         Dim handle As IConnectionHandle = Cloud.Connector.GetConnectionHandle
