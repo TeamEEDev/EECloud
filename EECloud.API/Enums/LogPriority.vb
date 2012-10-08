@@ -1,5 +1,5 @@
 ﻿''' <summary>
-''' Describes the priority of a log entry.
+''' Describes the priority of a LogEx entry.
 ''' </summary>
 ''' <remarks></remarks>
 Public Enum LogPriority

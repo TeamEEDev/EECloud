@@ -34,11 +34,11 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
                         Next
                     Catch ex As Exception
                         Cloud.Logger.Log(LogPriority.Error, "Duplicate command: " & attribute.Type)
-                        Cloud.Logger.Log(ex)
+                        Cloud.Logger.LogEx(ex)
                     End Try
                 Catch ex As Exception
                     Cloud.Logger.Log(LogPriority.Error, "Method has bad signature: " & attribute.Type)
-                    Cloud.Logger.Log(ex)
+                    Cloud.Logger.LogEx(ex)
                 End Try
             End If
         Next
@@ -93,12 +93,16 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
                     handle.Run(args)
                 Catch ex As Exception
                     Cloud.Logger.Log(LogPriority.Error, "Failed to run command " & type)
-                    Cloud.Logger.Log(ex)
+                    Cloud.Logger.LogEx(ex)
                     sender.Reply("Failed to run command!")
                     Exit Sub
                 End Try
             End If
         End If
+    End Sub
+
+    Public Sub InvokeCommand(player As Player, msg As String) Implements ICommandManager.InvokeCommand
+        myInternalCommandManager.HandleMessage(msg, player.UserID)
     End Sub
 
 #End Region

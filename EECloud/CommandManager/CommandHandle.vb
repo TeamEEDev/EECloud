@@ -66,7 +66,7 @@ Friend NotInheritable Class CommandHandle(Of TPlayer As {New, Player})
             myMethodInfo.Invoke(myTarget, args)
         Catch ex As Exception
             Cloud.Logger.Log(LogPriority.Error, "Command failed to excecute: " & myAttribute.Type)
-            Cloud.Logger.Log(ex)
+            Cloud.Logger.LogEx(ex)
         End Try
     End Sub
 

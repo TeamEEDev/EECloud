@@ -13,12 +13,14 @@ Friend NotInheritable Class CloudApplicationContext
         'Creating singletons
         CreateSingletons()
 
+        Cloud.Logger.Log(LogPriority.Info, "Loading settings...")
         'Loading settings
         LoadSettings()
 
         'Creating Connection
         Dim handle As IConnectionHandle = Cloud.Connector.GetConnectionHandle
 
+        Cloud.Logger.Log(LogPriority.Info, "Loading plugins...")
         'Loading assemblies
         LoadAssembies(handle)
 
@@ -52,6 +54,8 @@ Friend NotInheritable Class CloudApplicationContext
     End Sub
 
     Private Shared Sub LoadAssembies(connectionHandle As IConnectionHandle)
+        connectionHandle.Connection.PluginManager.Add(GetType(CommandsBot))
+
         'Checking for valid plugins
         Dim plugins As IEnumerable(Of Type) =
                 From assembly As Assembly In GetAssemblies(My.Application.Info.DirectoryPath)
@@ -70,7 +74,7 @@ Friend NotInheritable Class CloudApplicationContext
 
                     connectionHandle.Connection.PluginManager.Add(enumrator.Current)
                 Catch ex As Exception
-                    Cloud.Logger.Log(ex)
+                    Cloud.Logger.LogEx(ex)
                 End Try
             Loop
         End Using
@@ -96,13 +100,14 @@ Friend NotInheritable Class CloudApplicationContext
             AddHandler handle.Connection.OnDisconnect,
                 Sub()
                     Cloud.Logger.Log(LogPriority.Info, "Disconnected!")
+                    Environment.Exit(1)
                 End Sub
 
             Await task
             Cloud.Logger.Log(LogPriority.Info, "Connected!")
         Catch ex As Exception
             Cloud.Logger.Log(LogPriority.Info, "Failed to connect!")
-            Cloud.Logger.Log(ex)
+            Cloud.Logger.LogEx(ex)
             Environment.Exit(1000)
         End Try
     End Sub

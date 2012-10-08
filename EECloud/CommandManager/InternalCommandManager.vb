@@ -16,7 +16,7 @@
         End If
     End Sub
 
-    Private Sub HandleMessage(msg As String, user As Integer)
+    Friend Sub HandleMessage(msg As String, user As Integer)
         Dim eventArgs As New CommandEventArgs
         RaiseEvent OnCommand(msg, user, eventArgs)
         If eventArgs.Handled = False Then

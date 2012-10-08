@@ -7,6 +7,7 @@ Friend NotInheritable Class InternalConnection
 #Region "Fields"
     Private WithEvents myConnection As Connection
     Private ReadOnly myMessageDictionary As New Dictionary(Of String, Type)
+    Private ExpectingDisconnect As Boolean
 #End Region
 
 #Region "Properties"
@@ -96,7 +97,8 @@ Friend NotInheritable Class InternalConnection
 #End Region
 
 #Region "Events"
-    Friend Event OnInternalDisconnect(sender As Object, e As String)
+    Friend Event OnInternalDisconnect(sender As Object, e As DisconnectEventArgs)
+    Friend Event OnInternalDisconnecting(sender As Object, e As EventArgs)
     Friend Event OnInternalMessage(sender As Object, e As ReceiveMessage)
 #End Region
 
@@ -157,6 +159,7 @@ Friend NotInheritable Class InternalConnection
 
     Friend Sub Disconnect()
         If myConnection IsNot Nothing Then
+            RaiseEvent OnInternalDisconnecting(Me, EventArgs.Empty)
             myConnection.Disconnect()
         End If
     End Sub
@@ -203,7 +206,8 @@ Friend NotInheritable Class InternalConnection
 
     Private Sub myConnection_OnDisconnect(sender As Object, message As String) Handles myConnection.OnDisconnect
         UnRegisterAll()
-        RaiseEvent OnInternalDisconnect(Me, message)
+        RaiseEvent OnInternalDisconnect(Me, New DisconnectEventArgs(ExpectingDisconnect))
+        ExpectingDisconnect = False
     End Sub
 
     Private Sub myConnection_OnMessage(sender As Object, e As Message) Handles myConnection.OnMessage

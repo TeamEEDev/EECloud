@@ -6,15 +6,12 @@ EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud", "EECloud\EECloud.vbproj", "{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{75ADE508-C5DA-4A45-BF8C-DD3E9F4EA882} = {75ADE508-C5DA-4A45-BF8C-DD3E9F4EA882}
-		{174EA22D-EA11-45B6-BBD2-FE0843DCF75B} = {174EA22D-EA11-45B6-BBD2-FE0843DCF75B}
 		{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1} = {D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}
 	EndProjectSection
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TestPlugin", "TestPlugin\TestPlugin.vbproj", "{75ADE508-C5DA-4A45-BF8C-DD3E9F4EA882}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Yo!Scroll Plugin", "Yo!Scroll Plugin\Yo!Scroll Plugin.vbproj", "{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Commands Bot", "Commands Bot\Commands Bot.vbproj", "{174EA22D-EA11-45B6-BBD2-FE0843DCF75B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,10 +35,6 @@ Global
 		{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}.Debug|Any CPU.Build.0 = Debug|x86
 		{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{174EA22D-EA11-45B6-BBD2-FE0843DCF75B}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{174EA22D-EA11-45B6-BBD2-FE0843DCF75B}.Debug|Any CPU.Build.0 = Debug|x86
-		{174EA22D-EA11-45B6-BBD2-FE0843DCF75B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{174EA22D-EA11-45B6-BBD2-FE0843DCF75B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

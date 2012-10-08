@@ -1,6 +1,7 @@
 ﻿Public Interface IConnection(Of TPlayer As {Player, New})
     Event OnReceiveMessage As EventHandler(Of ReceiveMessage)
-    Event OnDisconnect As EventHandler(Of EventArgs)
+    Event OnDisconnecting As EventHandler(Of EventArgs)
+    Event OnDisconnect As EventHandler(Of DisconnectEventArgs)
     Event OnReceiveAccess As EventHandler(Of AccessReceiveMessage)
     Event OnReceiveAdd As EventHandler(Of AddReceiveMessage)
     Event OnReceiveAutoText As EventHandler(Of AutoTextReceiveMessage)

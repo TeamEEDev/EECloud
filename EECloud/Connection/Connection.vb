@@ -1,9 +1,6 @@
 ﻿Friend NotInheritable Class Connection(Of TPlayer As {Player, New})
     Inherits ConnectionBase(Of TPlayer)
 
-#Region "Fields"
-#End Region
-
 #Region "Properties"
 
     Friend Overrides ReadOnly Property WorldID As String

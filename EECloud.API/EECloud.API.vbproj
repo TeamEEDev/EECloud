@@ -124,6 +124,7 @@
   <ItemGroup>
     <Compile Include="Cloud.vb" />
     <Compile Include="Attributes\CommandAttribute.vb" />
+    <Compile Include="EventArgs\DiconnectEventArgs.vb" />
     <Compile Include="EventArgs\SendEventArgs.vb" />
     <Compile Include="Enums\AccessRight.vb" />
     <Compile Include="Interfaces\ICommand.vb" />
