@@ -53,7 +53,7 @@
                     myPlugin.Enable(factory, Me)
                 Catch ex As Exception
                     Cloud.Logger.Log(LogPriority.Error, String.Format("Failed to start plugin {0}. Disabling...", myPluginType.Name))
-                    Cloud.Logger.Log(ex)
+                    Cloud.Logger.LogEx(ex)
                     [Stop]()
                 End Try
             Else
@@ -70,7 +70,7 @@
                     myPlugin.Disable()
                 Catch ex As Exception
                     Cloud.Logger.Log(LogPriority.Error, String.Format("Failed to disable Plugin {0}.", myPluginType.Name))
-                    Cloud.Logger.Log(ex)
+                    Cloud.Logger.LogEx(ex)
                 Finally
                     myPlugin = Nothing
                 End Try

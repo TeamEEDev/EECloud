@@ -75,7 +75,7 @@ Friend NotInheritable Class Logger
                 End If
             Loop
         Catch ex As Exception
-            Log(LogPriority.Error, "Log Manager has crashed! Console input is disabled.")
+            Log(LogPriority.Error, "LogEx Manager has crashed! Console input is disabled.")
         End Try
     End Sub
 
@@ -94,7 +94,7 @@ Friend NotInheritable Class Logger
         End If
     End Sub
 
-    Friend Sub Log(ex As Exception) Implements ILogger.Log
+    Friend Sub LogEx(ex As Exception) Implements ILogger.LogEx
         Cloud.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled: {1} {2}", ex.ToString, ex.Message, ex.StackTrace))
     End Sub
 

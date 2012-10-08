@@ -2,7 +2,7 @@
     Implements IConnection(Of TPlayer)
 
 #Region "Fields"
-    Protected WithEvents InternalConnection As InternalConnection
+    Friend WithEvents InternalConnection As InternalConnection
     Private ReadOnly myEvents As New EventHandlerList
 #End Region
 
@@ -29,23 +29,44 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event OnDisconnect As EventHandler(Of EventArgs) Implements IConnection(Of TPlayer).OnDisconnect
-        AddHandler(value As EventHandler(Of EventArgs))
+    Friend Custom Event OnDisconnect As EventHandler(Of DisconnectEventArgs) Implements IConnection(Of TPlayer).OnDisconnect
+        AddHandler(value As EventHandler(Of DisconnectEventArgs))
             myEvents.Add("OnDisconnect", value)
         End AddHandler
 
-        RemoveHandler(value As EventHandler(Of EventArgs))
+        RemoveHandler(value As EventHandler(Of DisconnectEventArgs))
             myEvents.Remove("OnDisconnect", value)
         End RemoveHandler
 
-        RaiseEvent(sender As Object, e As EventArgs)
+        RaiseEvent(sender As Object, e As DisconnectEventArgs)
             Try
-                Dim eevent As EventHandler(Of EventArgs) = CType(myEvents("OnDisconnect"), EventHandler(Of EventArgs))
+                Dim eevent As EventHandler(Of DisconnectEventArgs) = CType(myEvents("OnDisconnect"), EventHandler(Of DisconnectEventArgs))
                 If eevent IsNot Nothing Then
                     Call eevent(sender, e)
                 End If
             Catch ex As Exception
                 OnEventError("OnDisconnect", ex)
+            End Try
+        End RaiseEvent
+    End Event
+
+    Friend Custom Event OnDisconnecting As EventHandler(Of EventArgs) Implements IConnection(Of TPlayer).OnDisconnecting
+        AddHandler(value As EventHandler(Of EventArgs))
+            myEvents.Add("OnDisconnecting", value)
+        End AddHandler
+
+        RemoveHandler(value As EventHandler(Of EventArgs))
+            myEvents.Remove("OnDisconnecting", value)
+        End RemoveHandler
+
+        RaiseEvent(sender As Object, e As EventArgs)
+            Try
+                Dim eevent As EventHandler(Of EventArgs) = CType(myEvents("OnDisconnecting"), EventHandler(Of EventArgs))
+                If eevent IsNot Nothing Then
+                    Call eevent(sender, e)
+                End If
+            Catch ex As Exception
+                OnEventError("OnDisconnecting", ex)
             End Try
         End RaiseEvent
     End Event
@@ -1395,11 +1416,15 @@
 
     Private Sub OnEventError(eventName As String, ex As Exception)
         Cloud.Logger.Log(LogPriority.Error, String.Format("Unable to pass event {0} to {1}.", eventName, ex.Source))
-        Cloud.Logger.Log(ex)
+        Cloud.Logger.LogEx(ex)
     End Sub
 
-    Private Sub myInternalConnection_OnDisconnect(sender As Object, e As String) Handles InternalConnection.OnInternalDisconnect
-        RaiseEvent OnDisconnect(Me, EventArgs.Empty)
+    Private Sub myInternalConnection_OnDisconnect(sender As Object, e As DisconnectEventArgs) Handles InternalConnection.OnInternalDisconnect
+        RaiseEvent OnDisconnect(Me, e)
+    End Sub
+
+    Private Sub InternalConnection_OnInternalDisconnecting(sender As Object, e As EventArgs) Handles InternalConnection.OnInternalDisconnecting
+        RaiseEvent OnDisconnecting(Me, e)
     End Sub
 
     Private Sub myInternalConnection_OnMessage(sender As Object, e As ReceiveMessage) Handles InternalConnection.OnInternalMessage

@@ -33,7 +33,7 @@
             myPlayers.Add(player.UserID, player)
             RaiseEvent OnAddUser(Me, player)
         Catch ex As Exception
-            Cloud.Logger.Log(ex)
+            Cloud.Logger.LogEx(ex)
         End Try
     End Sub
 
@@ -43,7 +43,7 @@
                 myCrown = Players(e.UserID)
             End If
         Catch ex As Exception
-            Cloud.Logger.Log(ex)
+            Cloud.Logger.LogEx(ex)
         End Try
     End Sub
 
@@ -53,7 +53,7 @@
         Try
             myPlayers.Remove(e.UserID)
         Catch ex As Exception
-            Cloud.Logger.Log(ex)
+            Cloud.Logger.LogEx(ex)
         End Try
     End Sub
 

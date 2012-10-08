@@ -21,12 +21,11 @@ Public Class CommandsBot
         'end
     End Sub
 
-    'TODOD: make this possible somehow, waiting to see how CommandManager will look like when finished
-    '<Command("leave", "!command", Group.Admin, Aliases:={"leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
-    'Public Sub LeaveWorldCommand(cmd As ICommand(Of CommandsBotPlayer))
-    '    Chatter.Chat("Leaving world...")
-    '    Connection.Disconnect()
-    'End Sub
+    <Command("leave", Group.Operator, Aliases:={"leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
+    Public Sub LeaveWorldCommand(cmd As ICommand(Of CommandsBotPlayer))
+        Connection.Chatter.Chat("Leaving world...")
+        CType(Connection, Connection(Of CommandsBotPlayer)).InternalConnection.Disconnect()
+    End Sub
 
     <Command("clear", Group.Moderator, Aliases:={"clearworld", "clearlevel"})>
     Public Sub ClearWorldCommand(cmd As ICommand(Of CommandsBotPlayer))

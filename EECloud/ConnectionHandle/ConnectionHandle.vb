@@ -5,6 +5,8 @@ Friend NotInheritable Class ConnectionHandle
     Implements IConnectionHandle
 
 #Region "Fields"
+    Private Const GameID As String = "everybody-edits-su9rn58o40itdbnw69plyw"
+    Private Const NormalRoom As String = "Everybodyedits"
     Private Const GameVersionSetting As String = "GameVersion"
     Friend Shared GameVersionNumber As Integer = 0
 #End Region
@@ -38,7 +40,7 @@ Friend NotInheritable Class ConnectionHandle
             Await Task.Run(
                 Sub()
                     Try
-                        Dim ioClient As Client = PlayerIO.QuickConnect.SimpleConnect(Config.GameID, username, password)
+                        Dim ioClient As Client = PlayerIO.QuickConnect.SimpleConnect(GameID, username, password)
                         Dim ioConnection As Connection = GetIOConnection(ioClient, id)
                         myInternalConnection.SetupConnection(ioConnection, id)
                     Catch ex As PlayerIOError
@@ -52,7 +54,7 @@ Friend NotInheritable Class ConnectionHandle
 
     Private Function GetIOConnection(client As Client, id As String) As Connection
         Try
-            Return client.Multiplayer.CreateJoinRoom(id, Config.NormalRoom & GameVersionNumber, True, Nothing, Nothing)
+            Return client.Multiplayer.CreateJoinRoom(id, NormalRoom & GameVersionNumber, True, Nothing, Nothing)
         Catch ex As PlayerIOError
             If ex.ErrorCode = ErrorCode.UnknownRoomType Then
                 UpdateVersion(ex)
@@ -68,8 +70,8 @@ Friend NotInheritable Class ConnectionHandle
         For N = errorMessage.Length - 1 To 0 Step -1
             Dim currentRoomType As String
             currentRoomType = errorMessage(N)
-            If currentRoomType.StartsWith(Config.NormalRoom, StringComparison.Ordinal) Then
-                GameVersionNumber = CInt(currentRoomType.Substring(Config.NormalRoom.Length, currentRoomType.Length - Config.NormalRoom.Length - 1))
+            If currentRoomType.StartsWith(NormalRoom, StringComparison.Ordinal) Then
+                GameVersionNumber = CInt(currentRoomType.Substring(NormalRoom.Length, currentRoomType.Length - NormalRoom.Length - 1))
                 Cloud.Service.SetSetting(GameVersionSetting, CStr(GameVersionNumber))
                 Exit Sub
             End If
