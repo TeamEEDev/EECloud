@@ -2,7 +2,7 @@
     Implements IPluginManager
 
 #Region "Fields"
-    Private myFactory As IConnectionFactory
+    Private ReadOnly myFactory As IClientFactory
 #End Region
 
 #Region "Properties"
@@ -18,7 +18,7 @@
 
 #Region "Methods"
 
-    Sub New(factory As IConnectionFactory)
+    Sub New(factory As IClientFactory)
         myFactory = factory
     End Sub
 

@@ -1,4 +1,4 @@
-﻿Friend Class Command(Of TPlayer As {New, Player})
+﻿Friend NotInheritable Class Command(Of TPlayer As {New, Player})
     Implements ICommand(Of TPlayer)
 
     Friend Sub New(sender As TPlayer, label As String)

@@ -54,7 +54,7 @@
 
 #Region "Methods"
 
-    Friend Sub New(internalConnection As InternalConnection, pluginObject As IPluginObject, instance As Object)
+    Friend Sub New(internalConnection As InternalClient, pluginObject As IPluginObject, instance As Object)
         Me.InternalConnection = internalConnection
 
         Dim chatterName As String = pluginObject.Attribute.ChatName

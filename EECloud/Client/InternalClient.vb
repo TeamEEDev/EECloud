@@ -1,7 +1,7 @@
 ﻿Imports PlayerIOClient
 Imports System.Reflection
 
-Friend NotInheritable Class InternalConnection
+Friend NotInheritable Class InternalClient
     Inherits ConnectionBase(Of Player)
 
 #Region "Fields"
@@ -86,7 +86,7 @@ Friend NotInheritable Class InternalConnection
         End Get
     End Property
 
-    Private myCommandManager As ICommandManager
+    Private ReadOnly myCommandManager As ICommandManager
 
     Public Overrides ReadOnly Property CommandManager As ICommandManager
         Get
@@ -110,7 +110,7 @@ Friend NotInheritable Class InternalConnection
         InternalConnection = Me
 
         'Creating instances
-        myPluginManager = New PluginManager(New ConnectionFactory(Me))
+        myPluginManager = New PluginManager(New ClientFactory(Me))
         myInternalChatter = New InternalChatter(Me)
         myInternalPlayerManager = New InternalPlayerManager(Me)
         myInternalCommandManager = New InternalCommandManager(Me)
@@ -145,9 +145,9 @@ Friend NotInheritable Class InternalConnection
                 RegisterMessages()
                 Send(New Init2SendMessage)
             Case GetType(UpgradeReceiveMessage)
-                ConnectionHandle.GameVersionNumber += 1
+                ClientHandle.GameVersionNumber += 1
                 Cloud.Logger.Log(LogPriority.Info, "The game has been updated!")
-                Await Cloud.Service.SetSettingAsync("GameVersion", CStr(ConnectionHandle.GameVersionNumber))
+                Await Cloud.Service.SetSettingAsync("GameVersion", CStr(ClientHandle.GameVersionNumber))
         End Select
     End Sub
 

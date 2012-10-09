@@ -1,14 +1,15 @@
 ﻿Imports System.Timers
 
 Friend NotInheritable Class InternalChatter
+#Region "Fields"
     ReadOnly myChatQueue As New Queue(Of SaySendMessage)
-
     Dim WithEvents mySendTimer As New Timer With {.Enabled = True, .AutoReset = True, .Interval = 700}
-
     ReadOnly myHistoryList As New List(Of String)
+    ReadOnly myConnection As InternalClient
+#End Region
 
-    ReadOnly myConnection As InternalConnection
-    Friend Sub New(connection As InternalConnection)
+#Region "Methods"
+    Friend Sub New(connection As InternalClient)
         myConnection = connection
     End Sub
 
@@ -51,4 +52,5 @@ Friend NotInheritable Class InternalChatter
     Private Function CheckHistory(str As String) As Boolean
         Return myHistoryList.Where(Function(x) str.Equals(x)).Count >= 4
     End Function
+#End Region
 End Class

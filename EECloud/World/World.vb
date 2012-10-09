@@ -26,6 +26,32 @@ Public NotInheritable Class World
         End Get
     End Property
 
+    Public Property AccessRightInternal As AccessRight
+        Get
+            Return myAccessRight
+        End Get
+        Set(value As AccessRight)
+            myAccessRight = value
+        End Set
+    End Property
+
+    Private myPos As Location
+
+    Public ReadOnly Property Pos As Location Implements IWorld.Pos
+        Get
+            Return myPos
+        End Get
+    End Property
+
+    Private Property PosInternal As Location
+        Get
+            Return myPos
+        End Get
+        Set(value As Location)
+            myPos = value
+        End Set
+    End Property
+
     Default Public ReadOnly Property Item(x As Integer, y As Integer, Optional layer As Layer = Layer.Foreground) As IWorldBlock Implements IWorld.Item
         Get
             Return myBlocks(layer, x, y)
@@ -39,6 +65,7 @@ Public NotInheritable Class World
     Friend Sub New(connection As IConnection(Of Player), initMessage As InitReceiveMessage)
         myConnection = connection
         myEncryption = Derot(initMessage.Encryption)
+        myPos = New Location(initMessage.SpawnX, initMessage.SpawnY)
 
         If initMessage.IsOwner Then
             myAccessRight = AccessRight.Owner
@@ -119,10 +146,4 @@ Public NotInheritable Class World
     End Sub
 
 #End Region
-
-    Public ReadOnly Property Pos As Location Implements IWorld.Pos
-        Get
-
-        End Get
-    End Property
 End Class

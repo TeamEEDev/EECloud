@@ -38,14 +38,14 @@
         End Set
     End Property
 
-    Private Shared myConnector As IConnectionHandleFactory
+    Private Shared myConnector As IClientHandleFactory
 
-    Public Shared Property Connector As IConnectionHandleFactory
+    Public Shared Property Connector As IClientHandleFactory
         Get
             Return myConnector
         End Get
 
-        Friend Set(value As IConnectionHandleFactory)
+        Friend Set(value As IClientHandleFactory)
             myConnector = value
         End Set
     End Property

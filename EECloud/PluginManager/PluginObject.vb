@@ -5,7 +5,7 @@
     Private myPlugin As IPlugin
     Private ReadOnly myPluginType As Type
     Private ReadOnly myLockObj As New Object
-    Private ReadOnly myFactory As IConnectionFactory
+    Private ReadOnly myFactory As IClientFactory
 #End Region
 
 #Region "Properties"
@@ -33,7 +33,7 @@
 
 #Region "Methods"
 
-    Friend Sub New(plugin As Type, ByVal attribute As PluginAttribute, ByVal factory As IConnectionFactory)
+    Friend Sub New(plugin As Type, ByVal attribute As PluginAttribute, ByVal factory As IClientFactory)
         myAttribute = attribute
         myFactory = factory
         If GetType(IPlugin).IsAssignableFrom(plugin) Then
@@ -44,7 +44,7 @@
         End If
     End Sub
 
-    Private Sub Enable(factory As IConnectionFactory)
+    Private Sub Enable(factory As IClientFactory)
         SyncLock myLockObj
             If Not Started Then
                 Cloud.Logger.Log(LogPriority.Info, String.Format("Enabling {0}...", myPluginType.Name))
