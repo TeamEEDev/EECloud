@@ -3,12 +3,18 @@
 Friend NotInheritable Class Logger
     Implements ILogger
 
-    Private Shared LeLogger As LeLogger
-
+#Region "Fields"
+    Private Shared myLeLogger As LeLogger
+    Private myInput As String = String.Empty
     Dim myOldTop As Integer
     Dim myOldLeft As Integer
+#End Region
 
-    Private myInput As String = String.Empty
+#Region "Events"
+    Friend Event OnInput As EventHandler Implements ILogger.OnInput
+#End Region
+
+#Region "Properties"
 
     Friend Property Input As String Implements ILogger.Input
         Get
@@ -23,7 +29,9 @@ Friend NotInheritable Class Logger
         End Set
     End Property
 
-    Friend Event OnInput As EventHandler Implements ILogger.OnInput
+#End Region
+
+#Region "Methods"
 
     Friend Sub New()
         If Not Cloud.AppEnvironment = AppEnvironment.Release Then
@@ -87,10 +95,10 @@ Friend NotInheritable Class Logger
             Console.WriteLine()
             Console.Write(">" & Input)
         Else
-            If LeLogger Is Nothing Then
-                LeLogger = New LeLogger()
+            If myLeLogger Is Nothing Then
+                myLeLogger = New LeLogger()
             End If
-            LeLogger.Write(Now.ToShortDateString & " " & output)
+            myLeLogger.Write(Now.ToShortDateString & " " & output)
         End If
     End Sub
 
@@ -107,4 +115,6 @@ Friend NotInheritable Class Logger
             Console.Write(newStr)
         End If
     End Sub
+
+#End Region
 End Class

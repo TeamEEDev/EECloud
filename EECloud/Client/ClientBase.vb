@@ -2,7 +2,7 @@
     Implements IConnection(Of TPlayer)
 
 #Region "Fields"
-    Friend WithEvents InternalConnection As InternalConnection
+    Friend WithEvents InternalConnection As InternalClient
     Private ReadOnly myEvents As New EventHandlerList
 #End Region
 

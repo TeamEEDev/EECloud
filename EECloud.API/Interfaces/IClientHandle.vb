@@ -1,6 +1,6 @@
 ﻿Imports System.Threading.Tasks
 
-Public Interface IConnectionHandle
+Public Interface IClientHandle
     ReadOnly Property Connection As IConnection(Of Player)
     Function ConnectAsync(username As String, password As String, id As String) As Task
     Sub Close()

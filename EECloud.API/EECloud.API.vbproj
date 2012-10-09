@@ -132,6 +132,7 @@
     <Compile Include="Interfaces\IConnectionHandle.vb" />
     <Compile Include="Interfaces\IConnectionHandleFactory.vb" />
     <Compile Include="Interfaces\IConnectionFactory.vb" />
+    <Compile Include="Interfaces\IOwnedPlayer.vb" />
     <Compile Include="Interfaces\IPlayer.vb" />
     <Compile Include="Interfaces\IPlayerManager.vb" />
     <Compile Include="Interfaces\World\IWorldLabelBlock.vb" />

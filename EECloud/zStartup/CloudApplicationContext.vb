@@ -18,7 +18,7 @@ Friend NotInheritable Class CloudApplicationContext
         LoadSettings()
 
         'Creating Connection
-        Dim handle As IConnectionHandle = Cloud.Connector.GetConnectionHandle
+        Dim handle As IClientHandle = Cloud.Connector.GetConnectionHandle
 
         Cloud.Logger.Log(LogPriority.Info, "Loading plugins...")
         'Loading assemblies
@@ -50,10 +50,10 @@ Friend NotInheritable Class CloudApplicationContext
         Cloud.AppEnvironment = CType([Enum].Parse(GetType(AppEnvironment), ConfigurationManager.AppSettings("Environment"), True), AppEnvironment)
         Cloud.Logger = New Logger
         Cloud.Service = New EESClient
-        Cloud.Connector = New ConnectionHandleFactory
+        Cloud.Connector = New ClientHandleFactory
     End Sub
 
-    Private Shared Sub LoadAssembies(connectionHandle As IConnectionHandle)
+    Private Shared Sub LoadAssembies(connectionHandle As IClientHandle)
         connectionHandle.Connection.PluginManager.Add(GetType(CommandsBot))
 
         'Checking for valid plugins
@@ -92,7 +92,7 @@ Friend NotInheritable Class CloudApplicationContext
         Next
     End Function
 
-    Private Shared Async Sub Login(handle As IConnectionHandle)
+    Private Shared Async Sub Login(handle As IClientHandle)
         Try
             Cloud.Logger.Log(LogPriority.Info, "Joining world...")
             Dim task As Task = handle.ConnectAsync(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID)

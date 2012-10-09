@@ -1,7 +1,7 @@
 ﻿Friend NotInheritable Class InternalPlayerManager
 
 #Region "Fields"
-    Private WithEvents myConnection As InternalConnection
+    Private WithEvents myConnection As InternalClient
 #End Region
 
 #Region "Events"
@@ -22,7 +22,7 @@
 
 #Region "Methods"
 
-    Friend Sub New(connection As InternalConnection)
+    Friend Sub New(connection As InternalClient)
         myConnection = connection
     End Sub
 

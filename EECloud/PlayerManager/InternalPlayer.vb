@@ -4,7 +4,7 @@ Friend NotInheritable Class InternalPlayer
     Implements IPlayer
 
 #Region "Fields"
-    Private WithEvents myConnection As InternalConnection
+    Private WithEvents myConnection As InternalClient
 #End Region
 
 #Region "Properties"
@@ -184,7 +184,7 @@ Friend NotInheritable Class InternalPlayer
 
 #Region "Methods"
 
-    Friend Sub New(connection As InternalConnection, addMessage As AddReceiveMessage)
+    Friend Sub New(connection As InternalClient, addMessage As AddReceiveMessage)
         myConnection = connection
         myUserID = addMessage.UserID
         myUsername = addMessage.Username

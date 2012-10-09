@@ -3,7 +3,7 @@
 
 #Region "Fields"
     Private WithEvents myInternalPlayerManager As InternalPlayerManager
-    Private WithEvents myConnection As InternalConnection
+    Private WithEvents myConnection As InternalClient
     Private ReadOnly myChatter As IChatter
 #End Region
 
@@ -42,7 +42,7 @@
 
 #Region "Methods"
 
-    Sub New(internalPlayerManager As InternalPlayerManager, ByVal connection As InternalConnection, chatter As IChatter)
+    Sub New(internalPlayerManager As InternalPlayerManager, ByVal connection As InternalClient, chatter As IChatter)
         myInternalPlayerManager = internalPlayerManager
         myConnection = connection
         myChatter = chatter

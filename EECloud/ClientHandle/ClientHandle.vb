@@ -1,8 +1,8 @@
 ﻿Imports System.Threading.Tasks
 Imports PlayerIOClient
 
-Friend NotInheritable Class ConnectionHandle
-    Implements IConnectionHandle
+Friend NotInheritable Class ClientHandle
+    Implements IClientHandle
 
 #Region "Fields"
     Private Const GameID As String = "everybody-edits-su9rn58o40itdbnw69plyw"
@@ -13,9 +13,9 @@ Friend NotInheritable Class ConnectionHandle
 
 #Region "Properties"
 
-    Private ReadOnly myInternalConnection As New InternalConnection
+    Private ReadOnly myInternalConnection As New InternalClient
 
-    Public ReadOnly Property Connection As IConnection(Of Player) Implements IConnectionHandle.Connection
+    Public ReadOnly Property Connection As IConnection(Of Player) Implements IClientHandle.Connection
         Get
             Return myInternalConnection
         End Get
@@ -35,7 +35,7 @@ Friend NotInheritable Class ConnectionHandle
         End If
     End Sub
 
-    Friend Async Function ConnectAsync(username As String, password As String, id As String) As Task Implements IConnectionHandle.ConnectAsync
+    Friend Async Function ConnectAsync(username As String, password As String, id As String) As Task Implements IClientHandle.ConnectAsync
         If Not Connection.Connected Then
             Await Task.Run(
                 Sub()
@@ -79,7 +79,7 @@ Friend NotInheritable Class ConnectionHandle
         Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get room version")
     End Sub
 
-    Friend Sub Close() Implements IConnectionHandle.Close
+    Friend Sub Close() Implements IClientHandle.Close
         myInternalConnection.Close()
     End Sub
 
