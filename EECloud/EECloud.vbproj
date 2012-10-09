@@ -168,7 +168,6 @@
     <Compile Include="CommandManager\CommandHandle.vb" />
     <Compile Include="CommandManager\CommandManager.vb" />
     <Compile Include="Client\Client.vb" />
-    <Compile Include="ClientHandle\ClientHandle.vb" />
     <Compile Include="ClientHandle\ClientHandleFactory.vb" />
     <Compile Include="World\World.vb" />
     <Compile Include="World\WorldBlock.vb" />

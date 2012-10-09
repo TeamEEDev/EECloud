@@ -1,7 +1,7 @@
 ﻿Friend NotInheritable Class ClientHandleFactory
-    Implements IClientHandleFactory
+    Implements IClientFactory
 
-    Friend Function GetConnectionHandle() As IClientHandle Implements IClientHandleFactory.GetConnectionHandle
-        Return New ClientHandle()
+    Friend Function GetConnectionHandle() As IClient(Of Player) Implements IClientFactory.CreateClient
+        Return New InternalClient
     End Function
 End Class

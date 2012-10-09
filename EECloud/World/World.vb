@@ -3,12 +3,12 @@
 
 #Region "Fields"
     Private Const InitOffset As UInteger = 14
-    Private ReadOnly myBlocks(,,) As IWorldBlock
-    Private WithEvents myConnection As Connection
+    Private myBlocks(,,) As IWorldBlock
+    Private WithEvents myConnection As IConnection
 #End Region
 
 #Region "Properties"
-    Private ReadOnly myEncryption As String
+    Private myEncryption As String
 
     Public ReadOnly Property Encryption As String Implements IWorld.Encryption
         Get
@@ -74,6 +74,10 @@
         myBlocks = ParseWorld(initMessage.PlayerIOMessage, initMessage.SizeX, initMessage.SizeY, InitOffset)
     End Sub
 
+    Public Sub New(client As IClient(Of Player))
+        myConnection = client.Connection
+    End Sub
+
     Private Shared Function ParseWorld(m As PlayerIOClient.Message, sizeX As Integer, sizeY As Integer, offset As UInteger) As WorldBlock(,,)
         Dim value(1, sizeX, sizeY) As WorldBlock
         Dim pointer As UInteger = offset
@@ -137,6 +141,19 @@
 
     Private Sub myConnection_OnReceiveAccess(sender As Object, e As AccessReceiveMessage) Handles myConnection.ReceiveAccess
         myAccessRight = AccessRight.Edit
+    End Sub
+
+    Private Sub myConnection_ReceiveInit(sender As Object, e As InitReceiveMessage) Handles myConnection.ReceiveInit
+        myEncryption = Derot(e.Encryption)
+        myPos = New Location(e.SpawnX, e.SpawnY)
+
+        If e.IsOwner Then
+            myAccessRight = AccessRight.Owner
+        ElseIf e.CanEdit Then
+            myAccessRight = AccessRight.Edit
+        End If
+
+        myBlocks = ParseWorld(e.PlayerIOMessage, e.SizeX, e.SizeY, InitOffset)
     End Sub
 
     Private Sub myConnection_OnReceiveLostAccess(sender As Object, e As LostAccessReceiveMessage) Handles myConnection.ReceiveLostAccess

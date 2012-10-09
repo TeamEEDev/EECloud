@@ -1,4 +1,5 @@
 ﻿Imports System.Reflection
+Imports System.Threading.Tasks
 
 Public NotInheritable Class Connection
     Implements IConnection
@@ -9,6 +10,10 @@ Public NotInheritable Class Connection
     Private WithEvents myConnection As PlayerIOClient.Connection
     Private ReadOnly myMessageDictionary As New Dictionary(Of String, Type)
     Private myExpectingDisconnect As Boolean
+    Private Const GameID As String = "everybody-edits-su9rn58o40itdbnw69plyw"
+    Private Const NormalRoom As String = "Everybodyedits"
+    Private Const GameVersionSetting As String = "GameVersion"
+    Friend Shared GameVersionNumber As Integer = 0
 #End Region
 
 #Region "Properties"
@@ -1425,7 +1430,17 @@ Public NotInheritable Class Connection
 
 #Region "Methods"
 
-    Friend Sub SetupConnection(connection As PlayerIOClient.Connection, id As String)
+    Sub New()
+        If GameVersionNumber = 0 Then
+            Try
+                GameVersionNumber = CInt(Cloud.Service.GetSetting(GameVersionSetting))
+            Catch
+                Cloud.Logger.Log(LogPriority.Warning, "Invalid GameVersion setting.")
+            End Try
+        End If
+    End Sub
+
+    Private Sub SetupConnection(connection As PlayerIOClient.Connection, id As String)
         'Setting variables
         myConnection = connection
         myWorldID = id
@@ -1438,6 +1453,50 @@ Public NotInheritable Class Connection
 
         'Initing Client
         Send(New InitSendMessage)
+    End Sub
+
+    Friend Async Function ConnectAsync(username As String, password As String, id As String) As Task Implements IConnection.ConnectAsync
+        If Not Connected Then
+            Await Task.Run(
+                Sub()
+                    Try
+                        Dim ioClient As PlayerIOClient.Client = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(GameID, username, password)
+                        Dim ioConnection As PlayerIOClient.Connection = GetIOConnection(ioClient, id)
+                        SetupConnection(ioConnection, id)
+                    Catch ex As PlayerIOClient.PlayerIOError
+                        Throw New EECloudPlayerIOException(ex)
+                    End Try
+                End Sub)
+        Else
+            Throw New Exception("Can not create a new Client while an other Client already exists")
+        End If
+    End Function
+
+    Private Function GetIOConnection(ioClient As PlayerIOClient.Client, id As String) As PlayerIOClient.Connection
+        Try
+            Return ioClient.Multiplayer.CreateJoinRoom(id, NormalRoom & GameVersionNumber, True, Nothing, Nothing)
+        Catch ex As PlayerIOClient.PlayerIOError
+            If ex.ErrorCode = PlayerIOClient.ErrorCode.UnknownRoomType Then
+                UpdateVersion(ex)
+                Return GetIOConnection(ioClient, id)
+            Else
+                Throw New EECloudPlayerIOException(ex)
+            End If
+        End Try
+    End Function
+
+    Private Sub UpdateVersion(ex As PlayerIOClient.PlayerIOError)
+        Dim errorMessage() As String = ex.Message.Split("["c)(1).Split(CChar(" "))
+        For N = errorMessage.Length - 1 To 0 Step -1
+            Dim currentRoomType As String
+            currentRoomType = errorMessage(N)
+            If currentRoomType.StartsWith(NormalRoom, StringComparison.Ordinal) Then
+                GameVersionNumber = CInt(currentRoomType.Substring(NormalRoom.Length, currentRoomType.Length - NormalRoom.Length - 1))
+                Cloud.Service.SetSetting(GameVersionSetting, CStr(GameVersionNumber))
+                Exit Sub
+            End If
+        Next
+        Throw New EECloudException(ErrorCode.GameVersionNotInList, "Unable to get room version")
     End Sub
 
     Private Async Sub MessageHandler(sender As Object, e As ReceiveMessage) Handles Me.ReceiveMessage
@@ -1460,9 +1519,9 @@ Public NotInheritable Class Connection
 
             Case GetType(UpgradeReceiveMessage)
                 Dim m As UpgradeReceiveMessage = CType(e, UpgradeReceiveMessage)
-                ClientHandle.GameVersionNumber += 1
+                GameVersionNumber += 1
                 Cloud.Logger.Log(LogPriority.Info, "The game has been updated!")
-                Await Cloud.Service.SetSettingAsync("GameVersion", CStr(ClientHandle.GameVersionNumber))
+                Await Cloud.Service.SetSettingAsync("GameVersion", CStr(GameVersionNumber))
                 RaiseEvent ReceiveUpgrade(Me, m)
 
             Case GetType(UpdateMetaReceiveMessage)
@@ -1735,7 +1794,7 @@ Public NotInheritable Class Connection
     Friend Sub Send(message As SendMessage) Implements IConnection.Send
         If myConnection IsNot Nothing Then
             If RaiseSendEvent(message) Then
-                myConnection.Send(message.GetMessage(myclient.World))
+                myConnection.Send(message.GetMessage(myClient.World))
             End If
         End If
     End Sub
