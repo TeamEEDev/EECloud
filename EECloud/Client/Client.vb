@@ -1,35 +1,27 @@
-﻿Friend NotInheritable Class Connection(Of TPlayer As {Player, New})
-    Inherits ConnectionBase(Of TPlayer)
+﻿Friend NotInheritable Class Client(Of TPlayer As {Player, New})
+    Implements IClient(Of TPlayer)
+
+#Region "Fields"
+    Private myInternalClient As InternalClient
+#End Region
 
 #Region "Properties"
 
-    Friend Overrides ReadOnly Property WorldID As String
+    Friend ReadOnly Property World As IWorld Implements IClient(Of TPlayer).World
         Get
-            Return InternalConnection.WorldID
+            Return myInternalClient.World
         End Get
     End Property
 
-    Friend Overrides ReadOnly Property Connected As Boolean
+    Friend ReadOnly Property PluginManager As IPluginManager Implements IClient(Of TPlayer).PluginManager
         Get
-            Return InternalConnection.Connected
-        End Get
-    End Property
-
-    Friend Overrides ReadOnly Property World As IWorld
-        Get
-            Return InternalConnection.World
-        End Get
-    End Property
-
-    Friend Overrides ReadOnly Property PluginManager As IPluginManager
-        Get
-            Return InternalConnection.PluginManager
+            Return myInternalClient.PluginManager
         End Get
     End Property
 
     Private ReadOnly myChatter As IChatter
 
-    Friend Overrides ReadOnly Property Chatter As IChatter
+    Friend ReadOnly Property Chatter As IChatter Implements IClient(Of TPlayer).Chatter
         Get
             Return myChatter
         End Get
@@ -37,39 +29,39 @@
 
     Private ReadOnly myPlayerManager As IPlayerManager(Of TPlayer)
 
-    Friend Overrides ReadOnly Property PlayerManager As IPlayerManager(Of TPlayer)
+    Friend ReadOnly Property PlayerManager As IPlayerManager(Of TPlayer) Implements IClient(Of TPlayer).PlayerManager
         Get
             Return myPlayerManager
         End Get
     End Property
 
-    Private ReadOnly myCommandManager As CommandManager(Of TPlayer)
+    Private ReadOnly myCommandManager As ICommandManager
 
-    Public Overrides ReadOnly Property CommandManager As ICommandManager
+    Public ReadOnly Property CommandManager As ICommandManager Implements IClient(Of TPlayer).CommandManager
         Get
             Return myCommandManager
+        End Get
+    End Property
+
+    Dim myConnection As IConnection
+
+    Public ReadOnly Property Connection As IConnection Implements IClient(Of TPlayer).Connection
+        Get
+            Return myConnection
         End Get
     End Property
 #End Region
 
 #Region "Methods"
 
-    Friend Sub New(internalConnection As InternalClient, pluginObject As IPluginObject, instance As Object)
-        Me.InternalConnection = internalConnection
-
+    Friend Sub New(internalClient As InternalClient, pluginObject As IPluginObject)
+        myInternalClient = internalClient
         Dim chatterName As String = pluginObject.Attribute.ChatName
         If chatterName = Nothing Then chatterName = pluginObject.Name
-        myChatter = New Chatter(internalConnection.InternalChatter, chatterName)
+        myChatter = New Chatter(internalClient.InternalChatter, chatterName)
 
-        myPlayerManager = New PlayerManager(Of TPlayer)(internalConnection.InternalPlayerManager, internalConnection, myChatter)
-        myCommandManager = New CommandManager(Of TPlayer)(Me, internalConnection.InternalCommandManager)
-        myCommandManager.Add(instance)
-    End Sub
-
-    Friend Overrides Sub Send(message As SendMessage)
-        If Not RaiseSendEvent(message) Then
-            InternalConnection.Send(message)
-        End If
+        myPlayerManager = New PlayerManager(Of TPlayer)(internalClient)
+        myCommandManager = New CommandManager(Of TPlayer)(Me, internalClient.InternalCommandManager)
     End Sub
 
 #End Region

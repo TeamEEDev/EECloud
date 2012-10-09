@@ -5,12 +5,12 @@ Friend NotInheritable Class InternalChatter
     ReadOnly myChatQueue As New Queue(Of SaySendMessage)
     Dim WithEvents mySendTimer As New Timer With {.Enabled = True, .AutoReset = True, .Interval = 700}
     ReadOnly myHistoryList As New List(Of String)
-    ReadOnly myConnection As InternalClient
+    ReadOnly myClient As InternalClient
 #End Region
 
 #Region "Methods"
     Friend Sub New(connection As InternalClient)
-        myConnection = connection
+        myClient = connection
     End Sub
 
     Friend Sub SendChat(msg As String)
@@ -42,7 +42,7 @@ Friend NotInheritable Class InternalChatter
     Private Sub SendTimer_Elapsed(sender As Object, e As ElapsedEventArgs) Handles mySendTimer.Elapsed
         SyncLock myChatQueue
             If myChatQueue.Count > 0 Then
-                myConnection.Send(myChatQueue.Dequeue())
+                myClient.Connection.Send(myChatQueue.Dequeue())
             Else
                 mySendTimer.Stop()
             End If

@@ -1,7 +1,8 @@
 ﻿Friend NotInheritable Class InternalPlayerManager
 
 #Region "Fields"
-    Private WithEvents myConnection As InternalClient
+    Private WithEvents myConnection As IConnection
+    Private ReadOnly myClient As IClient(Of Player)
 #End Region
 
 #Region "Events"
@@ -22,13 +23,14 @@
 
 #Region "Methods"
 
-    Friend Sub New(connection As InternalClient)
-        myConnection = connection
+    Friend Sub New(client As IClient(Of Player))
+        myClient = client
+        myConnection = client.Connection
     End Sub
 
     Private Async Sub myConnection_OnReceiveAdd(sender As Object, e As AddReceiveMessage) Handles myConnection.ReceiveAdd
         Try
-            Dim player As New InternalPlayer(myConnection, e)
+            Dim player As New InternalPlayer(myClient, e)
             Await player.ReloadUserDataAsync
             myPlayers.Add(player.UserID, player)
             RaiseEvent AddUser(Me, player)

@@ -4,7 +4,8 @@ Friend NotInheritable Class InternalPlayer
     Implements IPlayer
 
 #Region "Fields"
-    Private WithEvents myConnection As InternalClient
+    Private WithEvents myConnection As IConnection
+    Private ReadOnly myClient As IClient(Of Player)
 #End Region
 
 #Region "Properties"
@@ -147,7 +148,7 @@ Friend NotInheritable Class InternalPlayer
     Friend ReadOnly Property HasCrown As Boolean Implements IPlayer.HasCrown
         Get
             Try
-                Return myConnection.InternalPlayerManager.Crown.UserID = myUserID
+                Return myClient.PlayerManager.Crown.UserID = myUserID
             Catch
                 Return False
             End Try
@@ -184,8 +185,9 @@ Friend NotInheritable Class InternalPlayer
 
 #Region "Methods"
 
-    Friend Sub New(connection As InternalClient, addMessage As AddReceiveMessage)
-        myConnection = connection
+    Friend Sub New(client As IClient(Of Player), addMessage As AddReceiveMessage)
+        myClient = client
+        myConnection = client.Connection
         myUserID = addMessage.UserID
         myUsername = addMessage.Username
         myFace = addMessage.Face
@@ -208,7 +210,7 @@ Friend NotInheritable Class InternalPlayer
     End Function
 
     Public Sub Reply(msg As String) Implements IPlayer.Reply
-        myConnection.Chatter.Reply(myUsername, msg)
+        myClient.Chatter.Reply(myUsername, msg)
     End Sub
 
     Private Sub myConnection_OnReceiveCoin(sender As Object, e As CoinReceiveMessage) Handles myConnection.ReceiveCoin
@@ -266,7 +268,7 @@ Friend NotInheritable Class InternalPlayer
     End Sub
 
     Public Sub Kick(msg As String) Implements IPlayer.Kick
-        myConnection.Chatter.Kick(myUsername, msg)
+        myClient.Chatter.Kick(myUsername, msg)
     End Sub
 
 #End Region

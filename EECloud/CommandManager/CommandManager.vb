@@ -5,15 +5,15 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
 
 #Region "Fields"
     Private ReadOnly myCommandsDictionary As New Dictionary(Of String, List(Of CommandHandle(Of TPlayer)))
-    Private ReadOnly myConnection As IConnection(Of TPlayer)
+    Private ReadOnly myClient As IClient(Of TPlayer)
     Private WithEvents myInternalCommandManager As InternalCommandManager
     Private ReadOnly myAddedTargets As New List(Of Object)
 #End Region
 
 #Region "Methods"
 
-    Sub New(connection As IConnection(Of TPlayer), internalCommandManager As InternalCommandManager)
-        myConnection = connection
+    Sub New(client As IClient(Of TPlayer), internalCommandManager As InternalCommandManager)
+        myClient = client
         myInternalCommandManager = internalCommandManager
     End Sub
 
@@ -46,7 +46,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
     End Sub
 
     Private Sub ProcessMessage(msg As String, user As Integer, e As CommandEventArgs) Handles myInternalCommandManager.OnCommand
-        Dim sender As TPlayer = myConnection.PlayerManager.Players(user)
+        Dim sender As TPlayer = myClient.PlayerManager.Players(user)
         Dim cmd As String() = msg.Split(" "c)
         Dim type As String = cmd(0).ToLower
 
@@ -76,7 +76,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
         End If
 
         'Check for access rights
-        If myConnection.World.AccessRight < handle.Attribute.AccessRight Then
+        If myClient.World.AccessRight < handle.Attribute.AccessRight Then
             If handle.Attribute.AccessRight = AccessRight.Edit Then
                 sender.Reply("Bot needs edit rights to run this command!")
             Else

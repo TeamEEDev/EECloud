@@ -1,12 +1,10 @@
-﻿Imports PlayerIOClient
-
-Public NotInheritable Class World
+﻿Public NotInheritable Class World
     Implements IWorld
 
 #Region "Fields"
     Private Const InitOffset As UInteger = 14
     Private ReadOnly myBlocks(,,) As IWorldBlock
-    Private WithEvents myConnection As IConnection(Of Player)
+    Private WithEvents myConnection As Connection
 #End Region
 
 #Region "Properties"
@@ -62,7 +60,7 @@ Public NotInheritable Class World
 
 #Region "Methods"
 
-    Friend Sub New(connection As IConnection(Of Player), initMessage As InitReceiveMessage)
+    Friend Sub New(connection As Connection, initMessage As InitReceiveMessage)
         myConnection = connection
         myEncryption = Derot(initMessage.Encryption)
         myPos = New Location(initMessage.SpawnX, initMessage.SpawnY)
@@ -76,7 +74,7 @@ Public NotInheritable Class World
         myBlocks = ParseWorld(initMessage.PlayerIOMessage, initMessage.SizeX, initMessage.SizeY, InitOffset)
     End Sub
 
-    Private Shared Function ParseWorld(m As Message, sizeX As Integer, sizeY As Integer, offset As UInteger) As WorldBlock(,,)
+    Private Shared Function ParseWorld(m As PlayerIOClient.Message, sizeX As Integer, sizeY As Integer, offset As UInteger) As WorldBlock(,,)
         Dim value(1, sizeX, sizeY) As WorldBlock
         Dim pointer As UInteger = offset
         Do Until pointer >= CUInt(m.Count - 1)
