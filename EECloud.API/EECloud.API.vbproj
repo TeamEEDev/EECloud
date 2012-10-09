@@ -129,12 +129,12 @@
     <Compile Include="Enums\AccessRight.vb" />
     <Compile Include="Interfaces\ICommand.vb" />
     <Compile Include="Interfaces\ICommandManager.vb" />
-    <Compile Include="Interfaces\IConnectionHandle.vb" />
-    <Compile Include="Interfaces\IConnectionHandleFactory.vb" />
-    <Compile Include="Interfaces\IConnectionFactory.vb" />
-    <Compile Include="Interfaces\IOwnedPlayer.vb" />
+    <Compile Include="Interfaces\IClientHandle.vb" />
+    <Compile Include="Interfaces\IClientHandleFactory.vb" />
+    <Compile Include="Interfaces\IClientFactory.vb" />
     <Compile Include="Interfaces\IPlayer.vb" />
     <Compile Include="Interfaces\IPlayerManager.vb" />
+    <Compile Include="Interfaces\IConnection.vb" />
     <Compile Include="Interfaces\World\IWorldLabelBlock.vb" />
     <Compile Include="Interfaces\World\IWorldSoundBlock.vb" />
     <Compile Include="Interfaces\World\IWorldPortalBlock.vb" />
@@ -148,7 +148,7 @@
     <Compile Include="Enums\BlockType\SoundBlockType.vb" />
     <Compile Include="Enums\Group.vb" />
     <Compile Include="Interfaces\IChatter.vb" />
-    <Compile Include="Interfaces\IConnection.vb" />
+    <Compile Include="Interfaces\IClient.vb" />
     <Compile Include="Messages\Send\SaveWorldSendMessage.vb" />
     <Compile Include="Messages\Send\SaySendMessage.vb" />
     <Compile Include="Messages\Send\ChangeFaceSendMessage.vb" />

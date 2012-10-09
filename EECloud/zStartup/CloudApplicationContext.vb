@@ -17,7 +17,7 @@ Friend NotInheritable Class CloudApplicationContext
         'Loading settings
         LoadSettings()
 
-        'Creating Connection
+        'Creating Client
         Dim handle As IClientHandle = Cloud.Connector.GetConnectionHandle
 
         Cloud.Logger.Log(LogPriority.Info, "Loading plugins...")
@@ -54,7 +54,7 @@ Friend NotInheritable Class CloudApplicationContext
     End Sub
 
     Private Shared Sub LoadAssembies(connectionHandle As IClientHandle)
-        connectionHandle.Connection.PluginManager.Add(GetType(CommandsBot))
+        connectionHandle.Client.PluginManager.Add(GetType(CommandsBot))
 
         'Checking for valid plugins
         Dim plugins As IEnumerable(Of Type) =
@@ -72,7 +72,7 @@ Friend NotInheritable Class CloudApplicationContext
                     Dim hasNext As Boolean = enumrator.MoveNext()
                     If Not hasNext Then Exit Do
 
-                    connectionHandle.Connection.PluginManager.Add(enumrator.Current)
+                    connectionHandle.Client.PluginManager.Add(enumrator.Current)
                 Catch ex As Exception
                     Cloud.Logger.LogEx(ex)
                 End Try
@@ -97,7 +97,7 @@ Friend NotInheritable Class CloudApplicationContext
             Cloud.Logger.Log(LogPriority.Info, "Joining world...")
             Dim task As Task = handle.ConnectAsync(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID)
 
-            AddHandler handle.Connection.Disconnect,
+            AddHandler handle.Client.Connection.Disconnect,
                 Sub()
                     Cloud.Logger.Log(LogPriority.Info, "Disconnected!")
                     Environment.Exit(1)

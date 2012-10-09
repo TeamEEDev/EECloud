@@ -6,9 +6,9 @@
         myInternalConnection = internalConnection
     End Sub
 
-    Friend Function GetConnection(Of TPlayer As {New, Player})(plugin As IPluginObject, instance As Object) As IConnection(Of TPlayer) Implements IClientFactory.GetConnection
+    Friend Function GetConnection(Of TPlayer As {New, Player})(plugin As IPluginObject, instance As Object) As IClient(Of TPlayer) Implements IClientFactory.GetConnection
         Dim name As String = plugin.Attribute.ChatName
         If name = Nothing Then name = plugin.Name
-        Return New Connection(Of TPlayer)(myInternalConnection, plugin, instance)
+        Return New Client(Of TPlayer)(myInternalConnection, plugin)
     End Function
 End Class

@@ -1,11 +1,11 @@
 ﻿Friend NotInheritable Class InternalCommandManager
-    Private ReadOnly myConnection As IConnection(Of Player)
+    Private ReadOnly myClient As InternalClient
 
     Friend Event OnCommand(msg As String, user As Integer, e As CommandEventArgs)
 
-    Friend Sub New(connection As IConnection(Of Player))
-        myConnection = connection
-        AddHandler myConnection.ReceiveSay, AddressOf myConnection_OnReceiveSay
+    Friend Sub New(client As InternalClient)
+        myClient = client
+        AddHandler myClient.Connection.ReceiveSay, AddressOf myConnection_OnReceiveSay
         AddHandler Cloud.Logger.OnInput,
             Sub(sender As Object, e As EventArgs) HandleMessage(Cloud.Logger.Input, -1)
     End Sub
@@ -20,7 +20,7 @@
         Dim eventArgs As New CommandEventArgs
         RaiseEvent OnCommand(msg, user, eventArgs)
         If eventArgs.Handled = False Then
-            Dim sender As Player = myConnection.PlayerManager.Players(user)
+            Dim sender As IPlayer = myClient.InternalPlayerManager.Players(user)
             If sender IsNot Nothing AndAlso sender.Group >= Group.Trusted Then
                 sender.Reply("Unknown command")
             End If

@@ -160,16 +160,16 @@
     <Compile Include="CommandManager\CommandEventArgs.vb" />
     <Compile Include="CommandManager\InternalCommandManager.vb" />
     <Compile Include="CommandsBot.vb" />
+    <Compile Include="Connection\Connection.vb" />
     <Compile Include="PlayerManager\InternalPlayerManager.vb" />
-    <Compile Include="Connection\ConnectionBase.vb" />
     <Compile Include="PlayerManager\PlayerManager.vb" />
-    <Compile Include="Connection\ConnectionFactory.vb" />
+    <Compile Include="Client\ClientFactory.vb" />
     <Compile Include="Chatter\Chatter.vb" />
     <Compile Include="CommandManager\CommandHandle.vb" />
     <Compile Include="CommandManager\CommandManager.vb" />
-    <Compile Include="Connection\Connection.vb" />
-    <Compile Include="ConnectionHandle\ConnectionHandle.vb" />
-    <Compile Include="ConnectionHandle\ConnectionHandleFactory.vb" />
+    <Compile Include="Client\Client.vb" />
+    <Compile Include="ClientHandle\ClientHandle.vb" />
+    <Compile Include="ClientHandle\ClientHandleFactory.vb" />
     <Compile Include="World\World.vb" />
     <Compile Include="World\WorldBlock.vb" />
     <Compile Include="World\WorldCoinDoorBlock.vb" />
@@ -181,7 +181,7 @@
     <Compile Include="zForms\LicenseForm.Designer.vb">
       <DependentUpon>LicenseForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="Connection\InternalConnection.vb" />
+    <Compile Include="Client\InternalClient.vb" />
     <Compile Include="PlayerManager\InternalPlayer.vb" />
     <Compile Include="zForms\LicenseForm.vb">
       <SubType>Form</SubType>

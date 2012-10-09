@@ -1,5 +1,4 @@
 ﻿Imports System.Threading.Tasks
-Imports PlayerIOClient
 
 Friend NotInheritable Class ClientHandle
     Implements IClientHandle
@@ -13,11 +12,11 @@ Friend NotInheritable Class ClientHandle
 
 #Region "Properties"
 
-    Private ReadOnly myInternalConnection As New InternalClient
+    Private ReadOnly myInternalClient As New InternalClient
 
-    Public ReadOnly Property Connection As IConnection(Of Player) Implements IClientHandle.Connection
+    Public ReadOnly Property Client As IClient(Of Player) Implements IClientHandle.Client
         Get
-            Return myInternalConnection
+            Return myInternalClient
         End Get
     End Property
 
@@ -36,36 +35,36 @@ Friend NotInheritable Class ClientHandle
     End Sub
 
     Friend Async Function ConnectAsync(username As String, password As String, id As String) As Task Implements IClientHandle.ConnectAsync
-        If Not Connection.Connected Then
+        If Not Client.Connection.Connected Then
             Await Task.Run(
                 Sub()
                     Try
-                        Dim ioClient As Client = PlayerIO.QuickConnect.SimpleConnect(GameID, username, password)
-                        Dim ioConnection As Connection = GetIOConnection(ioClient, id)
-                        myInternalConnection.SetupConnection(ioConnection, id)
-                    Catch ex As PlayerIOError
+                        Dim ioClient As PlayerIOClient.Client = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(GameID, username, password)
+                        Dim ioConnection As PlayerIOClient.Connection = GetIOConnection(ioClient, id)
+                        myInternalClient.Connection.SetupConnection(ioConnection, id)
+                    Catch ex As PlayerIOClient.PlayerIOError
                         Throw New EECloudPlayerIOException(ex)
                     End Try
                 End Sub)
         Else
-            Throw New Exception("Can not create a new connection while an other connection already exists")
+            Throw New Exception("Can not create a new Client while an other Client already exists")
         End If
     End Function
 
-    Private Function GetIOConnection(client As Client, id As String) As Connection
+    Private Function GetIOConnection(ioClient As PlayerIOClient.Client, id As String) As PlayerIOClient.Connection
         Try
-            Return client.Multiplayer.CreateJoinRoom(id, NormalRoom & GameVersionNumber, True, Nothing, Nothing)
-        Catch ex As PlayerIOError
-            If ex.ErrorCode = ErrorCode.UnknownRoomType Then
+            Return ioClient.Multiplayer.CreateJoinRoom(id, NormalRoom & GameVersionNumber, True, Nothing, Nothing)
+        Catch ex As PlayerIOClient.PlayerIOError
+            If ex.ErrorCode = PlayerIOClient.ErrorCode.UnknownRoomType Then
                 UpdateVersion(ex)
-                Return GetIOConnection(client, id)
+                Return GetIOConnection(ioClient, id)
             Else
                 Throw New EECloudPlayerIOException(ex)
             End If
         End Try
     End Function
 
-    Private Sub UpdateVersion(ex As PlayerIOError)
+    Private Sub UpdateVersion(ex As PlayerIOClient.PlayerIOError)
         Dim errorMessage() As String = ex.Message.Split("["c)(1).Split(CChar(" "))
         For N = errorMessage.Length - 1 To 0 Step -1
             Dim currentRoomType As String
@@ -76,11 +75,11 @@ Friend NotInheritable Class ClientHandle
                 Exit Sub
             End If
         Next
-        Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get room version")
+        Throw New EECloudException(ErrorCode.GameVersionNotInList, "Unable to get room version")
     End Sub
 
     Friend Sub Close() Implements IClientHandle.Close
-        myInternalConnection.Close()
+        myInternalClient.Connection.Close()
     End Sub
 
 #End Region

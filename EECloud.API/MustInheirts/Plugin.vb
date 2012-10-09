@@ -1,13 +1,13 @@
 ﻿Public MustInherit Class Plugin(Of TPlayer As {Player, New})
     Implements IPlugin
-    Protected WithEvents Connection As IConnection(Of TPlayer)
+    Protected WithEvents Client As IClient(Of TPlayer)
 
     Friend Sub Enable(creator As IClientFactory, pluginObj As IPluginObject) Implements IPlugin.Enable
-        Connection = creator.GetConnection(Of TPlayer)(pluginObj, Me)
-        If Connection.Connected Then
+        Client = creator.GetConnection(Of TPlayer)(pluginObj, Me)
+        If Client.Connection.Connected Then
             OnConnect()
         Else
-            AddHandler Connection.ReceiveInit, AddressOf Connect
+            AddHandler Client.Connection.ReceiveInit, AddressOf Connect
         End If
 
         OnEnable()
@@ -18,7 +18,7 @@
     End Sub
 
     Private Sub Connect(sender As Object, e As InitReceiveMessage)
-        RemoveHandler Connection.ReceiveInit, AddressOf Connect
+        RemoveHandler Client.Connection.ReceiveInit, AddressOf Connect
         OnConnect()
     End Sub
 

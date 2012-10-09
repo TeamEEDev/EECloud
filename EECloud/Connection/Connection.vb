@@ -1,14 +1,41 @@
-﻿Friend MustInherit Class ConnectionBase(Of TPlayer As {Player, New})
-    Implements IConnection(Of TPlayer)
+﻿Imports System.Reflection
+
+Public NotInheritable Class Connection
+    Implements IConnection
 
 #Region "Fields"
-    Friend WithEvents InternalConnection As InternalClient
+    Private ReadOnly myClient As IClient(Of Player)
     Private ReadOnly myEvents As New EventHandlerList
+    Private WithEvents myConnection As PlayerIOClient.Connection
+    Private ReadOnly myMessageDictionary As New Dictionary(Of String, Type)
+    Private myExpectingDisconnect As Boolean
+#End Region
+
+#Region "Properties"
+
+    Friend ReadOnly Property Connected As Boolean Implements IConnection.Connected
+        Get
+            If myConnection IsNot Nothing Then
+                Return myConnection.Connected
+            Else
+                Return False
+            End If
+        End Get
+    End Property
+
+    Private myWorldID As String
+
+    Friend ReadOnly Property WorldID As String Implements IConnection.WorldID
+        Get
+            Return myWorldID
+        End Get
+    End Property
+
 #End Region
 
 #Region "Events"
 
-    Friend Custom Event ReceiveMessage As EventHandler(Of ReceiveMessage) Implements IConnection(Of TPlayer).ReceiveMessage
+    Friend Custom Event ReceiveMessage As EventHandler(Of ReceiveMessage) Implements IConnection.ReceiveMessage
         AddHandler(value As EventHandler(Of ReceiveMessage))
             myEvents.Add("ReceiveMessage", value)
         End AddHandler
@@ -29,7 +56,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event Disconnect As EventHandler(Of DisconnectEventArgs) Implements IConnection(Of TPlayer).Disconnect
+    Friend Custom Event Disconnect As EventHandler(Of DisconnectEventArgs) Implements IConnection.Disconnect
         AddHandler(value As EventHandler(Of DisconnectEventArgs))
             myEvents.Add("Disconnect", value)
         End AddHandler
@@ -50,7 +77,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event Disconnecting As EventHandler(Of EventArgs) Implements IConnection(Of TPlayer).Disconnecting
+    Friend Custom Event Disconnecting As EventHandler(Of EventArgs) Implements IConnection.Disconnecting
         AddHandler(value As EventHandler(Of EventArgs))
             myEvents.Add("Disconnecting", value)
         End AddHandler
@@ -71,7 +98,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveAccess As EventHandler(Of AccessReceiveMessage) Implements IConnection(Of TPlayer).ReceiveAccess
+    Friend Custom Event ReceiveAccess As EventHandler(Of AccessReceiveMessage) Implements IConnection.ReceiveAccess
         AddHandler(value As EventHandler(Of AccessReceiveMessage))
             myEvents.Add("ReceiveAccess", value)
         End AddHandler
@@ -92,7 +119,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveAdd As EventHandler(Of AddReceiveMessage) Implements IConnection(Of TPlayer).ReceiveAdd
+    Friend Custom Event ReceiveAdd As EventHandler(Of AddReceiveMessage) Implements IConnection.ReceiveAdd
         AddHandler(value As EventHandler(Of AddReceiveMessage))
             myEvents.Add("ReceiveAdd", value)
         End AddHandler
@@ -113,7 +140,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveAutoText As EventHandler(Of AutoTextReceiveMessage) Implements IConnection(Of TPlayer).ReceiveAutoText
+    Friend Custom Event ReceiveAutoText As EventHandler(Of AutoTextReceiveMessage) Implements IConnection.ReceiveAutoText
         AddHandler(value As EventHandler(Of AutoTextReceiveMessage))
             myEvents.Add("ReceiveAutoText", value)
         End AddHandler
@@ -134,7 +161,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveBlockPlace As EventHandler(Of BlockPlaceReceiveMessage) Implements IConnection(Of TPlayer).ReceiveBlockPlace
+    Friend Custom Event ReceiveBlockPlace As EventHandler(Of BlockPlaceReceiveMessage) Implements IConnection.ReceiveBlockPlace
         AddHandler(value As EventHandler(Of BlockPlaceReceiveMessage))
             myEvents.Add("ReceiveBlockPlace", value)
         End AddHandler
@@ -155,7 +182,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveClear As EventHandler(Of ClearReceiveMessage) Implements IConnection(Of TPlayer).ReceiveClear
+    Friend Custom Event ReceiveClear As EventHandler(Of ClearReceiveMessage) Implements IConnection.ReceiveClear
         AddHandler(value As EventHandler(Of ClearReceiveMessage))
             myEvents.Add("ReceiveClear", value)
         End AddHandler
@@ -176,7 +203,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveCoin As EventHandler(Of CoinReceiveMessage) Implements IConnection(Of TPlayer).ReceiveCoin
+    Friend Custom Event ReceiveCoin As EventHandler(Of CoinReceiveMessage) Implements IConnection.ReceiveCoin
         AddHandler(value As EventHandler(Of CoinReceiveMessage))
             myEvents.Add("ReceiveCoin", value)
         End AddHandler
@@ -197,7 +224,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveCoinDoorPlace As EventHandler(Of CoinDoorPlace_ReceiveMessage) Implements IConnection(Of TPlayer).ReceiveCoinDoorPlace
+    Friend Custom Event ReceiveCoinDoorPlace As EventHandler(Of CoinDoorPlace_ReceiveMessage) Implements IConnection.ReceiveCoinDoorPlace
         AddHandler(value As EventHandler(Of CoinDoorPlace_ReceiveMessage))
             myEvents.Add("ReceiveCoinDoorPlace", value)
         End AddHandler
@@ -218,7 +245,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveCrown As EventHandler(Of CrownReceiveMessage) Implements IConnection(Of TPlayer).ReceiveCrown
+    Friend Custom Event ReceiveCrown As EventHandler(Of CrownReceiveMessage) Implements IConnection.ReceiveCrown
         AddHandler(value As EventHandler(Of CrownReceiveMessage))
             myEvents.Add("ReceiveCrown", value)
         End AddHandler
@@ -239,7 +266,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveFace As EventHandler(Of FaceReceiveMessage) Implements IConnection(Of TPlayer).ReceiveFace
+    Friend Custom Event ReceiveFace As EventHandler(Of FaceReceiveMessage) Implements IConnection.ReceiveFace
         AddHandler(value As EventHandler(Of FaceReceiveMessage))
             myEvents.Add("ReceiveFace", value)
         End AddHandler
@@ -260,7 +287,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveGiveFireWizard As EventHandler(Of GiveFireWizardReceiveMessage) Implements IConnection(Of TPlayer).ReceiveGiveFireWizard
+    Friend Custom Event ReceiveGiveFireWizard As EventHandler(Of GiveFireWizardReceiveMessage) Implements IConnection.ReceiveGiveFireWizard
         AddHandler(value As EventHandler(Of GiveFireWizardReceiveMessage))
             myEvents.Add("ReceiveGiveFireWizard", value)
         End AddHandler
@@ -281,7 +308,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveGiveGrinch As EventHandler(Of GiveGrinchReceiveMessage) Implements IConnection(Of TPlayer).ReceiveGiveGrinch
+    Friend Custom Event ReceiveGiveGrinch As EventHandler(Of GiveGrinchReceiveMessage) Implements IConnection.ReceiveGiveGrinch
         AddHandler(value As EventHandler(Of GiveGrinchReceiveMessage))
             myEvents.Add("ReceiveGiveGrinch", value)
         End AddHandler
@@ -302,7 +329,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveGiveWitch As EventHandler(Of GiveWitchReceiveMessage) Implements IConnection(Of TPlayer).ReceiveGiveWitch
+    Friend Custom Event ReceiveGiveWitch As EventHandler(Of GiveWitchReceiveMessage) Implements IConnection.ReceiveGiveWitch
         AddHandler(value As EventHandler(Of GiveWitchReceiveMessage))
             myEvents.Add("ReceiveGiveWitch", value)
         End AddHandler
@@ -323,7 +350,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveGiveWizard As EventHandler(Of GiveWizardReceiveMessage) Implements IConnection(Of TPlayer).ReceiveGiveWizard
+    Friend Custom Event ReceiveGiveWizard As EventHandler(Of GiveWizardReceiveMessage) Implements IConnection.ReceiveGiveWizard
         AddHandler(value As EventHandler(Of GiveWizardReceiveMessage))
             myEvents.Add("ReceiveGiveWizard", value)
         End AddHandler
@@ -344,7 +371,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveGodMode As EventHandler(Of GodModeReceiveMessage) Implements IConnection(Of TPlayer).ReceiveGodMode
+    Friend Custom Event ReceiveGodMode As EventHandler(Of GodModeReceiveMessage) Implements IConnection.ReceiveGodMode
         AddHandler(value As EventHandler(Of GodModeReceiveMessage))
             myEvents.Add("ReceiveGodMode", value)
         End AddHandler
@@ -365,7 +392,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveGroupDisallowedJoin As EventHandler(Of GroupDisallowedJoinReceiveMessage) Implements IConnection(Of TPlayer).ReceiveGroupDisallowedJoin
+    Friend Custom Event ReceiveGroupDisallowedJoin As EventHandler(Of GroupDisallowedJoinReceiveMessage) Implements IConnection.ReceiveGroupDisallowedJoin
         AddHandler(value As EventHandler(Of GroupDisallowedJoinReceiveMessage))
             myEvents.Add("ReceiveGroupDisallowedJoin", value)
         End AddHandler
@@ -386,7 +413,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveHideKey As EventHandler(Of HideKeyReceiveMessage) Implements IConnection(Of TPlayer).ReceiveHideKey
+    Friend Custom Event ReceiveHideKey As EventHandler(Of HideKeyReceiveMessage) Implements IConnection.ReceiveHideKey
         AddHandler(value As EventHandler(Of HideKeyReceiveMessage))
             myEvents.Add("ReceiveHideKey", value)
         End AddHandler
@@ -407,7 +434,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveInfo As EventHandler(Of InfoReceiveMessage) Implements IConnection(Of TPlayer).ReceiveInfo
+    Friend Custom Event ReceiveInfo As EventHandler(Of InfoReceiveMessage) Implements IConnection.ReceiveInfo
         AddHandler(value As EventHandler(Of InfoReceiveMessage))
             myEvents.Add("ReceiveInfo", value)
         End AddHandler
@@ -428,7 +455,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveInit As EventHandler(Of InitReceiveMessage) Implements IConnection(Of TPlayer).ReceiveInit
+    Friend Custom Event ReceiveInit As EventHandler(Of InitReceiveMessage) Implements IConnection.ReceiveInit
         AddHandler(value As EventHandler(Of InitReceiveMessage))
             myEvents.Add("ReceiveInit", value)
         End AddHandler
@@ -449,7 +476,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveLabelPlace As EventHandler(Of LabelPlaceReceiveMessage) Implements IConnection(Of TPlayer).ReceiveLabelPlace
+    Friend Custom Event ReceiveLabelPlace As EventHandler(Of LabelPlaceReceiveMessage) Implements IConnection.ReceiveLabelPlace
         AddHandler(value As EventHandler(Of LabelPlaceReceiveMessage))
             myEvents.Add("ReceiveLabelPlace", value)
         End AddHandler
@@ -470,7 +497,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveLeft As EventHandler(Of LeftReceiveMessage) Implements IConnection(Of TPlayer).ReceiveLeft
+    Friend Custom Event ReceiveLeft As EventHandler(Of LeftReceiveMessage) Implements IConnection.ReceiveLeft
         AddHandler(value As EventHandler(Of LeftReceiveMessage))
             myEvents.Add("ReceiveLeft", value)
         End AddHandler
@@ -491,7 +518,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveLostAccess As EventHandler(Of LostAccessReceiveMessage) Implements IConnection(Of TPlayer).ReceiveLostAccess
+    Friend Custom Event ReceiveLostAccess As EventHandler(Of LostAccessReceiveMessage) Implements IConnection.ReceiveLostAccess
         AddHandler(value As EventHandler(Of LostAccessReceiveMessage))
             myEvents.Add("ReceiveLostAccess", value)
         End AddHandler
@@ -512,7 +539,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveModMode As EventHandler(Of ModModeReceiveMessage) Implements IConnection(Of TPlayer).ReceiveModMode
+    Friend Custom Event ReceiveModMode As EventHandler(Of ModModeReceiveMessage) Implements IConnection.ReceiveModMode
         AddHandler(value As EventHandler(Of ModModeReceiveMessage))
             myEvents.Add("ReceiveModMode", value)
         End AddHandler
@@ -533,7 +560,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveMove As EventHandler(Of MoveReceiveMessage) Implements IConnection(Of TPlayer).ReceiveMove
+    Friend Custom Event ReceiveMove As EventHandler(Of MoveReceiveMessage) Implements IConnection.ReceiveMove
         AddHandler(value As EventHandler(Of MoveReceiveMessage))
             myEvents.Add("ReceiveMove", value)
         End AddHandler
@@ -554,7 +581,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceivePortalPlace As EventHandler(Of PortalPlaceReceiveMessage) Implements IConnection(Of TPlayer).ReceivePortalPlace
+    Friend Custom Event ReceivePortalPlace As EventHandler(Of PortalPlaceReceiveMessage) Implements IConnection.ReceivePortalPlace
         AddHandler(value As EventHandler(Of PortalPlaceReceiveMessage))
             myEvents.Add("ReceivePortalPlace", value)
         End AddHandler
@@ -575,7 +602,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveRefreshShop As EventHandler(Of RefreshShopReceiveMessage) Implements IConnection(Of TPlayer).ReceiveRefreshShop
+    Friend Custom Event ReceiveRefreshShop As EventHandler(Of RefreshShopReceiveMessage) Implements IConnection.ReceiveRefreshShop
         AddHandler(value As EventHandler(Of RefreshShopReceiveMessage))
             myEvents.Add("ReceiveRefreshShop", value)
         End AddHandler
@@ -596,7 +623,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveReset As EventHandler(Of ResetReceiveMessage) Implements IConnection(Of TPlayer).ReceiveReset
+    Friend Custom Event ReceiveReset As EventHandler(Of ResetReceiveMessage) Implements IConnection.ReceiveReset
         AddHandler(value As EventHandler(Of ResetReceiveMessage))
             myEvents.Add("ReceiveReset", value)
         End AddHandler
@@ -617,7 +644,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveSaveDone As EventHandler(Of SaveDoneReceiveMessage) Implements IConnection(Of TPlayer).ReceiveSaveDone
+    Friend Custom Event ReceiveSaveDone As EventHandler(Of SaveDoneReceiveMessage) Implements IConnection.ReceiveSaveDone
         AddHandler(value As EventHandler(Of SaveDoneReceiveMessage))
             myEvents.Add("ReceiveSaveDone", value)
         End AddHandler
@@ -638,7 +665,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveSay As EventHandler(Of SayReceiveMessage) Implements IConnection(Of TPlayer).ReceiveSay
+    Friend Custom Event ReceiveSay As EventHandler(Of SayReceiveMessage) Implements IConnection.ReceiveSay
         AddHandler(value As EventHandler(Of SayReceiveMessage))
             myEvents.Add("ReceiveSay", value)
         End AddHandler
@@ -659,7 +686,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveSayOld As EventHandler(Of SayOld_ReceiveMessage) Implements IConnection(Of TPlayer).ReceiveSayOld
+    Friend Custom Event ReceiveSayOld As EventHandler(Of SayOld_ReceiveMessage) Implements IConnection.ReceiveSayOld
         AddHandler(value As EventHandler(Of SayOld_ReceiveMessage))
             myEvents.Add("ReceiveSayOld", value)
         End AddHandler
@@ -680,7 +707,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveShowKey As EventHandler(Of ShowKeyReceiveMessage) Implements IConnection(Of TPlayer).ReceiveShowKey
+    Friend Custom Event ReceiveShowKey As EventHandler(Of ShowKeyReceiveMessage) Implements IConnection.ReceiveShowKey
         AddHandler(value As EventHandler(Of ShowKeyReceiveMessage))
             myEvents.Add("ReceiveShowKey", value)
         End AddHandler
@@ -701,7 +728,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveSilverCrown As EventHandler(Of SilverCrownReceiveMessage) Implements IConnection(Of TPlayer).ReceiveSilverCrown
+    Friend Custom Event ReceiveSilverCrown As EventHandler(Of SilverCrownReceiveMessage) Implements IConnection.ReceiveSilverCrown
         AddHandler(value As EventHandler(Of SilverCrownReceiveMessage))
             myEvents.Add("ReceiveSilverCrown", value)
         End AddHandler
@@ -722,7 +749,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveSoundPlace As EventHandler(Of SoundPlaceReceiveMessage) Implements IConnection(Of TPlayer).ReceiveSoundPlace
+    Friend Custom Event ReceiveSoundPlace As EventHandler(Of SoundPlaceReceiveMessage) Implements IConnection.ReceiveSoundPlace
         AddHandler(value As EventHandler(Of SoundPlaceReceiveMessage))
             myEvents.Add("ReceiveSoundPlace", value)
         End AddHandler
@@ -743,7 +770,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveTeleport As EventHandler(Of TeleportReceiveMessage) Implements IConnection(Of TPlayer).ReceiveTeleport
+    Friend Custom Event ReceiveTeleport As EventHandler(Of TeleportReceiveMessage) Implements IConnection.ReceiveTeleport
         AddHandler(value As EventHandler(Of TeleportReceiveMessage))
             myEvents.Add("ReceiveTeleport", value)
         End AddHandler
@@ -764,7 +791,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveUpdateMeta As EventHandler(Of UpdateMetaReceiveMessage) Implements IConnection(Of TPlayer).ReceiveUpdateMeta
+    Friend Custom Event ReceiveUpdateMeta As EventHandler(Of UpdateMetaReceiveMessage) Implements IConnection.ReceiveUpdateMeta
         AddHandler(value As EventHandler(Of UpdateMetaReceiveMessage))
             myEvents.Add("ReceiveUpdateMeta", value)
         End AddHandler
@@ -785,7 +812,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveUpgrade As EventHandler(Of UpgradeReceiveMessage) Implements IConnection(Of TPlayer).ReceiveUpgrade
+    Friend Custom Event ReceiveUpgrade As EventHandler(Of UpgradeReceiveMessage) Implements IConnection.ReceiveUpgrade
         AddHandler(value As EventHandler(Of UpgradeReceiveMessage))
             myEvents.Add("ReceiveUpgrade", value)
         End AddHandler
@@ -806,7 +833,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event ReceiveWrite As EventHandler(Of WriteReceiveMessage) Implements IConnection(Of TPlayer).ReceiveWrite
+    Friend Custom Event ReceiveWrite As EventHandler(Of WriteReceiveMessage) Implements IConnection.ReceiveWrite
         AddHandler(value As EventHandler(Of WriteReceiveMessage))
             myEvents.Add("ReceiveWrite", value)
         End AddHandler
@@ -827,7 +854,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendMessage As EventHandler(Of SendMessage) Implements IConnection(Of TPlayer).SendMessage
+    Friend Custom Event SendMessage As EventHandler(Of SendMessage) Implements IConnection.SendMessage
         AddHandler(value As EventHandler(Of SendMessage))
             myEvents.Add("SendMessage", value)
         End AddHandler
@@ -848,7 +875,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendInit As EventHandler(Of SendEventArgs(Of InitSendMessage)) Implements IConnection(Of TPlayer).SendInit
+    Friend Custom Event SendInit As EventHandler(Of SendEventArgs(Of InitSendMessage)) Implements IConnection.SendInit
         AddHandler(value As EventHandler(Of SendEventArgs(Of InitSendMessage)))
             myEvents.Add("SendInit", value)
         End AddHandler
@@ -869,7 +896,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendInit2 As EventHandler(Of SendEventArgs(Of Init2SendMessage)) Implements IConnection(Of TPlayer).SendInit2
+    Friend Custom Event SendInit2 As EventHandler(Of SendEventArgs(Of Init2SendMessage)) Implements IConnection.SendInit2
         AddHandler(value As EventHandler(Of SendEventArgs(Of Init2SendMessage)))
             myEvents.Add("SendInit2", value)
         End AddHandler
@@ -890,7 +917,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendBlockPlace As EventHandler(Of SendEventArgs(Of BlockPlaceSendMessage)) Implements IConnection(Of TPlayer).SendBlockPlace
+    Friend Custom Event SendBlockPlace As EventHandler(Of SendEventArgs(Of BlockPlaceSendMessage)) Implements IConnection.SendBlockPlace
         AddHandler(value As EventHandler(Of SendEventArgs(Of BlockPlaceSendMessage)))
             myEvents.Add("SendBlockPlace", value)
         End AddHandler
@@ -911,7 +938,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendCoindoorPlace As EventHandler(Of SendEventArgs(Of CoinDoorPlaceSendMessage)) Implements IConnection(Of TPlayer).SendCoindoorPlace
+    Friend Custom Event SendCoindoorPlace As EventHandler(Of SendEventArgs(Of CoinDoorPlaceSendMessage)) Implements IConnection.SendCoindoorPlace
         AddHandler(value As EventHandler(Of SendEventArgs(Of CoinDoorPlaceSendMessage)))
             myEvents.Add("SendCoindoorPlace", value)
         End AddHandler
@@ -932,7 +959,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendSoundPlace As EventHandler(Of SendEventArgs(Of SoundPlaceSendMessage)) Implements IConnection(Of TPlayer).SendSoundPlace
+    Friend Custom Event SendSoundPlace As EventHandler(Of SendEventArgs(Of SoundPlaceSendMessage)) Implements IConnection.SendSoundPlace
         AddHandler(value As EventHandler(Of SendEventArgs(Of SoundPlaceSendMessage)))
             myEvents.Add("SendSoundPlace", value)
         End AddHandler
@@ -953,7 +980,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendPortalPlace As EventHandler(Of SendEventArgs(Of PortalPlaceSendMessage)) Implements IConnection(Of TPlayer).SendPortalPlace
+    Friend Custom Event SendPortalPlace As EventHandler(Of SendEventArgs(Of PortalPlaceSendMessage)) Implements IConnection.SendPortalPlace
         AddHandler(value As EventHandler(Of SendEventArgs(Of PortalPlaceSendMessage)))
             myEvents.Add("SendPortalPlace", value)
         End AddHandler
@@ -974,7 +1001,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendLabelPlace As EventHandler(Of SendEventArgs(Of LabelPlaceSendMessage)) Implements IConnection(Of TPlayer).SendLabelPlace
+    Friend Custom Event SendLabelPlace As EventHandler(Of SendEventArgs(Of LabelPlaceSendMessage)) Implements IConnection.SendLabelPlace
         AddHandler(value As EventHandler(Of SendEventArgs(Of LabelPlaceSendMessage)))
             myEvents.Add("SendLabelPlace", value)
         End AddHandler
@@ -995,7 +1022,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendCoin As EventHandler(Of SendEventArgs(Of CoinSendMessage)) Implements IConnection(Of TPlayer).SendCoin
+    Friend Custom Event SendCoin As EventHandler(Of SendEventArgs(Of CoinSendMessage)) Implements IConnection.SendCoin
         AddHandler(value As EventHandler(Of SendEventArgs(Of CoinSendMessage)))
             myEvents.Add("SendCoin", value)
         End AddHandler
@@ -1016,7 +1043,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendPressRedKey As EventHandler(Of SendEventArgs(Of PressRedKeySendMessage)) Implements IConnection(Of TPlayer).SendPressRedKey
+    Friend Custom Event SendPressRedKey As EventHandler(Of SendEventArgs(Of PressRedKeySendMessage)) Implements IConnection.SendPressRedKey
         AddHandler(value As EventHandler(Of SendEventArgs(Of PressRedKeySendMessage)))
             myEvents.Add("SendPressRedKey", value)
         End AddHandler
@@ -1037,7 +1064,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendPressGreenKey As EventHandler(Of SendEventArgs(Of PressGreenKeySendMessage)) Implements IConnection(Of TPlayer).SendPressGreenKey
+    Friend Custom Event SendPressGreenKey As EventHandler(Of SendEventArgs(Of PressGreenKeySendMessage)) Implements IConnection.SendPressGreenKey
         AddHandler(value As EventHandler(Of SendEventArgs(Of PressGreenKeySendMessage)))
             myEvents.Add("SendPressGreenKey", value)
         End AddHandler
@@ -1058,7 +1085,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendPressBlueKey As EventHandler(Of SendEventArgs(Of PressBlueKeySendMessage)) Implements IConnection(Of TPlayer).SendPressBlueKey
+    Friend Custom Event SendPressBlueKey As EventHandler(Of SendEventArgs(Of PressBlueKeySendMessage)) Implements IConnection.SendPressBlueKey
         AddHandler(value As EventHandler(Of SendEventArgs(Of PressBlueKeySendMessage)))
             myEvents.Add("SendPressBlueKey", value)
         End AddHandler
@@ -1079,7 +1106,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendGetCrown As EventHandler(Of SendEventArgs(Of GetCrownSendMessage)) Implements IConnection(Of TPlayer).SendGetCrown
+    Friend Custom Event SendGetCrown As EventHandler(Of SendEventArgs(Of GetCrownSendMessage)) Implements IConnection.SendGetCrown
         AddHandler(value As EventHandler(Of SendEventArgs(Of GetCrownSendMessage)))
             myEvents.Add("SendGetCrown", value)
         End AddHandler
@@ -1100,7 +1127,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendTouchDiamond As EventHandler(Of SendEventArgs(Of TouchDiamondSendMessage)) Implements IConnection(Of TPlayer).SendTouchDiamond
+    Friend Custom Event SendTouchDiamond As EventHandler(Of SendEventArgs(Of TouchDiamondSendMessage)) Implements IConnection.SendTouchDiamond
         AddHandler(value As EventHandler(Of SendEventArgs(Of TouchDiamondSendMessage)))
             myEvents.Add("SendTouchDiamond", value)
         End AddHandler
@@ -1121,7 +1148,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendCompleteLevel As EventHandler(Of SendEventArgs(Of CompleteLevelSendMessage)) Implements IConnection(Of TPlayer).SendCompleteLevel
+    Friend Custom Event SendCompleteLevel As EventHandler(Of SendEventArgs(Of CompleteLevelSendMessage)) Implements IConnection.SendCompleteLevel
         AddHandler(value As EventHandler(Of SendEventArgs(Of CompleteLevelSendMessage)))
             myEvents.Add("SendCompleteLevel", value)
         End AddHandler
@@ -1142,7 +1169,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendGodMode As EventHandler(Of SendEventArgs(Of GodModeSendMessage)) Implements IConnection(Of TPlayer).SendGodMode
+    Friend Custom Event SendGodMode As EventHandler(Of SendEventArgs(Of GodModeSendMessage)) Implements IConnection.SendGodMode
         AddHandler(value As EventHandler(Of SendEventArgs(Of GodModeSendMessage)))
             myEvents.Add("SendGodMode", value)
         End AddHandler
@@ -1163,7 +1190,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendModMode As EventHandler(Of SendEventArgs(Of ModModeSendMessage)) Implements IConnection(Of TPlayer).SendModMode
+    Friend Custom Event SendModMode As EventHandler(Of SendEventArgs(Of ModModeSendMessage)) Implements IConnection.SendModMode
         AddHandler(value As EventHandler(Of SendEventArgs(Of ModModeSendMessage)))
             myEvents.Add("SendModMode", value)
         End AddHandler
@@ -1184,7 +1211,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendMove As EventHandler(Of SendEventArgs(Of MoveSendMessage)) Implements IConnection(Of TPlayer).SendMove
+    Friend Custom Event SendMove As EventHandler(Of SendEventArgs(Of MoveSendMessage)) Implements IConnection.SendMove
         AddHandler(value As EventHandler(Of SendEventArgs(Of MoveSendMessage)))
             myEvents.Add("SendMove", value)
         End AddHandler
@@ -1205,7 +1232,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendSay As EventHandler(Of SendEventArgs(Of SaySendMessage)) Implements IConnection(Of TPlayer).SendSay
+    Friend Custom Event SendSay As EventHandler(Of SendEventArgs(Of SaySendMessage)) Implements IConnection.SendSay
         AddHandler(value As EventHandler(Of SendEventArgs(Of SaySendMessage)))
             myEvents.Add("SendSay", value)
         End AddHandler
@@ -1226,7 +1253,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendAutoSay As EventHandler(Of SendEventArgs(Of AutoSaySendMessage)) Implements IConnection(Of TPlayer).SendAutoSay
+    Friend Custom Event SendAutoSay As EventHandler(Of SendEventArgs(Of AutoSaySendMessage)) Implements IConnection.SendAutoSay
         AddHandler(value As EventHandler(Of SendEventArgs(Of AutoSaySendMessage)))
             myEvents.Add("SendAutoSay", value)
         End AddHandler
@@ -1247,7 +1274,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendAccess As EventHandler(Of SendEventArgs(Of AccessSendMessage)) Implements IConnection(Of TPlayer).SendAccess
+    Friend Custom Event SendAccess As EventHandler(Of SendEventArgs(Of AccessSendMessage)) Implements IConnection.SendAccess
         AddHandler(value As EventHandler(Of SendEventArgs(Of AccessSendMessage)))
             myEvents.Add("SendAccess", value)
         End AddHandler
@@ -1268,7 +1295,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendChangeFace As EventHandler(Of SendEventArgs(Of ChangeFaceSendMessage)) Implements IConnection(Of TPlayer).SendChangeFace
+    Friend Custom Event SendChangeFace As EventHandler(Of SendEventArgs(Of ChangeFaceSendMessage)) Implements IConnection.SendChangeFace
         AddHandler(value As EventHandler(Of SendEventArgs(Of ChangeFaceSendMessage)))
             myEvents.Add("SendChangeFace", value)
         End AddHandler
@@ -1289,7 +1316,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendSaveWorld As EventHandler(Of SendEventArgs(Of SaveWorldSendMessage)) Implements IConnection(Of TPlayer).SendSaveWorld
+    Friend Custom Event SendSaveWorld As EventHandler(Of SendEventArgs(Of SaveWorldSendMessage)) Implements IConnection.SendSaveWorld
         AddHandler(value As EventHandler(Of SendEventArgs(Of SaveWorldSendMessage)))
             myEvents.Add("SendSaveWorld", value)
         End AddHandler
@@ -1310,7 +1337,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendChangeWorldName As EventHandler(Of SendEventArgs(Of ChangeWorldNameSendMessage)) Implements IConnection(Of TPlayer).SendChangeWorldName
+    Friend Custom Event SendChangeWorldName As EventHandler(Of SendEventArgs(Of ChangeWorldNameSendMessage)) Implements IConnection.SendChangeWorldName
         AddHandler(value As EventHandler(Of SendEventArgs(Of ChangeWorldNameSendMessage)))
             myEvents.Add("SendChangeWorldName", value)
         End AddHandler
@@ -1331,7 +1358,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendChangeWorldEditKey As EventHandler(Of SendEventArgs(Of ChangeWorldEditKeySendMessage)) Implements IConnection(Of TPlayer).SendChangeWorldEditKey
+    Friend Custom Event SendChangeWorldEditKey As EventHandler(Of SendEventArgs(Of ChangeWorldEditKeySendMessage)) Implements IConnection.SendChangeWorldEditKey
         AddHandler(value As EventHandler(Of SendEventArgs(Of ChangeWorldEditKeySendMessage)))
             myEvents.Add("SendChangeWorldEditKey", value)
         End AddHandler
@@ -1352,7 +1379,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendClearWorld As EventHandler(Of SendEventArgs(Of ClearWorldSendMessage)) Implements IConnection(Of TPlayer).SendClearWorld
+    Friend Custom Event SendClearWorld As EventHandler(Of SendEventArgs(Of ClearWorldSendMessage)) Implements IConnection.SendClearWorld
         AddHandler(value As EventHandler(Of SendEventArgs(Of ClearWorldSendMessage)))
             myEvents.Add("SendClearWorld", value)
         End AddHandler
@@ -1373,7 +1400,7 @@
         End RaiseEvent
     End Event
 
-    Friend Custom Event SendKillWorld As EventHandler(Of SendEventArgs(Of KillWorldSendMessage)) Implements IConnection(Of TPlayer).SendKillWorld
+    Friend Custom Event SendKillWorld As EventHandler(Of SendEventArgs(Of KillWorldSendMessage)) Implements IConnection.SendKillWorld
         AddHandler(value As EventHandler(Of SendEventArgs(Of KillWorldSendMessage)))
             myEvents.Add("SendKillWorld", value)
         End AddHandler
@@ -1396,42 +1423,31 @@
 
 #End Region
 
-#Region "Properties"
-    Friend MustOverride ReadOnly Property Chatter As IChatter Implements IConnection(Of TPlayer).Chatter
-
-    Friend MustOverride ReadOnly Property Connected As Boolean Implements IConnection(Of TPlayer).Connected
-
-    Friend MustOverride ReadOnly Property PlayerManager As IPlayerManager(Of TPlayer) Implements IConnection(Of TPlayer).PlayerManager
-
-    Friend MustOverride ReadOnly Property PluginManager As IPluginManager Implements IConnection(Of TPlayer).PluginManager
-
-    Friend MustOverride ReadOnly Property World As IWorld Implements IConnection(Of TPlayer).World
-
-    Friend MustOverride ReadOnly Property WorldID As String Implements IConnection(Of TPlayer).WorldID
-
-    Public MustOverride ReadOnly Property CommandManager As ICommandManager Implements IConnection(Of TPlayer).CommandManager
-#End Region
-
 #Region "Methods"
 
-    Private Sub OnEventError(eventName As String, ex As Exception)
-        Cloud.Logger.Log(LogPriority.Error, String.Format("Unable to pass event {0} to {1}.", eventName, ex.Source))
-        Cloud.Logger.LogEx(ex)
+    Friend Sub SetupConnection(connection As PlayerIOClient.Connection, id As String)
+        'Setting variables
+        myConnection = connection
+        myWorldID = id
+
+        'Registering messages
+        RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoinReceiveMessage))
+        RegisterMessage("info", GetType(InfoReceiveMessage))
+        RegisterMessage("upgrade", GetType(UpgradeReceiveMessage))
+        RegisterMessage("init", GetType(InitReceiveMessage))
+
+        'Initing Client
+        Send(New InitSendMessage)
     End Sub
 
-    Private Sub myInternalConnection_OnDisconnect(sender As Object, e As DisconnectEventArgs) Handles InternalConnection.InternalDisconnect
-        RaiseEvent Disconnect(Me, e)
-    End Sub
-
-    Private Sub InternalConnection_OnInternalDisconnecting(sender As Object, e As EventArgs) Handles InternalConnection.InternalDisconnecting
-        RaiseEvent Disconnecting(Me, e)
-    End Sub
-
-    Private Sub myInternalConnection_OnInternalMessage(sender As Object, e As ReceiveMessage) Handles InternalConnection.InternalMessage
-        RaiseEvent ReceiveMessage(Me, e)
+    Private Async Sub MessageHandler(sender As Object, e As ReceiveMessage) Handles Me.ReceiveMessage
         Select Case e.GetType
             Case GetType(InitReceiveMessage)
                 Dim m As InitReceiveMessage = CType(e, InitReceiveMessage)
+                UnRegisterMessage("init")
+                UnRegisterMessage("groupdisallowedjoin")
+                RegisterMessages()
+                Send(New Init2SendMessage)
                 RaiseEvent ReceiveInit(Me, m)
 
             Case GetType(GroupDisallowedJoinReceiveMessage)
@@ -1444,6 +1460,9 @@
 
             Case GetType(UpgradeReceiveMessage)
                 Dim m As UpgradeReceiveMessage = CType(e, UpgradeReceiveMessage)
+                ClientHandle.GameVersionNumber += 1
+                Cloud.Logger.Log(LogPriority.Info, "The game has been updated!")
+                Await Cloud.Service.SetSettingAsync("GameVersion", CStr(ClientHandle.GameVersionNumber))
                 RaiseEvent ReceiveUpgrade(Me, m)
 
             Case GetType(UpdateMetaReceiveMessage)
@@ -1576,7 +1595,7 @@
         End Select
     End Sub
 
-    Protected Function RaiseSendEvent(message As SendMessage) As Boolean
+    Private Function RaiseSendEvent(message As SendMessage) As Boolean
         RaiseEvent SendMessage(Me, message)
         Select Case message.GetType
             Case GetType(InitSendMessage)
@@ -1713,7 +1732,116 @@
         End Select
     End Function
 
-    Friend MustOverride Sub Send(message As SendMessage) Implements IConnection(Of TPlayer).Send
+    Friend Sub Send(message As SendMessage) Implements IConnection.Send
+        If myConnection IsNot Nothing Then
+            If RaiseSendEvent(message) Then
+                myConnection.Send(message.GetMessage(myclient.World))
+            End If
+        End If
+    End Sub
+
+    Friend Sub Close() Implements IConnection.Close
+        If myConnection IsNot Nothing Then
+            RaiseEvent Disconnecting(Me, EventArgs.Empty)
+            myConnection.Disconnect()
+        End If
+    End Sub
+
+    Private Sub OnEventError(eventName As String, ex As Exception)
+        Cloud.Logger.Log(LogPriority.Error, String.Format("Unable to pass event {0} to {1}.", eventName, ex.Source))
+        Cloud.Logger.LogEx(ex)
+    End Sub
+
+    Private Sub myConnection_OnDisconnect(sender As Object, message As String) Handles myConnection.OnDisconnect
+        UnRegisterAll()
+        RaiseEvent Disconnect(Me, New DisconnectEventArgs(myExpectingDisconnect))
+        myExpectingDisconnect = False
+    End Sub
+
+    Private Sub myConnection_OnMessage(sender As Object, e As PlayerIOClient.Message) Handles myConnection.OnMessage
+        Try
+            If myMessageDictionary.ContainsKey(e.Type) Then
+                Dim messageType As Type = myMessageDictionary(e.Type)
+                Dim constructorInfo As ConstructorInfo = messageType.GetConstructor(BindingFlags.NonPublic Or BindingFlags.Instance, Nothing, New Type() {GetType(Message)}, Nothing)
+                Dim message As ReceiveMessage = CType(constructorInfo.Invoke(New Object() {e}), ReceiveMessage)
+                RaiseEvent ReceiveMessage(Me, message)
+            Else
+                Cloud.Logger.Log(LogPriority.Warning, "Received not registered message: " & e.Type)
+            End If
+        Catch ex As KeyNotFoundException
+            Cloud.Logger.Log(LogPriority.Error, "Failed to parse message: " & e.Type)
+            Cloud.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled: {1} {2}", ex.ToString, ex.Message, ex.StackTrace))
+        End Try
+    End Sub
+
+    Private myRegisteredMessages As Boolean
+
+    Sub New(ByVal client As IClient(Of Player))
+        myClient = client
+    End Sub
+
+    Private Sub RegisterMessages()
+        If myRegisteredMessages = False Then
+            myRegisteredMessages = True
+            RegisterMessage("updatemeta", GetType(UpdateMetaReceiveMessage))
+            RegisterMessage("add", GetType(AddReceiveMessage))
+            RegisterMessage("left", GetType(LeftReceiveMessage))
+            RegisterMessage("m", GetType(MoveReceiveMessage))
+            RegisterMessage("c", GetType(CoinReceiveMessage))
+            RegisterMessage("k", GetType(CrownReceiveMessage))
+            RegisterMessage("ks", GetType(SilverCrownReceiveMessage))
+            RegisterMessage("face", GetType(FaceReceiveMessage))
+            RegisterMessage("show", GetType(ShowKeyReceiveMessage))
+            RegisterMessage("hide", GetType(HideKeyReceiveMessage))
+            RegisterMessage("say", GetType(SayReceiveMessage))
+            RegisterMessage("say_old", GetType(SayOld_ReceiveMessage))
+            RegisterMessage("autotext", GetType(AutoTextReceiveMessage))
+            RegisterMessage("write", GetType(WriteReceiveMessage))
+            RegisterMessage("b", GetType(BlockPlaceReceiveMessage))
+            RegisterMessage("bc", GetType(CoinDoorPlace_ReceiveMessage))
+            RegisterMessage("bs", GetType(SoundPlaceReceiveMessage))
+            RegisterMessage("pt", GetType(PortalPlaceReceiveMessage))
+            RegisterMessage("lb", GetType(LabelPlaceReceiveMessage))
+            RegisterMessage("god", GetType(GodModeReceiveMessage))
+            RegisterMessage("mod", GetType(ModModeReceiveMessage))
+            RegisterMessage("access", GetType(AccessReceiveMessage))
+            RegisterMessage("lostaccess", GetType(LostAccessReceiveMessage))
+            RegisterMessage("tele", GetType(TeleportReceiveMessage))
+            RegisterMessage("reset", GetType(ResetReceiveMessage))
+            RegisterMessage("clear", GetType(ClearReceiveMessage))
+            RegisterMessage("saved", GetType(SaveDoneReceiveMessage))
+            RegisterMessage("refreshshop", GetType(RefreshShopReceiveMessage))
+            RegisterMessage("givewizard", GetType(GiveWizardReceiveMessage))
+            RegisterMessage("givewizard2", GetType(GiveFireWizardReceiveMessage))
+            RegisterMessage("givewitch", GetType(GiveWitchReceiveMessage))
+            RegisterMessage("givegrinch", GetType(GiveGrinchReceiveMessage))
+        End If
+    End Sub
+
+    Private Sub RegisterMessage(str As String, type As Type)
+        Try
+            If Not type.IsSubclassOf(GetType(ReceiveMessage)) Then
+                Throw New InvalidOperationException("Invalid message class! Must inherit " & GetType(ReceiveMessage).ToString)
+            Else
+                myMessageDictionary.Add(str, type)
+            End If
+        Catch ex As Exception
+            Cloud.Logger.Log(LogPriority.Error, "Failed to register message: " & str)
+        End Try
+    End Sub
+
+    Private Sub UnRegisterMessage(pString As String)
+        Try
+            myMessageDictionary.Remove(pString)
+        Catch ex As Exception
+            Cloud.Logger.Log(LogPriority.Error, "Failed to unregister message: " & pString)
+        End Try
+    End Sub
+
+    Private Sub UnRegisterAll()
+        myRegisteredMessages = False
+        myMessageDictionary.Clear()
+    End Sub
 
 #End Region
 End Class
