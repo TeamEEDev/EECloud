@@ -129,9 +129,8 @@
     <Compile Include="Enums\AccessRight.vb" />
     <Compile Include="Interfaces\ICommand.vb" />
     <Compile Include="Interfaces\ICommandManager.vb" />
-    <Compile Include="Interfaces\IClientHandle.vb" />
-    <Compile Include="Interfaces\IClientHandleFactory.vb" />
     <Compile Include="Interfaces\IClientFactory.vb" />
+    <Compile Include="Interfaces\IClientGenerator.vb" />
     <Compile Include="Interfaces\IPlayer.vb" />
     <Compile Include="Interfaces\IPlayerManager.vb" />
     <Compile Include="Interfaces\IConnection.vb" />

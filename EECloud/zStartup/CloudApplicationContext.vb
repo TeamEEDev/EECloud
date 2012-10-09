@@ -18,14 +18,14 @@ Friend NotInheritable Class CloudApplicationContext
         LoadSettings()
 
         'Creating Client
-        Dim handle As IClientHandle = Cloud.Connector.GetConnectionHandle
+        Dim client As IClient(Of Player) = Cloud.ClientFactory.CreateClient
 
         Cloud.Logger.Log(LogPriority.Info, "Loading plugins...")
         'Loading assemblies
-        LoadAssembies(handle)
+        LoadAssembies(client)
 
         'Login
-        Login(handle)
+        Login(client)
     End Sub
 
     Private Shared Sub LoadSettings()
@@ -50,11 +50,11 @@ Friend NotInheritable Class CloudApplicationContext
         Cloud.AppEnvironment = CType([Enum].Parse(GetType(AppEnvironment), ConfigurationManager.AppSettings("Environment"), True), AppEnvironment)
         Cloud.Logger = New Logger
         Cloud.Service = New EESClient
-        Cloud.Connector = New ClientHandleFactory
+        Cloud.ClientFactory = New ClientHandleFactory
     End Sub
 
-    Private Shared Sub LoadAssembies(connectionHandle As IClientHandle)
-        connectionHandle.Client.PluginManager.Add(GetType(CommandsBot))
+    Private Shared Sub LoadAssembies(client As IClient(Of Player))
+        client.PluginManager.Add(GetType(CommandsBot))
 
         'Checking for valid plugins
         Dim plugins As IEnumerable(Of Type) =
@@ -72,7 +72,7 @@ Friend NotInheritable Class CloudApplicationContext
                     Dim hasNext As Boolean = enumrator.MoveNext()
                     If Not hasNext Then Exit Do
 
-                    connectionHandle.Client.PluginManager.Add(enumrator.Current)
+                    client.PluginManager.Add(enumrator.Current)
                 Catch ex As Exception
                     Cloud.Logger.LogEx(ex)
                 End Try
@@ -92,12 +92,12 @@ Friend NotInheritable Class CloudApplicationContext
         Next
     End Function
 
-    Private Shared Async Sub Login(handle As IClientHandle)
+    Private Shared Async Sub Login(client As IClient(Of Player))
         Try
             Cloud.Logger.Log(LogPriority.Info, "Joining world...")
-            Dim task As Task = handle.ConnectAsync(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID)
+            Dim task As Task = client.Connection.ConnectAsync(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID)
 
-            AddHandler handle.Client.Connection.Disconnect,
+            AddHandler client.Connection.Disconnect,
                 Sub()
                     Cloud.Logger.Log(LogPriority.Info, "Disconnected!")
                     Environment.Exit(1)

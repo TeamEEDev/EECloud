@@ -2,7 +2,7 @@
     Implements IPluginManager
 
 #Region "Fields"
-    Private ReadOnly myFactory As IClientFactory
+    Private ReadOnly myFactory As IClientGenerator
 #End Region
 
 #Region "Properties"
@@ -18,7 +18,7 @@
 
 #Region "Methods"
 
-    Sub New(factory As IClientFactory)
+    Sub New(factory As IClientGenerator)
         myFactory = factory
     End Sub
 

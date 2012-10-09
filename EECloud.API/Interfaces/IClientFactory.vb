@@ -1,3 +1,3 @@
-﻿Friend Interface IClientFactory
-    Function GetConnection(Of TPlayer As {Player, New})(plugin As IPluginObject, ByVal instance As Object) As IClient(Of TPlayer)
+﻿Public Interface IClientFactory
+    Function CreateClient() As IClient(Of Player)
 End Interface

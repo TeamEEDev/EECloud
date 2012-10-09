@@ -2,7 +2,7 @@
     Implements IPlugin
     Protected WithEvents Client As IClient(Of TPlayer)
 
-    Friend Sub Enable(creator As IClientFactory, pluginObj As IPluginObject) Implements IPlugin.Enable
+    Friend Sub Enable(creator As IClientGenerator, pluginObj As IPluginObject) Implements IPlugin.Enable
         Client = creator.GetConnection(Of TPlayer)(pluginObj, Me)
         If Client.Connection.Connected Then
             OnConnect()

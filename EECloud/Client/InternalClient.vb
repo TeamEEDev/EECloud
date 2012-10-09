@@ -97,7 +97,7 @@ Friend NotInheritable Class InternalClient
 
         myChatter = New Chatter(myInternalChatter, "Bot")
         myPlayerManager = New PlayerManager(Of Player)(Me)
-        myCommandManager = New CommandManager(Of Player)(Me)
+        myCommandManager = New CommandManager(Of Player)(Me, myInternalCommandManager)
     End Sub
 
 #End Region
