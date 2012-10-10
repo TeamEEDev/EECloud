@@ -7,7 +7,7 @@
     <ProjectGuid>{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>YoScrollPlugin</RootNamespace>
-    <AssemblyName>Yo!ScrollPlugin</AssemblyName>
+    <AssemblyName>Yo!Scroll.plugin</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
