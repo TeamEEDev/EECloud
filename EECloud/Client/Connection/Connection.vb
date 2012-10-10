@@ -92,6 +92,8 @@ Public NotInheritable Class Connection
 
     Public Event ReceivePortalPlace(sender As Object, e As PortalPlaceReceiveMessage) Implements IConnection.ReceivePortalPlace
 
+    Public Event ReceivePotion(sender As Object, e As PotionReceiveMessage) Implements IConnection.ReceivePotion
+
     Public Event ReceiveRefreshShop(sender As Object, e As RefreshShopReceiveMessage) Implements IConnection.ReceiveRefreshShop
 
     Public Event ReceiveReset(sender As Object, e As ResetReceiveMessage) Implements IConnection.ReceiveReset
@@ -116,60 +118,61 @@ Public NotInheritable Class Connection
 
     Public Event ReceiveWrite(sender As Object, e As WriteReceiveMessage) Implements IConnection.ReceiveWrite
 
-    Public Event SendAccess(sender As Object, e As SendEventArgs(Of AccessSendMessage)) Implements IConnection.SendAccess
+    Public Event SendAccess(sender As Object, e As Cancelable(Of AccessSendMessage)) Implements IConnection.SendAccess
 
-    Public Event SendAutoSay(sender As Object, e As SendEventArgs(Of AutoSaySendMessage)) Implements IConnection.SendAutoSay
+    Public Event SendAutoSay(sender As Object, e As Cancelable(Of AutoSaySendMessage)) Implements IConnection.SendAutoSay
 
-    Public Event SendBlockPlace(sender As Object, e As SendEventArgs(Of BlockPlaceSendMessage)) Implements IConnection.SendBlockPlace
+    Public Event SendBlockPlace(sender As Object, e As Cancelable(Of BlockPlaceSendMessage)) Implements IConnection.SendBlockPlace
 
-    Public Event SendChangeFace(sender As Object, e As SendEventArgs(Of ChangeFaceSendMessage)) Implements IConnection.SendChangeFace
+    Public Event SendChangeFace(sender As Object, e As Cancelable(Of ChangeFaceSendMessage)) Implements IConnection.SendChangeFace
 
-    Public Event SendChangeWorldEditKey(sender As Object, e As SendEventArgs(Of ChangeWorldEditKeySendMessage)) Implements IConnection.SendChangeWorldEditKey
+    Public Event SendChangeWorldEditKey(sender As Object, e As Cancelable(Of ChangeWorldEditKeySendMessage)) Implements IConnection.SendChangeWorldEditKey
 
-    Public Event SendChangeWorldName(sender As Object, e As SendEventArgs(Of ChangeWorldNameSendMessage)) Implements IConnection.SendChangeWorldName
+    Public Event SendChangeWorldName(sender As Object, e As Cancelable(Of ChangeWorldNameSendMessage)) Implements IConnection.SendChangeWorldName
 
-    Public Event SendClearWorld(sender As Object, e As SendEventArgs(Of ClearWorldSendMessage)) Implements IConnection.SendClearWorld
+    Public Event SendClearWorld(sender As Object, e As Cancelable(Of ClearWorldSendMessage)) Implements IConnection.SendClearWorld
 
-    Public Event SendCoin(sender As Object, e As SendEventArgs(Of CoinSendMessage)) Implements IConnection.SendCoin
+    Public Event SendCoin(sender As Object, e As Cancelable(Of CoinSendMessage)) Implements IConnection.SendCoin
 
-    Public Event SendCoindoorPlace(sender As Object, e As SendEventArgs(Of CoinDoorPlaceSendMessage)) Implements IConnection.SendCoindoorPlace
+    Public Event SendCoindoorPlace(sender As Object, e As Cancelable(Of CoinDoorPlaceSendMessage)) Implements IConnection.SendCoindoorPlace
 
-    Public Event SendCompleteLevel(sender As Object, e As SendEventArgs(Of CompleteLevelSendMessage)) Implements IConnection.SendCompleteLevel
+    Public Event SendCompleteLevel(sender As Object, e As Cancelable(Of CompleteLevelSendMessage)) Implements IConnection.SendCompleteLevel
 
-    Public Event SendGetCrown(sender As Object, e As SendEventArgs(Of GetCrownSendMessage)) Implements IConnection.SendGetCrown
+    Public Event SendGetCrown(sender As Object, e As Cancelable(Of GetCrownSendMessage)) Implements IConnection.SendGetCrown
 
-    Public Event SendGodMode(sender As Object, e As SendEventArgs(Of GodModeSendMessage)) Implements IConnection.SendGodMode
+    Public Event SendGodMode(sender As Object, e As Cancelable(Of GodModeSendMessage)) Implements IConnection.SendGodMode
 
-    Public Event SendInit(sender As Object, e As SendEventArgs(Of InitSendMessage)) Implements IConnection.SendInit
+    Public Event SendInit(sender As Object, e As Cancelable(Of InitSendMessage)) Implements IConnection.SendInit
 
-    Public Event SendInit2(sender As Object, e As SendEventArgs(Of Init2SendMessage)) Implements IConnection.SendInit2
+    Public Event SendInit2(sender As Object, e As Cancelable(Of Init2SendMessage)) Implements IConnection.SendInit2
 
-    Public Event SendKillWorld(sender As Object, e As SendEventArgs(Of KillWorldSendMessage)) Implements IConnection.SendKillWorld
+    Public Event SendKillWorld(sender As Object, e As Cancelable(Of KillWorldSendMessage)) Implements IConnection.SendKillWorld
 
-    Public Event SendLabelPlace(sender As Object, e As SendEventArgs(Of LabelPlaceSendMessage)) Implements IConnection.SendLabelPlace
+    Public Event SendLabelPlace(sender As Object, e As Cancelable(Of LabelPlaceSendMessage)) Implements IConnection.SendLabelPlace
 
     Public Event SendMessage(sender As Object, e As SendMessage) Implements IConnection.SendMessage
 
-    Public Event SendModMode(sender As Object, e As SendEventArgs(Of ModModeSendMessage)) Implements IConnection.SendModMode
+    Public Event SendModMode(sender As Object, e As Cancelable(Of ModModeSendMessage)) Implements IConnection.SendModMode
 
-    Public Event SendMove(sender As Object, e As SendEventArgs(Of MoveSendMessage)) Implements IConnection.SendMove
+    Public Event SendMove(sender As Object, e As Cancelable(Of MoveSendMessage)) Implements IConnection.SendMove
 
-    Public Event SendPortalPlace(sender As Object, e As SendEventArgs(Of PortalPlaceSendMessage)) Implements IConnection.SendPortalPlace
+    Public Event SendPortalPlace(sender As Object, e As Cancelable(Of PortalPlaceSendMessage)) Implements IConnection.SendPortalPlace
 
-    Public Event SendPressBlueKey(sender As Object, e As SendEventArgs(Of PressBlueKeySendMessage)) Implements IConnection.SendPressBlueKey
+    Public Event SendPressBlueKey(sender As Object, e As Cancelable(Of PressBlueKeySendMessage)) Implements IConnection.SendPressBlueKey
 
-    Public Event SendPressGreenKey(sender As Object, e As SendEventArgs(Of PressGreenKeySendMessage)) Implements IConnection.SendPressGreenKey
+    Public Event SendPressGreenKey(sender As Object, e As Cancelable(Of PressGreenKeySendMessage)) Implements IConnection.SendPressGreenKey
 
-    Public Event SendPressRedKey(sender As Object, e As SendEventArgs(Of PressRedKeySendMessage)) Implements IConnection.SendPressRedKey
+    Public Event SendPressRedKey(sender As Object, e As Cancelable(Of PressRedKeySendMessage)) Implements IConnection.SendPressRedKey
 
-    Public Event SendSaveWorld(sender As Object, e As SendEventArgs(Of SaveWorldSendMessage)) Implements IConnection.SendSaveWorld
+    Public Event SendSaveWorld(sender As Object, e As Cancelable(Of SaveWorldSendMessage)) Implements IConnection.SendSaveWorld
 
-    Public Event SendSay(sender As Object, e As SendEventArgs(Of SaySendMessage)) Implements IConnection.SendSay
+    Public Event SendSay(sender As Object, e As Cancelable(Of SaySendMessage)) Implements IConnection.SendSay
 
-    Public Event SendSoundPlace(sender As Object, e As SendEventArgs(Of SoundPlaceSendMessage)) Implements IConnection.SendSoundPlace
+    Public Event SendSoundPlace(sender As Object, e As Cancelable(Of SoundPlaceSendMessage)) Implements IConnection.SendSoundPlace
 
-    Public Event SendTouchDiamond(sender As Object, e As SendEventArgs(Of TouchDiamondSendMessage)) Implements IConnection.SendTouchDiamond
+    Public Event SendTouchDiamond(sender As Object, e As Cancelable(Of TouchDiamondSendMessage)) Implements IConnection.SendTouchDiamond
 
+    Public Event SendPotion(sender As Object, e As Cancelable(Of PotionSendMessage)) Implements IConnection.SendPotion
 #End Region
 
 #Region "Methods"
@@ -232,134 +235,140 @@ Public NotInheritable Class Connection
         RaiseEvent SendMessage(Me, message)
         Select Case message.GetType
             Case GetType(InitSendMessage)
-                Dim eventArgs As New SendEventArgs(Of InitSendMessage)(CType(message, InitSendMessage))
+                Dim eventArgs As New Cancelable(Of InitSendMessage)(CType(message, InitSendMessage))
                 RaiseEvent SendInit(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(Init2SendMessage)
-                Dim eventArgs As New SendEventArgs(Of Init2SendMessage)(CType(message, Init2SendMessage))
+                Dim eventArgs As New Cancelable(Of Init2SendMessage)(CType(message, Init2SendMessage))
                 RaiseEvent SendInit2(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(BlockPlaceSendMessage)
-                Dim eventArgs As New SendEventArgs(Of BlockPlaceSendMessage)(CType(message, BlockPlaceSendMessage))
+                Dim eventArgs As New Cancelable(Of BlockPlaceSendMessage)(CType(message, BlockPlaceSendMessage))
                 RaiseEvent SendBlockPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(CoinDoorPlaceSendMessage)
-                Dim eventArgs As New SendEventArgs(Of CoinDoorPlaceSendMessage)(CType(message, CoinDoorPlaceSendMessage))
+                Dim eventArgs As New Cancelable(Of CoinDoorPlaceSendMessage)(CType(message, CoinDoorPlaceSendMessage))
                 RaiseEvent SendCoindoorPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(SoundPlaceSendMessage)
-                Dim eventArgs As New SendEventArgs(Of SoundPlaceSendMessage)(CType(message, SoundPlaceSendMessage))
+                Dim eventArgs As New Cancelable(Of SoundPlaceSendMessage)(CType(message, SoundPlaceSendMessage))
                 RaiseEvent SendSoundPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(PortalPlaceSendMessage)
-                Dim eventArgs As New SendEventArgs(Of PortalPlaceSendMessage)(CType(message, PortalPlaceSendMessage))
+                Dim eventArgs As New Cancelable(Of PortalPlaceSendMessage)(CType(message, PortalPlaceSendMessage))
                 RaiseEvent SendPortalPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(LabelPlaceSendMessage)
-                Dim eventArgs As New SendEventArgs(Of LabelPlaceSendMessage)(CType(message, LabelPlaceSendMessage))
+                Dim eventArgs As New Cancelable(Of LabelPlaceSendMessage)(CType(message, LabelPlaceSendMessage))
                 RaiseEvent SendLabelPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(CoinSendMessage)
-                Dim eventArgs As New SendEventArgs(Of CoinSendMessage)(CType(message, CoinSendMessage))
+                Dim eventArgs As New Cancelable(Of CoinSendMessage)(CType(message, CoinSendMessage))
                 RaiseEvent SendCoin(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(PressRedKeySendMessage)
-                Dim eventArgs As New SendEventArgs(Of PressRedKeySendMessage)(CType(message, PressRedKeySendMessage))
+                Dim eventArgs As New Cancelable(Of PressRedKeySendMessage)(CType(message, PressRedKeySendMessage))
                 RaiseEvent SendPressRedKey(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(PressGreenKeySendMessage)
-                Dim eventArgs As New SendEventArgs(Of PressGreenKeySendMessage)(CType(message, PressGreenKeySendMessage))
+                Dim eventArgs As New Cancelable(Of PressGreenKeySendMessage)(CType(message, PressGreenKeySendMessage))
                 RaiseEvent SendPressGreenKey(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(PressBlueKeySendMessage)
-                Dim eventArgs As New SendEventArgs(Of PressBlueKeySendMessage)(CType(message, PressBlueKeySendMessage))
+                Dim eventArgs As New Cancelable(Of PressBlueKeySendMessage)(CType(message, PressBlueKeySendMessage))
                 RaiseEvent SendPressBlueKey(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(GetCrownSendMessage)
-                Dim eventArgs As New SendEventArgs(Of GetCrownSendMessage)(CType(message, GetCrownSendMessage))
+                Dim eventArgs As New Cancelable(Of GetCrownSendMessage)(CType(message, GetCrownSendMessage))
                 RaiseEvent SendGetCrown(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(TouchDiamondSendMessage)
-                Dim eventArgs As New SendEventArgs(Of TouchDiamondSendMessage)(CType(message, TouchDiamondSendMessage))
+                Dim eventArgs As New Cancelable(Of TouchDiamondSendMessage)(CType(message, TouchDiamondSendMessage))
                 RaiseEvent SendTouchDiamond(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(CompleteLevelSendMessage)
-                Dim eventArgs As New SendEventArgs(Of CompleteLevelSendMessage)(CType(message, CompleteLevelSendMessage))
+                Dim eventArgs As New Cancelable(Of CompleteLevelSendMessage)(CType(message, CompleteLevelSendMessage))
                 RaiseEvent SendCompleteLevel(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(GodModeSendMessage)
-                Dim eventArgs As New SendEventArgs(Of GodModeSendMessage)(CType(message, GodModeSendMessage))
+                Dim eventArgs As New Cancelable(Of GodModeSendMessage)(CType(message, GodModeSendMessage))
                 RaiseEvent SendGodMode(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(ModModeSendMessage)
-                Dim eventArgs As New SendEventArgs(Of ModModeSendMessage)(CType(message, ModModeSendMessage))
+                Dim eventArgs As New Cancelable(Of ModModeSendMessage)(CType(message, ModModeSendMessage))
                 RaiseEvent SendModMode(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(MoveSendMessage)
-                Dim eventArgs As New SendEventArgs(Of MoveSendMessage)(CType(message, MoveSendMessage))
+                Dim eventArgs As New Cancelable(Of MoveSendMessage)(CType(message, MoveSendMessage))
                 RaiseEvent SendMove(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(SaySendMessage)
-                Dim eventArgs As New SendEventArgs(Of SaySendMessage)(CType(message, SaySendMessage))
+                Dim eventArgs As New Cancelable(Of SaySendMessage)(CType(message, SaySendMessage))
                 RaiseEvent SendSay(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(AutoSaySendMessage)
-                Dim eventArgs As New SendEventArgs(Of AutoSaySendMessage)(CType(message, AutoSaySendMessage))
+                Dim eventArgs As New Cancelable(Of AutoSaySendMessage)(CType(message, AutoSaySendMessage))
                 RaiseEvent SendAutoSay(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(AccessSendMessage)
-                Dim eventArgs As New SendEventArgs(Of AccessSendMessage)(CType(message, AccessSendMessage))
+                Dim eventArgs As New Cancelable(Of AccessSendMessage)(CType(message, AccessSendMessage))
                 RaiseEvent SendAccess(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(ChangeFaceSendMessage)
-                Dim eventArgs As New SendEventArgs(Of ChangeFaceSendMessage)(CType(message, ChangeFaceSendMessage))
+                Dim eventArgs As New Cancelable(Of ChangeFaceSendMessage)(CType(message, ChangeFaceSendMessage))
                 RaiseEvent SendChangeFace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(SaveWorldSendMessage)
-                Dim eventArgs As New SendEventArgs(Of SaveWorldSendMessage)(CType(message, SaveWorldSendMessage))
+                Dim eventArgs As New Cancelable(Of SaveWorldSendMessage)(CType(message, SaveWorldSendMessage))
                 RaiseEvent SendSaveWorld(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(ChangeWorldNameSendMessage)
-                Dim eventArgs As New SendEventArgs(Of ChangeWorldNameSendMessage)(CType(message, ChangeWorldNameSendMessage))
+                Dim eventArgs As New Cancelable(Of ChangeWorldNameSendMessage)(CType(message, ChangeWorldNameSendMessage))
                 RaiseEvent SendChangeWorldName(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(ChangeWorldEditKeySendMessage)
-                Dim eventArgs As New SendEventArgs(Of ChangeWorldEditKeySendMessage)(CType(message, ChangeWorldEditKeySendMessage))
+                Dim eventArgs As New Cancelable(Of ChangeWorldEditKeySendMessage)(CType(message, ChangeWorldEditKeySendMessage))
                 RaiseEvent SendChangeWorldEditKey(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(ClearWorldSendMessage)
-                Dim eventArgs As New SendEventArgs(Of ClearWorldSendMessage)(CType(message, ClearWorldSendMessage))
+                Dim eventArgs As New Cancelable(Of ClearWorldSendMessage)(CType(message, ClearWorldSendMessage))
                 RaiseEvent SendClearWorld(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(KillWorldSendMessage)
-                Dim eventArgs As New SendEventArgs(Of KillWorldSendMessage)(CType(message, KillWorldSendMessage))
+                Dim eventArgs As New Cancelable(Of KillWorldSendMessage)(CType(message, KillWorldSendMessage))
                 RaiseEvent SendKillWorld(Me, eventArgs)
                 Return eventArgs.Handled
+
+            Case GetType(PotionSendMessage)
+                Dim eventArgs As New Cancelable(Of PotionSendMessage)(CType(message, PotionSendMessage))
+                RaiseEvent SendPotion(Me, eventArgs)
+                Return eventArgs.Handled
+
             Case Else
                 Return False
         End Select
@@ -445,6 +454,10 @@ Public NotInheritable Class Connection
             Case GetType(WriteReceiveMessage)
                 Dim m As WriteReceiveMessage = CType(e, WriteReceiveMessage)
                 RaiseEvent ReceiveWrite(Me, m)
+
+            Case GetType(PotionReceiveMessage)
+                Dim m As PotionReceiveMessage = CType(e, PotionReceiveMessage)
+                RaiseEvent ReceivePotion(Me, m)
 
             Case GetType(BlockPlaceReceiveMessage)
                 Dim m As BlockPlaceReceiveMessage = CType(e, BlockPlaceReceiveMessage)
@@ -534,10 +547,10 @@ Public NotInheritable Class Connection
                 Dim message As ReceiveMessage = CType(constructorInfo.Invoke(New Object() {e}), ReceiveMessage)
                 RaiseEvent ReceiveMessage(Me, message)
             Else
-                Cloud.Logger.Log(LogPriority.Warning, "Received not registered message: " & e.Type)
+                Cloud.Logger.Log(LogPriority.Warning, "Received not registered Value: " & e.Type)
             End If
         Catch ex As KeyNotFoundException
-            Cloud.Logger.Log(LogPriority.Error, "Failed to parse message: " & e.Type)
+            Cloud.Logger.Log(LogPriority.Error, "Failed to parse Value: " & e.Type)
             Cloud.Logger.LogEx(ex)
         End Try
     End Sub
@@ -599,6 +612,7 @@ Public NotInheritable Class Connection
             RegisterMessage("say_old", GetType(SayOld_ReceiveMessage))
             RegisterMessage("autotext", GetType(AutoTextReceiveMessage))
             RegisterMessage("write", GetType(WriteReceiveMessage))
+            RegisterMessage("p", GetType(PotionReceiveMessage))
             RegisterMessage("b", GetType(BlockPlaceReceiveMessage))
             RegisterMessage("bc", GetType(CoinDoorPlace_ReceiveMessage))
             RegisterMessage("bs", GetType(SoundPlaceReceiveMessage))
@@ -623,12 +637,12 @@ Public NotInheritable Class Connection
     Private Sub RegisterMessage(str As String, type As Type)
         Try
             If Not type.IsSubclassOf(GetType(ReceiveMessage)) Then
-                Throw New InvalidOperationException("Invalid message class! Must inherit " & GetType(ReceiveMessage).ToString)
+                Throw New InvalidOperationException("Invalid Value class! Must inherit " & GetType(ReceiveMessage).ToString)
             Else
                 myMessageDictionary.Add(str, type)
             End If
         Catch ex As Exception
-            Cloud.Logger.Log(LogPriority.Error, "Failed to register message: " & str)
+            Cloud.Logger.Log(LogPriority.Error, "Failed to register Value: " & str)
         End Try
     End Sub
 
@@ -636,7 +650,7 @@ Public NotInheritable Class Connection
         Try
             myMessageDictionary.Remove(pString)
         Catch ex As Exception
-            Cloud.Logger.Log(LogPriority.Error, "Failed to unregister message: " & pString)
+            Cloud.Logger.Log(LogPriority.Error, "Failed to unregister Value: " & pString)
         End Try
     End Sub
 

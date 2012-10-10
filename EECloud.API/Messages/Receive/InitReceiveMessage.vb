@@ -30,6 +30,8 @@ Public Class InitReceiveMessage
     '12
     Public ReadOnly Gravity As Double
     '13
+    Public ReadOnly AllowPotions As Boolean
+    '14
 
     Friend Sub New(message As Message)
         MyBase.New(message)
@@ -48,5 +50,6 @@ Public Class InitReceiveMessage
         SizeY = message.GetInteger(11)
         IsTutorialRoom = message.GetBoolean(12)
         Gravity = message.GetDouble(13)
+        AllowPotions = message.GetBoolean(14)
     End Sub
 End Class

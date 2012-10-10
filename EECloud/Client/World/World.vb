@@ -1,8 +1,8 @@
-﻿Public NotInheritable Class World
+﻿Friend NotInheritable Class World
     Implements IWorld
 
 #Region "Fields"
-    Private Const InitOffset As UInteger = 14
+    Private Const InitOffset As UInteger = 15
     Private myBlocks(,,) As IWorldBlock
     Private WithEvents myConnection As IConnection
 #End Region
@@ -79,9 +79,27 @@
     End Sub
 
     Private Shared Function ParseWorld(m As PlayerIOClient.Message, sizeX As Integer, sizeY As Integer, offset As UInteger) As WorldBlock(,,)
+        Dim start As UInteger
+        For i As UInteger = offset To CUInt(m.Count - 1)
+            Try
+                If m.GetString(i) = "ws" Then
+                    start = CType((i + 1), UInteger)
+                    Exit For
+                End If
+            Catch
+            End Try
+        Next
+
         Dim value(1, sizeX, sizeY) As WorldBlock
-        Dim pointer As UInteger = offset
-        Do Until pointer >= CUInt(m.Count - 1)
+        Dim pointer As UInteger = start
+        Do
+            Try
+                If TryCast(m.Item(pointer), String) IsNot Nothing AndAlso m.GetString(pointer) = "we" Then
+                    Exit Do
+                End If
+            Catch
+            End Try
+
             Dim block As BlockType = CType(m.Item(pointer), BlockType)
             pointer = CUInt(pointer + 1)
             Dim layer As Layer = CType(m.Item(pointer), Layer)

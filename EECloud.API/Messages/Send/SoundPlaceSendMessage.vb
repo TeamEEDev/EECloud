@@ -12,9 +12,9 @@ Public Class SoundPlaceSendMessage
 
     Friend Overrides Function GetMessage(world As IWorld) As Message
         If IsSound(Block) Then
-            Dim myMessage As Message = MyBase.GetMessage(world)
-            myMessage.Add(SoundID)
-            Return myMessage
+            Dim message As Message = MyBase.GetMessage(world)
+            message.Add(SoundID)
+            Return message
         Else
             Return MyBase.GetMessage(world)
         End If
