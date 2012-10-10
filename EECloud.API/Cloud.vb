@@ -1,6 +1,5 @@
 ﻿Public NotInheritable Class Cloud
-    Private Sub New()
-    End Sub
+#Region "Properties"
 
     Private Shared myAppEnvironment As AppEnvironment
 
@@ -49,4 +48,13 @@
             myClientFactory = value
         End Set
     End Property
+
+#End Region
+
+#Region "Methods"
+
+    Private Sub New()
+    End Sub
+
+#End Region
 End Class

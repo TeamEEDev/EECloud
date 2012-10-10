@@ -1,6 +1,9 @@
 ﻿Imports System.Runtime.InteropServices
 
 Friend Class LicenseForm
+
+#Region "Methods"
+
     <DllImport("user32.dll")>
     Private Shared Sub SetForegroundWindow(ByVal hWnd As IntPtr)
     End Sub
@@ -52,4 +55,6 @@ Friend Class LicenseForm
             TextBoxUsername.Focus()
         End If
     End Sub
+
+#End Region
 End Class

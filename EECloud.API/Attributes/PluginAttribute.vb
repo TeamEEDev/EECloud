@@ -3,6 +3,9 @@
 <AttributeUsage(AttributeTargets.Class)>
 Public NotInheritable Class PluginAttribute
     Inherits Attribute
+
+#Region "Properties"
+
     Public Property Authors As String()
     Public Property Description As String = String.Empty
     Public Property Version As String = String.Empty
@@ -22,4 +25,6 @@ Public NotInheritable Class PluginAttribute
             End If
         End Set
     End Property
+
+#End Region
 End Class

@@ -2,10 +2,7 @@
 Public NotInheritable Class CommandAttribute
     Inherits Attribute
 
-    Sub New(type As String, minPermission As Group)
-        myType = type
-        myMinPermission = minPermission
-    End Sub
+#Region "Properties"
 
     Private ReadOnly myType As String
 
@@ -26,4 +23,15 @@ Public NotInheritable Class CommandAttribute
     Public Property AccessRight As AccessRight
 
     Public Property Aliases As String()
+
+#End Region
+
+#Region "Methods"
+
+    Sub New(type As String, minPermission As Group)
+        myType = type
+        myMinPermission = minPermission
+    End Sub
+
+#End Region
 End Class

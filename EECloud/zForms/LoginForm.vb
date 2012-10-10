@@ -1,6 +1,9 @@
 ﻿Imports System.Runtime.InteropServices
 
 Friend NotInheritable Class LoginForm
+
+#Region "Methods"
+
     <DllImport("user32.dll")>
     Private Shared Sub SetForegroundWindow(ByVal hWnd As IntPtr)
     End Sub
@@ -77,4 +80,6 @@ Friend NotInheritable Class LoginForm
             TextBoxEmail.Focus()
         End If
     End Sub
+
+#End Region
 End Class

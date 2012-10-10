@@ -1,10 +1,7 @@
 ﻿Friend NotInheritable Class Command(Of TPlayer As {New, Player})
     Implements ICommand(Of TPlayer)
 
-    Friend Sub New(sender As TPlayer, label As String)
-        mySender = sender
-        myLabel = label
-    End Sub
+#Region "Properties"
 
     Private ReadOnly mySender As TPlayer
 
@@ -21,4 +18,15 @@
             Return myLabel
         End Get
     End Property
+
+#End Region
+
+#Region "Methods"
+
+    Friend Sub New(sender As TPlayer, label As String)
+        mySender = sender
+        myLabel = label
+    End Sub
+
+#End Region
 End Class
