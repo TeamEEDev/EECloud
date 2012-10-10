@@ -1,6 +1,7 @@
 ﻿Imports System.Reflection
 
 Friend NotInheritable Class CommandHandle(Of TPlayer As {New, Player})
+
 #Region "Fields"
     Private ReadOnly myMethodInfo As MethodInfo
     Private ReadOnly myTarget As Object

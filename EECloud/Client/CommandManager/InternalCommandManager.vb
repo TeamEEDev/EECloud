@@ -1,7 +1,14 @@
 ﻿Friend NotInheritable Class InternalCommandManager
-    Private ReadOnly myClient As InternalClient
 
+#Region "Fields"
+    Private ReadOnly myClient As InternalClient
+#End Region
+
+#Region "Events"
     Friend Event OnCommand(msg As String, user As Integer, e As CommandEventArgs)
+#End Region
+
+#Region "Methods"
 
     Friend Sub New(client As InternalClient)
         myClient = client
@@ -26,4 +33,6 @@
             End If
         End If
     End Sub
+
+#End Region
 End Class
