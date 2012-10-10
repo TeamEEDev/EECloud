@@ -130,7 +130,7 @@
     <Compile Include="Interfaces\ICommand.vb" />
     <Compile Include="Interfaces\ICommandManager.vb" />
     <Compile Include="Interfaces\IClientFactory.vb" />
-    <Compile Include="Interfaces\IClientGenerator.vb" />
+    <Compile Include="Interfaces\IClientCloneFactory.vb" />
     <Compile Include="Interfaces\IPlayer.vb" />
     <Compile Include="Interfaces\IPlayerManager.vb" />
     <Compile Include="Interfaces\IConnection.vb" />
