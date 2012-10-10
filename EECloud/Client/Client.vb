@@ -2,7 +2,7 @@
     Implements IClient(Of TPlayer)
 
 #Region "Fields"
-    Private myInternalClient As InternalClient
+    Private ReadOnly myInternalClient As InternalClient
 #End Region
 
 #Region "Properties"
@@ -16,6 +16,12 @@
     Friend ReadOnly Property PluginManager As IPluginManager Implements IClient(Of TPlayer).PluginManager
         Get
             Return myInternalClient.PluginManager
+        End Get
+    End Property
+
+    Public ReadOnly Property Connection As IConnection Implements IClient(Of TPlayer).Connection
+        Get
+            Return myInternalClient.Connection
         End Get
     End Property
 
@@ -42,26 +48,19 @@
             Return myCommandManager
         End Get
     End Property
-
-    Dim myConnection As IConnection
-
-    Public ReadOnly Property Connection As IConnection Implements IClient(Of TPlayer).Connection
-        Get
-            Return myConnection
-        End Get
-    End Property
 #End Region
 
 #Region "Methods"
 
     Friend Sub New(internalClient As InternalClient, pluginObject As IPluginObject)
-        myInternalClient = internalClient
+        myInternalClient = InternalClient
+
         Dim chatterName As String = pluginObject.Attribute.ChatName
         If chatterName = Nothing Then chatterName = pluginObject.Name
-        myChatter = New Chatter(internalClient.InternalChatter, chatterName)
+        myChatter = New Chatter(InternalClient.InternalChatter, chatterName)
 
-        myPlayerManager = New PlayerManager(Of TPlayer)(internalClient)
-        myCommandManager = New CommandManager(Of TPlayer)(Me, internalClient.InternalCommandManager)
+        myPlayerManager = New PlayerManager(Of TPlayer)(InternalClient)
+        myCommandManager = New CommandManager(Of TPlayer)(Me, InternalClient.InternalCommandManager)
     End Sub
 
 #End Region

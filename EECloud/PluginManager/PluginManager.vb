@@ -2,7 +2,7 @@
     Implements IPluginManager
 
 #Region "Fields"
-    Private ReadOnly myFactory As IClientGenerator
+    Private ReadOnly myCloneFactory As IClientCloneFactory
 #End Region
 
 #Region "Properties"
@@ -18,15 +18,15 @@
 
 #Region "Methods"
 
-    Sub New(factory As IClientGenerator)
-        myFactory = factory
+    Sub New(cloneFactory As IClientCloneFactory)
+        myCloneFactory = cloneFactory
     End Sub
 
     Friend Function Add(t As Type) As IPluginObject Implements IPluginManager.Add
         If GetType(IPlugin).IsAssignableFrom(t) Then
             Dim attributes As Object() = t.GetCustomAttributes(GetType(PluginAttribute), True)
             If attributes IsNot Nothing AndAlso attributes.Length = 1 Then
-                Dim pluginObj As IPluginObject = New PluginObject(t, CType(attributes(0), PluginAttribute), myFactory)
+                Dim pluginObj As IPluginObject = New PluginObject(t, CType(attributes(0), PluginAttribute), myCloneFactory)
                 myPluginsList.Add(pluginObj)
                 Return pluginObj
             End If

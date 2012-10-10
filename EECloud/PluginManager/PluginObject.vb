@@ -5,7 +5,7 @@
     Private myPlugin As IPlugin
     Private ReadOnly myPluginType As Type
     Private ReadOnly myLockObj As New Object
-    Private ReadOnly myFactory As IClientGenerator
+    Private ReadOnly myCloneFactory As IClientCloneFactory
 #End Region
 
 #Region "Properties"
@@ -33,24 +33,24 @@
 
 #Region "Methods"
 
-    Friend Sub New(plugin As Type, ByVal attribute As PluginAttribute, ByVal factory As IClientGenerator)
+    Friend Sub New(plugin As Type, ByVal attribute As PluginAttribute, ByVal cloneFactory As IClientCloneFactory)
         myAttribute = attribute
-        myFactory = factory
+        myCloneFactory = cloneFactory
         If GetType(IPlugin).IsAssignableFrom(plugin) Then
             myPluginType = plugin
-            Enable(factory)
+            Enable(cloneFactory)
         Else
             Throw New EECloudException(ErrorCode.InvalidPlugin, "Type does not inherit from EECloud.API.IPlugin")
         End If
     End Sub
 
-    Private Sub Enable(factory As IClientGenerator)
+    Private Sub Enable(cloneFactory As IClientCloneFactory)
         SyncLock myLockObj
             If Not Started Then
                 Cloud.Logger.Log(LogPriority.Info, String.Format("Enabling {0}...", myPluginType.Name))
                 Try
                     myPlugin = CType(Activator.CreateInstance(myPluginType, True), IPlugin)
-                    myPlugin.Enable(factory, Me)
+                    myPlugin.Enable(cloneFactory, Me)
                 Catch ex As Exception
                     Cloud.Logger.Log(LogPriority.Error, String.Format("Failed to start plugin {0}. Disabling...", myPluginType.Name))
                     Cloud.Logger.LogEx(ex)
@@ -85,7 +85,7 @@
             [Stop]()
         End If
         If Not Started Then
-            Enable(myFactory)
+            Enable(myCloneFactory)
         End If
     End Sub
 #End Region
