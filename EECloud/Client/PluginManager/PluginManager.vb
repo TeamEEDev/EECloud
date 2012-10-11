@@ -8,9 +8,9 @@
 #Region "Properties"
     Private ReadOnly myPluginsList As New List(Of IPluginObject)
 
-    Friend ReadOnly Property Plugins As IEnumerable(Of IPluginObject) Implements IPluginManager.Plugins
+    Friend ReadOnly Property Plugins As IReadOnlyCollection(Of IPluginObject) Implements IPluginManager.Plugins
         Get
-            Return myPluginsList
+            Return myPluginsList.AsReadOnly
         End Get
     End Property
 
@@ -22,7 +22,7 @@
         myCloneFactory = cloneFactory
     End Sub
 
-    Friend Function Add(t As Type) As IPluginObject Implements IPluginManager.Add
+    Friend Function Load(t As Type) As IPluginObject Implements IPluginManager.Load
         If GetType(IPlugin).IsAssignableFrom(t) Then
             Dim attributes As Object() = t.GetCustomAttributes(GetType(PluginAttribute), True)
             If attributes IsNot Nothing AndAlso attributes.Length = 1 Then

@@ -1,31 +1,65 @@
-﻿Public Class WorldBlock
+﻿Public Structure WorldBlock
     Implements IWorldBlock
 
 #Region "Properties"
 
-    Private ReadOnly myBlock As BlockType
+    Private ReadOnly myBlock As Block
 
-    Public ReadOnly Property Block As BlockType Implements IWorldBlock.Block
+    Public ReadOnly Property Block As Block Implements IWorldBlock.Block
         Get
             Return myBlock
         End Get
     End Property
 
+    Public ReadOnly Property BlockType As BlockType Implements IWorldBlock.BlockType
+        Get
+            Return API.BlockType.Normal
+        End Get
+    End Property
+
+    Public ReadOnly Property CoinsToCollect As Integer Implements IWorldBlock.CoinsToCollect
+        Get
+            Return Nothing
+        End Get
+    End Property
+
+    Public ReadOnly Property PortalID As Integer Implements IWorldBlock.PortalID
+        Get
+            Return Nothing
+        End Get
+    End Property
+
+    Public ReadOnly Property PortalRotation As PortalRotation Implements IWorldBlock.PortalRotation
+        Get
+            Return Nothing
+        End Get
+    End Property
+
+    Public ReadOnly Property PortalTarget As Integer Implements IWorldBlock.PortalTarget
+        Get
+            Return Nothing
+        End Get
+    End Property
+
+    Public ReadOnly Property SoundID As Integer Implements IWorldBlock.SoundID
+        Get
+            Return Nothing
+        End Get
+    End Property
+
+    Public ReadOnly Property Text As String Implements IWorldBlock.Text
+        Get
+            Return Nothing
+        End Get
+    End Property
 #End Region
 
 #Region "Methods"
 
-    Friend Sub New(block As BlockType)
+    Friend Sub New(block As Block)
         myBlock = block
     End Sub
 
-    Public Shared Operator =(b1 As WorldBlock, b2 As WorldBlock) As Boolean
-        Return b1.myBlock = b2.myBlock
-    End Operator
-
-    Public Shared Operator <>(b1 As WorldBlock, b2 As WorldBlock) As Boolean
-        Return b1.myBlock <> b2.myBlock
-    End Operator
-
 #End Region
-End Class
+
+End Structure

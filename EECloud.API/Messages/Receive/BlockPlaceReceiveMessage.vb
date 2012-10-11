@@ -8,7 +8,7 @@ Public Class BlockPlaceReceiveMessage
     '1
     Public ReadOnly PosY As Integer
     '2
-    Public ReadOnly Block As BlockType
+    Public ReadOnly Block As Block
     '3
 
     Friend Sub New(message As Message)
@@ -17,10 +17,10 @@ Public Class BlockPlaceReceiveMessage
         Layer = CType(message.Item(0), Layer)
         PosX = message.GetInteger(1)
         PosY = message.GetInteger(2)
-        Block = CType(message.GetInteger(3), BlockType)
+        Block = CType(message.GetInteger(3), Block)
     End Sub
 
-    Protected Sub New(message As Message, layer As Layer, posX As Integer, posY As Integer, block As BlockType)
+    Protected Sub New(message As Message, layer As Layer, posX As Integer, posY As Integer, block As Block)
         MyBase.New(message)
 
         Me.Layer = layer

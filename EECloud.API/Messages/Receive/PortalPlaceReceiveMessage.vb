@@ -10,7 +10,7 @@ Public Class PortalPlaceReceiveMessage
     '5
 
     Friend Sub New(message As Message)
-        MyBase.New(message, Layer.Foreground, message.GetInteger(0), message.GetInteger(1), CType(message.GetInteger(2), BlockType))
+        MyBase.New(message, Layer.Foreground, message.GetInteger(0), message.GetInteger(1), CType(message.GetInteger(2), Block))
 
         PortalRotation = CType(message.GetInteger(3), PortalRotation)
         PortalID = message.GetInteger(4)

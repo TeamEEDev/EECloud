@@ -1,4 +1,4 @@
-﻿Public Enum BlockType
+﻿Public Enum Block
     BlockGravityNothing = 0
     BlockGravityLeft = 1
     BlockGravityUp = 2
