@@ -29,7 +29,7 @@ Public Class TestPlugin
     End Sub
 
     Private Sub myConnection_ReceiveAdd(sender As Object, e As AddReceiveMessage) Handles myConnection.ReceiveAdd
-
+        Client.PlayerManager.GetPlayers().ToString()
     End Sub
 
     Private Sub myConnection_ReceiveInit(sender As Object, e As InitReceiveMessage) Handles myConnection.ReceiveInit

@@ -5,9 +5,9 @@ Public Class BlockPlaceSendMessage
     Public ReadOnly Layer As Layer
     Public ReadOnly X As Integer
     Public ReadOnly Y As Integer
-    Public ReadOnly Block As BlockType
+    Public ReadOnly Block As Block
 
-    Public Sub New(layer As Layer, x As Integer, y As Integer, block As BlockType)
+    Public Sub New(layer As Layer, x As Integer, y As Integer, block As Block)
         Me.Layer = layer
         Me.X = x
         Me.Y = y

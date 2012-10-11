@@ -2,7 +2,7 @@
 
     'TODO: Code Cleanup
 #Region "Properties"
-    Friend ReadOnly Property CorrectLayer(id As BlockType, layer As Layer) As Layer
+    Friend ReadOnly Property CorrectLayer(id As Block, layer As Layer) As Layer
         Get
             If (id > 0 AndAlso id < 500) Or id = 1000 Then
                 Return layer.Foreground
@@ -14,25 +14,25 @@
         End Get
     End Property
 
-    Friend ReadOnly Property IsCoinDoor(id As BlockType) As Boolean
+    Friend ReadOnly Property IsCoinDoor(id As Block) As Boolean
         Get
             Return id = 43
         End Get
     End Property
 
-    Friend ReadOnly Property IsSound(id As BlockType) As Boolean
+    Friend ReadOnly Property IsSound(id As Block) As Boolean
         Get
             Return id = 77 Or id = 83
         End Get
     End Property
 
-    Friend ReadOnly Property IsPortal(id As BlockType) As Boolean
+    Friend ReadOnly Property IsPortal(id As Block) As Boolean
         Get
             Return id = 242
         End Get
     End Property
 
-    Friend ReadOnly Property IsLabel(id As BlockType) As Boolean
+    Friend ReadOnly Property IsLabel(id As Block) As Boolean
         Get
             Return id = 1000
         End Get

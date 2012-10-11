@@ -20,13 +20,9 @@
         End Get
     End Property
 
-    Friend ReadOnly Property Players As IEnumerable(Of TPlayer) Implements IPlayerManager(Of TPlayer).Players
+    Friend ReadOnly Property GetPlayers As TPlayer() Implements IPlayerManager(Of TPlayer).GetPlayers
         Get
-            Try
-                Return myPlayersDictionary.Values
-            Catch
-                Return Nothing
-            End Try
+            Return myPlayersDictionary.Values.ToArray
         End Get
     End Property
 

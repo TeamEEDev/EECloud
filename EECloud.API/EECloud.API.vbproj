@@ -124,6 +124,7 @@
   <ItemGroup>
     <Compile Include="Cloud.vb" />
     <Compile Include="Attributes\CommandAttribute.vb" />
+    <Compile Include="Enums\BlockType.vb" />
     <Compile Include="Enums\Potion.vb" />
     <Compile Include="EventArgs\DiconnectEventArgs.vb" />
     <Compile Include="EventArgs\Cancelable.vb" />
@@ -135,19 +136,15 @@
     <Compile Include="Interfaces\IPlayer.vb" />
     <Compile Include="Interfaces\IPlayerManager.vb" />
     <Compile Include="Interfaces\IConnection.vb" />
-    <Compile Include="Interfaces\World\IWorldLabelBlock.vb" />
-    <Compile Include="Interfaces\World\IWorldSoundBlock.vb" />
-    <Compile Include="Interfaces\World\IWorldPortalBlock.vb" />
     <Compile Include="Interfaces\World\IWorld.vb" />
     <Compile Include="Interfaces\World\IWorldBlock.vb" />
-    <Compile Include="Interfaces\World\IWorldCoinDoorBlock.vb" />
     <Compile Include="Messages\Receive\PotionReceiveMessage.vb" />
     <Compile Include="Messages\Send\PotionSendMessage.vb" />
     <Compile Include="MustInheirts\Player.vb" />
-    <Compile Include="Enums\BlockType\CoinDoorBlockType.vb" />
-    <Compile Include="Enums\BlockType\LabelBlockType.vb" />
-    <Compile Include="Enums\BlockType\PortalBlockType.vb" />
-    <Compile Include="Enums\BlockType\SoundBlockType.vb" />
+    <Compile Include="Enums\Block\CoinDoorBlock.vb" />
+    <Compile Include="Enums\Block\LabelBlock.vb" />
+    <Compile Include="Enums\Block\PortalBlock.vb" />
+    <Compile Include="Enums\Block\SoundBlock.vb" />
     <Compile Include="Enums\Group.vb" />
     <Compile Include="Interfaces\IChatter.vb" />
     <Compile Include="Interfaces\IClient.vb" />
@@ -228,7 +225,7 @@
     <Compile Include="Enums\PortalRotation.vb" />
     <Compile Include="Enums\AutoText.vb" />
     <Compile Include="Enums\Smiley.vb" />
-    <Compile Include="Enums\BlockType\BlockType.vb" />
+    <Compile Include="Enums\Block\Block.vb" />
     <Compile Include="Enums\Layer.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="Messages\Receive\GroupDisallowedJoinReceiveMessage.vb" />

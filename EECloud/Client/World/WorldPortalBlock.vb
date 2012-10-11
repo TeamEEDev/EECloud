@@ -1,18 +1,25 @@
 ﻿Public NotInheritable Class WorldPortalBlock
-    Inherits WorldBlock
-    Implements IWorldPortalBlock
+    Implements IWorldBlock
 
-    Friend Sub New(block As PortalBlockType, portalRotation As PortalRotation, portalID As Integer, portalTarget As Integer)
-        MyBase.New(CType(block, BlockType))
+#Region "Properties"
 
-        myPortalRotation = portalRotation
-        myPortalID = portalID
-        myPortalTarget = portalTarget
-    End Sub
+    Public ReadOnly Property BlockType As BlockType Implements IWorldBlock.BlockType
+        Get
+            Return BlockType.Portal
+        End Get
+    End Property
+
+    Private ReadOnly myBlock As Block
+
+    Public ReadOnly Property Block As Block Implements IWorldBlock.Block
+        Get
+            Return myBlock
+        End Get
+    End Property
 
     Private ReadOnly myPortalRotation As PortalRotation
 
-    Public ReadOnly Property PortalRotation As PortalRotation Implements IWorldPortalBlock.PortalRotation
+    Public ReadOnly Property PortalRotation As PortalRotation Implements IWorldBlock.PortalRotation
         Get
             Return myPortalRotation
         End Get
@@ -20,7 +27,7 @@
 
     Private ReadOnly myPortalID As Integer
 
-    Public ReadOnly Property PortalID As Integer Implements IWorldPortalBlock.PortalID
+    Public ReadOnly Property PortalID As Integer Implements IWorldBlock.PortalID
         Get
             Return myPortalID
         End Get
@@ -28,9 +35,40 @@
 
     Private ReadOnly myPortalTarget As Integer
 
-    Public ReadOnly Property PortalTarget As Integer Implements IWorldPortalBlock.PortalTarget
+    Public ReadOnly Property PortalTarget As Integer Implements IWorldBlock.PortalTarget
         Get
             Return myPortalTarget
         End Get
     End Property
+
+    Public ReadOnly Property CoinsToCollect As Integer Implements IWorldBlock.CoinsToCollect
+        Get
+            Return Nothing
+        End Get
+    End Property
+
+    Public ReadOnly Property SoundID As Integer Implements IWorldBlock.SoundID
+        Get
+            Return Nothing
+        End Get
+    End Property
+
+    Public ReadOnly Property Text As String Implements IWorldBlock.Text
+        Get
+            Return Nothing
+        End Get
+    End Property
+
+#End Region
+
+#Region "Methods"
+
+    Friend Sub New(block As PortalBlock, portalRotation As PortalRotation, portalID As Integer, portalTarget As Integer)
+        myBlock = CType(block, Block)
+        myPortalRotation = portalRotation
+        myPortalID = portalID
+        myPortalTarget = portalTarget
+    End Sub
+
+#End Region
 End Class

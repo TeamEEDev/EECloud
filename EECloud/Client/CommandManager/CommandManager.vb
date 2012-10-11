@@ -17,7 +17,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
         myInternalCommandManager = internalCommandManager
     End Sub
 
-    Friend Sub Add(target As Object) Implements ICommandManager.Add
+    Friend Sub Load(target As Object) Implements ICommandManager.Load
         If myAddedTargets.Contains(target) Then
             Throw New EECloudException(ErrorCode.CommandTargetAlreadyAdded)
         End If
@@ -34,7 +34,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
                             AddCommand(item, handle)
                         Next
                     Catch ex As Exception
-                        Cloud.Logger.Log(LogPriority.Error, "Failed to add command: " & attribute.Type)
+                        Cloud.Logger.Log(LogPriority.Error, "Failed to Load command: " & attribute.Type)
                         Cloud.Logger.LogEx(ex)
                     End Try
                 Catch ex As Exception

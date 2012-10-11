@@ -2,7 +2,7 @@
 
 Public Class RefreshShopReceiveMessage
     Inherits ReceiveMessage
-    'TODO: Add arguments
+    'TODO: Load arguments
 
     Friend Sub New(message As Message)
         MyBase.New(message)

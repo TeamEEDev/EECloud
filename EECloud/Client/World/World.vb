@@ -78,7 +78,7 @@
         myConnection = client.Connection
     End Sub
 
-    Private Shared Function ParseWorld(m As PlayerIOClient.Message, sizeX As Integer, sizeY As Integer, offset As UInteger) As WorldBlock(,,)
+    Private Shared Function ParseWorld(m As PlayerIOClient.Message, sizeX As Integer, sizeY As Integer, offset As UInteger) As IWorldBlock(,,)
         Dim start As UInteger
         For i As UInteger = offset To CUInt(m.Count - 1)
             Try
@@ -90,7 +90,7 @@
             End Try
         Next
 
-        Dim value(1, sizeX, sizeY) As WorldBlock
+        Dim value(1, sizeX, sizeY) As IWorldBlock
         Dim pointer As UInteger = start
         Do
             Try
@@ -100,7 +100,7 @@
             Catch
             End Try
 
-            Dim block As BlockType = CType(m.Item(pointer), BlockType)
+            Dim block As Block = CType(m.Item(pointer), Block)
             pointer = CUInt(pointer + 1)
             Dim layer As Layer = CType(m.Item(pointer), Layer)
             pointer = CUInt(pointer + 1)
@@ -110,23 +110,23 @@
             pointer = CUInt(pointer + 1)
 
             Select Case block
-                Case BlockType.BlockDoorCoinDoor Or BlockType.BlockGateCoinGate
+                Case block.BlockDoorCoinDoor Or block.BlockGateCoinGate
                     Dim coinsToCollect As Integer = m.GetInteger(pointer)
                     pointer = CUInt(pointer + 1)
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
-                        value(layer, x, y) = New WorldCoinDoorBlock(CType(block, CoinDoorBlockType), coinsToCollect)
+                        value(layer, x, y) = New WorldCoinDoorBlock(CType(block, CoinDoorBlock), coinsToCollect)
                     Next
-                Case BlockType.BlockMusicPiano Or BlockType.BlockMusicDrum
+                Case block.BlockMusicPiano Or block.BlockMusicDrum
                     Dim soundID As Integer = m.GetInteger(pointer)
                     pointer = CUInt(pointer + 1)
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
-                        value(layer, x, y) = New WorldSoundBlock(CType(block, SoundBlockType), soundID)
+                        value(layer, x, y) = New WorldSoundBlock(CType(block, SoundBlock), soundID)
                     Next
-                Case BlockType.BlockPortal
+                Case block.BlockPortal
                     Dim portalRotation As PortalRotation = CType(m.GetInteger(pointer), PortalRotation)
                     pointer = CUInt(pointer + 1)
                     Dim portalID As Integer = m.GetInteger(pointer)
@@ -136,15 +136,15 @@
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
-                        value(layer, x, y) = New WorldPortalBlock(CType(block, PortalBlockType), portalRotation, portalID, portalTarget)
+                        value(layer, x, y) = New WorldPortalBlock(CType(block, PortalBlock), portalRotation, portalID, portalTarget)
                     Next
-                Case BlockType.BlockLabel
+                Case block.BlockLabel
                     Dim text As String = m.GetString(pointer)
                     pointer = CUInt(pointer + 1)
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
-                        value(layer, x, y) = New WorldLabelBlock(CType(block, LabelBlockType), text)
+                        value(layer, x, y) = New WorldLabelBlock(CType(block, LabelBlock), text)
                     Next
                 Case Else
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2

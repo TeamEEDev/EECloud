@@ -6,8 +6,8 @@ Public Class PortalPlaceSendMessage
     Public ReadOnly PortalTarget As Integer
     Public ReadOnly PortalRotation As PortalRotation
 
-    Public Sub New(layer As Layer, x As Integer, y As Integer, block As PortalBlockType, portalID As Integer, portalTarget As Integer, portalRotation As PortalRotation)
-        MyBase.New(layer, x, y, CType(block, BlockType))
+    Public Sub New(layer As Layer, x As Integer, y As Integer, block As PortalBlock, portalID As Integer, portalTarget As Integer, portalRotation As PortalRotation)
+        MyBase.New(layer, x, y, CType(block, Block))
 
         Me.PortalID = portalID
         Me.PortalTarget = portalTarget

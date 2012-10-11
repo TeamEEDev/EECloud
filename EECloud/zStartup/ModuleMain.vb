@@ -53,7 +53,7 @@ Module ModuleMain
     End Sub
 
     Private Sub LoadAssembies(client As IClient(Of Player))
-        client.PluginManager.Add(GetType(CommandsBot))
+        client.PluginManager.Load(GetType(CommandsBot))
 
         'Checking for valid plugins
         Dim plugins As IEnumerable(Of Type) =
@@ -71,7 +71,7 @@ Module ModuleMain
                     Dim hasNext As Boolean = enumrator.MoveNext()
                     If Not hasNext Then Exit Do
 
-                    client.PluginManager.Add(enumrator.Current)
+                    client.PluginManager.Load(enumrator.Current)
                 Catch ex As Exception
                     Cloud.Logger.LogEx(ex)
                 End Try
