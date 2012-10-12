@@ -29,11 +29,15 @@ Public Class TestPlugin
     End Sub
 
     Private Sub myConnection_ReceiveAdd(sender As Object, e As AddReceiveMessage) Handles myConnection.ReceiveAdd
-        Client.PlayerManager.GetPlayers().ToString()
+
     End Sub
 
     Private Sub myConnection_ReceiveInit(sender As Object, e As InitReceiveMessage) Handles myConnection.ReceiveInit
-
+        For i = 1 To 98
+            For j = 1 To 98
+                Client.Uploader.Upload(New BlockPlaceSendMessage(Layer.Foreground, i, j, Block.BlockDoorBlue))
+            Next
+        Next
     End Sub
 End Class
 

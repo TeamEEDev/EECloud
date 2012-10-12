@@ -4,13 +4,15 @@ Friend NotInheritable Class InternalChatter
 #Region "Fields"
     ReadOnly myChatQueue As New Queue(Of SaySendMessage)
     Dim WithEvents mySendTimer As New Timer With {.Enabled = True, .AutoReset = True, .Interval = 700}
-    ReadOnly myHistoryList As New List(Of String)
-    ReadOnly myClient As InternalClient
+    Private ReadOnly myHistoryList As New List(Of String)
+    Private ReadOnly myClient As InternalClient
+    Private WithEvents myConnection As IConnection
 #End Region
 
 #Region "Methods"
-    Friend Sub New(connection As InternalClient)
-        myClient = connection
+    Friend Sub New(client As InternalClient)
+        myClient = client
+        myConnection = client.Connection
     End Sub
 
     Friend Sub SendChat(msg As String)
@@ -52,5 +54,11 @@ Friend NotInheritable Class InternalChatter
     Private Function CheckHistory(str As String) As Boolean
         Return myHistoryList.Where(Function(x) str.Equals(x)).Count >= 4
     End Function
+
+    Private Sub myConnection_Disconnect(sender As Object, e As DisconnectEventArgs) Handles myConnection.Disconnect
+        myHistoryList.Clear()
+        myChatQueue.Clear()
+        mySendTimer.Enabled = False
+    End Sub
 #End Region
 End Class

@@ -25,6 +25,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property Uploader As IUploader Implements IClient(Of TPlayer).Uploader
+        Get
+            Return myInternalClient.Uploader
+        End Get
+    End Property
+
     Private ReadOnly myChatter As IChatter
 
     Friend ReadOnly Property Chatter As IChatter Implements IClient(Of TPlayer).Chatter
@@ -53,15 +59,17 @@
 #Region "Methods"
 
     Friend Sub New(internalClient As InternalClient, pluginObject As IPluginObject)
-        myInternalClient = InternalClient
+        myInternalClient = internalClient
 
         Dim chatterName As String = pluginObject.Attribute.ChatName
         If chatterName = Nothing Then chatterName = pluginObject.Name
-        myChatter = New Chatter(InternalClient.InternalChatter, chatterName)
+        myChatter = New Chatter(internalClient.InternalChatter, chatterName)
 
-        myPlayerManager = New PlayerManager(Of TPlayer)(InternalClient)
-        myCommandManager = New CommandManager(Of TPlayer)(Me, InternalClient.InternalCommandManager)
+        myPlayerManager = New PlayerManager(Of TPlayer)(internalClient)
+        myCommandManager = New CommandManager(Of TPlayer)(Me, internalClient.InternalCommandManager)
     End Sub
 
 #End Region
+
+
 End Class

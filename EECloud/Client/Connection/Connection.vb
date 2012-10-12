@@ -575,7 +575,7 @@ Public NotInheritable Class Connection
     End Function
 
     Friend Sub Send(message As SendMessage) Implements IConnection.Send
-        If myConnection IsNot Nothing Then
+        If Connected Then
             If Not RaiseSendEvent(message) Then
                 myConnection.Send(message.GetMessage(myClient.World))
             End If
@@ -583,7 +583,7 @@ Public NotInheritable Class Connection
     End Sub
 
     Friend Sub Close() Implements IConnection.Close
-        If myConnection IsNot Nothing Then
+        If Connected Then
             RaiseEvent Disconnecting(Me, EventArgs.Empty)
             myConnection.Disconnect()
         End If

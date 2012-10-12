@@ -55,7 +55,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
             For Each handle In myCommandsDictionary(type)
                 'Check for syntax
                 If handle.Count = cmd.Length - 1 OrElse (handle.Count < cmd.Length - 1 AndAlso handle.HasParamArray) Then
-                    TryRunCmd(sender, cmd, type, handle)
+                    TryRunCmd(sender, Group.Limited, cmd, type, handle)
                     Exit Sub
                 End If
             Next
@@ -66,7 +66,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
         End If
     End Sub
 
-    Private Sub TryRunCmd(sender As TPlayer, cmd As String(), type As String, handle As CommandHandle(Of TPlayer))
+    Private Sub TryRunCmd(sender As TPlayer, rights As Group, cmd As String(), type As String, handle As CommandHandle(Of TPlayer))
         'Check for rights
         If Not sender Is Nothing AndAlso Not handle.Attribute.MinPermission <= sender.Group Then
             If sender.Group >= Group.Trusted Then

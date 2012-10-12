@@ -90,15 +90,20 @@
             End Try
         Next
 
-        Dim value(1, sizeX, sizeY) As IWorldBlock
+        Dim value(1, sizeX - 1, sizeY - 1) As IWorldBlock
+        For i = 0 To 1
+            For j = 0 To sizeX - 1
+                For k = 0 To sizeY - 1
+                    value(i, j, k) = New WorldBlock(Block.BlockGravityNothing)
+                Next
+            Next
+        Next
+
         Dim pointer As UInteger = start
         Do
-            Try
-                If TryCast(m.Item(pointer), String) IsNot Nothing AndAlso m.GetString(pointer) = "we" Then
-                    Exit Do
-                End If
-            Catch
-            End Try
+            If TryCast(m.Item(pointer), String) IsNot Nothing AndAlso m.GetString(pointer) = "we" Then
+                Exit Do
+            End If
 
             Dim block As Block = CType(m.Item(pointer), Block)
             pointer = CUInt(pointer + 1)
