@@ -161,7 +161,6 @@
     <Compile Include="Client\CommandManager\CommandEventArgs.vb" />
     <Compile Include="Client\CommandManager\InternalCommandManager.vb" />
     <Compile Include="Client\Uploader\Uploader.vb" />
-    <Compile Include="Client\Uploader\UploaderBlock.vb" />
     <Compile Include="CommandsBot.vb" />
     <Compile Include="Client\Connection\Connection.vb" />
     <Compile Include="Client\PlayerManager\InternalPlayerManager.vb" />
