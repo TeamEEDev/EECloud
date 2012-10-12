@@ -27,9 +27,11 @@
         Dim eventArgs As New CommandEventArgs
         RaiseEvent OnCommand(msg, user, eventArgs)
         If eventArgs.Handled = False Then
-            Dim sender As IPlayer = myClient.InternalPlayerManager.Players(user)
-            If sender IsNot Nothing AndAlso sender.Group >= Group.Trusted Then
-                sender.Reply("Unknown command")
+            If myClient.InternalPlayerManager.Players.ContainsKey(user) Then
+                Dim sender As IPlayer = myClient.InternalPlayerManager.Players(user)
+                If sender.Group >= Group.Trusted Then
+                    sender.Reply("Unknown command")
+                End If
             End If
         End If
     End Sub

@@ -19,11 +19,19 @@
         End Get
     End Property
 
-    Private ReadOnly myConnection As Connection
+    Private ReadOnly myConnection As IConnection
 
     Public ReadOnly Property Connection As IConnection Implements IClient(Of Player).Connection
         Get
             Return myConnection
+        End Get
+    End Property
+
+    Private ReadOnly myUploader As IUploader
+
+    Public ReadOnly Property Uploader As IUploader Implements IClient(Of Player).Uploader
+        Get
+            Return myUploader
         End Get
     End Property
 
@@ -86,6 +94,7 @@
         myPluginManager = New PluginManager(New ClientCloneCloneFactory(Me))
         myConnection = New Connection(Me)
         myWorld = New World(Me)
+        myUploader = New Uploader(Me)
 
         myInternalChatter = New InternalChatter(Me)
         myInternalPlayerManager = New InternalPlayerManager(Me)

@@ -160,6 +160,8 @@
     <Compile Include="Client\CommandManager\Command.vb" />
     <Compile Include="Client\CommandManager\CommandEventArgs.vb" />
     <Compile Include="Client\CommandManager\InternalCommandManager.vb" />
+    <Compile Include="Client\Uploader\Uploader.vb" />
+    <Compile Include="Client\Uploader\UploaderBlock.vb" />
     <Compile Include="CommandsBot.vb" />
     <Compile Include="Client\Connection\Connection.vb" />
     <Compile Include="Client\PlayerManager\InternalPlayerManager.vb" />
@@ -177,6 +179,10 @@
     <Compile Include="Client\World\WorldPortalBlock.vb" />
     <Compile Include="Client\World\WorldSoundBlock.vb" />
     <Compile Include="Client\Chatter\InternalChatter.vb" />
+    <Compile Include="Deque\Deque.Enumrator.vb" />
+    <Compile Include="Deque\Deque.Node.vb" />
+    <Compile Include="Deque\Deque.Synchronized.vb" />
+    <Compile Include="Deque\Deque.vb" />
     <Compile Include="zForms\LicenseForm.Designer.vb">
       <DependentUpon>LicenseForm.vb</DependentUpon>
     </Compile>

@@ -136,6 +136,7 @@
     <Compile Include="Interfaces\IPlayer.vb" />
     <Compile Include="Interfaces\IPlayerManager.vb" />
     <Compile Include="Interfaces\IConnection.vb" />
+    <Compile Include="Interfaces\IUploader.vb" />
     <Compile Include="Interfaces\World\IWorld.vb" />
     <Compile Include="Interfaces\World\IWorldBlock.vb" />
     <Compile Include="Messages\Receive\PotionReceiveMessage.vb" />
