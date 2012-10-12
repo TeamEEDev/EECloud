@@ -81,13 +81,10 @@
     Private Shared Function ParseWorld(m As PlayerIOClient.Message, sizeX As Integer, sizeY As Integer, offset As UInteger) As IWorldBlock(,,)
         Dim start As UInteger
         For i As UInteger = offset To CUInt(m.Count - 1)
-            Try
-                If m.GetString(i) = "ws" Then
-                    start = CType((i + 1), UInteger)
-                    Exit For
-                End If
-            Catch
-            End Try
+            If TryCast(m.Item(i), String) IsNot Nothing AndAlso m.GetString(i) = "ws" Then
+                start = CType((i + 1), UInteger)
+                Exit For
+            End If
         Next
 
         Dim value(1, sizeX - 1, sizeY - 1) As IWorldBlock
