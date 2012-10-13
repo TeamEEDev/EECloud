@@ -125,7 +125,6 @@
     <Compile Include="Cloud.vb" />
     <Compile Include="Attributes\CommandAttribute.vb" />
     <Compile Include="Enums\BlockType.vb" />
-    <Compile Include="Enums\KeyState.vb" />
     <Compile Include="Enums\Potion.vb" />
     <Compile Include="EventArgs\ItemChangedEventArgs.vb" />
     <Compile Include="EventArgs\DiconnectEventArgs.vb" />

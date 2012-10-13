@@ -333,6 +333,26 @@
             End Try
         End Get
     End Property
+
+    Public ReadOnly Property SpawnX As Integer Implements IPlayer.SpawnX
+        Get
+            Try
+                Return myPlayer.SpawnX
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property SpawnY As Integer Implements IPlayer.SpawnY
+        Get
+            Try
+                Return myPlayer.SpawnY
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
 #End Region
 
 #Region "Methods"
@@ -355,4 +375,6 @@
     End Sub
 
 #End Region
+
+
 End Class

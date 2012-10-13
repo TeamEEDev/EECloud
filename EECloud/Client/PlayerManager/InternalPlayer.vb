@@ -235,6 +235,22 @@ Friend NotInheritable Class InternalPlayer
         End Get
     End Property
 
+    Private mySpawnX As Integer
+
+    Public ReadOnly Property SpawnX As Integer Implements IPlayer.SpawnX
+        Get
+            Return mySpawnX
+        End Get
+    End Property
+
+    Private mySpawnY As Integer
+
+    Public ReadOnly Property SpawnY As Integer Implements IPlayer.SpawnY
+        Get
+            Return mySpawnY
+        End Get
+    End Property
+
 #End Region
 
 #Region "Methods"
@@ -252,6 +268,8 @@ Friend NotInheritable Class InternalPlayer
         myCoins = addMessage.Coins
         myPlayerPosX = addMessage.PlayerPosX
         myPlayerPosY = addMessage.PlayerPosY
+        mySpawnX = addMessage.PlayerPosX
+        mySpawnY = addMessage.PlayerPosY
     End Sub
 
     Friend Sub New(client As IClient(Of Player), initMessage As InitReceiveMessage)
@@ -261,6 +279,8 @@ Friend NotInheritable Class InternalPlayer
         myUsername = initMessage.Username
         myPlayerPosX = initMessage.SpawnX
         myPlayerPosY = initMessage.SpawnY
+        mySpawnX = initMessage.SpawnX
+        mySpawnY = initMessage.SpawnY
     End Sub
 
     Friend Async Function ReloadUserDataAsync() As Threading.Tasks.Task Implements IPlayer.ReloadUserDataAsync
@@ -378,4 +398,5 @@ Friend NotInheritable Class InternalPlayer
     End Sub
 
 #End Region
+
 End Class
