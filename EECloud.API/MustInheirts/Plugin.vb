@@ -15,7 +15,7 @@
 
 #Region "Methods"
     Friend Sub Enable(cloneFactory As IClientCloneFactory, pluginObj As IPluginObject) Implements IPlugin.Enable
-        myClient = cloneFactory.GetConnection(Of TPlayer)(pluginObj, Me)
+        myClient = cloneFactory.GetConnection(Of TPlayer)(pluginObj)
         If myClient.Connection.Connected Then
             OnConnect()
         Else

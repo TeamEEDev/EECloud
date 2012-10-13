@@ -8,6 +8,34 @@ Friend NotInheritable Class InternalPlayer
     Private ReadOnly myClient As IClient(Of Player)
 #End Region
 
+#Region "Events"
+    Public Event AutoText(sender As Object, e As ItemEventArgs(Of AutoText)) Implements IPlayer.AutoText
+
+    Public Event Chat(sender As Object, e As ItemEventArgs(Of String)) Implements IPlayer.Chat
+
+    Public Event Coin(sender As Object, e As ItemChangedEventArgs(Of Integer)) Implements IPlayer.Coin
+
+    Public Event GodMode(sender As Object, e As ItemChangedEventArgs(Of Boolean)) Implements IPlayer.GodMode
+
+    Public Event Leave(sender As Object, e As EventArgs) Implements IPlayer.Leave
+
+    Public Event ModMode(sender As Object, e As ItemChangedEventArgs(Of Boolean)) Implements IPlayer.ModMode
+
+    Public Event Move(sender As Object, e As ItemEventArgs(Of MoveReceiveMessage)) Implements IPlayer.Move
+
+    Public Event SilverCrown(sender As Object, e As EventArgs) Implements IPlayer.SilverCrown
+
+    Public Event SmileyChange(sender As Object, e As ItemChangedEventArgs(Of Smiley)) Implements IPlayer.SmileyChange
+
+    Public Event UsePotion(sender As Object, e As ItemEventArgs(Of Potion)) Implements IPlayer.UsePotion
+
+    Public Event DeactivatePotion(sender As Object, e As ItemEventArgs(Of Potion)) Implements IPlayer.DeactivatePotion
+
+    Public Event GroupChange(sender As Object, e As ItemChangedEventArgs(Of Group)) Implements IPlayer.GroupChange
+
+    Public Event YoScrollWinsChange(sender As Object, e As ItemChangedEventArgs(Of UInteger)) Implements IPlayer.YoScrollWinsChange
+#End Region
+
 #Region "Properties"
     Private myCoins As Integer
 
@@ -49,11 +77,11 @@ Friend NotInheritable Class InternalPlayer
         End Get
     End Property
 
-    Private myFace As Smiley
+    Private mySmiley As Smiley
 
-    Friend ReadOnly Property Face As Smiley Implements IPlayer.Face
+    Friend ReadOnly Property Smiley As Smiley Implements IPlayer.Smiley
         Get
-            Return myFace
+            Return mySmiley
         End Get
     End Property
 
@@ -163,6 +191,7 @@ Friend NotInheritable Class InternalPlayer
         End Get
 
         Set(value As Group)
+            RaiseEvent GroupChange(Me, New ItemChangedEventArgs(Of Group)(myGroup, value))
             myGroup = value
             Cloud.Service.SetPlayerDataGroupIDAsync(Username, CShort(value))
         End Set
@@ -176,9 +205,34 @@ Friend NotInheritable Class InternalPlayer
         End Get
 
         Set(value As UInteger)
+            RaiseEvent YoScrollWinsChange(Me, New ItemChangedEventArgs(Of UInteger)(myYoScrollWins, value))
             myYoScrollWins = value
             Cloud.Service.SetPlayerDataYoScrollWinsAsync(Username, value)
         End Set
+    End Property
+
+    Private myBlueAuraPotion As Boolean
+
+    Public ReadOnly Property BlueAuraPotion As Boolean Implements IPlayer.BlueAuraPotion
+        Get
+            Return myBlueAuraPotion
+        End Get
+    End Property
+
+    Private myRedAuraPotion As Boolean
+
+    Public ReadOnly Property RedAuraPotion As Boolean Implements IPlayer.RedAuraPotion
+        Get
+            Return myRedAuraPotion
+        End Get
+    End Property
+
+    Private myYellowAuraPotion As Boolean
+
+    Public ReadOnly Property YellowAuraPotion As Boolean Implements IPlayer.YellowAuraPotion
+        Get
+            Return myYellowAuraPotion
+        End Get
     End Property
 
 #End Region
@@ -190,7 +244,7 @@ Friend NotInheritable Class InternalPlayer
         myConnection = client.Connection
         myUserID = addMessage.UserID
         myUsername = addMessage.Username
-        myFace = addMessage.Face
+        mySmiley = addMessage.Face
         myHasChat = addMessage.HasChat
         myIsGod = addMessage.IsGod
         myIsMod = addMessage.IsMod
@@ -213,20 +267,27 @@ Friend NotInheritable Class InternalPlayer
         myClient.Chatter.Reply(myUsername, msg)
     End Sub
 
+    Private Sub myConnection_ReceiveAutoText(sender As Object, e As AutoTextReceiveMessage) Handles myConnection.ReceiveAutoText
+        RaiseEvent AutoText(Me, New ItemEventArgs(Of AutoText)(CType([Enum].Parse(GetType(AutoText), e.Text), AutoText)))
+    End Sub
+
     Private Sub myConnection_OnReceiveCoin(sender As Object, e As CoinReceiveMessage) Handles myConnection.ReceiveCoin
         If e.UserID = myUserID Then
+            RaiseEvent Coin(Me, New ItemChangedEventArgs(Of Integer)(myCoins, e.Coins))
             myCoins = e.Coins
         End If
     End Sub
 
     Private Sub myConnection_OnReceiveFace(sender As Object, e As FaceReceiveMessage) Handles myConnection.ReceiveFace
         If e.UserID = myUserID Then
-            myFace = e.Face
+            RaiseEvent SmileyChange(Me, New ItemChangedEventArgs(Of Smiley)(mySmiley, e.Face))
+            mySmiley = e.Face
         End If
     End Sub
 
     Private Sub myConnection_OnReceiveMove(sender As Object, e As MoveReceiveMessage) Handles myConnection.ReceiveMove
         If e.UserID = myUserID Then
+            RaiseEvent Move(Me, New ItemEventArgs(Of MoveReceiveMessage)(e))
             myCoins = e.Coins
             myHorizontal = e.Horizontal
             myVertical = e.Vertical
@@ -241,18 +302,21 @@ Friend NotInheritable Class InternalPlayer
 
     Private Sub myConnection_OnReceiveGodMode(sender As Object, e As GodModeReceiveMessage) Handles myConnection.ReceiveGodMode
         If e.UserID = myUserID Then
+            RaiseEvent GodMode(Me, New ItemChangedEventArgs(Of Boolean)(myIsGod, e.IsGod))
             myIsGod = e.IsGod
         End If
     End Sub
 
     Private Sub myConnection_OnReceiveModMode(sender As Object, e As ModModeReceiveMessage) Handles myConnection.ReceiveModMode
         If e.UserID = myUserID Then
+            RaiseEvent ModMode(Me, New ItemChangedEventArgs(Of Boolean)(myIsMod, True))
             myIsMod = True
         End If
     End Sub
 
     Private Sub myConnection_OnReceiveSilverCrown(sender As Object, e As SilverCrownReceiveMessage) Handles myConnection.ReceiveSilverCrown
         If e.UserID = myUserID Then
+            RaiseEvent SilverCrown(Me, New ItemChangedEventArgs(Of Boolean)(myHasSilverCrown, True))
             myHasSilverCrown = True
         End If
     End Sub
@@ -261,10 +325,43 @@ Friend NotInheritable Class InternalPlayer
         If e.ResetCoins = True Then
             myCoins = 0
         End If
+        Try
+            Dim loc As Location = e.Coordinates(myUserID)
+            myPlayerPosX = loc.X
+            myPlayerPosY = loc.Y
+        Catch ex As Exception
+            Cloud.Logger.LogEx(ex)
+        End Try
+    End Sub
 
-        Dim loc As Location = e.Coordinates(myUserID)
-        myPlayerPosX = loc.X
-        myPlayerPosY = loc.Y
+    Private Sub myConnection_ReceiveLeft(sender As Object, e As LeftReceiveMessage) Handles myConnection.ReceiveLeft
+        RaiseEvent Leave(Me, EventArgs.Empty)
+        myConnection = Nothing
+    End Sub
+
+    Private Sub myConnection_ReceivePotion(sender As Object, e As PotionReceiveMessage) Handles myConnection.ReceivePotion
+        If e.UserID = myUserID Then
+            If e.Enabled Then
+                RaiseEvent UsePotion(Me, New ItemEventArgs(Of Potion)(e.Potion))
+            Else
+                RaiseEvent DeactivatePotion(Me, New ItemEventArgs(Of Potion)(e.Potion))
+            End If
+
+            Select Case e.Potion
+                Case Potion.RedAura
+                    myRedAuraPotion = e.Enabled
+                Case Potion.BlueAura
+                    myBlueAuraPotion = e.Enabled
+                Case Potion.YellowAura
+                    myYellowAuraPotion = e.Enabled
+            End Select
+        End If
+    End Sub
+
+    Private Sub myConnection_ReceiveSay(sender As Object, e As SayReceiveMessage) Handles myConnection.ReceiveSay
+        If e.UserID = myUserID Then
+            RaiseEvent Chat(Me, New ItemEventArgs(Of String)(e.Text))
+        End If
     End Sub
 
     Public Sub Kick(msg As String) Implements IPlayer.Kick

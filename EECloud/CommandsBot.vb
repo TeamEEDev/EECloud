@@ -1,54 +1,42 @@
-﻿<Plugin(Authors := {"Processor", "Jojatekok"},
-        Category := PluginCategory.Tool,
-        Description := "Commands Bot",
-        Version := "1.0.0.0")>
-Public Class CommandsBot
+﻿<Plugin(Authors:={"Processor", "Jojatekok"},
+        Category:=PluginCategory.Tool,
+        Description:="Commands Bot",
+        Version:="1.0.0.0",
+        ChatName:="Bot")>
+Public NotInheritable Class CommandsBot
     Inherits Plugin(Of CommandsBotPlayer)
 
     Protected Overrides Sub OnEnable()
+        Client.CommandManager.Load(Me)
     End Sub
 
     Protected Overrides Sub OnDisable()
     End Sub
 
     Protected Overrides Sub OnConnect()
-        Client.Chatter.Chat("[Debug] The Commands Bot is active.")
+
     End Sub
 
-    '<Command("end", Group.Admin, Aliases:={"shutdown", "killbot"})>
-    'Public Sub EndCommand(cmd As ICommand(Of CommandsBotPlayer))
-    '    Client.Chatter.Chat("Terminating...")
-    '    'end
-    'End Sub
-
-    '<Command("leave", Group.Operator, Aliases:={"leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
-    'Public Sub LeaveWorldCommand(cmd As ICommand(Of CommandsBotPlayer))
-    '    Client.Chatter.Chat("Leaving world...")
-    '    CType(Client, Client(Of CommandsBotPlayer)).InternalConnection.Close()
-    'End Sub
+    <Command("end", Group.Admin, Aliases:={"shutdown", "killbot", "leave", "leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
+    Public Sub EndCommand(cmd As ICommand(Of CommandsBotPlayer))
+        cmd.Sender.Reply("Terminating...")
+        Client.Connection.Close()
+    End Sub
 
     '<Command("clear", Group.Moderator, Aliases:={"clearworld", "clearlevel"})>
     'Public Sub ClearWorldCommand(cmd As ICommand(Of CommandsBotPlayer))
-    '    Client.Send(New ClearWorldSendMessage)
-    '    AddHandler Client.ReceiveClear, Sub()
-    '                                            Client.Chatter.Chat("World cleared.")
-    '                                        End Sub
+    '    Client.Connection.Send(New ClearWorldSendMessage)
     'End Sub
 
     '<Command("name", Group.Moderator, Aliases:={"rename", "renameworld", "renamelevel", "worldname", "levelname"})>
     'Public Sub ChangeWorldNameCommand(cmd As ICommand(Of CommandsBotPlayer))
-    '    AddHandler Client.ReceiveUpdateMeta, Sub()
-    '                                                 Client.Chatter.Chat("World name changed.")
-    '                                             End Sub
+    '    'TODO: Implement
     'End Sub
 
     '<Command("loadlevel", Group.Operator, Aliases:={"load", "loadworld", "reload", "reloadworld", "reloadlevel"})>
     'Public Sub LoadWorldCommand(cmd As ICommand(Of CommandsBotPlayer))
     '    Client.Chatter.Chat("Loading world...")
     '    Client.Chatter.Loadlevel()
-    '    AddHandler Client.ReceiveReset, Sub()
-    '                                            Client.Chatter.Chat("World loaded.")
-    '                                        End Sub
     'End Sub
 
     '<Command("save", Group.Operator, Aliases:={"saveworld", "savelevel"})>

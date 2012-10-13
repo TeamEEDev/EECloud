@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class LostAccessReceiveMessage
+Public NotInheritable Class LostAccessReceiveMessage
     Inherits ReceiveMessage
     'No arguments
 

@@ -8,7 +8,7 @@
     Event ReceiveBlockPlace As EventHandler(Of BlockPlaceReceiveMessage)
     Event ReceiveClear As EventHandler(Of ClearReceiveMessage)
     Event ReceiveCoin As EventHandler(Of CoinReceiveMessage)
-    Event ReceiveCoinDoorPlace As EventHandler(Of CoinDoorPlace_ReceiveMessage)
+    Event ReceiveCoinDoorPlace As EventHandler(Of CoinDoorPlaceReceiveMessage)
     Event ReceiveCrown As EventHandler(Of CrownReceiveMessage)
     Event ReceiveFace As EventHandler(Of FaceReceiveMessage)
     Event ReceiveGiveFireWizard As EventHandler(Of GiveFireWizardReceiveMessage)
@@ -31,7 +31,7 @@
     Event ReceiveReset As EventHandler(Of ResetReceiveMessage)
     Event ReceiveSaveDone As EventHandler(Of SaveDoneReceiveMessage)
     Event ReceiveSay As EventHandler(Of SayReceiveMessage)
-    Event ReceiveSayOld As EventHandler(Of SayOld_ReceiveMessage)
+    Event ReceiveSayOld As EventHandler(Of SayOldReceiveMessage)
     Event ReceiveShowKey As EventHandler(Of ShowKeyReceiveMessage)
     Event ReceiveSilverCrown As EventHandler(Of SilverCrownReceiveMessage)
     Event ReceiveSoundPlace As EventHandler(Of SoundPlaceReceiveMessage)
@@ -71,7 +71,7 @@
     ReadOnly Property WorldID As String
     ReadOnly Property Connected As Boolean
 
-    Function ConnectAsync(username As String, password As String, worldID As String) As task
+    Function ConnectAsync(username As String, password As String, id As String) As task
     Sub Send(message As SendMessage)
     Sub Close()
 End Interface

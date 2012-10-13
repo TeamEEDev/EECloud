@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class ChangeWorldNameSendMessage
+Public NotInheritable Class ChangeWorldNameSendMessage
     Inherits SendMessage
     Public ReadOnly WorldName As String
 

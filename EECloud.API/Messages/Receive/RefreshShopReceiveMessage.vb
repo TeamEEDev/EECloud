@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class RefreshShopReceiveMessage
+Public NotInheritable Class RefreshShopReceiveMessage
     Inherits ReceiveMessage
     'TODO: Load arguments
 

@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class PortalPlaceReceiveMessage
+Public NotInheritable Class PortalPlaceReceiveMessage
     Inherits BlockPlaceReceiveMessage
     Public ReadOnly PortalRotation As PortalRotation
     '3

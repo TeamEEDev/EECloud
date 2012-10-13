@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class ResetReceiveMessage
+Public NotInheritable Class ResetReceiveMessage
     Inherits ReceiveMessage
     'No arguments
 

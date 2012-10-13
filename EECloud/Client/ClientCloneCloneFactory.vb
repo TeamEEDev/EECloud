@@ -11,7 +11,7 @@
         myInternalConnection = internalConnection
     End Sub
 
-    Friend Function GetConnection(Of TPlayer As {New, Player})(plugin As IPluginObject, instance As Object) As IClient(Of TPlayer) Implements IClientCloneFactory.GetConnection
+    Friend Function GetConnection(Of TPlayer As {New, Player})(plugin As IPluginObject) As IClient(Of TPlayer) Implements IClientCloneFactory.GetConnection
         Return New Client(Of TPlayer)(myInternalConnection, plugin)
     End Function
 

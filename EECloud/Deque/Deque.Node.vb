@@ -24,8 +24,8 @@
             Get
                 Return myPrevious
             End Get
-            Set(value As Node)
-                myPrevious = value
+            Set(value1 As Node)
+                myPrevious = value1
             End Set
         End Property
 
@@ -33,8 +33,8 @@
             Get
                 Return myNext
             End Get
-            Set(value As Node)
-                myNext = value
+            Set(value1 As Node)
+                myNext = value1
             End Set
         End Property
     End Class

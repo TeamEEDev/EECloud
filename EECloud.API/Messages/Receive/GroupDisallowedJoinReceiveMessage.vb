@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class GroupDisallowedJoinReceiveMessage
+Public NotInheritable Class GroupDisallowedJoinReceiveMessage
     Inherits ReceiveMessage
     'No arguments
 

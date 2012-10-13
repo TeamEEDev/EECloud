@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class SilverCrownReceiveMessage
+Public NotInheritable Class SilverCrownReceiveMessage
     Inherits ReceiveMessage
     Public ReadOnly UserID As Integer
     '0

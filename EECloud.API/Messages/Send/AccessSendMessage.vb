@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class AccessSendMessage
+Public NotInheritable Class AccessSendMessage
     Inherits SendMessage
     Public ReadOnly EditKey As String
 

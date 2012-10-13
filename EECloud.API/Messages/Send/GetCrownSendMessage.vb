@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class GetCrownSendMessage
+Public NotInheritable Class GetCrownSendMessage
     Inherits SendMessage
     'No arguments
 

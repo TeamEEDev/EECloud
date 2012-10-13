@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class GiveFireWizardReceiveMessage
+Public NotInheritable Class GiveFireWizardReceiveMessage
     Inherits ReceiveMessage
     'No arguments
 

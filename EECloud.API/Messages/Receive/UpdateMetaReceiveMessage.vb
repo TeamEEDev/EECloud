@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class UpdateMetaReceiveMessage
+Public NotInheritable Class UpdateMetaReceiveMessage
     Inherits ReceiveMessage
     Public ReadOnly Owner As String
     '0

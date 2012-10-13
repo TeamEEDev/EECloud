@@ -2,8 +2,90 @@
     Implements IPlayer
 
 #Region "Fields"
-    Private myPlayer As IPlayer
+    Private WithEvents myPlayer As IPlayer
     Private myChatter As IChatter
+#End Region
+
+#Region "Events"
+    Public Event AutoText(sender As Object, e As ItemEventArgs(Of AutoText)) Implements IPlayer.AutoText
+
+    Public Event Chat(sender As Object, e As ItemEventArgs(Of String)) Implements IPlayer.Chat
+
+    Public Event Coin(sender As Object, e As ItemChangedEventArgs(Of Integer)) Implements IPlayer.Coin
+
+    Public Event GodMode(sender As Object, e As ItemChangedEventArgs(Of Boolean)) Implements IPlayer.GodMode
+
+    Public Event Leave(sender As Object, e As EventArgs) Implements IPlayer.Leave
+
+    Public Event ModMode(sender As Object, e As ItemChangedEventArgs(Of Boolean)) Implements IPlayer.ModMode
+
+    Public Event Move(sender As Object, e As ItemEventArgs(Of MoveReceiveMessage)) Implements IPlayer.Move
+
+    Public Event SilverCrown(sender As Object, e As EventArgs) Implements IPlayer.SilverCrown
+
+    Public Event SmileyChange(sender As Object, e As ItemChangedEventArgs(Of Smiley)) Implements IPlayer.SmileyChange
+
+    Public Event UsePotion(sender As Object, e As ItemEventArgs(Of Potion)) Implements IPlayer.UsePotion
+
+    Public Event DeactivatePotion(sender As Object, e As ItemEventArgs(Of Potion)) Implements IPlayer.DeactivatePotion
+
+    Public Event GroupChange(sender As Object, e As ItemChangedEventArgs(Of Group)) Implements IPlayer.GroupChange
+
+    Public Event YoScrollWinsChange(sender As Object, e As ItemChangedEventArgs(Of UInteger)) Implements IPlayer.YoScrollWinsChange
+#End Region
+
+#Region "EventHandlers"
+    Private Sub myPlayer_AutoText(sender As Object, e As ItemEventArgs(Of AutoText)) Handles myPlayer.AutoText
+        RaiseEvent AutoText(Me, e)
+    End Sub
+
+    Private Sub myPlayer_Chat(sender As Object, e As ItemEventArgs(Of String)) Handles myPlayer.Chat
+        RaiseEvent Chat(Me, e)
+    End Sub
+
+    Private Sub myPlayer_Coin(sender As Object, e As ItemChangedEventArgs(Of Integer)) Handles myPlayer.Coin
+        RaiseEvent Coin(Me, e)
+    End Sub
+
+    Private Sub myPlayer_DeactivatePotion(sender As Object, e As ItemEventArgs(Of Potion)) Handles myPlayer.DeactivatePotion
+        RaiseEvent DeactivatePotion(Me, e)
+    End Sub
+
+    Private Sub myPlayer_GodMode(sender As Object, e As ItemChangedEventArgs(Of Boolean)) Handles myPlayer.GodMode
+        RaiseEvent GodMode(Me, e)
+    End Sub
+
+    Private Sub myPlayer_GroupChange(sender As Object, e As ItemChangedEventArgs(Of Group)) Handles myPlayer.GroupChange
+        RaiseEvent GroupChange(Me, e)
+    End Sub
+
+    Private Sub myPlayer_Leave(sender As Object, e As EventArgs) Handles myPlayer.Leave
+        RaiseEvent Leave(Me, e)
+    End Sub
+
+    Private Sub myPlayer_ModMode(sender As Object, e As ItemChangedEventArgs(Of Boolean)) Handles myPlayer.ModMode
+        RaiseEvent ModMode(Me, e)
+    End Sub
+
+    Private Sub myPlayer_Move(sender As Object, e As ItemEventArgs(Of MoveReceiveMessage)) Handles myPlayer.Move
+        RaiseEvent Move(Me, e)
+    End Sub
+
+    Private Sub myPlayer_SilverCrown(sender As Object, e As EventArgs) Handles myPlayer.SilverCrown
+        RaiseEvent SilverCrown(Me, e)
+    End Sub
+
+    Private Sub myPlayer_SmileyChange(sender As Object, e As ItemChangedEventArgs(Of Smiley)) Handles myPlayer.SmileyChange
+        RaiseEvent SmileyChange(Me, e)
+    End Sub
+
+    Private Sub myPlayer_UsePotion(sender As Object, e As ItemEventArgs(Of Potion)) Handles myPlayer.UsePotion
+        RaiseEvent UsePotion(Me, e)
+    End Sub
+
+    Private Sub myPlayer_YoScrollWinsChange(sender As Object, e As ItemChangedEventArgs(Of UInteger)) Handles myPlayer.YoScrollWinsChange
+        RaiseEvent YoScrollWinsChange(Me, e)
+    End Sub
 #End Region
 
 #Region "Properties"
@@ -38,10 +120,10 @@
         End Get
     End Property
 
-    Public ReadOnly Property Face As Smiley Implements IPlayer.Face
+    Public ReadOnly Property Smiley As Smiley Implements IPlayer.Smiley
         Get
             Try
-                Return myPlayer.Face
+                Return myPlayer.Smiley
             Catch ex As Exception
                 Return Nothing
             End Try
@@ -222,6 +304,35 @@
         End Set
     End Property
 
+    Public ReadOnly Property BlueAuraPotion As Boolean Implements IPlayer.BlueAuraPotion
+        Get
+            Try
+                Return myPlayer.BlueAuraPotion
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property RedAuraPotion As Boolean Implements IPlayer.RedAuraPotion
+        Get
+            Try
+                Return myPlayer.RedAuraPotion
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property YellowAuraPotion As Boolean Implements IPlayer.YellowAuraPotion
+        Get
+            Try
+                Return myPlayer.YellowAuraPotion
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
 #End Region
 
 #Region "Methods"
@@ -240,7 +351,7 @@
     End Sub
 
     Public Sub Kick(msg As String) Implements IPlayer.Kick
-            myChatter.Kick(myPlayer.Username, msg)
+        myChatter.Kick(myPlayer.Username, msg)
     End Sub
 
 #End Region

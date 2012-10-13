@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class ModModeSendMessage
+Public NotInheritable Class ModModeSendMessage
     Inherits SendMessage
     'No arguments
 

@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class CoinDoorPlace_ReceiveMessage
+Public NotInheritable Class CoinDoorPlaceReceiveMessage
     Inherits BlockPlaceReceiveMessage
     Public ReadOnly CoinsToOpen As Integer
     '3

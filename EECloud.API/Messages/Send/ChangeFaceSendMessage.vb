@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class ChangeFaceSendMessage
+Public NotInheritable Class ChangeFaceSendMessage
     Inherits SendMessage
     Public ReadOnly Face As Smiley
 

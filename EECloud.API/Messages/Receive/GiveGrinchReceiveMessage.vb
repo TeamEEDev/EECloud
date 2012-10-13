@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class GiveGrinchReceiveMessage
+Public NotInheritable Class GiveGrinchReceiveMessage
     Inherits ReceiveMessage
     'No arguments
 

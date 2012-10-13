@@ -29,34 +29,25 @@
     End Sub
 
     Private Async Sub myConnection_OnReceiveAdd(sender As Object, e As AddReceiveMessage) Handles myConnection.ReceiveAdd
-        Try
+        If Not myPlayers.ContainsKey(e.UserID) Then
             Dim player As New InternalPlayer(myClient, e)
             Await player.ReloadUserDataAsync
             myPlayers.Add(player.UserID, player)
             RaiseEvent AddUser(Me, player)
-        Catch ex As Exception
-            Cloud.Logger.LogEx(ex)
-        End Try
+        End If
     End Sub
 
     Private Sub myConnection_OnReceiveCrown(sender As Object, e As CrownReceiveMessage) Handles myConnection.ReceiveCrown
-        Try
-            If Not e.UserID = -1 Then
-                myCrown = Players(e.UserID)
-            End If
-        Catch ex As Exception
-            Cloud.Logger.LogEx(ex)
-        End Try
+        If Players.ContainsKey(e.UserID) Then
+            myCrown = Players(e.UserID)
+        End If
     End Sub
 
     Private Sub myConnection_OnReceiveLeft(sender As Object, e As LeftReceiveMessage) Handles myConnection.ReceiveLeft
         RaiseEvent RemoveUser(Me, e)
-
-        Try
+        If myPlayers.ContainsKey(e.UserID) Then
             myPlayers.Remove(e.UserID)
-        Catch ex As Exception
-            Cloud.Logger.LogEx(ex)
-        End Try
+        End If
     End Sub
 
     Private myCrown As InternalPlayer

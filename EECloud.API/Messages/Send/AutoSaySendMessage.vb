@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class AutoSaySendMessage
+Public NotInheritable Class AutoSaySendMessage
     Inherits SendMessage
     Public ReadOnly Text As AutoText
 

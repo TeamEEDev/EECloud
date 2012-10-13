@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class TouchDiamondSendMessage
+Public NotInheritable Class TouchDiamondSendMessage
     Inherits SendMessage
     Public ReadOnly X As Integer
     Public ReadOnly Y As Integer

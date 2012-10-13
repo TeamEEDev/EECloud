@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class PressRedKeySendMessage
+Public NotInheritable Class PressRedKeySendMessage
     Inherits SendMessage
     'No arguments
 

@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class SoundPlaceSendMessage
+Public NotInheritable Class SoundPlaceSendMessage
     Inherits BlockPlaceSendMessage
     Public ReadOnly SoundID As Integer
 

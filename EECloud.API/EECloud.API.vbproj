@@ -125,14 +125,18 @@
     <Compile Include="Cloud.vb" />
     <Compile Include="Attributes\CommandAttribute.vb" />
     <Compile Include="Enums\BlockType.vb" />
+    <Compile Include="Enums\KeyState.vb" />
     <Compile Include="Enums\Potion.vb" />
+    <Compile Include="EventArgs\ItemChangedEventArgs.vb" />
     <Compile Include="EventArgs\DiconnectEventArgs.vb" />
-    <Compile Include="EventArgs\Cancelable.vb" />
+    <Compile Include="EventArgs\CancelableEventArgs.vb" />
     <Compile Include="Enums\AccessRight.vb" />
+    <Compile Include="EventArgs\ItemEventArgs.vb" />
     <Compile Include="Interfaces\ICommand.vb" />
     <Compile Include="Interfaces\ICommandManager.vb" />
     <Compile Include="Interfaces\IClientFactory.vb" />
     <Compile Include="Interfaces\IClientCloneFactory.vb" />
+    <Compile Include="Interfaces\IGame.vb" />
     <Compile Include="Interfaces\IPlayer.vb" />
     <Compile Include="Interfaces\IPlayerManager.vb" />
     <Compile Include="Interfaces\IConnection.vb" />
@@ -183,7 +187,7 @@
     <Compile Include="Messages\Receive\BlockPlaceReceiveMessage.vb" />
     <Compile Include="Messages\Receive\ClearReceiveMessage.vb" />
     <Compile Include="Messages\Receive\CoinReceiveMessage.vb" />
-    <Compile Include="Messages\Receive\CoinDoorPlace_ReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\CoinDoorPlaceReceiveMessage.vb" />
     <Compile Include="Messages\Receive\CrownReceiveMessage.vb" />
     <Compile Include="Messages\Receive\FaceReceiveMessage.vb" />
     <Compile Include="Messages\Receive\GiveFireWizardReceiveMessage.vb" />
@@ -203,7 +207,7 @@
     <Compile Include="Messages\Receive\SaveDoneReceiveMessage.vb" />
     <Compile Include="Messages\Receive\SilverCrownReceiveMessage.vb" />
     <Compile Include="Messages\Receive\SoundPlaceReceiveMessage.vb" />
-    <Compile Include="Messages\Receive\SayOld_ReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\SayOldReceiveMessage.vb" />
     <Compile Include="Messages\Receive\PortalPlaceReceiveMessage.vb" />
     <Compile Include="Messages\Receive\MoveReceiveMessage.vb" />
     <Compile Include="Messages\Receive\LostAccessReceiveMessage.vb" />
@@ -222,7 +226,7 @@
     <Compile Include="Interfaces\IPluginObject.vb" />
     <Compile Include="Interfaces\IPluginManager.vb" />
     <Compile Include="Interfaces\ILogger.vb" />
-    <Compile Include="Enums\DoorID.vb" />
+    <Compile Include="Enums\Key.vb" />
     <Compile Include="Enums\PortalRotation.vb" />
     <Compile Include="Enums\AutoText.vb" />
     <Compile Include="Enums\Smiley.vb" />

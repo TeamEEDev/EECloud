@@ -102,7 +102,7 @@
                 Exit Do
             End If
 
-            Dim block As Block = CType(m.Item(pointer), Block)
+            Dim block1 As Block = CType(m.Item(pointer), Block)
             pointer = CUInt(pointer + 1)
             Dim layer As Layer = CType(m.Item(pointer), Layer)
             pointer = CUInt(pointer + 1)
@@ -111,24 +111,24 @@
             Dim byteArrayY As Byte() = m.GetByteArray(pointer)
             pointer = CUInt(pointer + 1)
 
-            Select Case block
-                Case block.BlockDoorCoinDoor Or block.BlockGateCoinGate
+            Select Case block1
+                Case Block.BlockDoorCoinDoor, Block.BlockGateCoinGate
                     Dim coinsToCollect As Integer = m.GetInteger(pointer)
                     pointer = CUInt(pointer + 1)
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
-                        value(layer, x, y) = New WorldCoinDoorBlock(CType(block, CoinDoorBlock), coinsToCollect)
+                        value(layer, x, y) = New WorldCoinDoorBlock(CType(block1, CoinDoorBlock), coinsToCollect)
                     Next
-                Case block.BlockMusicPiano Or block.BlockMusicDrum
+                Case Block.BlockMusicPiano, Block.BlockMusicDrum
                     Dim soundID As Integer = m.GetInteger(pointer)
                     pointer = CUInt(pointer + 1)
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
-                        value(layer, x, y) = New WorldSoundBlock(CType(block, SoundBlock), soundID)
+                        value(layer, x, y) = New WorldSoundBlock(CType(block1, SoundBlock), soundID)
                     Next
-                Case block.BlockPortal
+                Case Block.BlockPortal
                     Dim portalRotation As PortalRotation = CType(m.GetInteger(pointer), PortalRotation)
                     pointer = CUInt(pointer + 1)
                     Dim portalID As Integer = m.GetInteger(pointer)
@@ -138,21 +138,21 @@
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
-                        value(layer, x, y) = New WorldPortalBlock(CType(block, PortalBlock), portalRotation, portalID, portalTarget)
+                        value(layer, x, y) = New WorldPortalBlock(CType(block1, PortalBlock), portalRotation, portalID, portalTarget)
                     Next
-                Case block.BlockLabel
+                Case Block.BlockLabel
                     Dim text As String = m.GetString(pointer)
                     pointer = CUInt(pointer + 1)
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
-                        value(layer, x, y) = New WorldLabelBlock(CType(block, LabelBlock), text)
+                        value(layer, x, y) = New WorldLabelBlock(CType(block1, LabelBlock), text)
                     Next
                 Case Else
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
-                        value(layer, x, y) = New WorldBlock(block)
+                        value(layer, x, y) = New WorldBlock(block1)
                     Next
             End Select
         Loop
