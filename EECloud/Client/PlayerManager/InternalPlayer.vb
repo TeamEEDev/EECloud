@@ -254,6 +254,15 @@ Friend NotInheritable Class InternalPlayer
         myPlayerPosY = addMessage.PlayerPosY
     End Sub
 
+    Friend Sub New(client As IClient(Of Player), initMessage As InitReceiveMessage)
+        myClient = client
+        myConnection = client.Connection
+        myUserID = initMessage.UserID
+        myUsername = initMessage.Username
+        myPlayerPosX = initMessage.SpawnX
+        myPlayerPosY = initMessage.SpawnY
+    End Sub
+
     Friend Async Function ReloadUserDataAsync() As Threading.Tasks.Task Implements IPlayer.ReloadUserDataAsync
         Dim userData As EEService.UserData = Await Cloud.Service.GetPlayerDataAsync(myUsername)
         Await task.Delay(10000)

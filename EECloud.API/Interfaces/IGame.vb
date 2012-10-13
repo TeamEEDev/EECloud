@@ -1,24 +1,27 @@
-﻿Public Interface IGame
+﻿Public Interface IGame(Of TPlayer As {New, Player})
     Event OnSave As EventHandler
     Event OnLoadLevel As EventHandler
     Event OnReset As EventHandler
     Event OnClear As EventHandler
     Event NameChange As EventHandler(Of String)
-    Event LocationChange As EventHandler(Of ItemChangedEventArgs(Of Location))
-    Event SmileyChange As EventHandler(Of Smiley)
-    Event GodModeChange As EventHandler(Of String)
+
+    Event AccessRigthtChange As EventHandler(Of ItemChangedEventArgs(Of AccessRight))
+    Event KeyPress As EventHandler(Of Key)
+    Event KeyRelease As EventHandler(Of Key)
+    Event RedKeyStateChange As EventHandler(Of Boolean)
+    Event BlueKeyStateChange As EventHandler(Of Boolean)
+    Event GreenKeyStateChange As EventHandler(Of Boolean)
 
     Property WorldName As String
-    Property Location As Location
-    Property Smiley As Smiley
-    Property GodMode As Boolean
-    Property EditKey As String
+    WriteOnly Property Location As Location
+    WriteOnly Property Smiley As Smiley
+    WriteOnly Property GodMode As Boolean
 
     ReadOnly Property AccessRight As AccessRight
     ReadOnly Property Encryption As String
     ReadOnly Property Plays As String
     ReadOnly Property Owner As String
-    ReadOnly Property MyPlayer As Player
+    ReadOnly Property MyPlayer As TPlayer
     ReadOnly Property RedKey As KeyState
     ReadOnly Property BlueKey As KeyState
     ReadOnly Property GreenKey As KeyState
