@@ -1,17 +1,17 @@
 ﻿Friend Interface IPlayer
     Event SmileyChange As EventHandler(Of ItemChangedEventArgs(Of Smiley))
-    Event Move As EventHandler(Of ItemEventArgs(Of MoveReceiveMessage))
+    Event Move As EventHandler(Of MoveReceiveMessage)
     Event SilverCrown As EventHandler
     Event GodMode As EventHandler(Of ItemChangedEventArgs(Of Boolean))
     Event ModMode As EventHandler(Of ItemChangedEventArgs(Of Boolean))
     Event Coin As EventHandler(Of ItemChangedEventArgs(Of Integer))
-    Event UsePotion As EventHandler(Of ItemEventArgs(Of Potion))
-    Event DeactivatePotion As EventHandler(Of ItemEventArgs(Of Potion))
+    Event UsePotion As EventHandler(Of Potion)
+    Event DeactivatePotion As EventHandler(Of Potion)
     Event GroupChange As EventHandler(Of ItemChangedEventArgs(Of Group))
     Event YoScrollWinsChange As EventHandler(Of ItemChangedEventArgs(Of UInteger))
 
-    Event Chat As EventHandler(Of ItemEventArgs(Of String))
-    Event AutoText As EventHandler(Of ItemEventArgs(Of AutoText))
+    Event Chat As EventHandler(Of String)
+    Event AutoText As EventHandler(Of AutoText)
     Event Leave As EventHandler
 
     ReadOnly Property UserID As Integer

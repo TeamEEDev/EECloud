@@ -7,9 +7,9 @@
 #End Region
 
 #Region "Events"
-    Public Event AutoText(sender As Object, e As ItemEventArgs(Of AutoText)) Implements IPlayer.AutoText
+    Public Event AutoText(sender As Object, e As AutoText) Implements IPlayer.AutoText
 
-    Public Event Chat(sender As Object, e As ItemEventArgs(Of String)) Implements IPlayer.Chat
+    Public Event Chat(sender As Object, e As String) Implements IPlayer.Chat
 
     Public Event Coin(sender As Object, e As ItemChangedEventArgs(Of Integer)) Implements IPlayer.Coin
 
@@ -19,15 +19,15 @@
 
     Public Event ModMode(sender As Object, e As ItemChangedEventArgs(Of Boolean)) Implements IPlayer.ModMode
 
-    Public Event Move(sender As Object, e As ItemEventArgs(Of MoveReceiveMessage)) Implements IPlayer.Move
+    Public Event Move(sender As Object, e As MoveReceiveMessage) Implements IPlayer.Move
 
     Public Event SilverCrown(sender As Object, e As EventArgs) Implements IPlayer.SilverCrown
 
     Public Event SmileyChange(sender As Object, e As ItemChangedEventArgs(Of Smiley)) Implements IPlayer.SmileyChange
 
-    Public Event UsePotion(sender As Object, e As ItemEventArgs(Of Potion)) Implements IPlayer.UsePotion
+    Public Event UsePotion(sender As Object, e As Potion) Implements IPlayer.UsePotion
 
-    Public Event DeactivatePotion(sender As Object, e As ItemEventArgs(Of Potion)) Implements IPlayer.DeactivatePotion
+    Public Event DeactivatePotion(sender As Object, e As Potion) Implements IPlayer.DeactivatePotion
 
     Public Event GroupChange(sender As Object, e As ItemChangedEventArgs(Of Group)) Implements IPlayer.GroupChange
 
@@ -35,11 +35,11 @@
 #End Region
 
 #Region "EventHandlers"
-    Private Sub myPlayer_AutoText(sender As Object, e As ItemEventArgs(Of AutoText)) Handles myPlayer.AutoText
+    Private Sub myPlayer_AutoText(sender As Object, e As AutoText) Handles myPlayer.AutoText
         RaiseEvent AutoText(Me, e)
     End Sub
 
-    Private Sub myPlayer_Chat(sender As Object, e As ItemEventArgs(Of String)) Handles myPlayer.Chat
+    Private Sub myPlayer_Chat(sender As Object, e As String) Handles myPlayer.Chat
         RaiseEvent Chat(Me, e)
     End Sub
 
@@ -47,7 +47,7 @@
         RaiseEvent Coin(Me, e)
     End Sub
 
-    Private Sub myPlayer_DeactivatePotion(sender As Object, e As ItemEventArgs(Of Potion)) Handles myPlayer.DeactivatePotion
+    Private Sub myPlayer_DeactivatePotion(sender As Object, e As Potion) Handles myPlayer.DeactivatePotion
         RaiseEvent DeactivatePotion(Me, e)
     End Sub
 
@@ -67,7 +67,7 @@
         RaiseEvent ModMode(Me, e)
     End Sub
 
-    Private Sub myPlayer_Move(sender As Object, e As ItemEventArgs(Of MoveReceiveMessage)) Handles myPlayer.Move
+    Private Sub myPlayer_Move(sender As Object, e As MoveReceiveMessage) Handles myPlayer.Move
         RaiseEvent Move(Me, e)
     End Sub
 
@@ -79,7 +79,7 @@
         RaiseEvent SmileyChange(Me, e)
     End Sub
 
-    Private Sub myPlayer_UsePotion(sender As Object, e As ItemEventArgs(Of Potion)) Handles myPlayer.UsePotion
+    Private Sub myPlayer_UsePotion(sender As Object, e As Potion) Handles myPlayer.UsePotion
         RaiseEvent UsePotion(Me, e)
     End Sub
 
