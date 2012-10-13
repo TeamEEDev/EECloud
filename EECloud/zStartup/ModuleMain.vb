@@ -10,9 +10,13 @@ Module ModuleMain
         'Creating singletons
         CreateSingletons()
 
-        Cloud.Logger.Log(LogPriority.Info, "Loading settings...")
         'Loading settings
         LoadSettings()
+
+        'Licence check
+        Cloud.Logger.Log(LogPriority.Info, "Conencting to EEService...")
+        'TODO: Implement licences
+
 
         'Creating Client
         Dim client As IClient(Of Player) = Cloud.ClientFactory.CreateClient

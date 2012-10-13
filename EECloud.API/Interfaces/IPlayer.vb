@@ -35,6 +35,8 @@
     ReadOnly Property RedAuraPotion As Boolean
     ReadOnly Property BlueAuraPotion As Boolean
     ReadOnly Property YellowAuraPotion As Boolean
+    ReadOnly Property SpawnX As Integer
+    ReadOnly Property SpawnY As Integer
 
     Property Group As Group
     Property YoScrollWins As UInteger

@@ -165,19 +165,7 @@
 
     Private Sub myConnection_ReceiveInit(sender As Object, e As InitReceiveMessage) Handles myConnection.ReceiveInit
         myEncryption = Derot(e.Encryption)
-        myPos = New Location(e.SpawnX, e.SpawnY)
-
-        If e.IsOwner Then
-            myAccessRight = AccessRight.Owner
-        ElseIf e.CanEdit Then
-            myAccessRight = AccessRight.Edit
-        End If
-
         myBlocks = ParseWorld(e.PlayerIOMessage, e.SizeX, e.SizeY, InitOffset)
-    End Sub
-
-    Private Sub myConnection_OnReceiveLostAccess(sender As Object, e As LostAccessReceiveMessage) Handles myConnection.ReceiveLostAccess
-        myAccessRight = AccessRight.None
     End Sub
 
 #End Region

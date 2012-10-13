@@ -4,7 +4,7 @@ Public NotInheritable Class UpdateMetaReceiveMessage
     Inherits ReceiveMessage
     Public ReadOnly Owner As String
     '0
-    Public ReadOnly Title As String
+    Public ReadOnly WorldName As String
     '1
     Public ReadOnly Plays As Integer
     '2
@@ -13,7 +13,7 @@ Public NotInheritable Class UpdateMetaReceiveMessage
         MyBase.New(message)
 
         Owner = message.GetString(0)
-        Title = message.GetString(1)
+        WorldName = message.GetString(1)
         Plays = message.GetInteger(2)
     End Sub
 End Class
