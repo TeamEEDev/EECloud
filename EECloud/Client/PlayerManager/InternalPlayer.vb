@@ -9,9 +9,9 @@ Friend NotInheritable Class InternalPlayer
 #End Region
 
 #Region "Events"
-    Public Event AutoText(sender As Object, e As ItemEventArgs(Of AutoText)) Implements IPlayer.AutoText
+    Public Event AutoText(sender As Object, e As AutoText) Implements IPlayer.AutoText
 
-    Public Event Chat(sender As Object, e As ItemEventArgs(Of String)) Implements IPlayer.Chat
+    Public Event Chat(sender As Object, e As String) Implements IPlayer.Chat
 
     Public Event Coin(sender As Object, e As ItemChangedEventArgs(Of Integer)) Implements IPlayer.Coin
 
@@ -21,15 +21,15 @@ Friend NotInheritable Class InternalPlayer
 
     Public Event ModMode(sender As Object, e As ItemChangedEventArgs(Of Boolean)) Implements IPlayer.ModMode
 
-    Public Event Move(sender As Object, e As ItemEventArgs(Of MoveReceiveMessage)) Implements IPlayer.Move
+    Public Event Move(sender As Object, e As MoveReceiveMessage) Implements IPlayer.Move
 
     Public Event SilverCrown(sender As Object, e As EventArgs) Implements IPlayer.SilverCrown
 
     Public Event SmileyChange(sender As Object, e As ItemChangedEventArgs(Of Smiley)) Implements IPlayer.SmileyChange
 
-    Public Event UsePotion(sender As Object, e As ItemEventArgs(Of Potion)) Implements IPlayer.UsePotion
+    Public Event UsePotion(sender As Object, e As Potion) Implements IPlayer.UsePotion
 
-    Public Event DeactivatePotion(sender As Object, e As ItemEventArgs(Of Potion)) Implements IPlayer.DeactivatePotion
+    Public Event DeactivatePotion(sender As Object, e As Potion) Implements IPlayer.DeactivatePotion
 
     Public Event GroupChange(sender As Object, e As ItemChangedEventArgs(Of Group)) Implements IPlayer.GroupChange
 
@@ -268,7 +268,7 @@ Friend NotInheritable Class InternalPlayer
     End Sub
 
     Private Sub myConnection_ReceiveAutoText(sender As Object, e As AutoTextReceiveMessage) Handles myConnection.ReceiveAutoText
-        RaiseEvent AutoText(Me, New ItemEventArgs(Of AutoText)(CType([Enum].Parse(GetType(AutoText), e.Text), AutoText)))
+        RaiseEvent AutoText(Me, CType([Enum].Parse(GetType(AutoText), e.Text), AutoText))
     End Sub
 
     Private Sub myConnection_OnReceiveCoin(sender As Object, e As CoinReceiveMessage) Handles myConnection.ReceiveCoin
@@ -287,7 +287,7 @@ Friend NotInheritable Class InternalPlayer
 
     Private Sub myConnection_OnReceiveMove(sender As Object, e As MoveReceiveMessage) Handles myConnection.ReceiveMove
         If e.UserID = myUserID Then
-            RaiseEvent Move(Me, New ItemEventArgs(Of MoveReceiveMessage)(e))
+            RaiseEvent Move(Me, e)
             myCoins = e.Coins
             myHorizontal = e.Horizontal
             myVertical = e.Vertical
@@ -342,9 +342,9 @@ Friend NotInheritable Class InternalPlayer
     Private Sub myConnection_ReceivePotion(sender As Object, e As PotionReceiveMessage) Handles myConnection.ReceivePotion
         If e.UserID = myUserID Then
             If e.Enabled Then
-                RaiseEvent UsePotion(Me, New ItemEventArgs(Of Potion)(e.Potion))
+                RaiseEvent UsePotion(Me, e.Potion)
             Else
-                RaiseEvent DeactivatePotion(Me, New ItemEventArgs(Of Potion)(e.Potion))
+                RaiseEvent DeactivatePotion(Me, e.Potion)
             End If
 
             Select Case e.Potion
@@ -360,7 +360,7 @@ Friend NotInheritable Class InternalPlayer
 
     Private Sub myConnection_ReceiveSay(sender As Object, e As SayReceiveMessage) Handles myConnection.ReceiveSay
         If e.UserID = myUserID Then
-            RaiseEvent Chat(Me, New ItemEventArgs(Of String)(e.Text))
+            RaiseEvent Chat(Me, e.Text)
         End If
     End Sub
 

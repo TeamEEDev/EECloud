@@ -131,7 +131,6 @@
     <Compile Include="EventArgs\DiconnectEventArgs.vb" />
     <Compile Include="EventArgs\CancelableEventArgs.vb" />
     <Compile Include="Enums\AccessRight.vb" />
-    <Compile Include="EventArgs\ItemEventArgs.vb" />
     <Compile Include="Interfaces\ICommand.vb" />
     <Compile Include="Interfaces\ICommandManager.vb" />
     <Compile Include="Interfaces\IClientFactory.vb" />
