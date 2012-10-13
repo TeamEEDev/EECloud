@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class SaySendMessage
+Public NotInheritable Class SaySendMessage
     Inherits SendMessage
     Public ReadOnly Text As String
 

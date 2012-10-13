@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class FaceReceiveMessage
+Public NotInheritable Class FaceReceiveMessage
     Inherits ReceiveMessage
     Public ReadOnly UserID As Integer
     '0

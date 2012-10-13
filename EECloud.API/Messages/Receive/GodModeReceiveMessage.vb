@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class GodModeReceiveMessage
+Public NotInheritable Class GodModeReceiveMessage
     Inherits ReceiveMessage
     Public ReadOnly UserID As Integer
     '0

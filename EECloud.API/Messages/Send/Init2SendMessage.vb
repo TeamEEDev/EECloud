@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class Init2SendMessage
+Public NotInheritable Class Init2SendMessage
     Inherits SendMessage
     'No arguments
 

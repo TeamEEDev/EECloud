@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class ClearReceiveMessage
+Public NotInheritable Class ClearReceiveMessage
     Inherits ReceiveMessage
     Public ReadOnly RoomWidth As Integer
     '0

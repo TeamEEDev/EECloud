@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class ModModeReceiveMessage
+Public NotInheritable Class ModModeReceiveMessage
     Inherits ReceiveMessage
     Public ReadOnly UserID As Integer
     '0

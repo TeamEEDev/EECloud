@@ -1,4 +1,4 @@
-﻿Public Class CommandEventArgs
+﻿Public NotInheritable Class CommandEventArgs
     Inherits EventArgs
 
 #Region "Properties"

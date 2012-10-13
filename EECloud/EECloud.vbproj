@@ -160,6 +160,7 @@
     <Compile Include="Client\CommandManager\Command.vb" />
     <Compile Include="Client\CommandManager\CommandEventArgs.vb" />
     <Compile Include="Client\CommandManager\InternalCommandManager.vb" />
+    <Compile Include="Client\Game\Game.vb" />
     <Compile Include="Client\Uploader\Uploader.vb" />
     <Compile Include="CommandsBot.vb" />
     <Compile Include="Client\Connection\Connection.vb" />

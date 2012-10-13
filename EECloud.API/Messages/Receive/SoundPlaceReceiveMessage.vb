@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class SoundPlaceReceiveMessage
+Public NotInheritable Class SoundPlaceReceiveMessage
     Inherits BlockPlaceReceiveMessage
     Public Shadows ReadOnly SoundBlock As CoinDoorBlock
     '2

@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class CoinSendMessage
+Public NotInheritable Class CoinSendMessage
     Inherits SendMessage
     Public ReadOnly Coins As Integer
 

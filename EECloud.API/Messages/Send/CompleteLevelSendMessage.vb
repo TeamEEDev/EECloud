@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class CompleteLevelSendMessage
+Public NotInheritable Class CompleteLevelSendMessage
     Inherits SendMessage
     'No arguments
 

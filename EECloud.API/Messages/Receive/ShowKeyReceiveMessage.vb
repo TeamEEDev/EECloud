@@ -1,13 +1,13 @@
 ﻿Imports PlayerIOClient
 
-Public Class ShowKeyReceiveMessage
+Public NotInheritable Class ShowKeyReceiveMessage
     Inherits ReceiveMessage
-    Public ReadOnly KeyColor As DoorID
+    Public ReadOnly KeyColor As Key
     '0
 
     Friend Sub New(message As Message)
         MyBase.New(message)
 
-        KeyColor = CType([Enum].Parse(GetType(DoorID), message.GetString(0), True), DoorID)
+        KeyColor = CType([Enum].Parse(GetType(Key), message.GetString(0), True), Key)
     End Sub
 End Class

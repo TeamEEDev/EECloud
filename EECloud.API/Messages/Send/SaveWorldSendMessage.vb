@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class SaveWorldSendMessage
+Public NotInheritable Class SaveWorldSendMessage
     Inherits SendMessage
     'No arguments
 

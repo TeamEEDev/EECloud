@@ -1,5 +1,5 @@
 ﻿Public Enum Potion
-    RedAoura = 1
-    BlueAoura = 2
-    YellowAoura = 3
+    RedAura = 1
+    BlueAura = 2
+    YellowAura = 3
 End Enum

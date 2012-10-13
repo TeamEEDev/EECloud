@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class AddReceiveMessage
+Public NotInheritable Class AddReceiveMessage
     Inherits ReceiveMessage
     Public ReadOnly UserID As Integer
     '0

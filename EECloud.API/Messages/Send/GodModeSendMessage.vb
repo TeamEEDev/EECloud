@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class GodModeSendMessage
+Public NotInheritable Class GodModeSendMessage
     Inherits SendMessage
     Public ReadOnly GodModeEnabled As Boolean
 

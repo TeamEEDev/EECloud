@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class PotionReceiveMessage
+Public NotInheritable Class PotionReceiveMessage
     Inherits ReceiveMessage
 
     Public ReadOnly UserID As Integer

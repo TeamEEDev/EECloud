@@ -54,7 +54,7 @@ Public NotInheritable Class Connection
 
     Public Event ReceiveCoin(sender As Object, e As CoinReceiveMessage) Implements IConnection.ReceiveCoin
 
-    Public Event ReceiveCoinDoorPlace(sender As Object, e As CoinDoorPlace_ReceiveMessage) Implements IConnection.ReceiveCoinDoorPlace
+    Public Event ReceiveCoinDoorPlace(sender As Object, e As CoinDoorPlaceReceiveMessage) Implements IConnection.ReceiveCoinDoorPlace
 
     Public Event ReceiveCrown(sender As Object, e As CrownReceiveMessage) Implements IConnection.ReceiveCrown
 
@@ -102,7 +102,7 @@ Public NotInheritable Class Connection
 
     Public Event ReceiveSay(sender As Object, e As SayReceiveMessage) Implements IConnection.ReceiveSay
 
-    Public Event ReceiveSayOld(sender As Object, e As SayOld_ReceiveMessage) Implements IConnection.ReceiveSayOld
+    Public Event ReceiveSayOld(sender As Object, e As SayOldReceiveMessage) Implements IConnection.ReceiveSayOld
 
     Public Event ReceiveShowKey(sender As Object, e As ShowKeyReceiveMessage) Implements IConnection.ReceiveShowKey
 
@@ -443,8 +443,8 @@ Public NotInheritable Class Connection
                 Dim m As SayReceiveMessage = CType(e, SayReceiveMessage)
                 RaiseEvent ReceiveSay(Me, m)
 
-            Case GetType(SayOld_ReceiveMessage)
-                Dim m As SayOld_ReceiveMessage = CType(e, SayOld_ReceiveMessage)
+            Case GetType(SayOldReceiveMessage)
+                Dim m As SayOldReceiveMessage = CType(e, SayOldReceiveMessage)
                 RaiseEvent ReceiveSayOld(Me, m)
 
             Case GetType(AutoTextReceiveMessage)
@@ -463,8 +463,8 @@ Public NotInheritable Class Connection
                 Dim m As BlockPlaceReceiveMessage = CType(e, BlockPlaceReceiveMessage)
                 RaiseEvent ReceiveBlockPlace(Me, m)
 
-            Case GetType(CoinDoorPlace_ReceiveMessage)
-                Dim m As CoinDoorPlace_ReceiveMessage = CType(e, CoinDoorPlace_ReceiveMessage)
+            Case GetType(CoinDoorPlaceReceiveMessage)
+                Dim m As CoinDoorPlaceReceiveMessage = CType(e, CoinDoorPlaceReceiveMessage)
                 RaiseEvent ReceiveCoinDoorPlace(Me, m)
 
             Case GetType(SoundPlaceReceiveMessage)
@@ -609,12 +609,12 @@ Public NotInheritable Class Connection
             RegisterMessage("show", GetType(ShowKeyReceiveMessage))
             RegisterMessage("hide", GetType(HideKeyReceiveMessage))
             RegisterMessage("say", GetType(SayReceiveMessage))
-            RegisterMessage("say_old", GetType(SayOld_ReceiveMessage))
+            RegisterMessage("say_old", GetType(SayOldReceiveMessage))
             RegisterMessage("autotext", GetType(AutoTextReceiveMessage))
             RegisterMessage("write", GetType(WriteReceiveMessage))
             RegisterMessage("p", GetType(PotionReceiveMessage))
             RegisterMessage("b", GetType(BlockPlaceReceiveMessage))
-            RegisterMessage("bc", GetType(CoinDoorPlace_ReceiveMessage))
+            RegisterMessage("bc", GetType(CoinDoorPlaceReceiveMessage))
             RegisterMessage("bs", GetType(SoundPlaceReceiveMessage))
             RegisterMessage("pt", GetType(PortalPlaceReceiveMessage))
             RegisterMessage("lb", GetType(LabelPlaceReceiveMessage))

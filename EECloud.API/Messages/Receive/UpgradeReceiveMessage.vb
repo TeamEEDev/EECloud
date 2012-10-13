@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class UpgradeReceiveMessage
+Public NotInheritable Class UpgradeReceiveMessage
     Inherits ReceiveMessage
     'No arguments
 

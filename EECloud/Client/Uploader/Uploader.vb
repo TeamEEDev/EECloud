@@ -1,5 +1,4 @@
 ﻿Imports System.Threading
-Imports System.Collections.Concurrent
 
 Friend NotInheritable Class Uploader
     Implements IUploader

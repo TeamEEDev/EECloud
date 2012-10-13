@@ -33,11 +33,13 @@ Public Class TestPlugin
     End Sub
 
     Private Sub myConnection_ReceiveInit(sender As Object, e As InitReceiveMessage) Handles myConnection.ReceiveInit
-        For i = 1 To 98
-            For j = 1 To 98
-                Client.Uploader.Upload(New BlockPlaceSendMessage(Layer.Foreground, i, j, Block.BlockDoorBlue))
-            Next
-        Next
+        'Client.Connection.Send(New AccessSendMessage("ball"))
+        'Await Task.Delay(1000)
+        'For i = 1 To 198
+        '    For j = 1 To 198
+        '        Client.Uploader.Upload(New BlockPlaceSendMessage(Layer.Foreground, i, j, Block.BlockDoorBlue))
+        '    Next
+        'Next
     End Sub
 End Class
 

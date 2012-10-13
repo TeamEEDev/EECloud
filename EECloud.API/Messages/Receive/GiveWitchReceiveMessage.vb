@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class GiveWitchReceiveMessage
+Public NotInheritable Class GiveWitchReceiveMessage
     Inherits ReceiveMessage
     'No arguments
 

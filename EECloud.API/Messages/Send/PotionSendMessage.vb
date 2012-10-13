@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class PotionSendMessage
+Public NotInheritable Class PotionSendMessage
     Inherits SendMessage
     Public ReadOnly Potion As Potion
 

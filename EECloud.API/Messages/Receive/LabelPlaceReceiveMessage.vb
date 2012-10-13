@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class LabelPlaceReceiveMessage
+Public NotInheritable Class LabelPlaceReceiveMessage
     Inherits BlockPlaceReceiveMessage
     Public ReadOnly Text As String
     '3

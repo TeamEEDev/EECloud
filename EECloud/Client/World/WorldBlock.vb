@@ -13,7 +13,7 @@
 
     Public ReadOnly Property BlockType As BlockType Implements IWorldBlock.BlockType
         Get
-            Return API.BlockType.Normal
+            Return BlockType.Normal
         End Get
     End Property
 

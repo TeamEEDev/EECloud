@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class TeleportReceiveMessage
+Public NotInheritable Class TeleportReceiveMessage
     Inherits ReceiveMessage
     Public ReadOnly ResetCoins As Boolean
     '0

@@ -2,7 +2,7 @@
 ''' Describes the door/gate which state has just been changed.
 ''' </summary>
 ''' <remarks></remarks>
-Public Enum DoorID
+Public Enum Key
     ''' <summary>
     ''' The red door/gate
     ''' </summary>
