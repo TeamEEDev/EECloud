@@ -28,6 +28,7 @@
             If attributes IsNot Nothing AndAlso attributes.Length = 1 Then
                 Dim pluginObj As IPluginObject = New PluginObject(t, CType(attributes(0), PluginAttribute), myCloneFactory)
                 myPluginsList.Add(pluginObj)
+                Exit Sub
             End If
         End If
         Throw New EECloudException(ErrorCode.InvalidPlugin)

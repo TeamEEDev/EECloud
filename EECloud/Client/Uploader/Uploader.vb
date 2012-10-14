@@ -59,7 +59,7 @@ Friend NotInheritable Class Uploader
 
                 myUploadedArray(sendBlock.X, sendBlock.Y) = False
 
-                If sendBlock.X = e.PosX AndAlso sendBlock.Y = e.PosY Then
+                If sendBlock.X = e.PosX AndAlso sendBlock.Y = e.PosY AndAlso sendBlock.Layer = e.Layer Then
                     Exit Do
                 Else
                     If Not myClient.World(sendBlock.X, sendBlock.Y, sendBlock.Layer).Block = sendBlock.Block Then

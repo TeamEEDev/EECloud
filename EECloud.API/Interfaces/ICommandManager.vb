@@ -1,4 +1,4 @@
 ﻿Public Interface ICommandManager
     Sub Load(target As Object)
-    Sub InvokeCommand(player As Player, msg As String)
+    Sub InvokeCommand(ByVal player As Player, ByVal msg As String, ByVal rights As Group)
 End Interface

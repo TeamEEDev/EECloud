@@ -45,7 +45,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
         Next
     End Sub
 
-    Private Sub ProcessMessage(msg As String, user As Integer, e As CommandEventArgs) Handles myInternalCommandManager.OnCommand
+    Private Sub ProcessMessage(msg As String, user As Integer, rights As Group, e As CommandEventArgs) Handles myInternalCommandManager.OnCommand
         Dim sender As TPlayer = myClient.PlayerManager.Players(user)
         Dim cmd As String() = msg.Split(" "c)
         Dim type As String = cmd(0).ToLower
@@ -68,14 +68,17 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
 
     Private Sub TryRunCmd(sender As TPlayer, rights As Group, cmd As String(), type As String, handle As CommandHandle(Of TPlayer))
         'Check for rights
-        If Not sender Is Nothing AndAlso Not handle.Attribute.MinPermission <= sender.Group Then
-            If sender.Group >= Group.Trusted Then
-                sender.Reply("You are not allowed to use this command!")
+        If handle.Attribute.MinPermission > rights Then
+            If sender Is Nothing OrElse handle.Attribute.MinPermission > sender.Group Then
+                If sender IsNot Nothing AndAlso sender.Group >= Group.Moderator Then
+                    sender.Reply("You are not allowed to use this command!")
+                End If
+
+                Exit Sub
             End If
-            Exit Sub
         End If
 
-        'Check for access rights
+        'Check for bots access rights
         If myClient.World.AccessRight < handle.Attribute.AccessRight Then
             If handle.Attribute.AccessRight = AccessRight.Edit Then
                 sender.Reply("Bot needs edit rights to run this command!")
@@ -116,8 +119,8 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
         End Try
     End Sub
 
-    Public Sub InvokeCommand(player As Player, msg As String) Implements ICommandManager.InvokeCommand
-        myInternalCommandManager.HandleMessage(msg, player.UserID)
+    Public Sub InvokeCommand(player As Player, msg As String, rights As Group) Implements ICommandManager.InvokeCommand
+        myInternalCommandManager.HandleMessage(msg, player.UserID, rights)
     End Sub
 
     Private Sub AddCommand(name As String, handle As CommandHandle(Of TPlayer))
