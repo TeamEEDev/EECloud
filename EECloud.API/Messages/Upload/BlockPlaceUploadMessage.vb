@@ -17,4 +17,8 @@ Public Class BlockPlaceUploadMessage
     Friend Overrides Function GetMessage(world As IWorld) As Message
         Return Message.Create(world.Encryption, CInt(CorrectLayer(Block, Layer)), X, Y, CInt(Block))
     End Function
+
+    Friend Overrides Sub SendMessage(connection As IConnection)
+        connection.Send(Me)
+    End Sub
 End Class

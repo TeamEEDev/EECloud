@@ -10,7 +10,7 @@
         myUploaderList.Add(uploader)
     End Sub
 
-    Public Sub Upload(blockMessage As BlockPlaceSendMessage)
+    Public Sub Upload(blockMessage As BlockPlaceUploadMessage)
         myUploaderList(myPointer).Upload(blockMessage)
 
         myPointer += 1
