@@ -252,7 +252,12 @@
     </Compile>
     <Compile Include="Tools\Location.vb" />
     <Compile Include="Tools\MultiUploader.vb" />
-    <Compile Include="Tools\Schematic.vb" />
+    <Compile Include="Tools\Schematic\Schematic.vb" />
+    <Compile Include="Tools\Schematic\SchematicBlock.vb" />
+    <Compile Include="Tools\Schematic\SchematicCoinDoorBlock.vb" />
+    <Compile Include="Tools\Schematic\SchematicLabelBlock.vb" />
+    <Compile Include="Tools\Schematic\SchematicPortalBlock.vb" />
+    <Compile Include="Tools\Schematic\SchematicSoundBlock.vb" />
     <Compile Include="Utils.vb" />
   </ItemGroup>
   <ItemGroup>

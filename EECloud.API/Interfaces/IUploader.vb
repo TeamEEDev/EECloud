@@ -1,3 +1,3 @@
 ﻿Public Interface IUploader
-    Sub Upload(blockMessage As BlockPlaceSendMessage)
+    Sub Upload(blockMessage As BlockPlaceUploadMessage)
 End Interface
