@@ -74,12 +74,12 @@ Module ModuleMain
 
         'Checking for valid plugins
         Dim plugins As IEnumerable(Of Type) =
-                From assembly As Assembly In GetAssemblies(My.Application.Info.DirectoryPath)
-                From type As Type In assembly.GetTypes
-                Where GetType(IPlugin).IsAssignableFrom(type)
-                Let attributes As Object() = type.GetCustomAttributes(GetType(PluginAttribute), True)
-                Where attributes IsNot Nothing AndAlso attributes.Length = 1
-                Select type
+            From assembly As Assembly In GetAssemblies(My.Application.Info.DirectoryPath)
+            From type As Type In assembly.GetTypes
+            Where GetType(IPlugin).IsAssignableFrom(type)
+            Let attributes As Object() = type.GetCustomAttributes(GetType(PluginAttribute), True)
+            Where attributes IsNot Nothing AndAlso attributes.Length = 1 AndAlso CType(attributes(0), PluginAttribute).IsStartup
+            Select type
 
         'Activating valid plugins
         Using enumrator As IEnumerator(Of Type) = plugins.GetEnumerator

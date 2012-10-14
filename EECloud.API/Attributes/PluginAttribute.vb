@@ -10,6 +10,7 @@ Public NotInheritable Class PluginAttribute
     Public Property Description As String = String.Empty
     Public Property Version As String = String.Empty
     Public Property Category As PluginCategory
+    Public Property IsStartup As Boolean = True
 
     Private myChatName As String = Nothing
 

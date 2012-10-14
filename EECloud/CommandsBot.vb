@@ -17,44 +17,41 @@ Public NotInheritable Class CommandsBot
 
     End Sub
 
-    <Command("end", Group.Admin, Aliases:={"shutdown", "killbot", "leave", "leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
+    <Command("end", Group.Operator, Aliases:={"shutdown", "killbot", "leave", "leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
     Public Sub EndCommand(cmd As ICommand(Of CommandsBotPlayer))
-        cmd.Sender.Reply("Terminating...")
+        cmd.Reply("Terminating...")
         Client.Connection.Close()
     End Sub
 
-    '<Command("clear", Group.Moderator, Aliases:={"clearworld", "clearlevel"})>
-    'Public Sub ClearWorldCommand(cmd As ICommand(Of CommandsBotPlayer))
-    '    Client.Connection.Send(New ClearWorldSendMessage)
-    'End Sub
+    <Command("clear", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"clearworld", "clearlevel"})>
+    Public Sub ClearWorldCommand(cmd As ICommand(Of CommandsBotPlayer))
+        Client.Game.Clear()
+        cmd.Reply("Cleared.")
+    End Sub
 
-    '<Command("name", Group.Moderator, Aliases:={"rename", "renameworld", "renamelevel", "worldname", "levelname"})>
-    'Public Sub ChangeWorldNameCommand(cmd As ICommand(Of CommandsBotPlayer))
-    '    'TODO: Implement
-    'End Sub
+    <Command("name", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"rename", "renameworld", "renamelevel", "worldname", "levelname"})>
+    Public Sub ChangeWorldNameCommand(cmd As ICommand(Of CommandsBotPlayer), ParamArray newName As String())
+        Client.Game.WorldName = String.Join(" ", newName)
+        cmd.Reply("Renamed.")
+    End Sub
 
-    '<Command("loadlevel", Group.Operator, Aliases:={"load", "loadworld", "reload", "reloadworld", "reloadlevel"})>
-    'Public Sub LoadWorldCommand(cmd As ICommand(Of CommandsBotPlayer))
-    '    Client.Chatter.Chat("Loading world...")
-    '    Client.Chatter.Loadlevel()
-    'End Sub
+    <Command("loadlevel", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"load", "loadworld", "reload", "reloadworld", "reloadlevel"})>
+    Public Sub LoadWorldCommand(cmd As ICommand(Of CommandsBotPlayer))
+        cmd.Reply("Reloaded.")
+        Client.Game.LoadLevel()
+    End Sub
 
-    '<Command("save", Group.Operator, Aliases:={"saveworld", "savelevel"})>
-    'Public Sub SaveWorldCommand(cmd As ICommand(Of CommandsBotPlayer))
-    '    Client.Chatter.Chat("Saving world...")
-    '    Client.Send(New SaveWorldSendMessage)
-    '    AddHandler Client.ReceiveSaveDone, Sub()
-    '                                               Client.Chatter.Chat("World saved.")
-    '                                           End Sub
-    'End Sub
+    <Command("save", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"saveworld", "savelevel"})>
+    Public Sub SaveWorldCommand(cmd As ICommand(Of CommandsBotPlayer))
+        Client.Game.Save()
+        cmd.Reply("Saved.")
+    End Sub
 
-    '<Command("reset", Group.Operator, Aliases:={"resetworld", "resetlevel", "resetplayers"})>
-    'Public Sub ResetCommand(cmd As ICommand(Of CommandsBotPlayer))
-    '    Client.Chatter.Reset()
-    '    AddHandler Client.ReceiveTeleport, Sub()
-    '                                               Client.Chatter.Chat("Players' position reset.")
-    '                                           End Sub
-    'End Sub
+    <Command("reset", Group.Operator, Aliases:={"resetworld", "resetlevel", "resetplayers"})>
+    Public Sub ResetCommand(cmd As ICommand(Of CommandsBotPlayer))
+        Client.Game.Reset()
+        cmd.Reply("Reset.")
+    End Sub
 End Class
 
 Public NotInheritable Class CommandsBotPlayer

@@ -55,7 +55,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
             For Each handle In myCommandsDictionary(type)
                 'Check for syntax
                 If handle.Count = cmd.Length - 1 OrElse (handle.Count < cmd.Length - 1 AndAlso handle.HasParamArray) Then
-                    TryRunCmd(sender, Group.Limited, cmd, type, handle)
+                    TryRunCmd(sender, rights, cmd, type, handle)
                     Exit Sub
                 End If
             Next
@@ -79,7 +79,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
         End If
 
         'Check for bots access rights
-        If myClient.World.AccessRight < handle.Attribute.AccessRight Then
+        If myClient.Game.AccessRight < handle.Attribute.AccessRight Then
             If handle.Attribute.AccessRight = AccessRight.Edit Then
                 sender.Reply("Bot needs edit rights to run this command!")
             Else

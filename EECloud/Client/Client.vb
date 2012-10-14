@@ -31,6 +31,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property Game As IGame Implements IClient(Of TPlayer).Game
+        Get
+            Return myInternalClient.Game
+        End Get
+    End Property
+
     Private ReadOnly myChatter As IChatter
 
     Friend ReadOnly Property Chatter As IChatter Implements IClient(Of TPlayer).Chatter
@@ -70,6 +76,4 @@
     End Sub
 
 #End Region
-
-
 End Class

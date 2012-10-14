@@ -1,4 +1,4 @@
-﻿Public Interface IGame(Of TPlayer As {New, Player})
+﻿Public Interface IGame
     Event Init As EventHandler
     Event OnSave As EventHandler
     Event OnLoadLevel As EventHandler
@@ -21,7 +21,7 @@
     ReadOnly Property Encryption As String
     ReadOnly Property Plays As Integer
     ReadOnly Property Owner As String
-    ReadOnly Property MyPlayer As TPlayer
+    ReadOnly Property MyPlayer As Player
     ReadOnly Property RedKey As Boolean
     ReadOnly Property BlueKey As Boolean
     ReadOnly Property GreenKey As Boolean
