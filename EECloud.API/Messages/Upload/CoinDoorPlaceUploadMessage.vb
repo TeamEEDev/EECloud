@@ -1,7 +1,7 @@
 ﻿Imports PlayerIOClient
 
 Public NotInheritable Class CoinDoorPlaceUploadMessage
-    Inherits UploadMessage
+    Inherits BlockPlaceUploadMessage
     Public ReadOnly CoinsToCollect As Integer
 
     Public Sub New(layer As Layer, x As Integer, y As Integer, block As CoinDoorBlock, coinsToCollect As Integer)
