@@ -173,6 +173,8 @@ Public NotInheritable Class Connection
     Public Event SendTouchDiamond(sender As Object, e As Cancelable(Of TouchDiamondSendMessage)) Implements IConnection.SendTouchDiamond
 
     Public Event SendPotion(sender As Object, e As Cancelable(Of PotionSendMessage)) Implements IConnection.SendPotion
+
+    Public Event SendTouchCake(sender As Object, e As Cancelable(Of TouchCakeSendMessage)) Implements IConnection.SendTouchCake
 #End Region
 
 #Region "Methods"
@@ -369,6 +371,11 @@ Public NotInheritable Class Connection
                 RaiseEvent SendPotion(Me, eventArgs)
                 Return eventArgs.Handled
 
+            Case GetType(TouchCakeSendMessage)
+                Dim eventArgs As New Cancelable(Of TouchCakeSendMessage)(CType(message, TouchCakeSendMessage))
+                RaiseEvent SendTouchCake(Me, eventArgs)
+                Return eventArgs.Handled
+
             Case Else
                 Return False
         End Select
@@ -557,8 +564,10 @@ Public NotInheritable Class Connection
 
 #Region "IConnection Support"
 
+    Private myRunConnect As Boolean
+
     Friend Async Function ConnectAsync(username As String, password As String, id As String) As Task Implements IConnection.ConnectAsync
-        If Not Connected Then
+        If Not myRunConnect Then
             Await Task.Run(
                 Sub()
                     Try
@@ -569,8 +578,9 @@ Public NotInheritable Class Connection
                         Throw New EECloudPlayerIOException(ex)
                     End Try
                 End Sub)
+            myRunConnect = True
         Else
-            Throw New Exception("Can not create a new Client while an other Client already exists")
+            Throw New Exception("A connection has been already established")
         End If
     End Function
 
