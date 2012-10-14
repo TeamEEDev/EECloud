@@ -1,7 +1,7 @@
 ﻿Imports PlayerIOClient
 
 Public NotInheritable Class LabelPlaceUploadMessage
-    Inherits UploadMessage
+    Inherits BlockPlaceUploadMessage
     Public ReadOnly Text As String
 
     Public Sub New(layer As Layer, x As Integer, y As Integer, block As LabelBlock, text As String)
