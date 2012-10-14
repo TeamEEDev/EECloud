@@ -54,27 +54,27 @@ Namespace My
             End Get
         End Property
         
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property LicenceUsername() As String
+        <Global.System.Configuration.UserScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("")> _
+        Public Property LicenseUsername() As String
             Get
-                Return CType(Me("LicenceUsername"),String)
+                Return CType(Me("LicenseUsername"), String)
             End Get
-            Set
-                Me("LicenceUsername") = value
+            Set(value As String)
+                Me("LicenseUsername") = value
             End Set
         End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property LicenceKey() As String
+
+        <Global.System.Configuration.UserScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("")> _
+        Public Property LicenseKey() As String
             Get
-                Return CType(Me("LicenceKey"),String)
+                Return CType(Me("LicenseKey"), String)
             End Get
-            Set
-                Me("LicenceKey") = value
+            Set(value As String)
+                Me("LicenseKey") = value
             End Set
         End Property
         

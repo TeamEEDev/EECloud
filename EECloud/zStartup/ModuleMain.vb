@@ -13,10 +13,9 @@ Module ModuleMain
         'Loading settings
         LoadSettings()
 
-        'Licence check
+        'License check
         Cloud.Logger.Log(LogPriority.Info, "Conencting to EEService...")
-        'TODO: Implement licences
-
+        CheckLicense()
 
         'Creating Client
         Dim client As IClient(Of Player) = Cloud.ClientFactory.CreateClient
@@ -31,10 +30,17 @@ Module ModuleMain
         Threading.Thread.Sleep(Threading.Timeout.Infinite)
     End Sub
 
+    Private Sub CreateSingletons()
+        Cloud.AppEnvironment = CType([Enum].Parse(GetType(AppEnvironment), ConfigurationManager.AppSettings("Environment"), True), AppEnvironment)
+        Cloud.Logger = New Logger
+        Cloud.Service = New EESClient
+        Cloud.ClientFactory = New ClientFactory
+    End Sub
+
     Private Sub LoadSettings()
         If Cloud.AppEnvironment = AppEnvironment.Release Then
-            My.Settings.LicenceUsername = ConfigurationManager.AppSettings("cloud.username")
-            My.Settings.LicenceKey = ConfigurationManager.AppSettings("cloud.key")
+            My.Settings.LicenseUsername = ConfigurationManager.AppSettings("cloud.username")
+            My.Settings.LicenseKey = ConfigurationManager.AppSettings("cloud.key")
             My.Settings.LoginWorldID = ConfigurationManager.AppSettings("cloud.worldid")
             Dim accData As String() = ConfigurationManager.AppSettings("cloud.acc").Split(":"c)
             If accData.Length >= 2 Then
@@ -49,11 +55,18 @@ Module ModuleMain
         End If
     End Sub
 
-    Private Sub CreateSingletons()
-        Cloud.AppEnvironment = CType([Enum].Parse(GetType(AppEnvironment), ConfigurationManager.AppSettings("Environment"), True), AppEnvironment)
-        Cloud.Logger = New Logger
-        Cloud.Service = New EESClient
-        Cloud.ClientFactory = New ClientFactory
+    Private Sub CheckLicense()
+        If Not Cloud.Service.CheckLicense(My.Settings.LicenseUsername, My.Settings.LicenseKey) Then
+            If Not Cloud.AppEnvironment = AppEnvironment.Release Then
+                If New LicenseForm().ShowDialog = DialogResult.OK Then
+                    CheckLicense()
+                Else
+                    Environment.Exit(0)
+                End If
+            Else
+                Throw New Exception("Unable to auth!")
+            End If
+        End If
     End Sub
 
     Private Sub LoadAssembies(client As IClient(Of Player))
@@ -84,7 +97,7 @@ Module ModuleMain
     End Sub
 
     Private Iterator Function GetAssemblies(path As String) As IEnumerable(Of Assembly)
-        For Each dll As String In Directory.GetFiles(path, "*.dll")
+        For Each dll As String In Directory.GetFiles(path, "*.plugin.dll")
             Try
                 Yield Assembly.LoadFile(dll)
             Catch ex As FileLoadException

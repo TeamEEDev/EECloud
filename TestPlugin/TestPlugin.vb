@@ -1,6 +1,6 @@
 ﻿<Plugin(Authors:={"Processor", "Jojatekok"},
         Category:=PluginCategory.Test Or PluginCategory.Fun,
-        ChatName:="Test",
+        ChatName:="Test Plugin",
         Description:="A test plugin to test stuff",
         Version:="1.0.0.0")>
 Public Class TestPlugin

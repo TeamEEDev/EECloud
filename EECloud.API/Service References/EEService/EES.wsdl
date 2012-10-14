@@ -1,87 +1,136 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="EES" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://eeservice.apphb.com/EES.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://eeservice.apphb.com/EES.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://eeservice.apphb.com/EES.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/EEService" />
-      <xsd:import schemaLocation="http://eeservice.apphb.com/EES.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://eeservice.apphb.com/EES.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://eeservice.apphb.com/EES.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/EEService" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IEES_GetSetting_InputValue">
+  <wsdl:message name="IEES_CheckLicense_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckLicense" />
+  </wsdl:message>
+  <wsdl:message name="IEES_CheckLicense_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckLicenseResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEES_GetSetting_InputMessage">
     <wsdl:part name="parameters" element="tns:GetSetting" />
   </wsdl:message>
-  <wsdl:message name="IEES_GetSetting_OutputValue">
+  <wsdl:message name="IEES_GetSetting_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetSettingResponse" />
   </wsdl:message>
-  <wsdl:message name="IEES_SetSetting_InputValue">
+  <wsdl:message name="IEES_SetSetting_InputMessage">
     <wsdl:part name="parameters" element="tns:SetSetting" />
   </wsdl:message>
-  <wsdl:message name="IEES_SetSetting_OutputValue">
+  <wsdl:message name="IEES_SetSetting_OutputMessage">
     <wsdl:part name="parameters" element="tns:SetSettingResponse" />
   </wsdl:message>
-  <wsdl:message name="IEES_GetPlayerData_InputValue">
+  <wsdl:message name="IEES_SetFact_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetFact" />
+  </wsdl:message>
+  <wsdl:message name="IEES_SetFact_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetFactResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEES_RemoveFact_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveFact" />
+  </wsdl:message>
+  <wsdl:message name="IEES_RemoveFact_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveFactResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEES_GetFacts_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFacts" />
+  </wsdl:message>
+  <wsdl:message name="IEES_GetFacts_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFactsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEES_GetPlayerData_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPlayerData" />
   </wsdl:message>
-  <wsdl:message name="IEES_GetPlayerData_OutputValue">
+  <wsdl:message name="IEES_GetPlayerData_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPlayerDataResponse" />
   </wsdl:message>
-  <wsdl:message name="IEES_GetPlayerDatas_InputValue">
+  <wsdl:message name="IEES_GetPlayerDatas_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPlayerDatas" />
   </wsdl:message>
-  <wsdl:message name="IEES_GetPlayerDatas_OutputValue">
+  <wsdl:message name="IEES_GetPlayerDatas_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPlayerDatasResponse" />
   </wsdl:message>
-  <wsdl:message name="IEES_GetPlayerDataRange_InputValue">
+  <wsdl:message name="IEES_GetPlayerDataRange_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPlayerDataRange" />
   </wsdl:message>
-  <wsdl:message name="IEES_GetPlayerDataRange_OutputValue">
+  <wsdl:message name="IEES_GetPlayerDataRange_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPlayerDataRangeResponse" />
   </wsdl:message>
-  <wsdl:message name="IEES_SetPlayerDataGroupID_InputValue">
+  <wsdl:message name="IEES_SetPlayerDataGroupID_InputMessage">
     <wsdl:part name="parameters" element="tns:SetPlayerDataGroupID" />
   </wsdl:message>
-  <wsdl:message name="IEES_SetPlayerDataGroupID_OutputValue">
+  <wsdl:message name="IEES_SetPlayerDataGroupID_OutputMessage">
     <wsdl:part name="parameters" element="tns:SetPlayerDataGroupIDResponse" />
   </wsdl:message>
-  <wsdl:message name="IEES_SetPlayerDataYoScrollWins_InputValue">
+  <wsdl:message name="IEES_SetPlayerDataYoScrollWins_InputMessage">
     <wsdl:part name="parameters" element="tns:SetPlayerDataYoScrollWins" />
   </wsdl:message>
-  <wsdl:message name="IEES_SetPlayerDataYoScrollWins_OutputValue">
+  <wsdl:message name="IEES_SetPlayerDataYoScrollWins_OutputMessage">
     <wsdl:part name="parameters" element="tns:SetPlayerDataYoScrollWinsResponse" />
   </wsdl:message>
   <wsdl:portType name="IEES">
+    <wsdl:operation name="CheckLicense">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEES/CheckLicense" message="tns:IEES_CheckLicense_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEES/CheckLicenseResponse" message="tns:IEES_CheckLicense_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetSetting">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEES/GetSetting" message="tns:IEES_GetSetting_InputValue" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEES/GetSettingResponse" message="tns:IEES_GetSetting_OutputValue" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEES/GetSetting" message="tns:IEES_GetSetting_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEES/GetSettingResponse" message="tns:IEES_GetSetting_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SetSetting">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEES/SetSetting" message="tns:IEES_SetSetting_InputValue" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEES/SetSettingResponse" message="tns:IEES_SetSetting_OutputValue" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEES/SetSetting" message="tns:IEES_SetSetting_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEES/SetSettingResponse" message="tns:IEES_SetSetting_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetFact">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEES/SetFact" message="tns:IEES_SetFact_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEES/SetFactResponse" message="tns:IEES_SetFact_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveFact">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEES/RemoveFact" message="tns:IEES_RemoveFact_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEES/RemoveFactResponse" message="tns:IEES_RemoveFact_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFacts">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEES/GetFacts" message="tns:IEES_GetFacts_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEES/GetFactsResponse" message="tns:IEES_GetFacts_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetPlayerData">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEES/GetPlayerData" message="tns:IEES_GetPlayerData_InputValue" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEES/GetPlayerDataResponse" message="tns:IEES_GetPlayerData_OutputValue" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEES/GetPlayerData" message="tns:IEES_GetPlayerData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEES/GetPlayerDataResponse" message="tns:IEES_GetPlayerData_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetPlayerDatas">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEES/GetPlayerDatas" message="tns:IEES_GetPlayerDatas_InputValue" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEES/GetPlayerDatasResponse" message="tns:IEES_GetPlayerDatas_OutputValue" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEES/GetPlayerDatas" message="tns:IEES_GetPlayerDatas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEES/GetPlayerDatasResponse" message="tns:IEES_GetPlayerDatas_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetPlayerDataRange">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEES/GetPlayerDataRange" message="tns:IEES_GetPlayerDataRange_InputValue" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEES/GetPlayerDataRangeResponse" message="tns:IEES_GetPlayerDataRange_OutputValue" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEES/GetPlayerDataRange" message="tns:IEES_GetPlayerDataRange_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEES/GetPlayerDataRangeResponse" message="tns:IEES_GetPlayerDataRange_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SetPlayerDataGroupID">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEES/SetPlayerDataGroupID" message="tns:IEES_SetPlayerDataGroupID_InputValue" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEES/SetPlayerDataGroupIDResponse" message="tns:IEES_SetPlayerDataGroupID_OutputValue" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEES/SetPlayerDataGroupID" message="tns:IEES_SetPlayerDataGroupID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEES/SetPlayerDataGroupIDResponse" message="tns:IEES_SetPlayerDataGroupID_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SetPlayerDataYoScrollWins">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEES/SetPlayerDataYoScrollWins" message="tns:IEES_SetPlayerDataYoScrollWins_InputValue" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEES/SetPlayerDataYoScrollWinsResponse" message="tns:IEES_SetPlayerDataYoScrollWins_OutputValue" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEES/SetPlayerDataYoScrollWins" message="tns:IEES_SetPlayerDataYoScrollWins_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEES/SetPlayerDataYoScrollWinsResponse" message="tns:IEES_SetPlayerDataYoScrollWins_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IEES" type="tns:IEES">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CheckLicense">
+      <soap:operation soapAction="http://tempuri.org/IEES/CheckLicense" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetSetting">
       <soap:operation soapAction="http://tempuri.org/IEES/GetSetting" style="document" />
       <wsdl:input>
@@ -93,6 +142,33 @@
     </wsdl:operation>
     <wsdl:operation name="SetSetting">
       <soap:operation soapAction="http://tempuri.org/IEES/SetSetting" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetFact">
+      <soap:operation soapAction="http://tempuri.org/IEES/SetFact" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveFact">
+      <soap:operation soapAction="http://tempuri.org/IEES/RemoveFact" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFacts">
+      <soap:operation soapAction="http://tempuri.org/IEES/GetFacts" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
