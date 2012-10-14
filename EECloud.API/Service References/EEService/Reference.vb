@@ -98,6 +98,12 @@ Namespace EEService
      System.ServiceModel.ServiceContractAttribute(ConfigurationName:="EEService.IEES")>  _
     Public Interface IEES
         
+        <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/CheckLicense", ReplyAction:="http://tempuri.org/IEES/CheckLicenseResponse")>  _
+        Function CheckLicense(ByVal username As String, ByVal authKey As String) As Boolean
+        
+        <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/CheckLicense", ReplyAction:="http://tempuri.org/IEES/CheckLicenseResponse")>  _
+        Function CheckLicenseAsync(ByVal username As String, ByVal authKey As String) As System.Threading.Tasks.Task(Of Boolean)
+        
         <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/GetSetting", ReplyAction:="http://tempuri.org/IEES/GetSettingResponse")>  _
         Function GetSetting(ByVal key As String) As String
         
@@ -109,6 +115,24 @@ Namespace EEService
         
         <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/SetSetting", ReplyAction:="http://tempuri.org/IEES/SetSettingResponse")>  _
         Function SetSettingAsync(ByVal key As String, ByVal value As String) As System.Threading.Tasks.Task
+        
+        <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/SetFact", ReplyAction:="http://tempuri.org/IEES/SetFactResponse")>  _
+        Sub SetFact(ByVal factID As String, ByVal factGroup As String)
+        
+        <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/SetFact", ReplyAction:="http://tempuri.org/IEES/SetFactResponse")>  _
+        Function SetFactAsync(ByVal factID As String, ByVal factGroup As String) As System.Threading.Tasks.Task
+        
+        <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/RemoveFact", ReplyAction:="http://tempuri.org/IEES/RemoveFactResponse")>  _
+        Sub RemoveFact(ByVal factID As String)
+        
+        <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/RemoveFact", ReplyAction:="http://tempuri.org/IEES/RemoveFactResponse")>  _
+        Function RemoveFactAsync(ByVal factID As String) As System.Threading.Tasks.Task
+        
+        <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/GetFacts", ReplyAction:="http://tempuri.org/IEES/GetFactsResponse")>  _
+        Function GetFacts(ByVal factGroup As String) As String()
+        
+        <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/GetFacts", ReplyAction:="http://tempuri.org/IEES/GetFactsResponse")>  _
+        Function GetFactsAsync(ByVal factGroup As String) As System.Threading.Tasks.Task(Of String())
         
         <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/GetPlayerData", ReplyAction:="http://tempuri.org/IEES/GetPlayerDataResponse")>  _
         Function GetPlayerData(ByVal username As String) As EEService.UserData
@@ -172,6 +196,14 @@ Namespace EEService
             MyBase.New(binding, remoteAddress)
         End Sub
         
+        Public Function CheckLicense(ByVal username As String, ByVal authKey As String) As Boolean Implements EEService.IEES.CheckLicense
+            Return MyBase.Channel.CheckLicense(username, authKey)
+        End Function
+        
+        Public Function CheckLicenseAsync(ByVal username As String, ByVal authKey As String) As System.Threading.Tasks.Task(Of Boolean) Implements EEService.IEES.CheckLicenseAsync
+            Return MyBase.Channel.CheckLicenseAsync(username, authKey)
+        End Function
+        
         Public Function GetSetting(ByVal key As String) As String Implements EEService.IEES.GetSetting
             Return MyBase.Channel.GetSetting(key)
         End Function
@@ -186,6 +218,30 @@ Namespace EEService
         
         Public Function SetSettingAsync(ByVal key As String, ByVal value As String) As System.Threading.Tasks.Task Implements EEService.IEES.SetSettingAsync
             Return MyBase.Channel.SetSettingAsync(key, value)
+        End Function
+        
+        Public Sub SetFact(ByVal factID As String, ByVal factGroup As String) Implements EEService.IEES.SetFact
+            MyBase.Channel.SetFact(factID, factGroup)
+        End Sub
+        
+        Public Function SetFactAsync(ByVal factID As String, ByVal factGroup As String) As System.Threading.Tasks.Task Implements EEService.IEES.SetFactAsync
+            Return MyBase.Channel.SetFactAsync(factID, factGroup)
+        End Function
+        
+        Public Sub RemoveFact(ByVal factID As String) Implements EEService.IEES.RemoveFact
+            MyBase.Channel.RemoveFact(factID)
+        End Sub
+        
+        Public Function RemoveFactAsync(ByVal factID As String) As System.Threading.Tasks.Task Implements EEService.IEES.RemoveFactAsync
+            Return MyBase.Channel.RemoveFactAsync(factID)
+        End Function
+        
+        Public Function GetFacts(ByVal factGroup As String) As String() Implements EEService.IEES.GetFacts
+            Return MyBase.Channel.GetFacts(factGroup)
+        End Function
+        
+        Public Function GetFactsAsync(ByVal factGroup As String) As System.Threading.Tasks.Task(Of String()) Implements EEService.IEES.GetFactsAsync
+            Return MyBase.Channel.GetFactsAsync(factGroup)
         End Function
         
         Public Function GetPlayerData(ByVal username As String) As EEService.UserData Implements EEService.IEES.GetPlayerData

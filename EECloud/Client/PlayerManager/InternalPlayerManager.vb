@@ -29,12 +29,15 @@
     End Sub
 
     Private Async Sub myConnection_OnReceiveAdd(sender As Object, e As AddReceiveMessage) Handles myConnection.ReceiveAdd
-        If Not myPlayers.ContainsKey(e.UserID) Then
-            Dim player As New InternalPlayer(myClient, e)
-            Await player.ReloadUserDataAsync
-            myPlayers.Add(player.UserID, player)
-            RaiseEvent AddUser(Me, player)
-        End If
+        Dim player As New InternalPlayer(myClient, e)
+        Await player.ReloadUserDataAsync
+
+        SyncLock myPlayers
+            If Not myPlayers.ContainsKey(e.UserID) Then
+                myPlayers.Add(player.UserID, player)
+                RaiseEvent AddUser(Me, player)
+            End If
+        End SyncLock
     End Sub
 
     Private Sub myConnection_OnReceiveCrown(sender As Object, e As CrownReceiveMessage) Handles myConnection.ReceiveCrown

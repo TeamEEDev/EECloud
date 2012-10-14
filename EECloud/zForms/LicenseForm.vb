@@ -12,8 +12,8 @@ Friend Class LicenseForm
         Icon = My.Resources.Icon
         InitializeComponent()
 
-        TextBoxUsername.Text = My.Settings.LicenceUsername
-        TextBoxKey.Text = My.Settings.LicenceKey
+        TextBoxUsername.Text = My.Settings.LicenseUsername
+        TextBoxKey.Text = My.Settings.LicenseKey
     End Sub
 
     Private Sub LoginForm_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
@@ -37,8 +37,8 @@ Friend Class LicenseForm
     Private Sub ButtonOk_Click(sender As Object, e As EventArgs) Handles ButtonOk.Click
         If Not TextBoxUsername.Text = "" Then
             If Not TextBoxKey.Text = "" Then
-                My.Settings.LicenceUsername = TextBoxUsername.Text
-                My.Settings.LicenceKey = TextBoxKey.Text
+                My.Settings.LicenseUsername = TextBoxUsername.Text
+                My.Settings.LicenseKey = TextBoxKey.Text
                 My.Settings.Save()
                 DialogResult = DialogResult.OK
                 Close()
