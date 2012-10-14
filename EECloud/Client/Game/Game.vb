@@ -1,4 +1,4 @@
-﻿Public Class Game
+﻿Public NotInheritable Class Game
     Implements IGame
 
 #Region "Fields"

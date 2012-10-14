@@ -1,6 +1,4 @@
-﻿Imports System.Threading.Tasks
-
-Friend NotInheritable Class InternalPlayer
+﻿Friend NotInheritable Class InternalPlayer
     Implements IPlayer
 
 #Region "Fields"
@@ -235,7 +233,7 @@ Friend NotInheritable Class InternalPlayer
         End Get
     End Property
 
-    Private mySpawnX As Integer
+    Private ReadOnly mySpawnX As Integer
 
     Public ReadOnly Property SpawnX As Integer Implements IPlayer.SpawnX
         Get
@@ -243,7 +241,7 @@ Friend NotInheritable Class InternalPlayer
         End Get
     End Property
 
-    Private mySpawnY As Integer
+    Private ReadOnly mySpawnY As Integer
 
     Public ReadOnly Property SpawnY As Integer Implements IPlayer.SpawnY
         Get

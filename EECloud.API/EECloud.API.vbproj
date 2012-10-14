@@ -142,6 +142,7 @@
     <Compile Include="Interfaces\World\IWorld.vb" />
     <Compile Include="Interfaces\World\IWorldBlock.vb" />
     <Compile Include="Messages\Receive\PotionReceiveMessage.vb" />
+    <Compile Include="Messages\Send\TouchCakeSendMessage.vb" />
     <Compile Include="Messages\Send\PotionSendMessage.vb" />
     <Compile Include="MustInheirts\Player.vb" />
     <Compile Include="Enums\Block\CoinDoorBlock.vb" />

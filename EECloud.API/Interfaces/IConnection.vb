@@ -53,6 +53,7 @@
     Event SendPressBlueKey As EventHandler(Of Cancelable(Of PressBlueKeySendMessage))
     Event SendGetCrown As EventHandler(Of Cancelable(Of GetCrownSendMessage))
     Event SendTouchDiamond As EventHandler(Of Cancelable(Of TouchDiamondSendMessage))
+    Event SendTouchCake As EventHandler(Of Cancelable(Of TouchCakeSendMessage))
     Event SendCompleteLevel As EventHandler(Of Cancelable(Of CompleteLevelSendMessage))
     Event SendGodMode As EventHandler(Of Cancelable(Of GodModeSendMessage))
     Event SendModMode As EventHandler(Of Cancelable(Of ModModeSendMessage))
