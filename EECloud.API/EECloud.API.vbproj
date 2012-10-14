@@ -141,6 +141,10 @@
     <Compile Include="Interfaces\IUploader.vb" />
     <Compile Include="Interfaces\World\IWorld.vb" />
     <Compile Include="Interfaces\World\IWorldBlock.vb" />
+    <Compile Include="Interfaces\World\IWorldCoinDoorBlock.vb" />
+    <Compile Include="Interfaces\World\IWorldLabelBlock.vb" />
+    <Compile Include="Interfaces\World\IWorldPortalBlock.vb" />
+    <Compile Include="Interfaces\World\IWorldSoundBlock.vb" />
     <Compile Include="Messages\Receive\PotionReceiveMessage.vb" />
     <Compile Include="Messages\Send\TouchCakeSendMessage.vb" />
     <Compile Include="Messages\Send\PotionSendMessage.vb" />

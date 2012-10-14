@@ -1,25 +1,18 @@
 ﻿Public NotInheritable Class WorldPortalBlock
-    Implements IWorldBlock
+    Inherits WorldBlock
+    Implements IWorldPortalBlock
 
 #Region "Properties"
 
-    Public ReadOnly Property BlockType As BlockType Implements IWorldBlock.BlockType
+    Public Overrides ReadOnly Property BlockType As BlockType
         Get
             Return BlockType.Portal
         End Get
     End Property
 
-    Private ReadOnly myBlock As Block
-
-    Public ReadOnly Property Block As Block Implements IWorldBlock.Block
-        Get
-            Return myBlock
-        End Get
-    End Property
-
     Private ReadOnly myPortalRotation As PortalRotation
 
-    Public ReadOnly Property PortalRotation As PortalRotation Implements IWorldBlock.PortalRotation
+    Public ReadOnly Property PortalRotation As PortalRotation Implements IWorldPortalBlock.PortalRotation
         Get
             Return myPortalRotation
         End Get
@@ -27,7 +20,7 @@
 
     Private ReadOnly myPortalID As Integer
 
-    Public ReadOnly Property PortalID As Integer Implements IWorldBlock.PortalID
+    Public ReadOnly Property PortalID As Integer Implements IWorldPortalBlock.PortalID
         Get
             Return myPortalID
         End Get
@@ -35,27 +28,9 @@
 
     Private ReadOnly myPortalTarget As Integer
 
-    Public ReadOnly Property PortalTarget As Integer Implements IWorldBlock.PortalTarget
+    Public ReadOnly Property PortalTarget As Integer Implements IWorldPortalBlock.PortalTarget
         Get
             Return myPortalTarget
-        End Get
-    End Property
-
-    Public ReadOnly Property CoinsToCollect As Integer Implements IWorldBlock.CoinsToCollect
-        Get
-            Return Nothing
-        End Get
-    End Property
-
-    Public ReadOnly Property SoundID As Integer Implements IWorldBlock.SoundID
-        Get
-            Return Nothing
-        End Get
-    End Property
-
-    Public ReadOnly Property Text As String Implements IWorldBlock.Text
-        Get
-            Return Nothing
         End Get
     End Property
 
@@ -64,7 +39,7 @@
 #Region "Methods"
 
     Friend Sub New(block As PortalBlock, portalRotation As PortalRotation, portalID As Integer, portalTarget As Integer)
-        myBlock = CType(block, Block)
+        MyBase.New(CType(block, Block))
         myPortalRotation = portalRotation
         myPortalID = portalID
         myPortalTarget = portalTarget
