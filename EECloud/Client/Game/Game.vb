@@ -1,5 +1,5 @@
-﻿Public Class Game(Of TPlayer As {New, Player})
-    Implements IGame(Of TPlayer)
+﻿Public Class Game
+    Implements IGame
 
 #Region "Fields"
     Private ReadOnly myClient As IClient(Of Player)
@@ -7,41 +7,41 @@
 #End Region
 
 #Region "Event"
-    Public Event WorldNameChange(sender As Object, e As ItemChangedEventArgs(Of String)) Implements IGame(Of TPlayer).WorldNameChange
+    Public Event WorldNameChange(sender As Object, e As ItemChangedEventArgs(Of String)) Implements IGame.WorldNameChange
 
-    Public Event OnClear(sender As Object, e As EventArgs) Implements IGame(Of TPlayer).OnClear
+    Public Event OnClear(sender As Object, e As EventArgs) Implements IGame.OnClear
 
-    Public Event OnLoadLevel(sender As Object, e As EventArgs) Implements IGame(Of TPlayer).OnLoadLevel
+    Public Event OnLoadLevel(sender As Object, e As EventArgs) Implements IGame.OnLoadLevel
 
-    Public Event OnReset(sender As Object, e As EventArgs) Implements IGame(Of TPlayer).OnReset
+    Public Event OnReset(sender As Object, e As EventArgs) Implements IGame.OnReset
 
-    Public Event OnSave(sender As Object, e As EventArgs) Implements IGame(Of TPlayer).OnSave
+    Public Event OnSave(sender As Object, e As EventArgs) Implements IGame.OnSave
 
-    Public Event AccessRightChange(sender As Object, e As ItemChangedEventArgs(Of AccessRight)) Implements IGame(Of TPlayer).AccessRightChange
+    Public Event AccessRightChange(sender As Object, e As ItemChangedEventArgs(Of AccessRight)) Implements IGame.AccessRightChange
 
-    Public Event KeyPress(sender As Object, e As Key) Implements IGame(Of TPlayer).KeyPress
+    Public Event KeyPress(sender As Object, e As Key) Implements IGame.KeyPress
 
-    Public Event KeyRelease(sender As Object, e As Key) Implements IGame(Of TPlayer).KeyRelease
+    Public Event KeyRelease(sender As Object, e As Key) Implements IGame.KeyRelease
 
-    Public Event PlaysChange(sender As Object, e As ItemChangedEventArgs(Of Integer)) Implements IGame(Of TPlayer).PlaysChange
+    Public Event PlaysChange(sender As Object, e As ItemChangedEventArgs(Of Integer)) Implements IGame.PlaysChange
 
-    Public Event OwnerChange(sender As Object, e As ItemChangedEventArgs(Of String)) Implements IGame(Of TPlayer).OwnerChange
+    Public Event OwnerChange(sender As Object, e As ItemChangedEventArgs(Of String)) Implements IGame.OwnerChange
 
-    Public Event Init(sender As Object, e As EventArgs) Implements IGame(Of TPlayer).Init
+    Public Event Init(sender As Object, e As EventArgs) Implements IGame.Init
 #End Region
 
 #Region "Properties"
     Private myEncryption As String
 
-    Public ReadOnly Property Encryption As String Implements IGame(Of TPlayer).Encryption
+    Public ReadOnly Property Encryption As String Implements IGame.Encryption
         Get
             Return myEncryption
         End Get
     End Property
 
-    Private myMyPlayer As TPlayer
+    Private myMyPlayer As Player
 
-    Public ReadOnly Property MyPlayer As TPlayer Implements IGame(Of TPlayer).MyPlayer
+    Public ReadOnly Property MyPlayer As Player Implements IGame.MyPlayer
         Get
             Return myMyPlayer
         End Get
@@ -49,7 +49,7 @@
 
     Private myOwner As String
 
-    Public ReadOnly Property Owner As String Implements IGame(Of TPlayer).Owner
+    Public ReadOnly Property Owner As String Implements IGame.Owner
         Get
             Return myOwner
         End Get
@@ -57,7 +57,7 @@
 
     Private myPlays As Integer
 
-    Public ReadOnly Property Plays As Integer Implements IGame(Of TPlayer).Plays
+    Public ReadOnly Property Plays As Integer Implements IGame.Plays
         Get
             Return myPlays
         End Get
@@ -65,7 +65,7 @@
 
     Private myBlueKey As Boolean
 
-    Public ReadOnly Property BlueKey As Boolean Implements IGame(Of TPlayer).BlueKey
+    Public ReadOnly Property BlueKey As Boolean Implements IGame.BlueKey
         Get
             Return myBlueKey
         End Get
@@ -73,7 +73,7 @@
 
     Private myGreenKey As Boolean
 
-    Public ReadOnly Property GreenKey As Boolean Implements IGame(Of TPlayer).GreenKey
+    Public ReadOnly Property GreenKey As Boolean Implements IGame.GreenKey
         Get
             Return myGreenKey
         End Get
@@ -81,7 +81,7 @@
 
     Private myRedKey As Boolean
 
-    Public ReadOnly Property RedKey As Boolean Implements IGame(Of TPlayer).RedKey
+    Public ReadOnly Property RedKey As Boolean Implements IGame.RedKey
         Get
             Return myRedKey
         End Get
@@ -89,7 +89,7 @@
 
     Private myTimedKey As Boolean
 
-    Public ReadOnly Property TimedKey As Boolean Implements IGame(Of TPlayer).TimedKey
+    Public ReadOnly Property TimedKey As Boolean Implements IGame.TimedKey
         Get
             Return myTimedKey
         End Get
@@ -97,7 +97,7 @@
 
     Private myBlueAuraPotionCount As Integer
 
-    Public ReadOnly Property BlueAuraPotionCount As Integer Implements IGame(Of TPlayer).BlueAuraPotionCount
+    Public ReadOnly Property BlueAuraPotionCount As Integer Implements IGame.BlueAuraPotionCount
         Get
             Return myBlueAuraPotionCount
         End Get
@@ -105,7 +105,7 @@
 
     Private myRedAuraPotionCount As Integer
 
-    Public ReadOnly Property RedAuraPotionCount As Integer Implements IGame(Of TPlayer).RedAuraPotionCount
+    Public ReadOnly Property RedAuraPotionCount As Integer Implements IGame.RedAuraPotionCount
         Get
             Return myRedAuraPotionCount
         End Get
@@ -113,7 +113,7 @@
 
     Private myYellowAuraPotionCount As Integer
 
-    Public ReadOnly Property YellowAuraPotionCount As Integer Implements IGame(Of TPlayer).YellowAuraPotionCount
+    Public ReadOnly Property YellowAuraPotionCount As Integer Implements IGame.YellowAuraPotionCount
         Get
             Return myYellowAuraPotionCount
         End Get
@@ -121,19 +121,19 @@
 
     Private myAccessRight As AccessRight
 
-    Public ReadOnly Property AccessRight As AccessRight Implements IGame(Of TPlayer).AccessRight
+    Public ReadOnly Property AccessRight As AccessRight Implements IGame.AccessRight
         Get
             Return myAccessRight
         End Get
     End Property
 
-    Public WriteOnly Property GodMode As Boolean Implements IGame(Of TPlayer).GodMode
+    Public WriteOnly Property GodMode As Boolean Implements IGame.GodMode
         Set(value As Boolean)
             myConnection.Send(New GodModeSendMessage(value))
         End Set
     End Property
 
-    Public WriteOnly Property Location As Location Implements IGame(Of TPlayer).Location
+    Public WriteOnly Property Location As Location Implements IGame.Location
         Set(value As Location)
             myConnection.Send(New MoveSendMessage(value.X, value.Y, 0, 0, 0, 0, 0, 0, myGravityMultiplayer))
         End Set
@@ -141,7 +141,7 @@
 
     Private myWorldName As String
 
-    Public Property WorldName As String Implements IGame(Of TPlayer).WorldName
+    Public Property WorldName As String Implements IGame.WorldName
         Get
             Return myWorldName
         End Get
@@ -150,7 +150,7 @@
         End Set
     End Property
 
-    Public WriteOnly Property Smiley As Smiley Implements IGame(Of TPlayer).Smiley
+    Public WriteOnly Property Smiley As Smiley Implements IGame.Smiley
         Set(value As Smiley)
             myConnection.Send(New ChangeFaceSendMessage(value))
         End Set
@@ -158,7 +158,7 @@
 
     Private myAllowPotions As Boolean
 
-    Public ReadOnly Property AllowPotions As Boolean Implements IGame(Of TPlayer).AllowPotions
+    Public ReadOnly Property AllowPotions As Boolean Implements IGame.AllowPotions
         Get
             Return myAllowPotions
         End Get
@@ -166,7 +166,7 @@
 
     Private myGravityMultiplayer As Double
 
-    Public ReadOnly Property GravityMultiplayer As Double Implements IGame(Of TPlayer).GravityMultiplayer
+    Public ReadOnly Property GravityMultiplayer As Double Implements IGame.GravityMultiplayer
         Get
             Return myGravityMultiplayer
         End Get
@@ -174,7 +174,7 @@
 
     Private myIsTutorialRoom As Boolean
 
-    Public ReadOnly Property IsTutorialRoom As Boolean Implements IGame(Of TPlayer).IsTutorialRoom
+    Public ReadOnly Property IsTutorialRoom As Boolean Implements IGame.IsTutorialRoom
         Get
             Return myIsTutorialRoom
         End Get
@@ -189,43 +189,43 @@
         myConnection = myClient.Connection
     End Sub
 
-    Public Sub Clear() Implements IGame(Of TPlayer).Clear
+    Public Sub Clear() Implements IGame.Clear
         myConnection.Send(New ClearWorldSendMessage)
     End Sub
 
-    Public Sub EnterModMode() Implements IGame(Of TPlayer).EnterModMode
+    Public Sub EnterModMode() Implements IGame.EnterModMode
         myConnection.Send(New ModModeSendMessage)
     End Sub
 
-    Public Sub LoadLevel() Implements IGame(Of TPlayer).LoadLevel
+    Public Sub LoadLevel() Implements IGame.LoadLevel
         myClient.Chatter.Loadlevel()
     End Sub
 
-    Public Sub PressBlueKey() Implements IGame(Of TPlayer).PressBlueKey
+    Public Sub PressBlueKey() Implements IGame.PressBlueKey
         myConnection.Send(New PressBlueKeySendMessage)
     End Sub
 
-    Public Sub PressRedKey() Implements IGame(Of TPlayer).PressRedKey
+    Public Sub PressRedKey() Implements IGame.PressRedKey
         myConnection.Send(New PressRedKeySendMessage)
     End Sub
 
-    Public Sub PressGreenKey() Implements IGame(Of TPlayer).PressGreenKey
+    Public Sub PressGreenKey() Implements IGame.PressGreenKey
         myConnection.Send(New PressGreenKeySendMessage)
     End Sub
 
-    Public Sub Reset() Implements IGame(Of TPlayer).Reset
+    Public Sub Reset() Implements IGame.Reset
         myClient.Chatter.Reset()
     End Sub
 
-    Public Sub Save() Implements IGame(Of TPlayer).Save
+    Public Sub Save() Implements IGame.Save
         myConnection.Send(New SaveWorldSendMessage)
     End Sub
 
-    Public Sub TryAccess(key As String) Implements IGame(Of TPlayer).TryAccess
+    Public Sub TryAccess(key As String) Implements IGame.TryAccess
         myConnection.Send(New AccessSendMessage(key))
     End Sub
 
-    Public Sub UsePotion(potion As Potion) Implements IGame(Of TPlayer).UsePotion
+    Public Sub UsePotion(potion As Potion) Implements IGame.UsePotion
         myConnection.Send(New PotionSendMessage(potion))
     End Sub
 
@@ -248,7 +248,7 @@
     End Sub
 
     Private Sub myConnection_ReceiveInit(sender As Object, e As InitReceiveMessage) Handles myConnection.ReceiveInit
-        myMyPlayer = New TPlayer
+        myMyPlayer = New Player
         myMyPlayer.SetupPlayer(New InternalPlayer(myClient, e), myClient.Chatter)
         myOwner = e.UsernameOwner
         myWorldName = e.WorldName
@@ -279,7 +279,7 @@
         Next
         Dim pointer As UInteger = startNum
         Do
-            If TryCast(e.PlayerIOMessage.Item(pointer), String) IsNot Nothing AndAlso e.PlayerIOMessage.GetString(pointer) = "we" Then
+            If TryCast(e.PlayerIOMessage.Item(pointer), String) IsNot Nothing AndAlso e.PlayerIOMessage.GetString(pointer) = "ps" Then
                 Exit Do
             End If
             Select Case CType(e.PlayerIOMessage.GetInteger(CUInt(pointer - 1)), Potion)

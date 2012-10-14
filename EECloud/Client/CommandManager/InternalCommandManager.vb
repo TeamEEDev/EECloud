@@ -32,6 +32,8 @@
                 If sender.Group >= Group.Trusted Then
                     sender.Reply("Unknown command")
                 End If
+            ElseIf rights >= Group.Moderator Then
+                Cloud.Logger.Log(LogPriority.Info, "Unknown command")
             End If
         End If
     End Sub

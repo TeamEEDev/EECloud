@@ -28,5 +28,13 @@
         myLabel = label
     End Sub
 
+    Public Sub Reply(msg As String) Implements ICommand(Of TPlayer).Reply
+        If mySender Is Nothing Then
+            Cloud.Logger.Log(LogPriority.Info, msg)
+        Else
+            mySender.Reply(msg)
+        End If
+    End Sub
+
 #End Region
 End Class

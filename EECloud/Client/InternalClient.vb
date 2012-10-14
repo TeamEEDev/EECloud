@@ -35,6 +35,14 @@
         End Get
     End Property
 
+    Private ReadOnly myGame As IGame
+
+    Public ReadOnly Property Game As IGame Implements IClient(Of Player).Game
+        Get
+            Return myGame
+        End Get
+    End Property
+
 
     Private ReadOnly myInternalChatter As InternalChatter
 
@@ -95,6 +103,7 @@
         myConnection = New Connection(Me)
         myWorld = New World(Me)
         myUploader = New Uploader(Me)
+        myGame = New Game(Me)
 
         myInternalChatter = New InternalChatter(Me)
         myInternalPlayerManager = New InternalPlayerManager(Me)
