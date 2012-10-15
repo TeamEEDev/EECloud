@@ -566,12 +566,19 @@ Public NotInheritable Class Connection
 
     Private myRunConnect As Boolean
 
-    Friend Async Function ConnectAsync(username As String, password As String, id As String) As Task Implements IConnection.ConnectAsync
+    Friend Async Function ConnectAsync(type As AccountType, username As String, password As String, id As String) As Task Implements IConnection.ConnectAsync
         If Not myRunConnect Then
             Await Task.Run(
                 Sub()
                     Try
-                        Dim ioClient As PlayerIOClient.Client = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(GameID, username, password)
+                        Dim ioClient As PlayerIOClient.Client = Nothing
+                        Select Case type
+                            Case AccountType.Regular
+                                ioClient = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(GameID, username, password)
+                            Case AccountType.Facebook
+                                ioClient = PlayerIOClient.PlayerIO.QuickConnect.FacebookOAuthConnect(GameID, username, "")
+                        End Select
+
                         Dim ioConnection As PlayerIOClient.Connection = GetIOConnection(ioClient, id)
                         SetupConnection(ioConnection, id)
                     Catch ex As PlayerIOClient.PlayerIOError

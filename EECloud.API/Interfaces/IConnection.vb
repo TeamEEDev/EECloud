@@ -72,7 +72,7 @@
     ReadOnly Property WorldID As String
     ReadOnly Property Connected As Boolean
 
-    Function ConnectAsync(username As String, password As String, id As String) As task
+    Function ConnectAsync(type As AccountType, username As String, password As String, id As String) As task
     Sub Send(message As SendMessage)
     Sub Close()
 End Interface
