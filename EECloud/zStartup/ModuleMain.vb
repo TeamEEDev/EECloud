@@ -5,16 +5,12 @@ Imports EECloud.API.EEService
 Imports System.IO
 
 Module ModuleMain
-
 #Region "Methods"
 
     <MTAThread>
     Sub Main()
-
-        Dim version As Version = Assembly.GetEntryAssembly().GetName().Version
-        Dim buildDateTime = New DateTime(2000, 1, 1).Add(New TimeSpan(TimeSpan.TicksPerDay * version.Build + TimeSpan.TicksPerSecond * 2 * version.Revision))
-        Console.WriteLine("EECloud Indev version " & version.ToString)
-        Console.WriteLine("Built on " & buildDateTime.ToString)
+        Console.WriteLine("EECloud Indev version " & Assembly.GetEntryAssembly().GetName().Version.ToString)
+        Console.WriteLine("Built on " & RetrieveLinkerTimestamp.ToString)
 
         'Creating singletons
         CreateSingletons()
@@ -38,6 +34,30 @@ Module ModuleMain
 
         Thread.Sleep(Timeout.Infinite)
     End Sub
+
+    Private Function RetrieveLinkerTimestamp() As DateTime
+        Dim filePath As String = Assembly.GetCallingAssembly().Location
+        Const peHeaderOffset As Integer = 60
+        Const linkerTimestampOffset As Integer = 8
+        Dim b As Byte() = New Byte(2047) {}
+        Dim s As Stream = Nothing
+
+        Try
+            s = New FileStream(filePath, FileMode.Open, FileAccess.Read)
+            s.Read(b, 0, 2048)
+        Finally
+            If s IsNot Nothing Then
+                s.Close()
+            End If
+        End Try
+
+        Dim i As Integer = BitConverter.ToInt32(b, peHeaderOffset)
+        Dim secondsSince1970 As Integer = BitConverter.ToInt32(b, i + linkerTimestampOffset)
+        Dim dt As New DateTime(1970, 1, 1, 0, 0, 0)
+        dt = dt.AddSeconds(secondsSince1970)
+        dt = dt.AddHours(TimeZone.CurrentTimeZone.GetUtcOffset(dt).Hours)
+        Return dt
+    End Function
 
     Private Sub CreateSingletons()
         Cloud.AppEnvironment = CType([Enum].Parse(GetType(AppEnvironment), ConfigurationManager.AppSettings("Environment"), True), AppEnvironment)

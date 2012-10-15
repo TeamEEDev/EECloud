@@ -275,20 +275,20 @@ Public Class Player
         End Get
     End Property
 
-    Public ReadOnly Property CurrentBlock As IWorldBlock Implements IPlayer.CurrentBlock
+    Public ReadOnly Property BlockX As Integer Implements IPlayer.BlockX
         Get
             Try
-                Return myPlayer.CurrentBlock
+                Return myPlayer.BlockX
             Catch ex As Exception
                 Return Nothing
             End Try
         End Get
     End Property
 
-    Public ReadOnly Property CurrentBGBlock As IWorldBlock Implements IPlayer.CurrentBGBlock
+    Public ReadOnly Property BlockY As Integer Implements IPlayer.BlockY
         Get
             Try
-                Return myPlayer.CurrentBGBlock
+                Return myPlayer.BlockY
             Catch ex As Exception
                 Return Nothing
             End Try

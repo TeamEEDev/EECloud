@@ -35,16 +35,17 @@ Friend NotInheritable Class Uploader
         Dim tempVer As UInteger = myVersion
         Await Task.Delay(1000)
         If myVersion = tempVer Then
-            Do Until myLagCheckQueue.Count = 0
-                Dim sendBlock As BlockPlaceUploadMessage
-                SyncLock myLagCheckQueue
+            SyncLock myLagCheckQueue
+                Do Until myLagCheckQueue.Count = 0
+                    Dim sendBlock As BlockPlaceUploadMessage
                     sendBlock = myLagCheckQueue.Dequeue()
-                End SyncLock
 
-                If Not myClient.World(sendBlock.X, sendBlock.Y, sendBlock.Layer).Block = sendBlock.Block Then
-                    myBlockUploadQueue.PushFront(sendBlock)
-                End If
-            Loop
+
+                    If Not myClient.World(sendBlock.X, sendBlock.Y, sendBlock.Layer).Block = sendBlock.Block Then
+                        myBlockUploadQueue.PushFront(sendBlock)
+                    End If
+                Loop
+            End SyncLock
         End If
     End Sub
 

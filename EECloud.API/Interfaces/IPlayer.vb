@@ -9,8 +9,8 @@ Friend Interface IPlayer
     ReadOnly Property Smiley As Smiley
     ReadOnly Property PlayerPosX As Integer
     ReadOnly Property PlayerPosY As Integer
-    ReadOnly Property CurrentBlock As IWorldBlock
-    ReadOnly Property CurrentBGBlock As IWorldBlock
+    ReadOnly Property BlockX As Integer
+    ReadOnly Property BlockY As Integer
     ReadOnly Property IsGod As Boolean
     ReadOnly Property IsMod As Boolean
     ReadOnly Property HasChat As Boolean
