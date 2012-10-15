@@ -30,9 +30,11 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
                     Try
                         AddCommand(attribute.Type, handle)
 
-                        For Each item As String In attribute.Aliases
-                            AddCommand(item, handle)
-                        Next
+                        If attribute.Aliases IsNot Nothing Then
+                            For Each item As String In attribute.Aliases
+                                AddCommand(item, handle)
+                            Next
+                        End If
                     Catch ex As Exception
                         Cloud.Logger.Log(LogPriority.Error, "Failed to Load command: " & attribute.Type)
                         Cloud.Logger.LogEx(ex)
@@ -62,7 +64,11 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
             'No signature matched
             Dim usages As String = String.Empty
             usages = myCommandsDictionary(type).Aggregate(usages, Function(current, handle) current & handle.ToString & " / ") 'Some LINQ magic here...
-            sender.Reply("Command usage(s): " & Left(usages, usages.Length - 3))
+            If sender Is Nothing Then
+                sender.Reply("Command usage(s): " & Left(usages, usages.Length - 3))
+            Else
+                Cloud.Logger.Log(LogPriority.Info, "Command usage(s): " & Left(usages, usages.Length - 3))
+            End If
         End If
     End Sub
 

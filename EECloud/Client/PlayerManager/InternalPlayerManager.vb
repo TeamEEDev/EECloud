@@ -30,14 +30,19 @@
 
     Private Async Sub myConnection_OnReceiveAdd(sender As Object, e As AddReceiveMessage) Handles myConnection.ReceiveAdd
         Dim player As New InternalPlayer(myClient, e)
-        Await player.ReloadUserDataAsync
 
+        Dim done As Boolean
         SyncLock myPlayers
             If Not myPlayers.ContainsKey(e.UserID) Then
                 myPlayers.Add(player.UserID, player)
                 RaiseEvent AddUser(Me, player)
+                done = True
             End If
         End SyncLock
+
+        If done Then
+            Await player.ReloadUserDataAsync()
+        End If
     End Sub
 
     Private Sub myConnection_OnReceiveCrown(sender As Object, e As CrownReceiveMessage) Handles myConnection.ReceiveCrown
