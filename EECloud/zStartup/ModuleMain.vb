@@ -7,6 +7,12 @@ Module ModuleMain
 #Region "Methods"
     <STAThread>
     Sub Main()
+
+        Dim version As Version = Assembly.GetEntryAssembly().GetName().Version
+        Dim buildDateTime = New DateTime(2000, 1, 1).Add(New TimeSpan(TimeSpan.TicksPerDay * version.Build + TimeSpan.TicksPerSecond * 2 * version.Revision))
+        Console.WriteLine("EECloud Indev version " & version.ToString)
+        Console.WriteLine("Built on " & buildDateTime.ToString)
+
         'Creating singletons
         CreateSingletons()
 
