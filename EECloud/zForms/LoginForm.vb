@@ -13,7 +13,7 @@ Friend NotInheritable Class LoginForm
         InitializeComponent()
 
         TextBoxEmail.Text = My.Settings.LoginEmail
-        Select Case CType(My.Settings.LoginType, AccountType)
+        Select Case My.Settings.LoginType
             Case AccountType.Regular
                 TextBoxPassword.Text = My.Settings.LoginPassword
                 RadioButtonRegular.Checked = True
@@ -53,7 +53,7 @@ Friend NotInheritable Class LoginForm
                 If Not TextBoxWorldID.Text = "" Then
                     If RadioButtonRegular.Checked Then
                         My.Settings.LoginType = AccountType.Regular
-                    Else 'If RadioButtonFacebook.Checked Then
+                    Else
                         My.Settings.LoginType = AccountType.Facebook
                     End If
                     My.Settings.LoginEmail = TextBoxEmail.Text
@@ -92,7 +92,6 @@ Friend NotInheritable Class LoginForm
         End If
     End Sub
 
-#End Region
     Private Sub RadioButtonTypes_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButtonRegular.CheckedChanged, RadioButtonFacebook.CheckedChanged
         Dim senderAsRadioButton As RadioButton = TryCast(sender, RadioButton)
 
@@ -110,4 +109,7 @@ Friend NotInheritable Class LoginForm
             End If
         End If
     End Sub
+
+#End Region
+
 End Class

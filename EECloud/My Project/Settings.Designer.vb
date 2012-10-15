@@ -116,10 +116,10 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
-        Public Property LoginType() As Integer
+         Global.System.Configuration.DefaultSettingValueAttribute("Regular")>  _
+        Public Property LoginType() As Global.EECloud.API.AccountType
             Get
-                Return CType(Me("LoginType"),Integer)
+                Return CType(Me("LoginType"),Global.EECloud.API.AccountType)
             End Get
             Set
                 Me("LoginType") = value

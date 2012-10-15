@@ -1,7 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)"
-              GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
   <Profiles />
   <Settings>
     <Setting Name="LicenseUsername" Type="System.String" Scope="User">
@@ -19,8 +17,8 @@
     <Setting Name="LoginWorldID" Type="System.String" Scope="User">
       <Value Profile="(Default)">PWWOfglOCdbEI</Value>
     </Setting>
-    <Setting Name="LoginType" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="LoginType" Type="EECloud.API.AccountType" Scope="User">
+      <Value Profile="(Default)">Regular</Value>
     </Setting>
   </Settings>
 </SettingsFile>

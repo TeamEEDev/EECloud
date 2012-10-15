@@ -571,19 +571,19 @@ Public NotInheritable Class Connection
             Await Task.Run(
                 Sub()
                     Try
-                        Dim ioClient As PlayerIOClient.Client = Nothing
+                        Dim ioClient As Client = Nothing
                         Select Case type
                             Case AccountType.Regular
-                                ioClient = PlayerIOClient.PlayerIO.QuickConnect.SimpleConnect(GameID, username, password)
+                                ioClient = PlayerIO.QuickConnect.SimpleConnect(GameID, username, password)
                             Case AccountType.Facebook
-                                ioClient = PlayerIOClient.PlayerIO.QuickConnect.FacebookOAuthConnect(GameID, username, "")
+                                ioClient = PlayerIO.QuickConnect.FacebookOAuthConnect(GameID, username, "")
                         End Select
                         Dim ioConnection As PlayerIOClient.Connection = GetIOConnection(ioClient, id)
                         SetupConnection(ioConnection, id)
                     Catch ex As PlayerIOError
                         Throw New EECloudPlayerIOException(ex)
-                              End Try
-                              End Sub)
+                    End Try
+                End Sub)
             myRunConnect = True
         Else
             Throw New Exception("A connection has been already established")
