@@ -117,7 +117,7 @@ Module ModuleMain
     Private Async Sub Login(client As IClient(Of Player))
         Try
             Cloud.Logger.Log(LogPriority.Info, "Joining world...")
-            Dim task As Task = client.Connection.ConnectAsync(My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID)
+            Dim task As Task = client.Connection.ConnectAsync(CType(My.Settings.LoginType, AccountType), My.Settings.LoginEmail, My.Settings.LoginPassword, My.Settings.LoginWorldID)
 
             AddHandler client.Connection.Disconnect,
                 Sub()

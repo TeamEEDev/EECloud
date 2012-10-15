@@ -13,7 +13,13 @@ Friend NotInheritable Class LoginForm
         InitializeComponent()
 
         TextBoxEmail.Text = My.Settings.LoginEmail
-        TextBoxPassword.Text = My.Settings.LoginPassword
+        Select Case CType(My.Settings.LoginType, AccountType)
+            Case AccountType.Regular
+                TextBoxPassword.Text = My.Settings.LoginPassword
+                RadioButtonRegular.Checked = True
+            Case AccountType.Facebook
+                RadioButtonFacebook.Checked = True
+        End Select
         TextBoxWorldID.Text = My.Settings.LoginWorldID
     End Sub
 
@@ -43,8 +49,13 @@ Friend NotInheritable Class LoginForm
 
     Private Sub ButtonJoinWorld_Click(sender As Object, e As EventArgs) Handles ButtonJoinWorld.Click
         If Not TextBoxEmail.Text = "" Then
-            If Not TextBoxPassword.Text = "" Then
+            If Not TextBoxPassword.Text = "" Or RadioButtonFacebook.Checked Then
                 If Not TextBoxWorldID.Text = "" Then
+                    If RadioButtonRegular.Checked Then
+                        My.Settings.LoginType = AccountType.Regular
+                    Else 'If RadioButtonFacebook.Checked Then
+                        My.Settings.LoginType = AccountType.Facebook
+                    End If
                     My.Settings.LoginEmail = TextBoxEmail.Text
                     My.Settings.LoginPassword = TextBoxPassword.Text
                     My.Settings.LoginWorldID = TextBoxWorldID.Text
@@ -64,7 +75,7 @@ Friend NotInheritable Class LoginForm
                 TextBoxPassword.Focus()
             End If
         Else
-            If Not TextBoxPassword.Text = "" Then
+            If Not TextBoxPassword.Text = "" Or RadioButtonFacebook.Checked Then
                 If Not TextBoxWorldID.Text = "" Then
                     MsgBox("You didn't enter your e-mail address.", MsgBoxStyle.Critical, "Error")
                 Else
@@ -82,4 +93,21 @@ Friend NotInheritable Class LoginForm
     End Sub
 
 #End Region
+    Private Sub RadioButtonTypes_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButtonRegular.CheckedChanged, RadioButtonFacebook.CheckedChanged
+        Dim senderAsRadioButton As RadioButton = TryCast(sender, RadioButton)
+
+        If senderAsRadioButton IsNot Nothing AndAlso senderAsRadioButton.Checked Then
+            If senderAsRadioButton Is RadioButtonRegular Then
+                LabelPassword.Enabled = True
+                TextBoxPassword.Text = My.Settings.LoginPassword
+                TextBoxPassword.Enabled = True
+                LabelEmail.Text = "E-mail:"
+            Else 'If senderAsRadioButton Is RadioButtonFacebook Then
+                TextBoxPassword.Enabled = False
+                TextBoxPassword.Text = ""
+                LabelPassword.Enabled = False
+                LabelEmail.Text = "Token:"
+            End If
+        End If
+    End Sub
 End Class

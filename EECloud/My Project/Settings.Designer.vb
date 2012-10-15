@@ -54,26 +54,26 @@ Namespace My
             End Get
         End Property
         
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("")> _
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property LicenseUsername() As String
             Get
-                Return CType(Me("LicenseUsername"), String)
+                Return CType(Me("LicenseUsername"),String)
             End Get
-            Set(value As String)
+            Set
                 Me("LicenseUsername") = value
             End Set
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("")> _
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property LicenseKey() As String
             Get
-                Return CType(Me("LicenseKey"), String)
+                Return CType(Me("LicenseKey"),String)
             End Get
-            Set(value As String)
+            Set
                 Me("LicenseKey") = value
             End Set
         End Property
@@ -111,6 +111,18 @@ Namespace My
             End Get
             Set
                 Me("LoginWorldID") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property LoginType() As Integer
+            Get
+                Return CType(Me("LoginType"),Integer)
+            End Get
+            Set
+                Me("LoginType") = value
             End Set
         End Property
     End Class
