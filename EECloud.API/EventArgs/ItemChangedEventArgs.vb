@@ -1,4 +1,4 @@
-﻿Public NotInheritable Class ItemChangedEventArgs(Of T)
+﻿Public NotInheritable Class ItemChangedEventArgs (Of T)
     Inherits EventArgs
 
 #Region "Properties"

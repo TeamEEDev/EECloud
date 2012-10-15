@@ -1,5 +1,5 @@
-﻿Imports System.Reflection
-Imports System.Threading.Tasks
+﻿Imports PlayerIOClient
+Imports System.Reflection
 
 Public NotInheritable Class Connection
     Implements IConnection
@@ -206,11 +206,11 @@ Public NotInheritable Class Connection
         Send(New InitSendMessage)
     End Sub
 
-    Private Function GetIOConnection(ioClient As PlayerIOClient.Client, id As String) As PlayerIOClient.Connection
+    Private Function GetIOConnection(ioClient As Client, id As String) As PlayerIOClient.Connection
         Try
             Return ioClient.Multiplayer.CreateJoinRoom(id, NormalRoom & myGameVersionNumber, True, Nothing, Nothing)
-        Catch ex As PlayerIOClient.PlayerIOError
-            If ex.ErrorCode = PlayerIOClient.ErrorCode.UnknownRoomType Then
+        Catch ex As PlayerIOError
+            If ex.ErrorCode = ErrorCode.UnknownRoomType Then
                 UpdateVersion(ex)
                 Return GetIOConnection(ioClient, id)
             Else
@@ -219,9 +219,9 @@ Public NotInheritable Class Connection
         End Try
     End Function
 
-    Private Sub UpdateVersion(ex As PlayerIOClient.PlayerIOError)
+    Private Sub UpdateVersion(ex As PlayerIOError)
         Dim errorMessage() As String = ex.Message.Split("["c)(1).Split(CChar(" "))
-        For N = errorMessage.Length - 1 To 0 Step -1
+        For N = errorMessage.Length - 1 To 0 Step - 1
             Dim currentRoomType As String
             currentRoomType = errorMessage(N)
             If currentRoomType.StartsWith(NormalRoom, StringComparison.Ordinal) Then
@@ -230,7 +230,7 @@ Public NotInheritable Class Connection
                 Exit Sub
             End If
         Next
-        Throw New EECloudException(ErrorCode.GameVersionNotInList, "Unable to get room version")
+        Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get room version")
     End Sub
 
     Private Function RaiseSendEvent(message As SendMessage) As Boolean
@@ -546,11 +546,11 @@ Public NotInheritable Class Connection
         myExpectingDisconnect = False
     End Sub
 
-    Private Sub myConnection_OnMessage(sender As Object, e As PlayerIOClient.Message) Handles myConnection.OnMessage
+    Private Sub myConnection_OnMessage(sender As Object, e As Message) Handles myConnection.OnMessage
         Try
             If myMessageDictionary.ContainsKey(e.Type) Then
                 Dim messageType As Type = myMessageDictionary(e.Type)
-                Dim constructorInfo As ConstructorInfo = messageType.GetConstructor(BindingFlags.NonPublic Or BindingFlags.Instance, Nothing, New Type() {GetType(PlayerIOClient.Message)}, Nothing)
+                Dim constructorInfo As ConstructorInfo = messageType.GetConstructor(BindingFlags.NonPublic Or BindingFlags.Instance, Nothing, New Type() {GetType(Message)}, Nothing)
                 Dim message As ReceiveMessage = CType(constructorInfo.Invoke(New Object() {e}), ReceiveMessage)
                 RaiseEvent ReceiveMessage(Me, message)
             Else
@@ -578,13 +578,12 @@ Public NotInheritable Class Connection
                             Case AccountType.Facebook
                                 ioClient = PlayerIOClient.PlayerIO.QuickConnect.FacebookOAuthConnect(GameID, username, "")
                         End Select
-
                         Dim ioConnection As PlayerIOClient.Connection = GetIOConnection(ioClient, id)
                         SetupConnection(ioConnection, id)
-                    Catch ex As PlayerIOClient.PlayerIOError
+                    Catch ex As PlayerIOError
                         Throw New EECloudPlayerIOException(ex)
-                    End Try
-                End Sub)
+                              End Try
+                              End Sub)
             myRunConnect = True
         Else
             Throw New Exception("A connection has been already established")

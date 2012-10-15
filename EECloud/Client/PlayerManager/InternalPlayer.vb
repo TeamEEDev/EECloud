@@ -1,4 +1,6 @@
-﻿Friend NotInheritable Class InternalPlayer
+﻿Imports EECloud.API.EEService
+
+Friend NotInheritable Class InternalPlayer
     Implements IPlayer
 
 #Region "Fields"
@@ -7,31 +9,9 @@
 #End Region
 
 #Region "Events"
-    Public Event AutoText(sender As Object, e As AutoText) Implements IPlayer.AutoText
-
-    Public Event Chat(sender As Object, e As String) Implements IPlayer.Chat
-
-    Public Event Coin(sender As Object, e As ItemChangedEventArgs(Of Integer)) Implements IPlayer.Coin
-
-    Public Event GodMode(sender As Object, e As ItemChangedEventArgs(Of Boolean)) Implements IPlayer.GodMode
-
-    Public Event Leave(sender As Object, e As EventArgs) Implements IPlayer.Leave
-
-    Public Event ModMode(sender As Object, e As ItemChangedEventArgs(Of Boolean)) Implements IPlayer.ModMode
-
-    Public Event Move(sender As Object, e As MoveReceiveMessage) Implements IPlayer.Move
-
-    Public Event SilverCrown(sender As Object, e As EventArgs) Implements IPlayer.SilverCrown
-
-    Public Event SmileyChange(sender As Object, e As ItemChangedEventArgs(Of Smiley)) Implements IPlayer.SmileyChange
-
-    Public Event UsePotion(sender As Object, e As Potion) Implements IPlayer.UsePotion
-
-    Public Event DeactivatePotion(sender As Object, e As Potion) Implements IPlayer.DeactivatePotion
-
     Public Event GroupChange(sender As Object, e As ItemChangedEventArgs(Of Group)) Implements IPlayer.GroupChange
 
-    Public Event LoadUserData(sender As Object, e As EEService.UserData) Implements IPlayer.LoadUserData
+    Public Event LoadUserData(sender As Object, e As UserData) Implements IPlayer.LoadUserData
 #End Region
 
 #Region "Properties"
@@ -190,6 +170,7 @@
 
         Set(value As Group)
             RaiseEvent GroupChange(Me, New ItemChangedEventArgs(Of Group)(myGroup, value))
+
             myGroup = value
             Cloud.Service.SetPlayerDataGroupIDAsync(Username, CShort(value))
         End Set
@@ -235,6 +216,18 @@
         End Get
     End Property
 
+    Public ReadOnly Property CurrentBlock As IWorldBlock Implements IPlayer.CurrentBlock
+        Get
+            Return myClient.World.Item(myPlayerPosX + 8 >> 4, myPlayerPosY + 8 >> 4, Layer.Foreground)
+        End Get
+    End Property
+
+    Public ReadOnly Property CurrentBGBlock As IWorldBlock Implements IPlayer.CurrentBGBlock
+        Get
+            Return myClient.World.Item(myPlayerPosX + 8 >> 4, myPlayerPosY + 8 >> 4, Layer.Background)
+        End Get
+    End Property
+
 #End Region
 
 #Region "Methods"
@@ -267,8 +260,8 @@
         mySpawnY = initMessage.SpawnY
     End Sub
 
-    Friend Async Function ReloadUserDataAsync() As Threading.Tasks.Task Implements IPlayer.ReloadUserDataAsync
-        Dim userData As EEService.UserData = Await Cloud.Service.GetPlayerDataAsync(myUsername)
+    Friend Async Function ReloadUserDataAsync() As Task Implements IPlayer.ReloadUserDataAsync
+        Dim userData As UserData = Await Cloud.Service.GetPlayerDataAsync(myUsername)
         If userData IsNot Nothing Then
             myGroup = CType(userData.GroupID, Group)
             RaiseEvent LoadUserData(Me, userData)
@@ -279,27 +272,20 @@
         myClient.Chatter.Reply(myUsername, msg)
     End Sub
 
-    Private Sub myConnection_ReceiveAutoText(sender As Object, e As AutoTextReceiveMessage) Handles myConnection.ReceiveAutoText
-        RaiseEvent AutoText(Me, CType([Enum].Parse(GetType(AutoText), e.Text), AutoText))
-    End Sub
-
     Private Sub myConnection_OnReceiveCoin(sender As Object, e As CoinReceiveMessage) Handles myConnection.ReceiveCoin
         If e.UserID = myUserID Then
-            RaiseEvent Coin(Me, New ItemChangedEventArgs(Of Integer)(myCoins, e.Coins))
             myCoins = e.Coins
         End If
     End Sub
 
     Private Sub myConnection_OnReceiveFace(sender As Object, e As FaceReceiveMessage) Handles myConnection.ReceiveFace
         If e.UserID = myUserID Then
-            RaiseEvent SmileyChange(Me, New ItemChangedEventArgs(Of Smiley)(mySmiley, e.Face))
             mySmiley = e.Face
         End If
     End Sub
 
     Private Sub myConnection_OnReceiveMove(sender As Object, e As MoveReceiveMessage) Handles myConnection.ReceiveMove
         If e.UserID = myUserID Then
-            RaiseEvent Move(Me, e)
             myCoins = e.Coins
             myHorizontal = e.Horizontal
             myVertical = e.Vertical
@@ -314,21 +300,18 @@
 
     Private Sub myConnection_OnReceiveGodMode(sender As Object, e As GodModeReceiveMessage) Handles myConnection.ReceiveGodMode
         If e.UserID = myUserID Then
-            RaiseEvent GodMode(Me, New ItemChangedEventArgs(Of Boolean)(myIsGod, e.IsGod))
             myIsGod = e.IsGod
         End If
     End Sub
 
     Private Sub myConnection_OnReceiveModMode(sender As Object, e As ModModeReceiveMessage) Handles myConnection.ReceiveModMode
         If e.UserID = myUserID Then
-            RaiseEvent ModMode(Me, New ItemChangedEventArgs(Of Boolean)(myIsMod, True))
             myIsMod = True
         End If
     End Sub
 
     Private Sub myConnection_OnReceiveSilverCrown(sender As Object, e As SilverCrownReceiveMessage) Handles myConnection.ReceiveSilverCrown
         If e.UserID = myUserID Then
-            RaiseEvent SilverCrown(Me, New ItemChangedEventArgs(Of Boolean)(myHasSilverCrown, True))
             myHasSilverCrown = True
         End If
     End Sub
@@ -347,18 +330,11 @@
     End Sub
 
     Private Sub myConnection_ReceiveLeft(sender As Object, e As LeftReceiveMessage) Handles myConnection.ReceiveLeft
-        RaiseEvent Leave(Me, EventArgs.Empty)
         myConnection = Nothing
     End Sub
 
     Private Sub myConnection_ReceivePotion(sender As Object, e As PotionReceiveMessage) Handles myConnection.ReceivePotion
         If e.UserID = myUserID Then
-            If e.Enabled Then
-                RaiseEvent UsePotion(Me, e.Potion)
-            Else
-                RaiseEvent DeactivatePotion(Me, e.Potion)
-            End If
-
             Select Case e.Potion
                 Case Potion.RedAura
                     myRedAuraPotion = e.Enabled
@@ -372,7 +348,6 @@
 
     Private Sub myConnection_ReceiveSay(sender As Object, e As SayReceiveMessage) Handles myConnection.ReceiveSay
         If e.UserID = myUserID Then
-            RaiseEvent Chat(Me, e.Text)
         End If
     End Sub
 

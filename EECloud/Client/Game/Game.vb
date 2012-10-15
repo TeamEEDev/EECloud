@@ -258,7 +258,6 @@
         myGravityMultiplayer = e.Gravity
         myAllowPotions = e.AllowPotions
 
-
         If e.IsOwner Then
             myAccessRight = AccessRight.Owner
         ElseIf e.CanEdit Then
@@ -272,7 +271,7 @@
 
     Private Sub ParsePotion(e As InitReceiveMessage)
         Dim startNum As UInteger
-        For i = CInt(e.PlayerIOMessage.Count - 1) To 0 Step -1
+        For i = CInt(e.PlayerIOMessage.Count - 1) To 0 Step - 1
             If TryCast(e.PlayerIOMessage.Item(CUInt(i)), String) IsNot Nothing AndAlso e.PlayerIOMessage.GetString(CUInt(i)) = "pe" Then
                 startNum = CUInt(i - 1)
             End If

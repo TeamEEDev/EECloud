@@ -4,5 +4,4 @@
 #Region "Properties"
     Public Property Handled As Boolean
 #End Region
-
 End Class

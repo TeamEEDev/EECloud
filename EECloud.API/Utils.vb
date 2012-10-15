@@ -1,7 +1,8 @@
 ﻿Module Utils
-
     'TODO: Code Cleanup
+
 #Region "Properties"
+
     Friend ReadOnly Property CorrectLayer(id As Block, layer As Layer) As Layer
         Get
             If (id > 0 AndAlso id < 500) Or id = 1000 Then
@@ -37,9 +38,11 @@
             Return id = 1000
         End Get
     End Property
+
 #End Region
 
 #Region "Methods"
+
     Friend Function Derot(str As String) As String
         Derot = String.Empty
         For N = 1 To str.Length
@@ -61,5 +64,6 @@
         Next
         Return Derot
     End Function
+
 #End Region
 End Module

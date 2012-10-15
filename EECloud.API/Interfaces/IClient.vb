@@ -1,4 +1,4 @@
-﻿Public Interface IClient(Of TPlayer As {Player, New})
+﻿Public Interface IClient (Of TPlayer As {Player, New})
     ReadOnly Property Connection As IConnection
     ReadOnly Property Chatter As IChatter
     ReadOnly Property World As IWorld

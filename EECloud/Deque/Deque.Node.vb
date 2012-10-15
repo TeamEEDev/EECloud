@@ -1,8 +1,9 @@
-﻿Partial Public Class Deque(Of T)
+﻿Partial Public Class Deque (Of T)
+
 #Region "Node Class"
 
     ' Represents a node in the deque.
-    <Serializable> _
+    <Serializable>
     Private NotInheritable Class Node
         Private ReadOnly myValue As T
 

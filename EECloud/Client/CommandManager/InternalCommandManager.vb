@@ -14,7 +14,7 @@
         myClient = client
         AddHandler myClient.Connection.ReceiveSay, AddressOf myConnection_OnReceiveSay
         AddHandler Cloud.Logger.OnInput,
-            Sub(sender As Object, e As EventArgs) HandleMessage(Cloud.Logger.Input, -1, Group.Host)
+            Sub(sender As Object, e As EventArgs) HandleMessage(Cloud.Logger.Input, - 1, Group.Host)
     End Sub
 
     Private Sub myConnection_OnReceiveSay(sender As Object, e As SayReceiveMessage)

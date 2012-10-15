@@ -2,7 +2,7 @@
 ''' Represents a CoinDoorBlock in a world
 ''' </summary>
 ''' <remarks></remarks>
-Public Interface IWorldCoinDoorBlock
+    Public Interface IWorldCoinDoorBlock
     Inherits IWorldBlock
 
     ''' <summary>

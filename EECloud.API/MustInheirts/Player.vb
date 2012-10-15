@@ -1,4 +1,6 @@
-﻿Public Class Player
+﻿Imports EECloud.API.EEService
+
+Public Class Player
     Implements IPlayer
 
 #Region "Fields"
@@ -7,85 +9,21 @@
 #End Region
 
 #Region "Events"
-    Public Event AutoText(sender As Object, e As AutoText) Implements IPlayer.AutoText
-
-    Public Event Chat(sender As Object, e As String) Implements IPlayer.Chat
-
-    Public Event Coin(sender As Object, e As ItemChangedEventArgs(Of Integer)) Implements IPlayer.Coin
-
-    Public Event GodMode(sender As Object, e As ItemChangedEventArgs(Of Boolean)) Implements IPlayer.GodMode
-
-    Public Event Leave(sender As Object, e As EventArgs) Implements IPlayer.Leave
-
-    Public Event ModMode(sender As Object, e As ItemChangedEventArgs(Of Boolean)) Implements IPlayer.ModMode
-
-    Public Event Move(sender As Object, e As MoveReceiveMessage) Implements IPlayer.Move
-
-    Public Event SilverCrown(sender As Object, e As EventArgs) Implements IPlayer.SilverCrown
-
-    Public Event SmileyChange(sender As Object, e As ItemChangedEventArgs(Of Smiley)) Implements IPlayer.SmileyChange
-
-    Public Event UsePotion(sender As Object, e As Potion) Implements IPlayer.UsePotion
-
-    Public Event DeactivatePotion(sender As Object, e As Potion) Implements IPlayer.DeactivatePotion
-
     Public Event GroupChange(sender As Object, e As ItemChangedEventArgs(Of Group)) Implements IPlayer.GroupChange
 
-    Public Event LoadUserData(sender As Object, e As EEService.UserData) Implements IPlayer.LoadUserData
+    Public Event LoadUserData(sender As Object, e As UserData) Implements IPlayer.LoadUserData
 #End Region
 
 #Region "EventHandlers"
-    Private Sub myPlayer_AutoText(sender As Object, e As AutoText) Handles myPlayer.AutoText
-        RaiseEvent AutoText(Me, e)
-    End Sub
-
-    Private Sub myPlayer_Chat(sender As Object, e As String) Handles myPlayer.Chat
-        RaiseEvent Chat(Me, e)
-    End Sub
-
-    Private Sub myPlayer_Coin(sender As Object, e As ItemChangedEventArgs(Of Integer)) Handles myPlayer.Coin
-        RaiseEvent Coin(Me, e)
-    End Sub
-
-    Private Sub myPlayer_DeactivatePotion(sender As Object, e As Potion) Handles myPlayer.DeactivatePotion
-        RaiseEvent DeactivatePotion(Me, e)
-    End Sub
-
-    Private Sub myPlayer_GodMode(sender As Object, e As ItemChangedEventArgs(Of Boolean)) Handles myPlayer.GodMode
-        RaiseEvent GodMode(Me, e)
-    End Sub
 
     Private Sub myPlayer_GroupChange(sender As Object, e As ItemChangedEventArgs(Of Group)) Handles myPlayer.GroupChange
         RaiseEvent GroupChange(Me, e)
     End Sub
 
-    Private Sub myPlayer_Leave(sender As Object, e As EventArgs) Handles myPlayer.Leave
-        RaiseEvent Leave(Me, e)
-    End Sub
-
-    Private Sub myPlayer_LoadUserData(sender As Object, e As EEService.UserData) Handles myPlayer.LoadUserData
+    Private Sub myPlayer_LoadUserData(sender As Object, e As UserData) Handles myPlayer.LoadUserData
         RaiseEvent LoadUserData(Me, e)
     End Sub
 
-    Private Sub myPlayer_ModMode(sender As Object, e As ItemChangedEventArgs(Of Boolean)) Handles myPlayer.ModMode
-        RaiseEvent ModMode(Me, e)
-    End Sub
-
-    Private Sub myPlayer_Move(sender As Object, e As MoveReceiveMessage) Handles myPlayer.Move
-        RaiseEvent Move(Me, e)
-    End Sub
-
-    Private Sub myPlayer_SilverCrown(sender As Object, e As EventArgs) Handles myPlayer.SilverCrown
-        RaiseEvent SilverCrown(Me, e)
-    End Sub
-
-    Private Sub myPlayer_SmileyChange(sender As Object, e As ItemChangedEventArgs(Of Smiley)) Handles myPlayer.SmileyChange
-        RaiseEvent SmileyChange(Me, e)
-    End Sub
-
-    Private Sub myPlayer_UsePotion(sender As Object, e As Potion) Handles myPlayer.UsePotion
-        RaiseEvent UsePotion(Me, e)
-    End Sub
 #End Region
 
 #Region "Properties"
@@ -336,6 +274,27 @@
             End Try
         End Get
     End Property
+
+    Public ReadOnly Property CurrentBlock As IWorldBlock Implements IPlayer.CurrentBlock
+        Get
+            Try
+                Return myPlayer.CurrentBlock
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property CurrentBGBlock As IWorldBlock Implements IPlayer.CurrentBGBlock
+        Get
+            Try
+                Return myPlayer.CurrentBGBlock
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
 #End Region
 
 #Region "Methods"

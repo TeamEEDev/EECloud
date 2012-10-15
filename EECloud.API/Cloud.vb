@@ -1,4 +1,7 @@
-﻿Public NotInheritable Class Cloud
+﻿Imports EECloud.API.EEService
+
+Public NotInheritable Class Cloud
+
 #Region "Properties"
 
     Private Shared myAppEnvironment As AppEnvironment
@@ -25,14 +28,14 @@
         End Set
     End Property
 
-    Private Shared myService As EEService.EESClient
+    Private Shared myService As EESClient
 
-    Public Shared Property Service As EEService.EESClient
+    Public Shared Property Service As EESClient
         Get
             Return myService
         End Get
 
-        Friend Set(value As EEService.EESClient)
+        Friend Set(value As EESClient)
             myService = value
         End Set
     End Property

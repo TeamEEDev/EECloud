@@ -2,7 +2,7 @@
 ''' Represents a SoundBlock in a world 
 ''' </summary>
 ''' <remarks></remarks>
-Public Interface IWorldSoundBlock
+    Public Interface IWorldSoundBlock
     Inherits IWorldBlock
 
     ''' <summary>

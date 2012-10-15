@@ -1,4 +1,4 @@
-﻿Public NotInheritable Class Cancelable(Of T)
+﻿Public NotInheritable Class Cancelable (Of T)
 
 #Region "Properties"
     Private ReadOnly myValue As T

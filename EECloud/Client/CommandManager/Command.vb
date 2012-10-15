@@ -1,4 +1,4 @@
-﻿Friend NotInheritable Class Command(Of TPlayer As {New, Player})
+﻿Friend NotInheritable Class Command (Of TPlayer As {New, Player})
     Implements ICommand(Of TPlayer)
 
 #Region "Properties"

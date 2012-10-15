@@ -1,4 +1,6 @@
-﻿Friend NotInheritable Class World
+﻿Imports PlayerIOClient
+
+Friend NotInheritable Class World
     Implements IWorld
 
 #Region "Fields"
@@ -78,7 +80,7 @@
         myConnection = client.Connection
     End Sub
 
-    Private Shared Function ParseWorld(m As PlayerIOClient.Message, sizeX As Integer, sizeY As Integer, offset As UInteger) As IWorldBlock(,,)
+    Private Shared Function ParseWorld(m As Message, sizeX As Integer, sizeY As Integer, offset As UInteger) As IWorldBlock(,,)
         Dim start As UInteger
         For i As UInteger = offset To CUInt(m.Count - 1)
             If TryCast(m.Item(i), String) IsNot Nothing AndAlso m.GetString(i) = "ws" Then

@@ -16,6 +16,7 @@
             Return BlockType.Normal
         End Get
     End Property
+
 #End Region
 
 #Region "Methods"

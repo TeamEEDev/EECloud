@@ -1,4 +1,4 @@
-﻿Public MustInherit Class Plugin(Of TPlayer As {Player, New})
+﻿Public MustInherit Class Plugin (Of TPlayer As {Player, New})
     Implements IPlugin
 
 #Region "Properties"
@@ -14,8 +14,9 @@
 #End Region
 
 #Region "Methods"
+
     Friend Sub Enable(cloneFactory As IClientCloneFactory, pluginObj As IPluginObject) Implements IPlugin.Enable
-        myClient = cloneFactory.GetConnection(Of TPlayer)(pluginObj)
+        myClient = cloneFactory.GetConnection (Of TPlayer)(pluginObj)
         If myClient.Connection.Connected Then
             OnConnect()
         Else

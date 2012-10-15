@@ -1,6 +1,7 @@
 ﻿Imports System.Timers
 
 Friend NotInheritable Class InternalChatter
+
 #Region "Fields"
     ReadOnly myChatQueue As New Queue(Of SaySendMessage)
     Dim WithEvents mySendTimer As New Timer With {.Enabled = True, .AutoReset = True, .Interval = 700}
@@ -10,6 +11,7 @@ Friend NotInheritable Class InternalChatter
 #End Region
 
 #Region "Methods"
+
     Friend Sub New(client As InternalClient)
         myClient = client
         myConnection = client.Connection
@@ -60,5 +62,6 @@ Friend NotInheritable Class InternalChatter
         myChatQueue.Clear()
         mySendTimer.Enabled = False
     End Sub
+
 #End Region
 End Class

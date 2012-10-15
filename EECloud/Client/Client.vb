@@ -1,4 +1,4 @@
-﻿Friend NotInheritable Class Client(Of TPlayer As {Player, New})
+﻿Friend NotInheritable Class Client (Of TPlayer As {Player, New})
     Implements IClient(Of TPlayer)
 
 #Region "Fields"
@@ -60,6 +60,7 @@
             Return myCommandManager
         End Get
     End Property
+
 #End Region
 
 #Region "Methods"

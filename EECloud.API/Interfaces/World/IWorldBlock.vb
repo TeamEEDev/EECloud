@@ -2,7 +2,7 @@
 ''' Represents a Block in a world 
 ''' </summary>
 ''' <remarks></remarks>
-Public Interface IWorldBlock
+    Public Interface IWorldBlock
     ''' <summary>
     ''' Returns the BlockType of the current block
     ''' </summary>

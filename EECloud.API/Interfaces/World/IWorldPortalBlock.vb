@@ -2,7 +2,7 @@
 ''' Represents a PortalBlock in a world 
 ''' </summary>
 ''' <remarks></remarks>
-Public Interface IWorldPortalBlock
+    Public Interface IWorldPortalBlock
     Inherits IWorldBlock
 
     ''' <summary>
