@@ -30,10 +30,6 @@ Public NotInheritable Class CommandsBot
         cmd.Reply("Current environment: " & env)
     End Sub
 
-    <Command("mod", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"addmod", "setmod", "makemod"})>
-    Public Sub ModCommand(cmd As ICommand(Of CommandsBotPlayer))
-
-    End Sub
 
     <Command("end", Group.Operator, Aliases := {"shutdown", "killbot", "leave", "leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
     Public Sub EndCommand(cmd As ICommand(Of CommandsBotPlayer))
