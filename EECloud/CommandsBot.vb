@@ -16,6 +16,25 @@ Public NotInheritable Class CommandsBot
     Protected Overrides Sub OnConnect()
     End Sub
 
+    <Command("env", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"getenv", "iscloud"})>
+    Public Sub GetEnvironmentCommand(cmd As ICommand(Of CommandsBotPlayer))
+        Dim env As String
+        Select Case Cloud.AppEnvironment
+            Case AppEnvironment.Dev
+                env = "desktop"
+            Case AppEnvironment.Release
+                env = "cloud"
+            Case Else
+                env = "other"
+        End Select
+        cmd.Reply("Current environment: " & env)
+    End Sub
+
+    <Command("mod", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"addmod", "setmod", "makemod"})>
+    Public Sub ModCommand(cmd As ICommand(Of CommandsBotPlayer))
+
+    End Sub
+
     <Command("end", Group.Operator, Aliases := {"shutdown", "killbot", "leave", "leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
     Public Sub EndCommand(cmd As ICommand(Of CommandsBotPlayer))
         cmd.Reply("Terminating...")
@@ -28,7 +47,7 @@ Public NotInheritable Class CommandsBot
         cmd.Reply("Cleared.")
     End Sub
 
-    <Command("name", Group.Operator, AccessRight := AccessRight.Owner, Aliases := {"rename", "renameworld", "renamelevel", "worldname", "levelname"})>
+    <Command("name", Group.Moderator, AccessRight:=AccessRight.Owner, Aliases:={"rename", "renameworld", "renamelevel", "worldname", "levelname"})>
     Public Sub ChangeWorldNameCommand(cmd As ICommand(Of CommandsBotPlayer), ParamArray newName As String())
         Client.Game.WorldName = String.Join(" ", newName)
         cmd.Reply("Renamed.")
