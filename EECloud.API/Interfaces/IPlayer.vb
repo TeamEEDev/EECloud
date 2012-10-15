@@ -8,7 +8,7 @@
     Event UsePotion As EventHandler(Of Potion)
     Event DeactivatePotion As EventHandler(Of Potion)
     Event GroupChange As EventHandler(Of ItemChangedEventArgs(Of Group))
-    Event YoScrollWinsChange As EventHandler(Of ItemChangedEventArgs(Of UInteger))
+    Event LoadUserData As EventHandler(Of EEService.UserData)
 
     Event Chat As EventHandler(Of String)
     Event AutoText As EventHandler(Of AutoText)
@@ -39,7 +39,6 @@
     ReadOnly Property SpawnY As Integer
 
     Property Group As Group
-    Property YoScrollWins As UInteger
 
     Function ReloadUserDataAsync() As Task
     Sub Reply(msg As String)

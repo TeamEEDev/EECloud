@@ -31,7 +31,7 @@
 
     Public Event GroupChange(sender As Object, e As ItemChangedEventArgs(Of Group)) Implements IPlayer.GroupChange
 
-    Public Event YoScrollWinsChange(sender As Object, e As ItemChangedEventArgs(Of UInteger)) Implements IPlayer.YoScrollWinsChange
+    Public Event LoadUserData(sender As Object, e As EEService.UserData) Implements IPlayer.LoadUserData
 #End Region
 
 #Region "Properties"
@@ -195,20 +195,6 @@
         End Set
     End Property
 
-    Private myYoScrollWins As UInteger
-
-    Public Property YoScrollWins As UInteger Implements IPlayer.YoScrollWins
-        Get
-            Return myYoScrollWins
-        End Get
-
-        Set(value As UInteger)
-            RaiseEvent YoScrollWinsChange(Me, New ItemChangedEventArgs(Of UInteger)(myYoScrollWins, value))
-            myYoScrollWins = value
-            Cloud.Service.SetPlayerDataYoScrollWinsAsync(Username, value)
-        End Set
-    End Property
-
     Private myBlueAuraPotion As Boolean
 
     Public ReadOnly Property BlueAuraPotion As Boolean Implements IPlayer.BlueAuraPotion
@@ -285,7 +271,7 @@
         Dim userData As EEService.UserData = Await Cloud.Service.GetPlayerDataAsync(myUsername)
         If userData IsNot Nothing Then
             myGroup = CType(userData.GroupID, Group)
-            myYoScrollWins = userData.YoScrollWins
+            RaiseEvent LoadUserData(Me, userData)
         End If
     End Function
 
@@ -395,5 +381,4 @@
     End Sub
 
 #End Region
-
 End Class

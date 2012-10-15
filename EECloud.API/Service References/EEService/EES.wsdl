@@ -74,6 +74,12 @@
   <wsdl:message name="IEES_SetPlayerDataYoScrollWins_OutputMessage">
     <wsdl:part name="parameters" element="tns:SetPlayerDataYoScrollWinsResponse" />
   </wsdl:message>
+  <wsdl:message name="IEES_SetPlayerDataFTBreakerWins_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetPlayerDataFTBreakerWins" />
+  </wsdl:message>
+  <wsdl:message name="IEES_SetPlayerDataFTBreakerWins_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetPlayerDataFTBreakerWinsResponse" />
+  </wsdl:message>
   <wsdl:portType name="IEES">
     <wsdl:operation name="CheckLicense">
       <wsdl:input wsaw:Action="http://tempuri.org/IEES/CheckLicense" message="tns:IEES_CheckLicense_InputMessage" />
@@ -118,6 +124,10 @@
     <wsdl:operation name="SetPlayerDataYoScrollWins">
       <wsdl:input wsaw:Action="http://tempuri.org/IEES/SetPlayerDataYoScrollWins" message="tns:IEES_SetPlayerDataYoScrollWins_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEES/SetPlayerDataYoScrollWinsResponse" message="tns:IEES_SetPlayerDataYoScrollWins_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetPlayerDataFTBreakerWins">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEES/SetPlayerDataFTBreakerWins" message="tns:IEES_SetPlayerDataFTBreakerWins_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEES/SetPlayerDataFTBreakerWinsResponse" message="tns:IEES_SetPlayerDataFTBreakerWins_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IEES" type="tns:IEES">
@@ -214,6 +224,15 @@
     </wsdl:operation>
     <wsdl:operation name="SetPlayerDataYoScrollWins">
       <soap:operation soapAction="http://tempuri.org/IEES/SetPlayerDataYoScrollWins" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPlayerDataFTBreakerWins">
+      <soap:operation soapAction="http://tempuri.org/IEES/SetPlayerDataFTBreakerWins" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
