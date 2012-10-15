@@ -48,7 +48,7 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
     End Sub
 
     Private Sub ProcessMessage(msg As String, user As Integer, rights As Group, e As CommandEventArgs) Handles myInternalCommandManager.OnCommand
-        Dim sender As TPlayer = myClient.PlayerManager.Players(user)
+        Dim sender As TPlayer = myClient.PlayerManager.Player(user)
         Dim cmd As String() = msg.Split(" "c)
         Dim type As String = cmd(0).ToLower
 
