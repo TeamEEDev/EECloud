@@ -43,7 +43,6 @@
         End Get
     End Property
 
-
     Private ReadOnly myInternalChatter As InternalChatter
 
     Friend ReadOnly Property InternalChatter As InternalChatter
@@ -67,7 +66,6 @@
             Return myInternalCommandManager
         End Get
     End Property
-
 
     Private ReadOnly myChatter As IChatter
 

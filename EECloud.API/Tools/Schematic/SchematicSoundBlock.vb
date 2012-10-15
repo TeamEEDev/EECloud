@@ -23,7 +23,7 @@
 #Region "Methods"
 
     Friend Sub New(block As SoundBlock, soundID As Integer)
-        MyBase.New(CType(block, API.Block))
+        MyBase.New(CType(block, Block))
         mySoundID = soundID
     End Sub
 

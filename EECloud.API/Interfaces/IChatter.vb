@@ -2,8 +2,7 @@
 ''' Allows chatting using the standard format.
 ''' </summary>
 ''' <remarks></remarks>
-Public Interface IChatter
-
+    Public Interface IChatter
     ''' <summary>
     ''' Sends a message to the specified user.
     ''' </summary>

@@ -7,6 +7,7 @@
 #End Region
 
 #Region "Properties"
+
     Private ReadOnly Property ChatPrefix As String
         Get
             Return String.Format("<{0}> ", myPrefix)
@@ -18,6 +19,7 @@
             Return String.Format("<{0} (@{1})> ", myPrefix, StrConv(username, VbStrConv.ProperCase))
         End Get
     End Property
+
 #End Region
 
 #Region "Methods"

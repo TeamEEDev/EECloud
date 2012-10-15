@@ -1,6 +1,6 @@
 ﻿Imports System.Reflection
 
-Friend NotInheritable Class CommandHandle(Of TPlayer As {New, Player})
+Friend NotInheritable Class CommandHandle (Of TPlayer As {New, Player})
 
 #Region "Fields"
     Private ReadOnly myMethodInfo As MethodInfo
@@ -31,9 +31,11 @@ Friend NotInheritable Class CommandHandle(Of TPlayer As {New, Player})
             Return myAttribute
         End Get
     End Property
+
 #End Region
 
 #Region "Methods"
+
     Friend Sub New(attribute As CommandAttribute, method As MethodInfo, ByVal target As Object)
         myAttribute = attribute
         myMethodInfo = method
@@ -83,5 +85,6 @@ Friend NotInheritable Class CommandHandle(Of TPlayer As {New, Player})
     Public Overrides Function ToString() As String
         Return mySyntaxStr
     End Function
+
 #End Region
 End Class

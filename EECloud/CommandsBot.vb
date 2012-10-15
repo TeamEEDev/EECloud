@@ -1,8 +1,8 @@
-﻿<Plugin(Authors:={"Processor", "Jojatekok"},
-        Category:=PluginCategory.Tool,
-        Description:="Commands Bot",
-        Version:="1.0.0.0",
-        ChatName:="Bot")>
+﻿<Plugin(Authors := {"Processor", "Jojatekok"},
+        Category := PluginCategory.Tool,
+        Description := "Commands Bot",
+        Version := "1.0.0.0",
+        ChatName := "Bot")>
 Public NotInheritable Class CommandsBot
     Inherits Plugin(Of CommandsBotPlayer)
 
@@ -14,40 +14,39 @@ Public NotInheritable Class CommandsBot
     End Sub
 
     Protected Overrides Sub OnConnect()
-
     End Sub
 
-    <Command("end", Group.Operator, Aliases:={"shutdown", "killbot", "leave", "leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
+    <Command("end", Group.Operator, Aliases := {"shutdown", "killbot", "leave", "leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
     Public Sub EndCommand(cmd As ICommand(Of CommandsBotPlayer))
         cmd.Reply("Terminating...")
         Client.Connection.Close()
     End Sub
 
-    <Command("clear", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"clearworld", "clearlevel"})>
+    <Command("clear", Group.Operator, AccessRight := AccessRight.Owner, Aliases := {"clearworld", "clearlevel"})>
     Public Sub ClearWorldCommand(cmd As ICommand(Of CommandsBotPlayer))
         Client.Game.Clear()
         cmd.Reply("Cleared.")
     End Sub
 
-    <Command("name", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"rename", "renameworld", "renamelevel", "worldname", "levelname"})>
+    <Command("name", Group.Operator, AccessRight := AccessRight.Owner, Aliases := {"rename", "renameworld", "renamelevel", "worldname", "levelname"})>
     Public Sub ChangeWorldNameCommand(cmd As ICommand(Of CommandsBotPlayer), ParamArray newName As String())
         Client.Game.WorldName = String.Join(" ", newName)
         cmd.Reply("Renamed.")
     End Sub
 
-    <Command("loadlevel", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"load", "loadworld", "reload", "reloadworld", "reloadlevel"})>
+    <Command("loadlevel", Group.Operator, AccessRight := AccessRight.Owner, Aliases := {"load", "loadworld", "reload", "reloadworld", "reloadlevel"})>
     Public Sub LoadWorldCommand(cmd As ICommand(Of CommandsBotPlayer))
         cmd.Reply("Reloaded.")
         Client.Game.LoadLevel()
     End Sub
 
-    <Command("save", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"saveworld", "savelevel"})>
+    <Command("save", Group.Operator, AccessRight := AccessRight.Owner, Aliases := {"saveworld", "savelevel"})>
     Public Sub SaveWorldCommand(cmd As ICommand(Of CommandsBotPlayer))
         Client.Game.Save()
         cmd.Reply("Saved.")
     End Sub
 
-    <Command("reset", Group.Operator, Aliases:={"resetworld", "resetlevel", "resetplayers"})>
+    <Command("reset", Group.Operator, Aliases := {"resetworld", "resetlevel", "resetplayers"})>
     Public Sub ResetCommand(cmd As ICommand(Of CommandsBotPlayer))
         Client.Game.Reset()
         cmd.Reply("Reset.")

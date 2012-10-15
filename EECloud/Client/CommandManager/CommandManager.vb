@@ -1,6 +1,6 @@
 ﻿Imports System.Reflection
 
-Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
+Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
     Implements ICommandManager
 
 #Region "Fields"
@@ -72,7 +72,8 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
             Else
                 'No signature matched
                 Dim usages As String = String.Empty
-                usages = myCommandsDictionary(type).Aggregate(usages, Function(current, handle) current & handle.ToString & " / ") 'Some LINQ magic here...
+                usages = myCommandsDictionary(type).Aggregate(usages, Function(current, handle) current & handle.ToString & " / ")
+                'Some LINQ magic here...
                 ReplyToSender(sender, "Command usage(s): " & Left(usages, usages.Length - 3))
             End If
 
@@ -148,14 +149,14 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
         If myCommandsDictionary.ContainsKey(name) Then
             Dim list As List(Of CommandHandle(Of TPlayer)) = myCommandsDictionary(name)
             Dim usedNums As New List(Of Integer)
-            Dim maxNum As Integer = -1
+            Dim maxNum As Integer = - 1
             For Each item In list
                 usedNums.Add(item.Count)
                 If item.HasParamArray Then
                     maxNum = item.Count
                 End If
             Next
-            If maxNum = -1 OrElse (handle.Count < maxNum AndAlso Not handle.HasParamArray) Then
+            If maxNum = - 1 OrElse (handle.Count < maxNum AndAlso Not handle.HasParamArray) Then
                 If Not usedNums.Contains(handle.Count) Then
                     myCommandsDictionary(name).Add(handle)
                 Else

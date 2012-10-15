@@ -3,7 +3,6 @@
     Private myPointer As Integer
 
     Public Sub New()
-
     End Sub
 
     Public Sub Add(uploader As IUploader)

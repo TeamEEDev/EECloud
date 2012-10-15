@@ -1,24 +1,16 @@
-﻿Friend Interface IPlayer
-    Event SmileyChange As EventHandler(Of ItemChangedEventArgs(Of Smiley))
-    Event Move As EventHandler(Of MoveReceiveMessage)
-    Event SilverCrown As EventHandler
-    Event GodMode As EventHandler(Of ItemChangedEventArgs(Of Boolean))
-    Event ModMode As EventHandler(Of ItemChangedEventArgs(Of Boolean))
-    Event Coin As EventHandler(Of ItemChangedEventArgs(Of Integer))
-    Event UsePotion As EventHandler(Of Potion)
-    Event DeactivatePotion As EventHandler(Of Potion)
-    Event GroupChange As EventHandler(Of ItemChangedEventArgs(Of Group))
-    Event LoadUserData As EventHandler(Of EEService.UserData)
+﻿Imports EECloud.API.EEService
 
-    Event Chat As EventHandler(Of String)
-    Event AutoText As EventHandler(Of AutoText)
-    Event Leave As EventHandler
+Friend Interface IPlayer
+    Event GroupChange As EventHandler(Of ItemChangedEventArgs(Of Group))
+    Event LoadUserData As EventHandler(Of UserData)
 
     ReadOnly Property UserID As Integer
     ReadOnly Property Username As String
     ReadOnly Property Smiley As Smiley
     ReadOnly Property PlayerPosX As Integer
     ReadOnly Property PlayerPosY As Integer
+    ReadOnly Property CurrentBlock As IWorldBlock
+    ReadOnly Property CurrentBGBlock As IWorldBlock
     ReadOnly Property IsGod As Boolean
     ReadOnly Property IsMod As Boolean
     ReadOnly Property HasChat As Boolean

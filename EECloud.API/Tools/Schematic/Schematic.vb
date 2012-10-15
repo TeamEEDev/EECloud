@@ -1,9 +1,11 @@
 ﻿Public Class Schematic
+
 #Region "Fields"
     Private ReadOnly myBlocks(,,) As IWorldBlock
 #End Region
 
 #Region "Properties"
+
     Default Public Property Item(x As Integer, y As Integer, Optional layer As Layer = Layer.Foreground) As IWorldBlock
         Get
             Return myBlocks(layer, x, y)
@@ -12,6 +14,7 @@
             myBlocks(x, y, layer) = value
         End Set
     End Property
+
 #End Region
 
 #Region "Methods"
@@ -29,5 +32,4 @@
     End Sub
 
 #End Region
-
 End Class
