@@ -31,7 +31,7 @@
 
     Public Event GroupChange(sender As Object, e As ItemChangedEventArgs(Of Group)) Implements IPlayer.GroupChange
 
-    Public Event YoScrollWinsChange(sender As Object, e As ItemChangedEventArgs(Of UInteger)) Implements IPlayer.YoScrollWinsChange
+    Public Event LoadUserData(sender As Object, e As EEService.UserData) Implements IPlayer.LoadUserData
 #End Region
 
 #Region "EventHandlers"
@@ -63,6 +63,10 @@
         RaiseEvent Leave(Me, e)
     End Sub
 
+    Private Sub myPlayer_LoadUserData(sender As Object, e As EEService.UserData) Handles myPlayer.LoadUserData
+        RaiseEvent LoadUserData(Me, e)
+    End Sub
+
     Private Sub myPlayer_ModMode(sender As Object, e As ItemChangedEventArgs(Of Boolean)) Handles myPlayer.ModMode
         RaiseEvent ModMode(Me, e)
     End Sub
@@ -81,10 +85,6 @@
 
     Private Sub myPlayer_UsePotion(sender As Object, e As Potion) Handles myPlayer.UsePotion
         RaiseEvent UsePotion(Me, e)
-    End Sub
-
-    Private Sub myPlayer_YoScrollWinsChange(sender As Object, e As ItemChangedEventArgs(Of UInteger)) Handles myPlayer.YoScrollWinsChange
-        RaiseEvent YoScrollWinsChange(Me, e)
     End Sub
 #End Region
 
@@ -287,23 +287,6 @@
         End Set
     End Property
 
-    Public Property YoScrollWins As UInteger Implements IPlayer.YoScrollWins
-        Get
-            Try
-                Return myPlayer.YoScrollWins
-            Catch ex As Exception
-                Return Nothing
-            End Try
-        End Get
-
-        Set(value As UInteger)
-            Try
-                myPlayer.YoScrollWins = value
-            Catch
-            End Try
-        End Set
-    End Property
-
     Public ReadOnly Property BlueAuraPotion As Boolean Implements IPlayer.BlueAuraPotion
         Get
             Try
@@ -375,6 +358,4 @@
     End Sub
 
 #End Region
-
-
 End Class

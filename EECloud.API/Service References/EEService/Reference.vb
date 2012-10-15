@@ -28,12 +28,15 @@ Namespace EEService
         Private extensionDataField As System.Runtime.Serialization.ExtensionDataObject
         
         <System.Runtime.Serialization.OptionalFieldAttribute()>  _
+        Private FTBreakerWinsField As UShort
+        
+        <System.Runtime.Serialization.OptionalFieldAttribute()>  _
         Private GroupIDField As Short
         
         Private UsernameField As String
         
         <System.Runtime.Serialization.OptionalFieldAttribute()>  _
-        Private YoScrollWinsField As UInteger
+        Private YoScrollWinsField As UShort
         
         <Global.System.ComponentModel.BrowsableAttribute(false)>  _
         Public Property ExtensionData() As System.Runtime.Serialization.ExtensionDataObject Implements System.Runtime.Serialization.IExtensibleDataObject.ExtensionData
@@ -42,6 +45,19 @@ Namespace EEService
             End Get
             Set
                 Me.extensionDataField = value
+            End Set
+        End Property
+        
+        <System.Runtime.Serialization.DataMemberAttribute()>  _
+        Public Property FTBreakerWins() As UShort
+            Get
+                Return Me.FTBreakerWinsField
+            End Get
+            Set
+                If (Me.FTBreakerWinsField.Equals(value) <> true) Then
+                    Me.FTBreakerWinsField = value
+                    Me.RaisePropertyChanged("FTBreakerWins")
+                End If
             End Set
         End Property
         
@@ -72,7 +88,7 @@ Namespace EEService
         End Property
         
         <System.Runtime.Serialization.DataMemberAttribute()>  _
-        Public Property YoScrollWins() As UInteger
+        Public Property YoScrollWins() As UShort
             Get
                 Return Me.YoScrollWinsField
             End Get
@@ -159,10 +175,16 @@ Namespace EEService
         Function SetPlayerDataGroupIDAsync(ByVal username As String, ByVal groupID As Short) As System.Threading.Tasks.Task
         
         <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/SetPlayerDataYoScrollWins", ReplyAction:="http://tempuri.org/IEES/SetPlayerDataYoScrollWinsResponse")>  _
-        Sub SetPlayerDataYoScrollWins(ByVal username As String, ByVal yoScrollWins As UInteger)
+        Sub SetPlayerDataYoScrollWins(ByVal username As String, ByVal yoScrollWins As UShort)
         
         <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/SetPlayerDataYoScrollWins", ReplyAction:="http://tempuri.org/IEES/SetPlayerDataYoScrollWinsResponse")>  _
-        Function SetPlayerDataYoScrollWinsAsync(ByVal username As String, ByVal yoScrollWins As UInteger) As System.Threading.Tasks.Task
+        Function SetPlayerDataYoScrollWinsAsync(ByVal username As String, ByVal yoScrollWins As UShort) As System.Threading.Tasks.Task
+        
+        <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/SetPlayerDataFTBreakerWins", ReplyAction:="http://tempuri.org/IEES/SetPlayerDataFTBreakerWinsResponse")>  _
+        Sub SetPlayerDataFTBreakerWins(ByVal username As String, ByVal ftBreakerWins As UShort)
+        
+        <System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/IEES/SetPlayerDataFTBreakerWins", ReplyAction:="http://tempuri.org/IEES/SetPlayerDataFTBreakerWinsResponse")>  _
+        Function SetPlayerDataFTBreakerWinsAsync(ByVal username As String, ByVal ftBreakerWins As UShort) As System.Threading.Tasks.Task
     End Interface
     
     <System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")>  _
@@ -276,12 +298,20 @@ Namespace EEService
             Return MyBase.Channel.SetPlayerDataGroupIDAsync(username, groupID)
         End Function
         
-        Public Sub SetPlayerDataYoScrollWins(ByVal username As String, ByVal yoScrollWins As UInteger) Implements EEService.IEES.SetPlayerDataYoScrollWins
+        Public Sub SetPlayerDataYoScrollWins(ByVal username As String, ByVal yoScrollWins As UShort) Implements EEService.IEES.SetPlayerDataYoScrollWins
             MyBase.Channel.SetPlayerDataYoScrollWins(username, yoScrollWins)
         End Sub
         
-        Public Function SetPlayerDataYoScrollWinsAsync(ByVal username As String, ByVal yoScrollWins As UInteger) As System.Threading.Tasks.Task Implements EEService.IEES.SetPlayerDataYoScrollWinsAsync
+        Public Function SetPlayerDataYoScrollWinsAsync(ByVal username As String, ByVal yoScrollWins As UShort) As System.Threading.Tasks.Task Implements EEService.IEES.SetPlayerDataYoScrollWinsAsync
             Return MyBase.Channel.SetPlayerDataYoScrollWinsAsync(username, yoScrollWins)
+        End Function
+        
+        Public Sub SetPlayerDataFTBreakerWins(ByVal username As String, ByVal ftBreakerWins As UShort) Implements EEService.IEES.SetPlayerDataFTBreakerWins
+            MyBase.Channel.SetPlayerDataFTBreakerWins(username, ftBreakerWins)
+        End Sub
+        
+        Public Function SetPlayerDataFTBreakerWinsAsync(ByVal username As String, ByVal ftBreakerWins As UShort) As System.Threading.Tasks.Task Implements EEService.IEES.SetPlayerDataFTBreakerWinsAsync
+            Return MyBase.Channel.SetPlayerDataFTBreakerWinsAsync(username, ftBreakerWins)
         End Function
     End Class
 End Namespace
