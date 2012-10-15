@@ -216,15 +216,15 @@ Friend NotInheritable Class InternalPlayer
         End Get
     End Property
 
-    Public ReadOnly Property CurrentBlock As IWorldBlock Implements IPlayer.CurrentBlock
+    Public ReadOnly Property BlockX As Integer Implements IPlayer.BlockX
         Get
-            Return myClient.World.Item(myPlayerPosX + 8 >> 4, myPlayerPosY + 8 >> 4, Layer.Foreground)
+            Return myPlayerPosX + 8 >> 4
         End Get
     End Property
 
-    Public ReadOnly Property CurrentBGBlock As IWorldBlock Implements IPlayer.CurrentBGBlock
+    Public ReadOnly Property BlockY As Integer Implements IPlayer.BlockY
         Get
-            Return myClient.World.Item(myPlayerPosX + 8 >> 4, myPlayerPosY + 8 >> 4, Layer.Background)
+            Return myPlayerPosY + 8 >> 4
         End Get
     End Property
 
