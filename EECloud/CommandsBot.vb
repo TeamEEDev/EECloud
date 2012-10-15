@@ -17,11 +17,6 @@ Public NotInheritable Class CommandsBot
 
     End Sub
 
-    <Command("test", Group.Admin)>
-    Public Sub BlaCommand(cmd As ICommand(Of CommandsBotPlayer), cmd2 As String)
-        Client.Chatter.Reply(cmd.Sender.Username, "hiii")
-    End Sub
-
     <Command("end", Group.Operator, Aliases:={"shutdown", "killbot", "leave", "leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
     Public Sub EndCommand(cmd As ICommand(Of CommandsBotPlayer))
         cmd.Reply("Terminating...")

@@ -5,7 +5,6 @@ Imports System.IO
 
 Module ModuleMain
 #Region "Methods"
-    <STAThread>
     Sub Main()
 
         Dim version As Version = Assembly.GetEntryAssembly().GetName().Version

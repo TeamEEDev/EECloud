@@ -54,21 +54,28 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
 
         If myCommandsDictionary.ContainsKey(type) Then
             e.Handled = True
+            Dim mostHandle As CommandHandle(Of TPlayer) = Nothing
             For Each handle In myCommandsDictionary(type)
                 'Check for syntax
                 If handle.Count = cmd.Length - 1 OrElse (handle.Count < cmd.Length - 1 AndAlso handle.HasParamArray) Then
                     TryRunCmd(sender, rights, cmd, type, handle)
                     Exit Sub
+                ElseIf handle.Count < cmd.Length - 1 Then
+                    If mostHandle Is Nothing OrElse handle.Count > mostHandle.Count Then
+                        mostHandle = handle
+                    End If
                 End If
             Next
-            'No signature matched
-            Dim usages As String = String.Empty
-            usages = myCommandsDictionary(type).Aggregate(usages, Function(current, handle) current & handle.ToString & " / ") 'Some LINQ magic here...
-            If sender Is Nothing Then
-                sender.Reply("Command usage(s): " & Left(usages, usages.Length - 3))
+            'Try the one that most methods fit in 
+            If mostHandle IsNot Nothing Then
+                TryRunCmd(sender, rights, cmd, type, mostHandle)
             Else
-                Cloud.Logger.Log(LogPriority.Info, "Command usage(s): " & Left(usages, usages.Length - 3))
+                'No signature matched
+                Dim usages As String = String.Empty
+                usages = myCommandsDictionary(type).Aggregate(usages, Function(current, handle) current & handle.ToString & " / ") 'Some LINQ magic here...
+                ReplyToSender(sender, "Command usage(s): " & Left(usages, usages.Length - 3))
             End If
+
         End If
     End Sub
 
@@ -77,7 +84,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
         If handle.Attribute.MinPermission > rights Then
             If sender Is Nothing OrElse handle.Attribute.MinPermission > sender.Group Then
                 If sender IsNot Nothing AndAlso sender.Group >= Group.Moderator Then
-                    sender.Reply("You are not allowed to use this command!")
+                    ReplyToSender(sender, "You are not allowed to use this command!")
                 End If
 
                 Exit Sub
@@ -87,9 +94,9 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
         'Check for bots access rights
         If myClient.Game.AccessRight < handle.Attribute.AccessRight Then
             If handle.Attribute.AccessRight = AccessRight.Edit Then
-                sender.Reply("Bot needs edit rights to run this command!")
+                ReplyToSender(sender, "Bot needs edit rights to run this command!")
             Else
-                sender.Reply("Bot needs owner rights to run this command!")
+                ReplyToSender(sender, "Bot needs owner rights to run this command!")
             End If
             Exit Sub
         End If
@@ -120,9 +127,17 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
         Catch ex As Exception
             Cloud.Logger.Log(LogPriority.Error, "Failed to run command " & type)
             Cloud.Logger.LogEx(ex)
-            sender.Reply("Failed to run command!")
+            ReplyToSender(sender, "Failed to run command!")
             Exit Sub
         End Try
+    End Sub
+
+    Private Sub ReplyToSender(sender As TPlayer, msg As String)
+        If sender IsNot Nothing Then
+            sender.Reply(msg)
+        Else
+            Cloud.Logger.Log(LogPriority.Info, msg)
+        End If
     End Sub
 
     Public Sub InvokeCommand(player As Player, msg As String, rights As Group) Implements ICommandManager.InvokeCommand
