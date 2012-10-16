@@ -213,7 +213,6 @@
     <Compile Include="Deque\Deque.Node.vb" />
     <Compile Include="Deque\Deque.Synchronized.vb" />
     <Compile Include="Deque\Deque.vb" />
-    <Compile Include="Settings.vb" />
     <Compile Include="zForms\LicenseForm.Designer.vb">
       <DependentUpon>LicenseForm.vb</DependentUpon>
     </Compile>
