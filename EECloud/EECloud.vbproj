@@ -161,18 +161,18 @@
     <Compile Include="Deque\Deque.Node.vb" />
     <Compile Include="Deque\Deque.Synchronized.vb" />
     <Compile Include="Deque\Deque.vb" />
-    <Compile Include="zForms\LicenseForm.Designer.vb">
+    <Compile Include="Forms\LicenseForm.Designer.vb">
       <DependentUpon>LicenseForm.vb</DependentUpon>
     </Compile>
     <Compile Include="Client\InternalClient.vb" />
     <Compile Include="Client\PlayerManager\InternalPlayer.vb" />
-    <Compile Include="zForms\LicenseForm.vb">
+    <Compile Include="Forms\LicenseForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="zForms\LoginForm.Designer.vb">
+    <Compile Include="Forms\LoginForm.Designer.vb">
       <DependentUpon>LoginForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="zForms\LoginForm.vb">
+    <Compile Include="Forms\LoginForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Logger\LeLogger.vb" />
@@ -183,7 +183,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="zStartup\ModuleMain.vb" />
+    <Compile Include="Startup\ModuleMain.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -236,10 +236,10 @@
     <None Include="Resources\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="zForms\LicenseForm.resx">
+    <EmbeddedResource Include="Forms\LicenseForm.resx">
       <DependentUpon>LicenseForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="zForms\LoginForm.resx">
+    <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
