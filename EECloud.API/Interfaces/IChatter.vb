@@ -27,13 +27,13 @@
     Sub Kick(username As String, msg As String)
 
     ''' <summary>
-    ''' Reloads the level data, preferred method to access is using <see cref="IGame.LoadLevel" />.
+    ''' Reloads the level data. />.
     ''' </summary>
     ''' <remarks></remarks>
     Sub Loadlevel()
 
     ''' <summary>
-    ''' Resets the players position. Preferred method to access is using <see cref="IGame.Reset" />.
+    ''' Resets everyones position. />.
     ''' </summary>
     ''' <remarks></remarks>
     Sub Reset()

@@ -170,5 +170,25 @@ Friend NotInheritable Class World
         myBlocks = ParseWorld(e.PlayerIOMessage, e.SizeX, e.SizeY, InitOffset)
     End Sub
 
+    Private Sub myConnection_ReceiveBlockPlace(sender As Object, e As BlockPlaceReceiveMessage) Handles myConnection.ReceiveBlockPlace
+        myBlocks(e.Layer, e.PosX, e.PosY) = New WorldBlock(e.Block)
+    End Sub
+
+    Private Sub myConnection_ReceiveCoinDoorPlace(sender As Object, e As CoinDoorPlaceReceiveMessage) Handles myConnection.ReceiveCoinDoorPlace
+        myBlocks(e.Layer, e.PosX, e.PosY) = New WorldCoinDoorBlock(CType(e.Block, CoinDoorBlock), e.CoinsToOpen)
+    End Sub
+
+    Private Sub myConnection_ReceiveLabelPlace(sender As Object, e As LabelPlaceReceiveMessage) Handles myConnection.ReceiveLabelPlace
+        myBlocks(e.Layer, e.PosX, e.PosY) = New WorldLabelBlock(CType(e.Block, LabelBlock), e.Text)
+    End Sub
+
+    Private Sub myConnection_ReceivePortalPlace(sender As Object, e As PortalPlaceReceiveMessage) Handles myConnection.ReceivePortalPlace
+        myBlocks(e.Layer, e.PosX, e.PosY) = New WorldPortalBlock(CType(e.Block, PortalBlock), e.PortalRotation, e.PortalID, e.PortalTarget)
+    End Sub
+
+    Private Sub myConnection_ReceiveSoundPlace(sender As Object, e As SoundPlaceReceiveMessage) Handles myConnection.ReceiveSoundPlace
+        myBlocks(e.Layer, e.PosX, e.PosY) = New WorldSoundBlock(CType(e.Block, SoundBlock), e.SoundID)
+    End Sub
+
 #End Region
 End Class

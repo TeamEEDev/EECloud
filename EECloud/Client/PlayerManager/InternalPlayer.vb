@@ -236,7 +236,7 @@ Friend NotInheritable Class InternalPlayer
         myClient = client
         myConnection = client.Connection
         myUserID = addMessage.UserID
-        myUsername = addMessage.Username
+        myUsername = addMessage.Username.ToLower
         mySmiley = addMessage.Face
         myHasChat = addMessage.HasChat
         myIsGod = addMessage.IsGod
@@ -253,7 +253,7 @@ Friend NotInheritable Class InternalPlayer
         myClient = client
         myConnection = client.Connection
         myUserID = initMessage.UserID
-        myUsername = initMessage.Username
+        myUsername = initMessage.Username.ToLower
         myPlayerPosX = initMessage.SpawnX
         myPlayerPosY = initMessage.SpawnY
         mySpawnX = initMessage.SpawnX

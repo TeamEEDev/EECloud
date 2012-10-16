@@ -111,5 +111,4 @@ Friend NotInheritable Class LoginForm
     End Sub
 
 #End Region
-
 End Class

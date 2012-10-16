@@ -1,4 +1,4 @@
-﻿Public Interface IPlayerManager(Of TPlayer As {Player, New})
+﻿Public Interface IPlayerManager (Of TPlayer As {Player, New})
     Event Join As EventHandler(Of TPlayer)
     Event Leave As EventHandler(Of TPlayer)
 

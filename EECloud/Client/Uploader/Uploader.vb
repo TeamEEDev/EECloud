@@ -40,7 +40,6 @@ Friend NotInheritable Class Uploader
                     Dim sendBlock As BlockPlaceUploadMessage
                     sendBlock = myLagCheckQueue.Dequeue()
 
-
                     If Not myClient.World(sendBlock.X, sendBlock.Y, sendBlock.Layer).Block = sendBlock.Block Then
                         myBlockUploadQueue.PushFront(sendBlock)
                     End If
