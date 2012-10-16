@@ -6,12 +6,9 @@ EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud", "EECloud\EECloud.vbproj", "{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{75ADE508-C5DA-4A45-BF8C-DD3E9F4EA882} = {75ADE508-C5DA-4A45-BF8C-DD3E9F4EA882}
-		{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1} = {D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}
 	EndProjectSection
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TestPlugin", "TestPlugin\TestPlugin.vbproj", "{75ADE508-C5DA-4A45-BF8C-DD3E9F4EA882}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Yo!Scroll Plugin", "Yo!Scroll Plugin\Yo!Scroll Plugin.vbproj", "{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,21 +71,6 @@ Global
 		{75ADE508-C5DA-4A45-BF8C-DD3E9F4EA882}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75ADE508-C5DA-4A45-BF8C-DD3E9F4EA882}.Release|x64.ActiveCfg = Release|x64
 		{75ADE508-C5DA-4A45-BF8C-DD3E9F4EA882}.Release|x86.ActiveCfg = Release|x86
-		{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}.Debug|Any CPU.Build.0 = Debug|x86
-		{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}.Debug|x64.ActiveCfg = Debug|x64
-		{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}.Debug|x64.Build.0 = Debug|x64
-		{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}.Debug|x86.ActiveCfg = Debug|x86
-		{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}.Debug|x86.Build.0 = Debug|x86
-		{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}.Publish|Any CPU.ActiveCfg = Publish|Any CPU
-		{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}.Publish|x64.ActiveCfg = Publish|x64
-		{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}.Publish|x86.ActiveCfg = Publish|x86
-		{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}.Release|x64.ActiveCfg = Release|x64
-		{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}.Release|x64.Build.0 = Release|x64
-		{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}.Release|x86.ActiveCfg = Release|x86
-		{D7AA066B-AF28-49D1-8CF7-0AD2AA72A9F1}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
