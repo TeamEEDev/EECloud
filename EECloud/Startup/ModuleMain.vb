@@ -1,20 +1,27 @@
 ﻿Imports System.Reflection
+Imports System.IO
 Imports System.Configuration
 Imports EECloud.API.EEService
-Imports System.IO
 
 Module ModuleMain
+
 #Region "Methods"
 
     Sub Main()
         Console.WriteLine("EECloud Indev version " & Assembly.GetEntryAssembly().GetName().Version.ToString)
         Console.WriteLine("Built on " & RetrieveLinkerTimestamp.ToString)
 
+        Init()
+
+        Application.Run()
+    End Sub
+
+    Async Sub Init()
         'Creating singletons
         CreateSingletons()
 
         'Loading settings
-        LoadSettings()
+        Dim loadTask As Task = LoadSettings() 'Start the task of showing the form in the background and do other stuff while the slow user responds
 
         'License check
         Cloud.Logger.Log(LogPriority.Info, "Conencting to EEService...")
@@ -27,10 +34,13 @@ Module ModuleMain
         'Loading assemblies
         LoadAssembies(client)
 
+        If Not loadTask.IsCompleted Then
+            Cloud.Logger.Log(LogPriority.Info, "Waiting for user response...") 'The user wonders why the lastest plugin is taking so long to load
+        End If
+        Await loadTask 'We cant do anything else now
+
         'Login
         Login(client)
-
-        Application.Run()
     End Sub
 
     Private Function RetrieveLinkerTimestamp() As DateTime
@@ -64,7 +74,7 @@ Module ModuleMain
         Cloud.ClientFactory = New ClientFactory
     End Sub
 
-    Private Sub LoadSettings()
+    Private Async Function LoadSettings() As Task
         If Cloud.AppEnvironment = AppEnvironment.Release Then
             My.Settings.LicenseUsername = ConfigurationManager.AppSettings("cloud.username")
             My.Settings.LicenseKey = ConfigurationManager.AppSettings("cloud.key")
@@ -76,11 +86,14 @@ Module ModuleMain
             End If
         Else
             Application.EnableVisualStyles()
-            If Not New LoginForm().ShowDialog() = DialogResult.OK Then
-                Environment.Exit(0)
-            End If
+            Await Task.Run(
+                Sub()
+                    If Not New LoginForm().ShowDialog = DialogResult.OK Then
+                        Environment.Exit(0)
+                    End If
+                End Sub)
         End If
-    End Sub
+    End Function
 
     Private Sub CheckLicense()
         If Not Cloud.Service.CheckLicense(My.Settings.LicenseUsername, My.Settings.LicenseKey) Then

@@ -29,7 +29,7 @@
     Public ReadOnly Property Player(username As String) As TPlayer Implements IPlayerManager(Of TPlayer).Player
         Get
             For Each player1 As TPlayer In myPlayersDictionary.Values
-                If player1.Username = username Then
+                If player1.Username = username.ToLower Then
                     Return player1
                 End If
             Next

@@ -1,17 +1,4 @@
 ﻿Public Interface IGame
-    Event Init As EventHandler
-    Event OnSave As EventHandler
-    Event OnLoadLevel As EventHandler
-    Event OnReset As EventHandler
-    Event OnClear As EventHandler
-    Event WorldNameChange As EventHandler(Of ItemChangedEventArgs(Of String))
-    Event PlaysChange As EventHandler(Of ItemChangedEventArgs(Of Integer))
-    Event OwnerChange As EventHandler(Of ItemChangedEventArgs(Of String))
-
-    Event AccessRightChange As EventHandler(Of ItemChangedEventArgs(Of AccessRight))
-    Event KeyPress As EventHandler(Of Key)
-    Event KeyRelease As EventHandler(Of Key)
-
     Property WorldName As String
     WriteOnly Property Location As Location
     WriteOnly Property Smiley As Smiley
@@ -32,15 +19,4 @@
     ReadOnly Property GravityMultiplayer As Double
     ReadOnly Property IsTutorialRoom As Boolean
     ReadOnly Property AllowPotions As Boolean
-
-    Sub PressRedKey()
-    Sub PressBlueKey()
-    Sub PressGreenKey()
-    Sub UsePotion(potion As Potion)
-    Sub EnterModMode()
-    Sub Save()
-    Sub LoadLevel()
-    Sub Reset()
-    Sub Clear()
-    Sub TryAccess(key As String)
 End Interface

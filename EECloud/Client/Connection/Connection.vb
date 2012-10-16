@@ -577,13 +577,13 @@ Public NotInheritable Class Connection
                                 ioClient = PlayerIO.QuickConnect.SimpleConnect(GameID, username, password)
                             Case AccountType.Facebook
                                 ioClient = PlayerIO.QuickConnect.FacebookOAuthConnect(GameID, username, "")
-                        End Select
+                              End Select
                         Dim ioConnection As PlayerIOClient.Connection = GetIOConnection(ioClient, id)
                         SetupConnection(ioConnection, id)
                     Catch ex As PlayerIOError
                         Throw New EECloudPlayerIOException(ex)
-                    End Try
-                End Sub)
+                              End Try
+                              End Sub)
             myRunConnect = True
         Else
             Throw New Exception("A connection has been already established")
