@@ -1,5 +1,4 @@
 ﻿Imports System.Reflection
-Imports System.Threading
 Imports System.Configuration
 Imports EECloud.API.EEService
 Imports System.IO
@@ -7,7 +6,6 @@ Imports System.IO
 Module ModuleMain
 #Region "Methods"
 
-    <MTAThread>
     Sub Main()
         Console.WriteLine("EECloud Indev version " & Assembly.GetEntryAssembly().GetName().Version.ToString)
         Console.WriteLine("Built on " & RetrieveLinkerTimestamp.ToString)
@@ -32,7 +30,7 @@ Module ModuleMain
         'Login
         Login(client)
 
-        Thread.Sleep(Timeout.Infinite)
+        Application.Run()
     End Sub
 
     Private Function RetrieveLinkerTimestamp() As DateTime
