@@ -37,6 +37,7 @@ Friend NotInheritable Class Logger
         If Not Cloud.AppEnvironment = AppEnvironment.Release Then
             Console.Write(">")
             Dim worker As New Thread(AddressOf HandleInput)
+            worker.IsBackground = True
             worker.Start()
         End If
     End Sub
