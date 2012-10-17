@@ -5,51 +5,27 @@ Friend NotInheritable Class World
 
 #Region "Fields"
     Private Const InitOffset As UInteger = 15
+    Private myClient As IClient(Of Player)
     Private myBlocks(,,) As IWorldBlock
     Private WithEvents myConnection As IConnection
 #End Region
 
 #Region "Properties"
-    Private myEncryption As String
 
-    Public ReadOnly Property Encryption As String Implements IWorld.Encryption
+    Private mySizeX As Integer
+
+    Public ReadOnly Property SizeX As Integer Implements IWorld.SizeX
         Get
-            Return myEncryption
+            Return mySizeY
         End Get
     End Property
 
-    Private myAccessRight As AccessRight
+    Private mySizeY As Integer
 
-    Public ReadOnly Property AccessRight As AccessRight Implements IWorld.AccessRight
+    Public ReadOnly Property SizeY As Integer Implements IWorld.SizeY
         Get
-            Return myAccessRight
+            Return mySizeX
         End Get
-    End Property
-
-    Public Property AccessRightInternal As AccessRight
-        Get
-            Return myAccessRight
-        End Get
-        Set(value As AccessRight)
-            myAccessRight = value
-        End Set
-    End Property
-
-    Private myPos As Location
-
-    Public ReadOnly Property Pos As Location Implements IWorld.Pos
-        Get
-            Return myPos
-        End Get
-    End Property
-
-    Private Property PosInternal As Location
-        Get
-            Return myPos
-        End Get
-        Set(value As Location)
-            myPos = value
-        End Set
     End Property
 
     Default Public ReadOnly Property Item(x As Integer, y As Integer, Optional layer As Layer = Layer.Foreground) As IWorldBlock Implements IWorld.Item
@@ -62,21 +38,8 @@ Friend NotInheritable Class World
 
 #Region "Methods"
 
-    Friend Sub New(connection As Connection, initMessage As InitReceiveMessage)
-        myConnection = connection
-        myEncryption = Derot(initMessage.Encryption)
-        myPos = New Location(initMessage.SpawnX, initMessage.SpawnY)
-
-        If initMessage.IsOwner Then
-            myAccessRight = AccessRight.Owner
-        ElseIf initMessage.CanEdit Then
-            myAccessRight = AccessRight.Edit
-        End If
-
-        myBlocks = ParseWorld(initMessage.PlayerIOMessage, initMessage.SizeX, initMessage.SizeY, InitOffset)
-    End Sub
-
     Public Sub New(client As IClient(Of Player))
+        myClient = client
         myConnection = client.Connection
     End Sub
 
@@ -161,12 +124,9 @@ Friend NotInheritable Class World
         Return value
     End Function
 
-    Private Sub myConnection_OnReceiveAccess(sender As Object, e As AccessReceiveMessage) Handles myConnection.ReceiveAccess
-        myAccessRight = AccessRight.Edit
-    End Sub
-
     Private Sub myConnection_ReceiveInit(sender As Object, e As InitReceiveMessage) Handles myConnection.ReceiveInit
-        myEncryption = Derot(e.Encryption)
+        mySizeX = e.SizeX
+        mySizeY = e.SizeY
         myBlocks = ParseWorld(e.PlayerIOMessage, e.SizeX, e.SizeY, InitOffset)
     End Sub
 
@@ -190,5 +150,13 @@ Friend NotInheritable Class World
         myBlocks(e.Layer, e.PosX, e.PosY) = New WorldSoundBlock(CType(e.Block, SoundBlock), e.SoundID)
     End Sub
 
+    Private Sub myConnection_ReceiveReset(sender As Object, e As ResetReceiveMessage) Handles myConnection.ReceiveReset
+        myBlocks = ParseWorld(e.PlayerIOMessage, mySizeX, mySizeY, 0)
+    End Sub
+
+    'TODO: IMPLEMENT CLEAR
+
 #End Region
+
+
 End Class

@@ -14,15 +14,15 @@ Public NotInheritable Class PortalPlaceUploadMessage
         Me.PortalRotation = portalRotation
     End Sub
 
-    Friend Overrides Function GetMessage(world As IWorld) As Message
+    Friend Overrides Function GetMessage(ByVal game As IGame) As Message
         If IsPortal(Block) Then
-            Dim message As Message = MyBase.GetMessage(world)
+            Dim message As Message = MyBase.GetMessage(game)
             message.Add(PortalRotation)
             message.Add(PortalID)
             message.Add(PortalTarget)
             Return message
         Else
-            Return MyBase.GetMessage(world)
+            Return MyBase.GetMessage(game)
         End If
     End Function
 End Class

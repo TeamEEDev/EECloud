@@ -19,7 +19,12 @@ Friend NotInheritable Class InternalChatter
 
     Friend Sub SendChat(msg As String)
         If CheckHistory(msg) Then
-            SendChat("." & msg)
+            If msg.StartsWith("/", StringComparison.Ordinal) Then
+                SendChat(msg & " .")
+            Else
+                SendChat("." & msg)
+            End If
+
             Exit Sub
         Else
             myHistoryList.Add(msg)

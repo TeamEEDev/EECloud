@@ -1,3 +1,4 @@
 ﻿Public Interface IUploader
-    Sub Upload(blockMessage As BlockPlaceUploadMessage)
+    Event FinishedUpload As EventHandler
+    Sub Upload(ByVal blockMessage As BlockPlaceUploadMessage)
 End Interface

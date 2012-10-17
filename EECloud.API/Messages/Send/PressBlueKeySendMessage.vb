@@ -4,7 +4,7 @@ Public NotInheritable Class PressBlueKeySendMessage
     Inherits SendMessage
     'No arguments
 
-    Friend Overrides Function GetMessage(world As IWorld) As Message
-        Return Message.Create(world.Encryption & "b")
+    Friend Overrides Function GetMessage(ByVal game As IGame) As Message
+        Return Message.Create(game.Encryption & "b")
     End Function
 End Class

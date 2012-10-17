@@ -24,7 +24,7 @@ Public NotInheritable Class MoveSendMessage
         Me.GravityMultiplayer = gravityMultiplayer
     End Sub
 
-    Friend Overrides Function GetMessage(world As IWorld) As Message
+    Friend Overrides Function GetMessage(ByVal game As IGame) As Message
         Return Message.Create("m", PosX, PosY, SpeedX, SpeedY, ModifierX, ModifierY, Horizontal, Vertical)
     End Function
 End Class

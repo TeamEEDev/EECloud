@@ -10,13 +10,13 @@ Public NotInheritable Class SoundPlaceSendMessage
         Me.SoundID = soundID
     End Sub
 
-    Friend Overrides Function GetMessage(world As IWorld) As Message
+    Friend Overrides Function GetMessage(ByVal game As IGame) As Message
         If IsSound(Block) Then
-            Dim message As Message = MyBase.GetMessage(world)
+            Dim message As Message = MyBase.GetMessage(game)
             message.Add(SoundID)
             Return message
         Else
-            Return MyBase.GetMessage(world)
+            Return MyBase.GetMessage(game)
         End If
     End Function
 End Class
