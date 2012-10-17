@@ -175,6 +175,86 @@ Public NotInheritable Class Connection
     Public Event SendPotion(sender As Object, e As Cancelable(Of PotionSendMessage)) Implements IConnection.SendPotion
 
     Public Event SendTouchCake(sender As Object, e As Cancelable(Of TouchCakeSendMessage)) Implements IConnection.SendTouchCake
+
+    Public Event PreviewDisconnect(sender As Object, e As DisconnectEventArgs) Implements IConnection.PreviewDisconnect
+
+    Public Event PreviewDisconnecting(sender As Object, e As EventArgs) Implements IConnection.PreviewDisconnecting
+
+    Public Event PreviewReceiveAccess(sender As Object, e As AccessReceiveMessage) Implements IConnection.PreviewReceiveAccess
+
+    Public Event PreviewReceiveAdd(sender As Object, e As AddReceiveMessage) Implements IConnection.PreviewReceiveAdd
+
+    Public Event PreviewReceiveAutoText(sender As Object, e As AutoTextReceiveMessage) Implements IConnection.PreviewReceiveAutoText
+
+    Public Event PreviewReceiveBlockPlace(sender As Object, e As BlockPlaceReceiveMessage) Implements IConnection.PreviewReceiveBlockPlace
+
+    Public Event PreviewReceiveClear(sender As Object, e As ClearReceiveMessage) Implements IConnection.PreviewReceiveClear
+
+    Public Event PreviewReceiveCoin(sender As Object, e As CoinReceiveMessage) Implements IConnection.PreviewReceiveCoin
+
+    Public Event PreviewReceiveCoinDoorPlace(sender As Object, e As CoinDoorPlaceReceiveMessage) Implements IConnection.PreviewReceiveCoinDoorPlace
+
+    Public Event PreviewReceiveCrown(sender As Object, e As CrownReceiveMessage) Implements IConnection.PreviewReceiveCrown
+
+    Public Event PreviewReceiveFace(sender As Object, e As FaceReceiveMessage) Implements IConnection.PreviewReceiveFace
+
+    Public Event PreviewReceiveGiveFireWizard(sender As Object, e As GiveFireWizardReceiveMessage) Implements IConnection.PreviewReceiveGiveFireWizard
+
+    Public Event PreviewReceiveGiveGrinch(sender As Object, e As GiveGrinchReceiveMessage) Implements IConnection.PreviewReceiveGiveGrinch
+
+    Public Event PreviewReceiveGiveWitch(sender As Object, e As GiveWitchReceiveMessage) Implements IConnection.PreviewReceiveGiveWitch
+
+    Public Event PreviewReceiveGiveWizard(sender As Object, e As GiveWizardReceiveMessage) Implements IConnection.PreviewReceiveGiveWizard
+
+    Public Event PreviewReceiveGodMode(sender As Object, e As GodModeReceiveMessage) Implements IConnection.PreviewReceiveGodMode
+
+    Public Event PreviewReceiveGroupDisallowedJoin(sender As Object, e As GroupDisallowedJoinReceiveMessage) Implements IConnection.PreviewReceiveGroupDisallowedJoin
+
+    Public Event PreviewReceiveHideKey(sender As Object, e As HideKeyReceiveMessage) Implements IConnection.PreviewReceiveHideKey
+
+    Public Event PreviewReceiveInfo(sender As Object, e As InfoReceiveMessage) Implements IConnection.PreviewReceiveInfo
+
+    Public Event PreviewReceiveInit(sender As Object, e As InitReceiveMessage) Implements IConnection.PreviewReceiveInit
+
+    Public Event PreviewReceiveLabelPlace(sender As Object, e As LabelPlaceReceiveMessage) Implements IConnection.PreviewReceiveLabelPlace
+
+    Public Event PreviewReceiveLeft(sender As Object, e As LeftReceiveMessage) Implements IConnection.PreviewReceiveLeft
+
+    Public Event PreviewReceiveLostAccess(sender As Object, e As LostAccessReceiveMessage) Implements IConnection.PreviewReceiveLostAccess
+
+    Public Event PreviewReceiveMessage(sender As Object, e As ReceiveMessage) Implements IConnection.PreviewReceiveMessage
+
+    Public Event PreviewReceiveModMode(sender As Object, e As ModModeReceiveMessage) Implements IConnection.PreviewReceiveModMode
+
+    Public Event PreviewReceiveMove(sender As Object, e As MoveReceiveMessage) Implements IConnection.PreviewReceiveMove
+
+    Public Event PreviewReceivePortalPlace(sender As Object, e As PortalPlaceReceiveMessage) Implements IConnection.PreviewReceivePortalPlace
+
+    Public Event PreviewReceivePotion(sender As Object, e As PotionReceiveMessage) Implements IConnection.PreviewReceivePotion
+
+    Public Event PreviewReceiveRefreshShop(sender As Object, e As RefreshShopReceiveMessage) Implements IConnection.PreviewReceiveRefreshShop
+
+    Public Event PreviewReceiveReset(sender As Object, e As ResetReceiveMessage) Implements IConnection.PreviewReceiveReset
+
+    Public Event PreviewReceiveSaveDone(sender As Object, e As SaveDoneReceiveMessage) Implements IConnection.PreviewReceiveSaveDone
+
+    Public Event PreviewReceiveSay(sender As Object, e As SayReceiveMessage) Implements IConnection.PreviewReceiveSay
+
+    Public Event PreviewReceiveSayOld(sender As Object, e As SayOldReceiveMessage) Implements IConnection.PreviewReceiveSayOld
+
+    Public Event PreviewReceiveShowKey(sender As Object, e As ShowKeyReceiveMessage) Implements IConnection.PreviewReceiveShowKey
+
+    Public Event PreviewReceiveSilverCrown(sender As Object, e As SilverCrownReceiveMessage) Implements IConnection.PreviewReceiveSilverCrown
+
+    Public Event PreviewReceiveSoundPlace(sender As Object, e As SoundPlaceReceiveMessage) Implements IConnection.PreviewReceiveSoundPlace
+
+    Public Event PreviewReceiveTeleport(sender As Object, e As TeleportReceiveMessage) Implements IConnection.PreviewReceiveTeleport
+
+    Public Event PreviewReceiveUpdateMeta(sender As Object, e As UpdateMetaReceiveMessage) Implements IConnection.PreviewReceiveUpdateMeta
+
+    Public Event PreviewReceiveUpgrade(sender As Object, e As UpgradeReceiveMessage) Implements IConnection.PreviewReceiveUpgrade
+
+    Public Event PreviewReceiveWrite(sender As Object, e As WriteReceiveMessage) Implements IConnection.PreviewReceiveWrite
 #End Region
 
 #Region "Methods"
@@ -221,7 +301,7 @@ Public NotInheritable Class Connection
 
     Private Sub UpdateVersion(ex As PlayerIOError)
         Dim errorMessage() As String = ex.Message.Split("["c)(1).Split(CChar(" "))
-        For N = errorMessage.Length - 1 To 0 Step - 1
+        For N = errorMessage.Length - 1 To 0 Step -1
             Dim currentRoomType As String
             currentRoomType = errorMessage(N)
             If currentRoomType.StartsWith(NormalRoom, StringComparison.Ordinal) Then
@@ -385,6 +465,7 @@ Public NotInheritable Class Connection
         Select Case e.GetType
             Case GetType(InitReceiveMessage)
                 Dim m As InitReceiveMessage = CType(e, InitReceiveMessage)
+                RaiseEvent PreviewReceiveInit(Me, m)
                 UnRegisterMessage("init")
                 UnRegisterMessage("groupdisallowedjoin")
                 RegisterMessages()
@@ -393,14 +474,17 @@ Public NotInheritable Class Connection
 
             Case GetType(GroupDisallowedJoinReceiveMessage)
                 Dim m As GroupDisallowedJoinReceiveMessage = CType(e, GroupDisallowedJoinReceiveMessage)
+                RaiseEvent PreviewReceiveGroupDisallowedJoin(Me, m)
                 RaiseEvent ReceiveGroupDisallowedJoin(Me, m)
 
             Case GetType(InfoReceiveMessage)
                 Dim m As InfoReceiveMessage = CType(e, InfoReceiveMessage)
+                RaiseEvent PreviewReceiveInfo(Me, m)
                 RaiseEvent ReceiveInfo(Me, m)
 
             Case GetType(UpgradeReceiveMessage)
                 Dim m As UpgradeReceiveMessage = CType(e, UpgradeReceiveMessage)
+                RaiseEvent PreviewReceiveUpgrade(Me, m)
                 myGameVersionNumber += 1
                 Cloud.Logger.Log(LogPriority.Info, "The game has been updated!")
                 Await Cloud.Service.SetSettingAsync("GameVersion", CStr(myGameVersionNumber))
@@ -408,134 +492,167 @@ Public NotInheritable Class Connection
 
             Case GetType(UpdateMetaReceiveMessage)
                 Dim m As UpdateMetaReceiveMessage = CType(e, UpdateMetaReceiveMessage)
+                RaiseEvent PreviewReceiveUpdateMeta(Me, m)
                 RaiseEvent ReceiveUpdateMeta(Me, m)
 
             Case GetType(AddReceiveMessage)
                 Dim m As AddReceiveMessage = CType(e, AddReceiveMessage)
+                RaiseEvent PreviewReceiveAdd(Me, m)
                 RaiseEvent ReceiveAdd(Me, m)
 
             Case GetType(LeftReceiveMessage)
                 Dim m As LeftReceiveMessage = CType(e, LeftReceiveMessage)
+                RaiseEvent PreviewReceiveLeft(Me, m)
                 RaiseEvent ReceiveLeft(Me, m)
 
             Case GetType(MoveReceiveMessage)
                 Dim m As MoveReceiveMessage = CType(e, MoveReceiveMessage)
+                RaiseEvent PreviewReceiveMove(Me, m)
                 RaiseEvent ReceiveMove(Me, m)
 
             Case GetType(CoinReceiveMessage)
                 Dim m As CoinReceiveMessage = CType(e, CoinReceiveMessage)
+                RaiseEvent PreviewReceiveCoin(Me, m)
                 RaiseEvent ReceiveCoin(Me, m)
 
             Case GetType(CrownReceiveMessage)
                 Dim m As CrownReceiveMessage = CType(e, CrownReceiveMessage)
+                RaiseEvent PreviewReceiveCrown(Me, m)
                 RaiseEvent ReceiveCrown(Me, m)
 
             Case GetType(SilverCrownReceiveMessage)
                 Dim m As SilverCrownReceiveMessage = CType(e, SilverCrownReceiveMessage)
+                RaiseEvent PreviewReceiveSilverCrown(Me, m)
                 RaiseEvent ReceiveSilverCrown(Me, m)
 
             Case GetType(FaceReceiveMessage)
                 Dim m As FaceReceiveMessage = CType(e, FaceReceiveMessage)
+                RaiseEvent PreviewReceiveFace(Me, m)
                 RaiseEvent ReceiveFace(Me, m)
 
             Case GetType(ShowKeyReceiveMessage)
                 Dim m As ShowKeyReceiveMessage = CType(e, ShowKeyReceiveMessage)
+                RaiseEvent PreviewReceiveShowKey(Me, m)
                 RaiseEvent ReceiveShowKey(Me, m)
 
             Case GetType(HideKeyReceiveMessage)
                 Dim m As HideKeyReceiveMessage = CType(e, HideKeyReceiveMessage)
+                RaiseEvent PreviewReceiveHideKey(Me, m)
                 RaiseEvent ReceiveHideKey(Me, m)
 
             Case GetType(SayReceiveMessage)
                 Dim m As SayReceiveMessage = CType(e, SayReceiveMessage)
+                RaiseEvent PreviewReceiveSay(Me, m)
                 RaiseEvent ReceiveSay(Me, m)
 
             Case GetType(SayOldReceiveMessage)
                 Dim m As SayOldReceiveMessage = CType(e, SayOldReceiveMessage)
+                RaiseEvent PreviewReceiveSayOld(Me, m)
                 RaiseEvent ReceiveSayOld(Me, m)
 
             Case GetType(AutoTextReceiveMessage)
                 Dim m As AutoTextReceiveMessage = CType(e, AutoTextReceiveMessage)
+                RaiseEvent PreviewReceiveAutoText(Me, m)
                 RaiseEvent ReceiveAutoText(Me, m)
 
             Case GetType(WriteReceiveMessage)
                 Dim m As WriteReceiveMessage = CType(e, WriteReceiveMessage)
+                RaiseEvent PreviewReceiveWrite(Me, m)
                 RaiseEvent ReceiveWrite(Me, m)
 
             Case GetType(PotionReceiveMessage)
                 Dim m As PotionReceiveMessage = CType(e, PotionReceiveMessage)
+                RaiseEvent PreviewReceivePotion(Me, m)
                 RaiseEvent ReceivePotion(Me, m)
 
             Case GetType(BlockPlaceReceiveMessage)
                 Dim m As BlockPlaceReceiveMessage = CType(e, BlockPlaceReceiveMessage)
+                RaiseEvent PreviewReceiveBlockPlace(Me, m)
                 RaiseEvent ReceiveBlockPlace(Me, m)
 
             Case GetType(CoinDoorPlaceReceiveMessage)
                 Dim m As CoinDoorPlaceReceiveMessage = CType(e, CoinDoorPlaceReceiveMessage)
+                RaiseEvent PreviewReceiveCoinDoorPlace(Me, m)
                 RaiseEvent ReceiveCoinDoorPlace(Me, m)
 
             Case GetType(SoundPlaceReceiveMessage)
                 Dim m As SoundPlaceReceiveMessage = CType(e, SoundPlaceReceiveMessage)
+                RaiseEvent PreviewReceiveSoundPlace(Me, m)
                 RaiseEvent ReceiveSoundPlace(Me, m)
 
             Case GetType(PortalPlaceReceiveMessage)
                 Dim m As PortalPlaceReceiveMessage = CType(e, PortalPlaceReceiveMessage)
+                RaiseEvent PreviewReceivePortalPlace(Me, m)
                 RaiseEvent ReceivePortalPlace(Me, m)
 
             Case GetType(LabelPlaceReceiveMessage)
                 Dim m As LabelPlaceReceiveMessage = CType(e, LabelPlaceReceiveMessage)
+                RaiseEvent PreviewReceiveLabelPlace(Me, m)
                 RaiseEvent ReceiveLabelPlace(Me, m)
 
             Case GetType(GodModeReceiveMessage)
                 Dim m As GodModeReceiveMessage = CType(e, GodModeReceiveMessage)
+                RaiseEvent PreviewReceiveGodMode(Me, m)
                 RaiseEvent ReceiveGodMode(Me, m)
 
             Case GetType(ModModeReceiveMessage)
                 Dim m As ModModeReceiveMessage = CType(e, ModModeReceiveMessage)
+                RaiseEvent PreviewReceiveModMode(Me, m)
                 RaiseEvent ReceiveModMode(Me, m)
 
             Case GetType(AccessReceiveMessage)
                 Dim m As AccessReceiveMessage = CType(e, AccessReceiveMessage)
+                RaiseEvent PreviewReceiveAccess(Me, m)
                 RaiseEvent ReceiveAccess(Me, m)
 
             Case GetType(LostAccessReceiveMessage)
                 Dim m As LostAccessReceiveMessage = CType(e, LostAccessReceiveMessage)
+                RaiseEvent PreviewReceiveLostAccess(Me, m)
                 RaiseEvent ReceiveLostAccess(Me, m)
 
             Case GetType(TeleportReceiveMessage)
                 Dim m As TeleportReceiveMessage = CType(e, TeleportReceiveMessage)
+                RaiseEvent PreviewReceiveTeleport(Me, m)
                 RaiseEvent ReceiveTeleport(Me, m)
 
             Case GetType(ResetReceiveMessage)
                 Dim m As ResetReceiveMessage = CType(e, ResetReceiveMessage)
+                RaiseEvent PreviewReceiveReset(Me, m)
                 RaiseEvent ReceiveReset(Me, m)
 
             Case GetType(ClearReceiveMessage)
                 Dim m As ClearReceiveMessage = CType(e, ClearReceiveMessage)
+                RaiseEvent PreviewReceiveClear(Me, m)
                 RaiseEvent ReceiveClear(Me, m)
 
             Case GetType(SaveDoneReceiveMessage)
                 Dim m As SaveDoneReceiveMessage = CType(e, SaveDoneReceiveMessage)
+                RaiseEvent PreviewReceiveSaveDone(Me, m)
                 RaiseEvent ReceiveSaveDone(Me, m)
 
             Case GetType(RefreshShopReceiveMessage)
                 Dim m As RefreshShopReceiveMessage = CType(e, RefreshShopReceiveMessage)
+                RaiseEvent PreviewReceiveRefreshShop(Me, m)
                 RaiseEvent ReceiveRefreshShop(Me, m)
 
             Case GetType(GiveWizardReceiveMessage)
                 Dim m As GiveWizardReceiveMessage = CType(e, GiveWizardReceiveMessage)
+                RaiseEvent PreviewReceiveGiveWizard(Me, m)
                 RaiseEvent ReceiveGiveWizard(Me, m)
 
             Case GetType(GiveFireWizardReceiveMessage)
                 Dim m As GiveFireWizardReceiveMessage = CType(e, GiveFireWizardReceiveMessage)
+                RaiseEvent PreviewReceiveGiveFireWizard(Me, m)
                 RaiseEvent ReceiveGiveFireWizard(Me, m)
 
             Case GetType(GiveWitchReceiveMessage)
                 Dim m As GiveWitchReceiveMessage = CType(e, GiveWitchReceiveMessage)
+                RaiseEvent PreviewReceiveGiveWitch(Me, m)
                 RaiseEvent ReceiveGiveWitch(Me, m)
 
             Case GetType(GiveGrinchReceiveMessage)
                 Dim m As GiveGrinchReceiveMessage = CType(e, GiveGrinchReceiveMessage)
+                RaiseEvent PreviewReceiveGiveGrinch(Me, m)
                 RaiseEvent ReceiveGiveGrinch(Me, m)
         End Select
     End Sub
@@ -577,13 +694,13 @@ Public NotInheritable Class Connection
                                 ioClient = PlayerIO.QuickConnect.SimpleConnect(GameID, username, password)
                             Case AccountType.Facebook
                                 ioClient = PlayerIO.QuickConnect.FacebookOAuthConnect(GameID, username, "")
-                              End Select
+                        End Select
                         Dim ioConnection As PlayerIOClient.Connection = GetIOConnection(ioClient, id)
                         SetupConnection(ioConnection, id)
                     Catch ex As PlayerIOError
                         Throw New EECloudPlayerIOException(ex)
-                              End Try
-                              End Sub)
+                    End Try
+                End Sub)
             myRunConnect = True
         Else
             Throw New Exception("A connection has been already established")
