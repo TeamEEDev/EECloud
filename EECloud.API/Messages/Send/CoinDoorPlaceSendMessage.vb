@@ -10,13 +10,13 @@ Public NotInheritable Class CoinDoorPlaceSendMessage
         Me.CoinsToCollect = coinsToCollect
     End Sub
 
-    Friend Overrides Function GetMessage(world As IWorld) As Message
+    Friend Overrides Function GetMessage(ByVal game As IGame) As Message
         If IsCoinDoor(Block) Then
-            Dim message As Message = MyBase.GetMessage(world)
+            Dim message As Message = MyBase.GetMessage(game)
             message.Add(CoinsToCollect)
             Return message
         Else
-            Return MyBase.GetMessage(world)
+            Return MyBase.GetMessage(game)
         End If
     End Function
 End Class

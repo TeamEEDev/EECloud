@@ -9,13 +9,13 @@ Public NotInheritable Class LabelPlaceSendMessage
         Me.Text = text
     End Sub
 
-    Friend Overrides Function GetMessage(world As IWorld) As Message
+    Friend Overrides Function GetMessage(ByVal game As IGame) As Message
         If IsLabel(Block) Then
-            Dim message As Message = MyBase.GetMessage(world)
+            Dim message As Message = MyBase.GetMessage(game)
             message.Add(Text)
             Return message
         Else
-            Return MyBase.GetMessage(world)
+            Return MyBase.GetMessage(game)
         End If
     End Function
 End Class

@@ -10,7 +10,7 @@ Public NotInheritable Class TouchCakeSendMessage
         Me.Y = y
     End Sub
 
-    Friend Overrides Function GetMessage(world As IWorld) As Message
+    Friend Overrides Function GetMessage(ByVal game As IGame) As Message
         Return Message.Create("caketouch", X, Y)
     End Function
 End Class

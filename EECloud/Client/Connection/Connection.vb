@@ -593,7 +593,7 @@ Public NotInheritable Class Connection
     Friend Sub Send(message As SendMessage) Implements IConnection.Send
         If Connected Then
             If Not RaiseSendEvent(message) Then
-                myConnection.Send(message.GetMessage(myClient.World))
+                myConnection.Send(message.GetMessage(myClient.Game))
             End If
         End If
     End Sub

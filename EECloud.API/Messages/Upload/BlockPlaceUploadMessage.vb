@@ -14,11 +14,17 @@ Public Class BlockPlaceUploadMessage
         Me.Block = block
     End Sub
 
-    Friend Overrides Function GetMessage(world As IWorld) As Message
-        Return Message.Create(world.Encryption, CInt(CorrectLayer(Block, Layer)), X, Y, CInt(Block))
+    Friend Overrides Function GetMessage(ByVal game As IGame) As Message
+        Return Message.Create(game.Encryption, CInt(CorrectLayer(Block, Layer)), X, Y, CInt(Block))
     End Function
 
-    Friend Overrides Sub SendMessage(connection As IConnection)
-        connection.Send(Me)
+    Friend Overrides Sub SendMessage(client As IClient(Of Player))
+        If Not client.World(X, Y, Layer).Block = Block Then
+            client.Connection.Send(Me)
+        End If
     End Sub
+
+    Friend Overrides Function IsUploaded(message As BlockPlaceReceiveMessage) As Boolean
+        Return X = message.PosX AndAlso Y = message.PosY AndAlso Layer = message.Layer
+    End Function
 End Class

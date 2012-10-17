@@ -19,10 +19,10 @@ Public NotInheritable Class PluginAttribute
             Return myChatName
         End Get
         Set(value As String)
-            If Regex.Match(value, "^\S{3,15}$").Success Then
+            If Regex.Match(value, "^\S{2,15}$").Success Then
                 myChatName = value
             Else
-                Throw New FormatException("Chat names may contain any characters but white-space characters(line breaks, tabs, spaces, hard spaces). They must have a minimum lenght of 3 Characters and a maximum of 15.")
+                Throw New FormatException("Chat names may contain any characters but white-space characters(line breaks, tabs, spaces, hard spaces). They must have a minimum lenght of 2 Characters and a maximum of 15.")
             End If
         End Set
     End Property

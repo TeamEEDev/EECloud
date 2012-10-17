@@ -8,7 +8,7 @@ Public NotInheritable Class ChangeWorldNameSendMessage
         Me.WorldName = worldName
     End Sub
 
-    Friend Overrides Function GetMessage(world As IWorld) As Message
+    Friend Overrides Function GetMessage(ByVal game As IGame) As Message
         Return Message.Create("name", WorldName)
     End Function
 End Class

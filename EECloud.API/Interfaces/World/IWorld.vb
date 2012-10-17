@@ -1,7 +1,5 @@
 ﻿Public Interface IWorld
-    ReadOnly Property Encryption As String
-    ReadOnly Property AccessRight As AccessRight
-    ReadOnly Property Pos As Location
-
+    ReadOnly Property SizeX As Integer
+    ReadOnly Property SizeY As Integer
     Default ReadOnly Property Item(x As Integer, y As Integer, Optional layer As Layer = Layer.Foreground) As IWorldBlock
 End Interface

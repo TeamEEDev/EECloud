@@ -8,7 +8,7 @@ Public NotInheritable Class GodModeSendMessage
         Me.GodModeEnabled = godModeEnabled
     End Sub
 
-    Friend Overrides Function GetMessage(world As IWorld) As Message
+    Friend Overrides Function GetMessage(ByVal game As IGame) As Message
         Return Message.Create("god", GodModeEnabled)
     End Function
 End Class

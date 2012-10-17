@@ -37,4 +37,16 @@ Public NotInheritable Class MoveReceiveMessage
         Vertical = message.GetDouble(8)
         Coins = message.GetInteger(9)
     End Sub
+
+    Public ReadOnly Property BlockX As Integer
+        Get
+            Return PlayerPosX + 8 >> 4
+        End Get
+    End Property
+
+    Public ReadOnly Property BlockY As Integer
+        Get
+            Return PlayerPosY + 8 >> 4
+        End Get
+    End Property
 End Class
