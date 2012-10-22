@@ -95,7 +95,7 @@
 
 #Region "Methods"
 
-    Friend Sub New()
+    Friend Sub New(commandChar As Char)
         'Creating instances
         myPluginManager = New PluginManager(New ClientCloneCloneFactory(Me))
         myConnection = New Connection(Me)
@@ -105,7 +105,7 @@
 
         myInternalChatter = New InternalChatter(Me)
         myInternalPlayerManager = New InternalPlayerManager(Me)
-        myInternalCommandManager = New InternalCommandManager(Me)
+        myInternalCommandManager = New InternalCommandManager(Me, commandChar)
 
         myChatter = New Chatter(myInternalChatter, "Bot")
         myPlayerManager = New PlayerManager(Of Player)(Me)

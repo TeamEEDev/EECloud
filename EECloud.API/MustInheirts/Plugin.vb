@@ -1,42 +1,52 @@
-﻿Public MustInherit Class Plugin (Of TPlayer As {Player, New})
-    Implements IPlugin
+﻿Public MustInherit Class Plugin(Of TPlayer As {Player, New})
+    Inherits PluginPart(Of TPlayer)
+    Implements IPlugin, IClient(Of TPlayer)
+
+#Region "Fields"
+    Private myCloneFactory As IClientCloneFactory
+
+    Private myPluginParts As New List(Of PluginPart(Of TPlayer))
+#End Region
 
 #Region "Properties"
+    Private myPluginObject As IPluginObject
 
-    Private myClient As IClient(Of TPlayer)
-
-    Public ReadOnly Property Client As IClient(Of TPlayer)
+    Public ReadOnly Property PluginObject As IPluginObject
         Get
-            Return myClient
+            Return myPluginObject
         End Get
     End Property
-
 #End Region
 
 #Region "Methods"
 
-    Friend Sub Enable(cloneFactory As IClientCloneFactory, pluginObj As IPluginObject) Implements IPlugin.Enable
-        myClient = cloneFactory.GetConnection (Of TPlayer)(pluginObj)
-        If myClient.Connection.Connected Then
-            OnConnect()
-        Else
-            AddHandler myClient.Connection.ReceiveInit, AddressOf Connect
+    Friend Overloads Sub Enable(cloneFactory As IClientCloneFactory, pluginObj As IPluginObject) Implements IPlugin.Enable
+        myCloneFactory = cloneFactory
+        myPluginObject = pluginObj
+        Enable(cloneFactory.GetClient(Of TPlayer)(pluginObj))
+    End Sub
+
+    Friend Overrides Sub Disable() Implements IPlugin.Disable
+        For Each part In myPluginParts
+            part.Disable()
+        Next
+        myCloneFactory.DisposeClient(Of TPlayer)(Client)
+        MyBase.Disable()
+    End Sub
+
+    Public Function EnablePart(Of TPart As {PluginPart(Of TPlayer), New})() As TPart
+        Dim part As New TPart
+        part.Enable(Client)
+        myPluginParts.Add(part)
+        Return part
+    End Function
+
+    Public Sub DisablePart(Of TPart As {PluginPart(Of TPlayer), New})(part As TPart)
+        If myPluginParts.Contains(part) Then
+            myPluginParts.Remove(part)
         End If
-
-        OnEnable()
+        part.Disable()
     End Sub
 
-    Friend Sub Disable() Implements IPlugin.Disable
-        OnDisable()
-    End Sub
-
-    Private Sub Connect(sender As Object, e As InitReceiveMessage)
-        RemoveHandler myClient.Connection.ReceiveInit, AddressOf Connect
-        OnConnect()
-    End Sub
-
-    Protected MustOverride Sub OnEnable()
-    Protected MustOverride Sub OnDisable()
-    Protected MustOverride Sub OnConnect()
 #End Region
 End Class

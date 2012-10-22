@@ -255,6 +255,8 @@ Public NotInheritable Class Connection
     Public Event PreviewReceiveUpgrade(sender As Object, e As UpgradeReceiveMessage) Implements IConnection.PreviewReceiveUpgrade
 
     Public Event PreviewReceiveWrite(sender As Object, e As WriteReceiveMessage) Implements IConnection.PreviewReceiveWrite
+
+    Public Event InitComplete(sender As Object, e As EventArgs) Implements IConnection.InitComplete
 #End Region
 
 #Region "Methods"
@@ -461,7 +463,9 @@ Public NotInheritable Class Connection
         End Select
     End Function
 
-    Private Async Sub Connection_ReceiveMessage(sender As Object, e As ReceiveMessage) Handles Me.ReceiveMessage
+    Private myInited As Boolean
+
+    Private Sub Connection_ReceiveMessage(sender As Object, e As ReceiveMessage) Handles Me.ReceiveMessage
         Select Case e.GetType
             Case GetType(InitReceiveMessage)
                 Dim m As InitReceiveMessage = CType(e, InitReceiveMessage)
@@ -487,7 +491,7 @@ Public NotInheritable Class Connection
                 RaiseEvent PreviewReceiveUpgrade(Me, m)
                 myGameVersionNumber += 1
                 Cloud.Logger.Log(LogPriority.Info, "The game has been updated!")
-                Await Cloud.Service.SetSettingAsync("GameVersion", CStr(myGameVersionNumber))
+                Cloud.Service.SetSetting("GameVersion", CStr(myGameVersionNumber))
                 RaiseEvent ReceiveUpgrade(Me, m)
 
             Case GetType(UpdateMetaReceiveMessage)
@@ -519,6 +523,10 @@ Public NotInheritable Class Connection
                 Dim m As CrownReceiveMessage = CType(e, CrownReceiveMessage)
                 RaiseEvent PreviewReceiveCrown(Me, m)
                 RaiseEvent ReceiveCrown(Me, m)
+                If Not myInited Then
+                    myInited = True
+                    RaiseEvent InitComplete(Me, EventArgs.Empty)
+                End If
 
             Case GetType(SilverCrownReceiveMessage)
                 Dim m As SilverCrownReceiveMessage = CType(e, SilverCrownReceiveMessage)
@@ -671,10 +679,10 @@ Public NotInheritable Class Connection
                 Dim message As ReceiveMessage = CType(constructorInfo.Invoke(New Object() {e}), ReceiveMessage)
                 RaiseEvent ReceiveMessage(Me, message)
             Else
-                Cloud.Logger.Log(LogPriority.Warning, "Received not registered Value: " & e.Type)
+                Cloud.Logger.Log(LogPriority.Warning, "Received not registered message: " & e.Type)
             End If
         Catch ex As KeyNotFoundException
-            Cloud.Logger.Log(LogPriority.Error, "Failed to parse Value: " & e.Type)
+            Cloud.Logger.Log(LogPriority.Error, "Failed to parse message: " & e.Type)
             Cloud.Logger.LogEx(ex)
         End Try
     End Sub

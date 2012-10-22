@@ -44,7 +44,7 @@ Friend NotInheritable Class CommandHandle (Of TPlayer As {New, Player})
         Dim prams As ParameterInfo() = method.GetParameters
         If Not prams(0).ParameterType = GetType(ICommand(Of TPlayer)) Then
             Cloud.Logger.Log(LogPriority.Error, "First parameter must be a Command: " & attribute.Type)
-            Throw New EECloudException(ErrorCode.CommandSyntaxInvalid)
+            Throw New EECloudException(ErrorCode.InvalidCommand)
         End If
 
         mySyntaxStr = "!command"
@@ -61,12 +61,12 @@ Friend NotInheritable Class CommandHandle (Of TPlayer As {New, Player})
                         mySyntaxStr += " [" & pram.Name & "...]"
                     Else
                         Cloud.Logger.Log(LogPriority.Error, "String Arrays in commands must have the ParamArrayAttribute on them: " & attribute.Type)
-                        Throw New EECloudException(ErrorCode.CommandSyntaxInvalid)
+                        Throw New EECloudException(ErrorCode.InvalidCommand)
                     End If
 
                 Case Else
                     Cloud.Logger.Log(LogPriority.Error, "Arguments must all be type of String: " & attribute.Type)
-                    Throw New EECloudException(ErrorCode.CommandSyntaxInvalid)
+                    Throw New EECloudException(ErrorCode.InvalidCommand)
             End Select
         Next
     End Sub

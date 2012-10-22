@@ -1,13 +1,21 @@
 ﻿Imports System.Reflection
 
 Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
-    Implements ICommandManager
+    Implements ICommandManager, IDisposable
 
 #Region "Fields"
     Private ReadOnly myCommandsDictionary As New Dictionary(Of String, List(Of CommandHandle(Of TPlayer)))
     Private ReadOnly myClient As IClient(Of TPlayer)
     Private WithEvents myInternalCommandManager As InternalCommandManager
     Private ReadOnly myAddedTargets As New List(Of Object)
+#End Region
+
+#Region "Properties"
+    Public ReadOnly Property Count As Integer Implements ICommandManager.Count
+        Get
+            Return myCommandsDictionary.Count
+        End Get
+    End Property
 #End Region
 
 #Region "Methods"
@@ -51,8 +59,10 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
         Dim sender As TPlayer = myClient.PlayerManager.Player(user)
         Dim cmd As String() = msg.Split(" "c)
         Dim type As String = cmd(0).ToLower
-
-        If myCommandsDictionary.ContainsKey(type) Then
+        If msg.StartsWith("help ", StringComparison.OrdinalIgnoreCase) AndAlso myCommandsDictionary.ContainsKey(cmd(1).ToLower) Then
+            e.Handled = True
+            ReplyToSender(sender, GetUsagesStr(cmd(1).ToLower))
+        ElseIf myCommandsDictionary.ContainsKey(type) Then
             e.Handled = True
             Dim mostHandle As CommandHandle(Of TPlayer) = Nothing
             For Each handle In myCommandsDictionary(type)
@@ -70,15 +80,17 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
             If mostHandle IsNot Nothing Then
                 TryRunCmd(sender, rights, cmd, type, mostHandle)
             Else
-                'No signature matched
-                Dim usages As String = String.Empty
-                usages = myCommandsDictionary(type).Aggregate(usages, Function(current, handle) current & handle.ToString & " / ")
-                'Some LINQ magic here...
-                ReplyToSender(sender, "Command usage(s): " & Left(usages, usages.Length - 3))
+                ReplyToSender(sender, GetUsagesStr(type))
             End If
-
         End If
     End Sub
+
+    Private Function GetUsagesStr(cmd As String) As String
+        Dim usages As String = String.Empty
+        usages = myCommandsDictionary(cmd).Aggregate(usages, Function(current, handle) current & handle.ToString & " / ")
+        'Some LINQ magic here...
+        Return "Command usage(s): " & Left(usages, usages.Length - 3)
+    End Function
 
     Private Sub TryRunCmd(sender As TPlayer, rights As Group, cmd As String(), type As String, handle As CommandHandle(Of TPlayer))
         'Check for rights
@@ -123,14 +135,7 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
         End If
 
         'Excecute
-        Try
-            handle.Run(args)
-        Catch ex As Exception
-            Cloud.Logger.Log(LogPriority.Error, "Failed to run command " & type)
-            Cloud.Logger.LogEx(ex)
-            ReplyToSender(sender, "Failed to run command!")
-            Exit Sub
-        End Try
+        handle.Run(args)
     End Sub
 
     Private Sub ReplyToSender(sender As TPlayer, msg As String)
@@ -149,14 +154,14 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
         If myCommandsDictionary.ContainsKey(name) Then
             Dim list As List(Of CommandHandle(Of TPlayer)) = myCommandsDictionary(name)
             Dim usedNums As New List(Of Integer)
-            Dim maxNum As Integer = - 1
+            Dim maxNum As Integer = -1
             For Each item In list
                 usedNums.Add(item.Count)
                 If item.HasParamArray Then
                     maxNum = item.Count
                 End If
             Next
-            If maxNum = - 1 OrElse (handle.Count < maxNum AndAlso Not handle.HasParamArray) Then
+            If maxNum = -1 OrElse (handle.Count < maxNum AndAlso Not handle.HasParamArray) Then
                 If Not usedNums.Contains(handle.Count) Then
                     myCommandsDictionary(name).Add(handle)
                 Else
@@ -172,5 +177,45 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
         End If
     End Sub
 
+    Public Function Contains(cmd As String) As Boolean Implements ICommandManager.Contains
+        Return myCommandsDictionary.ContainsKey(cmd)
+    End Function
+
+    Public Function Contains(cmd As String, paramCount As Integer) As Boolean Implements ICommandManager.Contains
+        If Contains(cmd) Then
+            Return myCommandsDictionary(cmd).Any(Function(cmdHandle) cmdHandle.Count <= paramCount)
+        Else
+            Return False
+        End If
+    End Function
+
 #End Region
+
+#Region "IDisposable Support"
+    Private myDisposedValue As Boolean
+
+    Private Sub Dispose(disposing As Boolean)
+        If Not myDisposedValue Then
+            If disposing Then
+
+            End If
+
+            myInternalCommandManager = Nothing
+        End If
+        myDisposedValue = True
+    End Sub
+
+    Protected Overrides Sub Finalize()
+        Dispose(False)
+        MyBase.Finalize()
+    End Sub
+
+    Public Sub Dispose() Implements IDisposable.Dispose
+        ' Do not change this code.  Put cleanup code in Dispose(disposing As Boolean) above.
+        Dispose(True)
+        GC.SuppressFinalize(Me)
+    End Sub
+#End Region
+
+
 End Class

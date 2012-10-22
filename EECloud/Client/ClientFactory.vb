@@ -3,8 +3,8 @@
 
 #Region "Methods"
 
-    Friend Function GetConnectionHandle() As IClient(Of Player) Implements IClientFactory.CreateClient
-        Return New InternalClient
+    Friend Function GetConnectionHandle(commandChar As Char) As IClient(Of Player) Implements IClientFactory.CreateClient
+        Return New InternalClient(commandChar)
     End Function
 
 #End Region

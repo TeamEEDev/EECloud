@@ -18,4 +18,9 @@ Public NotInheritable Class LabelPlaceUploadMessage
             Return MyBase.GetMessage(game)
         End If
     End Function
+
+    Friend Overrides Function SendMessage(client As IClient(Of Player)) As Boolean
+        client.Connection.Send(Me)
+        Return True
+    End Function
 End Class

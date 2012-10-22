@@ -7,10 +7,12 @@ Public NotInheritable Class PluginAttribute
 #Region "Properties"
 
     Public Property Authors As String()
-    Public Property Description As String = String.Empty
-    Public Property Version As String = String.Empty
+    Public Property Description As String = "No description"
+    Public Property Version As String = "1.0.0.0"
     Public Property Category As PluginCategory
     Public Property IsStartup As Boolean = True
+    Public Property StartupLoaded As Boolean = True
+    Public Property StartupRooms As String()
 
     Private myChatName As String = Nothing
 

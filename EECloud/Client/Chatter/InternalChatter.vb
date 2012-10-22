@@ -6,8 +6,11 @@ Friend NotInheritable Class InternalChatter
     ReadOnly myChatQueue As New Queue(Of SaySendMessage)
     Dim WithEvents mySendTimer As New Timer With {.Enabled = True, .AutoReset = True, .Interval = 700}
     Private ReadOnly myHistoryList As New List(Of String)
+
     Private ReadOnly myClient As InternalClient
     Private WithEvents myConnection As IConnection
+
+    Friend ChatSyntaxProvider As IChatSyntaxProvider
 #End Region
 
 #Region "Methods"
@@ -15,6 +18,7 @@ Friend NotInheritable Class InternalChatter
     Friend Sub New(client As InternalClient)
         myClient = client
         myConnection = client.Connection
+        ChatSyntaxProvider = New SimpleChatSyntaxProvider
     End Sub
 
     Friend Sub SendChat(msg As String)

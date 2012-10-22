@@ -1,6 +1,4 @@
-﻿Imports EECloud.API.EEService
-
-Friend NotInheritable Class InternalPlayer
+﻿Friend NotInheritable Class InternalPlayer
     Implements IPlayer
 
 #Region "Fields"
@@ -172,7 +170,7 @@ Friend NotInheritable Class InternalPlayer
             RaiseEvent GroupChange(Me, New ItemChangedEventArgs(Of Group)(myGroup, value))
 
             myGroup = value
-            Cloud.Service.SetPlayerDataGroupIDAsync(Username, CShort(value))
+            Cloud.Service.SetPlayerDataGroupID(Username, CShort(value))
         End Set
     End Property
 
@@ -260,13 +258,13 @@ Friend NotInheritable Class InternalPlayer
         mySpawnY = initMessage.SpawnY
     End Sub
 
-    Friend Async Function ReloadUserDataAsync() As Task Implements IPlayer.ReloadUserDataAsync
-        Dim userData As UserData = Await Cloud.Service.GetPlayerDataAsync(myUsername)
+    Friend Sub ReloadUserData() Implements IPlayer.ReloadUserData
+        Dim userData As UserData = Cloud.Service.GetPlayerData(myUsername)
         If userData IsNot Nothing Then
             myGroup = CType(userData.GroupID, Group)
             RaiseEvent LoadUserData(Me, userData)
         End If
-    End Function
+    End Sub
 
     Public Sub Reply(msg As String) Implements IPlayer.Reply
         myClient.Chatter.Reply(myUsername, msg)
@@ -317,16 +315,15 @@ Friend NotInheritable Class InternalPlayer
     End Sub
 
     Private Sub myConnection_OnReceiveTeleport(sender As Object, e As TeleportReceiveMessage) Handles myConnection.ReceiveTeleport
-        If e.ResetCoins = True Then
-            myCoins = 0
-        End If
-        Try
+        If e.Coordinates.ContainsKey(myUserID) Then
             Dim loc As Location = e.Coordinates(myUserID)
             myPlayerPosX = loc.X
             myPlayerPosY = loc.Y
-        Catch ex As Exception
-            Cloud.Logger.LogEx(ex)
-        End Try
+
+            If e.ResetCoins = True Then
+                myCoins = 0
+            End If
+        End If
     End Sub
 
     Private Sub myConnection_ReceiveLeft(sender As Object, e As LeftReceiveMessage) Handles myConnection.ReceiveLeft

@@ -1,5 +1,5 @@
 ﻿Public NotInheritable Class Cancelable (Of T)
-
+    Inherits EventArgs
 #Region "Properties"
     Private ReadOnly myValue As T
 

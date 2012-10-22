@@ -37,4 +37,11 @@
     ''' </summary>
     ''' <remarks></remarks>
     Sub Reset()
+
+    ''' <summary>
+    ''' Replaces the current chat provider with the given provider
+    ''' </summary>
+    ''' <param name="provider">The new syntax provider</param>
+    ''' <remarks></remarks>
+    Sub InjectSyntaxProvider(provider As IChatSyntaxProvider)
 End Interface

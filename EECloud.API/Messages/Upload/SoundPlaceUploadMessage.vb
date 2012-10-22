@@ -1,7 +1,7 @@
 ﻿Imports PlayerIOClient
 
 Public NotInheritable Class SoundPlaceUploadMessage
-    Inherits BlockPlaceSendMessage
+    Inherits BlockPlaceUploadMessage
     Public ReadOnly SoundID As Integer
 
     Public Sub New(layer As Layer, x As Integer, y As Integer, block As SoundBlock, soundID As Integer)
@@ -18,5 +18,10 @@ Public NotInheritable Class SoundPlaceUploadMessage
         Else
             Return MyBase.GetMessage(game)
         End If
+    End Function
+
+    Friend Overrides Function SendMessage(client As IClient(Of Player)) As Boolean
+        client.Connection.Send(Me)
+        Return True
     End Function
 End Class

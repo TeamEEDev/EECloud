@@ -1,5 +1,5 @@
 ﻿Friend NotInheritable Class PlayerManager (Of TPlayer As {Player, New})
-    Implements IPlayerManager(Of TPlayer)
+    Implements IPlayerManager(Of TPlayer), IDisposable
 
 #Region "Fields"
     Private WithEvents myInternalPlayerManager As InternalPlayerManager
@@ -29,7 +29,7 @@
     Public ReadOnly Property Player(username As String) As TPlayer Implements IPlayerManager(Of TPlayer).Player
         Get
             For Each player1 As TPlayer In myPlayersDictionary.Values
-                If player1.Username = username.ToLower Then
+                If player1.Username.Equals(username, StringComparison.OrdinalIgnoreCase) Then
                     Return player1
                 End If
             Next
@@ -48,6 +48,12 @@
     Friend ReadOnly Property Crown As TPlayer Implements IPlayerManager(Of TPlayer).Crown
         Get
             Return myCrown
+        End Get
+    End Property
+
+    Public ReadOnly Property Count As Integer Implements IPlayerManager(Of TPlayer).Count
+        Get
+            Return myPlayersDictionary.Count
         End Get
     End Property
 
@@ -94,5 +100,31 @@
         End If
     End Sub
 
+#End Region
+
+#Region "IDisposable Support"
+    Private myDisposedValue As Boolean
+
+    Private Sub Dispose(disposing As Boolean)
+        If Not myDisposedValue Then
+            If disposing Then
+
+            End If
+
+            myConnection = Nothing
+            myInternalPlayerManager = Nothing
+        End If
+        myDisposedValue = True
+    End Sub
+
+    Protected Overrides Sub Finalize()
+        Dispose(False)
+        MyBase.Finalize()
+    End Sub
+
+    Public Sub Dispose() Implements IDisposable.Dispose
+        Dispose(True)
+        GC.SuppressFinalize(Me)
+    End Sub
 #End Region
 End Class

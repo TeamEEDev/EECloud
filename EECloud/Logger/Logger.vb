@@ -43,49 +43,45 @@ Friend NotInheritable Class Logger
     End Sub
 
     Private Sub HandleInput()
-        Try
-            Do
-                myOldTop = Console.CursorTop
-                myOldLeft = Console.CursorLeft
-                Dim inputKey As ConsoleKeyInfo = Console.ReadKey
-                If inputKey.Key = ConsoleKey.Backspace Then
-                    If Input.Length >= 1 Then
-                        Input = Input.Substring(0, Input.Length - 1)
-                    Else 'Cancel
-                        Console.CursorTop = myOldTop
-                        Console.CursorLeft = myOldLeft
-                    End If
-                ElseIf inputKey.Key = ConsoleKey.Enter Then
-                    If Input IsNot String.Empty Then
-                        Console.CursorTop += 1
-                        RaiseEvent OnInput(Me, New EventArgs)
-                    End If
-                    Input = String.Empty
-                ElseIf inputKey.Key = ConsoleKey.Tab Then
-                    Console.CursorTop = myOldTop
-                    Console.CursorLeft = myOldLeft
-                ElseIf inputKey.Modifiers = ConsoleModifiers.Control Then
-                    Console.CursorTop = myOldTop
-                    Console.CursorLeft = myOldLeft
-                    Console.Write(" "c)
-                    Console.CursorLeft -= 1
-                ElseIf inputKey.KeyChar <> Nothing Then
-                    If Input.Length <= 76 Then
-                        myInput &= inputKey.KeyChar
-                    Else
-                        Console.CursorLeft -= 1
-                        Console.Write(" "c)
-                        Console.CursorTop = myOldTop
-                        Console.CursorLeft = myOldLeft
-                    End If
-                Else
+        Do
+            myOldTop = Console.CursorTop
+            myOldLeft = Console.CursorLeft
+            Dim inputKey As ConsoleKeyInfo = Console.ReadKey
+            If inputKey.Key = ConsoleKey.Backspace Then
+                If Input.Length >= 1 Then
+                    Input = Input.Substring(0, Input.Length - 1)
+                Else 'Cancel
                     Console.CursorTop = myOldTop
                     Console.CursorLeft = myOldLeft
                 End If
-            Loop
-        Catch ex As Exception
-            Log(LogPriority.Error, "Logger has crashed! Console input is disabled.")
-        End Try
+            ElseIf inputKey.Key = ConsoleKey.Enter Then
+                If Input IsNot String.Empty Then
+                    Console.CursorTop += 1
+                    RaiseEvent OnInput(Me, New EventArgs)
+                End If
+                Input = String.Empty
+            ElseIf inputKey.Key = ConsoleKey.Tab Then
+                Console.CursorTop = myOldTop
+                Console.CursorLeft = myOldLeft
+            ElseIf inputKey.Modifiers = ConsoleModifiers.Control Then
+                Console.CursorTop = myOldTop
+                Console.CursorLeft = myOldLeft
+                Console.Write(" "c)
+                Console.CursorLeft -= 1
+            ElseIf inputKey.KeyChar <> Nothing Then
+                If Input.Length <= 76 Then
+                    myInput &= inputKey.KeyChar
+                Else
+                    Console.CursorLeft -= 1
+                    Console.Write(" "c)
+                    Console.CursorTop = myOldTop
+                    Console.CursorLeft = myOldLeft
+                End If
+            Else
+                Console.CursorTop = myOldTop
+                Console.CursorLeft = myOldLeft
+            End If
+        Loop
     End Sub
 
     Friend Sub Log(priority As LogPriority, str As String) Implements ILogger.Log

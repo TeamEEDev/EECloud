@@ -1,4 +1,5 @@
 ﻿Public Interface IConnection
+    Event InitComplete As EventHandler
     Event ReceiveMessage As EventHandler(Of ReceiveMessage)
     Event Disconnecting As EventHandler(Of EventArgs)
     Event Disconnect As EventHandler(Of DisconnectEventArgs)
