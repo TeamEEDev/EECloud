@@ -1,6 +1,7 @@
 ﻿Friend NotInheritable Class InternalCommandManager
 
 #Region "Fields"
+    Private ReadOnly myCommandChar As Char
     Private ReadOnly myClient As InternalClient
 #End Region
 
@@ -10,15 +11,16 @@
 
 #Region "Methods"
 
-    Friend Sub New(client As InternalClient)
+    Friend Sub New(ByVal client As InternalClient, commandChar As Char)
         myClient = client
+        myCommandChar = commandChar
         AddHandler myClient.Connection.ReceiveSay, AddressOf myConnection_OnReceiveSay
         AddHandler Cloud.Logger.OnInput,
-            Sub(sender As Object, e As EventArgs) HandleMessage(Cloud.Logger.Input, - 1, Group.Host)
+            Sub(sender As Object, e As EventArgs) HandleMessage(Cloud.Logger.Input, -1, Group.Host)
     End Sub
 
     Private Sub myConnection_OnReceiveSay(sender As Object, e As SayReceiveMessage)
-        If e.Text.StartsWith("!", StringComparison.Ordinal) Then
+        If e.Text.StartsWith(myCommandChar, StringComparison.Ordinal) Then
             HandleMessage(e.Text.Substring(1), e.UserID, Group.Limited)
         End If
     End Sub

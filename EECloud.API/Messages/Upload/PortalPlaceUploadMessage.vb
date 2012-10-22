@@ -1,7 +1,8 @@
 ﻿Imports PlayerIOClient
 
 Public NotInheritable Class PortalPlaceUploadMessage
-    Inherits BlockPlaceSendMessage
+    Inherits BlockPlaceUploadMessage
+
     Public ReadOnly PortalID As Integer
     Public ReadOnly PortalTarget As Integer
     Public ReadOnly PortalRotation As PortalRotation
@@ -24,5 +25,10 @@ Public NotInheritable Class PortalPlaceUploadMessage
         Else
             Return MyBase.GetMessage(game)
         End If
+    End Function
+
+    Friend Overrides Function SendMessage(client As IClient(Of Player)) As Boolean
+        client.Connection.Send(Me)
+        Return True
     End Function
 End Class

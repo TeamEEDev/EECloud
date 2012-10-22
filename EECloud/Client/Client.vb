@@ -1,5 +1,5 @@
 ﻿Friend NotInheritable Class Client (Of TPlayer As {Player, New})
-    Implements IClient(Of TPlayer)
+    Implements IClient(Of TPlayer), IDisposable
 
 #Region "Fields"
     Private ReadOnly myInternalClient As InternalClient
@@ -37,7 +37,7 @@
         End Get
     End Property
 
-    Private ReadOnly myChatter As IChatter
+    Private ReadOnly myChatter As Chatter
 
     Friend ReadOnly Property Chatter As IChatter Implements IClient(Of TPlayer).Chatter
         Get
@@ -45,7 +45,7 @@
         End Get
     End Property
 
-    Private ReadOnly myPlayerManager As IPlayerManager(Of TPlayer)
+    Private ReadOnly myPlayerManager As PlayerManager(Of TPlayer)
 
     Friend ReadOnly Property PlayerManager As IPlayerManager(Of TPlayer) Implements IClient(Of TPlayer).PlayerManager
         Get
@@ -53,7 +53,7 @@
         End Get
     End Property
 
-    Private ReadOnly myCommandManager As ICommandManager
+    Private ReadOnly myCommandManager As CommandManager(Of TPlayer)
 
     Public ReadOnly Property CommandManager As ICommandManager Implements IClient(Of TPlayer).CommandManager
         Get
@@ -77,4 +77,23 @@
     End Sub
 
 #End Region
+
+#Region "IDisposable Support"
+    Private myDisposedValue As Boolean
+
+    Private Sub Dispose(disposing As Boolean)
+        If Not myDisposedValue Then
+            If disposing Then
+                myPlayerManager.Dispose()
+                myCommandManager.Dispose()
+            End If
+        End If
+        myDisposedValue = True
+    End Sub
+
+    Public Sub Dispose() Implements IDisposable.Dispose
+        Dispose(True)
+    End Sub
+#End Region
+
 End Class

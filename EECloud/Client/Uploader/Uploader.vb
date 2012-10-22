@@ -8,10 +8,11 @@ Friend NotInheritable Class Uploader
     Private WithEvents myConnection As IConnection
     Private ReadOnly myUploadThread As Thread
 
-    Private myUploadedArray As Boolean(,)
+    Private myUploadedArray As Boolean(,,)
     Private ReadOnly myBlockUploadQueue As Deque(Of BlockPlaceUploadMessage) = Deque(Of BlockPlaceUploadMessage).Synchronized(New Deque(Of BlockPlaceUploadMessage))
     Private ReadOnly myLagCheckQueue As New Queue(Of BlockPlaceUploadMessage)
     Private myVersion As UInteger
+    Private myFinishedUploadVersion As UInteger
 #End Region
 
 #Region "Events"
@@ -37,39 +38,44 @@ Friend NotInheritable Class Uploader
         Loop
     End Sub
 
-    'Private Async Sub LastLagCheck()
-    '    Dim tempVer As UInteger = myVersion
-    '    Await Task.Delay(1000)
-    '    If myVersion = tempVer Then
-    '        SyncLock myLagCheckQueue
-    '            If myLagCheckQueue.Count = 0 Then
-    '                RaiseEvent FinishedUpload(Me, EventArgs.Empty)
-    '            Else
-    '                Do Until myLagCheckQueue.Count = 0
-    '                    Dim sendBlock As BlockPlaceUploadMessage
-    '                    sendBlock = myLagCheckQueue.Dequeue()
+    Private Async Sub LastLagCheck()
+        Dim tempVer As UInteger = myVersion
+        Await Task.Delay(1000)
+        If myVersion = tempVer Then
+            SyncLock myLagCheckQueue
+                Do Until myLagCheckQueue.Count = 0
+                    Dim sendBlock As BlockPlaceUploadMessage
+                    sendBlock = myLagCheckQueue.Dequeue()
 
-    '                    myBlockUploadQueue.PushFront(sendBlock)
-    '                Loop
-    '            End If
-    '        End SyncLock
-    '    End If
-    'End Sub
+                    myBlockUploadQueue.PushFront(sendBlock)
+                Loop
+            End SyncLock
+        End If
+    End Sub
 
     Private Sub SendNext()
         If myBlockUploadQueue.Count > 0 Then
             Dim block As BlockPlaceUploadMessage = myBlockUploadQueue.PopFront()
-            myUploadedArray(block.X, block.Y) = True
 
-            SyncLock myLagCheckQueue
-                myLagCheckQueue.Enqueue(block)
-            End SyncLock
+            If block.SendMessage(myClient) Then
+                If Not myUploadedArray(block.Layer, block.X, block.Y) Then
+                    myUploadedArray(block.Layer, block.X, block.Y) = True
 
-            block.SendMessage(myClient)
-        ElseIf myLagCheckQueue.Count > 0 Then
-            'TODO: FIX LASTLAGCHECK
-            ' LastLagCheck()
-            RaiseEvent FinishedUpload(Me, EventArgs.Empty)
+                    SyncLock myLagCheckQueue
+                        myLagCheckQueue.Enqueue(block)
+                    End SyncLock
+                End If
+            Else
+                SendNext()
+            End If
+        Else
+            If myLagCheckQueue.Count > 0 Then
+                LastLagCheck()
+            End If
+            If Not myVersion = myFinishedUploadVersion Then
+                myFinishedUploadVersion = myVersion
+                RaiseEvent FinishedUpload(Me, EventArgs.Empty)
+            End If
         End If
     End Sub
 
@@ -80,15 +86,29 @@ Friend NotInheritable Class Uploader
         myBlockUploadQueue.PushBack(blockMessage)
     End Sub
 
-    Private Sub myConnection_ReceiveBlockPlace(sender As Object, e As BlockPlaceReceiveMessage) Handles myConnection.ReceiveBlockPlace
-        If myUploadedArray(e.PosX, e.PosY) Then
+    Public Sub Clear() Implements IUploader.Clear
+        myBlockUploadQueue.Clear()
+
+        SyncLock myLagCheckQueue
+            myLagCheckQueue.Clear()
+        End SyncLock
+
+        Array.Clear(myUploadedArray, 0, myUploadedArray.Length)
+
+        myVersion = 0
+        myFinishedUploadVersion = 0
+
+    End Sub
+
+    Private Sub HandleBlockPlace(e As BlockPlaceReceiveMessage)
+        If myUploadedArray(e.Layer, e.PosX, e.PosY) Then
             Do Until myLagCheckQueue.Count = 0
                 Dim sendBlock As BlockPlaceUploadMessage
                 SyncLock myLagCheckQueue
                     sendBlock = myLagCheckQueue.Dequeue()
                 End SyncLock
 
-                myUploadedArray(sendBlock.X, sendBlock.Y) = False
+                myUploadedArray(sendBlock.Layer, sendBlock.X, sendBlock.Y) = False
 
                 If sendBlock.IsUploaded(e) Then
                     Exit Do
@@ -99,12 +119,28 @@ Friend NotInheritable Class Uploader
         End If
     End Sub
 
-    Private Sub myConnection_ReceiveCoinDoorPlace(sender As Object, e As CoinDoorPlaceReceiveMessage) Handles myConnection.ReceiveCoinDoorPlace
+    Private Sub myConnection_ReceiveBlockPlace(sender As Object, e As BlockPlaceReceiveMessage) Handles myConnection.ReceiveBlockPlace
+        HandleBlockPlace(e)
+    End Sub
 
+    Private Sub myConnection_ReceiveCoinDoorPlace(sender As Object, e As CoinDoorPlaceReceiveMessage) Handles myConnection.ReceiveCoinDoorPlace
+        HandleBlockPlace(e)
+    End Sub
+
+    Private Sub myConnection_ReceiveLabelPlace(sender As Object, e As LabelPlaceReceiveMessage) Handles myConnection.ReceiveLabelPlace
+        HandleBlockPlace(e)
+    End Sub
+
+    Private Sub myConnection_ReceivePortalPlace(sender As Object, e As PortalPlaceReceiveMessage) Handles myConnection.ReceivePortalPlace
+        HandleBlockPlace(e)
+    End Sub
+
+    Private Sub myConnection_ReceiveSoundPlace(sender As Object, e As SoundPlaceReceiveMessage) Handles myConnection.ReceiveSoundPlace
+        HandleBlockPlace(e)
     End Sub
 
     Private Sub myConnection_ReceiveInit(sender As Object, e As InitReceiveMessage) Handles myConnection.ReceiveInit
-        ReDim myUploadedArray(e.SizeX, e.SizeY)
+        ReDim myUploadedArray(1, e.SizeX, e.SizeY)
     End Sub
 
 #End Region

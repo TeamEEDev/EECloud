@@ -1,14 +1,13 @@
 ﻿Imports System.Reflection
 Imports System.IO
 Imports System.Configuration
-Imports EECloud.API.EEService
 
 Module ModuleMain
 
 #Region "Methods"
 
     Sub Main()
-        Console.WriteLine("EECloud Indev version " & Assembly.GetEntryAssembly().GetName().Version.ToString)
+        Console.WriteLine(String.Format("{0} Version {1}", My.Application.Info.Title, My.Application.Info.Version))
         Console.WriteLine("Built on " & RetrieveLinkerTimestamp.ToString)
 
         Init()
@@ -17,27 +16,23 @@ Module ModuleMain
     End Sub
 
     Async Sub Init()
-        'Creating singletons
         CreateSingletons()
-
-        'Loading settings
-        Dim loadTask As Task = LoadSettings() 'Start the task of showing the form in the background and do other stuff while the slow user responds
-
-        'License check
-        Cloud.Logger.Log(LogPriority.Info, "Conencting to EEService...")
+        LoadSettings()
         CheckLicense()
 
-        'Creating Client
-        Dim client As IClient(Of Player) = Cloud.ClientFactory.CreateClient
+        Dim loadTask As Task = ShowLogin()
 
-        Cloud.Logger.Log(LogPriority.Info, "Loading plugins...")
+        'Creating Client
+        Dim client As IClient(Of Player) = Cloud.ClientFactory.CreateClient("!"c)
+        client.CommandManager.Load(New DefaultCommandListner(client))
+
         'Loading assemblies
-        LoadAssembies(client)
+        LoadAssembies(client, My.Settings.LoginWorldID)
 
         If Not loadTask.IsCompleted Then
-            Cloud.Logger.Log(LogPriority.Info, "Waiting for user response...") 'The user wonders why the lastest plugin is taking so long to load
+            Cloud.Logger.Log(LogPriority.Info, "Waiting for user response...")
         End If
-        Await loadTask 'We cant do anything else now
+        Await loadTask
 
         'Login
         Login(client)
@@ -68,13 +63,14 @@ Module ModuleMain
     End Function
 
     Private Sub CreateSingletons()
-        Cloud.AppEnvironment = CType([Enum].Parse(GetType(AppEnvironment), ConfigurationManager.AppSettings("Environment"), True), AppEnvironment)
         Cloud.Logger = New Logger
-        Cloud.Service = New EESClient
         Cloud.ClientFactory = New ClientFactory
+        Cloud.Service = New EEService
     End Sub
 
-    Private Async Function LoadSettings() As Task
+    Private Sub LoadSettings()
+        Cloud.AppEnvironment = CType([Enum].Parse(GetType(AppEnvironment), ConfigurationManager.AppSettings("Environment"), True), AppEnvironment)
+
         If Cloud.AppEnvironment = AppEnvironment.Release Then
             My.Settings.LicenseUsername = ConfigurationManager.AppSettings("cloud.username")
             My.Settings.LicenseKey = ConfigurationManager.AppSettings("cloud.key")
@@ -84,16 +80,8 @@ Module ModuleMain
                 My.Settings.LoginEmail = accData(0)
                 My.Settings.LoginPassword = accData(1)
             End If
-        Else
-            Application.EnableVisualStyles()
-            Await Task.Run(
-                Sub()
-                    If Not New LoginForm().ShowDialog = DialogResult.OK Then
-                        Environment.Exit(0)
-                    End If
-                End Sub)
         End If
-    End Function
+    End Sub
 
     Private Sub CheckLicense()
         If Not Cloud.Service.CheckLicense(My.Settings.LicenseUsername, My.Settings.LicenseKey) Then
@@ -109,16 +97,28 @@ Module ModuleMain
         End If
     End Sub
 
-    Private Sub LoadAssembies(client As IClient(Of Player))
-        client.PluginManager.Load(GetType(CommandsBot))
+    Private Async Function ShowLogin() As Task
+        If Cloud.AppEnvironment = AppEnvironment.Dev Then
+            Application.EnableVisualStyles()
+            Await Task.Run(
+                Sub()
+                If Not New LoginForm().ShowDialog = DialogResult.OK Then
+                    Environment.Exit(0)
+                End If
+            End Sub)
+        End If
+    End Function
 
+    Private Sub LoadAssembies(client As IClient(Of Player), worldID As String)
         'Checking for valid plugins
         Dim plugins As IEnumerable(Of Type) =
                 From assembly As Assembly In GetAssemblies(My.Application.Info.DirectoryPath)
                 From type As Type In assembly.GetTypes
                 Where GetType(IPlugin).IsAssignableFrom(type)
                 Let attributes As Object() = type.GetCustomAttributes(GetType(PluginAttribute), True)
-                Where attributes IsNot Nothing AndAlso attributes.Length = 1 AndAlso CType(attributes(0), PluginAttribute).IsStartup
+                Where attributes IsNot Nothing AndAlso attributes.Length = 1
+                Let attribute As PluginAttribute = CType(attributes(0), PluginAttribute)
+                Where attribute.StartupLoaded AndAlso (attribute.StartupRooms Is Nothing OrElse attribute.StartupRooms.Length = 0 OrElse attribute.StartupRooms.Contains(worldID))
                 Select type
 
         'Activating valid plugins
@@ -128,6 +128,7 @@ Module ModuleMain
                     Dim hasNext As Boolean = enumrator.MoveNext()
                     If Not hasNext Then Exit Do
 
+                    Cloud.Logger.Log(LogPriority.Info, String.Format("Enabling {0}...", enumrator.Current.Name))
                     client.PluginManager.Load(enumrator.Current)
                 Catch ex As Exception
                     Cloud.Logger.LogEx(ex)
@@ -156,6 +157,11 @@ Module ModuleMain
             AddHandler client.Connection.Disconnect,
                 Sub()
                     Cloud.Logger.Log(LogPriority.Info, "Disconnected!")
+
+                    For Each plugin In client.PluginManager.Plugins
+                        Cloud.Logger.Log(LogPriority.Info, String.Format("Disabling {0}...", plugin.Name))
+                        plugin.Stop()
+                    Next
                     Environment.Exit(1)
                 End Sub
 

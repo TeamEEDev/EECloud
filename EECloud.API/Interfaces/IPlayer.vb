@@ -1,6 +1,4 @@
-﻿Imports EECloud.API.EEService
-
-Friend Interface IPlayer
+﻿Friend Interface IPlayer
     Event GroupChange As EventHandler(Of ItemChangedEventArgs(Of Group))
     Event LoadUserData As EventHandler(Of UserData)
 
@@ -32,7 +30,7 @@ Friend Interface IPlayer
 
     Property Group As Group
 
-    Function ReloadUserDataAsync() As Task
+    Sub ReloadUserData()
     Sub Reply(msg As String)
     Sub Kick(msg As String)
 End Interface

@@ -1,6 +1,4 @@
 ﻿Module Utils
-    'TODO: Code Cleanup
-
 #Region "Properties"
 
     Friend ReadOnly Property CorrectLayer(id As Block, layer As Layer) As Layer
@@ -38,32 +36,6 @@
             Return id = 1000
         End Get
     End Property
-
-#End Region
-
-#Region "Methods"
-
-    Friend Function Derot(str As String) As String
-        Derot = String.Empty
-        For N = 1 To str.Length
-            Dim charNum As Integer = Asc(GetChar(str, N))
-            If charNum >= Asc("a") And charNum <= Asc("z") Then
-                If charNum > Asc("m") Then
-                    charNum -= 13
-                Else
-                    charNum += 13
-                End If
-            ElseIf charNum >= Asc("A") And charNum <= Asc("Z") Then
-                If charNum > Asc("M") Then
-                    charNum -= 13
-                Else
-                    charNum += 13
-                End If
-            End If
-            Derot &= Chr(charNum)
-        Next
-        Return Derot
-    End Function
 
 #End Region
 End Module

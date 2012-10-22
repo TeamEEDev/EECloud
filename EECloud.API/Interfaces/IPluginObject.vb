@@ -1,4 +1,6 @@
 ﻿Public Interface IPluginObject
+    Event OnEnable As EventHandler
+    Event OnDisable As EventHandler
     Sub Restart()
     Sub [Stop]()
     ReadOnly Property Attribute As PluginAttribute

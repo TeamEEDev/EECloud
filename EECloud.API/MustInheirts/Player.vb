@@ -1,6 +1,4 @@
-﻿Imports EECloud.API.EEService
-
-Public Class Player
+﻿Public Class Player
     Implements IPlayer
 
 #Region "Fields"
@@ -304,9 +302,9 @@ Public Class Player
         myChatter = chatter
     End Sub
 
-    Public Async Function ReloadUserDataAsync() As Task Implements IPlayer.ReloadUserDataAsync
-        Await myPlayer.ReloadUserDataAsync()
-    End Function
+    Public Sub ReloadUserData() Implements IPlayer.ReloadUserData
+        myPlayer.ReloadUserData()
+    End Sub
 
     Public Sub Reply(msg As String) Implements IPlayer.Reply
         myChatter.Reply(Username, msg)

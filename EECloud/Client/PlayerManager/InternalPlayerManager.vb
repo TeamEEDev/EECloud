@@ -28,7 +28,7 @@
         myConnection = client.Connection
     End Sub
 
-    Private Async Sub myConnection_OnReceiveAdd(sender As Object, e As AddReceiveMessage) Handles myConnection.ReceiveAdd
+    Private Sub myConnection_OnReceiveAdd(sender As Object, e As AddReceiveMessage) Handles myConnection.ReceiveAdd
         Dim player As New InternalPlayer(myClient, e)
 
         Dim done As Boolean
@@ -41,7 +41,7 @@
         End SyncLock
 
         If done Then
-            Await player.ReloadUserDataAsync()
+            player.ReloadUserData()
         End If
     End Sub
 

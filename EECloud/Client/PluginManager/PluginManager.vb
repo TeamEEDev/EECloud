@@ -6,6 +6,18 @@
 #End Region
 
 #Region "Properties"
+
+    Public ReadOnly Property Plugin(name As String) As IPluginObject Implements IPluginManager.Plugin
+        Get
+            For Each p In myPluginsList
+                If p.Name.Equals(name, StringComparison.OrdinalIgnoreCase) OrElse p.Attribute.ChatName.Equals(name, StringComparison.OrdinalIgnoreCase) Then
+                    Return p
+                End If
+            Next
+            Return Nothing
+        End Get
+    End Property
+
     Private ReadOnly myPluginsList As New List(Of IPluginObject)
 
     Friend ReadOnly Property Plugins As IReadOnlyCollection(Of IPluginObject) Implements IPluginManager.Plugins
@@ -23,7 +35,7 @@
     End Sub
 
     Friend Sub Load(ByVal t As Type) Implements IPluginManager.Load
-        If (Not t.Namespace = "EECloud" AndAlso Not t.Namespace.StartsWith("EECloud.", StringComparison.Ordinal)) OrElse GetType(CommandsBot) = t Then
+        If (Not t.Namespace = "EECloud" AndAlso Not t.Namespace.StartsWith("EECloud.", StringComparison.Ordinal)) Then
             If GetType(IPlugin).IsAssignableFrom(t) Then
                 Dim attributes As Object() = t.GetCustomAttributes(GetType(PluginAttribute), True)
                 If attributes IsNot Nothing AndAlso attributes.Length = 1 Then

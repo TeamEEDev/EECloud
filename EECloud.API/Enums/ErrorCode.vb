@@ -6,6 +6,6 @@
     PluginUnloadError
     MessageAlreadySent
     ServiceConnectionFailed
-    CommandSyntaxInvalid
+    InvalidCommand
     CommandTargetAlreadyAdded
 End Enum

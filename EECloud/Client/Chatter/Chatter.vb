@@ -3,42 +3,26 @@
 
 #Region "Fields"
     ReadOnly myInternalChatter As InternalChatter
-    ReadOnly myPrefix As String
-#End Region
-
-#Region "Properties"
-
-    Private ReadOnly Property ChatPrefix As String
-        Get
-            Return String.Format("<{0}> ", myPrefix)
-        End Get
-    End Property
-
-    Private ReadOnly Property ReplyPrefix(username As String) As String
-        Get
-            Return String.Format("<{0} (@{1})> ", myPrefix, StrConv(username, VbStrConv.ProperCase))
-        End Get
-    End Property
-
+    ReadOnly myChatName As String
 #End Region
 
 #Region "Methods"
 
     Friend Sub New(internalChatter As InternalChatter, name As String)
         myInternalChatter = internalChatter
-        myPrefix = name
+        myChatName = name
     End Sub
 
     Friend Sub Chat(msg As String) Implements IChatter.Chat
-        myInternalChatter.SendChat(ChatPrefix & msg)
+        myInternalChatter.SendChat(myInternalChatter.ChatSyntaxProvider.ApplyChatSyntax(msg, myChatName))
     End Sub
 
     Public Sub Reply(username As String, msg As String) Implements IChatter.Reply
-        myInternalChatter.SendChat(ReplyPrefix(username) & msg)
+        myInternalChatter.SendChat(myInternalChatter.ChatSyntaxProvider.ApplyReplySyntax(msg, myChatName, username))
     End Sub
 
     Friend Sub Kick(username As String, msg As String) Implements IChatter.Kick
-        myInternalChatter.SendChat("/kick " & username & " " & ChatPrefix & msg)
+        myInternalChatter.SendChat(myInternalChatter.ChatSyntaxProvider.ApplyKickSyntax(myChatName, username, msg))
     End Sub
 
     Friend Sub Loadlevel() Implements IChatter.Loadlevel
@@ -47,6 +31,13 @@
 
     Friend Sub Reset() Implements IChatter.Reset
         myInternalChatter.SendChat("/reset")
+    End Sub
+
+    Public Sub InjectSyntaxProvider(provider As IChatSyntaxProvider) Implements IChatter.InjectSyntaxProvider
+        If provider Is Nothing Then
+            Throw New ArgumentException("Provider can not be null.")
+        End If
+        myInternalChatter.ChatSyntaxProvider = provider
     End Sub
 
 #End Region

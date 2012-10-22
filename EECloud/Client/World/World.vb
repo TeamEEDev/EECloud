@@ -3,11 +3,18 @@
 Friend NotInheritable Class World
     Implements IWorld
 
+
 #Region "Fields"
     Private Const InitOffset As UInteger = 15
     Private myClient As IClient(Of Player)
     Private myBlocks(,,) As IWorldBlock
     Private WithEvents myConnection As IConnection
+#End Region
+
+#Region "Events"
+
+    Public Event BlockPlace(sender As Object, e As BlockPlaceEventArgs) Implements IWorld.BlockPlace
+
 #End Region
 
 #Region "Properties"
@@ -131,23 +138,33 @@ Friend NotInheritable Class World
     End Sub
 
     Private Sub myConnection_ReceiveBlockPlace(sender As Object, e As BlockPlaceReceiveMessage) Handles myConnection.ReceiveBlockPlace
-        myBlocks(e.Layer, e.PosX, e.PosY) = New WorldBlock(e.Block)
+        Dim block As New WorldBlock(e.Block)
+        myBlocks(e.Layer, e.PosX, e.PosY) = block
+        RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer, block))
     End Sub
 
     Private Sub myConnection_ReceiveCoinDoorPlace(sender As Object, e As CoinDoorPlaceReceiveMessage) Handles myConnection.ReceiveCoinDoorPlace
-        myBlocks(e.Layer, e.PosX, e.PosY) = New WorldCoinDoorBlock(CType(e.Block, CoinDoorBlock), e.CoinsToOpen)
+        Dim block As New WorldCoinDoorBlock(CType(e.Block, CoinDoorBlock), e.CoinsToOpen)
+        myBlocks(e.Layer, e.PosX, e.PosY) = Block
+        RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer, block))
     End Sub
 
     Private Sub myConnection_ReceiveLabelPlace(sender As Object, e As LabelPlaceReceiveMessage) Handles myConnection.ReceiveLabelPlace
-        myBlocks(e.Layer, e.PosX, e.PosY) = New WorldLabelBlock(CType(e.Block, LabelBlock), e.Text)
+        Dim block As New WorldLabelBlock(CType(e.Block, LabelBlock), e.Text)
+        myBlocks(e.Layer, e.PosX, e.PosY) = Block
+        RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer, block))
     End Sub
 
     Private Sub myConnection_ReceivePortalPlace(sender As Object, e As PortalPlaceReceiveMessage) Handles myConnection.ReceivePortalPlace
-        myBlocks(e.Layer, e.PosX, e.PosY) = New WorldPortalBlock(CType(e.Block, PortalBlock), e.PortalRotation, e.PortalID, e.PortalTarget)
+        Dim block As New WorldPortalBlock(CType(e.Block, PortalBlock), e.PortalRotation, e.PortalID, e.PortalTarget)
+        myBlocks(e.Layer, e.PosX, e.PosY) = Block
+        RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer, block))
     End Sub
 
     Private Sub myConnection_ReceiveSoundPlace(sender As Object, e As SoundPlaceReceiveMessage) Handles myConnection.ReceiveSoundPlace
-        myBlocks(e.Layer, e.PosX, e.PosY) = New WorldSoundBlock(CType(e.Block, SoundBlock), e.SoundID)
+        Dim block As New WorldSoundBlock(CType(e.Block, SoundBlock), e.SoundID)
+        myBlocks(e.Layer, e.PosX, e.PosY) = Block
+        RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer, block))
     End Sub
 
     Private Sub myConnection_ReceiveReset(sender As Object, e As ResetReceiveMessage) Handles myConnection.ReceiveReset
@@ -157,6 +174,4 @@ Friend NotInheritable Class World
     'TODO: IMPLEMENT CLEAR
 
 #End Region
-
-
 End Class
