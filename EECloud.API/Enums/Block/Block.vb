@@ -397,6 +397,14 @@
 
     BlockCake = 337
 
+    DecorationMonsterRockGroundBig = 338
+    DecorationMonsterRockGroundSmall = 339
+    DecorationMonsterRockCeiling = 340
+    DecorationMonsterEyeOrange = 341
+    DecorationMonsterEyeBlue = 342
+    BackgroundMonsterNormal = 608
+    BackgroundMonsterDark = 609
+
     BackgroundCheckeredGrey = 513
     BackgroundCheckeredDarkBlue = 514
     BackgroundCheckeredPurple = 515
