@@ -405,6 +405,22 @@
     BackgroundMonsterNormal = 608
     BackgroundMonsterDark = 609
 
+    DecorationFogFilled = 343
+    DecorationFog2 = 344
+    DecorationFog3 = 345
+    DecorationFog4 = 346
+    DecorationFog5 = 347
+    DecorationFog6 = 348
+    DecorationFog7 = 349
+    DecorationFog8 = 350
+    DecorationFog9 = 351
+
+    DecorationHalloween20121 = 352
+    DecorationHalloween20122 = 353
+    DecorationHalloween2012WiresVertical = 354
+    DecorationHalloween2012WiresHorizontal = 355
+    DecorationHalloween20125 = 356
+
     BackgroundCheckeredGrey = 513
     BackgroundCheckeredDarkBlue = 514
     BackgroundCheckeredPurple = 515
