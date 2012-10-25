@@ -53,7 +53,7 @@
     Sigh = 51
     Robber = 52
     Police = 53
-    'RedNinja = 54
+    'SmileUpsideDown = 54
     Pirate = 55
     Viking = 56
     Karate = 57
@@ -71,4 +71,12 @@
     Laika = 69
     Alien = 70
     Astronaut = 71
+    BirthdayHappy = 72
+    BirthdaySmile = 73
+    BirthdayGrin = 74
+    BirthdayTongue = 75
+    Cannonball = 76
+    Monster = 77
+    Skeleton = 78
+    MadScientist = 79
 End Enum
