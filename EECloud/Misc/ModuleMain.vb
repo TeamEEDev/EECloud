@@ -31,8 +31,8 @@ Module ModuleMain
 
         If Not loadTask.IsCompleted Then
             Cloud.Logger.Log(LogPriority.Info, "Waiting for user response...")
+            Await loadTask
         End If
-        Await loadTask
 
         'Login
         Login(client)
