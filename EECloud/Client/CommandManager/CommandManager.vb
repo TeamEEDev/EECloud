@@ -26,33 +26,37 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
     End Sub
 
     Friend Sub Load(target As Object) Implements ICommandManager.Load
-        If myAddedTargets.Contains(target) Then
-            Throw New EECloudException(ErrorCode.CommandTargetAlreadyAdded)
-        End If
-        For Each method As MethodInfo In target.GetType.GetMethods
-            Dim attributes As Object() = method.GetCustomAttributes(GetType(CommandAttribute), True)
-            If attributes IsNot Nothing AndAlso attributes.Length = 1 Then
-                Dim attribute As CommandAttribute = CType(attributes(0), CommandAttribute)
-                Try
-                    Dim handle As New CommandHandle(Of TPlayer)(attribute, method, target)
-                    Try
-                        AddCommand(attribute.Type, handle)
+        SyncLock myAddedTargets
+            SyncLock myCommandsDictionary
+                If myAddedTargets.Contains(target) Then
+                    Throw New EECloudException(ErrorCode.CommandTargetAlreadyAdded)
+                End If
+                For Each method As MethodInfo In target.GetType.GetMethods
+                    Dim attributes As Object() = method.GetCustomAttributes(GetType(CommandAttribute), True)
+                    If attributes IsNot Nothing AndAlso attributes.Length = 1 Then
+                        Dim attribute As CommandAttribute = CType(attributes(0), CommandAttribute)
+                        Try
+                            Dim handle As New CommandHandle(Of TPlayer)(attribute, method, target)
+                            Try
+                                AddCommand(attribute.Type, handle)
 
-                        If attribute.Aliases IsNot Nothing Then
-                            For Each item As String In attribute.Aliases
-                                AddCommand(item, handle)
-                            Next
-                        End If
-                    Catch ex As Exception
-                        Cloud.Logger.Log(LogPriority.Error, "Failed to Load command: " & attribute.Type)
-                        Cloud.Logger.LogEx(ex)
-                    End Try
-                Catch ex As Exception
-                    Cloud.Logger.Log(LogPriority.Error, "Method has bad signature: " & attribute.Type)
-                    Cloud.Logger.LogEx(ex)
-                End Try
-            End If
-        Next
+                                If attribute.Aliases IsNot Nothing Then
+                                    For Each item As String In attribute.Aliases
+                                        AddCommand(item, handle)
+                                    Next
+                                End If
+                            Catch ex As Exception
+                                Cloud.Logger.Log(LogPriority.Error, "Failed to Load command: " & attribute.Type)
+                                Cloud.Logger.LogEx(ex)
+                            End Try
+                        Catch ex As Exception
+                            Cloud.Logger.Log(LogPriority.Error, "Method has bad signature: " & attribute.Type)
+                            Cloud.Logger.LogEx(ex)
+                        End Try
+                    End If
+                Next
+            End SyncLock
+        End SyncLock
     End Sub
 
     Private Sub ProcessMessage(msg As String, user As Integer, rights As Group, e As CommandEventArgs) Handles myInternalCommandManager.OnCommand
