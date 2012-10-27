@@ -14,32 +14,41 @@
 #End Region
 
 #Region "Properties"
-    Private ReadOnly myPlayersDictionary As New Dictionary(Of Integer, TPlayer)
+    Private ReadOnly myIDDictionary As New Dictionary(Of Integer, TPlayer)
+    Private ReadOnly myUsernameDictionary As New Dictionary(Of String, List(Of TPlayer))
 
     Friend ReadOnly Property Player(number As Integer) As TPlayer Implements IPlayerManager(Of TPlayer).Player
         Get
-            If myPlayersDictionary.ContainsKey(number) Then
-                Return myPlayersDictionary(number)
-            Else
-                Return Nothing
-            End If
+            SyncLock myUsernameDictionary
+                If myIDDictionary.ContainsKey(number) Then
+                    Return myIDDictionary(number)
+                Else
+                    Return Nothing
+                End If
+            End SyncLock
         End Get
     End Property
 
     Public ReadOnly Property Player(username As String) As TPlayer Implements IPlayerManager(Of TPlayer).Player
         Get
-            For Each player1 As TPlayer In myPlayersDictionary.Values
-                If player1.Username.Equals(username, StringComparison.OrdinalIgnoreCase) Then
-                    Return player1
+            SyncLock myUsernameDictionary
+                If myUsernameDictionary.ContainsKey(username) Then
+                    Dim list As List(Of TPlayer) = myUsernameDictionary(username)
+                    If list.Count > 0 Then
+                        Return list(0)
+                    Else
+                        Return Nothing
+                    End If
+                Else
+                    Return Nothing
                 End If
-            Next
-            Return Nothing
+            End SyncLock
         End Get
     End Property
 
     Friend ReadOnly Property GetPlayers As TPlayer() Implements IPlayerManager(Of TPlayer).GetPlayers
         Get
-            Return myPlayersDictionary.Values.ToArray
+            Return myIDDictionary.Values.ToArray
         End Get
     End Property
 
@@ -53,7 +62,7 @@
 
     Public ReadOnly Property Count As Integer Implements IPlayerManager(Of TPlayer).Count
         Get
-            Return myPlayersDictionary.Count
+            Return myIDDictionary.Count
         End Get
     End Property
 
@@ -76,10 +85,27 @@
     End Sub
 
     Private Sub myInternalPlayerManager_OnRemoveUser(sender As Object, e As LeftReceiveMessage) Handles myInternalPlayerManager.RemoveUser
-        If myPlayersDictionary.ContainsKey(e.UserID) Then
-            RaiseEvent Leave(Me, myPlayersDictionary(e.UserID))
+        Dim player1 As TPlayer = Nothing
 
-            myPlayersDictionary.Remove(e.UserID)
+        SyncLock myIDDictionary
+            If myIDDictionary.ContainsKey(e.UserID) Then
+                player1 = myIDDictionary(e.UserID)
+                myIDDictionary.Remove(e.UserID)
+
+                SyncLock myUsernameDictionary
+                    If myUsernameDictionary.ContainsKey(player1.Username) Then
+                        Dim list As List(Of TPlayer) = myUsernameDictionary(player1.Username)
+                        For Each item In From item1 In list Where item1.UserID = e.UserID
+                            list.Remove(item)
+                            Exit For
+                        Next
+                    End If
+                End SyncLock
+            End If
+        End SyncLock
+
+        If player1 IsNot Nothing Then
+            RaiseEvent Leave(Me, player1)
         End If
     End Sub
 
@@ -92,10 +118,27 @@
     End Sub
 
     Private Sub AddPlayer(internalPlayer As InternalPlayer)
-        If Not myPlayersDictionary.ContainsKey(internalPlayer.UserID) Then
-            Dim player1 As New TPlayer
-            player1.SetupPlayer(internalPlayer, myClient.Chatter)
-            myPlayersDictionary.Add(player1.UserID, player1)
+        Dim player1 As TPlayer = Nothing
+
+        SyncLock myIDDictionary
+            If Not myIDDictionary.ContainsKey(internalPlayer.UserID) Then
+                player1 = New TPlayer
+                player1.SetupPlayer(internalPlayer, myClient.Chatter)
+                myIDDictionary.Add(player1.UserID, player1)
+
+                SyncLock myUsernameDictionary
+                    If Not myUsernameDictionary.ContainsKey(player1.Username) Then
+                        Dim list As New List(Of TPlayer)
+                        list.Add(player1)
+                        myUsernameDictionary.Add(player1.Username, list)
+                    Else
+                        myUsernameDictionary(player1.Username).Add(player1)
+                    End If
+                End SyncLock
+            End If
+        End SyncLock
+
+        If player1 IsNot Nothing Then
             RaiseEvent Join(Me, player1)
         End If
     End Sub
