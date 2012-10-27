@@ -118,6 +118,7 @@
     <Compile Include="Interfaces\IClientCloneFactory.vb" />
     <Compile Include="Interfaces\IEEService.vb" />
     <Compile Include="Interfaces\IGame.vb" />
+    <Compile Include="Interfaces\IKeyManager.vb" />
     <Compile Include="Interfaces\IPlayer.vb" />
     <Compile Include="Interfaces\IPlayerManager.vb" />
     <Compile Include="Interfaces\IConnection.vb" />
@@ -129,6 +130,7 @@
     <Compile Include="Interfaces\World\IWorldPortalBlock.vb" />
     <Compile Include="Interfaces\World\IWorldSoundBlock.vb" />
     <Compile Include="Messages\Receive\PotionReceiveMessage.vb" />
+    <Compile Include="Messages\Send\PressPurpleSwitchSendMessage.vb" />
     <Compile Include="Messages\Send\TouchCakeSendMessage.vb" />
     <Compile Include="Messages\Send\PotionSendMessage.vb" />
     <Compile Include="Messages\Upload\BlockPlaceUploadMessage.vb" />

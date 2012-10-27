@@ -53,6 +53,12 @@
             Return Client.World
         End Get
     End Property
+
+    Public ReadOnly Property KeyManager As IKeyManager Implements IClient(Of TPlayer).KeyManager
+        Get
+            Return Client.KeyManager
+        End Get
+    End Property
 #End Region
 
 #Region "Methods"

@@ -2,28 +2,34 @@
 ''' Describes the door/gate which state has just been changed.
 ''' </summary>
 ''' <remarks></remarks>
-    Public Enum Key
+Public Enum Key
     ''' <summary>
     ''' The red door/gate
     ''' </summary>
     ''' <remarks></remarks>
-        Red
+    Red
 
     ''' <summary>
     ''' The green door/gate
     ''' </summary>
     ''' <remarks></remarks>
-        Green
+    Green
 
     ''' <summary>
     ''' The blue door/gate
     ''' </summary>
     ''' <remarks></remarks>
-        Blue
+    Blue
 
     ''' <summary>
     ''' The timed door/gate
     ''' </summary>
     ''' <remarks></remarks>
-        TimeDoor
+    TimeDoor
+
+    ''' <summary>
+    ''' The switch door/gate
+    ''' </summary>
+    ''' <remarks></remarks>
+    Purple
 End Enum

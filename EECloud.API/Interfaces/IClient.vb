@@ -7,4 +7,5 @@
     ReadOnly Property PlayerManager As IPlayerManager(Of TPlayer)
     ReadOnly Property CommandManager As ICommandManager
     ReadOnly Property Game As IGame
+    ReadOnly Property KeyManager As IKeyManager
 End Interface
