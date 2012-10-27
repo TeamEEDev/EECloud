@@ -39,38 +39,6 @@
         End Get
     End Property
 
-    Private myBlueKey As Boolean
-
-    Public ReadOnly Property BlueKey As Boolean Implements IGame.BlueKey
-        Get
-            Return myBlueKey
-        End Get
-    End Property
-
-    Private myGreenKey As Boolean
-
-    Public ReadOnly Property GreenKey As Boolean Implements IGame.GreenKey
-        Get
-            Return myGreenKey
-        End Get
-    End Property
-
-    Private myRedKey As Boolean
-
-    Public ReadOnly Property RedKey As Boolean Implements IGame.RedKey
-        Get
-            Return myRedKey
-        End Get
-    End Property
-
-    Private myTimedKey As Boolean
-
-    Public ReadOnly Property TimedKey As Boolean Implements IGame.TimedKey
-        Get
-            Return myTimedKey
-        End Get
-    End Property
-
     Private myBlueAuraPotionCount As Integer
 
     Public ReadOnly Property BlueAuraPotionCount As Integer Implements IGame.BlueAuraPotionCount
@@ -165,19 +133,6 @@
         myConnection = myClient.Connection
     End Sub
 
-    Private Sub myConnection_ReceiveHideKey(sender As Object, e As HideKeyReceiveMessage) Handles myConnection.ReceiveHideKey
-        Select Case e.Key
-            Case Key.Blue
-                myBlueKey = False
-            Case Key.Green
-                myGreenKey = False
-            Case Key.Red
-                myRedKey = False
-            Case Key.TimeDoor
-                myTimedKey = False
-        End Select
-    End Sub
-
     Private Sub myConnection_ReceiveInit(sender As Object, e As InitReceiveMessage) Handles myConnection.ReceiveInit
         myMyPlayer = New Player
         myMyPlayer.SetupPlayer(New InternalPlayer(myClient, e), myClient.Chatter)
@@ -200,7 +155,7 @@
 
     Private Sub ParsePotion(e As InitReceiveMessage)
         Dim startNum As UInteger
-        For i = CInt(e.PlayerIOMessage.Count - 1) To 0 Step - 1
+        For i = CInt(e.PlayerIOMessage.Count - 1) To 0 Step -1
             If TryCast(e.PlayerIOMessage.Item(CUInt(i)), String) IsNot Nothing AndAlso e.PlayerIOMessage.GetString(CUInt(i)) = "pe" Then
                 startNum = CUInt(i - 1)
             End If
@@ -228,19 +183,6 @@
 
     Private Sub myConnection_OnReceiveAccess(sender As Object, e As AccessReceiveMessage) Handles myConnection.ReceiveAccess
         myAccessRight = AccessRight.Edit
-    End Sub
-
-    Private Sub myConnection_ReceiveShowKey(sender As Object, e As ShowKeyReceiveMessage) Handles myConnection.ReceiveShowKey
-        Select Case e.Key
-            Case Key.Blue
-                myBlueKey = True
-            Case Key.Green
-                myGreenKey = True
-            Case Key.Red
-                myRedKey = True
-            Case Key.TimeDoor
-                myTimedKey = True
-        End Select
     End Sub
 
     Private Sub myConnection_ReceiveUpdateMeta(sender As Object, e As UpdateMetaReceiveMessage) Handles myConnection.ReceiveUpdateMeta

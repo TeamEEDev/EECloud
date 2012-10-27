@@ -142,18 +142,19 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client\Chatter\SimpleChatSyntaxProvider.vb" />
+    <Compile Include="Client\CommandManager\Chatter\SimpleChatSyntaxProvider.vb" />
     <Compile Include="Client\CommandManager\Command.vb" />
     <Compile Include="Client\CommandManager\CommandEventArgs.vb" />
     <Compile Include="Client\CommandManager\InternalCommandManager.vb" />
     <Compile Include="Client\Game\Game.vb" />
+    <Compile Include="Client\KeyManager\KeyManager.vb" />
     <Compile Include="Client\Uploader\Uploader.vb" />
     <Compile Include="Misc\DefaultCommandListner.vb" />
     <Compile Include="Client\Connection\Connection.vb" />
     <Compile Include="Client\PlayerManager\InternalPlayerManager.vb" />
     <Compile Include="Client\PlayerManager\PlayerManager.vb" />
     <Compile Include="Client\ClientCloneCloneFactory.vb" />
-    <Compile Include="Client\Chatter\Chatter.vb" />
+    <Compile Include="Client\CommandManager\Chatter\Chatter.vb" />
     <Compile Include="Client\CommandManager\CommandHandle.vb" />
     <Compile Include="Client\CommandManager\CommandManager.vb" />
     <Compile Include="Client\Client.vb" />
@@ -164,7 +165,7 @@
     <Compile Include="Client\World\WorldLabelBlock.vb" />
     <Compile Include="Client\World\WorldPortalBlock.vb" />
     <Compile Include="Client\World\WorldSoundBlock.vb" />
-    <Compile Include="Client\Chatter\InternalChatter.vb" />
+    <Compile Include="Client\CommandManager\Chatter\InternalChatter.vb" />
     <Compile Include="Deque\Deque.Enumrator.vb" />
     <Compile Include="Deque\Deque.Node.vb" />
     <Compile Include="Deque\Deque.Synchronized.vb" />

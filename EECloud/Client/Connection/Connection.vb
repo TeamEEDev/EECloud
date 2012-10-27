@@ -1,5 +1,6 @@
 ﻿Imports PlayerIOClient
 Imports System.Reflection
+Imports System.Threading
 
 Public NotInheritable Class Connection
     Implements IConnection
@@ -672,17 +673,22 @@ Public NotInheritable Class Connection
     End Sub
 
     Private Sub myConnection_OnMessage(sender As Object, e As Message) Handles myConnection.OnMessage
+        ThreadPool.QueueUserWorkItem(AddressOf Reciever, e)
+    End Sub
+
+    Private Sub Reciever(state As Object)
+        Dim m As Message = CType(state, Message)
         Try
-            If myMessageDictionary.ContainsKey(e.Type) Then
-                Dim messageType As Type = myMessageDictionary(e.Type)
+            If myMessageDictionary.ContainsKey(m.Type) Then
+                Dim messageType As Type = myMessageDictionary(m.Type)
                 Dim constructorInfo As ConstructorInfo = messageType.GetConstructor(BindingFlags.NonPublic Or BindingFlags.Instance, Nothing, New Type() {GetType(Message)}, Nothing)
-                Dim message As ReceiveMessage = CType(constructorInfo.Invoke(New Object() {e}), ReceiveMessage)
+                Dim message As ReceiveMessage = CType(constructorInfo.Invoke(New Object() {m}), ReceiveMessage)
                 RaiseEvent ReceiveMessage(Me, message)
             Else
-                Cloud.Logger.Log(LogPriority.Warning, "Received not registered message: " & e.Type)
+                Cloud.Logger.Log(LogPriority.Warning, "Received not registered message: " & m.Type)
             End If
         Catch ex As Exception
-            Cloud.Logger.Log(LogPriority.Error, "Failed to parse message: " & e.Type)
+            Cloud.Logger.Log(LogPriority.Error, "Failed to parse message: " & m.Type)
             Cloud.Logger.LogEx(ex)
         End Try
     End Sub

@@ -43,6 +43,14 @@
         End Get
     End Property
 
+    Private ReadOnly myKeyManager As IKeyManager
+
+    Public ReadOnly Property KeyManager As IKeyManager Implements IClient(Of Player).KeyManager
+        Get
+            Return myKeyManager
+        End Get
+    End Property
+
     Private ReadOnly myInternalChatter As InternalChatter
 
     Friend ReadOnly Property InternalChatter As InternalChatter
@@ -102,6 +110,7 @@
         myWorld = New World(Me)
         myUploader = New Uploader(Me)
         myGame = New Game(Me)
+        myKeyManager = New KeyManager(Me)
 
         myInternalChatter = New InternalChatter(Me)
         myInternalPlayerManager = New InternalPlayerManager(Me)

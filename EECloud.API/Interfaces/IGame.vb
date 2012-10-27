@@ -9,10 +9,6 @@
     ReadOnly Property Plays As Integer
     ReadOnly Property Owner As String
     ReadOnly Property MyPlayer As Player
-    ReadOnly Property RedKey As Boolean
-    ReadOnly Property BlueKey As Boolean
-    ReadOnly Property GreenKey As Boolean
-    ReadOnly Property TimedKey As Boolean
     ReadOnly Property RedAuraPotionCount As Integer
     ReadOnly Property BlueAuraPotionCount As Integer
     ReadOnly Property YellowAuraPotionCount As Integer

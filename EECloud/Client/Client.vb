@@ -37,6 +37,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property KeyManager As IKeyManager Implements IClient(Of TPlayer).KeyManager
+        Get
+            Return myInternalClient.KeyManager
+        End Get
+    End Property
+
     Private ReadOnly myChatter As Chatter
 
     Friend ReadOnly Property Chatter As IChatter Implements IClient(Of TPlayer).Chatter
@@ -95,5 +101,4 @@
         Dispose(True)
     End Sub
 #End Region
-
 End Class
