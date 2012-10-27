@@ -681,7 +681,7 @@ Public NotInheritable Class Connection
             Else
                 Cloud.Logger.Log(LogPriority.Warning, "Received not registered message: " & e.Type)
             End If
-        Catch ex As KeyNotFoundException
+        Catch ex As Exception
             Cloud.Logger.Log(LogPriority.Error, "Failed to parse message: " & e.Type)
             Cloud.Logger.LogEx(ex)
         End Try
