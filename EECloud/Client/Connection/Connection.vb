@@ -6,6 +6,7 @@ Public NotInheritable Class Connection
     Implements IConnection
 
 #Region "Fields"
+    Private ReadOnly myLockObj As New Object
     Private ReadOnly myClient As IClient(Of Player)
     Private WithEvents myConnection As PlayerIOClient.Connection
     Private ReadOnly myMessageDictionary As New Dictionary(Of String, Type)
@@ -280,10 +281,7 @@ Public NotInheritable Class Connection
         myWorldID = id
 
         'Registering messages
-        RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoinReceiveMessage))
-        RegisterMessage("info", GetType(InfoReceiveMessage))
-        RegisterMessage("upgrade", GetType(UpgradeReceiveMessage))
-        RegisterMessage("init", GetType(InitReceiveMessage))
+        RegisterStartmessages()
 
         'Initing Client
         Send(New InitSendMessage)
@@ -471,8 +469,6 @@ Public NotInheritable Class Connection
             Case GetType(InitReceiveMessage)
                 Dim m As InitReceiveMessage = CType(e, InitReceiveMessage)
                 RaiseEvent PreviewReceiveInit(Me, m)
-                UnRegisterMessage("init")
-                UnRegisterMessage("groupdisallowedjoin")
                 RegisterMessages()
                 Send(New Init2SendMessage)
                 RaiseEvent ReceiveInit(Me, m)
@@ -698,27 +694,30 @@ Public NotInheritable Class Connection
     Private myRunConnect As Boolean
 
     Friend Async Function ConnectAsync(type As AccountType, username As String, password As String, id As String) As Task Implements IConnection.ConnectAsync
-        If Not myRunConnect Then
-            Await Task.Run(
-                Sub()
-                    Try
-                        Dim ioClient As Client = Nothing
-                        Select Case type
-                            Case AccountType.Regular
-                                ioClient = PlayerIO.QuickConnect.SimpleConnect(GameID, username, password)
-                            Case AccountType.Facebook
-                                ioClient = PlayerIO.QuickConnect.FacebookOAuthConnect(GameID, username, "")
-                        End Select
-                        Dim ioConnection As PlayerIOClient.Connection = GetIOConnection(ioClient, id)
-                        SetupConnection(ioConnection, id)
-                    Catch ex As PlayerIOError
-                        Throw New EECloudPlayerIOException(ex)
-                    End Try
-                End Sub)
-            myRunConnect = True
-        Else
-            Throw New Exception("A connection has been already established")
-        End If
+        SyncLock myLockObj
+            If Not myRunConnect Then
+                myRunConnect = True
+            Else
+                Throw New Exception("A connection has been already established")
+            End If
+        End SyncLock
+
+        Await Task.Run(
+           Sub()
+               Try
+                   Dim ioClient As Client = Nothing
+                   Select Case type
+                       Case AccountType.Regular
+                           ioClient = PlayerIO.QuickConnect.SimpleConnect(GameID, username, password)
+                       Case AccountType.Facebook
+                           ioClient = PlayerIO.QuickConnect.FacebookOAuthConnect(GameID, username, "")
+                   End Select
+                   Dim ioConnection As PlayerIOClient.Connection = GetIOConnection(ioClient, id)
+                   SetupConnection(ioConnection, id)
+               Catch ex As PlayerIOError
+                   Throw New EECloudPlayerIOException(ex)
+               End Try
+           End Sub)
     End Function
 
     Friend Sub Send(message As SendMessage) Implements IConnection.Send
@@ -730,55 +729,74 @@ Public NotInheritable Class Connection
     End Sub
 
     Friend Sub Close() Implements IConnection.Close
-        If Connected Then
-            RaiseEvent Disconnecting(Me, EventArgs.Empty)
-            myConnection.Disconnect()
-        End If
+        SyncLock myLockObj
+            If Connected Then
+                RaiseEvent Disconnecting(Me, EventArgs.Empty)
+                myConnection.Disconnect()
+            End If
+        End SyncLock
     End Sub
 
 #End Region
 
 #Region "Message Register"
-
+    Private myRegisteredStartMessages As Boolean
     Private myRegisteredMessages As Boolean
 
+    Private Sub RegisterStartmessages()
+        SyncLock myLockObj
+            If myRegisteredStartMessages = False Then
+                myRegisteredStartMessages = True
+                RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoinReceiveMessage))
+                RegisterMessage("info", GetType(InfoReceiveMessage))
+                RegisterMessage("upgrade", GetType(UpgradeReceiveMessage))
+                RegisterMessage("init", GetType(InitReceiveMessage))
+                RegisterMessage("show", GetType(ShowKeyReceiveMessage))
+                RegisterMessage("hide", GetType(HideKeyReceiveMessage))
+            End If
+        End SyncLock
+    End Sub
+
     Private Sub RegisterMessages()
-        If myRegisteredMessages = False Then
-            myRegisteredMessages = True
-            RegisterMessage("updatemeta", GetType(UpdateMetaReceiveMessage))
-            RegisterMessage("add", GetType(AddReceiveMessage))
-            RegisterMessage("left", GetType(LeftReceiveMessage))
-            RegisterMessage("m", GetType(MoveReceiveMessage))
-            RegisterMessage("c", GetType(CoinReceiveMessage))
-            RegisterMessage("k", GetType(CrownReceiveMessage))
-            RegisterMessage("ks", GetType(SilverCrownReceiveMessage))
-            RegisterMessage("face", GetType(FaceReceiveMessage))
-            RegisterMessage("show", GetType(ShowKeyReceiveMessage))
-            RegisterMessage("hide", GetType(HideKeyReceiveMessage))
-            RegisterMessage("say", GetType(SayReceiveMessage))
-            RegisterMessage("say_old", GetType(SayOldReceiveMessage))
-            RegisterMessage("autotext", GetType(AutoTextReceiveMessage))
-            RegisterMessage("write", GetType(WriteReceiveMessage))
-            RegisterMessage("p", GetType(PotionReceiveMessage))
-            RegisterMessage("b", GetType(BlockPlaceReceiveMessage))
-            RegisterMessage("bc", GetType(CoinDoorPlaceReceiveMessage))
-            RegisterMessage("bs", GetType(SoundPlaceReceiveMessage))
-            RegisterMessage("pt", GetType(PortalPlaceReceiveMessage))
-            RegisterMessage("lb", GetType(LabelPlaceReceiveMessage))
-            RegisterMessage("god", GetType(GodModeReceiveMessage))
-            RegisterMessage("mod", GetType(ModModeReceiveMessage))
-            RegisterMessage("access", GetType(AccessReceiveMessage))
-            RegisterMessage("lostaccess", GetType(LostAccessReceiveMessage))
-            RegisterMessage("tele", GetType(TeleportReceiveMessage))
-            RegisterMessage("reset", GetType(ResetReceiveMessage))
-            RegisterMessage("clear", GetType(ClearReceiveMessage))
-            RegisterMessage("saved", GetType(SaveDoneReceiveMessage))
-            RegisterMessage("refreshshop", GetType(RefreshShopReceiveMessage))
-            RegisterMessage("givewizard", GetType(GiveWizardReceiveMessage))
-            RegisterMessage("givewizard2", GetType(GiveFireWizardReceiveMessage))
-            RegisterMessage("givewitch", GetType(GiveWitchReceiveMessage))
-            RegisterMessage("givegrinch", GetType(GiveGrinchReceiveMessage))
-        End If
+        SyncLock myLockObj
+            If myRegisteredMessages = False Then
+                myRegisteredMessages = True
+                UnRegisterMessage("init")
+                UnRegisterMessage("groupdisallowedjoin")
+
+                RegisterMessage("updatemeta", GetType(UpdateMetaReceiveMessage))
+                RegisterMessage("add", GetType(AddReceiveMessage))
+                RegisterMessage("left", GetType(LeftReceiveMessage))
+                RegisterMessage("m", GetType(MoveReceiveMessage))
+                RegisterMessage("c", GetType(CoinReceiveMessage))
+                RegisterMessage("k", GetType(CrownReceiveMessage))
+                RegisterMessage("ks", GetType(SilverCrownReceiveMessage))
+                RegisterMessage("face", GetType(FaceReceiveMessage))
+                RegisterMessage("say", GetType(SayReceiveMessage))
+                RegisterMessage("say_old", GetType(SayOldReceiveMessage))
+                RegisterMessage("autotext", GetType(AutoTextReceiveMessage))
+                RegisterMessage("write", GetType(WriteReceiveMessage))
+                RegisterMessage("p", GetType(PotionReceiveMessage))
+                RegisterMessage("b", GetType(BlockPlaceReceiveMessage))
+                RegisterMessage("bc", GetType(CoinDoorPlaceReceiveMessage))
+                RegisterMessage("bs", GetType(SoundPlaceReceiveMessage))
+                RegisterMessage("pt", GetType(PortalPlaceReceiveMessage))
+                RegisterMessage("lb", GetType(LabelPlaceReceiveMessage))
+                RegisterMessage("god", GetType(GodModeReceiveMessage))
+                RegisterMessage("mod", GetType(ModModeReceiveMessage))
+                RegisterMessage("access", GetType(AccessReceiveMessage))
+                RegisterMessage("lostaccess", GetType(LostAccessReceiveMessage))
+                RegisterMessage("tele", GetType(TeleportReceiveMessage))
+                RegisterMessage("reset", GetType(ResetReceiveMessage))
+                RegisterMessage("clear", GetType(ClearReceiveMessage))
+                RegisterMessage("saved", GetType(SaveDoneReceiveMessage))
+                RegisterMessage("refreshshop", GetType(RefreshShopReceiveMessage))
+                RegisterMessage("givewizard", GetType(GiveWizardReceiveMessage))
+                RegisterMessage("givewizard2", GetType(GiveFireWizardReceiveMessage))
+                RegisterMessage("givewitch", GetType(GiveWitchReceiveMessage))
+                RegisterMessage("givegrinch", GetType(GiveGrinchReceiveMessage))
+            End If
+        End SyncLock
     End Sub
 
     Private Sub RegisterMessage(str As String, type As Type)
