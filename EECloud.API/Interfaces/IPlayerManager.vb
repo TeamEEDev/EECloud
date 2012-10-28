@@ -7,6 +7,8 @@
     Event OnModmode As EventHandler(Of TPlayer)
     Event OnCoin As EventHandler(Of TPlayer)
     Event OnSilverCrown As EventHandler(Of TPlayer)
+    Event OnSay As EventHandler(Of TPlayer)
+    Event OnAutoText As EventHandler(Of TPlayer)
     Event Join As EventHandler(Of TPlayer)
     Event Leave As EventHandler(Of TPlayer)
 
