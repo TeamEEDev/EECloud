@@ -1,4 +1,5 @@
 ﻿Public Enum AutoText
+    None = -1
     Hi = 1
     Bye = 2
     Help = 3

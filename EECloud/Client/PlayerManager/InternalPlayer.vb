@@ -226,6 +226,23 @@
         End Get
     End Property
 
+
+    Private myAutoText As AutoText = CType(-1, AutoText)
+
+    Public ReadOnly Property AutoText As AutoText Implements IPlayer.AutoText
+        Get
+            Return myAutoText
+        End Get
+    End Property
+
+    Private myChat As String
+
+    Public ReadOnly Property Chat As String Implements IPlayer.Chat
+        Get
+            Return myChat
+        End Get
+    End Property
+
 #End Region
 
 #Region "Methods"
@@ -268,6 +285,12 @@
 
     Public Sub Reply(msg As String) Implements IPlayer.Reply
         myClient.Chatter.Reply(myUsername, msg)
+    End Sub
+
+    Private Sub myConnection_PreviewReceiveAutoText(sender As Object, e As AutoTextReceiveMessage) Handles myConnection.PreviewReceiveAutoText
+        If e.UserID = myUserID Then
+            myAutoText = e.AutoText
+        End If
     End Sub
 
     Private Sub myConnection_OnReceiveCoin(sender As Object, e As CoinReceiveMessage) Handles myConnection.PreviewReceiveCoin
@@ -345,6 +368,7 @@
 
     Private Sub myConnection_ReceiveSay(sender As Object, e As SayReceiveMessage) Handles myConnection.PreviewReceiveSay
         If e.UserID = myUserID Then
+            myChat = e.Text
         End If
     End Sub
 

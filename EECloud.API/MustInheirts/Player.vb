@@ -1,6 +1,7 @@
 ﻿Public Class Player
     Implements IPlayer
 
+
 #Region "Fields"
     Private WithEvents myPlayer As IPlayer
     Private myChatter As IChatter
@@ -287,6 +288,26 @@
         Get
             Try
                 Return myPlayer.BlockY
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property AutoText As AutoText Implements IPlayer.AutoText
+        Get
+            Try
+                Return myPlayer.AutoText
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property Chat As String Implements IPlayer.Chat
+        Get
+            Try
+                Return myPlayer.Chat
             Catch ex As Exception
                 Return Nothing
             End Try
