@@ -145,6 +145,7 @@
     <Compile Include="Client\CommandManager\Chatter\SimpleChatSyntaxProvider.vb" />
     <Compile Include="Client\CommandManager\Command.vb" />
     <Compile Include="Client\CommandManager\CommandEventArgs.vb" />
+    <Compile Include="Client\CommandManager\GlobalCommandManager.vb" />
     <Compile Include="Client\CommandManager\InternalCommandManager.vb" />
     <Compile Include="Client\Game\Game.vb" />
     <Compile Include="Client\KeyManager\KeyManager.vb" />

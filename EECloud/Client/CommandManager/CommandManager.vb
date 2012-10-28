@@ -60,31 +60,33 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
     End Sub
 
     Private Sub ProcessMessage(msg As String, user As Integer, rights As Group, e As CommandEventArgs) Handles myInternalCommandManager.OnCommand
-        Dim sender As TPlayer = myClient.PlayerManager.Player(user)
-        Dim cmd As String() = msg.Split(" "c)
-        Dim type As String = cmd(0).ToLower
-        If msg.StartsWith("help ", StringComparison.OrdinalIgnoreCase) AndAlso myCommandsDictionary.ContainsKey(cmd(1).ToLower) Then
-            e.Handled = True
-            ReplyToSender(sender, GetUsagesStr(cmd(1).ToLower))
-        ElseIf myCommandsDictionary.ContainsKey(type) Then
-            e.Handled = True
-            Dim mostHandle As CommandHandle(Of TPlayer) = Nothing
-            For Each handle In myCommandsDictionary(type)
-                'Check for syntax
-                If handle.Count = cmd.Length - 1 OrElse (handle.Count < cmd.Length - 1 AndAlso handle.HasParamArray) Then
-                    TryRunCmd(sender, rights, cmd, type, handle)
-                    Exit Sub
-                ElseIf handle.Count < cmd.Length - 1 Then
-                    If mostHandle Is Nothing OrElse handle.Count > mostHandle.Count Then
-                        mostHandle = handle
+        If Not e.Handled Then
+            Dim sender As TPlayer = myClient.PlayerManager.Player(user)
+            Dim cmd As String() = msg.Split(" "c)
+            Dim type As String = cmd(0).ToLower
+            If msg.StartsWith("help ", StringComparison.OrdinalIgnoreCase) AndAlso myCommandsDictionary.ContainsKey(cmd(1).ToLower) Then
+                e.Handled = True
+                ReplyToSender(sender, GetUsagesStr(cmd(1).ToLower))
+            ElseIf myCommandsDictionary.ContainsKey(type) Then
+                e.Handled = True
+                Dim mostHandle As CommandHandle(Of TPlayer) = Nothing
+                For Each handle In myCommandsDictionary(type)
+                    'Check for syntax
+                    If handle.Count = cmd.Length - 1 OrElse (handle.Count < cmd.Length - 1 AndAlso handle.HasParamArray) Then
+                        TryRunCmd(sender, rights, cmd, type, handle)
+                        Exit Sub
+                    ElseIf handle.Count < cmd.Length - 1 Then
+                        If mostHandle Is Nothing OrElse handle.Count > mostHandle.Count Then
+                            mostHandle = handle
+                        End If
                     End If
+                Next
+                'Try the one that most methods fit in 
+                If mostHandle IsNot Nothing Then
+                    TryRunCmd(sender, rights, cmd, type, mostHandle)
+                Else
+                    ReplyToSender(sender, GetUsagesStr(type))
                 End If
-            Next
-            'Try the one that most methods fit in 
-            If mostHandle IsNot Nothing Then
-                TryRunCmd(sender, rights, cmd, type, mostHandle)
-            Else
-                ReplyToSender(sender, GetUsagesStr(type))
             End If
         End If
     End Sub

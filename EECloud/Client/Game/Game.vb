@@ -71,33 +71,12 @@
         End Get
     End Property
 
-    Public WriteOnly Property GodMode As Boolean Implements IGame.GodMode
-        Set(value As Boolean)
-            myConnection.Send(New GodModeSendMessage(value))
-        End Set
-    End Property
-
-    Public WriteOnly Property Location As Location Implements IGame.Location
-        Set(value As Location)
-            myConnection.Send(New MoveSendMessage(value.X, value.Y, 0, 0, 0, 0, 0, 0, myGravityMultiplayer))
-        End Set
-    End Property
-
     Private myWorldName As String
 
-    Public Property WorldName As String Implements IGame.WorldName
+    Public ReadOnly Property WorldName As String Implements IGame.WorldName
         Get
             Return myWorldName
         End Get
-        Set(value As String)
-            myConnection.Send(New ChangeWorldNameSendMessage(value))
-        End Set
-    End Property
-
-    Public WriteOnly Property Smiley As Smiley Implements IGame.Smiley
-        Set(value As Smiley)
-            myConnection.Send(New ChangeFaceSendMessage(value))
-        End Set
     End Property
 
     Private myAllowPotions As Boolean

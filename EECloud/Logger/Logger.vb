@@ -113,5 +113,9 @@ Friend NotInheritable Class Logger
         End If
     End Sub
 
+    Private Sub Logger_OnInput(sender As Object, e As EventArgs) Handles Me.OnInput
+        GlobalCommandManager.Value.InvokeConsoleCmd(Input, Me)
+    End Sub
+
 #End Region
 End Class
