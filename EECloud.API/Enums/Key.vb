@@ -28,7 +28,7 @@ Public Enum Key
     TimeDoor
 
     ''' <summary>
-    ''' The switch door/gate
+    ''' The purple switchable door/gate
     ''' </summary>
     ''' <remarks></remarks>
     Purple

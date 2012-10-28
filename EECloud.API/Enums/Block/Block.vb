@@ -50,6 +50,7 @@
     BlockDoorBlue = 25
     BlockDoorCoinDoor = 43
     BlockDoorTimedDoor = 156
+    BlockDoorPurpleSwitchable = 184
 
     BlockGateRed = 26
     BlockGateGreen = 27
@@ -194,6 +195,8 @@
 
     BlockCoinGold = 100
     BlockCoinBlue = 101
+
+    BlockSwitchPurple = 113
 
     BlockBoostLeft = 114
     BlockBoostRight = 115
