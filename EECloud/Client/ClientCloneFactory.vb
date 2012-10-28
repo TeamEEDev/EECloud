@@ -1,4 +1,4 @@
-﻿Friend NotInheritable Class ClientCloneCloneFactory
+﻿Friend NotInheritable Class ClientCloneFactory
     Implements IClientCloneFactory
 
 

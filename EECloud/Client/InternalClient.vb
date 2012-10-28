@@ -105,7 +105,7 @@
 
     Friend Sub New(commandChar As Char)
         'Creating instances
-        myPluginManager = New PluginManager(New ClientCloneCloneFactory(Me))
+        myPluginManager = New PluginManager(New ClientCloneFactory(Me))
         myConnection = New Connection(Me)
         myWorld = New World(Me)
         myUploader = New Uploader(Me)

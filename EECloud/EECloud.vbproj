@@ -154,7 +154,7 @@
     <Compile Include="Client\Connection\Connection.vb" />
     <Compile Include="Client\PlayerManager\InternalPlayerManager.vb" />
     <Compile Include="Client\PlayerManager\PlayerManager.vb" />
-    <Compile Include="Client\ClientCloneCloneFactory.vb" />
+    <Compile Include="Client\ClientCloneFactory.vb" />
     <Compile Include="Client\CommandManager\Chatter\Chatter.vb" />
     <Compile Include="Client\CommandManager\CommandHandle.vb" />
     <Compile Include="Client\CommandManager\CommandManager.vb" />
