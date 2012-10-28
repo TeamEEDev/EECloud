@@ -11,6 +11,22 @@
     Public Event Join(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).Join
 
     Public Event Leave(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).Leave
+
+    Public Event OnCoin(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnCoin
+
+    Public Event OnCrown(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnCrown
+
+    Public Event OnGodmode(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnGodmode
+
+    Public Event OnModmode(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnModmode
+
+    Public Event OnMove(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnMove
+
+    Public Event OnPotion(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnPotion
+
+    Public Event OnSilverCrown(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnSilverCrown
+
+    Public Event OnSmiley(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnSmiley
 #End Region
 
 #Region "Properties"
@@ -113,8 +129,29 @@
         AddPlayer(e)
     End Sub
 
+    Private Sub myConnection_ReceiveCoin(sender As Object, e As CoinReceiveMessage) Handles myConnection.ReceiveCoin
+        Dim p As TPlayer = Player(e.UserID)
+
+        If p IsNot Nothing Then
+            RaiseEvent OnCoin(Me, p)
+        End If
+    End Sub
+
     Private Sub myConnection_OnReceiveCrown(sender As Object, e As CrownReceiveMessage) Handles myConnection.ReceiveCrown
-        myCrown = Player(e.UserID)
+        Dim p As TPlayer = Player(e.UserID)
+        myCrown = p
+
+        If p IsNot Nothing Then
+            RaiseEvent OnCrown(Me, p)
+        End If
+    End Sub
+
+    Private Sub myConnection_ReceiveFace(sender As Object, e As FaceReceiveMessage) Handles myConnection.ReceiveFace
+        Dim p As TPlayer = Player(e.UserID)
+
+        If p IsNot Nothing Then
+            RaiseEvent OnSmiley(Me, p)
+        End If
     End Sub
 
     Private Sub AddPlayer(internalPlayer As InternalPlayer)
@@ -143,6 +180,13 @@
         End If
     End Sub
 
+    Private Sub myConnection_ReceiveGodMode(sender As Object, e As GodModeReceiveMessage) Handles myConnection.ReceiveGodMode
+        Dim p As TPlayer = Player(e.UserID)
+
+        If p IsNot Nothing Then
+            RaiseEvent OnSmiley(Me, p)
+        End If
+    End Sub
 #End Region
 
 #Region "IDisposable Support"
@@ -170,4 +214,36 @@
         GC.SuppressFinalize(Me)
     End Sub
 #End Region
+
+    Private Sub myConnection_ReceiveModMode(sender As Object, e As ModModeReceiveMessage) Handles myConnection.ReceiveModMode
+        Dim p As TPlayer = Player(e.UserID)
+
+        If p IsNot Nothing Then
+            RaiseEvent OnModmode(Me, p)
+        End If
+    End Sub
+
+    Private Sub myConnection_ReceiveMove(sender As Object, e As MoveReceiveMessage) Handles myConnection.ReceiveMove
+        Dim p As TPlayer = Player(e.UserID)
+
+        If p IsNot Nothing Then
+            RaiseEvent OnMove(Me, p)
+        End If
+    End Sub
+
+    Private Sub myConnection_ReceivePotion(sender As Object, e As PotionReceiveMessage) Handles myConnection.ReceivePotion
+        Dim p As TPlayer = Player(e.UserID)
+
+        If p IsNot Nothing Then
+            RaiseEvent OnPotion(Me, p)
+        End If
+    End Sub
+
+    Private Sub myConnection_ReceiveSilverCrown(sender As Object, e As SilverCrownReceiveMessage) Handles myConnection.ReceiveSilverCrown
+        Dim p As TPlayer = Player(e.UserID)
+
+        If p IsNot Nothing Then
+            RaiseEvent OnSilverCrown(Me, p)
+        End If
+    End Sub
 End Class

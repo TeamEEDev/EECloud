@@ -270,19 +270,19 @@
         myClient.Chatter.Reply(myUsername, msg)
     End Sub
 
-    Private Sub myConnection_OnReceiveCoin(sender As Object, e As CoinReceiveMessage) Handles myConnection.ReceiveCoin
+    Private Sub myConnection_OnReceiveCoin(sender As Object, e As CoinReceiveMessage) Handles myConnection.PreviewReceiveCoin
         If e.UserID = myUserID Then
             myCoins = e.Coins
         End If
     End Sub
 
-    Private Sub myConnection_OnReceiveFace(sender As Object, e As FaceReceiveMessage) Handles myConnection.ReceiveFace
+    Private Sub myConnection_OnReceiveFace(sender As Object, e As FaceReceiveMessage) Handles myConnection.PreviewReceiveFace
         If e.UserID = myUserID Then
             mySmiley = e.Face
         End If
     End Sub
 
-    Private Sub myConnection_OnReceiveMove(sender As Object, e As MoveReceiveMessage) Handles myConnection.ReceiveMove
+    Private Sub myConnection_OnReceiveMove(sender As Object, e As MoveReceiveMessage) Handles myConnection.PreviewReceiveMove
         If e.UserID = myUserID Then
             myCoins = e.Coins
             myHorizontal = e.Horizontal
@@ -296,29 +296,29 @@
         End If
     End Sub
 
-    Private Sub myConnection_OnReceiveGodMode(sender As Object, e As GodModeReceiveMessage) Handles myConnection.ReceiveGodMode
+    Private Sub myConnection_OnReceiveGodMode(sender As Object, e As GodModeReceiveMessage) Handles myConnection.PreviewReceiveGodMode
         If e.UserID = myUserID Then
             myIsGod = e.IsGod
         End If
     End Sub
 
-    Private Sub myConnection_OnReceiveModMode(sender As Object, e As ModModeReceiveMessage) Handles myConnection.ReceiveModMode
+    Private Sub myConnection_OnReceiveModMode(sender As Object, e As ModModeReceiveMessage) Handles myConnection.PreviewReceiveModMode
         If e.UserID = myUserID Then
             myIsMod = True
         End If
     End Sub
 
-    Private Sub myConnection_OnReceiveSilverCrown(sender As Object, e As SilverCrownReceiveMessage) Handles myConnection.ReceiveSilverCrown
+    Private Sub myConnection_OnReceiveSilverCrown(sender As Object, e As SilverCrownReceiveMessage) Handles myConnection.PreviewReceiveSilverCrown
         If e.UserID = myUserID Then
             myHasSilverCrown = True
         End If
     End Sub
 
-    Private Sub myConnection_OnReceiveTeleport(sender As Object, e As TeleportReceiveMessage) Handles myConnection.ReceiveTeleport
+    Private Sub myConnection_OnReceiveTeleport(sender As Object, e As TeleportReceiveMessage) Handles myConnection.PreviewReceiveTeleport
         If e.Coordinates.ContainsKey(myUserID) Then
-            Dim loc As Location = e.Coordinates(myUserID)
-            myPlayerPosX = loc.X
-            myPlayerPosY = loc.Y
+            Dim loc As KeyValuePair(Of Integer, Integer) = e.Coordinates(myUserID)
+            myPlayerPosX = loc.Key
+            myPlayerPosY = loc.Value
 
             If e.ResetCoins = True Then
                 myCoins = 0
@@ -326,11 +326,11 @@
         End If
     End Sub
 
-    Private Sub myConnection_ReceiveLeft(sender As Object, e As LeftReceiveMessage) Handles myConnection.ReceiveLeft
+    Private Sub myConnection_ReceiveLeft(sender As Object, e As LeftReceiveMessage) Handles myConnection.PreviewReceiveLeft
         myConnection = Nothing
     End Sub
 
-    Private Sub myConnection_ReceivePotion(sender As Object, e As PotionReceiveMessage) Handles myConnection.ReceivePotion
+    Private Sub myConnection_ReceivePotion(sender As Object, e As PotionReceiveMessage) Handles myConnection.PreviewReceivePotion
         If e.UserID = myUserID Then
             Select Case e.Potion
                 Case Potion.RedAura
@@ -343,7 +343,7 @@
         End If
     End Sub
 
-    Private Sub myConnection_ReceiveSay(sender As Object, e As SayReceiveMessage) Handles myConnection.ReceiveSay
+    Private Sub myConnection_ReceiveSay(sender As Object, e As SayReceiveMessage) Handles myConnection.PreviewReceiveSay
         If e.UserID = myUserID Then
         End If
     End Sub

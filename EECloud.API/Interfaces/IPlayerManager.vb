@@ -1,4 +1,12 @@
-﻿Public Interface IPlayerManager (Of TPlayer As {Player, New})
+﻿Public Interface IPlayerManager(Of TPlayer As {Player, New})
+    Event OnCrown As EventHandler(Of TPlayer)
+    Event OnSmiley As EventHandler(Of TPlayer)
+    Event OnMove As EventHandler(Of TPlayer)
+    Event OnPotion As EventHandler(Of TPlayer)
+    Event OnGodmode As EventHandler(Of TPlayer)
+    Event OnModmode As EventHandler(Of TPlayer)
+    Event OnCoin As EventHandler(Of TPlayer)
+    Event OnSilverCrown As EventHandler(Of TPlayer)
     Event Join As EventHandler(Of TPlayer)
     Event Leave As EventHandler(Of TPlayer)
 

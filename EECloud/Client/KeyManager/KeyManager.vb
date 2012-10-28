@@ -89,6 +89,7 @@
 
     Private Sub myConnection_ReceiveHideKey(sender As Object, e As HideKeyReceiveMessage) Handles myConnection.ReceiveHideKey
         For Each key1 In e.Keys
+            RaiseEvent OnPress(Me, key1)
             Select Case key1
                 Case Key.Blue
                     RaiseEvent OnBlueKey(Me, False)
@@ -111,6 +112,7 @@
 
     Private Sub myConnection_ReceiveShowKey(sender As Object, e As ShowKeyReceiveMessage) Handles myConnection.ReceiveShowKey
         For Each key1 In e.Keys
+            RaiseEvent OnRelease(Me, key1)
             Select Case key1
                 Case Key.Blue
                     RaiseEvent OnBlueKey(Me, True)

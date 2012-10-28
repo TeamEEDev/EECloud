@@ -147,7 +147,7 @@
 
     <Command("name", Group.Moderator, AccessRight:=AccessRight.Owner, Aliases:={"rename", "renameworld", "renamelevel", "worldname", "levelname"})>
     Public Sub ChangeWorldNameCommand(cmd As ICommand(Of Player), ParamArray newName As String())
-        myClient.Game.WorldName = String.Join(" ", newName)
+        myClient.Connection.Send(New ChangeWorldNameSendMessage(String.Join(" ", newName)))
         cmd.Reply("Renamed.")
     End Sub
 

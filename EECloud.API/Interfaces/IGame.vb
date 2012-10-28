@@ -1,9 +1,5 @@
 ﻿Public Interface IGame
-    Property WorldName As String
-    WriteOnly Property Location As Location
-    WriteOnly Property Smiley As Smiley
-    WriteOnly Property GodMode As Boolean
-
+    ReadOnly Property WorldName As String
     ReadOnly Property AccessRight As AccessRight
     ReadOnly Property Encryption As String
     ReadOnly Property Plays As Integer
