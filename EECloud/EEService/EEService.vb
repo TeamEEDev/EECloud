@@ -233,13 +233,6 @@
     End Sub
 
     Public Function CheckLicense(username As String, authKey As String) As Boolean Implements IEEService.CheckLicense
-        If String.IsNullOrEmpty(username) Then
-            Throw New ArgumentNullException("username")
-        End If
-        If String.IsNullOrEmpty(authKey) Then
-            Throw New ArgumentNullException("authKey")
-        End If
-
         Using connection As New MySqlConnection(ConnStr)
             connection.Open()
 

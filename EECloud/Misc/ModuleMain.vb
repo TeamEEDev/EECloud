@@ -10,6 +10,10 @@ Module ModuleMain
         Console.WriteLine(String.Format("{0} Version {1}", My.Application.Info.Title, My.Application.Info.Version))
         Console.WriteLine("Built on " & RetrieveLinkerTimestamp.ToString)
 
+        If SystemInformation.UserInteractive Then
+            Application.EnableVisualStyles()
+        End If
+
         Init()
 
         Application.Run()
@@ -80,6 +84,10 @@ Module ModuleMain
                 My.Settings.LoginEmail = accData(0)
                 My.Settings.LoginPassword = accData(1)
             End If
+        ElseIf Not My.Settings.Updated Then
+            My.Settings.Upgrade()
+            My.Settings.Updated = True
+            My.Settings.Save()
         End If
     End Sub
 
@@ -99,7 +107,6 @@ Module ModuleMain
 
     Private Async Function ShowLogin() As Task
         If Cloud.AppEnvironment = AppEnvironment.Dev Then
-            Application.EnableVisualStyles()
             Await Task.Run(
                 Sub()
                 If Not New LoginForm().ShowDialog = DialogResult.OK Then
