@@ -460,5 +460,13 @@
     BackgroundCarnivalChecker = 548
     BackgroundCarnivalGreen = 549
 
+    BackgroundNormalGrey = 610
+    BackgroundNormalDarkBlue = 611
+    BackgroundNormalPurple = 612
+    BackgroundNormalRed = 613
+    BackgroundNormalYellow = 614
+    BackgroundNormalGreen = 615
+    BackgroundNormalLightBlue = 616
+
     BlockLabel = 1000
 End Enum
