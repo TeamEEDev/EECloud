@@ -129,7 +129,9 @@
     <Compile Include="Interfaces\World\IWorldLabelBlock.vb" />
     <Compile Include="Interfaces\World\IWorldPortalBlock.vb" />
     <Compile Include="Interfaces\World\IWorldSoundBlock.vb" />
+    <Compile Include="Messages\Receive\AllowPotionsReceiveMessage.vb" />
     <Compile Include="Messages\Receive\PotionReceiveMessage.vb" />
+    <Compile Include="Messages\Send\AllowPotionsSendMessage.vb" />
     <Compile Include="Messages\Send\PressPurpleSwitchSendMessage.vb" />
     <Compile Include="Messages\Send\TouchCakeSendMessage.vb" />
     <Compile Include="Messages\Send\PotionSendMessage.vb" />
@@ -232,6 +234,11 @@
     <Compile Include="Messages\Receive\ReceiveMessage.vb" />
     <Compile Include="Messages\Receive\UpgradeReceiveMessage.vb" />
     <Compile Include="Utils.vb" />
+    <Compile Include="World\WorldBlock.vb" />
+    <Compile Include="World\WorldCoinDoorBlock.vb" />
+    <Compile Include="World\WorldLabelBlock.vb" />
+    <Compile Include="World\WorldPortalBlock.vb" />
+    <Compile Include="World\WorldSoundBlock.vb" />
   </ItemGroup>
   <ItemGroup>
     <None Include="My Project\Application.myapp">

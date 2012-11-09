@@ -14,24 +14,33 @@ Module ModuleMain
             Application.EnableVisualStyles()
         End If
 
+        Cloud.Logger = New Logger
+        Cloud.ClientFactory = New ClientFactory
+        Cloud.Service = New EEService
+
         Init()
 
         Application.Run()
     End Sub
 
     Async Sub Init()
-        CreateSingletons()
-        LoadSettings()
+        Dim loadTask As Task = LoadSettings()
         CheckLicense()
-
-        Dim loadTask As Task = ShowLogin()
 
         'Creating Client
         Dim client As IClient(Of Player) = Cloud.ClientFactory.CreateClient("!"c)
         client.CommandManager.Load(New DefaultCommandListner(client))
 
         'Loading assemblies
-        LoadAssembies(client, My.Settings.LoginWorldID)
+        Dim args As String() = Environment.GetCommandLineArgs
+        If args.Length >= 2 Then
+            Dim assembly As Assembly = LoadAssembly(args(1))
+            If assembly IsNot Nothing Then
+                LoadAssembies(client, My.Settings.LoginWorldID, {assembly})
+            End If
+        Else
+            LoadAssembies(client, My.Settings.LoginWorldID, GetAssemblies(My.Application.Info.DirectoryPath))
+        End If
 
         If Not loadTask.IsCompleted Then
             Cloud.Logger.Log(LogPriority.Info, "Waiting for user response...")
@@ -66,13 +75,7 @@ Module ModuleMain
         Return dt
     End Function
 
-    Private Sub CreateSingletons()
-        Cloud.Logger = New Logger
-        Cloud.ClientFactory = New ClientFactory
-        Cloud.Service = New EEService
-    End Sub
-
-    Private Sub LoadSettings()
+    Private Async Function LoadSettings() As Task
         Cloud.AppEnvironment = CType([Enum].Parse(GetType(AppEnvironment), ConfigurationManager.AppSettings("Environment"), True), AppEnvironment)
 
         If Cloud.AppEnvironment = AppEnvironment.Release Then
@@ -84,12 +87,15 @@ Module ModuleMain
                 My.Settings.LoginEmail = accData(0)
                 My.Settings.LoginPassword = accData(1)
             End If
-        ElseIf Not My.Settings.Updated Then
-            My.Settings.Upgrade()
-            My.Settings.Updated = True
-            My.Settings.Save()
+        Else
+            If Not My.Settings.Updated Then
+                My.Settings.Upgrade()
+                My.Settings.Updated = True
+                My.Settings.Save()
+            End If
+            Await ShowLogin()
         End If
-    End Sub
+    End Function
 
     Private Sub CheckLicense()
         If Not Cloud.Service.CheckLicense(My.Settings.LicenseUsername, My.Settings.LicenseKey) Then
@@ -109,17 +115,17 @@ Module ModuleMain
         If Cloud.AppEnvironment = AppEnvironment.Dev Then
             Await Task.Run(
                 Sub()
-                If Not New LoginForm().ShowDialog = DialogResult.OK Then
-                    Environment.Exit(0)
-                End If
-            End Sub)
+                    If Not New LoginForm().ShowDialog = DialogResult.OK Then
+                        Environment.Exit(0)
+                    End If
+                End Sub)
         End If
     End Function
 
-    Private Sub LoadAssembies(client As IClient(Of Player), worldID As String)
+    Private Sub LoadAssembies(client As IClient(Of Player), worldID As String, assemblies As IEnumerable(Of Assembly))
         'Checking for valid plugins
         Dim plugins As IEnumerable(Of Type) =
-                From assembly As Assembly In GetAssemblies(My.Application.Info.DirectoryPath)
+                From assembly As Assembly In assemblies
                 From type As Type In assembly.GetTypes
                 Where GetType(IPlugin).IsAssignableFrom(type)
                 Let attributes As Object() = type.GetCustomAttributes(GetType(PluginAttribute), True)
@@ -146,14 +152,24 @@ Module ModuleMain
 
     Private Iterator Function GetAssemblies(path As String) As IEnumerable(Of Assembly)
         For Each dll As String In Directory.GetFiles(path, "*.plugin.dll")
-            Try
-                Yield Assembly.LoadFile(dll)
-            Catch ex As FileLoadException
-                Cloud.Logger.Log(LogPriority.Error, "Failed to load Assembly: " & dll)
-            Catch ex As BadImageFormatException
-                Cloud.Logger.Log(LogPriority.Error, "Currupt assembly: " & dll)
-            End Try
+            Dim assembly As Assembly = LoadAssembly(dll)
+            If assembly IsNot Nothing Then
+                Yield assembly
+            End If
         Next
+    End Function
+
+    Private Function LoadAssembly(dll As String) As Assembly
+        Try
+            Return Assembly.LoadFile(dll)
+        Catch ex As FileLoadException
+            Cloud.Logger.Log(LogPriority.Error, "Failed to load Assembly: " & dll)
+            Cloud.Logger.LogEx(ex)
+        Catch ex As BadImageFormatException
+            Cloud.Logger.Log(LogPriority.Error, "Currupt assembly: " & dll)
+            Cloud.Logger.LogEx(ex)
+        End Try
+        Return Nothing
     End Function
 
     Private Async Sub Login(client As IClient(Of Player))

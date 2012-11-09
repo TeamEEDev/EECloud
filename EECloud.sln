@@ -5,20 +5,35 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud.API", "EECloud.API\
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud", "EECloud\EECloud.vbproj", "{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}"
 EndProject
+Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "EECloudSetup", "EECloudSetup\EECloudSetup.isproj", "{3EC6F117-13D3-47B5-86BB-332F9E53915D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{580DDF14-7848-4318-B9D8-55CBC3A2BC9E} = {580DDF14-7848-4318-B9D8-55CBC3A2BC9E}
+		{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E} = {27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Default = Debug|Default
 		Release|Default = Release|Default
+		ReleaseInstall|Default = ReleaseInstall|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}.Debug|Default.ActiveCfg = Debug|x86
 		{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}.Debug|Default.Build.0 = Debug|x86
 		{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}.Release|Default.ActiveCfg = Release|Any CPU
 		{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}.Release|Default.Build.0 = Release|Any CPU
+		{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}.ReleaseInstall|Default.ActiveCfg = Release|x86
+		{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}.ReleaseInstall|Default.Build.0 = Release|x86
 		{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}.Debug|Default.ActiveCfg = Debug|x86
 		{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}.Debug|Default.Build.0 = Debug|x86
 		{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}.Release|Default.ActiveCfg = Release|Any CPU
 		{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}.Release|Default.Build.0 = Release|Any CPU
+		{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}.ReleaseInstall|Default.ActiveCfg = Release|x86
+		{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}.ReleaseInstall|Default.Build.0 = Release|x86
+		{3EC6F117-13D3-47B5-86BB-332F9E53915D}.Debug|Default.ActiveCfg = SingleImage
+		{3EC6F117-13D3-47B5-86BB-332F9E53915D}.Release|Default.ActiveCfg = SingleImage
+		{3EC6F117-13D3-47B5-86BB-332F9E53915D}.ReleaseInstall|Default.ActiveCfg = SingleImage
+		{3EC6F117-13D3-47B5-86BB-332F9E53915D}.ReleaseInstall|Default.Build.0 = SingleImage
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

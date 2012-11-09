@@ -161,11 +161,6 @@
     <Compile Include="Client\Client.vb" />
     <Compile Include="Client\ClientFactory.vb" />
     <Compile Include="Client\World\World.vb" />
-    <Compile Include="Client\World\WorldBlock.vb" />
-    <Compile Include="Client\World\WorldCoinDoorBlock.vb" />
-    <Compile Include="Client\World\WorldLabelBlock.vb" />
-    <Compile Include="Client\World\WorldPortalBlock.vb" />
-    <Compile Include="Client\World\WorldSoundBlock.vb" />
     <Compile Include="Client\CommandManager\Chatter\InternalChatter.vb" />
     <Compile Include="Deque\Deque.Enumrator.vb" />
     <Compile Include="Deque\Deque.Node.vb" />

@@ -1,6 +1,5 @@
 ﻿Imports PlayerIOClient
 Imports System.Reflection
-Imports System.Threading
 
 Public NotInheritable Class Connection
     Implements IConnection
@@ -259,6 +258,12 @@ Public NotInheritable Class Connection
     Public Event PreviewReceiveWrite(sender As Object, e As WriteReceiveMessage) Implements IConnection.PreviewReceiveWrite
 
     Public Event InitComplete(sender As Object, e As EventArgs) Implements IConnection.InitComplete
+
+    Public Event PreviewReceiveAllowPotions(sender As Object, e As AllowPotionsReceiveMessage) Implements IConnection.PreviewReceiveAllowPotions
+
+    Public Event ReceiveAllowPotions(sender As Object, e As AllowPotionsReceiveMessage) Implements IConnection.ReceiveAllowPotions
+
+    Public Event SendAllowPotions(sender As Object, e As Cancelable(Of AllowPotionsSendMessage)) Implements IConnection.SendAllowPotions
 #End Region
 
 #Region "Methods"
@@ -291,27 +296,30 @@ Public NotInheritable Class Connection
         Try
             Return ioClient.Multiplayer.CreateJoinRoom(id, NormalRoom & myGameVersionNumber, True, Nothing, Nothing)
         Catch ex As PlayerIOError
-            If ex.ErrorCode = ErrorCode.UnknownRoomType Then
-                UpdateVersion(ex)
-                Return GetIOConnection(ioClient, id)
-            Else
-                Throw New EECloudPlayerIOException(ex)
-            End If
+            Throw New EECloudPlayerIOException(ex)
         End Try
     End Function
 
-    Private Sub UpdateVersion(ex As PlayerIOError)
+    Private Shared Sub UpdateVersion(ex As PlayerIOError)
         Dim errorMessage() As String = ex.Message.Split("["c)(1).Split(CChar(" "))
+        Dim idSet As Boolean
         For N = errorMessage.Length - 1 To 0 Step -1
             Dim currentRoomType As String
             currentRoomType = errorMessage(N)
             If currentRoomType.StartsWith(NormalRoom, StringComparison.Ordinal) Then
-                myGameVersionNumber = CInt(currentRoomType.Substring(NormalRoom.Length, currentRoomType.Length - NormalRoom.Length - 1))
-                Cloud.Service.SetSetting(GameVersionSetting, CStr(myGameVersionNumber))
-                Exit Sub
+                Dim newNum As Integer = CInt(currentRoomType.Substring(NormalRoom.Length, currentRoomType.Length - NormalRoom.Length - 1))
+                If newNum > myGameVersionNumber Then
+                    myGameVersionNumber = newNum
+                    Cloud.Service.SetSetting(GameVersionSetting, CStr(myGameVersionNumber))
+                End If
+
+                idSet = True
             End If
         Next
-        Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get room version")
+
+        If Not idSet Then
+            Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get room version")
+        End If
     End Sub
 
     Private Function RaiseSendEvent(message As SendMessage) As Boolean
@@ -455,6 +463,11 @@ Public NotInheritable Class Connection
             Case GetType(TouchCakeSendMessage)
                 Dim eventArgs As New Cancelable(Of TouchCakeSendMessage)(CType(message, TouchCakeSendMessage))
                 RaiseEvent SendTouchCake(Me, eventArgs)
+                Return eventArgs.Handled
+
+            Case GetType(AllowPotionsSendMessage)
+                Dim eventArgs As New Cancelable(Of AllowPotionsSendMessage)(CType(message, AllowPotionsSendMessage))
+                RaiseEvent SendAllowPotions(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case Else
@@ -659,6 +672,11 @@ Public NotInheritable Class Connection
                 Dim m As GiveGrinchReceiveMessage = CType(e, GiveGrinchReceiveMessage)
                 RaiseEvent PreviewReceiveGiveGrinch(Me, m)
                 RaiseEvent ReceiveGiveGrinch(Me, m)
+
+            Case GetType(AllowPotionsReceiveMessage)
+                Dim m As AllowPotionsReceiveMessage = CType(e, AllowPotionsReceiveMessage)
+                RaiseEvent PreviewReceiveAllowPotions(Me, m)
+                RaiseEvent ReceiveAllowPotions(Me, m)
         End Select
     End Sub
 
@@ -668,12 +686,7 @@ Public NotInheritable Class Connection
         myExpectingDisconnect = False
     End Sub
 
-    Private Sub myConnection_OnMessage(sender As Object, e As Message) Handles myConnection.OnMessage
-        ThreadPool.QueueUserWorkItem(AddressOf Reciever, e)
-    End Sub
-
-    Private Sub Reciever(state As Object)
-        Dim m As Message = CType(state, Message)
+    Private Sub myConnection_OnMessage(sender As Object, m As Message) Handles myConnection.OnMessage
         Try
             If myMessageDictionary.ContainsKey(m.Type) Then
                 Dim messageType As Type = myMessageDictionary(m.Type)
@@ -682,6 +695,7 @@ Public NotInheritable Class Connection
                 RaiseEvent ReceiveMessage(Me, message)
             Else
                 Cloud.Logger.Log(LogPriority.Warning, "Received not registered message: " & m.Type)
+                Cloud.Logger.Log(LogPriority.Warning, m.ToString)
             End If
         Catch ex As Exception
             Cloud.Logger.Log(LogPriority.Error, "Failed to parse message: " & m.Type)
@@ -712,6 +726,7 @@ Public NotInheritable Class Connection
                        Case AccountType.Facebook
                            ioClient = PlayerIO.QuickConnect.FacebookOAuthConnect(GameID, username, "")
                    End Select
+
                    Dim ioConnection As PlayerIOClient.Connection = GetIOConnection(ioClient, id)
                    SetupConnection(ioConnection, id)
                Catch ex As PlayerIOError
@@ -795,6 +810,7 @@ Public NotInheritable Class Connection
                 RegisterMessage("givewizard2", GetType(GiveFireWizardReceiveMessage))
                 RegisterMessage("givewitch", GetType(GiveWitchReceiveMessage))
                 RegisterMessage("givegrinch", GetType(GiveGrinchReceiveMessage))
+                RegisterMessage("allowpotions", GetType(AllowPotionsReceiveMessage))
             End If
         End SyncLock
     End Sub
