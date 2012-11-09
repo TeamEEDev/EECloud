@@ -29,18 +29,11 @@
     End Sub
 
     Private Sub myConnection_OnReceiveAdd(sender As Object, e As AddReceiveMessage) Handles myConnection.ReceiveAdd
-        Dim player As InternalPlayer = Nothing
-
-        SyncLock myPlayers
-            If Not myPlayers.ContainsKey(e.UserID) Then
-                player = New InternalPlayer(myClient, e)
-                myPlayers.Add(player.UserID, player)
-                player.ReloadUserData()
-            End If
-        End SyncLock
-
-        If player IsNot Nothing Then
+        If Not myPlayers.ContainsKey(e.UserID) Then
+            Dim player As InternalPlayer = New InternalPlayer(myClient, e)
+            myPlayers.Add(player.UserID, player)
             RaiseEvent AddUser(Me, player)
+            player.ReloadUserData()
         End If
     End Sub
 

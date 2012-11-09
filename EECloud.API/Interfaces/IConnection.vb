@@ -40,6 +40,7 @@
     Event ReceiveUpdateMeta As EventHandler(Of UpdateMetaReceiveMessage)
     Event ReceiveUpgrade As EventHandler(Of UpgradeReceiveMessage)
     Event ReceiveWrite As EventHandler(Of WriteReceiveMessage)
+    Event ReceiveAllowPotions As EventHandler(Of AllowPotionsReceiveMessage)
     Event PreviewReceiveMessage As EventHandler(Of ReceiveMessage)
     Event PreviewDisconnecting As EventHandler(Of EventArgs)
     Event PreviewDisconnect As EventHandler(Of DisconnectEventArgs)
@@ -80,6 +81,7 @@
     Event PreviewReceiveUpdateMeta As EventHandler(Of UpdateMetaReceiveMessage)
     Event PreviewReceiveUpgrade As EventHandler(Of UpgradeReceiveMessage)
     Event PreviewReceiveWrite As EventHandler(Of WriteReceiveMessage)
+    Event PreviewReceiveAllowPotions As EventHandler(Of AllowPotionsReceiveMessage)
     Event SendMessage As EventHandler(Of SendMessage)
     Event SendInit As EventHandler(Of Cancelable(Of InitSendMessage))
     Event SendInit2 As EventHandler(Of Cancelable(Of Init2SendMessage))
@@ -109,6 +111,7 @@
     Event SendClearWorld As EventHandler(Of Cancelable(Of ClearWorldSendMessage))
     Event SendKillWorld As EventHandler(Of Cancelable(Of KillWorldSendMessage))
     Event SendPotion As EventHandler(Of Cancelable(Of PotionSendMessage))
+    Event SendAllowPotions As EventHandler(Of Cancelable(Of AllowPotionsSendMessage))
 
     ReadOnly Property WorldID As String
     ReadOnly Property Connected As Boolean
