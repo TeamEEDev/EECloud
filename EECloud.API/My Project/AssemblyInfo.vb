@@ -15,7 +15,7 @@ Imports System.Resources
 <Assembly: AssemblyProduct("EECloud")>
 <Assembly: AssemblyCopyright("")>
 <Assembly: AssemblyTrademark("")>
-<Assembly: InternalsVisibleTo("EECloud")>
+<Assembly: InternalsVisibleTo("EECloud")> 
 
 <Assembly: ComVisible(False)>
 
