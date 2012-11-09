@@ -340,8 +340,11 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
-		<row><td>EECloud.API.Primary_output</td><td>{A864257F-D20A-462C-A440-458CA542F667}</td><td>INSTALLDIR</td><td>2</td><td/><td>eecloud.api.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>EECloud.API.Documentation_Files</td><td>{5910A72E-80B3-4F64-8CAB-7815932722D0}</td><td>API</td><td>2</td><td/><td>eecloud.api.documentation_fi</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>EECloud.API.Primary_output</td><td>{CDF89306-B2C2-4FDD-9E79-EB92C3F9B46C}</td><td>API</td><td>2</td><td/><td>eecloud.api.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>EECloud.API.Primary_output1</td><td>{FDD1DEED-5140-44C5-97DC-BEF68E161C1D}</td><td>INSTALLDIR</td><td>2</td><td/><td>eecloud.api.primary_output1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>EECloud.Primary_output</td><td>{18E6B740-1A1A-4C16-AC55-FE307A3A889A}</td><td>INSTALLDIR</td><td>2</td><td/><td>eecloud.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT</td><td>{D1115816-010A-4A79-9DE7-85C1CDBE0FCD}</td><td>API</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{CFAB02B9-F112-4635-B128-0DEC42522D77}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
@@ -1052,6 +1055,7 @@
 	<table name="CreateFolder">
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>API</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 	</table>
 
@@ -1068,6 +1072,7 @@
 		<row><td>ISSelfRegisterCosting</td><td>1</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterCosting</td><td/><td/></row>
 		<row><td>ISSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterFiles</td><td/><td/></row>
 		<row><td>ISSelfRegisterFinalize</td><td>1</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterFinalize</td><td/><td/></row>
+		<row><td>ISSetAllUsers</td><td>257</td><td>SetAllUsers.dll</td><td>SetAllUsers</td><td/><td/></row>
 		<row><td>ISUnSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISUnSelfRegisterFiles</td><td/><td/></row>
 		<row><td>SetARPINSTALLLOCATION</td><td>51</td><td>ARPINSTALLLOCATION</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%SystemRoot]\Profiles\All Users</td><td/><td/></row>
@@ -1132,22 +1137,23 @@
 		<col def="I4">ISAttributes</col>
 		<col def="S255">ISFolderName</col>
 		<row><td>ALLUSERSPROFILE</td><td>TARGETDIR</td><td>.:ALLUSE~1|All Users</td><td/><td>0</td><td/></row>
+		<row><td>API</td><td>INSTALLDIR</td><td>API</td><td/><td>0</td><td/></row>
 		<row><td>AdminToolsFolder</td><td>TARGETDIR</td><td>.:Admint~1|AdminTools</td><td/><td>0</td><td/></row>
 		<row><td>AppDataFolder</td><td>TARGETDIR</td><td>.:APPLIC~1|Application Data</td><td/><td>0</td><td/></row>
 		<row><td>CommonAppDataFolder</td><td>TARGETDIR</td><td>.:Common~1|CommonAppData</td><td/><td>0</td><td/></row>
 		<row><td>CommonFilesFolder</td><td>TARGETDIR</td><td>.:Common</td><td/><td>0</td><td/></row>
 		<row><td>DATABASEDIR</td><td>ISYourDataBaseDir</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>DesktopFolder</td><td>TARGETDIR</td><td>.:Desktop</td><td/><td>3</td><td/></row>
-		<row><td>EECloud</td><td>EEDev</td><td>EECloud</td><td/><td>0</td><td/></row>
-		<row><td>EEDev</td><td>AppDataFolder</td><td>EEDev</td><td/><td>0</td><td/></row>
+		<row><td>EEDev</td><td>ProgramFilesFolder</td><td>EEDev</td><td/><td>0</td><td/></row>
 		<row><td>FavoritesFolder</td><td>TARGETDIR</td><td>.:FAVORI~1|Favorites</td><td/><td>0</td><td/></row>
 		<row><td>FontsFolder</td><td>TARGETDIR</td><td>.:Fonts</td><td/><td>0</td><td/></row>
 		<row><td>GlobalAssemblyCache</td><td>TARGETDIR</td><td>.:Global~1|GlobalAssemblyCache</td><td/><td>0</td><td/></row>
-		<row><td>INSTALLDIR</td><td>ProgramFilesFolder</td><td>.</td><td/><td>0</td><td/></row>
+		<row><td>INSTALLDIR</td><td>NEW_DIRECTORY2</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>ISCommonFilesFolder</td><td>CommonFilesFolder</td><td>Instal~1|InstallShield</td><td/><td>0</td><td/></row>
 		<row><td>ISYourDataBaseDir</td><td>INSTALLDIR</td><td>Database</td><td/><td>0</td><td/></row>
 		<row><td>LocalAppDataFolder</td><td>TARGETDIR</td><td>.:LocalA~1|LocalAppData</td><td/><td>0</td><td/></row>
 		<row><td>MyPicturesFolder</td><td>TARGETDIR</td><td>.:MyPict~1|MyPictures</td><td/><td>0</td><td/></row>
+		<row><td>NEW_DIRECTORY2</td><td>EEDev</td><td>EECloud</td><td/><td>0</td><td/></row>
 		<row><td>NetHoodFolder</td><td>TARGETDIR</td><td>.:NetHood</td><td/><td>0</td><td/></row>
 		<row><td>PersonalFolder</td><td>TARGETDIR</td><td>.:Personal</td><td/><td>0</td><td/></row>
 		<row><td>PrimaryVolumePath</td><td>TARGETDIR</td><td>.:Primar~1|PrimaryVolumePath</td><td/><td>0</td><td/></row>
@@ -1857,8 +1863,11 @@
 	<table name="FeatureComponents">
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>AlwaysInstall</td><td>EECloud.API.Documentation_Files</td></row>
 		<row><td>AlwaysInstall</td><td>EECloud.API.Primary_output</td></row>
+		<row><td>AlwaysInstall</td><td>EECloud.API.Primary_output1</td></row>
 		<row><td>AlwaysInstall</td><td>EECloud.Primary_output</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 	</table>
 
@@ -1874,7 +1883,9 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
+		<row><td>eecloud.api.documentation_fi</td><td>EECloud.API.Documentation_Files</td><td>EECloud.API.Documentation Files</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;EECloud.API&gt;|Documentation</td><td>3</td><td/></row>
 		<row><td>eecloud.api.primary_output</td><td>EECloud.API.Primary_output</td><td>EECloud.API.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;EECloud.API&gt;|Built</td><td>3</td><td/></row>
+		<row><td>eecloud.api.primary_output1</td><td>EECloud.API.Primary_output1</td><td>EECloud.API.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;EECloud.API&gt;|Built</td><td>3</td><td/></row>
 		<row><td>eecloud.primary_output</td><td>EECloud.Primary_output</td><td>EECloud.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;EECloud&gt;|Built</td><td>3</td><td/></row>
 	</table>
 
@@ -2133,8 +2144,11 @@
 		<col def="S0">FTPLocation</col>
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
-		<row><td>EECloud.API.Primary_output</td><td/><td/><td>_A5C57B3B_1542_41B1_8171_EF112BF13564_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>EECloud.API.Documentation_Files</td><td/><td/><td>_2933D266_9366_48C0_9922_E8A41779BC8C_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>EECloud.API.Primary_output</td><td/><td/><td>_1F9047D9_7847_4107_8C50_EB239BBEFD4B_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>EECloud.API.Primary_output1</td><td/><td/><td>_C737FB76_DADC_46FB_82DB_F76D208623FB_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>EECloud.Primary_output</td><td/><td/><td>_880C4A40_E449_43FA_91C2_C0FAB5A984BF_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_102B63EB_1DA7_4BA8_BB2F_CC099B4CADD7_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_CB6A84D8_13C4_47A9_AC35_E18C3DB57A85_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
@@ -2205,6 +2219,8 @@
 	<table name="ISDependency">
 		<col key="yes" def="S50">ISDependency</col>
 		<col def="I2">Exclude</col>
+		<row><td>EECLOUD.API.DLL</td><td>1</td></row>
+		<row><td>PLAYERIOCLIENT.DLL</td><td>0</td></row>
 	</table>
 
 	<table name="ISDisk1File">
@@ -2765,7 +2781,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>EEDev</td><td>0</td><td/><td>899680758</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>EEDev</td><td>0</td><td/><td>1302356463</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>899707350</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>899707350</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>899699350</td></row>
@@ -3866,8 +3882,9 @@
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>899707350</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>899707350</td></row>
 		<row><td>ID_STRING1</td><td>1033</td><td/><td>0</td><td/><td>899727830</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>http://www.EEDev.com</td><td>0</td><td/><td>899711606</td></row>
-		<row><td>ID_STRING3</td><td>1033</td><td>EEDev</td><td>0</td><td/><td>899680758</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>http://www.EEDev.com</td><td>0</td><td/><td>1302356463</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>EEDev</td><td>0</td><td/><td>1302356463</td></row>
+		<row><td>ID_STRING4</td><td>1033</td><td>=-NewEnvironment1</td><td>0</td><td/><td>1302342094</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>899707350</td></row>
 	</table>
 
@@ -4021,6 +4038,7 @@
 		<row><td>ISSelfRegisterCosting</td><td/><td>2201</td><td/><td/></row>
 		<row><td>ISSelfRegisterFiles</td><td/><td>5601</td><td/><td/></row>
 		<row><td>ISSelfRegisterFinalize</td><td/><td>6601</td><td/><td/></row>
+		<row><td>ISSetAllUsers</td><td>Not Installed</td><td>10</td><td/><td/></row>
 		<row><td>ISUnSelfRegisterFiles</td><td/><td>2202</td><td/><td/></row>
 		<row><td>InstallFiles</td><td/><td>4000</td><td>InstallFiles</td><td/></row>
 		<row><td>InstallFinalize</td><td/><td>6600</td><td>InstallFinalize</td><td/></row>
@@ -4090,8 +4108,8 @@
 		<col def="S0">Value</col>
 		<row><td>ActiveLanguage</td><td>1033</td></row>
 		<row><td>Comments</td><td/></row>
-		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="de9f554a3bc05c12be9c31b998217995">
-UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
+		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="6d78a46bf2c52ee27034bbcad20f7f95">
+QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 			</td></row>
 		<row><td>DefaultProductConfiguration</td><td>Express</td></row>
 		<row><td>EnableSwidtag</td><td>0</td></row>
@@ -4108,7 +4126,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{703B004E-FD45-4C80-AE8D-5042E8E2F31E}</td></row>
 		<row><td>ISUSSignature</td><td>{4243E5A0-A1F4-4366-ADCC-0AA9D3C76DED}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewProject,viewUpdateService,viewUI,viewSetupTypes,viewSetupDesign,viewRealSetupDesign,viewAppFiles,viewFeatureFiles,viewObjects,viewDependencies,viewCE,viewShortcuts,viewIniFiles,viewRegistry,viewISToday</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewProject,viewUpdateService,viewUI,viewSetupTypes,viewSetupDesign,viewRealSetupDesign,viewAppFiles,viewFeatureFiles,viewObjects,viewDependencies,viewCE,viewShortcuts,viewIniFiles,viewRegistry,viewISToday,viewAppV,viewUpgradePaths,viewFileExtensions,viewEnvironmentVariables,viewVRoots,viewSQLServer,viewTextMessages,viewBillboards,viewSystemSearch,viewCustomActions,viewRelease</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4138,6 +4156,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>FileCost</td><td/><td>900</td><td>FileCost</td><td/></row>
 		<row><td>FindRelatedProducts</td><td/><td>430</td><td>FindRelatedProducts</td><td/></row>
 		<row><td>ISPreventDowngrade</td><td>ISFOUNDNEWERPRODUCTVERSION</td><td>450</td><td>ISPreventDowngrade</td><td/></row>
+		<row><td>ISSetAllUsers</td><td>Not Installed</td><td>10</td><td/><td/></row>
 		<row><td>InstallWelcome</td><td>Not Installed</td><td>1210</td><td>InstallWelcome</td><td/></row>
 		<row><td>IsolateComponents</td><td/><td>950</td><td>IsolateComponents</td><td/></row>
 		<row><td>LaunchConditions</td><td>Not Installed</td><td>410</td><td>LaunchConditions</td><td/></row>
@@ -4453,6 +4472,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>IS_SQLSERVER_SERVER</td><td/><td/></row>
 		<row><td>IS_SQLSERVER_USERNAME</td><td>sa</td><td/></row>
 		<row><td>InstallChoice</td><td>AR</td><td/></row>
+		<row><td>LAUNCHPROGRAM</td><td>1</td><td/></row>
 		<row><td>MSIFASTINSTALL</td><td>7</td><td/></row>
 		<row><td>Manufacturer</td><td>##COMPANY_NAME##</td><td/></row>
 		<row><td>PIDKEY</td><td/><td/></row>
@@ -4494,9 +4514,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>RestartManagerOption</td><td>CloseRestart</td><td/></row>
 		<row><td>SERIALNUMBER</td><td/><td/></row>
 		<row><td>SERIALNUMVALSUCCESSRETVAL</td><td>1</td><td/></row>
-		<row><td>SHOWLAUNCHPROGRAM</td><td>0</td><td/></row>
+		<row><td>SHOWLAUNCHPROGRAM</td><td>-1</td><td/></row>
 		<row><td>SHOWLAUNCHREADME</td><td>0</td><td/></row>
-		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION45FULL</td><td/></row>
+		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION45FULL;ISACTIONPROP1</td><td/></row>
 		<row><td>SelectedSetupType</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
 		<row><td>UpgradeCode</td><td>{253076B4-0DB7-4D65-8B05-38E385D8E623}</td><td/></row>
@@ -4552,6 +4572,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S0">Value</col>
 		<col def="s72">Component_</col>
 		<col def="I4">ISAttributes</col>
+		<row><td>Registry1</td><td>2</td><td>SOFTWARE\Microsoft\.NETFramework\v4.5.50709\AssemblyFoldersEx\EECloud</td><td/><td>[INSTALLDIR]API/</td><td>ISX_DEFAULTCOMPONENT1</td><td>0</td></row>
 	</table>
 
 	<table name="RemoveFile">
@@ -4767,6 +4788,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="s72">ActionProperty</col>
 		<col def="S72">ISDisplayName</col>
 		<row><td>{00000000-0000-0000-0000-000000000000}</td><td>***ALL_VERSIONS***</td><td></td><td></td><td>2</td><td/><td>ISFOUNDNEWERPRODUCTVERSION</td><td>ISPreventDowngrade</td></row>
+		<row><td>{253076B4-0DB7-4D65-8B05-38E385D8E623}</td><td></td><td>1.00.0000</td><td></td><td>768</td><td/><td>ISACTIONPROP1</td><td>NewUpgradeEntry1</td></row>
 	</table>
 
 	<table name="Verb">
