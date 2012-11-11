@@ -39,7 +39,7 @@ Module ModuleMain
                 LoadAssembies(client, My.Settings.LoginWorldID, {assembly})
             End If
         Else
-            LoadAssembies(client, My.Settings.LoginWorldID, GetAssemblies(My.Application.Info.DirectoryPath))
+            LoadDefaultAssemblies(client)
         End If
 
         If Not loadTask.IsCompleted Then
@@ -122,10 +122,23 @@ Module ModuleMain
         End If
     End Function
 
+    Private Sub LoadDefaultAssemblies(client As IClient(Of Player))
+        Dim dir As String = Directory.GetCurrentDirectory
+        LoadAssembies(client, My.Settings.LoginWorldID, GetAssemblies(dir))
+
+        If Cloud.AppEnvironment = AppEnvironment.Dev Then
+            Dim pluginDir As String = dir & "\Plugins"
+            If Not Directory.Exists(pluginDir) Then
+                Directory.CreateDirectory(pluginDir)
+            End If
+            LoadAssembies(client, My.Settings.LoginWorldID, GetAssemblies(pluginDir))
+        End If
+    End Sub
+
     Private Sub LoadAssembies(client As IClient(Of Player), worldID As String, assemblies As IEnumerable(Of Assembly))
         'Checking for valid plugins
         Dim plugins As IEnumerable(Of Type) =
-                From assembly As Assembly In assemblies
+                From assembly As Assembly In assemblies.AsParallel
                 From type As Type In assembly.GetTypes
                 Where GetType(IPlugin).IsAssignableFrom(type)
                 Let attributes As Object() = type.GetCustomAttributes(GetType(PluginAttribute), True)

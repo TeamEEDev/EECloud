@@ -11,7 +11,7 @@ Imports System.Resources
 
 <Assembly: AssemblyTitle("EECloud.API")>
 <Assembly: AssemblyDescription("EECloud API")>
-<Assembly: AssemblyCompany("Processor and Jojatekok")>
+<Assembly: AssemblyCompany("EEDev")> 
 <Assembly: AssemblyProduct("EECloud")>
 <Assembly: AssemblyCopyright("")>
 <Assembly: AssemblyTrademark("")>
