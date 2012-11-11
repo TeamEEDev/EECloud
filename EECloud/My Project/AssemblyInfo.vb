@@ -8,7 +8,7 @@ Imports System.Resources
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("EECloud Alpha")> 
+<Assembly: AssemblyTitle("EECloud Beta")> 
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("EEDev")>
 <Assembly: AssemblyProduct("EECloud")>
@@ -31,7 +31,7 @@ Imports System.Resources
     ' by using the '*' as shown below:
     ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("0.3.0.0")> 
-<Assembly: AssemblyFileVersion("0.1.0.0")>
+<Assembly: AssemblyVersion("0.5.0.0")> 
+<Assembly: AssemblyFileVersion("1.0.0.0")> 
 
 <Assembly: NeutralResourcesLanguage("en")>
