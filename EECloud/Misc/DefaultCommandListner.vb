@@ -1,4 +1,6 @@
-﻿Public NotInheritable Class DefaultCommandListner
+﻿Imports System.IO
+
+Public NotInheritable Class DefaultCommandListner
 #Region "Fields"
     Private ReadOnly myClient As IClient(Of Player)
 
@@ -8,6 +10,11 @@
 
     Sub New(ByVal client As IClient(Of Player))
         myClient = client
+    End Sub
+
+    <Command("open", Group.Host)>
+    Public Sub OpenCommand(cmd As ICommand(Of Player))
+        Process.Start(Directory.GetCurrentDirectory & "\Plugins\")
     End Sub
 
     <Command("help", Group.Trusted)>
