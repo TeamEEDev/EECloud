@@ -286,7 +286,7 @@ Public NotInheritable Class Connection
         myWorldID = id
 
         'Registering messages
-        RegisterStartmessages()
+        RegisterStartMessages()
 
         'Initing Client
         Send(New InitSendMessage)
@@ -762,7 +762,7 @@ Public NotInheritable Class Connection
     Private myRegisteredStartMessages As Boolean
     Private myRegisteredMessages As Boolean
 
-    Private Sub RegisterStartmessages()
+    Private Sub RegisterStartMessages()
         SyncLock myLockObj
             If myRegisteredStartMessages = False Then
                 myRegisteredStartMessages = True
