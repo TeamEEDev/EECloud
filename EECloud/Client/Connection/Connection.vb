@@ -698,8 +698,11 @@ Public NotInheritable Class Connection
                 For n As UInteger = 0 To CType(m.Count - 1, UInteger)
                     messageArguments.Add("   [" & m.Item(n).GetType().Name & "] " & CType(m.Item(n), String))
                 Next
-                Cloud.Logger.Log(LogPriority.Warning, "Received unregistered message: " & """" & m.Type & """" & vbCrLf & "(Arguments: {" & vbCrLf & _
-                                 String.Join(vbCrLf, messageArguments) & vbCrLf & "})")
+
+                Cloud.Logger.Log(LogPriority.Warning, "Received unregistered message: " & """" & m.Type & """" & vbCrLf & _
+                                 "(Arguments: {" & vbCrLf & _
+                                 String.Join(vbCrLf, messageArguments) & vbCrLf & _
+                                 "})")
             End If
         Catch ex As Exception
             Cloud.Logger.Log(LogPriority.Error, "Failed to parse message: """ & m.Type & """")
@@ -845,6 +848,5 @@ Public NotInheritable Class Connection
     End Sub
 
 #End Region
-
 #End Region
 End Class
