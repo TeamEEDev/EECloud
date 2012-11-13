@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <DOCUMENT Type="Advanced Installer" CreateVersion="9.6.1" version="9.6.1" Modules="professional" RootPath="." Language="hu" Id="{F5CED69A-4646-442B-BCEB-FB51B6C80A2F}">
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiValidationComponent">
+    <ROW Table="File" Column="Sequence" MinValue="1" MaxValue="32767" Description="Sequence with respect to the media images; order must track cabinet order." Options="0" ColumnType="2" ColumnIndex="7" ColumnSize="2" MsiKey="File#Sequence"/>
+    <ROW Table="Media" Column="LastSequence" MinValue="0" MaxValue="32767" Description="File sequence number for the last file for this media." Options="0" ColumnType="2" ColumnIndex="1" ColumnSize="2" MsiKey="Media#LastSequence"/>
+  </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_FINDEXE_TITLE" Value="Select the installation package for [|ProductName]" ValueLocId="AI.Property.FindExeTitle"/>
     <ROW Property="AI_MINDOTNETVERSION" MultiBuildValue="DefaultBuild:4.5" ValueLocId="-"/>
@@ -10,7 +14,7 @@
     <ROW Property="MSIFASTINSTALL" MultiBuildValue="DefaultBuild:7"/>
     <ROW Property="Manufacturer" Value="EEDev"/>
     <ROW Property="ProductCode" Value="1038:{4549AE49-0F52-4ED3-B0ED-85707AB77590} " Type="16"/>
-    <ROW Property="ProductLanguage" Value="1033"/>
+    <ROW Property="ProductLanguage" Value="1038"/>
     <ROW Property="ProductName" Value="EECloud"/>
     <ROW Property="ProductVersion" Value="0.5.0.0" Type="32"/>
     <ROW Property="RUNAPPLICATION" Value="1" Type="4"/>
@@ -33,8 +37,8 @@
     <ROW Component="SHORTCUTDIR" ComponentId="{8F6E93D3-CB6E-4355-94FD-B57EE910D1E9}" Directory_="SHORTCUTDIR" Attributes="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
-    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="AI_ExePath EECloud.API.dll EECloud.exe ProductInformation SHORTCUTDIR"/>
-    <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
+    <ROW Feature="EECloud" Title="EECloud" Description="Installs all the things needed for EECloud" Display="1" Level="1" Directory_="APPDIR" Attributes="24" Components="AI_ExePath EECloud.API.dll EECloud.exe ProductInformation SHORTCUTDIR"/>
+    <ATTRIBUTE name="CurrentFeature" value="EECloud"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
     <ROW File="EECloud.API.dll" Component_="EECloud.API.dll" FileName="EEClou~1.dll|EECloud.API.dll" Attributes="0" SourcePath="..\EECloud.API\bin\Release\EECloud.API.dll" SelfReg="false" NextFile="EECloud.exe"/>
