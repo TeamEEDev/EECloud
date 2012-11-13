@@ -25,7 +25,7 @@ Global
 		{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}.Debug|Default.Build.0 = Debug|x86
 		{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}.Release|Default.ActiveCfg = Release|x86
 		{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}.Release|Default.Build.0 = Release|x86
-		{22C75DD8-0651-4876-953D-FC1BF2612149}.Debug|Default.ActiveCfg = SingleImage
+		{22C75DD8-0651-4876-953D-FC1BF2612149}.Debug|Default.ActiveCfg = CD_ROM
 		{22C75DD8-0651-4876-953D-FC1BF2612149}.Release|Default.ActiveCfg = SingleImage
 		{22C75DD8-0651-4876-953D-FC1BF2612149}.Release|Default.Build.0 = SingleImage
 	EndGlobalSection
