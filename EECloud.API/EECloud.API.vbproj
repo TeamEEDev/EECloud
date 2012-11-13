@@ -79,6 +79,9 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\EECloud\SharedAssemblyInfo.vb">
+      <Link>SharedAssemblyInfo.vb</Link>
+    </Compile>
     <Compile Include="Cloud.vb" />
     <Compile Include="Attributes\CommandAttribute.vb" />
     <Compile Include="Enums\AccountType.vb" />

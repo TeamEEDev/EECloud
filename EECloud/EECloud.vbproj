@@ -175,6 +175,7 @@
     </Compile>
     <Compile Include="Client\PluginManager\PluginObject.vb" />
     <Compile Include="Misc\Secret.vb" />
+    <Compile Include="SharedAssemblyInfo.vb" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
