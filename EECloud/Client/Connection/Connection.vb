@@ -286,7 +286,7 @@ Public NotInheritable Class Connection
         myWorldID = id
 
         'Registering messages
-        RegisterStartmessages()
+        'RegisterStartmessages()
 
         'Initing Client
         Send(New InitSendMessage)
@@ -694,11 +694,15 @@ Public NotInheritable Class Connection
                 Dim message As ReceiveMessage = CType(constructorInfo.Invoke(New Object() {m}), ReceiveMessage)
                 RaiseEvent ReceiveMessage(Me, message)
             Else
-                Cloud.Logger.Log(LogPriority.Warning, "Received not registered message: " & m.Type)
-                Cloud.Logger.Log(LogPriority.Warning, m.ToString)
+                Dim messageArguments As New List(Of String)
+                For n As UInteger = 0 To CType(m.Count - 1, UInteger)
+                    messageArguments.Add("   [" & m.Item(n).GetType().Name & "] " & CType(m.Item(n), String))
+                Next
+                Cloud.Logger.Log(LogPriority.Warning, "Received unregistered message: " & """" & m.Type & """" & vbCrLf & "(Arguments: {" & vbCrLf & _
+                                 String.Join(vbCrLf, messageArguments) & vbCrLf & "})")
             End If
         Catch ex As Exception
-            Cloud.Logger.Log(LogPriority.Error, "Failed to parse message: " & m.Type)
+            Cloud.Logger.Log(LogPriority.Error, "Failed to parse message: """ & m.Type & """")
             Cloud.Logger.LogEx(ex)
         End Try
     End Sub
