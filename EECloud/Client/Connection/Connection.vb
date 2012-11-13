@@ -286,7 +286,7 @@ Public NotInheritable Class Connection
         myWorldID = id
 
         'Registering messages
-        'RegisterStartmessages()
+        RegisterStartmessages()
 
         'Initing Client
         Send(New InitSendMessage)
