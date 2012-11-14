@@ -1909,6 +1909,8 @@
 	<table name="ISAssistantTag">
 		<col key="yes" def="s72">Tag</col>
 		<col def="S255">Data</col>
+		<row><td>PROJECT_ASSISTANT_DEFAULT_FEATURE</td><td>AlwaysInstall</td></row>
+		<row><td>PROJECT_ASSISTANT_FEATURES</td><td>NonSelectable</td></row>
 	</table>
 
 	<table name="ISBillBoard">
@@ -4131,7 +4133,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{366F7222-A6B7-458C-BEB9-93907E792F31}</td></row>
 		<row><td>ISUSSignature</td><td>{C6A669F4-D90F-435C-9645-B8624122BF15}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewProject,viewAppFiles,viewRegistry,viewRelease,viewSystemSearch,viewUI,viewISToday,viewTextMessages,viewObjects,viewShortcuts,viewSetupDesign,viewRealSetupDesign</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewProject,viewAppFiles,viewRegistry,viewRelease,viewSystemSearch,viewUI,viewISToday,viewTextMessages,viewObjects,viewShortcuts,viewSetupDesign,viewRealSetupDesign,viewAppV,viewUpdateService</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
