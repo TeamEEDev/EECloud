@@ -1,7 +1,7 @@
 ﻿Imports PlayerIOClient
 Imports System.Reflection
 
-Public NotInheritable Class Connection
+Friend NotInheritable Class Connection
     Implements IConnection
 
 #Region "Fields"
@@ -39,231 +39,231 @@ Public NotInheritable Class Connection
 #End Region
 
 #Region "Events"
-    Public Event Disconnect(sender As Object, e As DisconnectEventArgs) Implements IConnection.Disconnect
+    Friend Event Disconnect(sender As Object, e As DisconnectEventArgs) Implements IConnection.Disconnect
 
-    Public Event Disconnecting(sender As Object, e As EventArgs) Implements IConnection.Disconnecting
+    Friend Event Disconnecting(sender As Object, e As EventArgs) Implements IConnection.Disconnecting
 
-    Public Event ReceiveAccess(sender As Object, e As AccessReceiveMessage) Implements IConnection.ReceiveAccess
+    Friend Event ReceiveAccess(sender As Object, e As AccessReceiveMessage) Implements IConnection.ReceiveAccess
 
-    Public Event ReceiveAdd(sender As Object, e As AddReceiveMessage) Implements IConnection.ReceiveAdd
+    Friend Event ReceiveAdd(sender As Object, e As AddReceiveMessage) Implements IConnection.ReceiveAdd
 
-    Public Event ReceiveAutoText(sender As Object, e As AutoTextReceiveMessage) Implements IConnection.ReceiveAutoText
+    Friend Event ReceiveAutoText(sender As Object, e As AutoTextReceiveMessage) Implements IConnection.ReceiveAutoText
 
-    Public Event ReceiveBlockPlace(sender As Object, e As BlockPlaceReceiveMessage) Implements IConnection.ReceiveBlockPlace
+    Friend Event ReceiveBlockPlace(sender As Object, e As BlockPlaceReceiveMessage) Implements IConnection.ReceiveBlockPlace
 
-    Public Event ReceiveClear(sender As Object, e As ClearReceiveMessage) Implements IConnection.ReceiveClear
+    Friend Event ReceiveClear(sender As Object, e As ClearReceiveMessage) Implements IConnection.ReceiveClear
 
-    Public Event ReceiveCoin(sender As Object, e As CoinReceiveMessage) Implements IConnection.ReceiveCoin
+    Friend Event ReceiveCoin(sender As Object, e As CoinReceiveMessage) Implements IConnection.ReceiveCoin
 
-    Public Event ReceiveCoinDoorPlace(sender As Object, e As CoinDoorPlaceReceiveMessage) Implements IConnection.ReceiveCoinDoorPlace
+    Friend Event ReceiveCoinDoorPlace(sender As Object, e As CoinDoorPlaceReceiveMessage) Implements IConnection.ReceiveCoinDoorPlace
 
-    Public Event ReceiveCrown(sender As Object, e As CrownReceiveMessage) Implements IConnection.ReceiveCrown
+    Friend Event ReceiveCrown(sender As Object, e As CrownReceiveMessage) Implements IConnection.ReceiveCrown
 
-    Public Event ReceiveFace(sender As Object, e As FaceReceiveMessage) Implements IConnection.ReceiveFace
+    Friend Event ReceiveFace(sender As Object, e As FaceReceiveMessage) Implements IConnection.ReceiveFace
 
-    Public Event ReceiveGiveFireWizard(sender As Object, e As GiveFireWizardReceiveMessage) Implements IConnection.ReceiveGiveFireWizard
+    Friend Event ReceiveGiveFireWizard(sender As Object, e As GiveFireWizardReceiveMessage) Implements IConnection.ReceiveGiveFireWizard
 
-    Public Event ReceiveGiveGrinch(sender As Object, e As GiveGrinchReceiveMessage) Implements IConnection.ReceiveGiveGrinch
+    Friend Event ReceiveGiveGrinch(sender As Object, e As GiveGrinchReceiveMessage) Implements IConnection.ReceiveGiveGrinch
 
-    Public Event ReceiveGiveWitch(sender As Object, e As GiveWitchReceiveMessage) Implements IConnection.ReceiveGiveWitch
+    Friend Event ReceiveGiveWitch(sender As Object, e As GiveWitchReceiveMessage) Implements IConnection.ReceiveGiveWitch
 
-    Public Event ReceiveGiveWizard(sender As Object, e As GiveWizardReceiveMessage) Implements IConnection.ReceiveGiveWizard
+    Friend Event ReceiveGiveWizard(sender As Object, e As GiveWizardReceiveMessage) Implements IConnection.ReceiveGiveWizard
 
-    Public Event ReceiveGodMode(sender As Object, e As GodModeReceiveMessage) Implements IConnection.ReceiveGodMode
+    Friend Event ReceiveGodMode(sender As Object, e As GodModeReceiveMessage) Implements IConnection.ReceiveGodMode
 
-    Public Event ReceiveGroupDisallowedJoin(sender As Object, e As GroupDisallowedJoinReceiveMessage) Implements IConnection.ReceiveGroupDisallowedJoin
+    Friend Event ReceiveGroupDisallowedJoin(sender As Object, e As GroupDisallowedJoinReceiveMessage) Implements IConnection.ReceiveGroupDisallowedJoin
 
-    Public Event ReceiveHideKey(sender As Object, e As HideKeyReceiveMessage) Implements IConnection.ReceiveHideKey
+    Friend Event ReceiveHideKey(sender As Object, e As HideKeyReceiveMessage) Implements IConnection.ReceiveHideKey
 
-    Public Event ReceiveInfo(sender As Object, e As InfoReceiveMessage) Implements IConnection.ReceiveInfo
+    Friend Event ReceiveInfo(sender As Object, e As InfoReceiveMessage) Implements IConnection.ReceiveInfo
 
-    Public Event ReceiveInit(sender As Object, e As InitReceiveMessage) Implements IConnection.ReceiveInit
+    Friend Event ReceiveInit(sender As Object, e As InitReceiveMessage) Implements IConnection.ReceiveInit
 
-    Public Event ReceiveLabelPlace(sender As Object, e As LabelPlaceReceiveMessage) Implements IConnection.ReceiveLabelPlace
+    Friend Event ReceiveLabelPlace(sender As Object, e As LabelPlaceReceiveMessage) Implements IConnection.ReceiveLabelPlace
 
-    Public Event ReceiveLeft(sender As Object, e As LeftReceiveMessage) Implements IConnection.ReceiveLeft
+    Friend Event ReceiveLeft(sender As Object, e As LeftReceiveMessage) Implements IConnection.ReceiveLeft
 
-    Public Event ReceiveLostAccess(sender As Object, e As LostAccessReceiveMessage) Implements IConnection.ReceiveLostAccess
+    Friend Event ReceiveLostAccess(sender As Object, e As LostAccessReceiveMessage) Implements IConnection.ReceiveLostAccess
 
-    Public Event ReceiveMessage(sender As Object, e As ReceiveMessage) Implements IConnection.ReceiveMessage
+    Friend Event ReceiveMessage(sender As Object, e As ReceiveMessage) Implements IConnection.ReceiveMessage
 
-    Public Event ReceiveModMode(sender As Object, e As ModModeReceiveMessage) Implements IConnection.ReceiveModMode
+    Friend Event ReceiveModMode(sender As Object, e As ModModeReceiveMessage) Implements IConnection.ReceiveModMode
 
-    Public Event ReceiveMove(sender As Object, e As MoveReceiveMessage) Implements IConnection.ReceiveMove
+    Friend Event ReceiveMove(sender As Object, e As MoveReceiveMessage) Implements IConnection.ReceiveMove
 
-    Public Event ReceivePortalPlace(sender As Object, e As PortalPlaceReceiveMessage) Implements IConnection.ReceivePortalPlace
+    Friend Event ReceivePortalPlace(sender As Object, e As PortalPlaceReceiveMessage) Implements IConnection.ReceivePortalPlace
 
-    Public Event ReceivePotion(sender As Object, e As PotionReceiveMessage) Implements IConnection.ReceivePotion
+    Friend Event ReceivePotion(sender As Object, e As PotionReceiveMessage) Implements IConnection.ReceivePotion
 
-    Public Event ReceiveRefreshShop(sender As Object, e As RefreshShopReceiveMessage) Implements IConnection.ReceiveRefreshShop
+    Friend Event ReceiveRefreshShop(sender As Object, e As RefreshShopReceiveMessage) Implements IConnection.ReceiveRefreshShop
 
-    Public Event ReceiveReset(sender As Object, e As ResetReceiveMessage) Implements IConnection.ReceiveReset
+    Friend Event ReceiveReset(sender As Object, e As ResetReceiveMessage) Implements IConnection.ReceiveReset
 
-    Public Event ReceiveSaveDone(sender As Object, e As SaveDoneReceiveMessage) Implements IConnection.ReceiveSaveDone
+    Friend Event ReceiveSaveDone(sender As Object, e As SaveDoneReceiveMessage) Implements IConnection.ReceiveSaveDone
 
-    Public Event ReceiveSay(sender As Object, e As SayReceiveMessage) Implements IConnection.ReceiveSay
+    Friend Event ReceiveSay(sender As Object, e As SayReceiveMessage) Implements IConnection.ReceiveSay
 
-    Public Event ReceiveSayOld(sender As Object, e As SayOldReceiveMessage) Implements IConnection.ReceiveSayOld
+    Friend Event ReceiveSayOld(sender As Object, e As SayOldReceiveMessage) Implements IConnection.ReceiveSayOld
 
-    Public Event ReceiveShowKey(sender As Object, e As ShowKeyReceiveMessage) Implements IConnection.ReceiveShowKey
+    Friend Event ReceiveShowKey(sender As Object, e As ShowKeyReceiveMessage) Implements IConnection.ReceiveShowKey
 
-    Public Event ReceiveSilverCrown(sender As Object, e As SilverCrownReceiveMessage) Implements IConnection.ReceiveSilverCrown
+    Friend Event ReceiveSilverCrown(sender As Object, e As SilverCrownReceiveMessage) Implements IConnection.ReceiveSilverCrown
 
-    Public Event ReceiveSoundPlace(sender As Object, e As SoundPlaceReceiveMessage) Implements IConnection.ReceiveSoundPlace
+    Friend Event ReceiveSoundPlace(sender As Object, e As SoundPlaceReceiveMessage) Implements IConnection.ReceiveSoundPlace
 
-    Public Event ReceiveTeleport(sender As Object, e As TeleportReceiveMessage) Implements IConnection.ReceiveTeleport
+    Friend Event ReceiveTeleport(sender As Object, e As TeleportReceiveMessage) Implements IConnection.ReceiveTeleport
 
-    Public Event ReceiveUpdateMeta(sender As Object, e As UpdateMetaReceiveMessage) Implements IConnection.ReceiveUpdateMeta
+    Friend Event ReceiveUpdateMeta(sender As Object, e As UpdateMetaReceiveMessage) Implements IConnection.ReceiveUpdateMeta
 
-    Public Event ReceiveUpgrade(sender As Object, e As UpgradeReceiveMessage) Implements IConnection.ReceiveUpgrade
+    Friend Event ReceiveUpgrade(sender As Object, e As UpgradeReceiveMessage) Implements IConnection.ReceiveUpgrade
 
-    Public Event ReceiveWrite(sender As Object, e As WriteReceiveMessage) Implements IConnection.ReceiveWrite
+    Friend Event ReceiveWrite(sender As Object, e As WriteReceiveMessage) Implements IConnection.ReceiveWrite
 
-    Public Event SendAccess(sender As Object, e As Cancelable(Of AccessSendMessage)) Implements IConnection.SendAccess
+    Friend Event SendAccess(sender As Object, e As Cancelable(Of AccessSendMessage)) Implements IConnection.SendAccess
 
-    Public Event SendAutoSay(sender As Object, e As Cancelable(Of AutoSaySendMessage)) Implements IConnection.SendAutoSay
+    Friend Event SendAutoSay(sender As Object, e As Cancelable(Of AutoSaySendMessage)) Implements IConnection.SendAutoSay
 
-    Public Event SendBlockPlace(sender As Object, e As Cancelable(Of BlockPlaceSendMessage)) Implements IConnection.SendBlockPlace
+    Friend Event SendBlockPlace(sender As Object, e As Cancelable(Of BlockPlaceSendMessage)) Implements IConnection.SendBlockPlace
 
-    Public Event SendChangeFace(sender As Object, e As Cancelable(Of ChangeFaceSendMessage)) Implements IConnection.SendChangeFace
+    Friend Event SendChangeFace(sender As Object, e As Cancelable(Of ChangeFaceSendMessage)) Implements IConnection.SendChangeFace
 
-    Public Event SendChangeWorldEditKey(sender As Object, e As Cancelable(Of ChangeWorldEditKeySendMessage)) Implements IConnection.SendChangeWorldEditKey
+    Friend Event SendChangeWorldEditKey(sender As Object, e As Cancelable(Of ChangeWorldEditKeySendMessage)) Implements IConnection.SendChangeWorldEditKey
 
-    Public Event SendChangeWorldName(sender As Object, e As Cancelable(Of ChangeWorldNameSendMessage)) Implements IConnection.SendChangeWorldName
+    Friend Event SendChangeWorldName(sender As Object, e As Cancelable(Of ChangeWorldNameSendMessage)) Implements IConnection.SendChangeWorldName
 
-    Public Event SendClearWorld(sender As Object, e As Cancelable(Of ClearWorldSendMessage)) Implements IConnection.SendClearWorld
+    Friend Event SendClearWorld(sender As Object, e As Cancelable(Of ClearWorldSendMessage)) Implements IConnection.SendClearWorld
 
-    Public Event SendCoin(sender As Object, e As Cancelable(Of CoinSendMessage)) Implements IConnection.SendCoin
+    Friend Event SendCoin(sender As Object, e As Cancelable(Of CoinSendMessage)) Implements IConnection.SendCoin
 
-    Public Event SendCoindoorPlace(sender As Object, e As Cancelable(Of CoinDoorPlaceSendMessage)) Implements IConnection.SendCoindoorPlace
+    Friend Event SendCoindoorPlace(sender As Object, e As Cancelable(Of CoinDoorPlaceSendMessage)) Implements IConnection.SendCoindoorPlace
 
-    Public Event SendCompleteLevel(sender As Object, e As Cancelable(Of CompleteLevelSendMessage)) Implements IConnection.SendCompleteLevel
+    Friend Event SendCompleteLevel(sender As Object, e As Cancelable(Of CompleteLevelSendMessage)) Implements IConnection.SendCompleteLevel
 
-    Public Event SendGetCrown(sender As Object, e As Cancelable(Of GetCrownSendMessage)) Implements IConnection.SendGetCrown
+    Friend Event SendGetCrown(sender As Object, e As Cancelable(Of GetCrownSendMessage)) Implements IConnection.SendGetCrown
 
-    Public Event SendGodMode(sender As Object, e As Cancelable(Of GodModeSendMessage)) Implements IConnection.SendGodMode
+    Friend Event SendGodMode(sender As Object, e As Cancelable(Of GodModeSendMessage)) Implements IConnection.SendGodMode
 
-    Public Event SendInit(sender As Object, e As Cancelable(Of InitSendMessage)) Implements IConnection.SendInit
+    Friend Event SendInit(sender As Object, e As Cancelable(Of InitSendMessage)) Implements IConnection.SendInit
 
-    Public Event SendInit2(sender As Object, e As Cancelable(Of Init2SendMessage)) Implements IConnection.SendInit2
+    Friend Event SendInit2(sender As Object, e As Cancelable(Of Init2SendMessage)) Implements IConnection.SendInit2
 
-    Public Event SendKillWorld(sender As Object, e As Cancelable(Of KillWorldSendMessage)) Implements IConnection.SendKillWorld
+    Friend Event SendKillWorld(sender As Object, e As Cancelable(Of KillWorldSendMessage)) Implements IConnection.SendKillWorld
 
-    Public Event SendLabelPlace(sender As Object, e As Cancelable(Of LabelPlaceSendMessage)) Implements IConnection.SendLabelPlace
+    Friend Event SendLabelPlace(sender As Object, e As Cancelable(Of LabelPlaceSendMessage)) Implements IConnection.SendLabelPlace
 
-    Public Event SendMessage(sender As Object, e As SendMessage) Implements IConnection.SendMessage
+    Friend Event SendMessage(sender As Object, e As SendMessage) Implements IConnection.SendMessage
 
-    Public Event SendModMode(sender As Object, e As Cancelable(Of ModModeSendMessage)) Implements IConnection.SendModMode
+    Friend Event SendModMode(sender As Object, e As Cancelable(Of ModModeSendMessage)) Implements IConnection.SendModMode
 
-    Public Event SendMove(sender As Object, e As Cancelable(Of MoveSendMessage)) Implements IConnection.SendMove
+    Friend Event SendMove(sender As Object, e As Cancelable(Of MoveSendMessage)) Implements IConnection.SendMove
 
-    Public Event SendPortalPlace(sender As Object, e As Cancelable(Of PortalPlaceSendMessage)) Implements IConnection.SendPortalPlace
+    Friend Event SendPortalPlace(sender As Object, e As Cancelable(Of PortalPlaceSendMessage)) Implements IConnection.SendPortalPlace
 
-    Public Event SendPressBlueKey(sender As Object, e As Cancelable(Of PressBlueKeySendMessage)) Implements IConnection.SendPressBlueKey
+    Friend Event SendPressBlueKey(sender As Object, e As Cancelable(Of PressBlueKeySendMessage)) Implements IConnection.SendPressBlueKey
 
-    Public Event SendPressGreenKey(sender As Object, e As Cancelable(Of PressGreenKeySendMessage)) Implements IConnection.SendPressGreenKey
+    Friend Event SendPressGreenKey(sender As Object, e As Cancelable(Of PressGreenKeySendMessage)) Implements IConnection.SendPressGreenKey
 
-    Public Event SendPressRedKey(sender As Object, e As Cancelable(Of PressRedKeySendMessage)) Implements IConnection.SendPressRedKey
+    Friend Event SendPressRedKey(sender As Object, e As Cancelable(Of PressRedKeySendMessage)) Implements IConnection.SendPressRedKey
 
-    Public Event SendSaveWorld(sender As Object, e As Cancelable(Of SaveWorldSendMessage)) Implements IConnection.SendSaveWorld
+    Friend Event SendSaveWorld(sender As Object, e As Cancelable(Of SaveWorldSendMessage)) Implements IConnection.SendSaveWorld
 
-    Public Event SendSay(sender As Object, e As Cancelable(Of SaySendMessage)) Implements IConnection.SendSay
+    Friend Event SendSay(sender As Object, e As Cancelable(Of SaySendMessage)) Implements IConnection.SendSay
 
-    Public Event SendSoundPlace(sender As Object, e As Cancelable(Of SoundPlaceSendMessage)) Implements IConnection.SendSoundPlace
+    Friend Event SendSoundPlace(sender As Object, e As Cancelable(Of SoundPlaceSendMessage)) Implements IConnection.SendSoundPlace
 
-    Public Event SendTouchDiamond(sender As Object, e As Cancelable(Of TouchDiamondSendMessage)) Implements IConnection.SendTouchDiamond
+    Friend Event SendTouchDiamond(sender As Object, e As Cancelable(Of TouchDiamondSendMessage)) Implements IConnection.SendTouchDiamond
 
-    Public Event SendPotion(sender As Object, e As Cancelable(Of PotionSendMessage)) Implements IConnection.SendPotion
+    Friend Event SendPotion(sender As Object, e As Cancelable(Of PotionSendMessage)) Implements IConnection.SendPotion
 
-    Public Event SendTouchCake(sender As Object, e As Cancelable(Of TouchCakeSendMessage)) Implements IConnection.SendTouchCake
+    Friend Event SendTouchCake(sender As Object, e As Cancelable(Of TouchCakeSendMessage)) Implements IConnection.SendTouchCake
 
-    Public Event PreviewDisconnect(sender As Object, e As DisconnectEventArgs) Implements IConnection.PreviewDisconnect
+    Friend Event PreviewDisconnect(sender As Object, e As DisconnectEventArgs) Implements IConnection.PreviewDisconnect
 
-    Public Event PreviewDisconnecting(sender As Object, e As EventArgs) Implements IConnection.PreviewDisconnecting
+    Friend Event PreviewDisconnecting(sender As Object, e As EventArgs) Implements IConnection.PreviewDisconnecting
 
-    Public Event PreviewReceiveAccess(sender As Object, e As AccessReceiveMessage) Implements IConnection.PreviewReceiveAccess
+    Friend Event PreviewReceiveAccess(sender As Object, e As AccessReceiveMessage) Implements IConnection.PreviewReceiveAccess
 
-    Public Event PreviewReceiveAdd(sender As Object, e As AddReceiveMessage) Implements IConnection.PreviewReceiveAdd
+    Friend Event PreviewReceiveAdd(sender As Object, e As AddReceiveMessage) Implements IConnection.PreviewReceiveAdd
 
-    Public Event PreviewReceiveAutoText(sender As Object, e As AutoTextReceiveMessage) Implements IConnection.PreviewReceiveAutoText
+    Friend Event PreviewReceiveAutoText(sender As Object, e As AutoTextReceiveMessage) Implements IConnection.PreviewReceiveAutoText
 
-    Public Event PreviewReceiveBlockPlace(sender As Object, e As BlockPlaceReceiveMessage) Implements IConnection.PreviewReceiveBlockPlace
+    Friend Event PreviewReceiveBlockPlace(sender As Object, e As BlockPlaceReceiveMessage) Implements IConnection.PreviewReceiveBlockPlace
 
-    Public Event PreviewReceiveClear(sender As Object, e As ClearReceiveMessage) Implements IConnection.PreviewReceiveClear
+    Friend Event PreviewReceiveClear(sender As Object, e As ClearReceiveMessage) Implements IConnection.PreviewReceiveClear
 
-    Public Event PreviewReceiveCoin(sender As Object, e As CoinReceiveMessage) Implements IConnection.PreviewReceiveCoin
+    Friend Event PreviewReceiveCoin(sender As Object, e As CoinReceiveMessage) Implements IConnection.PreviewReceiveCoin
 
-    Public Event PreviewReceiveCoinDoorPlace(sender As Object, e As CoinDoorPlaceReceiveMessage) Implements IConnection.PreviewReceiveCoinDoorPlace
+    Friend Event PreviewReceiveCoinDoorPlace(sender As Object, e As CoinDoorPlaceReceiveMessage) Implements IConnection.PreviewReceiveCoinDoorPlace
 
-    Public Event PreviewReceiveCrown(sender As Object, e As CrownReceiveMessage) Implements IConnection.PreviewReceiveCrown
+    Friend Event PreviewReceiveCrown(sender As Object, e As CrownReceiveMessage) Implements IConnection.PreviewReceiveCrown
 
-    Public Event PreviewReceiveFace(sender As Object, e As FaceReceiveMessage) Implements IConnection.PreviewReceiveFace
+    Friend Event PreviewReceiveFace(sender As Object, e As FaceReceiveMessage) Implements IConnection.PreviewReceiveFace
 
-    Public Event PreviewReceiveGiveFireWizard(sender As Object, e As GiveFireWizardReceiveMessage) Implements IConnection.PreviewReceiveGiveFireWizard
+    Friend Event PreviewReceiveGiveFireWizard(sender As Object, e As GiveFireWizardReceiveMessage) Implements IConnection.PreviewReceiveGiveFireWizard
 
-    Public Event PreviewReceiveGiveGrinch(sender As Object, e As GiveGrinchReceiveMessage) Implements IConnection.PreviewReceiveGiveGrinch
+    Friend Event PreviewReceiveGiveGrinch(sender As Object, e As GiveGrinchReceiveMessage) Implements IConnection.PreviewReceiveGiveGrinch
 
-    Public Event PreviewReceiveGiveWitch(sender As Object, e As GiveWitchReceiveMessage) Implements IConnection.PreviewReceiveGiveWitch
+    Friend Event PreviewReceiveGiveWitch(sender As Object, e As GiveWitchReceiveMessage) Implements IConnection.PreviewReceiveGiveWitch
 
-    Public Event PreviewReceiveGiveWizard(sender As Object, e As GiveWizardReceiveMessage) Implements IConnection.PreviewReceiveGiveWizard
+    Friend Event PreviewReceiveGiveWizard(sender As Object, e As GiveWizardReceiveMessage) Implements IConnection.PreviewReceiveGiveWizard
 
-    Public Event PreviewReceiveGodMode(sender As Object, e As GodModeReceiveMessage) Implements IConnection.PreviewReceiveGodMode
+    Friend Event PreviewReceiveGodMode(sender As Object, e As GodModeReceiveMessage) Implements IConnection.PreviewReceiveGodMode
 
-    Public Event PreviewReceiveGroupDisallowedJoin(sender As Object, e As GroupDisallowedJoinReceiveMessage) Implements IConnection.PreviewReceiveGroupDisallowedJoin
+    Friend Event PreviewReceiveGroupDisallowedJoin(sender As Object, e As GroupDisallowedJoinReceiveMessage) Implements IConnection.PreviewReceiveGroupDisallowedJoin
 
-    Public Event PreviewReceiveHideKey(sender As Object, e As HideKeyReceiveMessage) Implements IConnection.PreviewReceiveHideKey
+    Friend Event PreviewReceiveHideKey(sender As Object, e As HideKeyReceiveMessage) Implements IConnection.PreviewReceiveHideKey
 
-    Public Event PreviewReceiveInfo(sender As Object, e As InfoReceiveMessage) Implements IConnection.PreviewReceiveInfo
+    Friend Event PreviewReceiveInfo(sender As Object, e As InfoReceiveMessage) Implements IConnection.PreviewReceiveInfo
 
-    Public Event PreviewReceiveInit(sender As Object, e As InitReceiveMessage) Implements IConnection.PreviewReceiveInit
+    Friend Event PreviewReceiveInit(sender As Object, e As InitReceiveMessage) Implements IConnection.PreviewReceiveInit
 
-    Public Event PreviewReceiveLabelPlace(sender As Object, e As LabelPlaceReceiveMessage) Implements IConnection.PreviewReceiveLabelPlace
+    Friend Event PreviewReceiveLabelPlace(sender As Object, e As LabelPlaceReceiveMessage) Implements IConnection.PreviewReceiveLabelPlace
 
-    Public Event PreviewReceiveLeft(sender As Object, e As LeftReceiveMessage) Implements IConnection.PreviewReceiveLeft
+    Friend Event PreviewReceiveLeft(sender As Object, e As LeftReceiveMessage) Implements IConnection.PreviewReceiveLeft
 
-    Public Event PreviewReceiveLostAccess(sender As Object, e As LostAccessReceiveMessage) Implements IConnection.PreviewReceiveLostAccess
+    Friend Event PreviewReceiveLostAccess(sender As Object, e As LostAccessReceiveMessage) Implements IConnection.PreviewReceiveLostAccess
 
-    Public Event PreviewReceiveMessage(sender As Object, e As ReceiveMessage) Implements IConnection.PreviewReceiveMessage
+    Friend Event PreviewReceiveMessage(sender As Object, e As ReceiveMessage) Implements IConnection.PreviewReceiveMessage
 
-    Public Event PreviewReceiveModMode(sender As Object, e As ModModeReceiveMessage) Implements IConnection.PreviewReceiveModMode
+    Friend Event PreviewReceiveModMode(sender As Object, e As ModModeReceiveMessage) Implements IConnection.PreviewReceiveModMode
 
-    Public Event PreviewReceiveMove(sender As Object, e As MoveReceiveMessage) Implements IConnection.PreviewReceiveMove
+    Friend Event PreviewReceiveMove(sender As Object, e As MoveReceiveMessage) Implements IConnection.PreviewReceiveMove
 
-    Public Event PreviewReceivePortalPlace(sender As Object, e As PortalPlaceReceiveMessage) Implements IConnection.PreviewReceivePortalPlace
+    Friend Event PreviewReceivePortalPlace(sender As Object, e As PortalPlaceReceiveMessage) Implements IConnection.PreviewReceivePortalPlace
 
-    Public Event PreviewReceivePotion(sender As Object, e As PotionReceiveMessage) Implements IConnection.PreviewReceivePotion
+    Friend Event PreviewReceivePotion(sender As Object, e As PotionReceiveMessage) Implements IConnection.PreviewReceivePotion
 
-    Public Event PreviewReceiveRefreshShop(sender As Object, e As RefreshShopReceiveMessage) Implements IConnection.PreviewReceiveRefreshShop
+    Friend Event PreviewReceiveRefreshShop(sender As Object, e As RefreshShopReceiveMessage) Implements IConnection.PreviewReceiveRefreshShop
 
-    Public Event PreviewReceiveReset(sender As Object, e As ResetReceiveMessage) Implements IConnection.PreviewReceiveReset
+    Friend Event PreviewReceiveReset(sender As Object, e As ResetReceiveMessage) Implements IConnection.PreviewReceiveReset
 
-    Public Event PreviewReceiveSaveDone(sender As Object, e As SaveDoneReceiveMessage) Implements IConnection.PreviewReceiveSaveDone
+    Friend Event PreviewReceiveSaveDone(sender As Object, e As SaveDoneReceiveMessage) Implements IConnection.PreviewReceiveSaveDone
 
-    Public Event PreviewReceiveSay(sender As Object, e As SayReceiveMessage) Implements IConnection.PreviewReceiveSay
+    Friend Event PreviewReceiveSay(sender As Object, e As SayReceiveMessage) Implements IConnection.PreviewReceiveSay
 
-    Public Event PreviewReceiveSayOld(sender As Object, e As SayOldReceiveMessage) Implements IConnection.PreviewReceiveSayOld
+    Friend Event PreviewReceiveSayOld(sender As Object, e As SayOldReceiveMessage) Implements IConnection.PreviewReceiveSayOld
 
-    Public Event PreviewReceiveShowKey(sender As Object, e As ShowKeyReceiveMessage) Implements IConnection.PreviewReceiveShowKey
+    Friend Event PreviewReceiveShowKey(sender As Object, e As ShowKeyReceiveMessage) Implements IConnection.PreviewReceiveShowKey
 
-    Public Event PreviewReceiveSilverCrown(sender As Object, e As SilverCrownReceiveMessage) Implements IConnection.PreviewReceiveSilverCrown
+    Friend Event PreviewReceiveSilverCrown(sender As Object, e As SilverCrownReceiveMessage) Implements IConnection.PreviewReceiveSilverCrown
 
-    Public Event PreviewReceiveSoundPlace(sender As Object, e As SoundPlaceReceiveMessage) Implements IConnection.PreviewReceiveSoundPlace
+    Friend Event PreviewReceiveSoundPlace(sender As Object, e As SoundPlaceReceiveMessage) Implements IConnection.PreviewReceiveSoundPlace
 
-    Public Event PreviewReceiveTeleport(sender As Object, e As TeleportReceiveMessage) Implements IConnection.PreviewReceiveTeleport
+    Friend Event PreviewReceiveTeleport(sender As Object, e As TeleportReceiveMessage) Implements IConnection.PreviewReceiveTeleport
 
-    Public Event PreviewReceiveUpdateMeta(sender As Object, e As UpdateMetaReceiveMessage) Implements IConnection.PreviewReceiveUpdateMeta
+    Friend Event PreviewReceiveUpdateMeta(sender As Object, e As UpdateMetaReceiveMessage) Implements IConnection.PreviewReceiveUpdateMeta
 
-    Public Event PreviewReceiveUpgrade(sender As Object, e As UpgradeReceiveMessage) Implements IConnection.PreviewReceiveUpgrade
+    Friend Event PreviewReceiveUpgrade(sender As Object, e As UpgradeReceiveMessage) Implements IConnection.PreviewReceiveUpgrade
 
-    Public Event PreviewReceiveWrite(sender As Object, e As WriteReceiveMessage) Implements IConnection.PreviewReceiveWrite
+    Friend Event PreviewReceiveWrite(sender As Object, e As WriteReceiveMessage) Implements IConnection.PreviewReceiveWrite
 
-    Public Event InitComplete(sender As Object, e As EventArgs) Implements IConnection.InitComplete
+    Friend Event InitComplete(sender As Object, e As EventArgs) Implements IConnection.InitComplete
 
-    Public Event PreviewReceiveAllowPotions(sender As Object, e As AllowPotionsReceiveMessage) Implements IConnection.PreviewReceiveAllowPotions
+    Friend Event PreviewReceiveAllowPotions(sender As Object, e As AllowPotionsReceiveMessage) Implements IConnection.PreviewReceiveAllowPotions
 
-    Public Event ReceiveAllowPotions(sender As Object, e As AllowPotionsReceiveMessage) Implements IConnection.ReceiveAllowPotions
+    Friend Event ReceiveAllowPotions(sender As Object, e As AllowPotionsReceiveMessage) Implements IConnection.ReceiveAllowPotions
 
-    Public Event SendAllowPotions(sender As Object, e As Cancelable(Of AllowPotionsSendMessage)) Implements IConnection.SendAllowPotions
+    Friend Event SendAllowPotions(sender As Object, e As Cancelable(Of AllowPotionsSendMessage)) Implements IConnection.SendAllowPotions
 #End Region
 
 #Region "Methods"
@@ -696,7 +696,7 @@ Public NotInheritable Class Connection
             Else
                 Dim messageArguments As New List(Of String)
                 For n As UInteger = 0 To CType(m.Count - 1, UInteger)
-                    messageArguments.Add("   [" & m.Item(n).GetType().Name & "] " & CType(m.Item(n), String))
+                    messageArguments.Add("   [" & m.Item(n).GetType.Name & "] " & CType(m.Item(n), String))
                 Next
 
                 Cloud.Logger.Log(LogPriority.Warning, "Received unregistered message: " & """" & m.Type & """" & vbCrLf & _
@@ -775,6 +775,7 @@ Public NotInheritable Class Connection
                 RegisterMessage("init", GetType(InitReceiveMessage))
                 RegisterMessage("show", GetType(ShowKeyReceiveMessage))
                 RegisterMessage("hide", GetType(HideKeyReceiveMessage))
+                RegisterMessage("updatemeta", GetType(UpdateMetaReceiveMessage))
             End If
         End SyncLock
     End Sub
@@ -786,7 +787,6 @@ Public NotInheritable Class Connection
                 UnRegisterMessage("init")
                 UnRegisterMessage("groupdisallowedjoin")
 
-                RegisterMessage("updatemeta", GetType(UpdateMetaReceiveMessage))
                 RegisterMessage("add", GetType(AddReceiveMessage))
                 RegisterMessage("left", GetType(LeftReceiveMessage))
                 RegisterMessage("m", GetType(MoveReceiveMessage))

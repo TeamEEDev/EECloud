@@ -17,7 +17,7 @@ Friend NotInheritable Class Uploader
 
 #Region "Events"
 
-    Public Event FinishedUpload(sender As Object, e As EventArgs) Implements IUploader.FinishedUpload
+    Friend Event FinishedUpload(sender As Object, e As EventArgs) Implements IUploader.FinishedUpload
 
 #End Region
 
@@ -79,14 +79,14 @@ Friend NotInheritable Class Uploader
         End If
     End Sub
 
-    Public Sub Upload(blockMessage As BlockPlaceUploadMessage) Implements IUploader.Upload
+    Friend Sub Upload(blockMessage As BlockPlaceUploadMessage) Implements IUploader.Upload
         If myBlockUploadQueue.Count = 0 Then
             myVersion = CUInt(myVersion + 1)
         End If
         myBlockUploadQueue.PushBack(blockMessage)
     End Sub
 
-    Public Sub Clear() Implements IUploader.Clear
+    Friend Sub Clear() Implements IUploader.Clear
         myBlockUploadQueue.Clear()
 
         SyncLock myLagCheckQueue

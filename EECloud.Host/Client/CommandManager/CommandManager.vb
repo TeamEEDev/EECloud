@@ -11,7 +11,7 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
 #End Region
 
 #Region "Properties"
-    Public ReadOnly Property Count As Integer Implements ICommandManager.Count
+    Friend ReadOnly Property Count As Integer Implements ICommandManager.Count
         Get
             Return myCommandsDictionary.Count
         End Get
@@ -152,7 +152,7 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
         End If
     End Sub
 
-    Public Sub InvokeCommand(player As Player, msg As String, rights As Group) Implements ICommandManager.InvokeCommand
+    Friend Sub InvokeCommand(player As Player, msg As String, rights As Group) Implements ICommandManager.InvokeCommand
         myInternalCommandManager.HandleMessage(msg, player.UserID, rights)
     End Sub
 
@@ -183,11 +183,11 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
         End If
     End Sub
 
-    Public Function Contains(cmd As String) As Boolean Implements ICommandManager.Contains
+    Friend Function Contains(cmd As String) As Boolean Implements ICommandManager.Contains
         Return myCommandsDictionary.ContainsKey(cmd)
     End Function
 
-    Public Function Contains(cmd As String, paramCount As Integer) As Boolean Implements ICommandManager.Contains
+    Friend Function Contains(cmd As String, paramCount As Integer) As Boolean Implements ICommandManager.Contains
         If Contains(cmd) Then
             Return myCommandsDictionary(cmd).Any(Function(cmdHandle) cmdHandle.Count <= paramCount)
         Else
@@ -216,7 +216,7 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
         MyBase.Finalize()
     End Sub
 
-    Public Sub Dispose() Implements IDisposable.Dispose
+    Friend Sub Dispose() Implements IDisposable.Dispose
         ' Do not change this code.  Put cleanup code in Dispose(disposing As Boolean) above.
         Dispose(True)
         GC.SuppressFinalize(Me)

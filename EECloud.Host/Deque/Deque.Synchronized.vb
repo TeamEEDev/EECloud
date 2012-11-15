@@ -1,6 +1,6 @@
 ﻿
 
-Partial Public Class Deque (Of T)
+Partial Friend Class Deque(Of T)
 
 #Region "SynchronizedDeque Class"
 
@@ -21,7 +21,7 @@ Partial Public Class Deque (Of T)
 
 #Region "Construction"
 
-        Public Sub New(deque As Deque(Of T))
+        Friend Sub New(deque As Deque(Of T))
 
             If deque Is Nothing Then
                 Throw New ArgumentNullException("deque")
@@ -35,73 +35,73 @@ Partial Public Class Deque (Of T)
 
 #Region "Methods"
 
-        Public Overrides Sub Clear()
+        Friend Overrides Sub Clear()
             SyncLock myRoot
                 myDeque.Clear()
             End SyncLock
         End Sub
 
-        Public Overrides Function Contains(item As T) As Boolean
+        Friend Overrides Function Contains(item As T) As Boolean
             SyncLock myRoot
                 Return myDeque.Contains(item)
             End SyncLock
         End Function
 
-        Public Overrides Sub PushFront(item As T)
+        Friend Overrides Sub PushFront(item As T)
             SyncLock myRoot
                 myDeque.PushFront(item)
             End SyncLock
         End Sub
 
-        Public Overrides Sub PushBack(item As T)
+        Friend Overrides Sub PushBack(item As T)
             SyncLock myRoot
                 myDeque.PushBack(item)
             End SyncLock
         End Sub
 
-        Public Overrides Function PopFront() As T
+        Friend Overrides Function PopFront() As T
             SyncLock myRoot
                 Return myDeque.PopFront()
             End SyncLock
         End Function
 
-        Public Overrides Function PopBack() As T
+        Friend Overrides Function PopBack() As T
             SyncLock myRoot
                 Return myDeque.PopBack()
             End SyncLock
         End Function
 
-        Public Overrides Function PeekFront() As T
+        Friend Overrides Function PeekFront() As T
             SyncLock myRoot
                 Return myDeque.PeekFront()
             End SyncLock
         End Function
 
-        Public Overrides Function PeekBack() As T
+        Friend Overrides Function PeekBack() As T
             SyncLock myRoot
                 Return myDeque.PeekBack()
             End SyncLock
         End Function
 
-        Public Overrides Function ToArray() As T()
+        Friend Overrides Function ToArray() As T()
             SyncLock myRoot
                 Return myDeque.ToArray()
             End SyncLock
         End Function
 
-        Public Overrides Function Clone() As Object
+        Friend Overrides Function Clone() As Object
             SyncLock myRoot
                 Return myDeque.Clone()
             End SyncLock
         End Function
 
-        Public Overrides Sub CopyTo(array As Array, index As Integer)
+        Friend Overrides Sub CopyTo(array As Array, index As Integer)
             SyncLock myRoot
                 myDeque.CopyTo(array, index)
             End SyncLock
         End Sub
 
-        Public Overrides Function GetEnumerator() As IEnumerator(Of T)
+        Friend Overrides Function GetEnumerator() As IEnumerator(Of T)
             SyncLock myRoot
                 Return myDeque.GetEnumerator()
             End SyncLock
@@ -117,7 +117,7 @@ Partial Public Class Deque (Of T)
 
 #Region "Properties"
 
-        Public Overrides ReadOnly Property Count() As Integer
+        Friend Overrides ReadOnly Property Count() As Integer
             Get
                 SyncLock myRoot
                     Return myDeque.Count
@@ -125,7 +125,7 @@ Partial Public Class Deque (Of T)
             End Get
         End Property
 
-        Public Overrides ReadOnly Property IsSynchronized() As Boolean
+        Friend Overrides ReadOnly Property IsSynchronized() As Boolean
             Get
                 Return True
             End Get

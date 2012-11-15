@@ -16,10 +16,10 @@
         Return New Client(Of TPlayer)(myInternalConnection, plugin)
     End Function
 
-    Public Sub DisposeClient(Of TPlayer As {New, Player})(client As IClient(Of TPlayer)) Implements IClientCloneFactory.DisposeClient
+    Friend Sub DisposeClient(Of TPlayer As {New, Player})(client As IClient(Of TPlayer)) Implements IClientCloneFactory.DisposeClient
         Dim newClient As Client(Of TPlayer) = TryCast(client, Client(Of TPlayer))
         If newClient IsNot Nothing Then
-            newClient.dispose()
+            newClient.Dispose()
         End If
     End Sub
 

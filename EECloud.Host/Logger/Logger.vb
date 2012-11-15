@@ -34,7 +34,7 @@ Friend NotInheritable Class Logger
 #Region "Methods"
 
     Friend Sub New()
-        If Not Cloud.AppEnvironment = AppEnvironment.Release Then
+        If Cloud.AppEnvironment = AppEnvironment.Dev Then
             Console.Write(">")
             Dim worker As New Thread(AddressOf HandleInput)
             worker.IsBackground = True
@@ -86,12 +86,12 @@ Friend NotInheritable Class Logger
 
     Friend Sub Log(priority As LogPriority, str As String) Implements ILogger.Log
         Dim output As String = String.Format("{0} [{1}] {2}", Now.ToLongTimeString, priority.ToString.ToUpper, str)
-        If Not Cloud.AppEnvironment = AppEnvironment.Release Then
+        If Cloud.AppEnvironment = AppEnvironment.Dev Then
             myOldTop = Console.CursorTop
             Overwrite(Input.Length + 1, output)
             Console.WriteLine()
             Console.Write(">" & Input)
-        Else
+        ElseIf Cloud.AppEnvironment = AppEnvironment.Release Then
             If myLeLogger Is Nothing Then
                 myLeLogger = New LeLogger()
             End If

@@ -7,17 +7,17 @@
     ''' The state where the program is running locally on a PC.
     ''' </summary>
     ''' <remarks></remarks>
-        Dev
+    Dev
 
     ''' <summary>
-    ''' The state where unit tests are being done.
+    ''' The state where the program is in a hosted environment.
     ''' </summary>
     ''' <remarks></remarks>
-        Test
+    Hosted
 
     ''' <summary>
     ''' The state where the program is running in the cloud.
     ''' </summary>
     ''' <remarks></remarks>
-        Release
+    Release
 End Enum

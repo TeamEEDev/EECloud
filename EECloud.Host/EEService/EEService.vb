@@ -1,7 +1,7 @@
-﻿Public Class EEService
+﻿Friend Class EEService
     Implements IEEService
 
-    Public Function GetSetting(key As String) As String Implements IEEService.GetSetting
+    Friend Function GetSetting(key As String) As String Implements IEEService.GetSetting
         If String.IsNullOrEmpty(key) Then
             Throw New ArgumentNullException("key")
         End If
@@ -18,7 +18,7 @@
         End Using
     End Function
 
-    Public Sub SetSetting(key As String, value As String) Implements IEEService.SetSetting
+    Friend Sub SetSetting(key As String, value As String) Implements IEEService.SetSetting
         If String.IsNullOrEmpty(key) Then
             Throw New ArgumentNullException("key")
         End If
@@ -40,7 +40,7 @@
 
     End Sub
 
-    Public Function GetPlayerData(username As String) As UserData Implements IEEService.GetPlayerData
+    Friend Function GetPlayerData(username As String) As UserData Implements IEEService.GetPlayerData
         If String.IsNullOrEmpty(username) Then
             Throw New ArgumentNullException("username")
         End If
@@ -63,7 +63,7 @@
         End Using
     End Function
 
-    Public Function GetPlayerDatas(usernames() As String) As UserData() Implements IEEService.GetPlayerDatas
+    Friend Function GetPlayerDatas(usernames() As String) As UserData() Implements IEEService.GetPlayerDatas
         If usernames Is Nothing OrElse usernames.Length > 0 Then
             Throw New ArgumentNullException("usernames")
         End If
@@ -75,7 +75,7 @@
         Return userDatas
     End Function
 
-    Public Function GetPlayerDataRange(Optional offset As UInteger = 0, Optional limit As UInteger = 1000, Optional orderBy As String = "Username") As UserData() Implements IEEService.GetPlayerDataRange
+    Friend Function GetPlayerDataRange(Optional offset As UInteger = 0, Optional limit As UInteger = 1000, Optional orderBy As String = "Username") As UserData() Implements IEEService.GetPlayerDataRange
         If Not limit > 0 Then
             Throw New ArgumentException("limit must be bigger than 0", "limit")
         End If
@@ -111,7 +111,7 @@
 
     Private Shared ReadOnly AcceptedGroupIDs() As Short = {400, 300, 100, 0, -100, -200}
 
-    Public Sub SetPlayerDataGroupID(username As String, groupID As Short) Implements IEEService.SetPlayerDataGroupID
+    Friend Sub SetPlayerDataGroupID(username As String, groupID As Short) Implements IEEService.SetPlayerDataGroupID
         If String.IsNullOrEmpty(username) Then
             Throw New ArgumentNullException("username")
         End If
@@ -132,7 +132,7 @@
         End Using
     End Sub
 
-    Public Sub SetPlayerDataYoScrollWins(username As String, yoScrollWins As UShort) Implements IEEService.SetPlayerDataYoScrollWins
+    Friend Sub SetPlayerDataYoScrollWins(username As String, yoScrollWins As UShort) Implements IEEService.SetPlayerDataYoScrollWins
         If String.IsNullOrEmpty(username) Then
             Throw New ArgumentNullException("username")
         End If
@@ -150,7 +150,7 @@
         End Using
     End Sub
 
-    Public Sub SetPlayerDataFTBreakerWins(username As String, ftBreakerWins As UShort) Implements IEEService.SetPlayerDataFTBreakerWins
+    Friend Sub SetPlayerDataFTBreakerWins(username As String, ftBreakerWins As UShort) Implements IEEService.SetPlayerDataFTBreakerWins
         If String.IsNullOrEmpty(username) Then
             Throw New ArgumentNullException("username")
         End If
@@ -168,7 +168,7 @@
         End Using
     End Sub
 
-    Public Function GetFacts(factGroup As String) As String() Implements IEEService.GetFacts
+    Friend Function GetFacts(factGroup As String) As String() Implements IEEService.GetFacts
         If String.IsNullOrEmpty(factGroup) Then
             Throw New ArgumentNullException("factGroup")
         End If
@@ -191,7 +191,7 @@
         End Using
     End Function
 
-    Public Sub RemoveFact(factID As String) Implements IEEService.RemoveFact
+    Friend Sub RemoveFact(factID As String) Implements IEEService.RemoveFact
         If String.IsNullOrEmpty(factID) Then
             Throw New ArgumentNullException("factID")
         End If
@@ -211,7 +211,7 @@
         End Try
     End Sub
 
-    Public Sub SetFact(factID As String, factGroup As String) Implements IEEService.SetFact
+    Friend Sub SetFact(factID As String, factGroup As String) Implements IEEService.SetFact
         If String.IsNullOrEmpty(factID) Then
             Throw New ArgumentNullException("factID")
         End If
@@ -232,7 +232,7 @@
         End Using
     End Sub
 
-    Public Function CheckLicense(username As String, authKey As String) As Boolean Implements IEEService.CheckLicense
+    Friend Function CheckLicense(username As String, authKey As String) As Boolean Implements IEEService.CheckLicense
         Using connection As New MySqlConnection(ConnStr)
             connection.Open()
 

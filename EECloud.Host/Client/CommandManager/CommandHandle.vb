@@ -26,7 +26,7 @@ Friend NotInheritable Class CommandHandle (Of TPlayer As {New, Player})
 
     Private ReadOnly myAttribute As CommandAttribute
 
-    Public ReadOnly Property Attribute As CommandAttribute
+    Friend ReadOnly Property Attribute As CommandAttribute
         Get
             Return myAttribute
         End Get

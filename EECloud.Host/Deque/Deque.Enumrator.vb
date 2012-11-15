@@ -1,6 +1,6 @@
 ﻿
 
-Partial Public Class Deque (Of T)
+Partial Friend Class Deque(Of T)
 
 #Region "Enumerator Class"
 
@@ -19,7 +19,7 @@ Partial Public Class Deque (Of T)
 
         Private myDisposed As Boolean = False
 
-        Public Sub New(owner As Deque(Of T))
+        Friend Sub New(owner As Deque(Of T))
             myOwner = owner
             myCurrentNode = owner.myFront
             myVersion = owner.myVersion
@@ -27,7 +27,7 @@ Partial Public Class Deque (Of T)
 
 #Region "IEnumerator Members"
 
-        Public Sub Reset() Implements IEnumerator.Reset
+        Friend Sub Reset() Implements IEnumerator.Reset
 
             If myDisposed Then
                 Throw New ObjectDisposedException([GetType]().Name)
@@ -39,7 +39,7 @@ Partial Public Class Deque (Of T)
             myMoveResult = False
         End Sub
 
-        Public ReadOnly Property Current() As Object Implements IEnumerator.Current
+        Friend ReadOnly Property Current() As Object Implements IEnumerator.Current
             Get
 
                 If myDisposed Then
@@ -52,7 +52,7 @@ Partial Public Class Deque (Of T)
             End Get
         End Property
 
-        Public Function MoveNext() As Boolean Implements IEnumerator.MoveNext
+        Friend Function MoveNext() As Boolean Implements IEnumerator.MoveNext
 
             If myDisposed Then
                 Throw New ObjectDisposedException([GetType]().Name)
@@ -93,7 +93,7 @@ Partial Public Class Deque (Of T)
 
 #Region "IDisposable Members"
 
-        Public Sub Dispose() Implements IDisposable.Dispose
+        Friend Sub Dispose() Implements IDisposable.Dispose
             myDisposed = True
         End Sub
 

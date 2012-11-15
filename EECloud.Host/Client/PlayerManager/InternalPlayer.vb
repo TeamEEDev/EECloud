@@ -7,9 +7,9 @@
 #End Region
 
 #Region "Events"
-    Public Event GroupChange(sender As Object, e As ItemChangedEventArgs(Of Group)) Implements IPlayer.GroupChange
+    Friend Event GroupChange(sender As Object, e As ItemChangedEventArgs(Of Group)) Implements IPlayer.GroupChange
 
-    Public Event LoadUserData(sender As Object, e As UserData) Implements IPlayer.LoadUserData
+    Friend Event LoadUserData(sender As Object, e As UserData) Implements IPlayer.LoadUserData
 #End Region
 
 #Region "Properties"
@@ -161,7 +161,7 @@
 
     Private myGroup As Group
 
-    Public Property Group As Group Implements IPlayer.Group
+    Friend Property Group As Group Implements IPlayer.Group
         Get
             Return myGroup
         End Get
@@ -176,7 +176,7 @@
 
     Private myBlueAuraPotion As Boolean
 
-    Public ReadOnly Property BlueAuraPotion As Boolean Implements IPlayer.BlueAuraPotion
+    Friend ReadOnly Property BlueAuraPotion As Boolean Implements IPlayer.BlueAuraPotion
         Get
             Return myBlueAuraPotion
         End Get
@@ -184,7 +184,7 @@
 
     Private myRedAuraPotion As Boolean
 
-    Public ReadOnly Property RedAuraPotion As Boolean Implements IPlayer.RedAuraPotion
+    Friend ReadOnly Property RedAuraPotion As Boolean Implements IPlayer.RedAuraPotion
         Get
             Return myRedAuraPotion
         End Get
@@ -192,7 +192,7 @@
 
     Private myYellowAuraPotion As Boolean
 
-    Public ReadOnly Property YellowAuraPotion As Boolean Implements IPlayer.YellowAuraPotion
+    Friend ReadOnly Property YellowAuraPotion As Boolean Implements IPlayer.YellowAuraPotion
         Get
             Return myYellowAuraPotion
         End Get
@@ -200,7 +200,7 @@
 
     Private ReadOnly mySpawnX As Integer
 
-    Public ReadOnly Property SpawnX As Integer Implements IPlayer.SpawnX
+    Friend ReadOnly Property SpawnX As Integer Implements IPlayer.SpawnX
         Get
             Return mySpawnX
         End Get
@@ -208,19 +208,19 @@
 
     Private ReadOnly mySpawnY As Integer
 
-    Public ReadOnly Property SpawnY As Integer Implements IPlayer.SpawnY
+    Friend ReadOnly Property SpawnY As Integer Implements IPlayer.SpawnY
         Get
             Return mySpawnY
         End Get
     End Property
 
-    Public ReadOnly Property BlockX As Integer Implements IPlayer.BlockX
+    Friend ReadOnly Property BlockX As Integer Implements IPlayer.BlockX
         Get
             Return myPlayerPosX + 8 >> 4
         End Get
     End Property
 
-    Public ReadOnly Property BlockY As Integer Implements IPlayer.BlockY
+    Friend ReadOnly Property BlockY As Integer Implements IPlayer.BlockY
         Get
             Return myPlayerPosY + 8 >> 4
         End Get
@@ -229,7 +229,7 @@
 
     Private myAutoText As AutoText = CType(-1, AutoText)
 
-    Public ReadOnly Property AutoText As AutoText Implements IPlayer.AutoText
+    Friend ReadOnly Property AutoText As AutoText Implements IPlayer.AutoText
         Get
             Return myAutoText
         End Get
@@ -237,7 +237,7 @@
 
     Private myChat As String
 
-    Public ReadOnly Property Chat As String Implements IPlayer.Chat
+    Friend ReadOnly Property Chat As String Implements IPlayer.Chat
         Get
             Return myChat
         End Get
@@ -283,7 +283,7 @@
         End If
     End Sub
 
-    Public Sub Reply(msg As String) Implements IPlayer.Reply
+    Friend Sub Reply(msg As String) Implements IPlayer.Reply
         myClient.Chatter.Reply(myUsername, msg)
     End Sub
 
@@ -372,7 +372,7 @@
         End If
     End Sub
 
-    Public Sub Kick(msg As String) Implements IPlayer.Kick
+    Friend Sub Kick(msg As String) Implements IPlayer.Kick
         myClient.Chatter.Kick(myUsername, msg)
     End Sub
 

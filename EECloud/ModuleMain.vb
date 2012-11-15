@@ -3,6 +3,7 @@ Imports System.IO
 Imports System.Configuration
 Imports System.Net
 
+
 Module ModuleMain
 #Region "Methods"
 
@@ -16,10 +17,7 @@ Module ModuleMain
             Application.EnableVisualStyles()
         End If
 
-        Cloud.AppEnvironment = CType([Enum].Parse(GetType(AppEnvironment), ConfigurationManager.AppSettings("Environment"), True), AppEnvironment)
-        Cloud.Logger = New Logger
-        Cloud.ClientFactory = New ClientFactory
-        Cloud.Service = New EEService
+
 
         Init()
 
@@ -29,21 +27,20 @@ Module ModuleMain
     Async Sub Init()
         Dim updateTask As Task = CheckForUpdates()
         Dim loadTask As Task = LoadSettings()
-        CheckLicense()
 
-        'Creating Client
-        Dim client As IClient(Of Player) = Cloud.ClientFactory.CreateClient("!"c)
-        client.CommandManager.Load(New DefaultCommandListner(client))
+        Dim eecloudHost As New Host.EECloud(True, False)
+
+        CheckLicense(eecloudHost)
 
         'Loading assemblies
         Dim args As String() = Environment.GetCommandLineArgs
         If args.Length >= 2 Then
             Dim assembly As Assembly = LoadAssembly(args(1))
             If assembly IsNot Nothing Then
-                LoadAssembies(client, My.Settings.LoginWorldID, {assembly})
+                eecloudHost.Client.PluginManager.Load(assembly)
             End If
         Else
-            LoadDefaultAssemblies(client)
+            LoadDefaultAssemblies(eecloudHost.Client)
         End If
 
         If Not loadTask.IsCompleted Then
@@ -56,7 +53,7 @@ Module ModuleMain
         End If
 
         'Login
-        Login(client)
+        Login(eecloudHost.client)
     End Sub
 
     Private Function RetrieveLinkerTimestamp() As DateTime
@@ -146,11 +143,11 @@ Module ModuleMain
         End If
     End Function
 
-    Private Sub CheckLicense()
+    Private Sub CheckLicense(host As EECloud.Host.EECloud)
         If Not Cloud.Service.CheckLicense(My.Settings.LicenseUsername, My.Settings.LicenseKey) Then
             If Not Cloud.AppEnvironment = AppEnvironment.Release Then
                 If New LicenseForm().ShowDialog = DialogResult.OK Then
-                    CheckLicense()
+                    CheckLicense(host)
                 Else
                     Environment.Exit(0)
                 End If
@@ -206,43 +203,19 @@ Module ModuleMain
 
     Private Sub LoadDefaultAssemblies(client As IClient(Of Player))
         Dim dir As String = Directory.GetCurrentDirectory
-        LoadAssembies(client, My.Settings.LoginWorldID, GetAssemblies(dir))
+        For Each assembly In GetAssemblies(dir)
+            client.PluginManager.Load(assembly)
+        Next
 
         If Cloud.AppEnvironment = AppEnvironment.Dev Then
             Dim pluginDir As String = dir & "\Plugins"
             If Not Directory.Exists(pluginDir) Then
                 Directory.CreateDirectory(pluginDir)
             End If
-            LoadAssembies(client, My.Settings.LoginWorldID, GetAssemblies(pluginDir))
+            For Each assembly In GetAssemblies(pluginDir)
+                client.PluginManager.Load(assembly)
+            Next
         End If
-    End Sub
-
-    Private Sub LoadAssembies(client As IClient(Of Player), worldID As String, assemblies As IEnumerable(Of Assembly))
-        'Checking for valid plugins
-        Dim plugins As IEnumerable(Of Type) =
-                From assembly As Assembly In assemblies.AsParallel
-                From type As Type In assembly.GetTypes
-                Where GetType(IPlugin).IsAssignableFrom(type)
-                Let attributes As Object() = type.GetCustomAttributes(GetType(PluginAttribute), True)
-                Where attributes IsNot Nothing AndAlso attributes.Length = 1
-                Let attribute As PluginAttribute = CType(attributes(0), PluginAttribute)
-                Where attribute.StartupLoaded AndAlso (attribute.StartupRooms Is Nothing OrElse attribute.StartupRooms.Length = 0 OrElse attribute.StartupRooms.Contains(worldID))
-                Select type
-
-        'Activating valid plugins
-        Using enumrator As IEnumerator(Of Type) = plugins.GetEnumerator
-            Do
-                Try
-                    Dim hasNext As Boolean = enumrator.MoveNext()
-                    If Not hasNext Then Exit Do
-
-                    Cloud.Logger.Log(LogPriority.Info, String.Format("Enabling {0}...", enumrator.Current.Name))
-                    client.PluginManager.Load(enumrator.Current)
-                Catch ex As Exception
-                    Cloud.Logger.LogEx(ex)
-                End Try
-            Loop
-        End Using
     End Sub
 
     Private Iterator Function GetAssemblies(path As String) As IEnumerable(Of Assembly)
@@ -270,7 +243,5 @@ Module ModuleMain
 #End Region
 
 #End Region
-
-
 
 End Module

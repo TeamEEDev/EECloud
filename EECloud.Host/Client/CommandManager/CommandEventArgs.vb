@@ -1,7 +1,7 @@
-﻿Public NotInheritable Class CommandEventArgs
+﻿Friend NotInheritable Class CommandEventArgs
     Inherits EventArgs
 
 #Region "Properties"
-    Public Property Handled As Boolean
+    Friend Property Handled As Boolean
 #End Region
 End Class

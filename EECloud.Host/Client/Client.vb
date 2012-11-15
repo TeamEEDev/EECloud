@@ -19,25 +19,25 @@
         End Get
     End Property
 
-    Public ReadOnly Property Connection As IConnection Implements IClient(Of TPlayer).Connection
+    Friend ReadOnly Property Connection As IConnection Implements IClient(Of TPlayer).Connection
         Get
             Return myInternalClient.Connection
         End Get
     End Property
 
-    Public ReadOnly Property Uploader As IUploader Implements IClient(Of TPlayer).Uploader
+    Friend ReadOnly Property Uploader As IUploader Implements IClient(Of TPlayer).Uploader
         Get
             Return myInternalClient.Uploader
         End Get
     End Property
 
-    Public ReadOnly Property Game As IGame Implements IClient(Of TPlayer).Game
+    Friend ReadOnly Property Game As IGame Implements IClient(Of TPlayer).Game
         Get
             Return myInternalClient.Game
         End Get
     End Property
 
-    Public ReadOnly Property KeyManager As IKeyManager Implements IClient(Of TPlayer).KeyManager
+    Friend ReadOnly Property KeyManager As IKeyManager Implements IClient(Of TPlayer).KeyManager
         Get
             Return myInternalClient.KeyManager
         End Get
@@ -61,7 +61,7 @@
 
     Private ReadOnly myCommandManager As CommandManager(Of TPlayer)
 
-    Public ReadOnly Property CommandManager As ICommandManager Implements IClient(Of TPlayer).CommandManager
+    Friend ReadOnly Property CommandManager As ICommandManager Implements IClient(Of TPlayer).CommandManager
         Get
             Return myCommandManager
         End Get
@@ -97,7 +97,7 @@
         myDisposedValue = True
     End Sub
 
-    Public Sub Dispose() Implements IDisposable.Dispose
+    Friend Sub Dispose() Implements IDisposable.Dispose
         Dispose(True)
     End Sub
 #End Region
