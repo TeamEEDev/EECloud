@@ -1,13 +1,13 @@
-﻿Public Class GlobalCommandManager
+﻿Friend Class GlobalCommandManager
     Event OnConsoleCommand(msg As String, e As CommandEventArgs)
 
-    Public Shared ReadOnly Value As New GlobalCommandManager
+    Friend Shared ReadOnly Value As New GlobalCommandManager
 
     Private Sub New()
 
     End Sub
 
-    Public Sub InvokeConsoleCmd(msg As String, logger As ILogger)
+    Friend Sub InvokeConsoleCmd(msg As String, logger As ILogger)
         Dim e As New CommandEventArgs
         RaiseEvent OnConsoleCommand(msg, e)
         If Not e.Handled Then

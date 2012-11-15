@@ -11,9 +11,9 @@
 
 #Region "Events"
 
-    Public Event OnDisable(sender As Object, e As EventArgs) Implements IPluginObject.OnDisable
+    Friend Event OnDisable(sender As Object, e As EventArgs) Implements IPluginObject.OnDisable
 
-    Public Event OnEnable(sender As Object, e As EventArgs) Implements IPluginObject.OnEnable
+    Friend Event OnEnable(sender As Object, e As EventArgs) Implements IPluginObject.OnEnable
 
 #End Region
 

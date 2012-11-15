@@ -5,7 +5,7 @@ Friend NotInheritable Class World
 
 
 #Region "Fields"
-    Private Const InitOffset As UInteger = 15
+    Private Const InitOffset As UInteger = 17
     Private myClient As IClient(Of Player)
     Private myBlocks(,,) As IWorldBlock
     Private WithEvents myConnection As IConnection
@@ -13,7 +13,7 @@ Friend NotInheritable Class World
 
 #Region "Events"
 
-    Public Event BlockPlace(sender As Object, e As BlockPlaceEventArgs) Implements IWorld.BlockPlace
+    Friend Event BlockPlace(sender As Object, e As BlockPlaceEventArgs) Implements IWorld.BlockPlace
 
 #End Region
 
@@ -21,7 +21,7 @@ Friend NotInheritable Class World
 
     Private mySizeX As Integer
 
-    Public ReadOnly Property SizeX As Integer Implements IWorld.SizeX
+    Friend ReadOnly Property SizeX As Integer Implements IWorld.SizeX
         Get
             Return mySizeY
         End Get
@@ -29,13 +29,13 @@ Friend NotInheritable Class World
 
     Private mySizeY As Integer
 
-    Public ReadOnly Property SizeY As Integer Implements IWorld.SizeY
+    Friend ReadOnly Property SizeY As Integer Implements IWorld.SizeY
         Get
             Return mySizeX
         End Get
     End Property
 
-    Default Public ReadOnly Property Item(x As Integer, y As Integer, Optional layer As Layer = Layer.Foreground) As IWorldBlock Implements IWorld.Item
+    Default Friend ReadOnly Property Item(x As Integer, y As Integer, Optional layer As Layer = Layer.Foreground) As IWorldBlock Implements IWorld.Item
         Get
             Return myBlocks(layer, x, y)
         End Get
@@ -45,7 +45,7 @@ Friend NotInheritable Class World
 
 #Region "Methods"
 
-    Public Sub New(client As IClient(Of Player))
+    Friend Sub New(client As IClient(Of Player))
         myClient = client
         myConnection = client.Connection
     End Sub

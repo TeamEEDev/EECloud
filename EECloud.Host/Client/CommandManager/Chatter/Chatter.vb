@@ -17,7 +17,7 @@
         myInternalChatter.SendChat(myInternalChatter.ChatSyntaxProvider.ApplyChatSyntax(msg, myChatName))
     End Sub
 
-    Public Sub Reply(username As String, msg As String) Implements IChatter.Reply
+    Friend Sub Reply(username As String, msg As String) Implements IChatter.Reply
         myInternalChatter.SendChat(myInternalChatter.ChatSyntaxProvider.ApplyReplySyntax(msg, myChatName, username))
     End Sub
 
@@ -33,7 +33,7 @@
         myInternalChatter.SendChat("/reset")
     End Sub
 
-    Public Sub InjectSyntaxProvider(provider As IChatSyntaxProvider) Implements IChatter.InjectSyntaxProvider
+    Friend Sub InjectSyntaxProvider(provider As IChatSyntaxProvider) Implements IChatter.InjectSyntaxProvider
         If provider Is Nothing Then
             Throw New ArgumentException("Provider can not be null.")
         End If

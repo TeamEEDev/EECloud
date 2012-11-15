@@ -50,6 +50,31 @@
         End Set
     End Property
 
+    Private Shared myLicenseUsername As String
+
+    Public Shared Property LicenseUsername As String
+        Get
+            Return myLicenseUsername
+        End Get
+
+        Friend Set(value As String)
+            myLicenseUsername = value
+        End Set
+    End Property
+
+    Private Shared myStartupWorldID As String
+
+    Public Shared Property StartupWorldID As String
+        Get
+            Return myStartupWorldID
+        End Get
+
+        Friend Set(value As String)
+            myStartupWorldID = value
+        End Set
+    End Property
+
+
 #End Region
 
 #Region "Methods"

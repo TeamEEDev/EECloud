@@ -21,7 +21,7 @@
 
     Private ReadOnly myConnection As IConnection
 
-    Public ReadOnly Property Connection As IConnection Implements IClient(Of Player).Connection
+    Friend ReadOnly Property Connection As IConnection Implements IClient(Of Player).Connection
         Get
             Return myConnection
         End Get
@@ -29,7 +29,7 @@
 
     Private ReadOnly myUploader As IUploader
 
-    Public ReadOnly Property Uploader As IUploader Implements IClient(Of Player).Uploader
+    Friend ReadOnly Property Uploader As IUploader Implements IClient(Of Player).Uploader
         Get
             Return myUploader
         End Get
@@ -37,7 +37,7 @@
 
     Private ReadOnly myGame As IGame
 
-    Public ReadOnly Property Game As IGame Implements IClient(Of Player).Game
+    Friend ReadOnly Property Game As IGame Implements IClient(Of Player).Game
         Get
             Return myGame
         End Get
@@ -45,7 +45,7 @@
 
     Private ReadOnly myKeyManager As IKeyManager
 
-    Public ReadOnly Property KeyManager As IKeyManager Implements IClient(Of Player).KeyManager
+    Friend ReadOnly Property KeyManager As IKeyManager Implements IClient(Of Player).KeyManager
         Get
             Return myKeyManager
         End Get
@@ -61,7 +61,7 @@
 
     Private ReadOnly myInternalPlayerManager As InternalPlayerManager
 
-    Public ReadOnly Property InternalPlayerManager() As InternalPlayerManager
+    Friend ReadOnly Property InternalPlayerManager() As InternalPlayerManager
         Get
             Return myInternalPlayerManager
         End Get
@@ -69,7 +69,7 @@
 
     Private ReadOnly myInternalCommandManager As InternalCommandManager
 
-    Public ReadOnly Property InternalCommandManager As InternalCommandManager
+    Friend ReadOnly Property InternalCommandManager As InternalCommandManager
         Get
             Return myInternalCommandManager
         End Get
@@ -77,7 +77,7 @@
 
     Private ReadOnly myChatter As IChatter
 
-    Public ReadOnly Property Chatter As IChatter Implements IClient(Of Player).Chatter
+    Friend ReadOnly Property Chatter As IChatter Implements IClient(Of Player).Chatter
         Get
             Return myChatter
         End Get
@@ -85,7 +85,7 @@
 
     Private ReadOnly myCommandManager As ICommandManager
 
-    Public ReadOnly Property CommandManager As ICommandManager Implements IClient(Of Player).CommandManager
+    Friend ReadOnly Property CommandManager As ICommandManager Implements IClient(Of Player).CommandManager
         Get
             Return myCommandManager
         End Get
@@ -93,7 +93,7 @@
 
     Private ReadOnly myPlayerManager As IPlayerManager(Of Player)
 
-    Public ReadOnly Property PlayerManager As IPlayerManager(Of Player) Implements IClient(Of Player).PlayerManager
+    Friend ReadOnly Property PlayerManager As IPlayerManager(Of Player) Implements IClient(Of Player).PlayerManager
         Get
             Return myPlayerManager
         End Get

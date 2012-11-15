@@ -1,4 +1,4 @@
-﻿Public Module Secret
+﻿Friend Module Secret
 #Region "Secret stuffz"
 #Region "Sure you want to see?"
 #Region "Really?"

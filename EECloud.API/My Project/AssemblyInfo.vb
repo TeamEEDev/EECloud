@@ -11,7 +11,6 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("EECloud.API Beta")> 
 <Assembly: AssemblyDescription("EECloud API")>
 <Assembly: InternalsVisibleTo("EECloud.Host")> 
-<Assembly: InternalsVisibleTo("EECloud")> 
 <Assembly: ComVisible(False)>
 
     'The following GUID is for the ID of the typelib if this project is exposed to COM

@@ -1,7 +1,7 @@
 ﻿
 
 <Serializable>
-Partial Public Class Deque (Of T)
+Partial Friend Class Deque(Of T)
     Implements ICollection
     Implements IEnumerable(Of T)
     Implements ICloneable
@@ -25,7 +25,7 @@ Partial Public Class Deque (Of T)
     Friend Sub New()
     End Sub
 
-    Public Sub New(collection As IEnumerable(Of T))
+    Friend Sub New(collection As IEnumerable(Of T))
         If collection Is Nothing Then
             Throw New ArgumentNullException("collection")
         End If
@@ -39,7 +39,7 @@ Partial Public Class Deque (Of T)
 
 #Region "Methods"
 
-    Public Overridable Sub Clear()
+    Friend Overridable Sub Clear()
         myCount = 0
 
         myFront = InlineAssignHelper(myBack, Nothing)
@@ -47,11 +47,11 @@ Partial Public Class Deque (Of T)
         myVersion += 1
     End Sub
 
-    Public Overridable Function Contains(obj As T) As Boolean
-        Return Any(Function(o) EqualityComparer (Of T).[Default].Equals(o, obj))
+    Friend Overridable Function Contains(obj As T) As Boolean
+        Return Any(Function(o) EqualityComparer(Of T).[Default].Equals(o, obj))
     End Function
 
-    Public Overridable Sub PushFront(item As T)
+    Friend Overridable Sub PushFront(item As T)
 
         Dim newNode As New Node(item)
 
@@ -73,7 +73,7 @@ Partial Public Class Deque (Of T)
         myVersion += 1
     End Sub
 
-    Public Overridable Sub PushBack(item As T)
+    Friend Overridable Sub PushBack(item As T)
 
         Dim newNode As New Node(item)
 
@@ -96,7 +96,7 @@ Partial Public Class Deque (Of T)
         myVersion += 1
     End Sub
 
-    Public Overridable Function PopFront() As T
+    Friend Overridable Function PopFront() As T
 
         If Count = 0 Then
             Throw New InvalidOperationException("Deque is empty.")
@@ -121,7 +121,7 @@ Partial Public Class Deque (Of T)
         Return item
     End Function
 
-    Public Overridable Function PopBack() As T
+    Friend Overridable Function PopBack() As T
 
         If Count = 0 Then
             Throw New InvalidOperationException("Deque is empty.")
@@ -146,7 +146,7 @@ Partial Public Class Deque (Of T)
         Return item
     End Function
 
-    Public Overridable Function PeekFront() As T
+    Friend Overridable Function PeekFront() As T
 
         If Count = 0 Then
             Throw New InvalidOperationException("Deque is empty.")
@@ -155,7 +155,7 @@ Partial Public Class Deque (Of T)
         Return myFront.Value
     End Function
 
-    Public Overridable Function PeekBack() As T
+    Friend Overridable Function PeekBack() As T
 
         If Count = 0 Then
             Throw New InvalidOperationException("Deque is empty.")
@@ -164,7 +164,7 @@ Partial Public Class Deque (Of T)
         Return myBack.Value
     End Function
 
-    Public Overridable Function ToArray() As T()
+    Friend Overridable Function ToArray() As T()
         Dim array As T() = New T(Count - 1) {}
         Dim index As Integer = 0
 
@@ -176,7 +176,7 @@ Partial Public Class Deque (Of T)
         Return array
     End Function
 
-    Public Shared Function Synchronized(deque As Deque(Of T)) As Deque(Of T)
+    Friend Shared Function Synchronized(deque As Deque(Of T)) As Deque(Of T)
 
         If deque Is Nothing Then
             Throw New ArgumentNullException("deque")
@@ -191,19 +191,19 @@ Partial Public Class Deque (Of T)
 
 #Region "ICollection Members"
 
-    Public Overridable ReadOnly Property IsSynchronized() As Boolean Implements ICollection.IsSynchronized
+    Friend Overridable ReadOnly Property IsSynchronized() As Boolean Implements ICollection.IsSynchronized
         Get
             Return False
         End Get
     End Property
 
-    Public Overridable ReadOnly Property Count() As Integer Implements ICollection.Count
+    Friend Overridable ReadOnly Property Count() As Integer Implements ICollection.Count
         Get
             Return myCount
         End Get
     End Property
 
-    Public Overridable Sub CopyTo(array As Array, index As Integer) Implements ICollection.CopyTo
+    Friend Overridable Sub CopyTo(array As Array, index As Integer) Implements ICollection.CopyTo
 
         If array Is Nothing Then
             Throw New ArgumentNullException("array")
@@ -225,7 +225,7 @@ Partial Public Class Deque (Of T)
         Next
     End Sub
 
-    Public Overridable ReadOnly Property SyncRoot() As Object Implements ICollection.SyncRoot
+    Friend Overridable ReadOnly Property SyncRoot() As Object Implements ICollection.SyncRoot
         Get
             Return Me
         End Get
@@ -243,7 +243,7 @@ Partial Public Class Deque (Of T)
 
 #Region "ICloneable Members"
 
-    Public Overridable Function Clone() As Object Implements ICloneable.Clone
+    Friend Overridable Function Clone() As Object Implements ICloneable.Clone
         Dim clone1 As New Deque(Of T)(Me)
 
         clone1.myVersion = myVersion
@@ -255,11 +255,11 @@ Partial Public Class Deque (Of T)
 
 #Region "IEnumerable<T> Members"
 
-    Public Overridable Function GetEnumerator() As IEnumerator(Of T) Implements IEnumerable(Of T).GetEnumerator
+    Friend Overridable Function GetEnumerator() As IEnumerator(Of T) Implements IEnumerable(Of T).GetEnumerator
         Return New Enumerator(Me)
     End Function
 
-    Private Shared Function InlineAssignHelper (Of TType)(ByRef target As TType, value As TType) As TType
+    Private Shared Function InlineAssignHelper(Of TType)(ByRef target As TType, value As TType) As TType
         target = value
         Return value
     End Function

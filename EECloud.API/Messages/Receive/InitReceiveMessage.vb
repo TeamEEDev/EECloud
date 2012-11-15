@@ -9,47 +9,47 @@ Public NotInheritable Class InitReceiveMessage
     Public ReadOnly Plays As Integer
     '2
     Public ReadOnly Encryption As String
-    '3
-    Public ReadOnly UserID As Integer
-    '4
-    Public ReadOnly SpawnX As Integer
     '5
-    Public ReadOnly SpawnY As Integer
+    Public ReadOnly UserID As Integer
     '6
-    Public ReadOnly Username As String
+    Public ReadOnly SpawnX As Integer
     '7
-    Public ReadOnly CanEdit As Boolean
+    Public ReadOnly SpawnY As Integer
     '8
-    Public ReadOnly IsOwner As Boolean
+    Public ReadOnly Username As String
     '9
-    Public ReadOnly SizeX As Integer
+    Public ReadOnly CanEdit As Boolean
     '10
-    Public ReadOnly SizeY As Integer
+    Public ReadOnly IsOwner As Boolean
     '11
-    Public ReadOnly IsTutorialRoom As Boolean
+    Public ReadOnly SizeX As Integer
     '12
-    Public ReadOnly Gravity As Double
+    Public ReadOnly SizeY As Integer
     '13
-    Public ReadOnly AllowPotions As Boolean
+    Public ReadOnly IsTutorialRoom As Boolean
     '14
+    Public ReadOnly Gravity As Double
+    '15
+    Public ReadOnly AllowPotions As Boolean
+    '16
 
     Friend Sub New(message As Message)
         MyBase.New(message)
 
         UsernameOwner = message.GetString(0)
         WorldName = message.GetString(1)
-        Plays = CInt(message.GetString(2))
-        Encryption = message.GetString(3)
-        UserID = message.GetInteger(4)
-        SpawnX = message.GetInteger(5)
-        SpawnY = message.GetInteger(6)
-        Username = message.GetString(7)
-        CanEdit = message.GetBoolean(8)
-        IsOwner = message.GetBoolean(9)
-        SizeX = message.GetInteger(10)
-        SizeY = message.GetInteger(11)
-        IsTutorialRoom = message.GetBoolean(12)
-        Gravity = message.GetDouble(13)
-        AllowPotions = message.GetBoolean(14)
+        Plays = message.GetInteger(2)
+        Encryption = message.GetString(5)
+        UserID = message.GetInteger(6)
+        SpawnX = message.GetInteger(7)
+        SpawnY = message.GetInteger(8)
+        Username = message.GetString(9)
+        CanEdit = message.GetBoolean(10)
+        IsOwner = message.GetBoolean(11)
+        SizeX = message.GetInteger(12)
+        SizeY = message.GetInteger(13)
+        IsTutorialRoom = message.GetBoolean(14)
+        Gravity = message.GetDouble(15)
+        AllowPotions = message.GetBoolean(16)
     End Sub
 End Class

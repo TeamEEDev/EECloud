@@ -1,4 +1,4 @@
-﻿Public NotInheritable Class Game
+﻿Friend NotInheritable Class Game
     Implements IGame
 
 #Region "Fields"
@@ -9,7 +9,7 @@
 #Region "Properties"
     Private myEncryption As String
 
-    Public ReadOnly Property Encryption As String Implements IGame.Encryption
+    Friend ReadOnly Property Encryption As String Implements IGame.Encryption
         Get
             Return myEncryption
         End Get
@@ -17,7 +17,7 @@
 
     Private myMyPlayer As Player
 
-    Public ReadOnly Property MyPlayer As Player Implements IGame.MyPlayer
+    Friend ReadOnly Property MyPlayer As Player Implements IGame.MyPlayer
         Get
             Return myMyPlayer
         End Get
@@ -25,7 +25,7 @@
 
     Private myOwner As String
 
-    Public ReadOnly Property Owner As String Implements IGame.Owner
+    Friend ReadOnly Property Owner As String Implements IGame.Owner
         Get
             Return myOwner
         End Get
@@ -33,7 +33,7 @@
 
     Private myPlays As Integer
 
-    Public ReadOnly Property Plays As Integer Implements IGame.Plays
+    Friend ReadOnly Property Plays As Integer Implements IGame.Plays
         Get
             Return myPlays
         End Get
@@ -41,7 +41,7 @@
 
     Private myBlueAuraPotionCount As Integer
 
-    Public ReadOnly Property BlueAuraPotionCount As Integer Implements IGame.BlueAuraPotionCount
+    Friend ReadOnly Property BlueAuraPotionCount As Integer Implements IGame.BlueAuraPotionCount
         Get
             Return myBlueAuraPotionCount
         End Get
@@ -49,7 +49,7 @@
 
     Private myRedAuraPotionCount As Integer
 
-    Public ReadOnly Property RedAuraPotionCount As Integer Implements IGame.RedAuraPotionCount
+    Friend ReadOnly Property RedAuraPotionCount As Integer Implements IGame.RedAuraPotionCount
         Get
             Return myRedAuraPotionCount
         End Get
@@ -57,7 +57,7 @@
 
     Private myYellowAuraPotionCount As Integer
 
-    Public ReadOnly Property YellowAuraPotionCount As Integer Implements IGame.YellowAuraPotionCount
+    Friend ReadOnly Property YellowAuraPotionCount As Integer Implements IGame.YellowAuraPotionCount
         Get
             Return myYellowAuraPotionCount
         End Get
@@ -65,7 +65,7 @@
 
     Private myAccessRight As AccessRight
 
-    Public ReadOnly Property AccessRight As AccessRight Implements IGame.AccessRight
+    Friend ReadOnly Property AccessRight As AccessRight Implements IGame.AccessRight
         Get
             Return myAccessRight
         End Get
@@ -73,7 +73,7 @@
 
     Private myWorldName As String
 
-    Public ReadOnly Property WorldName As String Implements IGame.WorldName
+    Friend ReadOnly Property WorldName As String Implements IGame.WorldName
         Get
             Return myWorldName
         End Get
@@ -81,7 +81,7 @@
 
     Private myAllowPotions As Boolean
 
-    Public ReadOnly Property AllowPotions As Boolean Implements IGame.AllowPotions
+    Friend ReadOnly Property AllowPotions As Boolean Implements IGame.AllowPotions
         Get
             Return myAllowPotions
         End Get
@@ -89,7 +89,7 @@
 
     Private myGravityMultiplayer As Double
 
-    Public ReadOnly Property GravityMultiplayer As Double Implements IGame.GravityMultiplayer
+    Friend ReadOnly Property GravityMultiplayer As Double Implements IGame.GravityMultiplayer
         Get
             Return myGravityMultiplayer
         End Get
@@ -97,7 +97,7 @@
 
     Private myIsTutorialRoom As Boolean
 
-    Public ReadOnly Property IsTutorialRoom As Boolean Implements IGame.IsTutorialRoom
+    Friend ReadOnly Property IsTutorialRoom As Boolean Implements IGame.IsTutorialRoom
         Get
             Return myIsTutorialRoom
         End Get

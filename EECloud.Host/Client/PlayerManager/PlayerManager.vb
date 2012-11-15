@@ -8,29 +8,29 @@
 #End Region
 
 #Region "Events"
-    Public Event Join(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).Join
+    Friend Event Join(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).Join
 
-    Public Event Leave(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).Leave
+    Friend Event Leave(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).Leave
 
-    Public Event OnCoin(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnCoin
+    Friend Event OnCoin(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnCoin
 
-    Public Event OnCrown(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnCrown
+    Friend Event OnCrown(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnCrown
 
-    Public Event OnGodmode(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnGodmode
+    Friend Event OnGodmode(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnGodmode
 
-    Public Event OnModmode(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnModmode
+    Friend Event OnModmode(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnModmode
 
-    Public Event OnMove(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnMove
+    Friend Event OnMove(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnMove
 
-    Public Event OnPotion(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnPotion
+    Friend Event OnPotion(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnPotion
 
-    Public Event OnSilverCrown(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnSilverCrown
+    Friend Event OnSilverCrown(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnSilverCrown
 
-    Public Event OnSmiley(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnSmiley
+    Friend Event OnSmiley(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnSmiley
 
-    Public Event OnAutoText(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnAutoText
+    Friend Event OnAutoText(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnAutoText
 
-    Public Event OnSay(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnSay
+    Friend Event OnSay(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnSay
 #End Region
 
 #Region "Properties"
@@ -49,7 +49,7 @@
         End Get
     End Property
 
-    Public ReadOnly Property Player(username As String) As TPlayer Implements IPlayerManager(Of TPlayer).Player
+    Friend ReadOnly Property Player(username As String) As TPlayer Implements IPlayerManager(Of TPlayer).Player
         Get
             SyncLock myUsernameDictionary
                 If myUsernameDictionary.ContainsKey(username) Then
@@ -80,7 +80,7 @@
         End Get
     End Property
 
-    Public ReadOnly Property Count As Integer Implements IPlayerManager(Of TPlayer).Count
+    Friend ReadOnly Property Count As Integer Implements IPlayerManager(Of TPlayer).Count
         Get
             Return myIDDictionary.Count
         End Get
@@ -263,7 +263,7 @@
         MyBase.Finalize()
     End Sub
 
-    Public Sub Dispose() Implements IDisposable.Dispose
+    Friend Sub Dispose() Implements IDisposable.Dispose
         Dispose(True)
         GC.SuppressFinalize(Me)
     End Sub

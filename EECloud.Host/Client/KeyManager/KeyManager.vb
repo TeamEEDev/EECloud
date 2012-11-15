@@ -1,4 +1,4 @@
-﻿Public Class KeyManager
+﻿Friend Class KeyManager
     Implements IKeyManager
 
 #Region "Fields"
@@ -6,26 +6,26 @@
 #End Region
 
 #Region "Events"
-    Public Event OnBlueKey(sender As Object, e As Boolean) Implements IKeyManager.OnBlueKey
+    Friend Event OnBlueKey(sender As Object, e As Boolean) Implements IKeyManager.OnBlueKey
 
-    Public Event OnGreenKey(sender As Object, e As Boolean) Implements IKeyManager.OnGreenKey
+    Friend Event OnGreenKey(sender As Object, e As Boolean) Implements IKeyManager.OnGreenKey
 
-    Public Event OnPress(sender As Object, e As Key) Implements IKeyManager.OnPress
+    Friend Event OnPress(sender As Object, e As Key) Implements IKeyManager.OnPress
 
-    Public Event OnPurpleSwitch(sender As Object, e As Boolean) Implements IKeyManager.OnPurpleSwitch
+    Friend Event OnPurpleSwitch(sender As Object, e As Boolean) Implements IKeyManager.OnPurpleSwitch
 
-    Public Event OnRedKey(sender As Object, e As Boolean) Implements IKeyManager.OnRedKey
+    Friend Event OnRedKey(sender As Object, e As Boolean) Implements IKeyManager.OnRedKey
 
-    Public Event OnRelease(sender As Object, e As Key) Implements IKeyManager.OnRelease
+    Friend Event OnRelease(sender As Object, e As Key) Implements IKeyManager.OnRelease
 
-    Public Event OnTimedDoor(sender As Object, e As Boolean) Implements IKeyManager.OnTimedDoor
+    Friend Event OnTimedDoor(sender As Object, e As Boolean) Implements IKeyManager.OnTimedDoor
 #End Region
 
 #Region "Properties"
 
     Private myBlueKey As Boolean
 
-    Public ReadOnly Property BlueKey As Boolean Implements IKeyManager.BlueKey
+    Friend ReadOnly Property BlueKey As Boolean Implements IKeyManager.BlueKey
         Get
             Return myBlueKey
         End Get
@@ -33,7 +33,7 @@
 
     Private myGreenKey As Boolean
 
-    Public ReadOnly Property GreenKey As Boolean Implements IKeyManager.GreenKey
+    Friend ReadOnly Property GreenKey As Boolean Implements IKeyManager.GreenKey
         Get
             Return myGreenKey
         End Get
@@ -41,7 +41,7 @@
 
     Private myRedKey As Boolean
 
-    Public ReadOnly Property RedKey As Boolean Implements IKeyManager.RedKey
+    Friend ReadOnly Property RedKey As Boolean Implements IKeyManager.RedKey
         Get
             Return myRedKey
         End Get
@@ -49,7 +49,7 @@
 
     Private myTimeDoor As Boolean
 
-    Public ReadOnly Property TimeDoor As Boolean Implements IKeyManager.TimeDoor
+    Friend ReadOnly Property TimeDoor As Boolean Implements IKeyManager.TimeDoor
         Get
             Return myTimeDoor
         End Get
@@ -57,7 +57,7 @@
 
     Private myPurpleSwitch As Boolean
 
-    Public ReadOnly Property PurpleSwitch As Boolean Implements IKeyManager.PurpleSwitch
+    Friend ReadOnly Property PurpleSwitch As Boolean Implements IKeyManager.PurpleSwitch
         Get
             Return myPurpleSwitch
         End Get
@@ -67,23 +67,23 @@
 
 #Region "Methods"
 
-    Public Sub New(client As IClient(Of Player))
+    Friend Sub New(client As IClient(Of Player))
         myConnection = client.Connection
     End Sub
 
-    Public Sub PressBlueKey() Implements IKeyManager.PressBlueKey
+    Friend Sub PressBlueKey() Implements IKeyManager.PressBlueKey
         myConnection.Send(New PressRedKeySendMessage)
     End Sub
 
-    Public Sub PressGreenKey() Implements IKeyManager.PressGreenKey
+    Friend Sub PressGreenKey() Implements IKeyManager.PressGreenKey
         myConnection.Send(New PressRedKeySendMessage)
     End Sub
 
-    Public Sub PressPurpleSwitch() Implements IKeyManager.PressPurpleSwitch
+    Friend Sub PressPurpleSwitch() Implements IKeyManager.PressPurpleSwitch
         myConnection.Send(New PressPurpleSwitchSendMessage)
     End Sub
 
-    Public Sub PressRedKey() Implements IKeyManager.PressRedKey
+    Friend Sub PressRedKey() Implements IKeyManager.PressRedKey
         myConnection.Send(New PressRedKeySendMessage)
     End Sub
 

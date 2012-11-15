@@ -1,4 +1,4 @@
-﻿Partial Public Class Deque (Of T)
+﻿Partial Friend Class Deque(Of T)
 
 #Region "Node Class"
 
@@ -11,17 +11,17 @@
 
         Private myNext As Node = Nothing
 
-        Public Sub New(value As T)
+        Friend Sub New(value As T)
             myValue = value
         End Sub
 
-        Public ReadOnly Property Value() As T
+        Friend ReadOnly Property Value() As T
             Get
                 Return myValue
             End Get
         End Property
 
-        Public Property Previous() As Node
+        Friend Property Previous() As Node
             Get
                 Return myPrevious
             End Get
@@ -30,7 +30,7 @@
             End Set
         End Property
 
-        Public Property [Next]() As Node
+        Friend Property [Next]() As Node
             Get
                 Return myNext
             End Get
