@@ -3999,8 +3999,8 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\setupicon.ico</td><td>0</td></row>
-		<row><td>NewShortcut11_67B641A7D5F34387AEB9EF1EE6549176.exe</td><td/><td>..\EECloud\Resources\Icon.ico</td><td>0</td></row>
-		<row><td>NewShortcut1_F7F0C1BD2D434FEA8EF35A0B62F64F23.exe</td><td/><td>..\EECloud\Resources\Icon.ico</td><td>0</td></row>
+		<row><td>NewShortcut11_67B641A7D5F34387AEB9EF1EE6549176.exe</td><td/><td>C:\Users\Sepehr\Dropbox\Visualstudio\Projects\EECloud\EECloud\Resources\Icon.ico</td><td>0</td></row>
+		<row><td>NewShortcut1_F7F0C1BD2D434FEA8EF35A0B62F64F23.exe</td><td/><td>C:\Users\Sepehr\Dropbox\Visualstudio\Projects\EECloud\EECloud\Resources\Icon.ico</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
