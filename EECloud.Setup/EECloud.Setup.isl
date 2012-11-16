@@ -4523,7 +4523,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]EECloud.Primary output</td><td/></row>
 		<row><td>ProductCode</td><td>{0A930719-493B-4979-85AE-57A5BD67CB0C}</td><td/></row>
 		<row><td>ProductName</td><td>EECloud</td><td/></row>
-		<row><td>ProductVersion</td><td>0.5.0.0</td><td/></row>
+		<row><td>ProductVersion</td><td>0.5.1.0</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
