@@ -54,6 +54,7 @@ Friend NotInheritable Class Uploader
     End Sub
 
     Private Sub SendNext()
+retry:
         If myBlockUploadQueue.Count > 0 Then
             Dim block As BlockPlaceUploadMessage = myBlockUploadQueue.PopFront()
 
@@ -66,7 +67,7 @@ Friend NotInheritable Class Uploader
                     End SyncLock
                 End If
             Else
-                SendNext()
+                GoTo retry
             End If
         Else
             If myLagCheckQueue.Count > 0 Then
