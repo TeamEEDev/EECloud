@@ -36,5 +36,9 @@
 			<Name>EECloud.API</Name>
 			<Project>{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}</Project>
 		</ProjectReference>
+		<ProjectReference Include="..\EECloud.Host\EECloud.Host.vbproj">
+			<Name>EECloud.Host</Name>
+			<Project>{D71FCE6C-423C-44DA-8039-B798C7B2DFAA}</Project>
+		</ProjectReference>
 	</ItemGroup>
 </Project>
