@@ -344,6 +344,9 @@
 		<row><td>EECloud.API.Primary_output</td><td>{3577D868-B8BE-4156-9224-7A74FD1F0F33}</td><td>API</td><td>2</td><td/><td>eecloud.api.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>EECloud.API.Primary_output1</td><td>{B27C3DBD-0D00-4EC7-9E42-F9FB375086EE}</td><td>INSTALLDIR</td><td>2</td><td/><td>eecloud.api.primary_output1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>EECloud.Content_Files</td><td>{AF53B29A-3120-4BAF-ABB2-C5D027BD102C}</td><td>INSTALLDIR</td><td>2</td><td/><td>eecloud.content_files</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>EECloud.Host.Documentation_Files</td><td>{FD97DD0D-7FAE-4206-8E68-970308B81696}</td><td>API</td><td>2</td><td/><td>eecloud.host.documentation_f</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>EECloud.Host.Primary_output</td><td>{7E9019CB-4C8C-4908-8150-1D47E5E98950}</td><td>INSTALLDIR</td><td>2</td><td/><td>eecloud.host.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>EECloud.Host.Primary_output1</td><td>{D6F255C4-00D2-444B-9488-2E11997CEF4C}</td><td>API</td><td>2</td><td/><td>eecloud.host.primary_output1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>EECloud.Primary_output</td><td>{D230C0D2-8742-4284-AD1E-D1C64085754F}</td><td>INSTALLDIR</td><td>2</td><td/><td>eecloud.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td>{931D091D-2B67-4F00-A796-CAAE513DC2FA}</td><td>API</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{BE0FA4CB-2485-4A33-8BBC-D4D124E4D825}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
@@ -930,7 +933,6 @@
 		<row><td>DestinationFolder</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>1</td></row>
 		<row><td>DestinationFolder</td><td>ChangeFolder</td><td>SpawnDialog</td><td>InstallChangeFolder</td><td>1</td><td>1</td></row>
 		<row><td>DestinationFolder</td><td>ChangeFolder</td><td>[_BrowseProperty]</td><td>INSTALLDIR</td><td>1</td><td>2</td></row>
-		<row><td>DestinationFolder</td><td>Next</td><td>EndDialog</td><td>Return</td><td>OutOfDiskSpace &lt;&gt; 1</td><td>1</td></row>
 		<row><td>DestinationFolder</td><td>Next</td><td>NewDialog</td><td>ReadyToInstall</td><td>0</td><td>1</td></row>
 		<row><td>DiskSpaceRequirements</td><td>OK</td><td>EndDialog</td><td>Return</td><td>1</td><td>0</td></row>
 		<row><td>FilesInUse</td><td>Exit</td><td>EndDialog</td><td>Exit</td><td>1</td><td>0</td></row>
@@ -944,7 +946,8 @@
 		<row><td>InstallChangeFolder</td><td>Up</td><td>DirectoryListUp</td><td>0</td><td>1</td><td>0</td></row>
 		<row><td>InstallWelcome</td><td>Back</td><td>NewDialog</td><td>SplashBitmap</td><td>NOT Installed</td><td>0</td></row>
 		<row><td>InstallWelcome</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
-		<row><td>InstallWelcome</td><td>Next</td><td>NewDialog</td><td>DestinationFolder</td><td>1</td><td>1</td></row>
+		<row><td>InstallWelcome</td><td>Next</td><td>EndDialog</td><td>Return</td><td>OutOfDiskSpace &lt;&gt; 1</td><td>1</td></row>
+		<row><td>InstallWelcome</td><td>Next</td><td>NewDialog</td><td>DestinationFolder</td><td>0</td><td>2</td></row>
 		<row><td>LicenseAgreement</td><td>Back</td><td>NewDialog</td><td>InstallWelcome</td><td>1</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>ISPrintButton</td><td>DoAction</td><td>ISPrint</td><td>1</td><td>0</td></row>
@@ -1174,8 +1177,8 @@
 		<row><td>USERPROFILE</td><td>TARGETDIR</td><td>.:USERPR~1|UserProfile</td><td/><td>0</td><td/></row>
 		<row><td>WindowsFolder</td><td>TARGETDIR</td><td>.:Windows</td><td/><td>0</td><td/></row>
 		<row><td>WindowsVolume</td><td>TARGETDIR</td><td>.:WinRoot</td><td/><td>0</td><td/></row>
-		<row><td>eecloud</td><td>eedev</td><td>eecloud</td><td/><td>1</td><td/></row>
-		<row><td>eedev</td><td>ProgramMenuFolder</td><td>eedev</td><td/><td>1</td><td/></row>
+		<row><td>eecloud</td><td>eedev</td><td>EECloud</td><td/><td>1</td><td/></row>
+		<row><td>eedev</td><td>ProgramMenuFolder</td><td>EEDev</td><td/><td>1</td><td/></row>
 	</table>
 
 	<table name="DrLocator">
@@ -1871,6 +1874,9 @@
 		<row><td>AlwaysInstall</td><td>EECloud.API.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>EECloud.API.Primary_output1</td></row>
 		<row><td>AlwaysInstall</td><td>EECloud.Content_Files</td></row>
+		<row><td>AlwaysInstall</td><td>EECloud.Host.Documentation_Files</td></row>
+		<row><td>AlwaysInstall</td><td>EECloud.Host.Primary_output</td></row>
+		<row><td>AlwaysInstall</td><td>EECloud.Host.Primary_output1</td></row>
 		<row><td>AlwaysInstall</td><td>EECloud.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
@@ -1892,6 +1898,9 @@
 		<row><td>eecloud.api.primary_output</td><td>EECloud.API.Primary_output</td><td>EECloud.API.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;EECloud.API&gt;|Built</td><td>3</td><td/></row>
 		<row><td>eecloud.api.primary_output1</td><td>EECloud.API.Primary_output1</td><td>EECloud.API.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;EECloud.API&gt;|Built</td><td>3</td><td/></row>
 		<row><td>eecloud.content_files</td><td>EECloud.Content_Files</td><td>EECloud.Content Files</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;EECloud&gt;|ContentFiles</td><td>3</td><td/></row>
+		<row><td>eecloud.host.documentation_f</td><td>EECloud.Host.Documentation_Files</td><td>EECloud.Host.Documentation Files</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;EECloud.Host&gt;|Documentation</td><td>3</td><td/></row>
+		<row><td>eecloud.host.primary_output</td><td>EECloud.Host.Primary_output</td><td>EECloud.Host.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;EECloud.Host&gt;|Built</td><td>3</td><td/></row>
+		<row><td>eecloud.host.primary_output1</td><td>EECloud.Host.Primary_output1</td><td>EECloud.Host.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;EECloud.Host&gt;|Built</td><td>3</td><td/></row>
 		<row><td>eecloud.primary_output</td><td>EECloud.Primary_output</td><td>EECloud.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;EECloud&gt;|Built</td><td>3</td><td/></row>
 	</table>
 
@@ -2153,6 +2162,9 @@
 		<row><td>EECloud.API.Primary_output</td><td/><td/><td>_671DA522_FB4D_4CF1_8FF7_37819F0A1637_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>EECloud.API.Primary_output1</td><td/><td/><td>_D1F8A74F_AC6A_49BF_8D61_05459929664E_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>EECloud.Content_Files</td><td/><td/><td>_3CE4866D_C4A1_4F94_801B_A8F7CCE53EF3_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>EECloud.Host.Documentation_Files</td><td/><td/><td>_512A909E_C5F8_46AE_ADED_655063D61559_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>EECloud.Host.Primary_output</td><td/><td/><td>_32A38991_648D_4AB6_A947_2FB821E1276B_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>EECloud.Host.Primary_output1</td><td/><td/><td>_0C4F9580_A0CA_45FE_B30F_8AD83D705B69_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>EECloud.Primary_output</td><td/><td/><td>_A0650328_34F8_40ED_98D9_9E43EFA02083_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_0A30C434_EDF8_4FA0_A84D_D9BD59D1F38C_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_D8F4B21A_FA3F_49B6_A81D_326F1F2266B1_FILTER</td><td/><td/><td/><td/></row>
@@ -2226,6 +2238,7 @@
 		<col key="yes" def="S50">ISDependency</col>
 		<col def="I2">Exclude</col>
 		<row><td>EECLOUD.API.DLL</td><td>1</td></row>
+		<row><td>EECLOUD.HOST.DLL</td><td>1</td></row>
 		<row><td>MYSQL.DATA.DLL</td><td>1</td></row>
 		<row><td>PLAYERIOCLIENT.DLL</td><td>1</td></row>
 	</table>
@@ -2473,6 +2486,7 @@
 		<row><td>CommonFilesFolder</td><td/><td/><td>1</td></row>
 		<row><td>EECloud</td><td>EECloud\EECloud.vbproj</td><td/><td>2</td></row>
 		<row><td>EECloud.API</td><td>EECloud.API\EECloud.API.vbproj</td><td/><td>2</td></row>
+		<row><td>EECloud.Host</td><td>EECloud.Host\EECloud.Host.vbproj</td><td/><td>2</td></row>
 		<row><td>ISPROJECTDIR</td><td/><td/><td>1</td></row>
 		<row><td>ISProductFolder</td><td/><td/><td>1</td></row>
 		<row><td>ISProjectDataFolder</td><td/><td/><td>1</td></row>
@@ -2788,7 +2802,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>EEDev</td><td>0</td><td/><td>-2053093037</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>EEDev</td><td>0</td><td/><td>-2053051818</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>1436561847</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>1436561847</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>1436561847</td></row>
@@ -3887,8 +3901,8 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>1436561847</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>1436561847</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>1436561847</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.EEDev.com</td><td>0</td><td/><td>-2053093037</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>EEDev</td><td>0</td><td/><td>-2053093037</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.EEDev.com</td><td>0</td><td/><td>-2053051818</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>EEDev</td><td>0</td><td/><td>-2053051818</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>EECloud</td><td>0</td><td/><td>1570791968</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>EECloud</td><td>0</td><td/><td>-2053056397</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>1436561847</td></row>

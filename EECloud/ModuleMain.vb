@@ -17,8 +17,6 @@ Module ModuleMain
             Application.EnableVisualStyles()
         End If
 
-
-
         Init()
 
         Application.Run()
@@ -243,5 +241,4 @@ Module ModuleMain
 #End Region
 
 #End Region
-
 End Module
