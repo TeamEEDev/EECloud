@@ -85,8 +85,10 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MySql.Data">
-      <HintPath>References\MySql.Data.dll</HintPath>
+    <Reference Include="MySql.Data, Version=6.5.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resources\MySql.Data.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="PlayerIOClient">
       <HintPath>..\PlayerIOClient.dll</HintPath>
@@ -205,10 +207,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="References\MySql.Data.dll" />
-    <Content Include="References\PlayerIOClient.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
