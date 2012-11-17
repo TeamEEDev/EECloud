@@ -200,7 +200,7 @@ Module ModuleMain
 #Region "Assemblies"
 
     Private Sub LoadDefaultAssemblies(client As IClient(Of Player))
-        Dim dir As String = Directory.GetCurrentDirectory
+        Dim dir As String = My.Application.Info.DirectoryPath
         For Each assembly In GetAssemblies(dir)
             client.PluginManager.Load(assembly)
         Next
