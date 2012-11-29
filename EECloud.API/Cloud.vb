@@ -1,16 +1,51 @@
 ﻿Public NotInheritable Class Cloud
 
 #Region "Properties"
+    Private Shared myIsDebug As Boolean
 
-    Private Shared myAppEnvironment As AppEnvironment
-
-    Public Shared Property AppEnvironment As AppEnvironment
+    Public Shared Property IsDebug As Boolean
         Get
-            Return myAppEnvironment
+            Return myIsDebug
         End Get
 
-        Friend Set(value As AppEnvironment)
-            myAppEnvironment = value
+        Friend Set(value As Boolean)
+            myIsDebug = value
+        End Set
+    End Property
+
+    Private Shared myIsHosted As Boolean
+
+    Public Shared Property IsHosted As Boolean
+        Get
+            Return myIsHosted
+        End Get
+
+        Friend Set(value As Boolean)
+            myIsHosted = value
+        End Set
+    End Property
+
+    Private Shared myIsNoConsole As Boolean
+
+    Public Shared Property IsNoConsole As Boolean
+        Get
+            Return myIsNoConsole
+        End Get
+
+        Friend Set(value As Boolean)
+            myIsNoConsole = value
+        End Set
+    End Property
+
+    Private Shared myIsNoGUI As Boolean
+
+    Public Shared Property IsNoGUI As Boolean
+        Get
+            Return myIsNoGUI
+        End Get
+
+        Friend Set(value As Boolean)
+            myIsNoGUI = value
         End Set
     End Property
 

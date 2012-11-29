@@ -3,7 +3,7 @@
 #Region "Sure you want to see?"
 #Region "Really?"
 #Region "Okay..."
-    Friend Const ConnStr As String = "server=521dc1d2-e92b-481c-a1a9-a0f2014564f9.mysql.sequelizer.com;database=db521dc1d2e92b481ca1a9a0f2014564f9;uid=siocuthnvjatyyen;pwd=qGzAxq5yPfxXztNjGkPkPwHdkPDZfUm3DUQYDnUCxhySwBgFRZmUqaX38wpQTdt3"
+    Friend Const ConnStr As String = "server=16392fcf-3bd4-4a1d-aba5-a0cd00c9dcf0.mysql.sequelizer.com;database=db16392fcf3bd44a1daba5a0cd00c9dcf0;uid=lynamplbptkrailf;pwd=uJGb5bQPBMmDsCwweiADhHhZvRvnURUnXJY2xyvypYGZx6TgybJY36eTBQMmNC3T"
 #End Region
 #End Region
 #End Region
