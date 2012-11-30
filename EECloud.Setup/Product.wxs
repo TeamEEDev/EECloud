@@ -1,29 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="EECloud" Language="1033" Version="0.6.1.0" Manufacturer="EEDev" UpgradeCode="2c02141d-2e56-4ebd-a0a7-23244e5b60ba">
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+  <?define AppName = EECloud ?>
+  <?define AppVersion = 0.6.1.0 ?>
+  <?define AppAuthor = EEDev ?>
+  <?define UpgradeCode = {ebe9213c-08d9-4561-8028-fb63b80aea90} ?>
 
-		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-		<MediaTemplate />
+  <Product Id="*"
+           Name="$(var.AppName)"
+           Language="1033"
+           Codepage="1252"
+           Version="$(var.AppVersion)"
+           Manufacturer="$(var.AppAuthor)"
+           UpgradeCode="$(var.UpgradeCode)">
+    <!-- Require WI 2.0, compress -->
+    <Package Id="*"
+             Manufacturer="$(var.AppAuthor)"
+             InstallerVersion="200"
+             Languages="1033"
+             Compressed="yes" />
 
-		<Feature Id="ProductFeature" Title="EECloud.Setup" Level="1">
-			<ComponentGroupRef Id="ProductComponents" />
-		</Feature>
-	</Product>
+    <!-- Included CAB -->
+    <Media Id="1" Cabinet="WhyExtractThisLol.cab" EmbedCab="yes"
+           CompressionLevel="high" />
 
-	<Fragment>
-		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="EECloud" />
-			</Directory>
-		</Directory>
-	</Fragment>
+    <!-- Installer icon -->
+    <Icon Id="ProgramIcon" SourceFile="icon.ico" />
+    <Property Id="ARPPRODUCTICON" Value="ProgramIcon" />
 
-	<Fragment>
-		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-			<Component Id="ProductComponent">
-				<File Source="$(var.EECloud.TargetPath)" />
-			 </Component>
-		</ComponentGroup>
-	</Fragment>
+    <!-- Disable repair/modify -->
+    <Property Id="ARPNOREPAIR" Value="1" />
+    <Property Id="ARPNOMODIFY" Value="1" />
+
+    <!-- Only one feature, containing everything -->
+    <Feature Id="Complete" Title="$(var.AppName)" Level="1">
+      <!-- Install the files -->
+      <ComponentGroupRef Id="cgMainProduct" />
+      <ComponentRef Id="cAPIFiles" />
+      
+      <!-- Programs shortcut -->
+      <ComponentRef Id="cStartMenuShortcut" />
+
+      <!-- Desktop shortcut -->
+      <ComponentRef Id="cDesktopShortcut" />
+    </Feature>
+
+    <!-- Upgrade info -->
+    <Upgrade Id="$(var.UpgradeCode)">
+      <UpgradeVersion Minimum="0.0.1"
+                      IncludeMinimum="yes"
+                      OnlyDetect="no"
+                      Maximum="$(var.AppVersion)"
+                      IncludeMaximum="no"
+                      Property="PREVIOUSFOUND" />
+    </Upgrade>
+  </Product>
+  
+  <Fragment>
+    <!-- Folders -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <!-- Programs (in Start Menu) -->
+      <Directory Id="ProgramMenuFolder" />
+
+      <!-- Desktop -->
+      <Directory Id="DesktopFolder" />
+
+      <!-- Directory in Appdata -->
+      <Directory Id="AppDataFolder">
+        <Directory Id="EEDev">
+          <Directory Id="INSTALLLOCATION" Name="$(var.AppName)">
+            <Directory Id="API" Name="API" />
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <!-- Programs shortcut -->
+    <DirectoryRef Id="ProgramMenuFolder">
+      <Component Id="cStartMenuShortcut"
+                 Guid="{5f285fcb-88ee-4df9-8a34-6b3c5b623037}">
+        <!-- Create the folder if it doesn't exist (needed) -->
+        <CreateFolder />
+        <!-- The actual shortcut -->
+        <Shortcut Id="StartMenuShortcut"
+                  Name="$(var.AppName)"
+                  Target="[#MainExecutable]"
+                  WorkingDirectory="INSTALLLOCATION"
+                  Icon="ProgramIcon" />
+
+        <!-- Keypath for this Component (needed) -->
+        <RegistryValue Root="HKCU" Key="Software\$(var.AppName)" Name="Installed"
+                       Type="integer" Value="1"
+                       KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <!-- Desktop shortcut -->
+    <DirectoryRef Id="DesktopFolder">
+      <Component Id="cDesktopShortcut"
+                 Guid="{db19de24-9d8a-4541-b460-7d7cfbdcbcda}">
+        <!-- Create the folder if it doesn't exist (needed) -->
+        <CreateFolder />
+        <!-- The actual shortcut -->
+        <Shortcut Id="DesktopShortcut"
+                  Name="$(var.AppName)"
+                  Target="[#MainExecutable]"
+                  WorkingDirectory="INSTALLLOCATION"
+                  Icon="ProgramIcon" />
+
+        <!-- Keypath for this Component (needed) -->
+        <RegistryValue Root="HKCU" Key="Software\$(var.AppName)" Name="Installed"
+                       Type="integer" Value="1"
+                       KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+    
+    <ComponentGroup Id="cgMainProduct">
+      <ComponentRef Id="cFiles" />
+      <ComponentRef Id="cAPIFiles" />
+    </ComponentGroup>
+
+    <!-- Files -->
+    <DirectoryRef Id="INSTALLLOCATION">
+      <Component Id="cFiles" Guid="{76a51b27-fbbe-48e8-8e9e-c91ca1ee9dd7}">
+        <File KeyPath="yes" Id="MainExecutable" Source="$(var.EECloud.TargetDir)EECloud.exe" />
+        <File Source="$(var.EECloud.TargetDir)EECloud.exe.config" />
+        <File Source="$(var.EECloud.API.TargetDir)EECloud.API.dll" />
+        <File Source="$(var.EECloud.Host.TargetDir)EECloud.Host.dll" />
+        <File Source="$(var.SolutionDir)References\PlayerIOClient.dll" />
+        <File Source="$(var.SolutionDir)References\MySQL.Data.dll" />
+      </Component>
+    
+      <Component Id="cAPIFiles" Guid="{1c536d70-68da-4867-bb47-b13e19f702ec}">
+        <File KeyPath="yes" Id="APIAssembly" Source="$(var.EECloud.API.TargetDir)EECloud.API.dll" />
+        <File Id="HostAssembly" Source="$(var.EECloud.Host.TargetDir)EECloud.Host.dll" />
+        <File Source="$(var.EECloud.API.TargetDir)EECloud.API.xml" />
+        <File Source="$(var.EECloud.Host.TargetDir)EECloud.Host.xml" />
+      </Component>
+    </DirectoryRef>
+
+
+    <!-- Launch app action, invoked below -->
+    <CustomAction Id="LaunchApp"
+                  FileKey="MainExecutable" ExeCommand=""
+                  Execute="deferred" Impersonate="yes" Return="asyncNoWait" />
+
+    <InstallExecuteSequence>
+      <!-- Remove old versions -->
+      <RemoveExistingProducts Before="InstallInitialize" />
+      
+      <!-- Launch the app on exit -->
+      <Custom Action="LaunchApp" After="InstallFiles" />
+    </InstallExecuteSequence>
+  </Fragment>
 </Wix>
