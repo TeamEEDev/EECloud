@@ -3,7 +3,7 @@
   <?define AppName = EECloud ?>
   <?define AppVersion = 0.6.1.0 ?>
   <?define AppAuthor = EEDev ?>
-  <?define UpgradeCode = {ebe9213c-08d9-4561-8028-fb63b80aea90} ?>
+  <?define UpgradeCode = {EBE9213C-08D9-4561-8028-FB63B80AEA90} ?>
 
   <Product Id="*"
            Name="$(var.AppName)"
@@ -77,7 +77,7 @@
     <!-- Programs shortcut -->
     <DirectoryRef Id="ProgramMenuFolder">
       <Component Id="cStartMenuShortcut"
-                 Guid="{5f285fcb-88ee-4df9-8a34-6b3c5b623037}">
+                 Guid="{5F285FCB-88EE-4DF9-8A34-6B3C5B623037}">
         <!-- Create the folder if it doesn't exist (needed) -->
         <CreateFolder />
         <!-- The actual shortcut -->
@@ -97,7 +97,7 @@
     <!-- Desktop shortcut -->
     <DirectoryRef Id="DesktopFolder">
       <Component Id="cDesktopShortcut"
-                 Guid="{db19de24-9d8a-4541-b460-7d7cfbdcbcda}">
+                 Guid="{DB19DE24-9D8A-4541-B460-7D7CFBDCBCDA}">
         <!-- Create the folder if it doesn't exist (needed) -->
         <CreateFolder />
         <!-- The actual shortcut -->
@@ -121,7 +121,7 @@
 
     <!-- Files -->
     <DirectoryRef Id="INSTALLLOCATION">
-      <Component Id="cFiles" Guid="{76a51b27-fbbe-48e8-8e9e-c91ca1ee9dd7}">
+      <Component Id="cFiles" Guid="{76A51B27-FBBE-48E8-8E9E-C91CA1EE9DD7}">
         <File KeyPath="yes" Id="MainExecutable" Source="$(var.EECloud.TargetDir)EECloud.exe" />
         <File Source="$(var.EECloud.TargetDir)EECloud.exe.config" />
         <File Source="$(var.EECloud.API.TargetDir)EECloud.API.dll" />
@@ -130,7 +130,7 @@
         <File Source="$(var.SolutionDir)References\MySQL.Data.dll" />
       </Component>
     
-      <Component Id="cAPIFiles" Guid="{1c536d70-68da-4867-bb47-b13e19f702ec}">
+      <Component Id="cAPIFiles" Guid="{1C536D70-68DA-4867-BB47-B13E19F702EC}">
         <File KeyPath="yes" Id="APIAssembly" Source="$(var.EECloud.API.TargetDir)EECloud.API.dll" />
         <File Id="HostAssembly" Source="$(var.EECloud.Host.TargetDir)EECloud.Host.dll" />
         <File Source="$(var.EECloud.API.TargetDir)EECloud.API.xml" />
