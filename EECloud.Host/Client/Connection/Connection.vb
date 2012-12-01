@@ -292,11 +292,16 @@ Friend NotInheritable Class Connection
         Send(New InitSendMessage)
     End Sub
 
-    Private Function GetIOConnection(ioClient As Client, id As String) As PlayerIOClient.Connection
+    Private Shared Function GetIOConnection(ioClient As Client, id As String) As PlayerIOClient.Connection
         Try
             Return ioClient.Multiplayer.CreateJoinRoom(id, NormalRoom & myGameVersionNumber, True, Nothing, Nothing)
         Catch ex As PlayerIOError
-            Throw New EECloudPlayerIOException(ex)
+            If ex.ErrorCode = ErrorCode.UnknownRoomType Then
+                UpdateVersion(ex)
+                Return GetIOConnection(ioClient, id)
+            Else
+                Throw
+            End If
         End Try
     End Function
 
