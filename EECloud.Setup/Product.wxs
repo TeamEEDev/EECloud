@@ -34,7 +34,8 @@
     <!-- Only one feature, containing everything -->
     <Feature Id="Complete" Title="$(var.AppName)" Level="1">
       <!-- Install the files -->
-      <ComponentGroupRef Id="cgMainProduct" />
+      <ComponentRef Id="c$(var.AppAuthor)"/>
+      <ComponentRef Id="cFiles" />
       <ComponentRef Id="cAPIFiles" />
       
       <!-- Programs shortcut -->
@@ -66,7 +67,7 @@
 
       <!-- Directory in Appdata -->
       <Directory Id="AppDataFolder">
-        <Directory Id="EEDev">
+        <Directory Id="$(var.AppAuthor)" Name="$(var.AppAuthor)">
           <Directory Id="INSTALLLOCATION" Name="$(var.AppName)">
             <Directory Id="API" Name="API" />
           </Directory>
@@ -80,6 +81,7 @@
                  Guid="{5F285FCB-88EE-4DF9-8A34-6B3C5B623037}">
         <!-- Create the folder if it doesn't exist (needed) -->
         <CreateFolder />
+        <RemoveFolder Id='RemoveProgramMenuDir' On='uninstall' />
         <!-- The actual shortcut -->
         <Shortcut Id="StartMenuShortcut"
                   Name="$(var.AppName)"
@@ -88,7 +90,7 @@
                   Icon="ProgramIcon" />
 
         <!-- Keypath for this Component (needed) -->
-        <RegistryValue Root="HKCU" Key="Software\$(var.AppName)" Name="Installed"
+        <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)" Name="Installed"
                        Type="integer" Value="1"
                        KeyPath="yes" />
       </Component>
@@ -96,10 +98,11 @@
 
     <!-- Desktop shortcut -->
     <DirectoryRef Id="DesktopFolder">
-      <Component Id="cDesktopShortcut"
+      <Component Id="cFiles"
                  Guid="{DB19DE24-9D8A-4541-B460-7D7CFBDCBCDA}">
         <!-- Create the folder if it doesn't exist (needed) -->
         <CreateFolder />
+        <RemoveFolder Id='RemoveDesktopDir' On='uninstall' />
         <!-- The actual shortcut -->
         <Shortcut Id="DesktopShortcut"
                   Name="$(var.AppName)"
@@ -108,42 +111,61 @@
                   Icon="ProgramIcon" />
 
         <!-- Keypath for this Component (needed) -->
-        <RegistryValue Root="HKCU" Key="Software\$(var.AppName)" Name="Installed"
+        <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)" Name="Installed"
                        Type="integer" Value="1"
                        KeyPath="yes" />
       </Component>
     </DirectoryRef>
     
     <ComponentGroup Id="cgMainProduct">
-      <ComponentRef Id="cFiles" />
-      <ComponentRef Id="cAPIFiles" />
+
     </ComponentGroup>
 
     <!-- Files -->
     <DirectoryRef Id="INSTALLLOCATION">
       <Component Id="cFiles" Guid="{76A51B27-FBBE-48E8-8E9E-C91CA1EE9DD7}">
-        <RegistryValue Root="HKCU" Key="Software\$(var.AppName)" Name="Installed"
+        <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)" Name="Installed"
                 Type="integer" Value="1"
                 KeyPath="yes" />
+        <!-- Create the folder if it doesn't exist (needed) -->
+        <CreateFolder />
+        <RemoveFolder Id='RemoveINSTALLLOCATION' On='uninstall' />
+        
         <File Id="MainExecutable" Source="$(var.EECloud.TargetDir)EECloud.exe" />
-        <File Source="$(var.EECloud.TargetDir)EECloud.exe.config" />
-        <File Source="$(var.SolutionDir)References\PlayerIOClient.dll" />
-        <File Source="$(var.SolutionDir)References\MySQL.Data.dll" />
+        <File Id="APIAssembly" Source="$(var.EECloud.API.TargetDir)EECloud.API.dll" />
+        <File Id="HostAssembly" Source="$(var.EECloud.Host.TargetDir)EECloud.Host.dll" />
+        <File Id="Configuration" Source="$(var.EECloud.TargetDir)EECloud.exe.config" />
+        <File Id="PlayerIOAssembly" Source="$(var.SolutionDir)References\PlayerIOClient.dll" />
+        <File Id="MySQLAssembly" Source="$(var.SolutionDir)References\MySQL.Data.dll" />
       </Component>
     </DirectoryRef>
     
     <DirectoryRef Id="API">
       <Component Id="cAPIFiles" Guid="{1C536D70-68DA-4867-BB47-B13E19F702EC}">
-        <RegistryValue Root="HKCU" Key="Software\$(var.AppName)" Name="Installed"
+        <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)" Name="Installed"
                 Type="integer" Value="1"
                 KeyPath="yes" />
-        <File Id="APIAssembly" Source="$(var.EECloud.API.TargetDir)EECloud.API.dll" />
-        <File Id="HostAssembly" Source="$(var.EECloud.Host.TargetDir)EECloud.Host.dll" />
-        <File Source="$(var.EECloud.API.TargetDir)EECloud.API.xml" />
-        <File Source="$(var.EECloud.Host.TargetDir)EECloud.Host.xml" />
+        <!-- Create the folder if it doesn't exist (needed) -->
+        <CreateFolder />
+        <RemoveFolder Id='RemoveAPI' On='uninstall' />
+        
+        <File Id="APIRefrence" Source="$(var.EECloud.API.TargetDir)EECloud.API.dll" />
+        <File Id="HostRefrence" Source="$(var.EECloud.Host.TargetDir)EECloud.Host.dll" />
+        <File Id="APIDoc" Source="$(var.EECloud.API.TargetDir)EECloud.API.xml" />
+        <File Id="HostDoc" Source="$(var.EECloud.Host.TargetDir)EECloud.Host.xml" />
       </Component>
     </DirectoryRef>
 
+    <DirectoryRef Id="$(var.AppAuthor)">
+      <Component Id="c$(var.AppAuthor)" Guid="{078f6c30-61af-4fe3-9135-f84142592ab1}">
+        <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)" Name="Installed"
+                Type="integer" Value="1"
+                KeyPath="yes" />
+        <!-- Create the folder if it doesn't exist (needed) -->
+        <CreateFolder />
+        <RemoveFolder Id='Remove$(var.AppAuthor)' On='uninstall' />
+      </Component>
+    </DirectoryRef>
 
     <!-- Launch app action, invoked below -->
     <CustomAction Id="LaunchApp"
