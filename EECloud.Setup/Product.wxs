@@ -17,7 +17,8 @@
              Manufacturer="$(var.AppAuthor)"
              InstallerVersion="200"
              Languages="1033"
-             Compressed="yes" />
+             Compressed="yes" 
+             InstallScope='perUser' />
 
     <!-- Included CAB -->
     <Media Id="1" Cabinet="WhyExtractThisLol.cab" EmbedCab="yes"
@@ -37,12 +38,6 @@
       <ComponentRef Id="c$(var.AppAuthor)"/>
       <ComponentRef Id="cFiles" />
       <ComponentRef Id="cAPIFiles" />
-      
-      <!-- Programs shortcut -->
-      <ComponentRef Id="cStartMenuShortcut" />
-
-      <!-- Desktop shortcut -->
-      <ComponentRef Id="cDesktopShortcut" />
     </Feature>
 
     <!-- Upgrade info -->
@@ -75,52 +70,6 @@
       </Directory>
     </Directory>
 
-    <!-- Programs shortcut -->
-    <DirectoryRef Id="ProgramMenuFolder">
-      <Component Id="cStartMenuShortcut"
-                 Guid="{5F285FCB-88EE-4DF9-8A34-6B3C5B623037}">
-        <!-- Create the folder if it doesn't exist (needed) -->
-        <CreateFolder />
-        <RemoveFolder Id='RemoveProgramMenuDir' On='uninstall' />
-        <!-- The actual shortcut -->
-        <Shortcut Id="StartMenuShortcut"
-                  Name="$(var.AppName)"
-                  Target="[#MainExecutable]"
-                  WorkingDirectory="INSTALLLOCATION"
-                  Icon="ProgramIcon" />
-
-        <!-- Keypath for this Component (needed) -->
-        <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)" Name="Installed"
-                       Type="integer" Value="1"
-                       KeyPath="yes" />
-      </Component>
-    </DirectoryRef>
-
-    <!-- Desktop shortcut -->
-    <DirectoryRef Id="DesktopFolder">
-      <Component Id="cFiles"
-                 Guid="{DB19DE24-9D8A-4541-B460-7D7CFBDCBCDA}">
-        <!-- Create the folder if it doesn't exist (needed) -->
-        <CreateFolder />
-        <RemoveFolder Id='RemoveDesktopDir' On='uninstall' />
-        <!-- The actual shortcut -->
-        <Shortcut Id="DesktopShortcut"
-                  Name="$(var.AppName)"
-                  Target="[#MainExecutable]"
-                  WorkingDirectory="INSTALLLOCATION"
-                  Icon="ProgramIcon" />
-
-        <!-- Keypath for this Component (needed) -->
-        <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)" Name="Installed"
-                       Type="integer" Value="1"
-                       KeyPath="yes" />
-      </Component>
-    </DirectoryRef>
-    
-    <ComponentGroup Id="cgMainProduct">
-
-    </ComponentGroup>
-
     <!-- Files -->
     <DirectoryRef Id="INSTALLLOCATION">
       <Component Id="cFiles" Guid="{76A51B27-FBBE-48E8-8E9E-C91CA1EE9DD7}">
@@ -130,8 +79,19 @@
         <!-- Create the folder if it doesn't exist (needed) -->
         <CreateFolder />
         <RemoveFolder Id='RemoveINSTALLLOCATION' On='uninstall' />
-        
-        <File Id="MainExecutable" Source="$(var.EECloud.TargetDir)EECloud.exe" />
+
+        <File Id="MainExecutable" Source="$(var.EECloud.TargetDir)EECloud.exe">
+          <Shortcut Id="StartMenuShortcut"
+                    Directory="ProgramMenuFolder"
+                    Name="$(var.AppName)"
+                    WorkingDirectory="INSTALLLOCATION"
+                    Icon="ProgramIcon" />
+          <Shortcut Id="DesktopShortcut"
+                    Directory="DesktopFolder"
+                    Name="$(var.AppName)"
+                    WorkingDirectory="INSTALLLOCATION"
+                    Icon="ProgramIcon" />        
+        </File>
         <File Id="APIAssembly" Source="$(var.EECloud.API.TargetDir)EECloud.API.dll" />
         <File Id="HostAssembly" Source="$(var.EECloud.Host.TargetDir)EECloud.Host.dll" />
         <File Id="Configuration" Source="$(var.EECloud.TargetDir)EECloud.exe.config" />
