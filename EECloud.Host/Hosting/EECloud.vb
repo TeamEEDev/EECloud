@@ -30,7 +30,7 @@ Public NotInheritable Class EECloud
         End Get
     End Property
 
-    Shared Async Function RunCloudMode(licenseUsername As String, licenseKey As String, username As String, password As String, type As AccountType, worldID As String) As Task
+    Shared Sub RunCloudMode(licenseUsername As String, licenseKey As String, username As String, password As String, type As AccountType, worldID As String)
         SetLicenseData(licenseUsername, licenseKey)
         SetLoginData(username, password, type, worldID)
         Init(False, False, True)
@@ -39,11 +39,11 @@ Public NotInheritable Class EECloud
 
         LoadDir(My.Application.Info.DirectoryPath)
 
-        Await Login()
+        Login().Wait()
         Application.Run()
-    End Function
+    End Sub
 
-    Friend Shared Async Sub RunDesktopMode()
+    Friend Shared Sub RunDesktopMode()
         Init(False, False, False)
         CheckLicense()
         Dim loginTask As Task = ShowLogin()
@@ -58,14 +58,14 @@ Public NotInheritable Class EECloud
 
         If Not loginTask.IsCompleted Then
             Cloud.Logger.Log(LogPriority.Info, "Waiting for user response...")
-            Await loginTask
+            loginTask.Wait()
         End If
 
-        Await Login()
+        Login().Wait()
         Application.Run()
     End Sub
 
-    Public Shared Async Sub RunDebugMode(plugin As Type, username As String, password As String, type As AccountType, worldID As String)
+    Public Shared Sub RunDebugMode(plugin As Type, username As String, password As String, type As AccountType, worldID As String)
         SetLoginData(username, password, type, worldID)
         Init(True, False, False)
         CheckLicense()
@@ -73,7 +73,7 @@ Public NotInheritable Class EECloud
 
         Client.PluginManager.Load(plugin)
 
-        Await Login()
+        Login().Wait()
         Application.Run()
     End Sub
 
