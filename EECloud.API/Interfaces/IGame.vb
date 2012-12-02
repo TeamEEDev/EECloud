@@ -7,6 +7,8 @@
     ReadOnly Property GravityMultiplayer As Double
     ReadOnly Property IsTutorialRoom As Boolean
     ReadOnly Property AllowPotions As Boolean
+    ReadOnly Property CurrentWoots As Integer
+    ReadOnly Property TotalWoots As Integer
 
     ReadOnly Property MyPlayer As Player
     ReadOnly Property RedAuraPotionCount As Integer
