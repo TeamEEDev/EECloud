@@ -55,7 +55,6 @@
       <HintPath>..\References\PlayerIOClient.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -120,7 +119,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Hosting\EECloud.vb" />
-    <Compile Include="Logger\LeLogger.vb" />
     <Compile Include="Logger\Logger.vb" />
     <Compile Include="Misc\Secret.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
