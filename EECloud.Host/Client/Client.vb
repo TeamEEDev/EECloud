@@ -43,6 +43,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property PotionManager As IPotionManager Implements IClient(Of TPlayer).PotionManager
+        Get
+            Return myInternalClient.PotionManager
+        End Get
+    End Property
+
     Private ReadOnly myChatter As Chatter
 
     Friend ReadOnly Property Chatter As IChatter Implements IClient(Of TPlayer).Chatter

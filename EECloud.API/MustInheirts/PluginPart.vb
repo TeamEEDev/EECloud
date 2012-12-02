@@ -59,6 +59,12 @@
             Return Client.KeyManager
         End Get
     End Property
+
+    Public ReadOnly Property PotionManager As IPotionManager Implements IClient(Of TPlayer).PotionManager
+        Get
+            Return Client.PotionManager
+        End Get
+    End Property
 #End Region
 
 #Region "Methods"

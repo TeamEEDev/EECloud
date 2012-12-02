@@ -98,6 +98,7 @@
     <Compile Include="Client\PlayerManager\PlayerManager.vb" />
     <Compile Include="Client\PluginManager\PluginManager.vb" />
     <Compile Include="Client\PluginManager\PluginObject.vb" />
+    <Compile Include="Client\PotionManager\PotionManager.vb" />
     <Compile Include="Client\Uploader\Uploader.vb" />
     <Compile Include="Client\World\World.vb" />
     <Compile Include="DefaultCommandListner.vb" />

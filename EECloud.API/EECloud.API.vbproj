@@ -100,6 +100,7 @@
     <Compile Include="Interfaces\IPlayer.vb" />
     <Compile Include="Interfaces\IPlayerManager.vb" />
     <Compile Include="Interfaces\IConnection.vb" />
+    <Compile Include="Interfaces\IPotionManager.vb" />
     <Compile Include="Interfaces\IUploader.vb" />
     <Compile Include="Interfaces\World\IWorld.vb" />
     <Compile Include="Interfaces\World\IWorldBlock.vb" />
@@ -113,7 +114,6 @@
     <Compile Include="Messages\Receive\LevelupRecieveMessage.vb" />
     <Compile Include="Messages\Receive\PotionReceiveMessage.vb" />
     <Compile Include="Messages\Send\AllowPotionsSendMessage.vb" />
-    <Compile Include="Messages\Send\PressPurpleSwitchSendMessage.vb" />
     <Compile Include="Messages\Send\TouchCakeSendMessage.vb" />
     <Compile Include="Messages\Send\PotionSendMessage.vb" />
     <Compile Include="Messages\Upload\BlockPlaceUploadMessage.vb" />

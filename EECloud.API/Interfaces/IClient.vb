@@ -75,4 +75,12 @@ Public Interface IClient(Of TPlayer As {Player, New})
     ''' <returns></returns>
     ''' <remarks></remarks>
     ReadOnly Property KeyManager As IKeyManager
+
+    ''' <summary>
+    ''' The client's potion manager that is responsible for keeping track of player's potions
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    ReadOnly Property PotionManager As IPotionManager
 End Interface

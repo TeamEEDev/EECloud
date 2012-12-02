@@ -11,7 +11,4 @@
     ReadOnly Property TotalWoots As Integer
 
     ReadOnly Property MyPlayer As Player
-    ReadOnly Property RedAuraPotionCount As Integer
-    ReadOnly Property BlueAuraPotionCount As Integer
-    ReadOnly Property YellowAuraPotionCount As Integer
 End Interface
