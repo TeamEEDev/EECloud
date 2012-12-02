@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class UpWootRecieveMessage
+Public Class UpWootReceiveMessage
     Inherits ReceiveMessage
     Public ReadOnly UserID As Integer
     '0
