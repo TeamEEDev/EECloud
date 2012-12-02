@@ -342,6 +342,22 @@
     BackgroundMarsSmallStar = 606
     BackgroundMarsBigStar = 607
 
+    BlockCheckeredGrey = 186
+    BlockCheckeredDarkBlue = 187
+    BlockCheckeredPurple = 188
+    BlockCheckeredRed = 189
+    BlockCheckeredYellow = 190
+    BlockCheckeredGreen = 191
+    BlockCheckeredLightBlue = 192
+
+    BlockJungleRuinsSolidRoundedEdgeFace = 193
+    BlockJungleRuinsOneWay = 194
+    BlockJungleRuinsSolidNonRoundedGrey = 195
+    BlockJungleRuinsSolidRed = 196
+    BlockJungleRuinsSolidBlue = 197
+    BlockJungleRuinsSolidYellow = 198
+
+
     DecorationPrizeTrophy = 223
 
     DecorationSpring2011Grass1 = 233
@@ -467,6 +483,11 @@
     BackgroundNormalYellow = 614
     BackgroundNormalGreen = 615
     BackgroundNormalLightBlue = 616
+
+    BackgroundJungleRuinsGrey = 617
+    BackgroundJungleRuinsRed = 618
+    BackgroundJungleRuinsBlue = 619
+    BackgroundJungleRuinsYellow = 620
 
     BlockLabel = 1000
 End Enum
