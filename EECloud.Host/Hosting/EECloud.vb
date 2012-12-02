@@ -65,7 +65,8 @@ Public NotInheritable Class EECloud
         Application.Run()
     End Sub
 
-    Public Shared Sub RunDebugMode(plugin As Type, username As String, password As String, type As AccountType, worldID As String)
+    Public Shared Sub RunDebugMode(licenseUsername As String, licenseKey As String, plugin As Type, username As String, password As String, type As AccountType, worldID As String)
+        SetLicenseData(licenseUsername, licenseKey)
         SetLoginData(username, password, type, worldID)
         Init(True, False, False)
         CheckLicense()

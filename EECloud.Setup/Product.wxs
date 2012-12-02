@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?define AppName = EECloud ?>
-  <?define AppVersion = 0.6.1.2 ?>
+  <?define AppVersion = 0.7.6 ?>
   <?define AppAuthor = EEDev ?>
   <?define UpgradeCode = {EBE9213C-08D9-4561-8028-FB63B80AEA90} ?>
 
-  <Product Id="{c2fede30-79fa-4ac8-aeaa-4db8b37d02f8}"
+  <Product Id="*"
            Name="$(var.AppName)"
            Language="1033"
-           Codepage="1252"
            Version="$(var.AppVersion)"
            Manufacturer="$(var.AppAuthor)"
            UpgradeCode="$(var.UpgradeCode)">
-    <Package Id="{8b94569f-3519-4889-bfc0-e8ef8620d32b}"
+    <Package Id="*"
              Manufacturer="$(var.AppAuthor)"
              InstallerVersion="200"
              Languages="1033"
@@ -31,13 +30,11 @@
     <Property Id="ARPNOMODIFY" Value="1" />
     
     <!-- Upgrade info -->
-    <Upgrade Id="$(var.UpgradeCode)">
-      <UpgradeVersion Minimum="0.0.1"
-                      IncludeMinimum="yes"
-                      OnlyDetect="no"
-                      Maximum="$(var.AppVersion)"
-                      IncludeMaximum="no"
-                      Property="PREVIOUSFOUND" />
+   <Upgrade Id="$(var.UpgradeCode)">
+      <UpgradeVersion Minimum="$(var.AppVersion)" OnlyDetect="yes" Property="NEWERVERSIONDETECTED" />
+      <UpgradeVersion Minimum="0.0.0" Maximum="$(var.AppVersion)" 
+                      IncludeMinimum="yes" IncludeMaximum="no" 
+                      Property="OLDERVERSIONBEINGUPGRADED" />
     </Upgrade>
 
     <!-- Main feature -->

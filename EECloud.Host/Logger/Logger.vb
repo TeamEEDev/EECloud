@@ -4,7 +4,6 @@ Friend NotInheritable Class Logger
     Implements ILogger
 
 #Region "Fields"
-    Private Shared myLeLogger As LeLogger
     Private myInput As String = String.Empty
     Dim myOldTop As Integer
     Dim myOldLeft As Integer
@@ -91,11 +90,6 @@ Friend NotInheritable Class Logger
             Overwrite(Input.Length + 1, output)
             Console.WriteLine()
             Console.Write(">" & Input)
-        Else
-            If myLeLogger Is Nothing Then
-                myLeLogger = New LeLogger()
-            End If
-            myLeLogger.Write(Now.ToShortDateString & " " & output)
         End If
     End Sub
 
