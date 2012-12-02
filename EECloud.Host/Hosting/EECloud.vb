@@ -16,6 +16,11 @@ Public NotInheritable Class EECloud
     End Sub
 
     Shared Sub New()
+        If Not My.Settings.Updated Then
+            My.Settings.Upgrade()
+            My.Settings.Updated = True
+        End If
+
         myLicenseUsername = My.Settings.LicenseUsername
         myLicenseKey = My.Settings.LicenseKey
         myUsername = My.Settings.LoginEmail
