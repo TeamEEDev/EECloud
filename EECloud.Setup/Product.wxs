@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?define AppName = EECloud ?>
-  <?define AppVersion = 0.6.1.0 ?>
+  <?define AppVersion = 0.6.1.2 ?>
   <?define AppAuthor = EEDev ?>
   <?define UpgradeCode = {EBE9213C-08D9-4561-8028-FB63B80AEA90} ?>
 
-  <Product Id="*"
+  <Product Id="{c2fede30-79fa-4ac8-aeaa-4db8b37d02f8}"
            Name="$(var.AppName)"
            Language="1033"
            Codepage="1252"
            Version="$(var.AppVersion)"
            Manufacturer="$(var.AppAuthor)"
            UpgradeCode="$(var.UpgradeCode)">
-    <!-- Require WI 2.0, compress -->
-    <Package Id="*"
+    <Package Id="{8b94569f-3519-4889-bfc0-e8ef8620d32b}"
              Manufacturer="$(var.AppAuthor)"
              InstallerVersion="200"
              Languages="1033"
@@ -21,8 +20,7 @@
              InstallScope='perUser' />
 
     <!-- Included CAB -->
-    <Media Id="1" Cabinet="WhyExtractThisLol.cab" EmbedCab="yes"
-           CompressionLevel="high" />
+    <Media Id="1" Cabinet="EECloud.cab" EmbedCab="yes" CompressionLevel="high" />
 
     <!-- Installer icon -->
     <Icon Id="ProgramIcon" SourceFile="icon.ico" />
@@ -31,15 +29,7 @@
     <!-- Disable repair/modify -->
     <Property Id="ARPNOREPAIR" Value="1" />
     <Property Id="ARPNOMODIFY" Value="1" />
-
-    <!-- Only one feature, containing everything -->
-    <Feature Id="Complete" Title="$(var.AppName)" Level="1">
-      <!-- Install the files -->
-      <ComponentRef Id="c$(var.AppAuthor)"/>
-      <ComponentRef Id="cFiles" />
-      <ComponentRef Id="cAPIFiles" />
-    </Feature>
-
+    
     <!-- Upgrade info -->
     <Upgrade Id="$(var.UpgradeCode)">
       <UpgradeVersion Minimum="0.0.1"
@@ -49,10 +39,18 @@
                       IncludeMaximum="no"
                       Property="PREVIOUSFOUND" />
     </Upgrade>
+
+    <!-- Main feature -->
+    <Feature Id="Complete" Title="$(var.AppName)" Level="1">
+      <ComponentRef Id="c$(var.AppAuthor)"/>
+      <ComponentRef Id="cFiles" />
+      <ComponentRef Id="cAPIFiles" />
+      <ComponentRef Id="cAPIRegistryKeys" />
+    </Feature>
   </Product>
   
   <Fragment>
-    <!-- Folders -->
+    <!-- Folder structure -->
     <Directory Id="TARGETDIR" Name="SourceDir">
       <!-- Programs (in Start Menu) -->
       <Directory Id="ProgramMenuFolder" />
@@ -70,13 +68,12 @@
       </Directory>
     </Directory>
 
-    <!-- Files -->
+    <!-- Install folder -->
     <DirectoryRef Id="INSTALLLOCATION">
       <Component Id="cFiles" Guid="{76A51B27-FBBE-48E8-8E9E-C91CA1EE9DD7}">
         <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)" Name="Installed"
                 Type="integer" Value="1"
                 KeyPath="yes" />
-        <!-- Create the folder if it doesn't exist (needed) -->
         <CreateFolder />
         <RemoveFolder Id='RemoveINSTALLLOCATION' On='uninstall' />
 
@@ -100,12 +97,12 @@
       </Component>
     </DirectoryRef>
     
+    <!-- API folder -->
     <DirectoryRef Id="API">
       <Component Id="cAPIFiles" Guid="{1C536D70-68DA-4867-BB47-B13E19F702EC}">
         <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)" Name="Installed"
                 Type="integer" Value="1"
                 KeyPath="yes" />
-        <!-- Create the folder if it doesn't exist (needed) -->
         <CreateFolder />
         <RemoveFolder Id='RemoveAPI' On='uninstall' />
         
@@ -116,18 +113,30 @@
       </Component>
     </DirectoryRef>
 
+    <!-- EEDev folder -->
     <DirectoryRef Id="$(var.AppAuthor)">
       <Component Id="c$(var.AppAuthor)" Guid="{078f6c30-61af-4fe3-9135-f84142592ab1}">
         <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)" Name="Installed"
                 Type="integer" Value="1"
                 KeyPath="yes" />
-        <!-- Create the folder if it doesn't exist (needed) -->
         <CreateFolder />
         <RemoveFolder Id='Remove$(var.AppAuthor)' On='uninstall' />
       </Component>
     </DirectoryRef>
+    </Fragment>
 
-    <!-- Launch app action, invoked below -->
+  <Fragment>
+    <DirectoryRef Id="TARGETDIR">
+      <Component Id="cAPIRegistryKeys" Guid="{c7d3c0f0-3c06-11e2-81c1-0800200c9a66}">
+        <RegistryKey Root="HKCU" Key="Software\Microsoft\.NETFramework\v4.5.50709\AssemblyFoldersEx\EECloud">
+            <RegistryValue Name="Installed" Type="integer" Value="1" KeyPath="yes" />
+            <RegistryValue Type="string" Value="[API]"/>
+        </RegistryKey>
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+  
+  <Fragment>
     <CustomAction Id="LaunchApp"
                   FileKey="MainExecutable" ExeCommand=""
                   Execute="deferred" Impersonate="yes" Return="asyncNoWait" />
