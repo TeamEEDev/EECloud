@@ -264,6 +264,18 @@ Friend NotInheritable Class Connection
     Friend Event ReceiveAllowPotions(sender As Object, e As AllowPotionsReceiveMessage) Implements IConnection.ReceiveAllowPotions
 
     Friend Event SendAllowPotions(sender As Object, e As Cancelable(Of AllowPotionsSendMessage)) Implements IConnection.SendAllowPotions
+
+    Public Event PreviewReceiveLevelup(sender As Object, e As LevelupRecieveMessage) Implements IConnection.PreviewReceiveLevelup
+
+    Public Event PreviewReceiveMagic(sender As Object, e As MagicRecieveMessage) Implements IConnection.PreviewReceiveMagic
+
+    Public Event PreviewReceiveUpWoot(sender As Object, e As UpWootReceiveMessage) Implements IConnection.PreviewReceiveUpWoot
+
+    Public Event ReceiveLevelup(sender As Object, e As LevelupRecieveMessage) Implements IConnection.ReceiveLevelup
+
+    Public Event ReceiveMagic(sender As Object, e As MagicRecieveMessage) Implements IConnection.ReceiveMagic
+
+    Public Event ReceiveUpWoot(sender As Object, e As UpWootReceiveMessage) Implements IConnection.ReceiveUpWoot
 #End Region
 
 #Region "Methods"
@@ -682,6 +694,21 @@ Friend NotInheritable Class Connection
                 Dim m As AllowPotionsReceiveMessage = CType(e, AllowPotionsReceiveMessage)
                 RaiseEvent PreviewReceiveAllowPotions(Me, m)
                 RaiseEvent ReceiveAllowPotions(Me, m)
+
+            Case GetType(MagicRecieveMessage)
+                Dim m As MagicRecieveMessage = CType(e, MagicRecieveMessage)
+                RaiseEvent PreviewReceiveMagic(Me, m)
+                RaiseEvent ReceiveMagic(Me, m)
+
+            Case GetType(LevelupRecieveMessage)
+                Dim m As LevelupRecieveMessage = CType(e, LevelupRecieveMessage)
+                RaiseEvent PreviewReceiveLevelup(Me, m)
+                RaiseEvent ReceiveLevelup(Me, m)
+
+            Case GetType(UpWootReceiveMessage)
+                Dim m As UpWootReceiveMessage = CType(e, UpWootReceiveMessage)
+                RaiseEvent PreviewReceiveUpWoot(Me, m)
+                RaiseEvent ReceiveUpWoot(Me, m)
         End Select
     End Sub
 
@@ -825,7 +852,7 @@ Friend NotInheritable Class Connection
                 RegisterMessage("allowpotions", GetType(AllowPotionsReceiveMessage))
                 RegisterMessage("w", GetType(MagicRecieveMessage))
                 RegisterMessage("levelup", GetType(LevelupRecieveMessage))
-                RegisterMessage("wu", GetType(UpWootRecieveMessage))
+                RegisterMessage("wu", GetType(UpWootReceiveMessage))
             End If
         End SyncLock
     End Sub
