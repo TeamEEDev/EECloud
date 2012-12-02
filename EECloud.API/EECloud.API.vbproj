@@ -108,6 +108,9 @@
     <Compile Include="Interfaces\World\IWorldPortalBlock.vb" />
     <Compile Include="Interfaces\World\IWorldSoundBlock.vb" />
     <Compile Include="Messages\Receive\AllowPotionsReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\UpWootRecieveMessage.vb" />
+    <Compile Include="Messages\Receive\MagicRecieveMessage.vb" />
+    <Compile Include="Messages\Receive\LevelupRecieveMessage.vb" />
     <Compile Include="Messages\Receive\PotionReceiveMessage.vb" />
     <Compile Include="Messages\Send\AllowPotionsSendMessage.vb" />
     <Compile Include="Messages\Send\PressPurpleSwitchSendMessage.vb" />

@@ -823,6 +823,9 @@ Friend NotInheritable Class Connection
                 RegisterMessage("givewitch", GetType(GiveWitchReceiveMessage))
                 RegisterMessage("givegrinch", GetType(GiveGrinchReceiveMessage))
                 RegisterMessage("allowpotions", GetType(AllowPotionsReceiveMessage))
+                RegisterMessage("w", GetType(MagicRecieveMessage))
+                RegisterMessage("levelup", GetType(LevelupRecieveMessage))
+                RegisterMessage("wu", GetType(UpWootRecieveMessage))
             End If
         End SyncLock
     End Sub
