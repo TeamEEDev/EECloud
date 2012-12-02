@@ -1,6 +1,4 @@
-﻿Imports PlayerIOClient
-
-Friend NotInheritable Class PluginManager
+﻿Friend NotInheritable Class PluginManager
     Implements IPluginManager
 
 #Region "Fields"
@@ -48,7 +46,7 @@ Friend NotInheritable Class PluginManager
                     End If
                 End If
             End If
-            Throw New EECloudException(API.ErrorCode.InvalidPlugin)
+            Throw New EECloudException(ErrorCode.InvalidPlugin)
         End SyncLock
     End Sub
 
