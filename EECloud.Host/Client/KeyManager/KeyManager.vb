@@ -12,8 +12,6 @@
 
     Friend Event OnPress(sender As Object, e As Key) Implements IKeyManager.OnPress
 
-    Friend Event OnPurpleSwitch(sender As Object, e As Boolean) Implements IKeyManager.OnPurpleSwitch
-
     Friend Event OnRedKey(sender As Object, e As Boolean) Implements IKeyManager.OnRedKey
 
     Friend Event OnRelease(sender As Object, e As Key) Implements IKeyManager.OnRelease
@@ -55,14 +53,6 @@
         End Get
     End Property
 
-    Private myPurpleSwitch As Boolean
-
-    Friend ReadOnly Property PurpleSwitch As Boolean Implements IKeyManager.PurpleSwitch
-        Get
-            Return myPurpleSwitch
-        End Get
-    End Property
-
 #End Region
 
 #Region "Methods"
@@ -77,10 +67,6 @@
 
     Friend Sub PressGreenKey() Implements IKeyManager.PressGreenKey
         myConnection.Send(New PressRedKeySendMessage)
-    End Sub
-
-    Friend Sub PressPurpleSwitch() Implements IKeyManager.PressPurpleSwitch
-        myConnection.Send(New PressPurpleSwitchSendMessage)
     End Sub
 
     Friend Sub PressRedKey() Implements IKeyManager.PressRedKey
@@ -103,9 +89,6 @@
                 Case Key.TimeDoor
                     RaiseEvent OnTimedDoor(Me, False)
                     myTimeDoor = False
-                Case Key.Purple
-                    RaiseEvent OnPurpleSwitch(Me, False)
-                    myPurpleSwitch = False
             End Select
         Next
     End Sub
@@ -126,9 +109,6 @@
                 Case Key.TimeDoor
                     RaiseEvent OnTimedDoor(Me, True)
                     myTimeDoor = True
-                Case Key.Purple
-                    RaiseEvent OnPurpleSwitch(Me, True)
-                    myPurpleSwitch = True
             End Select
         Next
     End Sub

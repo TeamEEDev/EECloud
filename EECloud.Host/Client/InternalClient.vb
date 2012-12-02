@@ -51,6 +51,14 @@
         End Get
     End Property
 
+    Private ReadOnly myPotionManager As IPotionManager
+
+    Public ReadOnly Property PotionManager As IPotionManager Implements IClient(Of Player).PotionManager
+        Get
+            Return myPotionManager
+        End Get
+    End Property
+
     Private ReadOnly myInternalChatter As InternalChatter
 
     Friend ReadOnly Property InternalChatter As InternalChatter
@@ -111,6 +119,7 @@
         myUploader = New Uploader(Me)
         myGame = New Game(Me)
         myKeyManager = New KeyManager(Me)
+        myPotionManager = New PotionManager(Me)
 
         myInternalChatter = New InternalChatter(Me)
         myInternalPlayerManager = New InternalPlayerManager(Me)

@@ -21,4 +21,4 @@
 ' You can specify all the values or you can default the Build and Revision Numbers 
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
-<Assembly: AssemblyVersion("0.7.7.2")> 
+<Assembly: AssemblyVersion("0.7.8.0")> 
