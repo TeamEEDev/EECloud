@@ -52,7 +52,7 @@
 
     Public Sub Load(assembly As Reflection.Assembly) Implements IPluginManager.Load
         'Checking for valid plugins
-        Dim plugins As IEnumerable(Of Type) =
+        Dim plugins1 As IEnumerable(Of Type) =
                 From type As Type In assembly.GetTypes
                 Where GetType(IPlugin).IsAssignableFrom(type)
                 Let attributes As Object() = type.GetCustomAttributes(GetType(PluginAttribute), True)
@@ -62,7 +62,7 @@
                 Select type
 
         'Activating valid plugins
-        Using enumrator As IEnumerator(Of Type) = plugins.GetEnumerator
+        Using enumrator As IEnumerator(Of Type) = plugins1.GetEnumerator
             Do
                 Try
                     Dim hasNext As Boolean = enumrator.MoveNext()

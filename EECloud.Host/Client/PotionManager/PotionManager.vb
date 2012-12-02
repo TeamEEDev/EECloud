@@ -73,7 +73,9 @@
                 Case Potion.YellowAura
                     myYellowAuraPotionCount = e.PlayerIOMessage.GetInteger(pointer)
                 Case Potion.Jump
-
+                    myJumpPotionCount = e.PlayerIOMessage.GetInteger(pointer)
+                Case Potion.GreenAura
+                    myGreenAuraPotionCount = e.PlayerIOMessage.GetInteger(pointer)
             End Select
             pointer = CUInt(pointer - 2)
         Loop
