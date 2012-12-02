@@ -103,6 +103,22 @@
         End Get
     End Property
 
+    Private myCurrentWoots As Integer
+
+    Public ReadOnly Property CurrentWoots As Integer Implements IGame.CurrentWoots
+        Get
+            Return myCurrentWoots
+        End Get
+    End Property
+
+    Private myTotalWoots As Integer
+
+    Public ReadOnly Property TotalWoots As Integer Implements IGame.TotalWoots
+        Get
+            Return myTotalWoots
+        End Get
+    End Property
+
 #End Region
 
 #Region "Methods"
@@ -122,6 +138,8 @@
         myIsTutorialRoom = e.IsTutorialRoom
         myGravityMultiplayer = e.Gravity
         myAllowPotions = e.AllowPotions
+        myCurrentWoots = e.CurrentWoots
+        myTotalWoots = e.TotalWoots
 
         If e.IsOwner Then
             myAccessRight = AccessRight.Owner

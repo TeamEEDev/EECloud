@@ -8,6 +8,10 @@ Public NotInheritable Class InitReceiveMessage
     '1
     Public ReadOnly Plays As Integer
     '2
+    Public ReadOnly CurrentWoots As Integer
+    '3
+    Public ReadOnly TotalWoots As Integer
+    '4
     Public ReadOnly Encryption As String
     '5
     Public ReadOnly UserID As Integer
@@ -39,6 +43,8 @@ Public NotInheritable Class InitReceiveMessage
         UsernameOwner = message.GetString(0)
         WorldName = message.GetString(1)
         Plays = message.GetInteger(2)
+        CurrentWoots = message.GetInteger(3)
+        TotalWoots = message.GetInteger(4)
         Encryption = message.GetString(5)
         UserID = message.GetInteger(6)
         SpawnX = message.GetInteger(7)
