@@ -8,7 +8,7 @@ Module ModuleMain
 #Region "Startup"
 
     Sub Main()
-        CheckForUpdates()
+        'CheckForUpdates()
         Host.EECloud.RunDesktopMode()
     End Sub
 
