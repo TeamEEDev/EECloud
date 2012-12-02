@@ -79,4 +79,5 @@
     Monster = 77
     Skeleton = 78
     MadScientist = 79
+    Headhunter = 80
 End Enum
