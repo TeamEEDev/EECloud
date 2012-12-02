@@ -166,6 +166,9 @@ Public NotInheritable Class EECloud
         If Not Cloud.Service.CheckLicense(myLicenseUsername, myLicenseKey) Then
             If Not Cloud.IsNoGUI Then
                 If New LicenseForm().ShowDialog = DialogResult.OK Then
+                    myLicenseUsername = My.Settings.LicenseUsername
+                    myLicenseKey = My.Settings.LicenseKey
+
                     CheckLicense()
                 Else
                     Environment.Exit(0)
@@ -173,9 +176,6 @@ Public NotInheritable Class EECloud
             Else
                 Throw New Exception("Unable to auth!")
             End If
-        Else
-            myLicenseUsername = My.Settings.LicenseUsername
-            myLicenseKey = My.Settings.LicenseKey
         End If
     End Sub
 
