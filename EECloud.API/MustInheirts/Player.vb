@@ -1,7 +1,6 @@
 ﻿Public Class Player
     Implements IPlayer
 
-
 #Region "Fields"
     Private WithEvents myPlayer As IPlayer
     Private myChatter As IChatter
@@ -11,6 +10,8 @@
     Public Event GroupChange(sender As Object, e As ItemChangedEventArgs(Of Group)) Implements IPlayer.GroupChange
 
     Public Event LoadUserData(sender As Object, e As UserData) Implements IPlayer.LoadUserData
+
+    Public Event UserDataReady(sender As Object, e As EventArgs) Implements IPlayer.UserDataReady
 #End Region
 
 #Region "EventHandlers"
@@ -21,6 +22,10 @@
 
     Private Sub myPlayer_LoadUserData(sender As Object, e As UserData) Handles myPlayer.LoadUserData
         RaiseEvent LoadUserData(Me, e)
+    End Sub
+
+    Private Sub myPlayer_UserDataReady(sender As Object, e As EventArgs) Handles myPlayer.UserDataReady
+        RaiseEvent UserDataReady(Me, e)
     End Sub
 
 #End Region
@@ -308,6 +313,16 @@
         Get
             Try
                 Return myPlayer.Chat
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property IsUserDataReady As Boolean Implements IPlayer.IsUserDataReady
+        Get
+            Try
+                Return myPlayer.IsUserDataReady
             Catch ex As Exception
                 Return Nothing
             End Try

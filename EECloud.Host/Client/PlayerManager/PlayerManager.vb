@@ -52,8 +52,8 @@
     Friend ReadOnly Property Player(username As String) As TPlayer Implements IPlayerManager(Of TPlayer).Player
         Get
             SyncLock myUsernameDictionary
-                If myUsernameDictionary.ContainsKey(username) Then
-                    Dim list As List(Of TPlayer) = myUsernameDictionary(username)
+                If myUsernameDictionary.ContainsKey(username.ToLower) Then
+                    Dim list As List(Of TPlayer) = myUsernameDictionary(username.ToLower)
                     If list.Count > 0 Then
                         Return list(0)
                     Else
@@ -267,5 +267,14 @@
         Dispose(True)
         GC.SuppressFinalize(Me)
     End Sub
+
+    Public Function GetEnumerator() As IEnumerator(Of TPlayer) Implements IEnumerable(Of TPlayer).GetEnumerator
+        Return myIDDictionary.Values.GetEnumerator
+    End Function
+
+    Public Function GetEnumerator1() As IEnumerator Implements IEnumerable.GetEnumerator
+        Return GetEnumerator()
+    End Function
+
 #End Region
 End Class

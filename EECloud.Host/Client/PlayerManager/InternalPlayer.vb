@@ -10,6 +10,8 @@
     Friend Event GroupChange(sender As Object, e As ItemChangedEventArgs(Of Group)) Implements IPlayer.GroupChange
 
     Friend Event LoadUserData(sender As Object, e As UserData) Implements IPlayer.LoadUserData
+
+    Public Event UserDataReady(sender As Object, e As EventArgs) Implements IPlayer.UserDataReady
 #End Region
 
 #Region "Properties"
@@ -243,6 +245,14 @@
         End Get
     End Property
 
+    Private myIsUserDataReady As Boolean
+
+    Public ReadOnly Property IsUserDataReady As Boolean Implements IPlayer.IsUserDataReady
+        Get
+            Return myIsUserDataReady
+        End Get
+    End Property
+
 #End Region
 
 #Region "Methods"
@@ -280,6 +290,11 @@
         If userData IsNot Nothing Then
             myGroup = CType(userData.GroupID, Group)
             RaiseEvent LoadUserData(Me, userData)
+        End If
+
+        If Not myIsUserDataReady Then
+            myIsUserDataReady = True
+            RaiseEvent UserDataReady(Me, EventArgs.Empty)
         End If
     End Sub
 

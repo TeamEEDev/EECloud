@@ -12,6 +12,26 @@ Friend NotInheritable Class DefaultCommandListner
         myClient = client
     End Sub
 
+    <Command("who", Group.Host)>
+    Public Sub WhoCommand(cmd As ICommand(Of Player))
+        Dim playerList As List(Of String) = (From player In myClient.PlayerManager Select player.Username).ToList()
+        If playerList.Count > 0 Then
+            cmd.Reply(String.Join(", ", playerList))
+        Else
+            cmd.Reply("Noone is currently online.")
+        End If
+    End Sub
+
+    <Command("say", Group.Host)>
+    Public Sub SayCommand(cmd As ICommand(Of Player), ParamArray msg As String())
+        myClient.Chatter.Chat(String.Join(" ", msg))
+    End Sub
+
+    <Command("send", Group.Host)>
+    Public Sub SendCommand(cmd As ICommand(Of Player), type As String, ParamArray parameters As String())
+        myClient.Connection.Send(New CustomSendMessage(type, parameters))
+    End Sub
+
     <Command("open", Group.Host)>
     Public Sub OpenCommand(cmd As ICommand(Of Player))
         Process.Start(My.Application.Info.DirectoryPath & "\Plugins\")
