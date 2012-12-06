@@ -1,7 +1,7 @@
 ﻿
 
 <Serializable>
-Partial Friend Class Deque(Of T)
+Partial Friend Class Deque (Of T)
     Implements ICollection
     Implements IEnumerable(Of T)
     Implements ICloneable
@@ -48,7 +48,7 @@ Partial Friend Class Deque(Of T)
     End Sub
 
     Friend Overridable Function Contains(obj As T) As Boolean
-        Return Any(Function(o) EqualityComparer(Of T).[Default].Equals(o, obj))
+        Return Any(Function(o) EqualityComparer (Of T).[Default].Equals(o, obj))
     End Function
 
     Friend Overridable Sub PushFront(item As T)
@@ -259,7 +259,7 @@ Partial Friend Class Deque(Of T)
         Return New Enumerator(Me)
     End Function
 
-    Private Shared Function InlineAssignHelper(Of TType)(ByRef target As TType, value As TType) As TType
+    Private Shared Function InlineAssignHelper (Of TType)(ByRef target As TType, value As TType) As TType
         target = value
         Return value
     End Function

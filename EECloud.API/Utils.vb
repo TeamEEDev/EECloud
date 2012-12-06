@@ -1,4 +1,5 @@
 ﻿Module Utils
+
 #Region "Properties"
 
     Friend ReadOnly Property CorrectLayer(id As Block, layer As Layer) As Layer

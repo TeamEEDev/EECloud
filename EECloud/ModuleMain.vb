@@ -1,8 +1,8 @@
-﻿Imports System.IO
-Imports System.Net
-
+﻿Imports System.Net
+Imports System.IO
 
 Module ModuleMain
+
 #Region "Methods"
 
 #Region "Startup"
@@ -47,6 +47,7 @@ Module ModuleMain
             MsgBox("Failed to check for updates: " + ex.ToString)
         End Try
     End Sub
+
 #End Region
 
 #End Region

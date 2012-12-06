@@ -1,7 +1,6 @@
 ﻿Friend NotInheritable Class PluginObject
     Implements IPluginObject
 
-
 #Region "Fields"
     Private myPlugin As IPlugin
     Private ReadOnly myPluginType As Type

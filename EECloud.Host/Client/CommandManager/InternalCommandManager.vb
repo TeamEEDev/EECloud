@@ -35,7 +35,7 @@
     Private Sub GlobalCommandManager_OnConsoleCommand(msg As String, e As CommandEventArgs)
         If ShouldHandle(msg) And Not e.Handled Then
             e.Handled = True
-            HandleMessage(Cloud.Logger.Input.Substring(1), -1, Group.Host)
+            HandleMessage(Cloud.Logger.Input.Substring(1), - 1, Group.Host)
         End If
     End Sub
 

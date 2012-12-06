@@ -1,12 +1,13 @@
-﻿''' <summary>
-''' Represents a CoinDoorBlock in a world
+﻿
+''' <summary>
+'''     Represents a CoinDoorBlock in a world
 ''' </summary>
 ''' <remarks></remarks>
     Public Interface IWorldCoinDoorBlock
     Inherits IWorldBlock
-
+    
     ''' <summary>
-    ''' Returns the CoinsToCollect associated with a coin door
+    '''     Returns the CoinsToCollect associated with a coin door
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>

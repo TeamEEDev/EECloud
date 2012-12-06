@@ -7,10 +7,10 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("EECloud Beta")> 
+<Assembly: AssemblyTitle("EECloud Beta")>
 <Assembly: AssemblyDescription("")>
 
 <Assembly: ComVisible(False)>
 
     'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("F5238632-035D-49D6-B9A7-D8AF5300A6BB")> 
+<Assembly: Guid("F5238632-035D-49D6-B9A7-D8AF5300A6BB")>

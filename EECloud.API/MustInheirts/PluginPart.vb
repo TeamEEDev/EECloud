@@ -1,4 +1,4 @@
-﻿Public MustInherit Class PluginPart(Of TPlayer As {Player, New})
+﻿Public MustInherit Class PluginPart (Of TPlayer As {Player, New})
     Implements IClient(Of TPlayer)
 
 #Region "Properties"
@@ -69,6 +69,7 @@
             Return myClient.PotionManager
         End Get
     End Property
+
 #End Region
 
 #Region "Methods"

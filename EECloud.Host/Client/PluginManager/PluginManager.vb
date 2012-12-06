@@ -1,4 +1,6 @@
-﻿Friend NotInheritable Class PluginManager
+﻿Imports System.Reflection
+
+Friend NotInheritable Class PluginManager
     Implements IPluginManager
 
 #Region "Fields"
@@ -50,7 +52,7 @@
         End SyncLock
     End Sub
 
-    Public Sub Load(assembly As Reflection.Assembly) Implements IPluginManager.Load
+    Public Sub Load(assembly As Assembly) Implements IPluginManager.Load
         'Checking for valid plugins
         Dim plugins1 As IEnumerable(Of Type) =
                 From type As Type In assembly.GetTypes
@@ -76,7 +78,6 @@
             Loop
         End Using
     End Sub
+
 #End Region
-
-
 End Class

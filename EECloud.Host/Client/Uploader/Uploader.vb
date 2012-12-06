@@ -9,7 +9,7 @@ Friend NotInheritable Class Uploader
     Private ReadOnly myUploadThread As Thread
 
     Private myUploadedArray As Boolean(,,)
-    Private ReadOnly myBlockUploadQueue As Deque(Of BlockPlaceUploadMessage) = Deque(Of BlockPlaceUploadMessage).Synchronized(New Deque(Of BlockPlaceUploadMessage))
+    Private ReadOnly myBlockUploadQueue As Deque(Of BlockPlaceUploadMessage) = Deque (Of BlockPlaceUploadMessage).Synchronized(New Deque(Of BlockPlaceUploadMessage))
     Private ReadOnly myLagCheckQueue As New Queue(Of BlockPlaceUploadMessage)
     Private myVersion As UInteger
     Private myFinishedUploadVersion As UInteger
@@ -54,7 +54,7 @@ Friend NotInheritable Class Uploader
     End Sub
 
     Private Sub SendNext()
-retry:
+        retry:
         If myBlockUploadQueue.Count > 0 Then
             Dim block As BlockPlaceUploadMessage = myBlockUploadQueue.PopFront()
 
@@ -98,7 +98,6 @@ retry:
 
         myVersion = 0
         myFinishedUploadVersion = 0
-
     End Sub
 
     Private Sub HandleBlockPlace(e As BlockPlaceReceiveMessage)
