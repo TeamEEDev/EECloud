@@ -1,4 +1,5 @@
 ﻿
+
 ''' <summary>
 '''     Describes the priority of a LogEx entry.
 ''' </summary>

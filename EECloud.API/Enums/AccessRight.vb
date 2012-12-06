@@ -1,4 +1,5 @@
 ﻿
+
 ''' <summary>
 '''     Represents the rights of the bot connection in the world.
 ''' </summary>

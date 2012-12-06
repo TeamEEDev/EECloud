@@ -1,4 +1,5 @@
 ﻿
+
 ''' <summary>
 '''     Describes the door/gate which state has just been changed.
 ''' </summary>
