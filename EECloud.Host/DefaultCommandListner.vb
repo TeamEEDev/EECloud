@@ -3,13 +3,16 @@
 Friend NotInheritable Class DefaultCommandListner
 #Region "Fields"
     Private ReadOnly myClient As IClient(Of Player)
-
+    Private WithEvents myConnection As IConnection
+    Private WithEvents myPlayerManager As IPlayerManager(Of Player)
 #End Region
 
 #Region "Methods"
 
     Sub New(ByVal client As IClient(Of Player))
         myClient = client
+        myConnection = myClient.Connection
+        myPlayerManager = myClient.PlayerManager
     End Sub
 
     <Command("who", Group.Host)>
@@ -18,16 +21,16 @@ Friend NotInheritable Class DefaultCommandListner
         If playerList.Count > 0 Then
             cmd.Reply(String.Join(", ", playerList))
         Else
-            cmd.Reply("Noone is currently online.")
+            cmd.Reply("No one is currently online.")
         End If
     End Sub
 
-    <Command("say", Group.Host)>
+    <Command("say", Group.Moderator)>
     Public Sub SayCommand(cmd As ICommand(Of Player), ParamArray msg As String())
-        myClient.Chatter.Chat(String.Join(" ", msg))
+        myClient.Chatter.Send(String.Join(" ", msg))
     End Sub
 
-    <Command("send", Group.Host)>
+    <Command("send", Group.Admin)>
     Public Sub SendCommand(cmd As ICommand(Of Player), type As String, ParamArray parameters As String())
         myClient.Connection.Send(New CustomSendMessage(type, parameters))
     End Sub
@@ -193,6 +196,27 @@ Friend NotInheritable Class DefaultCommandListner
         myClient.Chatter.Reset()
         cmd.Reply("Reset.")
     End Sub
+
+    Private Sub myConnection_ReceiveInfo(sender As Object, e As InfoReceiveMessage) Handles myConnection.ReceiveInfo
+        Cloud.Logger.Log(LogPriority.Info, String.Format("{0}: {1}.", e.Title, e.Text))
+    End Sub
+
+    Private Sub myPlayerManager_OnSay(sender As Object, e As Player) Handles myPlayerManager.OnSay
+        Cloud.Logger.Log(LogPriority.Info, myClient.Chatter.SyntaxProvider.ApplyChatSyntax(e.Say, e.Username))
+    End Sub
+
+    Private Sub myConnection_ReceiveSayOld(sender As Object, e As SayOldReceiveMessage) Handles myConnection.ReceiveSayOld
+        Cloud.Logger.Log(LogPriority.Info, myClient.Chatter.SyntaxProvider.ApplyChatSyntax(e.Text, e.Username))
+    End Sub
+
+    Private Sub myConnection_ReceiveWrite(sender As Object, e As WriteReceiveMessage) Handles myConnection.ReceiveWrite
+        Cloud.Logger.Log(LogPriority.Info, myClient.Chatter.SyntaxProvider.ApplyChatSyntax(e.Text, e.Title))
+    End Sub
+
+    Private Sub myConnection_SendSay(sender As Object, e As Cancelable(Of SaySendMessage)) Handles myConnection.SendSay
+        Cloud.Logger.Log(LogPriority.Info, myClient.Chatter.SyntaxProvider.ApplyChatSyntax(e.Value.Text, myClient.Game.MyPlayer.Username))
+    End Sub
+
 
 #End Region
 End Class

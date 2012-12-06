@@ -309,10 +309,10 @@
         End Get
     End Property
 
-    Public ReadOnly Property Chat As String Implements IPlayer.Chat
+    Public ReadOnly Property Say As String Implements IPlayer.Say
         Get
             Try
-                Return myPlayer.Chat
+                Return myPlayer.Say
             Catch ex As Exception
                 Return Nothing
             End Try

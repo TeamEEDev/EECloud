@@ -237,11 +237,11 @@
         End Get
     End Property
 
-    Private myChat As String
+    Private mySay As String
 
-    Friend ReadOnly Property Chat As String Implements IPlayer.Chat
+    Friend ReadOnly Property Say As String Implements IPlayer.Say
         Get
-            Return myChat
+            Return mySay
         End Get
     End Property
 
@@ -383,7 +383,7 @@
 
     Private Sub myConnection_ReceiveSay(sender As Object, e As SayReceiveMessage) Handles myConnection.PreviewReceiveSay
         If e.UserID = myUserID Then
-            myChat = e.Text
+            mySay = e.Text
         End If
     End Sub
 

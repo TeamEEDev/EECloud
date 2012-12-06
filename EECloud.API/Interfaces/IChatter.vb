@@ -19,6 +19,13 @@
     Sub Chat(msg As String)
 
     ''' <summary>
+    ''' Sends a chat message without formatting it
+    ''' </summary>
+    ''' <param name="msg">The message text to be sent.</param>
+    ''' <remarks></remarks>
+    Sub Send(msg As String)
+
+    ''' <summary>
     ''' Kicks a user.
     ''' </summary>
     ''' <param name="username">The username of the person being kicked.</param>
@@ -43,5 +50,14 @@
     ''' </summary>
     ''' <param name="provider">The new syntax provider</param>
     ''' <remarks></remarks>
+    <Obsolete("Use SyntaxProvider property instead")>
     Sub InjectSyntaxProvider(provider As IChatSyntaxProvider)
+
+    ''' <summary>
+    ''' The Syntax provider used to generate chat strings
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Property SyntaxProvider As IChatSyntaxProvider
 End Interface

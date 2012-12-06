@@ -1,9 +1,24 @@
 ﻿Friend NotInheritable Class Chatter
     Implements IChatter
 
+
 #Region "Fields"
     ReadOnly myInternalChatter As InternalChatter
     ReadOnly myChatName As String
+#End Region
+
+#Region "Properties"
+    Public Property SyntaxProvider As IChatSyntaxProvider Implements IChatter.SyntaxProvider
+        Get
+            Return myInternalChatter.ChatSyntaxProvider
+        End Get
+        Set(value As IChatSyntaxProvider)
+            If value Is Nothing Then
+                Throw New ArgumentException("value can not be null.", "value")
+            End If
+            myInternalChatter.ChatSyntaxProvider = value
+        End Set
+    End Property
 #End Region
 
 #Region "Methods"
@@ -15,6 +30,10 @@
 
     Friend Sub Chat(msg As String) Implements IChatter.Chat
         myInternalChatter.SendChat(myInternalChatter.ChatSyntaxProvider.ApplyChatSyntax(msg, myChatName))
+    End Sub
+
+    Public Sub Send(msg As String) Implements IChatter.Send
+        myInternalChatter.SendChat(msg)
     End Sub
 
     Friend Sub Reply(username As String, msg As String) Implements IChatter.Reply
@@ -35,7 +54,7 @@
 
     Friend Sub InjectSyntaxProvider(provider As IChatSyntaxProvider) Implements IChatter.InjectSyntaxProvider
         If provider Is Nothing Then
-            Throw New ArgumentException("Provider can not be null.")
+            Throw New ArgumentException("Provider can not be null.", "provider")
         End If
         myInternalChatter.ChatSyntaxProvider = provider
     End Sub

@@ -2,7 +2,7 @@
 
 Public NotInheritable Class SayOldReceiveMessage
     Inherits ReceiveMessage
-    Public ReadOnly UserName As String
+    Public ReadOnly Username As String
     '0
     Public ReadOnly Text As String
     '1
