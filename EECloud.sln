@@ -10,6 +10,24 @@ EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "EECloud.Setup", "EECloud.Setup\EECloud.Setup.wixproj", "{D7D5A251-8434-4400-A623-94CE1B15DEBA}"
 EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://yonom.tfspreview.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = EECloud.API\\EECloud.API.vbproj
+		SccProjectName1 = EECloud.API
+		SccLocalPath1 = EECloud.API
+		SccProjectUniqueName2 = EECloud.Host\\EECloud.Host.vbproj
+		SccProjectName2 = EECloud.Host
+		SccLocalPath2 = EECloud.Host
+		SccProjectUniqueName3 = EECloud.Setup\\EECloud.Setup.wixproj
+		SccProjectName3 = EECloud.Setup
+		SccLocalPath3 = EECloud.Setup
+		SccProjectUniqueName4 = EECloud\\EECloud.vbproj
+		SccProjectName4 = EECloud
+		SccLocalPath4 = EECloud
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86

@@ -228,8 +228,7 @@
         End Get
     End Property
 
-
-    Private myAutoText As AutoText = CType(-1, AutoText)
+    Private myAutoText As AutoText = CType(- 1, AutoText)
 
     Friend ReadOnly Property AutoText As AutoText Implements IPlayer.AutoText
         Get

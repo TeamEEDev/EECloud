@@ -1,13 +1,13 @@
 ﻿Friend NotInheritable Class Chatter
     Implements IChatter
 
-
 #Region "Fields"
     ReadOnly myInternalChatter As InternalChatter
     ReadOnly myChatName As String
 #End Region
 
 #Region "Properties"
+
     Public Property SyntaxProvider As IChatSyntaxProvider Implements IChatter.SyntaxProvider
         Get
             Return myInternalChatter.ChatSyntaxProvider
@@ -19,6 +19,7 @@
             myInternalChatter.ChatSyntaxProvider = value
         End Set
     End Property
+
 #End Region
 
 #Region "Methods"

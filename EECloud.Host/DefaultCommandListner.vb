@@ -1,6 +1,5 @@
-﻿Imports System.IO
+﻿Friend NotInheritable Class DefaultCommandListner
 
-Friend NotInheritable Class DefaultCommandListner
 #Region "Fields"
     Private ReadOnly myClient As IClient(Of Player)
     Private WithEvents myConnection As IConnection
@@ -100,23 +99,23 @@ Friend NotInheritable Class DefaultCommandListner
         cmd.Reply("Pong!")
     End Sub
 
-    <Command("hi", Group.Moderator, aliases:={"hello", "hai"})>
+    <Command("hi", Group.Moderator, aliases := {"hello", "hai"})>
     Public Sub HiCommand(cmd As ICommand(Of Player))
         cmd.Reply("Hi!")
     End Sub
 
-    <Command("hi", Group.Moderator, aliases:={"hello", "hai"})>
+    <Command("hi", Group.Moderator, aliases := {"hello", "hai"})>
     Public Sub HiCommand(cmd As ICommand(Of Player), player As String)
         cmd.Reply(String.Format("Hi {0}!", player))
     End Sub
 
-    <Command("setcode", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"code", "editkey", "seteditkey"})>
+    <Command("setcode", Group.Operator, AccessRight := AccessRight.Owner, Aliases := {"code", "editkey", "seteditkey"})>
     Public Sub SetCodeCommand(cmd As ICommand(Of Player), editkey As String)
         myClient.Connection.Send(New ChangeWorldEditKeySendMessage(editkey))
         cmd.Reply("Changed edit key")
     End Sub
 
-    <Command("kick", Group.Moderator, AccessRight:=AccessRight.Owner, Aliases:={"ki", "kickp", "kickplayer"})>
+    <Command("kick", Group.Moderator, AccessRight := AccessRight.Owner, Aliases := {"ki", "kickp", "kickplayer"})>
     Public Sub KickCommand(cmd As ICommand(Of Player), user As String, ParamArray reason As String())
         Dim player As Player = myClient.PlayerManager.Player(user)
         If player IsNot Nothing Then
@@ -127,7 +126,7 @@ Friend NotInheritable Class DefaultCommandListner
         End If
     End Sub
 
-    <Command("reloadplayer", Group.Moderator, Aliases:={"rplayer"})>
+    <Command("reloadplayer", Group.Moderator, Aliases := {"rplayer"})>
     Public Sub ReloadPlayerCommand(cmd As ICommand(Of Player), player As String)
         Dim player1 As IPlayer = myClient.PlayerManager.Player(player)
         If player1 IsNot Nothing Then
@@ -138,7 +137,7 @@ Friend NotInheritable Class DefaultCommandListner
         End If
     End Sub
 
-    <Command("env", Group.Moderator, Aliases:={"getenv", "iscloud"})>
+    <Command("env", Group.Moderator, Aliases := {"getenv", "iscloud"})>
     Public Sub GetEnvironmentCommand(cmd As ICommand(Of Player))
         Dim env As String
         Select Case Cloud.IsNoGUI
@@ -150,12 +149,12 @@ Friend NotInheritable Class DefaultCommandListner
         cmd.Reply("Current environment: " & env)
     End Sub
 
-    <Command("host", Group.Moderator, Aliases:={"gethost", "hoster"})>
+    <Command("host", Group.Moderator, Aliases := {"gethost", "hoster"})>
     Public Sub HostCommand(cmd As ICommand(Of Player))
         cmd.Reply("Current host: " & Cloud.LicenseUsername)
     End Sub
 
-    <Command("end", Group.Moderator, Aliases:={"shutdown", "leave", "leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
+    <Command("end", Group.Moderator, Aliases := {"shutdown", "leave", "leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
     Public Sub EndCommand(cmd As ICommand(Of Player))
         cmd.Reply("Terminating...")
         myClient.Connection.Close()
@@ -167,31 +166,31 @@ Friend NotInheritable Class DefaultCommandListner
         Environment.Exit(0) 'Makes the program not start again on the cloud; must re-deploy, the connection is terminated and plugins will not have their OnDisable command run.
     End Sub
 
-    <Command("clear", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"clearworld", "clearlevel"})>
+    <Command("clear", Group.Operator, AccessRight := AccessRight.Owner, Aliases := {"clearworld", "clearlevel"})>
     Public Sub ClearWorldCommand(cmd As ICommand(Of Player))
         myClient.Connection.Send(New ClearWorldSendMessage)
         cmd.Reply("Cleared.")
     End Sub
 
-    <Command("name", Group.Moderator, AccessRight:=AccessRight.Owner, Aliases:={"rename", "renameworld", "renamelevel", "worldname", "levelname"})>
+    <Command("name", Group.Moderator, AccessRight := AccessRight.Owner, Aliases := {"rename", "renameworld", "renamelevel", "worldname", "levelname"})>
     Public Sub ChangeWorldNameCommand(cmd As ICommand(Of Player), ParamArray newName As String())
         myClient.Connection.Send(New ChangeWorldNameSendMessage(String.Join(" ", newName)))
         cmd.Reply("Renamed.")
     End Sub
 
-    <Command("loadlevel", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"load", "loadworld", "reload", "reloadworld", "reloadlevel"})>
+    <Command("loadlevel", Group.Operator, AccessRight := AccessRight.Owner, Aliases := {"load", "loadworld", "reload", "reloadworld", "reloadlevel"})>
     Public Sub LoadWorldCommand(cmd As ICommand(Of Player))
         cmd.Reply("Reloaded.")
         myClient.Chatter.Loadlevel()
     End Sub
 
-    <Command("save", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"saveworld", "savelevel"})>
+    <Command("save", Group.Operator, AccessRight := AccessRight.Owner, Aliases := {"saveworld", "savelevel"})>
     Public Sub SaveWorldCommand(cmd As ICommand(Of Player))
         myClient.Connection.Send(New SaveWorldSendMessage)
         cmd.Reply("Saved.")
     End Sub
 
-    <Command("reset", Group.Operator, Aliases:={"resetworld", "resetlevel", "resetplayers"})>
+    <Command("reset", Group.Operator, Aliases := {"resetworld", "resetlevel", "resetplayers"})>
     Public Sub ResetCommand(cmd As ICommand(Of Player))
         myClient.Chatter.Reset()
         cmd.Reply("Reset.")
@@ -216,7 +215,6 @@ Friend NotInheritable Class DefaultCommandListner
     Private Sub myConnection_SendSay(sender As Object, e As Cancelable(Of SaySendMessage)) Handles myConnection.SendSay
         Cloud.Logger.Log(LogPriority.Info, myClient.Chatter.SyntaxProvider.ApplyChatSyntax(e.Value.Text, myClient.Game.MyPlayer.Username))
     End Sub
-
 
 #End Region
 End Class
