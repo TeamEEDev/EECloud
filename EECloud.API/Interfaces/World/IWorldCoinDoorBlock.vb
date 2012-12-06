@@ -1,4 +1,5 @@
 ﻿
+
 ''' <summary>
 '''     Represents a CoinDoorBlock in a world
 ''' </summary>

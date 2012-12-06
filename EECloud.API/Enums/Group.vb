@@ -1,4 +1,5 @@
 ﻿
+
 ''' <summary>
 '''     Represents the rights of a user.
 ''' </summary>

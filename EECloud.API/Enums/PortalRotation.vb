@@ -1,4 +1,5 @@
 ﻿
+
 ''' <summary>
 '''     Describes the direction of a portal.
 ''' </summary>
