@@ -28,7 +28,7 @@
     ReadOnly Property YellowAuraPotion As Boolean
     ReadOnly Property SpawnX As Integer
     ReadOnly Property SpawnY As Integer
-    ReadOnly Property Chat As String
+    ReadOnly Property Say As String
     ReadOnly Property AutoText As AutoText
     ReadOnly Property IsUserDataReady As Boolean
 
