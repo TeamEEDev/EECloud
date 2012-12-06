@@ -106,5 +106,6 @@
     Friend Sub Dispose() Implements IDisposable.Dispose
         Dispose(True)
     End Sub
+
 #End Region
 End Class

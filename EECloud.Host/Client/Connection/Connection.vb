@@ -320,7 +320,7 @@ Friend NotInheritable Class Connection
     Private Shared Sub UpdateVersion(ex As PlayerIOError)
         Dim errorMessage() As String = ex.Message.Split("["c)(1).Split(CChar(" "))
         Dim idSet As Boolean
-        For N = errorMessage.Length - 1 To 0 Step -1
+        For N = errorMessage.Length - 1 To 0 Step - 1
             Dim currentRoomType As String
             currentRoomType = errorMessage(N)
             If currentRoomType.StartsWith(NormalRoom, StringComparison.Ordinal) Then
@@ -731,10 +731,10 @@ Friend NotInheritable Class Connection
                     messageArguments.Add("   [" & m.Item(n).GetType.Name & "] " & CType(m.Item(n), String))
                 Next
 
-                Cloud.Logger.Log(LogPriority.Warning, "Received unregistered message: " & """" & m.Type & """" & vbCrLf & _
-                                 "(Arguments: {" & vbCrLf & _
-                                 String.Join(vbCrLf, messageArguments) & vbCrLf & _
-                                 "})")
+                Cloud.Logger.Log(LogPriority.Warning, "Received unregistered message: " & """" & m.Type & """" & vbCrLf &
+                                                      "(Arguments: {" & vbCrLf &
+                                                      String.Join(vbCrLf, messageArguments) & vbCrLf &
+                                                      "})")
             End If
         Catch ex As Exception
             Cloud.Logger.Log(LogPriority.Error, "Failed to parse message: """ & m.Type & """")
@@ -756,22 +756,22 @@ Friend NotInheritable Class Connection
         End SyncLock
 
         Await Task.Run(
-           Sub()
-               Try
-                   Dim ioClient As Client = Nothing
-                   Select Case type
-                       Case AccountType.Regular
-                           ioClient = PlayerIO.QuickConnect.SimpleConnect(GameID, username, password)
-                       Case AccountType.Facebook
-                           ioClient = PlayerIO.QuickConnect.FacebookOAuthConnect(GameID, username, "")
-                   End Select
+            Sub()
+                Try
+                    Dim ioClient As Client = Nothing
+                    Select Case type
+                        Case AccountType.Regular
+                            ioClient = PlayerIO.QuickConnect.SimpleConnect(GameID, username, password)
+                        Case AccountType.Facebook
+                            ioClient = PlayerIO.QuickConnect.FacebookOAuthConnect(GameID, username, "")
+                          End Select
 
-                   Dim ioConnection As PlayerIOClient.Connection = GetIOConnection(ioClient, id)
-                   SetupConnection(ioConnection, id)
-               Catch ex As PlayerIOError
-                   Throw New EECloudPlayerIOException(ex)
-               End Try
-           End Sub)
+                    Dim ioConnection As PlayerIOClient.Connection = GetIOConnection(ioClient, id)
+                    SetupConnection(ioConnection, id)
+                Catch ex As PlayerIOError
+                    Throw New EECloudPlayerIOException(ex)
+                          End Try
+                          End Sub)
     End Function
 
     Friend Sub Send(message As SendMessage) Implements IConnection.Send
@@ -883,5 +883,6 @@ Friend NotInheritable Class Connection
     End Sub
 
 #End Region
+
 #End Region
 End Class

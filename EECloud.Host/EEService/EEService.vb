@@ -37,7 +37,6 @@
                 command.ExecuteNonQuery()
             End Using
         End Using
-
     End Sub
 
     Friend Function GetPlayerData(username As String) As UserData Implements IEEService.GetPlayerData
@@ -109,7 +108,7 @@
         End Using
     End Function
 
-    Private Shared ReadOnly AcceptedGroupIDs() As Short = {400, 300, 100, 0, -100, -200}
+    Private Shared ReadOnly AcceptedGroupIDs() As Short = {400, 300, 100, 0, - 100, - 200}
 
     Friend Sub SetPlayerDataGroupID(username As String, groupID As Short) Implements IEEService.SetPlayerDataGroupID
         If String.IsNullOrEmpty(username) Then
@@ -257,9 +256,9 @@
         End If
 
         Return New UserData With {.Username = TryCastStr(reader.GetString(0)), _
-                                  .GroupID = TryCastShort(reader.GetValue(1)), _
-                                  .YoScrollWins = TryCastUShort(reader.GetValue(2)), _
-                                  .FTBreakerWins = TryCastUShort(reader.GetValue(3))}
+            .GroupID = TryCastShort(reader.GetValue(1)), _
+            .YoScrollWins = TryCastUShort(reader.GetValue(2)), _
+            .FTBreakerWins = TryCastUShort(reader.GetValue(3))}
     End Function
 
     Private Function TryCastStr(input As Object) As String

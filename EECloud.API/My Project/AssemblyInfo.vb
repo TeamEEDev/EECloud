@@ -8,10 +8,10 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("EECloud.API Beta")> 
+<Assembly: AssemblyTitle("EECloud.API Beta")>
 <Assembly: AssemblyDescription("EECloud API")>
-<Assembly: InternalsVisibleTo("EECloud.Host")> 
+<Assembly: InternalsVisibleTo("EECloud.Host")>
 <Assembly: ComVisible(False)>
 
     'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("A30271CE-0B1E-47CE-B43E-EE3EF25F12C5")> 
+<Assembly: Guid("A30271CE-0B1E-47CE-B43E-EE3EF25F12C5")>

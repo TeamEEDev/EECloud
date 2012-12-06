@@ -1,6 +1,6 @@
 ﻿
 
-Partial Friend Class Deque(Of T)
+Partial Friend Class Deque (Of T)
 
 #Region "SynchronizedDeque Class"
 

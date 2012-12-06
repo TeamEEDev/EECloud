@@ -11,11 +11,13 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
 #End Region
 
 #Region "Properties"
+
     Friend ReadOnly Property Count As Integer Implements ICommandManager.Count
         Get
             Return myCommandsDictionary.Count
         End Get
     End Property
+
 #End Region
 
 #Region "Methods"
@@ -160,14 +162,14 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
         If myCommandsDictionary.ContainsKey(name) Then
             Dim list As List(Of CommandHandle(Of TPlayer)) = myCommandsDictionary(name)
             Dim usedNums As New List(Of Integer)
-            Dim maxNum As Integer = -1
+            Dim maxNum As Integer = - 1
             For Each item In list
                 usedNums.Add(item.Count)
                 If item.HasParamArray Then
                     maxNum = item.Count
                 End If
             Next
-            If maxNum = -1 OrElse (handle.Count < maxNum AndAlso Not handle.HasParamArray) Then
+            If maxNum = - 1 OrElse (handle.Count < maxNum AndAlso Not handle.HasParamArray) Then
                 If Not usedNums.Contains(handle.Count) Then
                     myCommandsDictionary(name).Add(handle)
                 Else
@@ -221,7 +223,6 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
         Dispose(True)
         GC.SuppressFinalize(Me)
     End Sub
+
 #End Region
-
-
 End Class

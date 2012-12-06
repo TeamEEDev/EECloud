@@ -12,7 +12,6 @@ Public NotInheritable Class EECloud
     Private Shared myClient As IClient(Of Player)
 
     Private Sub New()
-
     End Sub
 
     Shared Sub New()
@@ -156,11 +155,11 @@ Public NotInheritable Class EECloud
 
     Public Shared Async Function ShowLogin() As Task
         Await Task.Run(
-                Sub()
-                    If Not New LoginForm().ShowDialog = DialogResult.OK Then
-                        Environment.Exit(0)
-                    End If
-                End Sub)
+            Sub()
+                If Not New LoginForm().ShowDialog = DialogResult.OK Then
+                    Environment.Exit(0)
+                          End If
+                          End Sub)
         myUsername = My.Settings.LoginEmail
         myPassword = My.Settings.LoginPassword
         myType = My.Settings.LoginType

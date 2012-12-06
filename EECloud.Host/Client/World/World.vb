@@ -3,7 +3,6 @@
 Friend NotInheritable Class World
     Implements IWorld
 
-
 #Region "Fields"
     Private Const InitOffset As UInteger = 17
     Private myClient As IClient(Of Player)

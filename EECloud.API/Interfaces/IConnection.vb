@@ -118,24 +118,25 @@
     Event SendKillWorld As EventHandler(Of Cancelable(Of KillWorldSendMessage))
     Event SendPotion As EventHandler(Of Cancelable(Of PotionSendMessage))
     Event SendAllowPotions As EventHandler(Of Cancelable(Of AllowPotionsSendMessage))
-
+    
     ''' <summary>
-    ''' The world id
+    '''     The world id
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
     ReadOnly Property WorldID As String
+    
     ''' <summary>
-    ''' Returns true if the connection is still active
+    '''     Returns true if the connection is still active
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
     ReadOnly Property Connected As Boolean
-
+    
     ''' <summary>
-    ''' Connects using the given data 
+    '''     Connects using the given data
     ''' </summary>
     ''' <param name="type">AccountType we are using to login</param>
     ''' <param name="username">Username, Email or Token</param>
@@ -144,16 +145,16 @@
     ''' <returns></returns>
     ''' <remarks></remarks>
     Function ConnectAsync(type As AccountType, username As String, password As String, id As String) As Task
-
+    
     ''' <summary>
-    ''' Sends the given message
+    '''     Sends the given message
     ''' </summary>
     ''' <param name="message">The message being sent</param>
     ''' <remarks></remarks>
     Sub Send(message As SendMessage)
-
+    
     ''' <summary>
-    ''' Terminates the connection
+    '''     Terminates the connection
     ''' </summary>
     ''' <remarks></remarks>
     Sub Close()
