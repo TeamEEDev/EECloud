@@ -1,4 +1,5 @@
 ﻿Public Interface IPlayerManager(Of TPlayer As {Player, New})
+    Inherits IEnumerable(Of TPlayer)
     Event OnCrown As EventHandler(Of TPlayer)
     Event OnSmiley As EventHandler(Of TPlayer)
     Event OnMove As EventHandler(Of TPlayer)
@@ -30,6 +31,7 @@
     ''' <remarks>Make sure to do a null check after getting a player</remarks>
     ReadOnly Property Player(username As String) As TPlayer
     ReadOnly Property Count As Integer
+    <Obsolete("Use for each on the PlayerManager instead")>
     ReadOnly Property GetPlayers As TPlayer()
     ReadOnly Property Crown As TPlayer
 End Interface

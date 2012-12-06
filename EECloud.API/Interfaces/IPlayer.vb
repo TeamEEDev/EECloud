@@ -1,6 +1,7 @@
 ﻿Friend Interface IPlayer
     Event GroupChange As EventHandler(Of ItemChangedEventArgs(Of Group))
     Event LoadUserData As EventHandler(Of UserData)
+    Event UserDataReady As EventHandler
 
     ReadOnly Property UserID As Integer
     ReadOnly Property Username As String
@@ -29,6 +30,7 @@
     ReadOnly Property SpawnY As Integer
     ReadOnly Property Chat As String
     ReadOnly Property AutoText As AutoText
+    ReadOnly Property IsUserDataReady As Boolean
 
     Property Group As Group
 

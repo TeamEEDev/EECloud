@@ -114,6 +114,7 @@
     <Compile Include="Messages\Receive\LevelupRecieveMessage.vb" />
     <Compile Include="Messages\Receive\PotionReceiveMessage.vb" />
     <Compile Include="Messages\Send\AllowPotionsSendMessage.vb" />
+    <Compile Include="Messages\Send\CustomSendMessage.vb" />
     <Compile Include="Messages\Send\TouchCakeSendMessage.vb" />
     <Compile Include="Messages\Send\PotionSendMessage.vb" />
     <Compile Include="Messages\Upload\BlockPlaceUploadMessage.vb" />
