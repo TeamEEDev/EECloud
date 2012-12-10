@@ -26,14 +26,11 @@
     ReadOnly Property RedAuraPotion As Boolean
     ReadOnly Property BlueAuraPotion As Boolean
     ReadOnly Property YellowAuraPotion As Boolean
-    ReadOnly Property JumpPotion As Boolean
-    ReadOnly Property GreenAuraPotion As Boolean
     ReadOnly Property SpawnX As Integer
     ReadOnly Property SpawnY As Integer
     ReadOnly Property Say As String
-    ReadOnly Property AutoText As AutoText?
+    ReadOnly Property AutoText As AutoText
     ReadOnly Property IsUserDataReady As Boolean
-    ReadOnly Property NewClass As Integer?
 
     Property Group As Group
 

@@ -9,7 +9,7 @@ Friend NotInheritable Class Uploader
     Private ReadOnly myUploadThread As Thread
 
     Private myUploadedArray As Boolean(,,)
-    Private ReadOnly myBlockUploadQueue As Deque(Of BlockPlaceUploadMessage) = Deque(Of BlockPlaceUploadMessage).Synchronized(New Deque(Of BlockPlaceUploadMessage))
+    Private ReadOnly myBlockUploadQueue As Deque(Of BlockPlaceUploadMessage) = Deque (Of BlockPlaceUploadMessage).Synchronized(New Deque(Of BlockPlaceUploadMessage))
     Private ReadOnly myLagCheckQueue As New Queue(Of BlockPlaceUploadMessage)
     Private myVersion As UInteger
     Private myFinishedUploadVersion As UInteger
@@ -18,16 +18,6 @@ Friend NotInheritable Class Uploader
 #Region "Events"
 
     Friend Event FinishedUpload(sender As Object, e As EventArgs) Implements IUploader.FinishedUpload
-
-#End Region
-
-#Region "Properties"
-
-    Public ReadOnly Property Count As Integer Implements IUploader.Count
-        Get
-            Return myBlockUploadQueue.Count
-        End Get
-    End Property
 
 #End Region
 
@@ -44,7 +34,7 @@ Friend NotInheritable Class Uploader
     Private Sub RunUploaderThread()
         Do
             SendNext()
-            Thread.Sleep(5)
+            Thread.Sleep(10)
         Loop
     End Sub
 
@@ -64,7 +54,7 @@ Friend NotInheritable Class Uploader
     End Sub
 
     Private Sub SendNext()
-retry:
+        retry:
         If myBlockUploadQueue.Count > 0 Then
             Dim block As BlockPlaceUploadMessage = myBlockUploadQueue.PopFront()
 
@@ -123,9 +113,7 @@ retry:
                 If sendBlock.IsUploaded(e) Then
                     Exit Do
                 Else
-                    If Not myClient.World(sendBlock.X, sendBlock.Y, sendBlock.Layer).Block = sendBlock.Block Then
-                        myBlockUploadQueue.PushFront(sendBlock)
-                    End If
+                    myBlockUploadQueue.PushFront(sendBlock)
                 End If
             Loop
         End If

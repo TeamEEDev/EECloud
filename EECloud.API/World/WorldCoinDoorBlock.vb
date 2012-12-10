@@ -22,7 +22,7 @@
 
 #Region "Methods"
 
-    Public Sub New(block As CoinDoorBlock, coinsToCollect As Integer)
+    Friend Sub New(block As CoinDoorBlock, coinsToCollect As Integer)
         MyBase.New(CType(block, Block))
         myCoinsToCollect = coinsToCollect
     End Sub

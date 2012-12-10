@@ -31,12 +31,6 @@
     Friend Event OnAutoText(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnAutoText
 
     Friend Event OnSay(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnSay
-
-    Public Event OnLevelup(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnLevelup
-
-    Public Event OnMagic(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnMagic
-
-    Public Event OnWootUp(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnWootUp
 #End Region
 
 #Region "Properties"
@@ -69,6 +63,12 @@
                     Return Nothing
                 End If
             End SyncLock
+        End Get
+    End Property
+
+    Friend ReadOnly Property GetPlayers As TPlayer() Implements IPlayerManager(Of TPlayer).GetPlayers
+        Get
+            Return myIDDictionary.Values.ToArray
         End Get
     End Property
 
@@ -200,22 +200,6 @@
         End If
     End Sub
 
-    Private Sub myConnection_ReceiveLevelup(sender As Object, e As LevelupRecieveMessage) Handles myConnection.ReceiveLevelup
-        Dim p As TPlayer = Player(e.UserID)
-
-        If p IsNot Nothing Then
-            RaiseEvent OnLevelup(Me, p)
-        End If
-    End Sub
-
-    Private Sub myConnection_ReceiveMagic(sender As Object, e As MagicRecieveMessage) Handles myConnection.ReceiveMagic
-        Dim p As TPlayer = Player(e.UserID)
-
-        If p IsNot Nothing Then
-            RaiseEvent OnMagic(Me, p)
-        End If
-    End Sub
-
     Private Sub myConnection_ReceiveModMode(sender As Object, e As ModModeReceiveMessage) Handles myConnection.ReceiveModMode
         Dim p As TPlayer = Player(e.UserID)
 
@@ -253,14 +237,6 @@
 
         If p IsNot Nothing Then
             RaiseEvent OnSilverCrown(Me, p)
-        End If
-    End Sub
-
-    Private Sub myConnection_ReceiveWootUp(sender As Object, e As WootUpReceiveMessage) Handles myConnection.ReceiveWootUp
-        Dim p As TPlayer = Player(e.UserID)
-
-        If p IsNot Nothing Then
-            RaiseEvent OnWootUp(Me, p)
         End If
     End Sub
 

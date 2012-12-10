@@ -269,15 +269,13 @@ Friend NotInheritable Class Connection
 
     Public Event PreviewReceiveMagic(sender As Object, e As MagicRecieveMessage) Implements IConnection.PreviewReceiveMagic
 
-    Public Event PreviewReceiveWootUp(sender As Object, e As WootUpReceiveMessage) Implements IConnection.PreviewReceiveWootUp
+    Public Event PreviewReceiveUpWoot(sender As Object, e As UpWootReceiveMessage) Implements IConnection.PreviewReceiveUpWoot
 
     Public Event ReceiveLevelup(sender As Object, e As LevelupRecieveMessage) Implements IConnection.ReceiveLevelup
 
     Public Event ReceiveMagic(sender As Object, e As MagicRecieveMessage) Implements IConnection.ReceiveMagic
 
-    Public Event ReceiveWootUp(sender As Object, e As WootUpReceiveMessage) Implements IConnection.ReceiveWootUp
-
-    Public Event SendWootUp(sender As Object, e As Cancelable(Of WootUpSendMessage)) Implements IConnection.SendWootUp
+    Public Event ReceiveUpWoot(sender As Object, e As UpWootReceiveMessage) Implements IConnection.ReceiveUpWoot
 #End Region
 
 #Region "Methods"
@@ -322,7 +320,7 @@ Friend NotInheritable Class Connection
     Private Shared Sub UpdateVersion(ex As PlayerIOError)
         Dim errorMessage() As String = ex.Message.Split("["c)(1).Split(CChar(" "))
         Dim idSet As Boolean
-        For N = errorMessage.Length - 1 To 0 Step -1
+        For N = errorMessage.Length - 1 To 0 Step - 1
             Dim currentRoomType As String
             currentRoomType = errorMessage(N)
             If currentRoomType.StartsWith(NormalRoom, StringComparison.Ordinal) Then
@@ -354,27 +352,27 @@ Friend NotInheritable Class Connection
                 RaiseEvent SendInit2(Me, eventArgs)
                 Return eventArgs.Handled
 
-            Case GetType(BlockPlaceSendMessage), GetType(BlockPlaceUploadMessage)
+            Case GetType(BlockPlaceSendMessage)
                 Dim eventArgs As New Cancelable(Of BlockPlaceSendMessage)(CType(message, BlockPlaceSendMessage))
                 RaiseEvent SendBlockPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
-            Case GetType(CoinDoorPlaceSendMessage), GetType(CoinDoorPlaceUploadMessage)
+            Case GetType(CoinDoorPlaceSendMessage)
                 Dim eventArgs As New Cancelable(Of CoinDoorPlaceSendMessage)(CType(message, CoinDoorPlaceSendMessage))
                 RaiseEvent SendCoindoorPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
-            Case GetType(SoundPlaceSendMessage), GetType(SoundPlaceUploadMessage)
+            Case GetType(SoundPlaceSendMessage)
                 Dim eventArgs As New Cancelable(Of SoundPlaceSendMessage)(CType(message, SoundPlaceSendMessage))
                 RaiseEvent SendSoundPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
-            Case GetType(PortalPlaceSendMessage), GetType(PortalPlaceUploadMessage)
+            Case GetType(PortalPlaceSendMessage)
                 Dim eventArgs As New Cancelable(Of PortalPlaceSendMessage)(CType(message, PortalPlaceSendMessage))
                 RaiseEvent SendPortalPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
-            Case GetType(LabelPlaceSendMessage), GetType(LabelPlaceUploadMessage)
+            Case GetType(LabelPlaceSendMessage)
                 Dim eventArgs As New Cancelable(Of LabelPlaceSendMessage)(CType(message, LabelPlaceSendMessage))
                 RaiseEvent SendLabelPlace(Me, eventArgs)
                 Return eventArgs.Handled
@@ -487,11 +485,6 @@ Friend NotInheritable Class Connection
             Case GetType(AllowPotionsSendMessage)
                 Dim eventArgs As New Cancelable(Of AllowPotionsSendMessage)(CType(message, AllowPotionsSendMessage))
                 RaiseEvent SendAllowPotions(Me, eventArgs)
-                Return eventArgs.Handled
-
-            Case GetType(WootUpSendMessage)
-                Dim eventArgs As New Cancelable(Of WootUpSendMessage)(CType(message, WootUpSendMessage))
-                RaiseEvent SendWootUp(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case Else
@@ -712,10 +705,10 @@ Friend NotInheritable Class Connection
                 RaiseEvent PreviewReceiveLevelup(Me, m)
                 RaiseEvent ReceiveLevelup(Me, m)
 
-            Case GetType(WootUpReceiveMessage)
-                Dim m As WootUpReceiveMessage = CType(e, WootUpReceiveMessage)
-                RaiseEvent PreviewReceiveWootUp(Me, m)
-                RaiseEvent ReceiveWootUp(Me, m)
+            Case GetType(UpWootReceiveMessage)
+                Dim m As UpWootReceiveMessage = CType(e, UpWootReceiveMessage)
+                RaiseEvent PreviewReceiveUpWoot(Me, m)
+                RaiseEvent ReceiveUpWoot(Me, m)
         End Select
     End Sub
 
@@ -771,14 +764,14 @@ Friend NotInheritable Class Connection
                             ioClient = PlayerIO.QuickConnect.SimpleConnect(GameID, username, password)
                         Case AccountType.Facebook
                             ioClient = PlayerIO.QuickConnect.FacebookOAuthConnect(GameID, username, "")
-                    End Select
+                          End Select
 
                     Dim ioConnection As PlayerIOClient.Connection = GetIOConnection(ioClient, id)
                     SetupConnection(ioConnection, id)
                 Catch ex As PlayerIOError
                     Throw New EECloudPlayerIOException(ex)
-                End Try
-            End Sub)
+                          End Try
+                          End Sub)
     End Function
 
     Friend Sub Send(message As SendMessage) Implements IConnection.Send
@@ -859,7 +852,7 @@ Friend NotInheritable Class Connection
                 RegisterMessage("allowpotions", GetType(AllowPotionsReceiveMessage))
                 RegisterMessage("w", GetType(MagicRecieveMessage))
                 RegisterMessage("levelup", GetType(LevelupRecieveMessage))
-                RegisterMessage("wu", GetType(WootUpReceiveMessage))
+                RegisterMessage("wu", GetType(UpWootReceiveMessage))
             End If
         End SyncLock
     End Sub

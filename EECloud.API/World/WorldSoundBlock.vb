@@ -22,7 +22,7 @@
 
 #Region "Methods"
 
-    Public Sub New(block As SoundBlock, soundID As Integer)
+    Friend Sub New(block As SoundBlock, soundID As Integer)
         MyBase.New(CType(block, Block))
         mySoundID = soundID
     End Sub

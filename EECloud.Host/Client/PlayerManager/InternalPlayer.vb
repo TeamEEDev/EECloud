@@ -228,15 +228,15 @@
         End Get
     End Property
 
-    Private myAutoText As AutoText?
+    Private myAutoText As AutoText = CType(- 1, AutoText)
 
-    Friend ReadOnly Property AutoText As AutoText? Implements IPlayer.AutoText
+    Friend ReadOnly Property AutoText As AutoText Implements IPlayer.AutoText
         Get
             Return myAutoText
         End Get
     End Property
 
-    Private mySay As String = Nothing
+    Private mySay As String
 
     Friend ReadOnly Property Say As String Implements IPlayer.Say
         Get
@@ -249,30 +249,6 @@
     Public ReadOnly Property IsUserDataReady As Boolean Implements IPlayer.IsUserDataReady
         Get
             Return myIsUserDataReady
-        End Get
-    End Property
-
-    Private myNewClass As Integer?
-
-    Public ReadOnly Property NewClass As Integer? Implements IPlayer.NewClass
-        Get
-            Return myNewClass
-        End Get
-    End Property
-
-    Private myGreenAuraPotion As Boolean
-
-    Public ReadOnly Property GreenAuraPotion As Boolean Implements IPlayer.GreenAuraPotion
-        Get
-            Return myGreenAuraPotion
-        End Get
-    End Property
-
-    Private myJumpPotion As Boolean
-
-    Public ReadOnly Property JumpPotion As Boolean Implements IPlayer.JumpPotion
-        Get
-            Return myJumpPotion
         End Get
     End Property
 
@@ -400,10 +376,6 @@
                     myBlueAuraPotion = e.Enabled
                 Case Potion.YellowAura
                     myYellowAuraPotion = e.Enabled
-                Case Potion.Jump
-                    myJumpPotion = e.Enabled
-                Case Potion.GreenAura
-                    myGreenAuraPotion = e.Enabled
             End Select
         End If
     End Sub
@@ -411,12 +383,6 @@
     Private Sub myConnection_ReceiveSay(sender As Object, e As SayReceiveMessage) Handles myConnection.PreviewReceiveSay
         If e.UserID = myUserID Then
             mySay = e.Text
-        End If
-    End Sub
-
-    Private Sub myConnection_PreviewReceiveLevelup(sender As Object, e As LevelupRecieveMessage) Handles myConnection.PreviewReceiveLevelup
-        If e.UserID = myUserID Then
-            myNewClass = e.NewClass
         End If
     End Sub
 
