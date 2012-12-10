@@ -299,7 +299,7 @@
         End Get
     End Property
 
-    Public ReadOnly Property AutoText As AutoText Implements IPlayer.AutoText
+    Public ReadOnly Property AutoText As AutoText? Implements IPlayer.AutoText
         Get
             Try
                 Return myPlayer.AutoText
@@ -323,6 +323,36 @@
         Get
             Try
                 Return myPlayer.IsUserDataReady
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property NewClass As Integer? Implements IPlayer.NewClass
+        Get
+            Try
+                Return myPlayer.NewClass
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property GreenAuraPotion As Boolean Implements IPlayer.GreenAuraPotion
+        Get
+            Try
+                Return myPlayer.GreenAuraPotion
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property JumpPotion As Boolean Implements IPlayer.JumpPotion
+        Get
+            Try
+                Return myPlayer.JumpPotion
             Catch ex As Exception
                 Return Nothing
             End Try

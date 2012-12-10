@@ -22,7 +22,7 @@
 
 #Region "Methods"
 
-    Friend Sub New(block As LabelBlock, text As String)
+    Public Sub New(block As LabelBlock, text As String)
         MyBase.New(CType(block, Block))
         myText = text
     End Sub

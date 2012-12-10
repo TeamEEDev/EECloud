@@ -22,7 +22,7 @@ Friend NotInheritable Class World
 
     Friend ReadOnly Property SizeX As Integer Implements IWorld.SizeX
         Get
-            Return mySizeY
+            Return mySizeX
         End Get
     End Property
 
@@ -30,7 +30,7 @@ Friend NotInheritable Class World
 
     Friend ReadOnly Property SizeY As Integer Implements IWorld.SizeY
         Get
-            Return mySizeX
+            Return mySizeY
         End Get
     End Property
 
