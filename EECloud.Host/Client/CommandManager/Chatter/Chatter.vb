@@ -53,12 +53,5 @@
         myInternalChatter.SendChat("/reset")
     End Sub
 
-    Friend Sub InjectSyntaxProvider(provider As IChatSyntaxProvider) Implements IChatter.InjectSyntaxProvider
-        If provider Is Nothing Then
-            Throw New ArgumentException("Provider can not be null.", "provider")
-        End If
-        myInternalChatter.ChatSyntaxProvider = provider
-    End Sub
-
 #End Region
 End Class

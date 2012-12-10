@@ -10,6 +10,7 @@ Public NotInheritable Class TouchDiamondSendMessage
         Me.Y = y
     End Sub
 
+
     Friend Overrides Function GetMessage(ByVal game As IGame) As Message
         Return Message.Create("diamondtouch", X, Y)
     End Function
