@@ -13,10 +13,14 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
     <TargetFrameworkProfile />
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -113,7 +117,7 @@
     <Compile Include="Interfaces\World\IWorldPortalBlock.vb" />
     <Compile Include="Interfaces\World\IWorldSoundBlock.vb" />
     <Compile Include="Messages\Receive\AllowPotionsReceiveMessage.vb" />
-    <Compile Include="Messages\Receive\UpWootReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\WootUpReceiveMessage.vb" />
     <Compile Include="Messages\Receive\MagicRecieveMessage.vb" />
     <Compile Include="Messages\Receive\LevelupRecieveMessage.vb" />
     <Compile Include="Messages\Receive\PotionReceiveMessage.vb" />
@@ -121,6 +125,7 @@
     <Compile Include="Messages\Send\CustomSendMessage.vb" />
     <Compile Include="Messages\Send\TouchCakeSendMessage.vb" />
     <Compile Include="Messages\Send\PotionSendMessage.vb" />
+    <Compile Include="Messages\Send\WootUpSendMessage.vb" />
     <Compile Include="Messages\Upload\BlockPlaceUploadMessage.vb" />
     <Compile Include="Messages\Upload\CoinDoorPlaceUploadMessage.vb" />
     <Compile Include="Messages\Upload\LabelPlaceUploadMessage.vb" />
