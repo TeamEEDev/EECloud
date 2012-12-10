@@ -48,6 +48,14 @@ Public Interface IChatter
     Sub Reset()
 
     ''' <summary>
+    '''     Replaces the current chat provider with the given provider
+    ''' </summary>
+    ''' <param name="provider">The new syntax provider</param>
+    ''' <remarks></remarks>
+    <Obsolete("Use SyntaxProvider property instead")>
+    Sub InjectSyntaxProvider(provider As IChatSyntaxProvider)
+
+    ''' <summary>
     '''     The Syntax provider used to generate chat strings
     ''' </summary>
     ''' <value></value>

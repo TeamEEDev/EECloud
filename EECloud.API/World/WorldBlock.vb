@@ -21,7 +21,7 @@
 
 #Region "Methods"
 
-    Public Sub New(block As Block)
+    Friend Sub New(block As Block)
         myBlock = block
     End Sub
 
