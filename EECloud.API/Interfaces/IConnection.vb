@@ -119,6 +119,11 @@
     Event SendPotion As EventHandler(Of Cancelable(Of PotionSendMessage))
     Event SendAllowPotions As EventHandler(Of Cancelable(Of AllowPotionsSendMessage))
     Event SendWootUp As EventHandler(Of Cancelable(Of WootUpSendMessage))
+    Event UploadBlockPlace As EventHandler(Of Cancelable(Of BlockPlaceUploadMessage))
+    Event UploadCoindoorPlace As EventHandler(Of Cancelable(Of CoinDoorPlaceUploadMessage))
+    Event UploadSoundPlace As EventHandler(Of Cancelable(Of SoundPlaceUploadMessage))
+    Event UploadPortalPlace As EventHandler(Of Cancelable(Of PortalPlaceUploadMessage))
+    Event UploadLabelPlace As EventHandler(Of Cancelable(Of LabelPlaceUploadMessage))
 
     ''' <summary>
     '''     The world id
