@@ -10,6 +10,9 @@
     Event OnSilverCrown As EventHandler(Of TPlayer)
     Event OnSay As EventHandler(Of TPlayer)
     Event OnAutoText As EventHandler(Of TPlayer)
+    Event OnLevelup As EventHandler(Of TPlayer)
+    Event OnWootUp As EventHandler(Of TPlayer)
+    Event OnMagic As EventHandler(Of TPlayer)
     Event Join As EventHandler(Of TPlayer)
     Event Leave As EventHandler(Of TPlayer)
     
@@ -32,9 +35,6 @@
     ReadOnly Property Player(username As String) As TPlayer
 
     ReadOnly Property Count As Integer
-
-    <Obsolete("Use for each on the PlayerManager instead")>
-    ReadOnly Property GetPlayers As TPlayer()
 
     ReadOnly Property Crown As TPlayer
 End Interface

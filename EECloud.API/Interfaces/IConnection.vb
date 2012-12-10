@@ -43,7 +43,7 @@
     Event ReceiveAllowPotions As EventHandler(Of AllowPotionsReceiveMessage)
     Event ReceiveMagic As EventHandler(Of MagicRecieveMessage)
     Event ReceiveLevelup As EventHandler(Of LevelupRecieveMessage)
-    Event ReceiveUpWoot As EventHandler(Of UpWootReceiveMessage)
+    Event ReceiveWootUp As EventHandler(Of WootUpReceiveMessage)
     Event PreviewReceiveMessage As EventHandler(Of ReceiveMessage)
     Event PreviewDisconnecting As EventHandler(Of EventArgs)
     Event PreviewDisconnect As EventHandler(Of DisconnectEventArgs)
@@ -87,7 +87,7 @@
     Event PreviewReceiveAllowPotions As EventHandler(Of AllowPotionsReceiveMessage)
     Event PreviewReceiveMagic As EventHandler(Of MagicRecieveMessage)
     Event PreviewReceiveLevelup As EventHandler(Of LevelupRecieveMessage)
-    Event PreviewReceiveUpWoot As EventHandler(Of UpWootReceiveMessage)
+    Event PreviewReceiveWootUp As EventHandler(Of WootUpReceiveMessage)
     Event SendMessage As EventHandler(Of SendMessage)
     Event SendInit As EventHandler(Of Cancelable(Of InitSendMessage))
     Event SendInit2 As EventHandler(Of Cancelable(Of Init2SendMessage))
@@ -118,7 +118,8 @@
     Event SendKillWorld As EventHandler(Of Cancelable(Of KillWorldSendMessage))
     Event SendPotion As EventHandler(Of Cancelable(Of PotionSendMessage))
     Event SendAllowPotions As EventHandler(Of Cancelable(Of AllowPotionsSendMessage))
-    
+    Event SendWootUp As EventHandler(Of Cancelable(Of WootUpSendMessage))
+
     ''' <summary>
     '''     The world id
     ''' </summary>
