@@ -1,16 +1,16 @@
 ﻿Imports PlayerIOClient
 
-Public NotInheritable Class LabelPlaceReceiveMessage
+Public Class RotatablePlaceReceiveMessage
     Inherits BlockPlaceReceiveMessage
-    Public ReadOnly LabelBlock As LabelBlock
+    Public Shadows ReadOnly RotatableBlock As RotatableBlock
     '2
-    Public ReadOnly Text As String
+    Public ReadOnly Rotation As Integer
     '3
 
     Friend Sub New(message As Message)
         MyBase.New(message, Layer.Foreground, message.GetInteger(0), message.GetInteger(1), CType(message.GetInteger(2), Block))
 
-        LabelBlock = CType(message.GetInteger(2), LabelBlock)
-        Text = message.GetString(3)
+        RotatableBlock = CType(message.GetInteger(2), RotatableBlock)
+        Rotation = message.GetInteger(3)
     End Sub
 End Class

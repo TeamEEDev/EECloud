@@ -265,29 +265,33 @@ Friend NotInheritable Class Connection
 
     Friend Event SendAllowPotions(sender As Object, e As Cancelable(Of AllowPotionsSendMessage)) Implements IConnection.SendAllowPotions
 
-    Public Event PreviewReceiveLevelup(sender As Object, e As LevelupRecieveMessage) Implements IConnection.PreviewReceiveLevelup
+    Friend Event PreviewReceiveLevelup(sender As Object, e As LevelupRecieveMessage) Implements IConnection.PreviewReceiveLevelup
 
-    Public Event PreviewReceiveMagic(sender As Object, e As MagicRecieveMessage) Implements IConnection.PreviewReceiveMagic
+    Friend Event PreviewReceiveMagic(sender As Object, e As MagicRecieveMessage) Implements IConnection.PreviewReceiveMagic
 
-    Public Event PreviewReceiveWootUp(sender As Object, e As WootUpReceiveMessage) Implements IConnection.PreviewReceiveWootUp
+    Friend Event PreviewReceiveWootUp(sender As Object, e As WootUpReceiveMessage) Implements IConnection.PreviewReceiveWootUp
 
-    Public Event ReceiveLevelup(sender As Object, e As LevelupRecieveMessage) Implements IConnection.ReceiveLevelup
+    Friend Event ReceiveLevelup(sender As Object, e As LevelupRecieveMessage) Implements IConnection.ReceiveLevelup
 
-    Public Event ReceiveMagic(sender As Object, e As MagicRecieveMessage) Implements IConnection.ReceiveMagic
+    Friend Event ReceiveMagic(sender As Object, e As MagicRecieveMessage) Implements IConnection.ReceiveMagic
 
-    Public Event ReceiveWootUp(sender As Object, e As WootUpReceiveMessage) Implements IConnection.ReceiveWootUp
+    Friend Event ReceiveWootUp(sender As Object, e As WootUpReceiveMessage) Implements IConnection.ReceiveWootUp
 
-    Public Event SendWootUp(sender As Object, e As Cancelable(Of WootUpSendMessage)) Implements IConnection.SendWootUp
+    Friend Event SendWootUp(sender As Object, e As Cancelable(Of WootUpSendMessage)) Implements IConnection.SendWootUp
 
-    Public Event UploadBlockPlace(sender As Object, e As Cancelable(Of BlockPlaceUploadMessage)) Implements IConnection.UploadBlockPlace
+    Friend Event UploadBlockPlace(sender As Object, e As Cancelable(Of BlockPlaceUploadMessage)) Implements IConnection.UploadBlockPlace
 
-    Public Event UploadLabelPlace(sender As Object, e As Cancelable(Of LabelPlaceUploadMessage)) Implements IConnection.UploadLabelPlace
+    Friend Event UploadLabelPlace(sender As Object, e As Cancelable(Of LabelPlaceUploadMessage)) Implements IConnection.UploadLabelPlace
 
-    Public Event UploadCoindoorPlace(sender As Object, e As Cancelable(Of CoinDoorPlaceUploadMessage)) Implements IConnection.UploadCoindoorPlace
+    Friend Event UploadCoindoorPlace(sender As Object, e As Cancelable(Of CoinDoorPlaceUploadMessage)) Implements IConnection.UploadCoindoorPlace
 
-    Public Event UploadPortalPlace(sender As Object, e As Cancelable(Of PortalPlaceUploadMessage)) Implements IConnection.UploadPortalPlace
+    Friend Event UploadPortalPlace(sender As Object, e As Cancelable(Of PortalPlaceUploadMessage)) Implements IConnection.UploadPortalPlace
 
-    Public Event UploadSoundPlace(sender As Object, e As Cancelable(Of SoundPlaceUploadMessage)) Implements IConnection.UploadSoundPlace
+    Friend Event UploadSoundPlace(sender As Object, e As Cancelable(Of SoundPlaceUploadMessage)) Implements IConnection.UploadSoundPlace
+
+    Friend Event ReceiveRotatablePlace(sender As Object, e As RotatablePlaceReceiveMessage) Implements IConnection.ReceiveRotatablePlace
+
+    Friend Event PreviewReceiveRotatablePlace(sender As Object, e As RotatablePlaceReceiveMessage) Implements IConnection.PreviewReceiveRotatablePlace
 #End Region
 
 #Region "Methods"
@@ -751,6 +755,12 @@ Friend NotInheritable Class Connection
                 Dim m As WootUpReceiveMessage = CType(e, WootUpReceiveMessage)
                 RaiseEvent PreviewReceiveWootUp(Me, m)
                 RaiseEvent ReceiveWootUp(Me, m)
+
+            Case GetType(RotatablePlaceReceiveMessage)
+                Dim m As RotatablePlaceReceiveMessage = CType(e, RotatablePlaceReceiveMessage)
+                RaiseEvent PreviewReceiveRotatablePlace(Me, m)
+                RaiseEvent ReceiveRotatablePlace(Me, m)
+
         End Select
     End Sub
 
@@ -876,6 +886,7 @@ Friend NotInheritable Class Connection
                 RegisterMessage("b", GetType(BlockPlaceReceiveMessage))
                 RegisterMessage("bc", GetType(CoinDoorPlaceReceiveMessage))
                 RegisterMessage("bs", GetType(SoundPlaceReceiveMessage))
+                RegisterMessage("br", GetType(RotatablePlaceReceiveMessage))
                 RegisterMessage("pt", GetType(PortalPlaceReceiveMessage))
                 RegisterMessage("lb", GetType(LabelPlaceReceiveMessage))
                 RegisterMessage("god", GetType(GodModeReceiveMessage))
