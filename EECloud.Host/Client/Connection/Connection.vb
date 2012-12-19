@@ -292,6 +292,10 @@ Friend NotInheritable Class Connection
     Friend Event ReceiveRotatablePlace(sender As Object, e As RotatablePlaceReceiveMessage) Implements IConnection.ReceiveRotatablePlace
 
     Friend Event PreviewReceiveRotatablePlace(sender As Object, e As RotatablePlaceReceiveMessage) Implements IConnection.PreviewReceiveRotatablePlace
+
+    Friend Event SendRotatablePlace(sender As Object, e As Cancelable(Of RotatablePlaceSendMessage)) Implements IConnection.SendRotatablePlace
+
+    Public Event UploadRotatablePlace(sender As Object, e As Cancelable(Of RotatablePlaceUploadMessage)) Implements IConnection.UploadRotatablePlace
 #End Region
 
 #Region "Methods"
@@ -533,8 +537,21 @@ Friend NotInheritable Class Connection
                 RaiseEvent UploadLabelPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
-            Case Else
+            Case GetType(RotatablePlaceSendMessage)
+                Dim eventArgs As New Cancelable(Of RotatablePlaceSendMessage)(CType(message, RotatablePlaceSendMessage))
+                RaiseEvent SendRotatablePlace(Me, eventArgs)
+                Return eventArgs.Handled
+
+            Case GetType(RotatablePlaceUploadMessage)
+                Dim eventArgs As New Cancelable(Of RotatablePlaceUploadMessage)(CType(message, RotatablePlaceUploadMessage))
+                RaiseEvent UploadRotatablePlace(Me, eventArgs)
+                Return eventArgs.Handled
+
+            Case GetType(CustomSendMessage)
                 Return False
+
+            Case Else
+                Return True
         End Select
     End Function
 

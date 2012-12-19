@@ -95,6 +95,7 @@
     Event SendInit2 As EventHandler(Of Cancelable(Of Init2SendMessage))
     Event SendBlockPlace As EventHandler(Of Cancelable(Of BlockPlaceSendMessage))
     Event SendCoindoorPlace As EventHandler(Of Cancelable(Of CoinDoorPlaceSendMessage))
+    Event SendRotatablePlace As EventHandler(Of Cancelable(Of RotatablePlaceSendMessage))
     Event SendSoundPlace As EventHandler(Of Cancelable(Of SoundPlaceSendMessage))
     Event SendPortalPlace As EventHandler(Of Cancelable(Of PortalPlaceSendMessage))
     Event SendLabelPlace As EventHandler(Of Cancelable(Of LabelPlaceSendMessage))
@@ -126,6 +127,7 @@
     Event UploadSoundPlace As EventHandler(Of Cancelable(Of SoundPlaceUploadMessage))
     Event UploadPortalPlace As EventHandler(Of Cancelable(Of PortalPlaceUploadMessage))
     Event UploadLabelPlace As EventHandler(Of Cancelable(Of LabelPlaceUploadMessage))
+    Event UploadRotatablePlace As EventHandler(Of Cancelable(Of RotatablePlaceUploadMessage))
 
     ''' <summary>
     '''     The world id
