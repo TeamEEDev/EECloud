@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public NotInheritable Class CustomSendMessage
+Friend NotInheritable Class CustomSendMessage
     Inherits SendMessage
     Private myMessage As Message
 
