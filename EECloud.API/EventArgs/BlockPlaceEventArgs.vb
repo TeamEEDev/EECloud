@@ -13,7 +13,7 @@
 
     Private ReadOnly myY As Integer
 
-    Public ReadOnly Property y As Integer
+    Public ReadOnly Property Y As Integer
         Get
             Return myY
         End Get
