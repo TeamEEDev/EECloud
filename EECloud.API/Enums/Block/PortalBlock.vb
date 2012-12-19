@@ -1,3 +1,3 @@
 ﻿Public Enum PortalBlock
-    BlockPortal = 242
+    BlockPortal = Block.BlockPortal
 End Enum

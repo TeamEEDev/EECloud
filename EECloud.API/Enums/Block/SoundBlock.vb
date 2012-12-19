@@ -1,4 +1,4 @@
 ﻿Public Enum SoundBlock
-    BlockMusicPiano = 77
-    BlockMusicDrum = 83
+    BlockMusicPiano = Block.BlockMusicPiano
+    BlockMusicDrum = Block.BlockMusicDrum
 End Enum

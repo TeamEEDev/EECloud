@@ -1,3 +1,3 @@
 ﻿Public Enum LabelBlock
-    BlockLabel = 1000
+    BlockLabel = Block.BlockLabel
 End Enum
