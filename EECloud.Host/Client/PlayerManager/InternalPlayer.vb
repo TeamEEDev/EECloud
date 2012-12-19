@@ -311,7 +311,7 @@
     Friend Sub ReloadUserData() Implements IPlayer.ReloadUserData
         Dim userData As UserData = Cloud.Service.GetPlayerData(myUsername)
         If userData IsNot Nothing Then
-            Group = CType(userData.GroupID, Group)
+            myGroup = CType(userData.GroupID, Group)
             RaiseEvent LoadUserData(Me, EventArgs.Empty)
         End If
 

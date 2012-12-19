@@ -232,8 +232,20 @@
     End Sub
 
     Private Sub myPlayerManager_GroupChange(sender As Object, e As Player) Handles myPlayerManager.GroupChange
-        If e.Group >= Group.Moderator And myClient.Game.AccessRight >= AccessRight.Owner Then
-            e.GiveEdit()
+        If myClient.Game.AccessRight >= AccessRight.Owner Then
+            If e.Group >= Group.Moderator Then
+                e.GiveEdit()
+            Else
+                e.RemoveEdit()
+            End If
+        End If
+    End Sub
+
+    Private Sub myPlayerManager_UserDataReady(sender As Object, e As Player) Handles myPlayerManager.UserDataReady
+        If myClient.Game.AccessRight >= AccessRight.Owner Then
+            If e.Group >= Group.Moderator Then
+                e.GiveEdit()
+            End If
         End If
     End Sub
 
