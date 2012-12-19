@@ -448,7 +448,7 @@
     DecorationJungle2 = 358
     DecorationJungleTrophy = 359
 
-    BlockHazard = 361
+    BlockHazardSpike = 361
 
     DecorationChristmas2012BlueVertical = 362
     DecorationChristmas2012BlueHorizontal = 363

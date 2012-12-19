@@ -1,6 +1,6 @@
 ﻿Public Enum BlockType
     Normal
-    Hazard
+    Rotatable
     CoinDoor
     Portal
     Sound
