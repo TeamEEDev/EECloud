@@ -19,14 +19,6 @@
         End Get
     End Property
 
-    Private ReadOnly myBlock As IWorldBlock
-
-    Public ReadOnly Property Block As IWorldBlock
-        Get
-            Return myBlock
-        End Get
-    End Property
-
     Private ReadOnly myLayer As Layer
 
     Public ReadOnly Property Layer As Layer
@@ -42,7 +34,6 @@
     Sub New(x As Integer, y As Integer, ByVal layer As Layer, block As IWorldBlock)
         myX = x
         myY = y
-        myBlock = block
         myLayer = layer
     End Sub
 
