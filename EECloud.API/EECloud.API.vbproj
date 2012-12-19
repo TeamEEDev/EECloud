@@ -223,6 +223,7 @@
     <Compile Include="World\WorldCoinDoorBlock.vb" />
     <Compile Include="World\WorldLabelBlock.vb" />
     <Compile Include="World\WorldPortalBlock.vb" />
+    <Compile Include="World\WorldRotatableBlock.vb" />
     <Compile Include="World\WorldSoundBlock.vb" />
   </ItemGroup>
   <ItemGroup>
