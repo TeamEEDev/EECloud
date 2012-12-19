@@ -108,8 +108,10 @@
     <Compile Include="Interfaces\World\IWorldCoinDoorBlock.vb" />
     <Compile Include="Interfaces\World\IWorldLabelBlock.vb" />
     <Compile Include="Interfaces\World\IWorldPortalBlock.vb" />
+    <Compile Include="Interfaces\World\IWorldRotatableBlock.vb" />
     <Compile Include="Interfaces\World\IWorldSoundBlock.vb" />
     <Compile Include="Messages\Receive\AllowPotionsReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\RotatablePlaceReceiveMessage.vb" />
     <Compile Include="Messages\Receive\WootUpReceiveMessage.vb" />
     <Compile Include="Messages\Receive\MagicRecieveMessage.vb" />
     <Compile Include="Messages\Receive\LevelupRecieveMessage.vb" />
