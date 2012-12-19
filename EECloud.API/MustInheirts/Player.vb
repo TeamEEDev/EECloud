@@ -12,6 +12,8 @@
     Public Event LoadUserData(sender As Object, e As EventArgs) Implements IPlayer.LoadUserData
 
     Public Event UserDataReady(sender As Object, e As EventArgs) Implements IPlayer.UserDataReady
+
+    Public Event SaveUserData(sender As Object, e As EventArgs) Implements IPlayer.SaveUserData
 #End Region
 
 #Region "EventHandlers"
@@ -22,6 +24,10 @@
 
     Private Sub myPlayer_LoadUserData(sender As Object, e As EventArgs) Handles myPlayer.LoadUserData
         RaiseEvent LoadUserData(Me, e)
+    End Sub
+
+    Private Sub myPlayer_SaveUserData(sender As Object, e As EventArgs) Handles myPlayer.SaveUserData
+        RaiseEvent SaveUserData(Me, e)
     End Sub
 
     Private Sub myPlayer_UserDataReady(sender As Object, e As EventArgs) Handles myPlayer.UserDataReady
@@ -386,6 +392,10 @@
 
     Public Sub RemoveEdit() Implements IPlayer.RemoveEdit
         myChatter.RemoveEdit(myPlayer.Username)
+    End Sub
+
+    Public Sub Save() Implements IPlayer.Save
+        myPlayer.Save()
     End Sub
 
 #End Region
