@@ -7,20 +7,20 @@
 #End Region
 
 #Region "Events"
-    Public Event GroupChange(sender As Object, e As ItemChangedEventArgs(Of Group)) Implements IPlayer.GroupChange
+    Public Event GroupChange(sender As Object, e As EventArgs) Implements IPlayer.GroupChange
 
-    Public Event LoadUserData(sender As Object, e As UserData) Implements IPlayer.LoadUserData
+    Public Event LoadUserData(sender As Object, e As EventArgs) Implements IPlayer.LoadUserData
 
     Public Event UserDataReady(sender As Object, e As EventArgs) Implements IPlayer.UserDataReady
 #End Region
 
 #Region "EventHandlers"
 
-    Private Sub myPlayer_GroupChange(sender As Object, e As ItemChangedEventArgs(Of Group)) Handles myPlayer.GroupChange
+    Private Sub myPlayer_GroupChange(sender As Object, e As EventArgs) Handles myPlayer.GroupChange
         RaiseEvent GroupChange(Me, e)
     End Sub
 
-    Private Sub myPlayer_LoadUserData(sender As Object, e As UserData) Handles myPlayer.LoadUserData
+    Private Sub myPlayer_LoadUserData(sender As Object, e As EventArgs) Handles myPlayer.LoadUserData
         RaiseEvent LoadUserData(Me, e)
     End Sub
 
@@ -378,6 +378,14 @@
 
     Public Sub Kick(msg As String) Implements IPlayer.Kick
         myChatter.Kick(myPlayer.Username, msg)
+    End Sub
+
+    Public Sub GiveEdit() Implements IPlayer.GiveEdit
+        myChatter.GiveEdit(myPlayer.Username)
+    End Sub
+
+    Public Sub RemoveEdit() Implements IPlayer.RemoveEdit
+        myChatter.RemoveEdit(myPlayer.Username)
     End Sub
 
 #End Region

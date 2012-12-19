@@ -278,6 +278,16 @@ Friend NotInheritable Class Connection
     Public Event ReceiveWootUp(sender As Object, e As WootUpReceiveMessage) Implements IConnection.ReceiveWootUp
 
     Public Event SendWootUp(sender As Object, e As Cancelable(Of WootUpSendMessage)) Implements IConnection.SendWootUp
+
+    Public Event UploadBlockPlace(sender As Object, e As Cancelable(Of BlockPlaceUploadMessage)) Implements IConnection.UploadBlockPlace
+
+    Public Event UploadLabelPlace(sender As Object, e As Cancelable(Of LabelPlaceUploadMessage)) Implements IConnection.UploadLabelPlace
+
+    Public Event UploadCoindoorPlace(sender As Object, e As Cancelable(Of CoinDoorPlaceUploadMessage)) Implements IConnection.UploadCoindoorPlace
+
+    Public Event UploadPortalPlace(sender As Object, e As Cancelable(Of PortalPlaceUploadMessage)) Implements IConnection.UploadPortalPlace
+
+    Public Event UploadSoundPlace(sender As Object, e As Cancelable(Of SoundPlaceUploadMessage)) Implements IConnection.UploadSoundPlace
 #End Region
 
 #Region "Methods"
@@ -354,27 +364,27 @@ Friend NotInheritable Class Connection
                 RaiseEvent SendInit2(Me, eventArgs)
                 Return eventArgs.Handled
 
-            Case GetType(BlockPlaceSendMessage), GetType(BlockPlaceUploadMessage)
+            Case GetType(BlockPlaceSendMessage)
                 Dim eventArgs As New Cancelable(Of BlockPlaceSendMessage)(CType(message, BlockPlaceSendMessage))
                 RaiseEvent SendBlockPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
-            Case GetType(CoinDoorPlaceSendMessage), GetType(CoinDoorPlaceUploadMessage)
+            Case GetType(CoinDoorPlaceSendMessage)
                 Dim eventArgs As New Cancelable(Of CoinDoorPlaceSendMessage)(CType(message, CoinDoorPlaceSendMessage))
                 RaiseEvent SendCoindoorPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
-            Case GetType(SoundPlaceSendMessage), GetType(SoundPlaceUploadMessage)
+            Case GetType(SoundPlaceSendMessage)
                 Dim eventArgs As New Cancelable(Of SoundPlaceSendMessage)(CType(message, SoundPlaceSendMessage))
                 RaiseEvent SendSoundPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
-            Case GetType(PortalPlaceSendMessage), GetType(PortalPlaceUploadMessage)
+            Case GetType(PortalPlaceSendMessage)
                 Dim eventArgs As New Cancelable(Of PortalPlaceSendMessage)(CType(message, PortalPlaceSendMessage))
                 RaiseEvent SendPortalPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
-            Case GetType(LabelPlaceSendMessage), GetType(LabelPlaceUploadMessage)
+            Case GetType(LabelPlaceSendMessage)
                 Dim eventArgs As New Cancelable(Of LabelPlaceSendMessage)(CType(message, LabelPlaceSendMessage))
                 RaiseEvent SendLabelPlace(Me, eventArgs)
                 Return eventArgs.Handled
@@ -492,6 +502,31 @@ Friend NotInheritable Class Connection
             Case GetType(WootUpSendMessage)
                 Dim eventArgs As New Cancelable(Of WootUpSendMessage)(CType(message, WootUpSendMessage))
                 RaiseEvent SendWootUp(Me, eventArgs)
+                Return eventArgs.Handled
+
+            Case GetType(BlockPlaceUploadMessage)
+                Dim eventArgs As New Cancelable(Of BlockPlaceUploadMessage)(CType(message, BlockPlaceUploadMessage))
+                RaiseEvent UploadBlockPlace(Me, eventArgs)
+                Return eventArgs.Handled
+
+            Case GetType(CoinDoorPlaceUploadMessage)
+                Dim eventArgs As New Cancelable(Of CoinDoorPlaceUploadMessage)(CType(message, CoinDoorPlaceUploadMessage))
+                RaiseEvent UploadCoindoorPlace(Me, eventArgs)
+                Return eventArgs.Handled
+
+            Case GetType(SoundPlaceUploadMessage)
+                Dim eventArgs As New Cancelable(Of SoundPlaceUploadMessage)(CType(message, SoundPlaceUploadMessage))
+                RaiseEvent UploadSoundPlace(Me, eventArgs)
+                Return eventArgs.Handled
+
+            Case GetType(PortalPlaceUploadMessage)
+                Dim eventArgs As New Cancelable(Of PortalPlaceUploadMessage)(CType(message, PortalPlaceUploadMessage))
+                RaiseEvent UploadPortalPlace(Me, eventArgs)
+                Return eventArgs.Handled
+
+            Case GetType(LabelPlaceUploadMessage)
+                Dim eventArgs As New Cancelable(Of LabelPlaceUploadMessage)(CType(message, LabelPlaceUploadMessage))
+                RaiseEvent UploadLabelPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case Else

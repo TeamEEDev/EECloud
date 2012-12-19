@@ -7,9 +7,9 @@
 #End Region
 
 #Region "Events"
-    Friend Event GroupChange(sender As Object, e As ItemChangedEventArgs(Of Group)) Implements IPlayer.GroupChange
+    Friend Event GroupChange(sender As Object, e As EventArgs) Implements IPlayer.GroupChange
 
-    Friend Event LoadUserData(sender As Object, e As UserData) Implements IPlayer.LoadUserData
+    Friend Event LoadUserData(sender As Object, e As EventArgs) Implements IPlayer.LoadUserData
 
     Public Event UserDataReady(sender As Object, e As EventArgs) Implements IPlayer.UserDataReady
 #End Region
@@ -169,10 +169,9 @@
         End Get
 
         Set(value As Group)
-            RaiseEvent GroupChange(Me, New ItemChangedEventArgs(Of Group)(myGroup, value))
-
             myGroup = value
             Cloud.Service.SetPlayerDataGroupID(Username, CShort(value))
+            RaiseEvent GroupChange(Me, EventArgs.Empty)
         End Set
     End Property
 
@@ -311,8 +310,8 @@
     Friend Sub ReloadUserData() Implements IPlayer.ReloadUserData
         Dim userData As UserData = Cloud.Service.GetPlayerData(myUsername)
         If userData IsNot Nothing Then
-            myGroup = CType(userData.GroupID, Group)
-            RaiseEvent LoadUserData(Me, userData)
+            Group = CType(userData.GroupID, Group)
+            RaiseEvent LoadUserData(Me, EventArgs.Empty)
         End If
 
         If Not myIsUserDataReady Then
@@ -323,6 +322,14 @@
 
     Friend Sub Reply(msg As String) Implements IPlayer.Reply
         myClient.Chatter.Reply(myUsername, msg)
+    End Sub
+
+    Public Sub GiveEdit() Implements IPlayer.GiveEdit
+        myClient.Chatter.GiveEdit(Username)
+    End Sub
+
+    Public Sub RemoveEdit() Implements IPlayer.RemoveEdit
+        myClient.Chatter.RemoveEdit(Username)
     End Sub
 
     Private Sub myConnection_PreviewReceiveAutoText(sender As Object, e As AutoTextReceiveMessage) Handles myConnection.PreviewReceiveAutoText

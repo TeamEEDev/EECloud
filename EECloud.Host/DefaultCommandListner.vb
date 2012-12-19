@@ -200,6 +200,12 @@
         Cloud.Logger.Log(LogPriority.Info, String.Format("{0}: {1}.", e.Title, e.Text))
     End Sub
 
+    Private Sub myPlayerManager_GroupChange(sender As Object, e As Player) Handles myPlayerManager.GroupChange
+        If e.Group >= Group.Moderator And myClient.Game.AccessRight >= AccessRight.Owner Then
+            e.GiveEdit()
+        End If
+    End Sub
+
     Private Sub myPlayerManager_OnSay(sender As Object, e As Player) Handles myPlayerManager.OnSay
         Cloud.Logger.Log(LogPriority.Info, myClient.Chatter.SyntaxProvider.ApplyChatSyntax(e.Say, e.Username))
     End Sub
