@@ -119,6 +119,14 @@ Friend NotInheritable Class World
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
                         value(layer, x, y) = New WorldLabelBlock(CType(block1, LabelBlock), text)
                     Next
+                Case Block.BlockHazardSpike
+                    Dim rotation As Integer = m.GetInteger(pointer)
+                    pointer = CUInt(pointer + 1)
+                    For i As Integer = 0 To byteArrayX.Length - 1 Step 2
+                        Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
+                        Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
+                        value(layer, x, y) = New WorldRotatableBlock(CType(block1, RotatableBlock), rotation)
+                    Next
                 Case Else
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
