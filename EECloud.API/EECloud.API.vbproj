@@ -85,8 +85,8 @@
     <Compile Include="Enums\BlockType.vb" />
     <Compile Include="Enums\Block\HazardBlock.vb" />
     <Compile Include="Enums\Potion.vb" />
+    <Compile Include="Enums\SpikeRotation.vb" />
     <Compile Include="EventArgs\BlockPlaceEventArgs.vb" />
-    <Compile Include="EventArgs\ItemChangedEventArgs.vb" />
     <Compile Include="EventArgs\DiconnectEventArgs.vb" />
     <Compile Include="EventArgs\CancelableEventArgs.vb" />
     <Compile Include="Enums\AccessRight.vb" />
