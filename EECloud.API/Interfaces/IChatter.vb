@@ -48,6 +48,20 @@ Public Interface IChatter
     Sub Reset()
 
     ''' <summary>
+    ''' Gives edit rights to a user
+    ''' </summary>
+    ''' <param name="username">The username of the target</param>
+    ''' <remarks></remarks>
+    Sub GiveEdit(username As String)
+
+    ''' <summary>
+    ''' Takes edit rights away from a user
+    ''' </summary>
+    ''' <param name="username">The username of the target</param>
+    ''' <remarks></remarks>
+    Sub RemoveEdit(username As String)
+
+    ''' <summary>
     '''     The Syntax provider used to generate chat strings
     ''' </summary>
     ''' <value></value>

@@ -15,7 +15,9 @@
     Event OnMagic As EventHandler(Of TPlayer)
     Event Join As EventHandler(Of TPlayer)
     Event Leave As EventHandler(Of TPlayer)
-    
+    Event UserDataReady As EventHandler(Of TPlayer)
+    Event GroupChange As EventHandler(Of TPlayer)
+
     ''' <summary>
     '''     Returns the player or nothing if the user does not exist
     ''' </summary>

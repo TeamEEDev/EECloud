@@ -1,6 +1,6 @@
 ﻿Friend Interface IPlayer
-    Event GroupChange As EventHandler(Of ItemChangedEventArgs(Of Group))
-    Event LoadUserData As EventHandler(Of UserData)
+    Event GroupChange As EventHandler
+    Event LoadUserData As EventHandler
     Event UserDataReady As EventHandler
 
     ReadOnly Property UserID As Integer
@@ -40,4 +40,6 @@
     Sub ReloadUserData()
     Sub Reply(msg As String)
     Sub Kick(msg As String)
+    Sub GiveEdit()
+    Sub RemoveEdit()
 End Interface
