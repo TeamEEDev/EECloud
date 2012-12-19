@@ -12,6 +12,8 @@
     Friend Event LoadUserData(sender As Object, e As EventArgs) Implements IPlayer.LoadUserData
 
     Public Event UserDataReady(sender As Object, e As EventArgs) Implements IPlayer.UserDataReady
+
+    Public Event SaveUserData(sender As Object, e As EventArgs) Implements IPlayer.SaveUserData
 #End Region
 
 #Region "Properties"
@@ -170,7 +172,6 @@
 
         Set(value As Group)
             myGroup = value
-            Cloud.Service.SetPlayerDataGroupID(Username, CShort(value))
             RaiseEvent GroupChange(Me, EventArgs.Empty)
         End Set
     End Property
@@ -429,6 +430,11 @@
 
     Friend Sub Kick(msg As String) Implements IPlayer.Kick
         myClient.Chatter.Kick(myUsername, msg)
+    End Sub
+
+    Public Sub Save() Implements IPlayer.Save
+        Cloud.Service.SetPlayerDataGroupID(Username, CShort(Group))
+        RaiseEvent SaveUserData(Me, EventArgs.Empty)
     End Sub
 
 #End Region

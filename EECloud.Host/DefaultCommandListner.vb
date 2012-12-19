@@ -14,6 +14,37 @@
         myPlayerManager = myClient.PlayerManager
     End Sub
 
+    <Command("mod", Group.Operator)>
+    Public Sub ModCommand(cmd As ICommand(Of Player), username As String)
+        Dim player As Player = myClient.PlayerManager.Player(username)
+        If player IsNot Nothing Then
+            If player.Group < Group.Moderator Then
+                player.Group = Group.Moderator
+                cmd.Reply(String.Format("Added {0} to the mod list.", username))
+            Else
+                cmd.Reply(String.Format("That player is already a moderator"))
+            End If
+        Else
+            cmd.Reply("Could not find that player.")
+        End If
+    End Sub
+
+    <Command("unmod", Group.Operator)>
+    Public Sub UnmodCommand(cmd As ICommand(Of Player), username As String)
+        Dim player As Player = myClient.PlayerManager.Player(username)
+        If player IsNot Nothing Then
+            If player.Group = Group.Moderator Then
+                player.Group = Group.User
+                player.ReloadUserData()
+                cmd.Reply(String.Format("Removed {0} from the mod list.", username))
+            Else
+                cmd.Reply(String.Format("That player is not a moderator"))
+            End If
+        Else
+            cmd.Reply("Could not find that player.")
+        End If
+    End Sub
+
     <Command("who", Group.Host)>
     Public Sub WhoCommand(cmd As ICommand(Of Player))
         Dim playerList As List(Of String) = (From player In myClient.PlayerManager Select player.Username).ToList()

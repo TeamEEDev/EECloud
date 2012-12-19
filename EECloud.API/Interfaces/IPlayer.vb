@@ -2,6 +2,7 @@
     Event GroupChange As EventHandler
     Event LoadUserData As EventHandler
     Event UserDataReady As EventHandler
+    Event SaveUserData As EventHandler
 
     ReadOnly Property UserID As Integer
     ReadOnly Property Username As String
@@ -37,6 +38,7 @@
 
     Property Group As Group
 
+    Sub Save()
     Sub ReloadUserData()
     Sub Reply(msg As String)
     Sub Kick(msg As String)
