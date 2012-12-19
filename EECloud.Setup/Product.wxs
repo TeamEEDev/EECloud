@@ -23,7 +23,7 @@
     <Media Id="1" Cabinet="EECloud.cab" EmbedCab="yes" CompressionLevel="high" />
 
     <!-- Installer icon -->
-    <Icon Id="ProgramIcon" SourceFile="icon.ico" />
+    <Icon Id="ProgramIcon" SourceFile="$(var.EECloud.ProjectDir)Resources\Icon.ico" />
     <Property Id="ARPPRODUCTICON" Value="ProgramIcon" />
 
     <!-- Disable repair/modify -->
