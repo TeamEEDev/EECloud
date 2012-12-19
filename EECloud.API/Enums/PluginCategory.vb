@@ -1,12 +1,9 @@
-﻿
-
-''' <summary>
+﻿''' <summary>
 '''     Describes the usage of a plugin.
 ''' </summary>
 ''' <remarks></remarks>
     <Flags>
 Public Enum PluginCategory
-    
     ''' <summary>
     '''     A bot that makes a fun gameplay.
     ''' </summary>

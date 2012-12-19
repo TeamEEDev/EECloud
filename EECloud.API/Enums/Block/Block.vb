@@ -213,9 +213,12 @@
 
     BlockLadderCastle = 118
     BlockLadderNinja = 120
+    BlockLadderJungleVertical = 98
+    BlockLadderJungleHorizontal = 99
 
     BlockToolWinTrophy = 121
     BlockToolSpawnPoint = 255
+    BlockToolCheckpoint = 360
 
     BlockCowboyBrownLit = 122
     BlockCowboyRedLit = 123
@@ -357,6 +360,8 @@
     BlockJungleRuinsSolidBlue = 197
     BlockJungleRuinsSolidYellow = 198
 
+    BlockJungleVase = 199
+
     DecorationPrizeTrophy = 223
 
     DecorationSpring2011Grass1 = 233
@@ -439,6 +444,19 @@
     DecorationHalloween2012WiresHorizontal = 355
     DecorationHalloween20125 = 356
 
+    DecorationJungleGrass = 357
+    DecorationJungle2 = 358
+    DecorationJungleTrophy = 359
+
+    BlockHazard = 361
+
+    DecorationChristmas2012BlueVertical = 362
+    DecorationChristmas2012BlueHorizontal = 363
+    DecorationChristmas2012BlueCross = 364
+    DecorationChristmas2012RedVertical = 365
+    DecorationChristmas2012RedHorizontal = 366
+    DecorationChristmas2012RedCross = 367
+
     BackgroundCheckeredGrey = 513
     BackgroundCheckeredDarkBlue = 514
     BackgroundCheckeredPurple = 515
@@ -487,6 +505,14 @@
     BackgroundJungleRuinsRed = 618
     BackgroundJungleRuinsBlue = 619
     BackgroundJungleRuinsYellow = 620
+
+    BackgroundJungleLight = 621
+    BackgroundJungleNormal = 622
+    BackgroundJungleDark = 623
+
+    BackgroundChristmas2012Yellow = 624
+    BackgroundChristmas2012Green = 625
+    BackgroundChristmas2012Blue = 626
 
     BlockLabel = 1000
 End Enum

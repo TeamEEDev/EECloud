@@ -1,4 +1,4 @@
 ﻿Public Enum CoinDoorBlock
-    BlockDoorCoinDoor = 43
-    BlockGateCoinGate = 165
+    BlockDoorCoinDoor = Block.BlockDoorCoinDoor
+    BlockGateCoinGate = Block.BlockGateCoinGate
 End Enum

@@ -80,4 +80,6 @@
     Skeleton = 78
     MadScientist = 79
     Headhunter = 80
+    Safari = 81
+    Archaeologist = 82
 End Enum
