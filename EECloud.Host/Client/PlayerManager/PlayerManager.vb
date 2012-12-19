@@ -37,6 +37,10 @@
     Public Event OnMagic(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnMagic
 
     Public Event OnWootUp(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnWootUp
+
+    Public Event GroupChange(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).GroupChange
+
+    Public Event UserDataReady(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).UserDataReady
 #End Region
 
 #Region "Properties"
@@ -189,6 +193,16 @@
 
         If player1 IsNot Nothing Then
             RaiseEvent Join(Me, player1)
+
+            AddHandler player1.UserDataReady,
+                Sub()
+                    RaiseEvent UserDataReady(Me, player1)
+                End Sub
+
+            AddHandler player1.GroupChange,
+                Sub()
+                    RaiseEvent GroupChange(Me, player1)
+                End Sub
         End If
     End Sub
 
