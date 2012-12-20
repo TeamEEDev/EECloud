@@ -62,6 +62,18 @@ Public Interface IChatter
     Sub RemoveEdit(username As String)
 
     ''' <summary>
+    ''' Respawns the bot, moving it to the last checkpoint or its spawn
+    ''' </summary>
+    ''' <remarks></remarks>
+    Sub Respawn()
+
+    ''' <summary>
+    ''' Respawns everyone in the world
+    ''' </summary>
+    ''' <remarks></remarks>
+    Sub RespawnAll()
+
+    ''' <summary>
     '''     The Syntax provider used to generate chat strings
     ''' </summary>
     ''' <value></value>

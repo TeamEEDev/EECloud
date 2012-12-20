@@ -1,7 +1,6 @@
 ﻿Friend NotInheritable Class Chatter
     Implements IChatter
 
-
 #Region "Fields"
     ReadOnly myInternalChatter As InternalChatter
     ReadOnly myChatName As String
@@ -60,6 +59,14 @@
 
     Public Sub RemoveEdit(username As String) Implements IChatter.RemoveEdit
         myInternalChatter.SendChat("/removeedit " & username)
+    End Sub
+
+    Public Sub Respawn() Implements IChatter.Respawn
+        myInternalChatter.SendChat("/respawn")
+    End Sub
+
+    Public Sub RespawnAll() Implements IChatter.RespawnAll
+        myInternalChatter.SendChat("/respawnall")
     End Sub
 
 #End Region
