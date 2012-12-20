@@ -117,7 +117,9 @@
     <Compile Include="Messages\Receive\LevelupRecieveMessage.vb" />
     <Compile Include="Messages\Receive\PotionReceiveMessage.vb" />
     <Compile Include="Messages\Send\AllowPotionsSendMessage.vb" />
+    <Compile Include="Messages\Send\CheckpointSendMessage.vb" />
     <Compile Include="Messages\Send\CustomSendMessage.vb" />
+    <Compile Include="Messages\Send\DeathSendMessage.vb" />
     <Compile Include="Messages\Send\RotatablePlaceSendMessage.vb" />
     <Compile Include="Messages\Send\TouchCakeSendMessage.vb" />
     <Compile Include="Messages\Send\PotionSendMessage.vb" />
