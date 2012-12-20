@@ -296,6 +296,10 @@ Friend NotInheritable Class Connection
     Friend Event SendRotatablePlace(sender As Object, e As Cancelable(Of RotatablePlaceSendMessage)) Implements IConnection.SendRotatablePlace
 
     Public Event UploadRotatablePlace(sender As Object, e As Cancelable(Of RotatablePlaceUploadMessage)) Implements IConnection.UploadRotatablePlace
+
+    Public Event SendDeath(sender As Object, e As Cancelable(Of DeathSendMessage)) Implements IConnection.SendDeath
+
+    Public Event SendCheckpoint(sender As Object, e As Cancelable(Of CheckpointSendMessage)) Implements IConnection.SendCheckpoint
 #End Region
 
 #Region "Methods"
@@ -545,6 +549,16 @@ Friend NotInheritable Class Connection
             Case GetType(RotatablePlaceUploadMessage)
                 Dim eventArgs As New Cancelable(Of RotatablePlaceUploadMessage)(CType(message, RotatablePlaceUploadMessage))
                 RaiseEvent UploadRotatablePlace(Me, eventArgs)
+                Return eventArgs.Handled
+
+            Case GetType(DeathSendMessage)
+                Dim eventArgs As New Cancelable(Of DeathSendMessage)(CType(message, DeathSendMessage))
+                RaiseEvent SendDeath(Me, eventArgs)
+                Return eventArgs.Handled
+
+            Case GetType(CheckpointSendMessage)
+                Dim eventArgs As New Cancelable(Of CheckpointSendMessage)(CType(message, CheckpointSendMessage))
+                RaiseEvent SendCheckpoint(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(CustomSendMessage)
