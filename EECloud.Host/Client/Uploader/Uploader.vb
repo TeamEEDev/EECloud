@@ -41,14 +41,14 @@ Friend NotInheritable Class Uploader
         myUploadThread.Start()
     End Sub
 
-    Private Sub RunUploaderThread()
+    Private Async Sub RunUploaderThread()
         Do
-            SendNext()
-            Thread.Sleep(1)
+            Await SendNext()
+            Thread.Sleep(5)
         Loop
     End Sub
 
-    Private Async Sub LastLagCheck()
+    Private Async Function LastLagCheck() As Task
         Dim tempVer As UInteger = myVersion
         Await Task.Delay(1000)
         If myVersion = tempVer Then
@@ -61,9 +61,9 @@ Friend NotInheritable Class Uploader
                 Loop
             End SyncLock
         End If
-    End Sub
+    End Function
 
-    Private Sub SendNext()
+    Private Async Function SendNext() As Task
 retry:
         If myBlockUploadQueue.Count > 0 Then
             Dim block As BlockPlaceUploadMessage = myBlockUploadQueue.PopFront()
@@ -81,19 +81,20 @@ retry:
             End If
         Else
             If myLagCheckQueue.Count > 0 Then
-                LastLagCheck()
+                Await LastLagCheck()
             End If
             If Not myVersion = myFinishedUploadVersion Then
                 myFinishedUploadVersion = myVersion
                 RaiseEvent FinishedUpload(Me, EventArgs.Empty)
             End If
         End If
-    End Sub
+    End Function
 
     Friend Sub Upload(blockMessage As BlockPlaceUploadMessage) Implements IUploader.Upload
         If myBlockUploadQueue.Count = 0 Then
             myVersion = CUInt(myVersion + 1)
         End If
+
         myBlockUploadQueue.PushBack(blockMessage)
     End Sub
 
