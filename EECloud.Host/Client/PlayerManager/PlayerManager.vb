@@ -41,6 +41,8 @@
     Public Event GroupChange(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).GroupChange
 
     Public Event UserDataReady(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).UserDataReady
+
+    Public Event OnTeleport(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnTeleport
 #End Region
 
 #Region "Properties"
@@ -210,7 +212,7 @@
         Dim p As TPlayer = Player(e.UserID)
 
         If p IsNot Nothing Then
-            RaiseEvent OnSmiley(Me, p)
+            RaiseEvent OnGodmode(Me, p)
         End If
     End Sub
 
@@ -268,6 +270,16 @@
         If p IsNot Nothing Then
             RaiseEvent OnSilverCrown(Me, p)
         End If
+    End Sub
+
+    Private Sub myConnection_ReceiveTeleport(sender As Object, e As TeleportReceiveMessage) Handles myConnection.ReceiveTeleport
+        For Each p1 In e.Coordinates
+            Dim p As TPlayer = Player(p1.Key)
+
+            If p IsNot Nothing Then
+                RaiseEvent OnTeleport(Me, p)
+            End If
+        Next
     End Sub
 
     Private Sub myConnection_ReceiveWootUp(sender As Object, e As WootUpReceiveMessage) Handles myConnection.ReceiveWootUp
