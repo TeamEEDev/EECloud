@@ -147,37 +147,37 @@ Friend NotInheritable Class World
     Private Sub myConnection_ReceiveBlockPlace(sender As Object, e As BlockPlaceReceiveMessage) Handles myConnection.ReceiveBlockPlace
         Dim block As New WorldBlock(e.Block)
         myBlocks(e.Layer, e.PosX, e.PosY) = block
-        RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer, block))
+        RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer))
     End Sub
 
     Private Sub myConnection_ReceiveCoinDoorPlace(sender As Object, e As CoinDoorPlaceReceiveMessage) Handles myConnection.ReceiveCoinDoorPlace
         Dim block As New WorldCoinDoorBlock(e.CoinDoorBlock, e.CoinsToOpen)
-        myBlocks(e.Layer, e.PosX, e.PosY) = Block
-        RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer, block))
+        myBlocks(e.Layer, e.PosX, e.PosY) = block
+        RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer))
     End Sub
 
     Private Sub myConnection_ReceiveLabelPlace(sender As Object, e As LabelPlaceReceiveMessage) Handles myConnection.ReceiveLabelPlace
         Dim block As New WorldLabelBlock(e.LabelBlock, e.Text)
-        myBlocks(e.Layer, e.PosX, e.PosY) = Block
-        RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer, block))
+        myBlocks(e.Layer, e.PosX, e.PosY) = block
+        RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer))
     End Sub
 
     Private Sub myConnection_ReceivePortalPlace(sender As Object, e As PortalPlaceReceiveMessage) Handles myConnection.ReceivePortalPlace
         Dim block As New WorldPortalBlock(e.PortalBlock, e.PortalRotation, e.PortalID, e.PortalTarget)
-        myBlocks(e.Layer, e.PosX, e.PosY) = Block
-        RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer, block))
+        myBlocks(e.Layer, e.PosX, e.PosY) = block
+        RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer))
     End Sub
 
     Private Sub myConnection_ReceiveSoundPlace(sender As Object, e As SoundPlaceReceiveMessage) Handles myConnection.ReceiveSoundPlace
         Dim block As New WorldSoundBlock(e.SoundBlock, e.SoundID)
-        myBlocks(e.Layer, e.PosX, e.PosY) = Block
-        RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer, block))
+        myBlocks(e.Layer, e.PosX, e.PosY) = block
+        RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer))
     End Sub
 
     Private Sub myConnection_ReceiveRotatablePlace(sender As Object, e As RotatablePlaceReceiveMessage) Handles myConnection.ReceiveRotatablePlace
         Dim block As New WorldRotatableBlock(e.RotatableBlock, e.Rotation)
         myBlocks(e.Layer, e.PosX, e.PosY) = block
-        RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer, block))
+        RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer))
     End Sub
 
     Private Sub myConnection_ReceiveReset(sender As Object, e As ResetReceiveMessage) Handles myConnection.ReceiveReset

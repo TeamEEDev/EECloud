@@ -41,29 +41,31 @@ Friend NotInheritable Class Uploader
         myUploadThread.Start()
     End Sub
 
-    Private Async Sub RunUploaderThread()
+    Private Sub RunUploaderThread()
         Do
-            Await SendNext()
-            Thread.Sleep(5)
+            SendNext()
+            Thread.Sleep(8)
         Loop
+        ' ReSharper disable FunctionNeverReturns
     End Sub
+    ' ReSharper restore FunctionNeverReturns
 
-    Private Async Function LastLagCheck() As Task
+    Private Async Sub LastLagCheck()
         Dim tempVer As UInteger = myVersion
-        Await Task.Delay(1000)
+        Await Task.Delay(500)
         If myVersion = tempVer Then
             SyncLock myLagCheckQueue
                 Do Until myLagCheckQueue.Count = 0
                     Dim sendBlock As BlockPlaceUploadMessage
                     sendBlock = myLagCheckQueue.Dequeue()
 
-                    myBlockUploadQueue.PushFront(sendBlock)
+                    Upload(sendBlock)
                 Loop
             End SyncLock
         End If
-    End Function
+    End Sub
 
-    Private Async Function SendNext() As Task
+    Private Sub SendNext()
 retry:
         If myBlockUploadQueue.Count > 0 Then
             Dim block As BlockPlaceUploadMessage = myBlockUploadQueue.PopFront()
@@ -81,20 +83,19 @@ retry:
             End If
         Else
             If myLagCheckQueue.Count > 0 Then
-                Await LastLagCheck()
+                LastLagCheck()
             End If
             If Not myVersion = myFinishedUploadVersion Then
                 myFinishedUploadVersion = myVersion
                 RaiseEvent FinishedUpload(Me, EventArgs.Empty)
             End If
         End If
-    End Function
+    End Sub
 
     Friend Sub Upload(blockMessage As BlockPlaceUploadMessage) Implements IUploader.Upload
         If myBlockUploadQueue.Count = 0 Then
             myVersion = CUInt(myVersion + 1)
         End If
-
         myBlockUploadQueue.PushBack(blockMessage)
     End Sub
 
@@ -149,6 +150,10 @@ retry:
     End Sub
 
     Private Sub myConnection_ReceiveSoundPlace(sender As Object, e As SoundPlaceReceiveMessage) Handles myConnection.ReceiveSoundPlace
+        HandleBlockPlace(e)
+    End Sub
+
+    Private Sub myConnection_ReceiveRotatablePlace(sender As Object, e As RotatablePlaceReceiveMessage) Handles myConnection.ReceiveRotatablePlace
         HandleBlockPlace(e)
     End Sub
 

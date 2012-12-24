@@ -6,13 +6,15 @@ Public Class BlockPlaceUploadMessage
     Public ReadOnly X As Integer
     Public ReadOnly Y As Integer
     Public ReadOnly Block As Block
+    Private ReadOnly myForced As Boolean
     Protected UploadCheck As Byte = 0
 
-    Public Sub New(layer As Layer, x As Integer, y As Integer, block As Block)
+    Public Sub New(layer As Layer, x As Integer, y As Integer, block As Block, Optional forced As Boolean = False)
         Me.Layer = layer
         Me.X = x
         Me.Y = y
         Me.Block = block
+        myForced = forced
     End Sub
 
     Friend Overrides Function GetMessage(ByVal game As IGame) As Message
@@ -20,7 +22,7 @@ Public Class BlockPlaceUploadMessage
     End Function
 
     Friend Overrides Function SendMessage(client As IClient(Of Player)) As Boolean
-        If Not client.World(X, Y, Layer).Block = Block Then
+        If Not client.World(X, Y, Layer).Block = Block OrElse myForced Then
             client.Connection.Send(Me)
             Return True
         Else

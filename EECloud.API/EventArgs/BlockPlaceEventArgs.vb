@@ -31,7 +31,7 @@
 
 #Region "Methods"
 
-    Sub New(x As Integer, y As Integer, ByVal layer As Layer, block As IWorldBlock)
+    Sub New(x As Integer, y As Integer, ByVal layer As Layer)
         myX = x
         myY = y
         myLayer = layer
