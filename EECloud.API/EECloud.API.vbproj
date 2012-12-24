@@ -110,6 +110,7 @@
     <Compile Include="Interfaces\World\IWorldPortalBlock.vb" />
     <Compile Include="Interfaces\World\IWorldRotatableBlock.vb" />
     <Compile Include="Interfaces\World\IWorldSoundBlock.vb" />
+    <Compile Include="Location.vb" />
     <Compile Include="Messages\Receive\AllowPotionsReceiveMessage.vb" />
     <Compile Include="Messages\Receive\RotatablePlaceReceiveMessage.vb" />
     <Compile Include="Messages\Receive\WootUpReceiveMessage.vb" />
@@ -222,6 +223,7 @@
     <Compile Include="Messages\Receive\GroupDisallowedJoinReceiveMessage.vb" />
     <Compile Include="Messages\Receive\ReceiveMessage.vb" />
     <Compile Include="Messages\Receive\UpgradeReceiveMessage.vb" />
+    <Compile Include="UploadSnapshot.vb" />
     <Compile Include="Utils.vb" />
     <Compile Include="World\WorldBlock.vb" />
     <Compile Include="World\WorldCoinDoorBlock.vb" />
