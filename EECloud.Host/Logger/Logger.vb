@@ -1,11 +1,10 @@
 ﻿Imports System.Threading
-Imports System.Text
 
 Friend NotInheritable Class Logger
     Implements ILogger
 
 #Region "Fields"
-    Private myInput As New StringBuilder
+    Private myInput As String = String.Empty
     Dim myOldTop As Integer
     Dim myOldLeft As Integer
 #End Region
@@ -15,21 +14,24 @@ Friend NotInheritable Class Logger
 #End Region
 
 #Region "Properties"
+
     Friend Property Input As String Implements ILogger.Input
         Get
-            Return myInput.ToString()
+            Return myInput
         End Get
         Set(value As String)
             If Not Cloud.IsNoConsole Then
                 Overwrite(Input.Length + 1, ">" & value)
                 Console.CursorLeft = value.Length + 1
-                myInput = New StringBuilder(value)
+                myInput = value
             End If
         End Set
     End Property
+
 #End Region
 
 #Region "Methods"
+
     Friend Sub New()
         If Not Cloud.IsNoConsole Then
             Console.Write(">")
@@ -67,7 +69,7 @@ Friend NotInheritable Class Logger
                 Console.CursorLeft -= 1
             ElseIf inputKey.KeyChar <> Nothing Then
                 If Input.Length <= 76 Then
-                    myInput.Append(inputKey.KeyChar)
+                    myInput &= inputKey.KeyChar
                 Else
                     Console.CursorLeft -= 1
                     Console.Write(" "c)
@@ -108,5 +110,6 @@ Friend NotInheritable Class Logger
     Private Sub Logger_OnInput(sender As Object, e As EventArgs) Handles Me.OnInput
         GlobalCommandManager.Value.InvokeConsoleCmd(Input, Me)
     End Sub
+
 #End Region
 End Class

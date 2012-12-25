@@ -96,7 +96,7 @@
                         Dim pointer As UInteger
                         While reader.Read() AndAlso limit > pointer
                             userDatas.Add(ParsePlayerData(reader))
-                            pointer += CType(1, UInteger)
+                            pointer += CUInt(1)
                         End While
 
                         Return userDatas.ToArray()
