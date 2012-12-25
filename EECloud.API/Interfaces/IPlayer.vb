@@ -1,6 +1,6 @@
 ﻿Friend Interface IPlayer
     Event GroupChange As EventHandler
-    Event LoadUserData As EventHandler
+    Event LoadUserData As EventHandler(Of UserData)
     Event UserDataReady As EventHandler
     Event SaveUserData As EventHandler
 

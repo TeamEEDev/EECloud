@@ -9,7 +9,7 @@
 #Region "Events"
     Public Event GroupChange(sender As Object, e As EventArgs) Implements IPlayer.GroupChange
 
-    Public Event LoadUserData(sender As Object, e As EventArgs) Implements IPlayer.LoadUserData
+    Public Event LoadUserData(sender As Object, e As UserData) Implements IPlayer.LoadUserData
 
     Public Event UserDataReady(sender As Object, e As EventArgs) Implements IPlayer.UserDataReady
 
@@ -22,7 +22,7 @@
         RaiseEvent GroupChange(Me, e)
     End Sub
 
-    Private Sub myPlayer_LoadUserData(sender As Object, e As EventArgs) Handles myPlayer.LoadUserData
+    Private Sub myPlayer_LoadUserData(sender As Object, e As UserData) Handles myPlayer.LoadUserData
         RaiseEvent LoadUserData(Me, e)
     End Sub
 
