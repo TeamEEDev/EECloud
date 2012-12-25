@@ -9,7 +9,7 @@
 #Region "Events"
     Friend Event GroupChange(sender As Object, e As EventArgs) Implements IPlayer.GroupChange
 
-    Friend Event LoadUserData(sender As Object, e As EventArgs) Implements IPlayer.LoadUserData
+    Friend Event LoadUserData(sender As Object, e As UserData) Implements IPlayer.LoadUserData
 
     Public Event UserDataReady(sender As Object, e As EventArgs) Implements IPlayer.UserDataReady
 
@@ -312,7 +312,7 @@
         Dim userData As UserData = Cloud.Service.GetPlayerData(myUsername)
         If userData IsNot Nothing Then
             myGroup = CType(userData.GroupID, Group)
-            RaiseEvent LoadUserData(Me, EventArgs.Empty)
+            RaiseEvent LoadUserData(Me, userData)
         End If
 
         If Not myIsUserDataReady Then
@@ -396,7 +396,9 @@
     End Sub
 
     Private Sub myConnection_ReceiveLeft(sender As Object, e As LeftReceiveMessage) Handles myConnection.PreviewReceiveLeft
-        myConnection = Nothing
+        If e.UserID = myUserID Then
+            myConnection = Nothing
+        End If
     End Sub
 
     Private Sub myConnection_ReceivePotion(sender As Object, e As PotionReceiveMessage) Handles myConnection.PreviewReceivePotion
