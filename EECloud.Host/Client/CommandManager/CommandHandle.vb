@@ -1,5 +1,4 @@
 ﻿Imports System.Reflection
-Imports System.Text
 
 Friend NotInheritable Class CommandHandle (Of TPlayer As {New, Player})
 
@@ -32,9 +31,11 @@ Friend NotInheritable Class CommandHandle (Of TPlayer As {New, Player})
             Return myAttribute
         End Get
     End Property
+
 #End Region
 
 #Region "Methods"
+
     Friend Sub New(attribute As CommandAttribute, method As MethodInfo, ByVal target As Object)
         myAttribute = attribute
         myMethodInfo = method
@@ -46,18 +47,18 @@ Friend NotInheritable Class CommandHandle (Of TPlayer As {New, Player})
             Throw New EECloudException(ErrorCode.InvalidCommand)
         End If
 
-        mySyntaxStr = New StringBuilder("!command")
+        mySyntaxStr = "!command"
         For i As Integer = 1 To prams.Count - 1
             Dim pram As ParameterInfo = prams(i)
             Select Case pram.ParameterType
                 Case GetType(String)
                     myCount += 1
-                    mySyntaxStr.Append(" [" & pram.Name & "]")
+                    mySyntaxStr += " [" & pram.Name & "]"
                 Case GetType(String())
                     Dim attributes As ParamArrayAttribute() = CType(pram.GetCustomAttributes(GetType(ParamArrayAttribute)), ParamArrayAttribute())
                     If attributes IsNot Nothing AndAlso attributes.Length >= 1 Then
                         myHasParamArray = True
-                        mySyntaxStr.Append(" [" & pram.Name & "...]")
+                        mySyntaxStr += " [" & pram.Name & "...]"
                     Else
                         Cloud.Logger.Log(LogPriority.Error, "String Arrays in commands must have the ParamArrayAttribute on them: " & attribute.Type)
                         Throw New EECloudException(ErrorCode.InvalidCommand)
@@ -79,9 +80,11 @@ Friend NotInheritable Class CommandHandle (Of TPlayer As {New, Player})
         End Try
     End Sub
 
-    Private ReadOnly mySyntaxStr As New StringBuilder()
+    Private ReadOnly mySyntaxStr As String
+
     Public Overrides Function ToString() As String
-        Return mySyntaxStr.ToString()
+        Return mySyntaxStr
     End Function
+
 #End Region
 End Class

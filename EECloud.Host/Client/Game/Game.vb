@@ -1,6 +1,4 @@
-﻿Imports System.Text
-
-Friend NotInheritable Class Game
+﻿Friend NotInheritable Class Game
     Implements IGame
 
 #Region "Fields"
@@ -149,7 +147,7 @@ Friend NotInheritable Class Game
     End Sub
 
     Friend Shared Function Derot(str As String) As String
-        Dim myDerot As New StringBuilder()
+        Derot = String.Empty
         For N = 1 To str.Length
             Dim charNum As Integer = Asc(GetChar(str, N))
             If charNum >= Asc("a") And charNum <= Asc("z") Then
@@ -165,9 +163,10 @@ Friend NotInheritable Class Game
                     charNum += 13
                 End If
             End If
-            myDerot.Append(Chr(charNum))
+            Derot &= Chr(charNum)
         Next
-        Return myDerot.ToString()
+        Return Derot
     End Function
+
 #End Region
 End Class
