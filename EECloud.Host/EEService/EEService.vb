@@ -115,7 +115,7 @@
             Throw New ArgumentNullException("username")
         End If
         If Not AcceptedGroupIDs.Contains(groupID) Then
-            Throw New ArgumentException("Bad group ID.", "groupID")
+            Exit Sub 
         End If
 
         Using connection As New MySqlConnection(ConnStr)

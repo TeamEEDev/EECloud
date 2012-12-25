@@ -14,34 +14,65 @@
         myPlayerManager = myClient.PlayerManager
     End Sub
 
-    <Command("mod", Group.Operator)>
-    Public Sub ModCommand(cmd As ICommand(Of Player), username As String)
-        Dim player As Player = myClient.PlayerManager.Player(username)
-        If player IsNot Nothing Then
-            If player.Group < Group.Moderator Then
-                player.Group = Group.Moderator
-                cmd.Reply(String.Format("Added {0} to the mod list.", username))
-            Else
-                cmd.Reply(String.Format("That player is already a moderator"))
-            End If
-        Else
-            cmd.Reply("Could not find that player.")
-        End If
+    <Command("admin", Group.Host)>
+    Public Sub AdminCommand(cmd As ICommand(Of Player), username As String)
+        ChangeRank(cmd, username, Group.Admin, "an admin")
     End Sub
 
-    <Command("unmod", Group.Operator)>
-    Public Sub UnmodCommand(cmd As ICommand(Of Player), username As String)
+    <Command("op", Group.Admin)>
+    Public Sub OpCommand(cmd As ICommand(Of Player), username As String)
+        ChangeRank(cmd, username, Group.Operator, "an operator")
+    End Sub
+
+    <Command("mod", Group.Operator)>
+    Public Sub ModCommand(cmd As ICommand(Of Player), username As String)
+        ChangeRank(cmd, username, Group.Moderator, "a moderator")
+    End Sub
+
+    <Command("trust", Group.Operator)>
+    Public Sub TrustCommand(cmd As ICommand(Of Player), username As String)
+        ChangeRank(cmd, username, Group.Trusted, "a trusted player")
+    End Sub
+
+    <Command("default", Group.Operator, Aliases:={"normal", "user"})>
+    Public Sub NormalCommand(cmd As ICommand(Of Player), username As String)
+        ChangeRank(cmd, username, Group.User, "a normal user")
+    End Sub
+
+    <Command("limit", Group.Operator)>
+    Public Sub LimitCommand(cmd As ICommand(Of Player), username As String)
+        ChangeRank(cmd, username, Group.Limited, "limited")
+    End Sub
+
+    <Command("ban", Group.Operator)>
+    Public Sub BanCommand(cmd As ICommand(Of Player), username As String)
+        ChangeRank(cmd, username, Group.Banned, "banned")
+    End Sub
+
+    Private Sub ChangeRank(cmd As ICommand(Of Player), username As String, rank As Group, groupName As String)
+        Dim currRank As Group
         Dim player As Player = myClient.PlayerManager.Player(username)
         If player IsNot Nothing Then
-            If player.Group = Group.Moderator Then
-                player.Group = Group.User
-                player.ReloadUserData()
-                cmd.Reply(String.Format("Removed {0} from the mod list.", username))
-            Else
-                cmd.Reply(String.Format("That player is not a moderator"))
-            End If
+            currRank = player.Group
         Else
-            cmd.Reply("Could not find that player.")
+            Dim data As UserData = Cloud.Service.GetPlayerData(username)
+            If data IsNot Nothing Then
+                currRank = data.GroupID
+            End If
+        End If
+
+
+        If cmd.Sender Is Nothing OrElse currRank < cmd.Sender.Group Then
+            If player IsNot Nothing Then
+                player.Group = rank
+                player.Save()
+            Else
+                Cloud.Service.SetPlayerDataGroupID(username, rank)
+            End If
+
+            cmd.Reply(String.Format("{0} is now {1}.", username, groupName))
+        Else
+            cmd.Reply(String.Format("Not allowed to change rank of that player."))
         End If
     End Sub
 
@@ -130,34 +161,38 @@
         cmd.Reply("Pong!")
     End Sub
 
-    <Command("hi", Group.Moderator, aliases := {"hello", "hai"})>
+    <Command("hi", Group.Moderator, aliases:={"hello", "hai"})>
     Public Sub HiCommand(cmd As ICommand(Of Player))
         cmd.Reply("Hi!")
     End Sub
 
-    <Command("hi", Group.Moderator, aliases := {"hello", "hai"})>
+    <Command("hi", Group.Moderator, aliases:={"hello", "hai"})>
     Public Sub HiCommand(cmd As ICommand(Of Player), player As String)
         cmd.Reply(String.Format("Hi {0}!", player))
     End Sub
 
-    <Command("setcode", Group.Operator, AccessRight := AccessRight.Owner, Aliases := {"code", "editkey", "seteditkey"})>
+    <Command("setcode", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"code", "editkey", "seteditkey"})>
     Public Sub SetCodeCommand(cmd As ICommand(Of Player), editkey As String)
         myClient.Connection.Send(New ChangeWorldEditKeySendMessage(editkey))
         cmd.Reply("Changed edit key")
     End Sub
 
-    <Command("kick", Group.Moderator, AccessRight := AccessRight.Owner, Aliases := {"ki", "kickp", "kickplayer"})>
+    <Command("kick", Group.Moderator, AccessRight:=AccessRight.Owner, Aliases:={"ki", "kickp", "kickplayer"})>
     Public Sub KickCommand(cmd As ICommand(Of Player), user As String, ParamArray reason As String())
         Dim player As Player = myClient.PlayerManager.Player(user)
         If player IsNot Nothing Then
-            player.Kick(String.Join(" ", reason))
-            cmd.Reply("Kicked.")
+            If cmd.Sender Is Nothing OrElse cmd.Sender.Group >= Group.Operator OrElse player.Group <= cmd.Sender.Group Then
+                player.Kick(String.Join(" ", reason))
+                cmd.Reply("Kicked.")
+            Else
+                cmd.Reply(String.Format("Not allowed to kick a user with a higher rank that yourself."))
+            End If
         Else
             cmd.Reply("Can not find player.")
         End If
     End Sub
 
-    <Command("reloadplayer", Group.Moderator, Aliases := {"rplayer"})>
+    <Command("reloadplayer", Group.Moderator, Aliases:={"rplayer"})>
     Public Sub ReloadPlayerCommand(cmd As ICommand(Of Player), player As String)
         Dim player1 As IPlayer = myClient.PlayerManager.Player(player)
         If player1 IsNot Nothing Then
@@ -168,7 +203,7 @@
         End If
     End Sub
 
-    <Command("env", Group.Moderator, Aliases := {"getenv", "iscloud"})>
+    <Command("env", Group.Moderator, Aliases:={"getenv", "iscloud"})>
     Public Sub GetEnvironmentCommand(cmd As ICommand(Of Player))
         Dim env As String
         Select Case Cloud.IsNoGUI
@@ -180,12 +215,12 @@
         cmd.Reply("Current environment: " & env)
     End Sub
 
-    <Command("host", Group.Moderator, Aliases := {"gethost", "hoster"})>
+    <Command("host", Group.Moderator, Aliases:={"gethost", "hoster"})>
     Public Sub HostCommand(cmd As ICommand(Of Player))
         cmd.Reply("Current host: " & Cloud.LicenseUsername)
     End Sub
 
-    <Command("end", Group.Moderator, Aliases := {"shutdown", "leave", "leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
+    <Command("end", Group.Moderator, Aliases:={"shutdown", "leave", "leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
     Public Sub EndCommand(cmd As ICommand(Of Player))
         cmd.Reply("Terminating...")
         myClient.Connection.Close()
@@ -197,31 +232,31 @@
         Environment.Exit(0) 'Makes the program not start again on the cloud; must re-deploy, the connection is terminated and plugins will not have their OnDisable command run.
     End Sub
 
-    <Command("clear", Group.Operator, AccessRight := AccessRight.Owner, Aliases := {"clearworld", "clearlevel"})>
+    <Command("clear", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"clearworld", "clearlevel"})>
     Public Sub ClearWorldCommand(cmd As ICommand(Of Player))
         myClient.Connection.Send(New ClearWorldSendMessage)
         cmd.Reply("Cleared.")
     End Sub
 
-    <Command("name", Group.Moderator, AccessRight := AccessRight.Owner, Aliases := {"rename", "renameworld", "renamelevel", "worldname", "levelname"})>
+    <Command("name", Group.Moderator, AccessRight:=AccessRight.Owner, Aliases:={"rename", "renameworld", "renamelevel", "worldname", "levelname"})>
     Public Sub ChangeWorldNameCommand(cmd As ICommand(Of Player), ParamArray newName As String())
         myClient.Connection.Send(New ChangeWorldNameSendMessage(String.Join(" ", newName)))
         cmd.Reply("Renamed.")
     End Sub
 
-    <Command("loadlevel", Group.Operator, AccessRight := AccessRight.Owner, Aliases := {"load", "loadworld", "reload", "reloadworld", "reloadlevel"})>
+    <Command("loadlevel", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"load", "loadworld", "reload", "reloadworld", "reloadlevel"})>
     Public Sub LoadWorldCommand(cmd As ICommand(Of Player))
         cmd.Reply("Reloaded.")
         myClient.Chatter.Loadlevel()
     End Sub
 
-    <Command("save", Group.Operator, AccessRight := AccessRight.Owner, Aliases := {"saveworld", "savelevel"})>
+    <Command("save", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"saveworld", "savelevel"})>
     Public Sub SaveWorldCommand(cmd As ICommand(Of Player))
         myClient.Connection.Send(New SaveWorldSendMessage)
         cmd.Reply("Saved.")
     End Sub
 
-    <Command("reset", Group.Operator, Aliases := {"resetworld", "resetlevel", "resetplayers"})>
+    <Command("reset", Group.Operator, Aliases:={"resetworld", "resetlevel", "resetplayers"})>
     Public Sub ResetCommand(cmd As ICommand(Of Player))
         myClient.Chatter.Reset()
         cmd.Reply("Reset.")
@@ -235,6 +270,8 @@
         If myClient.Game.AccessRight >= AccessRight.Owner Then
             If e.Group >= Group.Moderator Then
                 e.GiveEdit()
+            ElseIf e.Group <= Group.Banned Then
+                e.Kick("You have been banned from all EECould powered worlds.")
             Else
                 e.RemoveEdit()
             End If
@@ -245,6 +282,8 @@
         If myClient.Game.AccessRight >= AccessRight.Owner Then
             If e.Group >= Group.Moderator Then
                 e.GiveEdit()
+            ElseIf e.Group <= Group.Banned Then
+                e.Kick("You are banned from all EECould powered worlds.")
             End If
         End If
     End Sub
