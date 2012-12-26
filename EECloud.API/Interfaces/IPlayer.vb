@@ -34,7 +34,9 @@
     ReadOnly Property Say As String
     ReadOnly Property AutoText As AutoText?
     ReadOnly Property IsUserDataReady As Boolean
-    ReadOnly Property NewClass As Integer?
+    ReadOnly Property MagicClass As Integer
+    ReadOnly Property IsClubMember As Boolean
+    ReadOnly Property IsDisconnected As Boolean
 
     Property Group As Group
 

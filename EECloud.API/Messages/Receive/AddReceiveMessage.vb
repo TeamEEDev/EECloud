@@ -22,6 +22,12 @@ Public NotInheritable Class AddReceiveMessage
     '8
     Public ReadOnly IsMyFriend As Boolean
     '9
+    Public ReadOnly IsPurple As Boolean
+    '10
+    Public ReadOnly MagicClass As Integer
+    '11
+    Public ReadOnly IsClubMember As Boolean
+    '12
 
     Friend Sub New(message As Message)
         MyBase.New(message)
@@ -36,5 +42,8 @@ Public NotInheritable Class AddReceiveMessage
         HasChat = message.GetBoolean(7)
         Coins = message.GetInteger(8)
         IsMyFriend = message.GetBoolean(9)
+        IsPurple = message.GetBoolean(10)
+        MagicClass = message.GetInteger(11)
+        IsClubMember = message.GetBoolean(12)
     End Sub
 End Class
