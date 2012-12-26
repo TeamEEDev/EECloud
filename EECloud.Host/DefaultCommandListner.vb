@@ -101,11 +101,6 @@
         Process.Start(My.Application.Info.DirectoryPath & "\Plugins\")
     End Sub
 
-    <Command("help", Group.Trusted)>
-    Public Sub HelpCommand(cmd As ICommand(Of Player), command As String)
-        cmd.Reply("Command does not exist!")
-    End Sub
-
     <Command("about", Group.Trusted)>
     Public Sub AboutCommand(cmd As ICommand(Of Player), plugin As String)
         Dim pluginObj As IPluginObject = myClient.PluginManager.Plugin(plugin)
