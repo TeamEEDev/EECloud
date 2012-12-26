@@ -9,6 +9,8 @@ Public NotInheritable Class PotionReceiveMessage
     '1
     Public ReadOnly Enabled As Boolean
     '2
+    Public ReadOnly Timeout As Integer
+    '3
 
     Friend Sub New(message As Message)
         MyBase.New(message)
@@ -16,5 +18,6 @@ Public NotInheritable Class PotionReceiveMessage
         UserID = message.GetInteger(0)
         Potion = CType(message.GetInteger(1), Potion)
         Enabled = message.GetBoolean(2)
+        Timeout = message.GetInteger(3)
     End Sub
 End Class

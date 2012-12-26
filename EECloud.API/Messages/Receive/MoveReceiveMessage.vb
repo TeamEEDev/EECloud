@@ -22,6 +22,8 @@ Public NotInheritable Class MoveReceiveMessage
     '8
     Public ReadOnly Coins As Integer
     '9
+    Public ReadOnly IsPurple As Boolean
+    '10
 
     Friend Sub New(message As Message)
         MyBase.New(message)
@@ -36,6 +38,7 @@ Public NotInheritable Class MoveReceiveMessage
         Horizontal = message.GetDouble(7)
         Vertical = message.GetDouble(8)
         Coins = message.GetInteger(9)
+        IsPurple = message.GetBoolean(10)
     End Sub
 
     Public ReadOnly Property BlockX As Integer

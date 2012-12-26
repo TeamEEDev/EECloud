@@ -5,7 +5,6 @@ Friend NotInheritable Class World
 
 #Region "Fields"
     Private Const InitOffset As UInteger = 17
-    Private myClient As IClient(Of Player)
     Private myBlocks(,,) As IWorldBlock
     Private WithEvents myConnection As IConnection
 #End Region
@@ -45,7 +44,6 @@ Friend NotInheritable Class World
 #Region "Methods"
 
     Friend Sub New(client As IClient(Of Player))
-        myClient = client
         myConnection = client.Connection
     End Sub
 

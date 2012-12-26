@@ -335,10 +335,10 @@
         End Get
     End Property
 
-    Public ReadOnly Property NewClass As Integer? Implements IPlayer.NewClass
+    Public ReadOnly Property MagicClass As Integer Implements IPlayer.MagicClass
         Get
             Try
-                Return myPlayer.NewClass
+                Return myPlayer.MagicClass
             Catch ex As Exception
                 Return Nothing
             End Try
@@ -359,6 +359,26 @@
         Get
             Try
                 Return myPlayer.JumpPotion
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property IsClubMember As Boolean Implements IPlayer.IsClubMember
+        Get
+            Try
+                Return myPlayer.IsClubMember
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property IsDisconnected As Boolean Implements IPlayer.IsDisconnected
+        Get
+            Try
+                Return myPlayer.IsDisconnected
             Catch ex As Exception
                 Return Nothing
             End Try

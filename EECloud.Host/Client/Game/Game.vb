@@ -133,17 +133,11 @@
     End Sub
 
     Private Sub myConnection_ReceiveUpdateMeta(sender As Object, e As UpdateMetaReceiveMessage) Handles myConnection.ReceiveUpdateMeta
-        If myWorldName <> e.WorldName Then
-            myWorldName = e.WorldName
-        End If
-
-        If myPlays <> e.Plays Then
-            myPlays = e.Plays
-        End If
-
-        If myOwner <> e.Owner Then
-            myOwner = e.Owner
-        End If
+        myWorldName = e.WorldName
+        myPlays = e.Plays
+        myOwner = e.Owner
+        myCurrentWoots = e.CurrentWoots
+        myTotalWoots = e.TotalWoots
     End Sub
 
     Friend Shared Function Derot(str As String) As String

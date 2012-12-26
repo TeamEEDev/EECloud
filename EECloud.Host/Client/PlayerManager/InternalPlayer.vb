@@ -252,11 +252,11 @@
         End Get
     End Property
 
-    Private myNewClass As Integer?
+    Private myMagicClass As Integer
 
-    Public ReadOnly Property NewClass As Integer? Implements IPlayer.NewClass
+    Public ReadOnly Property MagicClass As Integer Implements IPlayer.MagicClass
         Get
-            Return myNewClass
+            Return myMagicClass
         End Get
     End Property
 
@@ -273,6 +273,22 @@
     Public ReadOnly Property JumpPotion As Boolean Implements IPlayer.JumpPotion
         Get
             Return myJumpPotion
+        End Get
+    End Property
+
+    Private myIsClubMember As Boolean
+
+    Public ReadOnly Property IsClubMember As Boolean Implements IPlayer.IsClubMember
+        Get
+            Return IsClubMember
+        End Get
+    End Property
+
+    Private myIsDisconnected As Boolean
+
+    Public ReadOnly Property IsDisconnected As Boolean Implements IPlayer.IsDisconnected
+        Get
+            Return myIsDisconnected
         End Get
     End Property
 
@@ -295,6 +311,9 @@
         myPlayerPosY = addMessage.PlayerPosY
         mySpawnX = addMessage.PlayerPosX
         mySpawnY = addMessage.PlayerPosY
+        myIsClubMember = addMessage.IsClubMember
+        myMagicClass = addMessage.MagicClass
+        myJumpPotion = addMessage.IsPurple
     End Sub
 
     Friend Sub New(client As IClient(Of Player), initMessage As InitReceiveMessage)
@@ -398,6 +417,7 @@
     Private Sub myConnection_ReceiveLeft(sender As Object, e As LeftReceiveMessage) Handles myConnection.PreviewReceiveLeft
         If e.UserID = myUserID Then
             myConnection = Nothing
+            myIsDisconnected = True
         End If
     End Sub
 
@@ -426,7 +446,7 @@
 
     Private Sub myConnection_PreviewReceiveLevelup(sender As Object, e As LevelupRecieveMessage) Handles myConnection.PreviewReceiveLevelup
         If e.UserID = myUserID Then
-            myNewClass = e.NewClass
+            myMagicClass = e.NewClass
         End If
     End Sub
 
