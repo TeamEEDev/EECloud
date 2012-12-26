@@ -252,9 +252,9 @@
         End Get
     End Property
 
-    Private myMagicClass As Integer
+    Private myMagicClass As MagicClass
 
-    Public ReadOnly Property MagicClass As Integer Implements IPlayer.MagicClass
+    Public ReadOnly Property MagicClass As MagicClass Implements IPlayer.MagicClass
         Get
             Return myMagicClass
         End Get

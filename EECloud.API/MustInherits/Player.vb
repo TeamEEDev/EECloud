@@ -335,7 +335,7 @@
         End Get
     End Property
 
-    Public ReadOnly Property MagicClass As Integer Implements IPlayer.MagicClass
+    Public ReadOnly Property MagicClass As MagicClass Implements IPlayer.MagicClass
         Get
             Try
                 Return myPlayer.MagicClass
