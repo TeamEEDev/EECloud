@@ -82,4 +82,5 @@
     Headhunter = 80
     Safari = 81
     Archaeologist = 82
+    NewYear2012 = 83
 End Enum
