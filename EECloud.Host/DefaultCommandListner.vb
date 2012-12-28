@@ -14,6 +14,17 @@
         myPlayerManager = myClient.PlayerManager
     End Sub
 
+    <Command("cmdchar", Group.Host, Aliases:={"commandchar"})>
+    Public Sub CmdCharCommand(cmd As ICommand(Of Player), character As String)
+        If character.Length = 1 Then
+            My.Settings.CommandChar = character(0)
+            My.Settings.Save()
+            cmd.Reply("Command character changed, restarting EECloud is required.")
+        Else
+            cmd.Reply("Character expected, string received.")
+        End If
+    End Sub
+
     <Command("admin", Group.Host)>
     Public Sub AdminCommand(cmd As ICommand(Of Player), username As String)
         ChangeRank(cmd, username, Group.Admin, "an admin")
@@ -201,12 +212,11 @@
     <Command("env", Group.Moderator, Aliases:={"getenv", "iscloud"})>
     Public Sub GetEnvironmentCommand(cmd As ICommand(Of Player))
         Dim env As String
-        Select Case Cloud.IsNoGUI
-            Case False
-                env = "desktop"
-            Case Else
-                env = "cloud"
-        End Select
+        If Cloud.IsNoGUI Then
+            env = "cloud"
+        Else
+            env = "desktop"
+        End If
         cmd.Reply("Current environment: " & env)
     End Sub
 

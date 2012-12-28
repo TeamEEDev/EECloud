@@ -8,6 +8,7 @@ Public NotInheritable Class EECloud
     Private Shared myPassword As String
     Private Shared myType As AccountType
     Private Shared myWorldID As String
+    Private Shared myCommandChar As Char
 
     Private Shared myClient As IClient(Of Player)
 
@@ -26,6 +27,7 @@ Public NotInheritable Class EECloud
         myPassword = My.Settings.LoginPassword
         myType = My.Settings.LoginType
         myWorldID = My.Settings.LoginWorldID
+        myCommandChar = My.Settings.CommandChar
         Cloud.LicenseUsername = myLicenseUsername
     End Sub
 
@@ -70,15 +72,17 @@ Public NotInheritable Class EECloud
         Application.Run()
     End Sub
 
-    Public Shared Sub RunDebugMode(licenseUsername As String, licenseKey As String, plugin As Type, username As String, password As String, type As AccountType, worldID As String)
-        SetLicenseData(licenseUsername, licenseKey)
-        SetLoginData(username, password, type, worldID)
-        Init(True, False, False)
+    Public Shared Sub RunDebugMode(plugin As Type)
         CheckLicense()
+        Init(True, False, False)
+        Dim loginTask As Task = ShowLogin()
         Client.CommandManager.Load(New DefaultCommandListner(Client))
-
         Client.PluginManager.Load(plugin)
 
+        If Not loginTask.IsCompleted Then
+            Cloud.Logger.Log(LogPriority.Info, "Waiting for user response...")
+            loginTask.Wait()
+        End If
         Login().Wait()
         Application.Run()
     End Sub
@@ -106,7 +110,7 @@ Public NotInheritable Class EECloud
         Cloud.ClientFactory = New ClientFactory
         Cloud.Service = New EEService
 
-        myClient = Cloud.ClientFactory.CreateClient("!"c)
+        myClient = Cloud.ClientFactory.CreateClient(myCommandChar)
     End Sub
 
     Private Shared Function RetrieveLinkerTimestamp() As DateTime
