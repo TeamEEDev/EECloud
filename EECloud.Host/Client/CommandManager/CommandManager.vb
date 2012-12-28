@@ -75,7 +75,7 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
                 For Each handle In myCommandsDictionary(type)
                     'Check for syntax
                     If handle.Count = cmd.Length - 1 OrElse (handle.Count < cmd.Length - 1 AndAlso handle.HasParamArray) Then
-                        TryRunCmd(sender, rights, cmd, type, handle)
+                        TryRunCmd(sender, rights, cmd, type, msg, handle)
                         Exit Sub
                     ElseIf handle.Count < cmd.Length - 1 Then
                         If mostHandle Is Nothing OrElse handle.Count > mostHandle.Count Then
@@ -85,7 +85,7 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
                 Next
                 'Try the one that most methods fit in 
                 If mostHandle IsNot Nothing Then
-                    TryRunCmd(sender, rights, cmd, type, mostHandle)
+                    TryRunCmd(sender, rights, cmd, type, msg, mostHandle)
                 Else
                     ReplyToSender(sender, GetUsagesStr(type))
                 End If
@@ -100,7 +100,7 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
         Return "Command usage(s): " & Left(usages, usages.Length - 3)
     End Function
 
-    Private Sub TryRunCmd(sender As TPlayer, rights As Group, cmd As String(), type As String, handle As CommandHandle(Of TPlayer))
+    Private Sub TryRunCmd(sender As TPlayer, rights As Group, cmd As String(), type As String, text As String, handle As CommandHandle(Of TPlayer))
         'Check for rights
         If handle.Attribute.MinPermission > rights Then
             If sender Is Nothing OrElse handle.Attribute.MinPermission > sender.Group Then
@@ -127,7 +127,7 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
         If toCount > handle.Count Then toCount = handle.Count
 
         Dim args(toCount + CInt(IIf(handle.HasParamArray, 1, 0))) As Object
-        args(0) = New Command(Of TPlayer)(sender, type)
+        args(0) = New Command(Of TPlayer)(sender, type, text)
 
         For i = 1 To toCount
             args(i) = cmd(i)
