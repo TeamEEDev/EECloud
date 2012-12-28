@@ -385,6 +385,16 @@
         End Get
     End Property
 
+    Public ReadOnly Property IsGuest As Boolean Implements IPlayer.IsGuest
+        Get
+            Try
+                Return myPlayer.IsGuest
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
 #End Region
 
 #Region "Methods"

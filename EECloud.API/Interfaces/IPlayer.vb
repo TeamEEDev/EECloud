@@ -37,6 +37,7 @@
     ReadOnly Property MagicClass As MagicClass
     ReadOnly Property IsClubMember As Boolean
     ReadOnly Property IsDisconnected As Boolean
+    ReadOnly Property IsGuest As Boolean
 
     Property Group As Group
 
