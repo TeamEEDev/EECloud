@@ -32,7 +32,7 @@
     ReadOnly Property SpawnX As Integer
     ReadOnly Property SpawnY As Integer
     ReadOnly Property Say As String
-    ReadOnly Property AutoText As AutoText?
+    ReadOnly Property AutoText As String
     ReadOnly Property IsUserDataReady As Boolean
     ReadOnly Property MagicClass As MagicClass
     ReadOnly Property IsClubMember As Boolean

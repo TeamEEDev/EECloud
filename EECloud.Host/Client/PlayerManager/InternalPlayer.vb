@@ -228,9 +228,9 @@
         End Get
     End Property
 
-    Private myAutoText As AutoText?
+    Private myAutoText As String
 
-    Friend ReadOnly Property AutoText As AutoText? Implements IPlayer.AutoText
+    Friend ReadOnly Property AutoText As String Implements IPlayer.AutoText
         Get
             Return myAutoText
         End Get
