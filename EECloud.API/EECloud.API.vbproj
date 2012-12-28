@@ -133,7 +133,7 @@
     <Compile Include="Messages\Upload\RotatablePlaceUploadMessage.vb" />
     <Compile Include="Messages\Upload\SoundPlaceUploadMessage.vb" />
     <Compile Include="Messages\Upload\UploadMessage.vb" />
-    <Compile Include="MustInheirts\Player.vb" />
+    <Compile Include="MustInherits\Player.vb" />
     <Compile Include="Enums\Block\CoinDoorBlock.vb" />
     <Compile Include="Enums\Block\LabelBlock.vb" />
     <Compile Include="Enums\Block\PortalBlock.vb" />
@@ -203,7 +203,7 @@
     <Compile Include="Messages\Receive\InfoReceiveMessage.vb" />
     <Compile Include="Messages\Receive\GiveWizardReceiveMessage.vb" />
     <Compile Include="Messages\Receive\GiveGrinchReceiveMessage.vb" />
-    <Compile Include="MustInheirts\Plugin.vb" />
+    <Compile Include="MustInherits\Plugin.vb" />
     <Compile Include="Exceptions\EECloudPlayerIOException.vb" />
     <Compile Include="Exceptions\EECloudException.vb" />
     <Compile Include="Attributes\PluginAttribute.vb" />
@@ -219,7 +219,7 @@
     <Compile Include="Enums\Smiley.vb" />
     <Compile Include="Enums\Block\Block.vb" />
     <Compile Include="Enums\Layer.vb" />
-    <Compile Include="MustInheirts\PluginPart.vb" />
+    <Compile Include="MustInherits\PluginPart.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="Messages\Receive\GroupDisallowedJoinReceiveMessage.vb" />
     <Compile Include="Messages\Receive\ReceiveMessage.vb" />

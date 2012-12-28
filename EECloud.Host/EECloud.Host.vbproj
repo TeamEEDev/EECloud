@@ -80,9 +80,9 @@
     <Compile Include="Client\Client.vb" />
     <Compile Include="Client\ClientCloneFactory.vb" />
     <Compile Include="Client\ClientFactory.vb" />
-    <Compile Include="Client\CommandManager\Chatter\Chatter.vb" />
-    <Compile Include="Client\CommandManager\Chatter\InternalChatter.vb" />
-    <Compile Include="Client\CommandManager\Chatter\SimpleChatSyntaxProvider.vb" />
+    <Compile Include="Client\Chatter\Chatter.vb" />
+    <Compile Include="Client\Chatter\InternalChatter.vb" />
+    <Compile Include="Client\Chatter\SimpleChatSyntaxProvider.vb" />
     <Compile Include="Client\CommandManager\Command.vb" />
     <Compile Include="Client\CommandManager\CommandEventArgs.vb" />
     <Compile Include="Client\CommandManager\CommandHandle.vb" />
