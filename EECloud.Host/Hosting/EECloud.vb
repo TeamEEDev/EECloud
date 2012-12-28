@@ -73,8 +73,8 @@ Public NotInheritable Class EECloud
     End Sub
 
     Public Shared Sub RunDebugMode(plugin As Type)
-        CheckLicense()
         Init(True, False, False)
+        CheckLicense()
         Dim loginTask As Task = ShowLogin()
         Client.CommandManager.Load(New DefaultCommandListner(Client))
         Client.PluginManager.Load(plugin)
