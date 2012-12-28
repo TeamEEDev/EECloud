@@ -305,7 +305,7 @@
         End Get
     End Property
 
-    Public ReadOnly Property AutoText As AutoText? Implements IPlayer.AutoText
+    Public ReadOnly Property AutoText As String Implements IPlayer.AutoText
         Get
             Try
                 Return myPlayer.AutoText
