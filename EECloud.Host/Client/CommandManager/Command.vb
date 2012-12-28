@@ -19,13 +19,22 @@
         End Get
     End Property
 
+    Private myCommandText As String
+
+    Public ReadOnly Property CommandText As String Implements ICommand(Of TPlayer).CommandText
+        Get
+            Return myCommandText
+        End Get
+    End Property
+
 #End Region
 
 #Region "Methods"
 
-    Friend Sub New(sender As TPlayer, label As String)
+    Friend Sub New(sender As TPlayer, label As String, ByVal commandText As String)
         mySender = sender
         myLabel = label
+        myCommandText = CommandText
     End Sub
 
     Friend Sub Reply(msg As String) Implements ICommand(Of TPlayer).Reply

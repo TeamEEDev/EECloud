@@ -14,11 +14,20 @@ Public Interface ICommand(Of TPlayer As {New, Player})
     ReadOnly Property Sender As TPlayer
 
     ''' <summary>
+    '''     The command used (To identify aliases)
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks>???</remarks>
     ReadOnly Property Label As String
+
+    ''' <summary>
+    '''    The text used to run the command
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    ReadOnly Property CommandText As String
 
     ''' <summary>
     '''     Replies to the command's sender.
