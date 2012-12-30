@@ -89,7 +89,6 @@
         </File>
         <File Id="APIAssembly" Source="$(var.EECloud.API.TargetDir)EECloud.API.dll" />
         <File Id="HostAssembly" Source="$(var.EECloud.Host.TargetDir)EECloud.Host.dll" />
-        <File Id="Configuration" Source="$(var.EECloud.TargetDir)EECloud.exe.config" />
         <File Id="PlayerIOAssembly" Source="$(var.SolutionDir)References\PlayerIOClient.dll" />
         <File Id="MySQLAssembly" Source="$(var.SolutionDir)References\MySQL.Data.dll" />
       </Component>
