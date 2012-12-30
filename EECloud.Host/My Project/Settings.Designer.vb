@@ -80,7 +80,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("sepehr1376@gmail.com")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property LoginEmail() As String
             Get
                 Return CType(Me("LoginEmail"),String)
@@ -92,7 +92,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("159159ss")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property LoginPassword() As String
             Get
                 Return CType(Me("LoginPassword"),String)
@@ -104,7 +104,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("PWWOfglOCdbEI")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property LoginWorldID() As String
             Get
                 Return CType(Me("LoginWorldID"),String)
@@ -147,6 +147,18 @@ Namespace My
             End Get
             Set
                 Me("CommandChar") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("You are banned from all EECloud powered worlds.")>  _
+        Public Property BanString() As String
+            Get
+                Return CType(Me("BanString"),String)
+            End Get
+            Set
+                Me("BanString") = value
             End Set
         End Property
     End Class
