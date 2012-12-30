@@ -1,11 +1,13 @@
-﻿Public MustInherit Class Plugin (Of TPlayer As {Player, New})
-    Inherits PluginPart(Of TPlayer)
-    Implements IPlugin, IClient(Of TPlayer)
+﻿Public MustInherit Class Plugin(Of TPlayer As {Player, New}, TProtocol)
+    Inherits PluginPart(Of TPlayer, TProtocol)
+    Implements IPlugin
 
 #Region "Fields"
     Private myCloneFactory As IClientCloneFactory
+#End Region
 
-    Private myPluginParts As New List(Of PluginPart(Of TPlayer))
+#Region "Events"
+    Friend Event Disabling As EventHandler Implements IPlugin.Disabling
 #End Region
 
 #Region "Properties"
@@ -21,32 +23,22 @@
 
 #Region "Methods"
 
+    Public Sub New()
+        If Not GetType(TProtocol).IsAssignableFrom(Me.GetType) Then
+            Throw New NotSupportedException("The plugin must implement or inherit TProtocol.")
+        End If
+    End Sub
+
     Friend Overloads Sub Enable(cloneFactory As IClientCloneFactory, pluginObj As IPluginObject) Implements IPlugin.Enable
         myCloneFactory = cloneFactory
         myPluginObject = pluginObj
-        Enable(cloneFactory.GetClient (Of TPlayer)(pluginObj))
+        Enable(cloneFactory.GetClient(Of TPlayer)(pluginObj), Me)
     End Sub
 
-    Friend Overrides Sub Disable() Implements IPlugin.Disable
-        For Each part In myPluginParts
-            part.Disable()
-        Next
-        myCloneFactory.DisposeClient (Of TPlayer)(Client)
+    Protected Friend Overrides Sub Disable() Implements IPlugin.Disable
+        RaiseEvent Disabling(Me, EventArgs.Empty)
         MyBase.Disable()
-    End Sub
-
-    Public Function EnablePart (Of TPart As {PluginPart(Of TPlayer), New})() As TPart
-        Dim part As New TPart
-        part.Enable(Client)
-        myPluginParts.Add(part)
-        Return part
-    End Function
-
-    Public Sub DisablePart (Of TPart As {PluginPart(Of TPlayer), New})(part As TPart)
-        If myPluginParts.Contains(part) Then
-            myPluginParts.Remove(part)
-        End If
-        part.Disable()
+        myCloneFactory.DisposeClient(Of TPlayer)(Client)
     End Sub
 
 #End Region
