@@ -14,6 +14,13 @@
         myPlayerManager = myClient.PlayerManager
     End Sub
 
+    <Command("banstr", Group.Host, Aliases:={"banstring", "banmsg", "banmessage"})>
+    Public Sub BanStrCommand(cmd As ICommand(Of Player), newMessage As String)
+        My.Settings.BanString = newMessage
+        My.Settings.Save()
+        cmd.Reply("Ban message changed.")
+    End Sub
+
     <Command("cmdchar", Group.Host, Aliases:={"commandchar"})>
     Public Sub CmdCharCommand(cmd As ICommand(Of Player), character As String)
         If character.Length = 1 Then
@@ -276,7 +283,7 @@
             If e.Group >= Group.Moderator Then
                 e.GiveEdit()
             ElseIf e.Group <= Group.Banned Then
-                e.Kick("You have been banned from all EECould powered worlds.")
+                e.Kick(My.Settings.BanString)
             Else
                 e.RemoveEdit()
             End If
@@ -288,7 +295,7 @@
             If e.Group >= Group.Moderator Then
                 e.GiveEdit()
             ElseIf e.Group <= Group.Banned Then
-                e.Kick("You are banned from all EECould powered worlds.")
+                e.Kick(My.Settings.BanString)
             End If
         End If
     End Sub

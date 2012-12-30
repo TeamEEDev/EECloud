@@ -9,13 +9,13 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="LoginEmail" Type="System.String" Scope="User">
-      <Value Profile="(Default)">sepehr1376@gmail.com</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="LoginPassword" Type="System.String" Scope="User">
-      <Value Profile="(Default)">159159ss</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="LoginWorldID" Type="System.String" Scope="User">
-      <Value Profile="(Default)">PWWOfglOCdbEI</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="LoginType" Type="EECloud.API.AccountType" Scope="User">
       <Value Profile="(Default)">Regular</Value>
@@ -25,6 +25,9 @@
     </Setting>
     <Setting Name="CommandChar" Type="System.Char" Scope="User">
       <Value Profile="(Default)">!</Value>
+    </Setting>
+    <Setting Name="BanString" Type="System.String" Scope="User">
+      <Value Profile="(Default)">You are banned from all EECloud powered worlds.</Value>
     </Setting>
   </Settings>
 </SettingsFile>
