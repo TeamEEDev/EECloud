@@ -31,7 +31,7 @@ Public Class BlockPlaceUploadMessage
     End Function
 
     Friend Overrides Function IsUploaded(message As BlockPlaceReceiveMessage) As Boolean
-        If UploadCheck <= 10 Then
+        If UploadCheck <= 100 Then
             UploadCheck = CByte(UploadCheck + 1)
             Return X = message.PosX AndAlso Y = message.PosY AndAlso Layer = message.Layer
         Else
