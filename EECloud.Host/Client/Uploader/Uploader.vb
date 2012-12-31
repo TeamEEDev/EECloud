@@ -44,7 +44,7 @@ Friend NotInheritable Class Uploader
     Private Sub RunUploaderThread()
         Do
             SendNext()
-            Thread.Sleep(5)
+            Thread.Sleep(6)
         Loop
         ' ReSharper disable FunctionNeverReturns
     End Sub
