@@ -25,6 +25,12 @@
     End Sub
 #End If
 
+    <Command("access", Group.Moderator)>
+    Public Sub BanStrCommand(cmd As ICommand(Of Player), ParamArray editkey As String())
+        myConnection.Send(New AccessSendMessage(String.Join(" ", editkey)))
+        cmd.Reply("Key sent.")
+    End Sub
+
     <Command("banstr", Group.Host, Aliases:={"banstring", "banmsg", "banmessage"})>
     Public Sub BanStrCommand(cmd As ICommand(Of Player), newMessage As String)
         My.Settings.BanString = newMessage
