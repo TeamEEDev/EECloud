@@ -395,6 +395,16 @@
         End Get
     End Property
 
+    Public ReadOnly Property DatabaseName As String Implements IPlayer.DatabaseName
+        Get
+            Try
+                Return myPlayer.DatabaseName
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
 #End Region
 
 #Region "Methods"
