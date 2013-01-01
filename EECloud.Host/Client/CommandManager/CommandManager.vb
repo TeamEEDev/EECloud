@@ -61,21 +61,22 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
         End SyncLock
     End Sub
 
-    Private Sub ProcessMessage(msg As String, user As Integer, rights As Group, e As CommandEventArgs) Handles myInternalCommandManager.OnCommand
+    Private Sub ProcessMessage(sender As Object, e As CommandEventArgs) Handles myInternalCommandManager.OnCommand
         If Not e.Handled Then
-            Dim sender As TPlayer = myClient.PlayerManager.Player(user)
-            Dim cmd As String() = msg.Split(" "c)
+            Dim msgSender As TPlayer = myClient.PlayerManager.Player(e.UserID)
+            Dim cmd As String() = e.Message.Split(" "c)
             Dim type As String = cmd(0).ToLower
-            If msg.StartsWith("help ", StringComparison.OrdinalIgnoreCase) AndAlso myCommandsDictionary.ContainsKey(cmd(1).ToLower) Then
+            If e.Message.StartsWith("help ", StringComparison.OrdinalIgnoreCase) AndAlso myCommandsDictionary.ContainsKey(cmd(1).ToLower) Then
                 e.Handled = True
-                ReplyToSender(sender, GetUsagesStr(cmd(1).ToLower))
+                ReplyToSender(msgSender, GetUsagesStr(cmd(1).ToLower))
+
             ElseIf myCommandsDictionary.ContainsKey(type) Then
                 e.Handled = True
                 Dim mostHandle As CommandHandle(Of TPlayer) = Nothing
                 For Each handle In myCommandsDictionary(type)
                     'Check for syntax
-                    If handle.Count = cmd.Length - 1 OrElse (handle.Count < cmd.Length - 1 AndAlso handle.HasParamArray) Then
-                        TryRunCmd(sender, rights, cmd, type, msg, handle)
+                    If handle.Count = cmd.Length - 1 OrElse (handle.Count < cmd.Length AndAlso handle.HasParamArray) Then
+                        TryRunCmd(msgSender, e.Rights, cmd, type, e.Message, handle)
                         Exit Sub
                     ElseIf handle.Count < cmd.Length - 1 Then
                         If mostHandle Is Nothing OrElse handle.Count > mostHandle.Count Then
@@ -85,9 +86,9 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
                 Next
                 'Try the one that most methods fit in 
                 If mostHandle IsNot Nothing Then
-                    TryRunCmd(sender, rights, cmd, type, msg, mostHandle)
+                    TryRunCmd(msgSender, e.Rights, cmd, type, e.Message, mostHandle)
                 Else
-                    ReplyToSender(sender, GetUsagesStr(type))
+                    ReplyToSender(msgSender, GetUsagesStr(type))
                 End If
             End If
         End If
@@ -96,7 +97,6 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
     Private Function GetUsagesStr(cmd As String) As String
         Dim usages As String = String.Empty
         usages = myCommandsDictionary(cmd).Aggregate(usages, Function(current, handle) current & handle.ToString & " / ")
-        'Some LINQ magic here...
         Return "Command usage(s): " & Left(usages, usages.Length - 3)
     End Function
 
@@ -164,13 +164,14 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
             Dim usedNums As New List(Of Integer)
             Dim maxNum As Integer = - 1
             For Each item In list
-                usedNums.Add(item.Count)
                 If item.HasParamArray Then
                     maxNum = item.Count
+                Else
+                    usedNums.Add(item.Count)
                 End If
             Next
-            If maxNum = - 1 OrElse (handle.Count < maxNum AndAlso Not handle.HasParamArray) Then
-                If Not usedNums.Contains(handle.Count) Then
+            If maxNum = -1 OrElse (handle.Count <= maxNum AndAlso Not handle.HasParamArray) Then
+                If Not usedNums.Contains(handle.Count) OrElse (handle.HasParamArray AndAlso Not usedNums.Contains(handle.Count + 1)) Then
                     myCommandsDictionary(name).Add(handle)
                 Else
                     Cloud.Logger.Log(LogPriority.Error, "Can not overload command because of conflicting parameter count: " & name)
