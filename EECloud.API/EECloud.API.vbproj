@@ -219,6 +219,7 @@
     <Compile Include="Enums\Smiley.vb" />
     <Compile Include="Enums\Block\Block.vb" />
     <Compile Include="Enums\Layer.vb" />
+    <Compile Include="MustInherits\PluginBase.vb" />
     <Compile Include="MustInherits\PluginPart.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="Messages\Receive\GroupDisallowedJoinReceiveMessage.vb" />

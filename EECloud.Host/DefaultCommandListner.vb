@@ -26,6 +26,11 @@
 #End If
 
     <Command("access", Group.Moderator)>
+    Public Sub BanStrCommand(cmd As ICommand(Of Player))
+        cmd.Reply("Test.")
+    End Sub
+
+    <Command("access", Group.Moderator)>
     Public Sub BanStrCommand(cmd As ICommand(Of Player), ParamArray editkey As String())
         myConnection.Send(New AccessSendMessage(String.Join(" ", editkey)))
         cmd.Reply("Key sent.")

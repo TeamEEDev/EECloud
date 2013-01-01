@@ -1,5 +1,5 @@
 ﻿Public MustInherit Class Plugin(Of TPlayer As {Player, New}, TProtocol)
-    Inherits PluginPart(Of TPlayer, TProtocol)
+    Inherits PluginBase(Of TPlayer, TProtocol)
     Implements IPlugin
 
 #Region "Fields"
@@ -35,11 +35,18 @@
         Enable(cloneFactory.GetClient(Of TPlayer)(pluginObj), Me)
     End Sub
 
-    Protected Friend Overrides Sub Disable() Implements IPlugin.Disable
+
+    Protected Overrides Sub Disable() Implements IPlugin.Disable
         RaiseEvent Disabling(Me, EventArgs.Empty)
-        MyBase.Disable()
+        OnDisable()
         myCloneFactory.DisposeClient(Of TPlayer)(Client)
     End Sub
+
+    Protected Overrides Function EnablePart(Of TPart As {PluginPart(Of TPlayer, TProtocol), New})() As TPart
+        Dim part As New TPart
+        part.Enable(Client, Me)
+        Return part
+    End Function
 
 #End Region
 End Class

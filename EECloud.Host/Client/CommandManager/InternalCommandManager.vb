@@ -7,7 +7,7 @@
 #End Region
 
 #Region "Events"
-    Friend Event OnCommand(msg As String, user As Integer, rights As Group, e As CommandEventArgs)
+    Friend Event OnCommand As EventHandler(Of CommandEventArgs)
 #End Region
 
 #Region "Methods"
@@ -46,8 +46,8 @@
     End Property
 
     Friend Sub HandleMessage(msg As String, user As Integer, rights As Group)
-        Dim eventArgs As New CommandEventArgs
-        RaiseEvent OnCommand(msg, user, rights, eventArgs)
+        Dim eventArgs As New CommandEventArgs(msg, rights, user)
+        RaiseEvent OnCommand(Me, eventArgs)
         If eventArgs.Handled = False Then
             If myClient.InternalPlayerManager.Players.ContainsKey(user) Then
                 Dim sender As IPlayer = myClient.InternalPlayerManager.Players(user)
