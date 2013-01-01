@@ -299,6 +299,16 @@
         End Get
     End Property
 
+    Public ReadOnly Property DatabaseName As String Implements IPlayer.DatabaseName
+        Get
+            If IsGuest Then
+                Return "guest"
+            Else
+                Return Username
+            End If
+        End Get
+    End Property
+
 #End Region
 
 #Region "Methods"
@@ -335,7 +345,7 @@
     End Sub
 
     Friend Sub ReloadUserData() Implements IPlayer.ReloadUserData
-        Dim userData As UserData = Cloud.Service.GetPlayerData(myUsername)
+        Dim userData As UserData = Cloud.Service.GetPlayerData(DatabaseName)
         If userData IsNot Nothing Then
             myGroup = CType(userData.GroupID, Group)
             RaiseEvent LoadUserData(Me, userData)
@@ -462,7 +472,7 @@
     End Sub
 
     Public Sub Save() Implements IPlayer.Save
-        Cloud.Service.SetPlayerDataGroupID(Username, CShort(Group))
+        Cloud.Service.SetPlayerDataGroupID(DatabaseName, CShort(Group))
         RaiseEvent SaveUserData(Me, EventArgs.Empty)
     End Sub
 

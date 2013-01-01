@@ -38,6 +38,7 @@
     ReadOnly Property IsClubMember As Boolean
     ReadOnly Property IsDisconnected As Boolean
     ReadOnly Property IsGuest As Boolean
+    ReadOnly Property DatabaseName As String
 
     Property Group As Group
 
