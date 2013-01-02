@@ -107,12 +107,6 @@ Partial Friend Class Deque (Of T)
             End SyncLock
         End Function
 
-        Private Shadows Function IEnumerable_GetEnumerator() As IEnumerator
-            SyncLock myRoot
-                Return DirectCast(myDeque, IEnumerable).GetEnumerator()
-            End SyncLock
-        End Function
-
 #End Region
 
 #Region "Properties"

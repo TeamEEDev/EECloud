@@ -81,7 +81,9 @@ Friend NotInheritable Class Logger
                 Console.CursorLeft = myOldLeft
             End If
         Loop
+        ' ReSharper disable FunctionNeverReturns
     End Sub
+    ' ReSharper restore FunctionNeverReturns
 
     Friend Sub Log(priority As LogPriority, str As String) Implements ILogger.Log
         Dim output As String = String.Format("{0} [{1}] {2}", Now.ToLongTimeString, priority.ToString.ToUpper, str)

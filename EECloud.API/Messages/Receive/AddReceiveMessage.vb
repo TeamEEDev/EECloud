@@ -43,7 +43,7 @@ Public NotInheritable Class AddReceiveMessage
         Coins = message.GetInteger(8)
         IsMyFriend = message.GetBoolean(9)
         IsPurple = message.GetBoolean(10)
-        MagicClass = CType(message.GetInteger(11), API.MagicClass)
+        MagicClass = CType(message.GetInteger(11), MagicClass)
         IsClubMember = message.GetBoolean(12)
     End Sub
 End Class

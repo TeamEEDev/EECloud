@@ -8,7 +8,7 @@ Public NotInheritable Class EECloud
     Private Shared myPassword As String
     Private Shared myType As AccountType
     Private Shared myWorldID As String
-    Private Shared myCommandChar As Char
+    Private Shared ReadOnly myCommandChar As Char
 
     Private Shared myClient As IClient(Of Player)
 

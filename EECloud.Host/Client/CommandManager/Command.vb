@@ -19,7 +19,7 @@
         End Get
     End Property
 
-    Private myCommandText As String
+    Private ReadOnly myCommandText As String
 
     Public ReadOnly Property CommandText As String Implements ICommand(Of TPlayer).CommandText
         Get

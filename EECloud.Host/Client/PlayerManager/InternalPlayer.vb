@@ -276,11 +276,11 @@
         End Get
     End Property
 
-    Private myIsClubMember As Boolean
+    Private ReadOnly myIsClubMember As Boolean
 
     Public ReadOnly Property IsClubMember As Boolean Implements IPlayer.IsClubMember
         Get
-            Return IsClubMember
+            Return myIsClubMember
         End Get
     End Property
 
