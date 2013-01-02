@@ -4,7 +4,7 @@
 #Region "Fields"
     Private WithEvents myInternalPlayerManager As InternalPlayerManager
     Private WithEvents myConnection As IConnection
-    Private ReadOnly myClient As InternalClient
+    Private ReadOnly myClient As IClient(Of TPlayer)
 #End Region
 
 #Region "Events"
@@ -96,10 +96,10 @@
 
 #Region "Methods"
 
-    Sub New(internalClient As InternalClient)
+    Sub New(internalClient As InternalClient, client As IClient(Of TPlayer))
         myInternalPlayerManager = internalClient.InternalPlayerManager
         myConnection = internalClient.Connection
-        myClient = internalClient
+        myClient = client
 
         For Each player1 As InternalPlayer In myInternalPlayerManager.Players.Values
             AddPlayer(player1)
