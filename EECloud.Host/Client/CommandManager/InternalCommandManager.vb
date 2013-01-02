@@ -1,7 +1,7 @@
 ﻿Friend NotInheritable Class InternalCommandManager
 
 #Region "Fields"
-    Private Shared ReadOnly RegisteredCmdChars As New List(Of String)
+    Private Shared ReadOnly myRegisteredCmdChars As New List(Of String)
     Private ReadOnly myCommandChar As Char
     Private ReadOnly myClient As InternalClient
 #End Region
@@ -13,11 +13,11 @@
 #Region "Methods"
 
     Friend Sub New(ByVal client As InternalClient, commandChar As Char)
-        SyncLock RegisteredCmdChars
-            If RegisteredCmdChars.Contains(commandChar) Then
+        SyncLock myRegisteredCmdChars
+            If myRegisteredCmdChars.Contains(commandChar) Then
                 Throw New ArgumentException("Command char already taken", "commandChar")
             End If
-            RegisteredCmdChars.Add(commandChar)
+            myRegisteredCmdChars.Add(commandChar)
         End SyncLock
 
         myClient = client

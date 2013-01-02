@@ -108,14 +108,14 @@
         End Using
     End Function
 
-    Private Shared ReadOnly AcceptedGroupIDs() As Short = {400, 300, 100, 0, - 100, - 200}
+    Private Shared ReadOnly myAcceptedGroupIDs() As Short = {400, 300, 100, 0, -100, -200}
 
     Friend Sub SetPlayerDataGroupID(username As String, groupID As Short) Implements IEEService.SetPlayerDataGroupID
         If String.IsNullOrEmpty(username) Then
             Throw New ArgumentNullException("username")
         End If
-        If Not AcceptedGroupIDs.Contains(groupID) Then
-            Exit Sub 
+        If Not myAcceptedGroupIDs.Contains(groupID) Then
+            Exit Sub
         End If
 
         Using connection As New MySqlConnection(ConnStr)
@@ -270,30 +270,6 @@
             End If
         Catch ex As Exception
             Return String.Empty
-        End Try
-    End Function
-
-    Private Function TryCastInt(input As Object) As Integer
-        Try
-            If input IsNot DBNull.Value AndAlso input IsNot Nothing Then
-                Return CInt(input)
-            Else
-                Return Nothing
-            End If
-        Catch ex As Exception
-            Return Nothing
-        End Try
-    End Function
-
-    Private Function TryCastUInt(input As Object) As UInteger
-        Try
-            If input IsNot DBNull.Value AndAlso input IsNot Nothing Then
-                Return CUInt(input)
-            Else
-                Return Nothing
-            End If
-        Catch ex As Exception
-            Return Nothing
         End Try
     End Function
 
