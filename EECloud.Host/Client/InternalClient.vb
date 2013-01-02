@@ -126,7 +126,7 @@
         myInternalCommandManager = New InternalCommandManager(Me, commandChar)
 
         myChatter = New Chatter(myInternalChatter, "Bot")
-        myPlayerManager = New PlayerManager(Of Player)(Me)
+        myPlayerManager = New PlayerManager(Of Player)(Me, Me)
         myCommandManager = New CommandManager(Of Player)(Me, myInternalCommandManager)
     End Sub
 

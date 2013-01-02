@@ -84,7 +84,7 @@
         If chatterName = Nothing Then chatterName = pluginObject.Name
         myChatter = New Chatter(internalClient.InternalChatter, chatterName)
 
-        myPlayerManager = New PlayerManager(Of TPlayer)(internalClient)
+        myPlayerManager = New PlayerManager(Of TPlayer)(internalClient, Me)
         myCommandManager = New CommandManager(Of TPlayer)(Me, internalClient.InternalCommandManager)
     End Sub
 
