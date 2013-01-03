@@ -11,7 +11,7 @@ Public Class RotatablePlaceUploadMessage
     End Sub
 
     Friend Overrides Function GetMessage(ByVal game As IGame) As Message
-        If IsCoinDoor(Block) Then
+        If IsRotatable(Block) Then
             Dim message As Message = MyBase.GetMessage(game)
             message.Add(Rotation)
             Return message

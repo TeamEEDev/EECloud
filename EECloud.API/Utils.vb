@@ -16,25 +16,31 @@
 
     Friend ReadOnly Property IsCoinDoor(id As Block) As Boolean
         Get
-            Return id = 43
+            Return id = Block.BlockDoorCoinDoor OrElse id = Block.BlockGateCoinGate
+        End Get
+    End Property
+
+    Friend ReadOnly Property IsRotatable(id As Block) As Boolean
+        Get
+            Return id = Block.BlockHazardSpike
         End Get
     End Property
 
     Friend ReadOnly Property IsSound(id As Block) As Boolean
         Get
-            Return id = 77 Or id = 83
+            Return id = Block.BlockMusicPiano OrElse id = Block.BlockMusicDrum
         End Get
     End Property
 
     Friend ReadOnly Property IsPortal(id As Block) As Boolean
         Get
-            Return id = 242
+            Return id = Block.BlockPortal
         End Get
     End Property
 
     Friend ReadOnly Property IsLabel(id As Block) As Boolean
         Get
-            Return id = 1000
+            Return id = Block.BlockLabel
         End Get
     End Property
 
