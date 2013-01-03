@@ -161,5 +161,9 @@ retry:
         ReDim myUploadedArray(1, e.SizeX, e.SizeY)
     End Sub
 
+    Private Sub myConnection_ReceiveReset(sender As Object, e As ResetReceiveMessage) Handles myConnection.ReceiveReset
+        Clear()
+    End Sub
+
 #End Region
 End Class
