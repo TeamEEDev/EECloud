@@ -47,6 +47,7 @@
 
     Sub Save()
     Sub ReloadUserData()
+    Function ReloadUserDataAsync() As Task
     Sub Reply(msg As String)
     Sub Kick(msg As String)
     Sub GiveEdit()

@@ -228,10 +228,10 @@
     End Sub
 
     <Command("reloadplayer", Group.Moderator, Aliases:={"rplayer"})>
-    Public Sub ReloadPlayerCommand(cmd As ICommand(Of Player), player As String)
-        Dim player1 As IPlayer = myClient.PlayerManager.Player(player)
+    Public Async Sub ReloadPlayerCommand(cmd As ICommand(Of Player), player As String)
+        Dim player1 As IPlayer = myClient.PlayerManager.Player(Player)
         If player1 IsNot Nothing Then
-            player1.ReloadUserData()
+            Await player1.ReloadUserDataAsync()
             cmd.Reply("Reloaded userdata.")
         Else
             cmd.Reply("Unknown player.")
