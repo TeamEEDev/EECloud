@@ -309,6 +309,30 @@
         End Get
     End Property
 
+    Private myLastPotion As Potion?
+
+    Public ReadOnly Property LastPotion As Potion? Implements IPlayer.LastPotion
+        Get
+            Return myLastPotion
+        End Get
+    End Property
+
+    Private myLastPotionEnabled As Boolean
+
+    Public ReadOnly Property LastPotionEnabled As Boolean Implements IPlayer.LastPotionEnabled
+        Get
+            Return myLastPotionEnabled
+        End Get
+    End Property
+
+    Private myLastPotionTimeout As Integer
+
+    Public ReadOnly Property LastPotionTimeout As Integer Implements IPlayer.LastPotionTimeout
+        Get
+            Return myLastPotionTimeout
+        End Get
+    End Property
+
 #End Region
 
 #Region "Methods"
@@ -440,6 +464,10 @@
 
     Private Sub myConnection_ReceivePotion(sender As Object, e As PotionReceiveMessage) Handles myConnection.PreviewReceivePotion
         If e.UserID = myUserID Then
+            myLastPotion = e.Potion
+            myLastPotionEnabled = e.Enabled
+            myLastPotionTimeout = e.Timeout
+
             Select Case e.Potion
                 Case Potion.RedAura
                     myRedAuraPotion = e.Enabled
