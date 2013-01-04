@@ -381,6 +381,22 @@
         End If
     End Sub
 
+    Public Async Function ReloadUserDataAsync() As Task Implements IPlayer.ReloadUserDataAsync
+        Dim userData As UserData
+        Await Task.Run(Sub() userData = Cloud.Service.GetPlayerData(DatabaseName))
+        If userData IsNot Nothing Then
+            ' ReSharper disable VBWarnings::BC42104
+            myGroup = CType(userData.GroupID, Group)
+            ' ReSharper restore VBWarnings::BC42104
+            RaiseEvent LoadUserData(Me, userData)
+        End If
+
+        If Not myIsUserDataReady Then
+            myIsUserDataReady = True
+            RaiseEvent UserDataReady(Me, EventArgs.Empty)
+        End If
+    End Function
+
     Friend Sub Reply(msg As String) Implements IPlayer.Reply
         myClient.Chatter.Reply(myUsername, msg)
     End Sub

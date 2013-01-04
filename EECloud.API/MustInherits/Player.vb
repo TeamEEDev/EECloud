@@ -448,6 +448,10 @@
         myPlayer.ReloadUserData()
     End Sub
 
+    Public Function ReloadUserDataAsync() As Task Implements IPlayer.ReloadUserDataAsync
+        Return myPlayer.ReloadUserDataAsync()
+    End Function
+
     Public Sub Reply(msg As String) Implements IPlayer.Reply
         myChatter.Reply(Username, msg)
     End Sub
