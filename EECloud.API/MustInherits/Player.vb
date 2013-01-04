@@ -405,6 +405,36 @@
         End Get
     End Property
 
+    Public ReadOnly Property LastPotion As Potion? Implements IPlayer.LastPotion
+        Get
+            Try
+                Return myPlayer.LastPotion
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property LastPotionEnabled As Boolean Implements IPlayer.LastPotionEnabled
+        Get
+            Try
+                Return myPlayer.LastPotionEnabled
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property LastPotionTimeout As Integer Implements IPlayer.LastPotionTimeout
+        Get
+            Try
+                Return myPlayer.LastPotionTimeout
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
 #End Region
 
 #Region "Methods"
