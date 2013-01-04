@@ -39,6 +39,9 @@
     ReadOnly Property IsDisconnected As Boolean
     ReadOnly Property IsGuest As Boolean
     ReadOnly Property DatabaseName As String
+    ReadOnly Property LastPotion As Potion?
+    ReadOnly Property LastPotionEnabled As Boolean
+    ReadOnly Property LastPotionTimeout As Integer
 
     Property Group As Group
 
