@@ -34,10 +34,10 @@ Module ModuleMain
     Private Async Sub CheckForUpdates()
         Try
             Using webClient As New WebClient()
-                Dim version As String = Await webClient.DownloadStringTaskAsync(New Uri("https://dl.dropbox.com/u/13946635/EECloud/Version.txt"))
+                Dim version As String = Await webClient.DownloadStringTaskAsync(New Uri("http://dl.dropbox.com/u/13946635/EECloud/Version.txt"))
                 If New Version(version) > My.Application.Info.Version AndAlso MsgBox("There is an update available, do you want to update?", vbYesNo, "Update") = MsgBoxResult.Yes Then
                     'Download
-                    Await webClient.DownloadFileTaskAsync(New Uri("https://dl.dropbox.com/u/13946635/EECloud/EECloud.msi"), My.Application.Info.DirectoryPath & "\EECloud.msi")
+                    Await webClient.DownloadFileTaskAsync(New Uri("http://dl.dropbox.com/u/13946635/EECloud/EECloud.Setup.msi"), My.Application.Info.DirectoryPath & "\EECloud.msi")
                     'Notify user
                     MsgBox("Update ready. Press OK to start updating.", MsgBoxStyle.OkOnly, "Update")
                     'Write a batch file
