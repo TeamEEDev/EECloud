@@ -134,16 +134,9 @@
   </Fragment>
 
   <Fragment>
-    <CustomAction Id="LaunchApp"
-                  FileKey="MainExecutable" ExeCommand=""
-                  Execute="deferred" Impersonate="yes" Return="asyncNoWait" />
-
     <InstallExecuteSequence>
       <!-- Remove old versions -->
       <RemoveExistingProducts Before="InstallInitialize" />
-
-      <!-- Launch the app on exit -->
-      <Custom Action="LaunchApp" After="InstallFiles" />
     </InstallExecuteSequence>
   </Fragment>
 </Wix>
