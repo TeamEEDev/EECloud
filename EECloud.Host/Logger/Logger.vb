@@ -55,7 +55,7 @@ Friend NotInheritable Class Logger
                 End If
             ElseIf inputKey.Key = ConsoleKey.Enter Then
                 If Input IsNot String.Empty Then
-                    Console.CursorTop += 1
+                    Console.WriteLine()
                     RaiseEvent OnInput(Me, New EventArgs)
                 End If
                 Input = String.Empty
