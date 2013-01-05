@@ -83,4 +83,5 @@
     Safari = 81
     Archaeologist = 82
     NewYear2012 = 83
+    Winter = 84
 End Enum
