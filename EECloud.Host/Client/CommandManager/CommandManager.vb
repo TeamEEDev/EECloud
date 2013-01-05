@@ -155,7 +155,7 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
     End Sub
 
     Friend Sub InvokeCommand(player As Player, msg As String, rights As Group) Implements ICommandManager.InvokeCommand
-        myInternalCommandManager.HandleMessage(msg, player.UserID, rights)
+        myInternalCommandManager.HandleMessage(My.Settings.CommandChar & msg, player.UserID, rights)
     End Sub
 
     Private Sub AddCommand(name As String, handle As CommandHandle(Of TPlayer))
