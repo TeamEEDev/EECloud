@@ -214,10 +214,19 @@
 
     <Command("kick", Group.Moderator, AccessRight:=AccessRight.Owner, Aliases:={"ki", "kickp", "kickplayer"})>
     Public Sub KickCommand(cmd As ICommand(Of Player), user As String, ParamArray reason As String())
+        KickPlayer(cmd, user, String.Join(" ", reason))
+    End Sub
+
+    <Command("kick", Group.Moderator, AccessRight:=AccessRight.Owner, Aliases:={"ki", "kickp", "kickplayer"})>
+    Public Sub KickCommand(cmd As ICommand(Of Player), user As String)
+        KickPlayer(cmd, user, "Tsk tsk tsk")
+    End Sub
+
+    Private Sub KickPlayer(cmd As ICommand(Of Player), user As String, reason As String)
         Dim player As Player = myClient.PlayerManager.Player(user)
         If player IsNot Nothing Then
             If cmd.Sender Is Nothing OrElse cmd.Sender.Group >= Group.Operator OrElse player.Group <= cmd.Sender.Group Then
-                player.Kick(String.Join(" ", reason))
+                player.Kick(reason)
                 cmd.Reply("Kicked.")
             Else
                 cmd.Reply(String.Format("Not allowed to kick a user with a higher rank that yourself."))
