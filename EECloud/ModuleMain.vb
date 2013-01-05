@@ -35,7 +35,7 @@ Module ModuleMain
         Try
             Using webClient As New WebClient()
                 Dim version As String = Await webClient.DownloadStringTaskAsync(New Uri("http://dl.dropbox.com/u/13946635/EECloud/Version.txt"))
-                If New Version(version) > My.Application.Info.Version AndAlso MsgBox("There is an update available, do you want to update?", vbYesNo, "Update") = MsgBoxResult.Yes Then
+                If New Version(version) > My.Application.Info.Version AndAlso MsgBox(String.Format("There is an update available (Version {0}), do you want to update?", version), vbYesNo, "Update") = MsgBoxResult.Yes Then
                     'Download
                     Await webClient.DownloadFileTaskAsync(New Uri("http://dl.dropbox.com/u/13946635/EECloud/EECloud.Setup.msi"), My.Application.Info.DirectoryPath & "\EECloud.msi")
                     'Notify user
