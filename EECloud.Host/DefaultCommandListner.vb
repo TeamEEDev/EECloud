@@ -212,12 +212,12 @@
         cmd.Reply("Changed edit key")
     End Sub
 
-    <Command("kick", Group.Moderator, AccessRight:=AccessRight.Owner, Aliases:={"ki", "kickp", "kickplayer"})>
+    <Command("kick", Group.Trusted, AccessRight:=AccessRight.Owner, Aliases:={"ki", "kickp", "kickplayer"})>
     Public Sub KickCommand(cmd As ICommand(Of Player), user As String, ParamArray reason As String())
         KickPlayer(cmd, user, String.Join(" ", reason))
     End Sub
 
-    <Command("kick", Group.Moderator, AccessRight:=AccessRight.Owner, Aliases:={"ki", "kickp", "kickplayer"})>
+    <Command("kick", Group.Trusted, AccessRight:=AccessRight.Owner, Aliases:={"ki", "kickp", "kickplayer"})>
     Public Sub KickCommand(cmd As ICommand(Of Player), user As String)
         KickPlayer(cmd, user, "Tsk tsk tsk")
     End Sub
