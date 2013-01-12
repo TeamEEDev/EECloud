@@ -46,6 +46,14 @@
         End Get
     End Property
 
+    Private myFirePotionCount As Integer
+
+    Public ReadOnly Property FirePotionCount As Integer Implements IPotionManager.FirePotionCount
+        Get
+            Return myFirePotionCount
+        End Get
+    End Property
+
 #End Region
 
 #Region "Methods"
@@ -56,7 +64,7 @@
 
     Private Sub myConnection_ReceiveInit(sender As Object, e As InitReceiveMessage) Handles myConnection.ReceiveInit
         Dim startNum As UInteger
-        For i = CInt(e.PlayerIOMessage.Count - 1) To 0 Step - 1
+        For i = CInt(e.PlayerIOMessage.Count - 1) To 0 Step -1
             If TryCast(e.PlayerIOMessage.Item(CUInt(i)), String) IsNot Nothing AndAlso e.PlayerIOMessage.GetString(CUInt(i)) = "pe" Then
                 startNum = CUInt(i - 1)
             End If
@@ -77,6 +85,8 @@
                     myJumpPotionCount = e.PlayerIOMessage.GetInteger(pointer)
                 Case Potion.GreenAura
                     myGreenAuraPotionCount = e.PlayerIOMessage.GetInteger(pointer)
+                Case Potion.Fire
+                    myFirePotionCount = e.PlayerIOMessage.GetInteger(pointer)
             End Select
             pointer = CUInt(pointer - 2)
         Loop

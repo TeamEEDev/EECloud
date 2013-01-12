@@ -435,6 +435,16 @@
         End Get
     End Property
 
+    Public ReadOnly Property FirePotion As Boolean Implements IPlayer.FirePotion
+        Get
+            Try
+                Return myPlayer.FirePotion
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
 #End Region
 
 #Region "Methods"

@@ -4,4 +4,5 @@
     YellowAura = 3
     Jump = 4
     GreenAura = 5
+    Fire = 6
 End Enum
