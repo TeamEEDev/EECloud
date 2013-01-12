@@ -457,7 +457,7 @@
     End Sub
 
     Public Sub Kick(msg As String) Implements IPlayer.Kick
-        myChatter.Kick(myPlayer.Username, msg)
+        myChatter.Kick(Username, msg)
     End Sub
 
     Public Sub GiveEdit() Implements IPlayer.GiveEdit
@@ -470,6 +470,10 @@
 
     Public Sub Save() Implements IPlayer.Save
         myPlayer.Save()
+    End Sub
+
+    Public Sub Kill() Implements IPlayer.Kill
+        myChatter.Kill(Username)
     End Sub
 
 #End Region

@@ -74,6 +74,18 @@ Public Interface IChatter
     Sub RespawnAll()
 
     ''' <summary>
+    ''' Kills a player in the world
+    ''' </summary>
+    ''' <remarks></remarks>
+    Sub Kill(username As String)
+
+    ''' <summary>
+    ''' Kills all players in the world
+    ''' </summary>
+    ''' <remarks></remarks>
+    Sub KillAll()
+
+    ''' <summary>
     '''     The Syntax provider used to generate chat strings
     ''' </summary>
     ''' <value></value>

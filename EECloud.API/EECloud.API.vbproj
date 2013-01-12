@@ -114,6 +114,7 @@
     <Compile Include="Interfaces\World\IWorldSoundBlock.vb" />
     <Compile Include="Location.vb" />
     <Compile Include="Messages\Receive\AllowPotionsReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\KillReceiveMessage.vb" />
     <Compile Include="Messages\Receive\RotatablePlaceReceiveMessage.vb" />
     <Compile Include="Messages\Receive\WootUpReceiveMessage.vb" />
     <Compile Include="Messages\Receive\MagicRecieveMessage.vb" />

@@ -43,6 +43,8 @@
     Public Event UserDataReady(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).UserDataReady
 
     Public Event OnTeleport(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnTeleport
+
+    Public Event OnKill(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnKill
 #End Region
 
 #Region "Properties"
@@ -213,6 +215,14 @@
 
         If p IsNot Nothing Then
             RaiseEvent OnGodmode(Me, p)
+        End If
+    End Sub
+
+    Private Sub myConnection_ReceiveKill(sender As Object, e As KillReceiveMessage) Handles myConnection.ReceiveKill
+        Dim p As TPlayer = Player(e.UserID)
+
+        If p IsNot Nothing Then
+            RaiseEvent onkill(Me, p)
         End If
     End Sub
 
