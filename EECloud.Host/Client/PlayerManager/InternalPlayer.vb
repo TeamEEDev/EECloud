@@ -520,5 +520,9 @@
         RaiseEvent SaveUserData(Me, EventArgs.Empty)
     End Sub
 
+    Public Sub Kill() Implements IPlayer.Kill
+        myClient.Chatter.Kill(myUsername)
+    End Sub
+
 #End Region
 End Class

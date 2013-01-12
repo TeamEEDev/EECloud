@@ -52,4 +52,5 @@
     Sub Kick(msg As String)
     Sub GiveEdit()
     Sub RemoveEdit()
+    Sub Kill()
 End Interface

@@ -69,5 +69,13 @@
         myInternalChatter.SendChat("/respawnall")
     End Sub
 
+    Public Sub Kill(username As String) Implements IChatter.Kill
+        myInternalChatter.SendChat("/kill " & username)
+    End Sub
+
+    Public Sub KillAll() Implements IChatter.KillAll
+        myInternalChatter.SendChat("/killemall")
+    End Sub
+
 #End Region
 End Class

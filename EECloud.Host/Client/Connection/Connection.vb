@@ -300,6 +300,11 @@ Friend NotInheritable Class Connection
     Public Event SendDeath(sender As Object, e As Cancelable(Of DeathSendMessage)) Implements IConnection.SendDeath
 
     Public Event SendCheckpoint(sender As Object, e As Cancelable(Of CheckpointSendMessage)) Implements IConnection.SendCheckpoint
+
+    Public Event PreviewReceiveKill(sender As Object, e As KillReceiveMessage) Implements IConnection.PreviewReceiveKill
+
+    Public Event ReceiveKill(sender As Object, e As KillReceiveMessage) Implements IConnection.ReceiveKill
+
 #End Region
 
 #Region "Methods"
@@ -792,6 +797,11 @@ Friend NotInheritable Class Connection
                 RaiseEvent PreviewReceiveRotatablePlace(Me, m)
                 RaiseEvent ReceiveRotatablePlace(Me, m)
 
+            Case GetType(KillReceiveMessage)
+                Dim m As KillReceiveMessage = CType(e, KillReceiveMessage)
+                RaiseEvent PreviewReceiveKill(Me, m)
+                RaiseEvent ReceiveKill(Me, m)
+
         End Select
     End Sub
 
@@ -937,6 +947,7 @@ Friend NotInheritable Class Connection
                 RegisterMessage("w", GetType(MagicRecieveMessage))
                 RegisterMessage("levelup", GetType(LevelupRecieveMessage))
                 RegisterMessage("wu", GetType(WootUpReceiveMessage))
+                RegisterMessage("kill", GetType(KillReceiveMessage))
             End If
         End SyncLock
     End Sub
