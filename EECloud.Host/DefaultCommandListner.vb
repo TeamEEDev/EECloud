@@ -25,6 +25,27 @@
     End Sub
 #End If
 
+    <Command("respawnall", Group.Moderator)>
+    Public Sub RespawnAllCommand(cmd As ICommand(Of Player))
+        myClient.Chatter.RespawnAll()
+    End Sub
+
+    <Command("killemall", Group.Moderator)>
+    Public Sub KillEmAllCommand(cmd As ICommand(Of Player))
+        myClient.Chatter.KillAll()
+    End Sub
+
+    <Command("kill", Group.Moderator)>
+    Public Sub KillCommand(cmd As ICommand(Of Player), player As String)
+        Dim player1 As IPlayer = myClient.PlayerManager.Player(Player)
+        If player1 IsNot Nothing Then
+            player1.Kill()
+            cmd.Reply("Killed.")
+        Else
+            cmd.Reply("Unknown player.")
+        End If
+    End Sub
+
     <Command("access", Group.Moderator)>
     Public Sub BanStrCommand(cmd As ICommand(Of Player))
         cmd.Reply("Test.")
@@ -118,9 +139,9 @@
 
     <Command("who", Group.Host)>
     Public Sub WhoCommand(cmd As ICommand(Of Player))
-        Dim playerList As List(Of String) = (From player In myClient.PlayerManager Select player.Username).ToList()
+        Dim playerList As String() = (From player In myClient.PlayerManager Select player.Username).ToArray()
         If playerList.Count > 0 Then
-            cmd.Reply(String.Join(", ", playerList))
+            cmd.Reply(String.Join("({0} players online) {1}", playerList.Count, String.Join(", ", playerList)))
         Else
             cmd.Reply("No one is currently online.")
         End If
@@ -203,7 +224,7 @@
 
     <Command("hi", Group.Moderator, aliases:={"hello", "hai"})>
     Public Sub HiCommand(cmd As ICommand(Of Player), player As String)
-        cmd.Reply(String.Format("Hi {0}!", player))
+        myClient.Chatter.Chat(String.Format("Hi {0}!", player))
     End Sub
 
     <Command("setcode", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"code", "editkey", "seteditkey"})>
@@ -213,23 +234,23 @@
     End Sub
 
     <Command("kick", Group.Trusted, AccessRight:=AccessRight.Owner, Aliases:={"ki", "kickp", "kickplayer"})>
-    Public Sub KickCommand(cmd As ICommand(Of Player), user As String, ParamArray reason As String())
-        KickPlayer(cmd, user, String.Join(" ", reason))
+    Public Sub KickCommand(cmd As ICommand(Of Player), player As String, ParamArray reason As String())
+        KickPlayer(cmd, player, String.Join(" ", reason))
     End Sub
 
     <Command("kick", Group.Trusted, AccessRight:=AccessRight.Owner, Aliases:={"ki", "kickp", "kickplayer"})>
-    Public Sub KickCommand(cmd As ICommand(Of Player), user As String)
-        KickPlayer(cmd, user, "Tsk tsk tsk")
+    Public Sub KickCommand(cmd As ICommand(Of Player), player As String)
+        KickPlayer(cmd, player, "Tsk tsk tsk")
     End Sub
 
-    Private Sub KickPlayer(cmd As ICommand(Of Player), user As String, reason As String)
-        Dim player As Player = myClient.PlayerManager.Player(user)
-        If player IsNot Nothing Then
+    Private Sub KickPlayer(cmd As ICommand(Of Player), player As String, reason As String)
+        Dim player1 As Player = myClient.PlayerManager.Player(player)
+        If player1 IsNot Nothing Then
             If cmd.Sender Is Nothing OrElse cmd.Sender.Group >= Group.Operator OrElse player.Group <= cmd.Sender.Group Then
                 player.Kick(reason)
                 cmd.Reply("Kicked.")
             Else
-                cmd.Reply(String.Format("Not allowed to kick a user with a higher rank that yourself."))
+                cmd.Reply(String.Format("Not allowed to kick a player with a higher rank that yourself."))
             End If
         Else
             cmd.Reply("Can not find player.")
