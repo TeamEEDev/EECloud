@@ -4,4 +4,5 @@
     ReadOnly Property YellowAuraPotionCount As Integer
     ReadOnly Property JumpPotionCount As Integer
     ReadOnly Property GreenAuraPotionCount As Integer
+    ReadOnly Property FirePotionCount As Integer
 End Interface

@@ -333,6 +333,14 @@
         End Get
     End Property
 
+    Private myFirePotion As Boolean
+
+    Public ReadOnly Property FirePotion As Boolean Implements IPlayer.FirePotion
+        Get
+            Return myFirePotion
+        End Get
+    End Property
+
 #End Region
 
 #Region "Methods"
@@ -495,6 +503,8 @@
                     myJumpPotion = e.Enabled
                 Case Potion.GreenAura
                     myGreenAuraPotion = e.Enabled
+                Case Potion.Fire
+                    myFirePotion = e.Enabled
             End Select
         End If
     End Sub
