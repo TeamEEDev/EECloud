@@ -246,8 +246,9 @@
     Private Sub KickPlayer(cmd As ICommand(Of Player), player As String, reason As String)
         Dim player1 As Player = myClient.PlayerManager.Player(player)
         If player1 IsNot Nothing Then
-            If cmd.Sender Is Nothing OrElse cmd.Sender.Group >= Group.Operator OrElse player.Group <= cmd.Sender.Group Then
-                player.Kick(reason)
+            If cmd.Sender Is Nothing OrElse cmd.Sender.Group >= Group.Operator OrElse player1.Group <= cmd.Sender.Group Then
+                player1.Kick(reason)
+
                 cmd.Reply("Kicked.")
             Else
                 cmd.Reply(String.Format("Not allowed to kick a player with a higher rank that yourself."))
