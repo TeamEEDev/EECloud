@@ -449,6 +449,7 @@
     DecorationJungleTrophy = 359
 
     BlockHazardSpike = 361
+    BlockHazardFire = 368
 
     DecorationChristmas2012BlueVertical = 362
     DecorationChristmas2012BlueHorizontal = 363
@@ -513,6 +514,13 @@
     BackgroundChristmas2012Yellow = 624
     BackgroundChristmas2012Green = 625
     BackgroundChristmas2012Blue = 626
+
+    BlockLavaYellow = 202
+    BlockLavaOrange = 203
+    BlockLavaRed = 204
+    BackgroundLavaYellow = 627
+    BackgroundLavaOrange = 628
+    BackgroundLavaRed = 629
 
     BlockLabel = 1000
 End Enum

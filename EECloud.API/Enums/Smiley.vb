@@ -84,4 +84,5 @@
     Archaeologist = 82
     NewYear2012 = 83
     Winter = 84
+    FireDeamon = 85
 End Enum

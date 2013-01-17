@@ -54,6 +54,14 @@
         End Get
     End Property
 
+    Private myCursePotionCount As Integer
+
+    Public ReadOnly Property CursePotionCount As Integer Implements IPotionManager.CursePotionCount
+        Get
+            Return myCursePotionCount
+        End Get
+    End Property
+
 #End Region
 
 #Region "Methods"
@@ -87,6 +95,8 @@
                     myGreenAuraPotionCount = e.PlayerIOMessage.GetInteger(pointer)
                 Case Potion.Fire
                     myFirePotionCount = e.PlayerIOMessage.GetInteger(pointer)
+                Case Potion.Curse
+                    myCursePotionCount = e.PlayerIOMessage.GetInteger(pointer)
             End Select
             pointer = CUInt(pointer - 2)
         Loop

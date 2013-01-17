@@ -341,6 +341,14 @@
         End Get
     End Property
 
+    Private myCursePotion As Boolean
+
+    Public ReadOnly Property CursePotion As Boolean Implements IPlayer.CursePotion
+        Get
+            Return myCursePotion
+        End Get
+    End Property
+
 #End Region
 
 #Region "Methods"
@@ -505,6 +513,8 @@
                     myGreenAuraPotion = e.Enabled
                 Case Potion.Fire
                     myFirePotion = e.Enabled
+                Case Potion.Curse
+                    myCursePotion = e.Enabled
             End Select
         End If
     End Sub
