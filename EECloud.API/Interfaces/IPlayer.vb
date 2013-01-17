@@ -24,12 +24,6 @@
     ReadOnly Property Vertical As Double
     ReadOnly Property HasSilverCrown As Boolean
     ReadOnly Property HasCrown As Boolean
-    ReadOnly Property RedAuraPotion As Boolean
-    ReadOnly Property BlueAuraPotion As Boolean
-    ReadOnly Property YellowAuraPotion As Boolean
-    ReadOnly Property JumpPotion As Boolean
-    ReadOnly Property GreenAuraPotion As Boolean
-    ReadOnly Property FirePotion As Boolean
     ReadOnly Property SpawnX As Integer
     ReadOnly Property SpawnY As Integer
     ReadOnly Property Say As String
@@ -43,6 +37,14 @@
     ReadOnly Property LastPotion As Potion?
     ReadOnly Property LastPotionEnabled As Boolean
     ReadOnly Property LastPotionTimeout As Integer
+
+    ReadOnly Property RedAuraPotion As Boolean
+    ReadOnly Property BlueAuraPotion As Boolean
+    ReadOnly Property YellowAuraPotion As Boolean
+    ReadOnly Property JumpPotion As Boolean
+    ReadOnly Property GreenAuraPotion As Boolean
+    ReadOnly Property FirePotion As Boolean
+    ReadOnly Property CursePotion As Boolean
 
     Property Group As Group
 

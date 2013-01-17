@@ -445,6 +445,16 @@
         End Get
     End Property
 
+    Public ReadOnly Property CursePotion As Boolean Implements IPlayer.CursePotion
+        Get
+            Try
+                Return myPlayer.CursePotion
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
 #End Region
 
 #Region "Methods"

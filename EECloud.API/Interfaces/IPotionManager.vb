@@ -5,4 +5,5 @@
     ReadOnly Property JumpPotionCount As Integer
     ReadOnly Property GreenAuraPotionCount As Integer
     ReadOnly Property FirePotionCount As Integer
+    ReadOnly Property CursePotionCount As Integer
 End Interface

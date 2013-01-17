@@ -5,4 +5,5 @@
     Jump = 4
     GreenAura = 5
     Fire = 6
+    Curse = 7
 End Enum
