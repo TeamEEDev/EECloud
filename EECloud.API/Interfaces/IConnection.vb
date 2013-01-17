@@ -126,7 +126,7 @@
     Event SendWootUp As EventHandler(Of Cancelable(Of WootUpSendMessage))
     Event SendDeath As EventHandler(Of Cancelable(Of DeathSendMessage))
     Event SendCheckpoint As EventHandler(Of Cancelable(Of CheckpointSendMessage))
-    Event SendTouch As EventHandler(Of Cancelable(Of TouchPlayerSendMessage))
+    Event SendTouchPlayer As EventHandler(Of Cancelable(Of TouchPlayerSendMessage))
     Event UploadBlockPlace As EventHandler(Of Cancelable(Of BlockPlaceUploadMessage))
     Event UploadCoindoorPlace As EventHandler(Of Cancelable(Of CoinDoorPlaceUploadMessage))
     Event UploadSoundPlace As EventHandler(Of Cancelable(Of SoundPlaceUploadMessage))

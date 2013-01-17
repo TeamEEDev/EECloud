@@ -305,6 +305,8 @@ Friend NotInheritable Class Connection
 
     Public Event ReceiveKill(sender As Object, e As KillReceiveMessage) Implements IConnection.ReceiveKill
 
+    Public Event SendTouchPlayer(sender As Object, e As Cancelable(Of TouchPlayerSendMessage)) Implements IConnection.SendTouchPlayer
+
 #End Region
 
 #Region "Methods"
@@ -564,6 +566,11 @@ Friend NotInheritable Class Connection
             Case GetType(CheckpointSendMessage)
                 Dim eventArgs As New Cancelable(Of CheckpointSendMessage)(CType(message, CheckpointSendMessage))
                 RaiseEvent SendCheckpoint(Me, eventArgs)
+                Return eventArgs.Handled
+
+            Case GetType(TouchPlayerSendMessage)
+                Dim eventArgs As New Cancelable(Of TouchPlayerSendMessage)(CType(message, TouchPlayerSendMessage))
+                RaiseEvent SendTouchPlayer(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(CustomSendMessage)
