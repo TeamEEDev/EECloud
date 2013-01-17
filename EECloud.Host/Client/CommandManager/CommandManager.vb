@@ -68,8 +68,9 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
             Dim type As String = cmd(0).ToLower
             If e.Message.StartsWith("help ", StringComparison.OrdinalIgnoreCase) AndAlso myCommandsDictionary.ContainsKey(cmd(1).ToLower) Then
                 e.Handled = True
-                ReplyToSender(msgSender, GetUsagesStr(cmd(1).ToLower))
-
+                If e.Rights >= Group.Moderator Then
+                    ReplyToSender(msgSender, GetUsagesStr(cmd(1).ToLower))
+                End If
             ElseIf myCommandsDictionary.ContainsKey(type) Then
                 e.Handled = True
                 Dim mostHandle As CommandHandle(Of TPlayer) = Nothing
@@ -87,7 +88,7 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
                 'Try the one that most methods fit in 
                 If mostHandle IsNot Nothing Then
                     TryRunCmd(msgSender, e.Rights, cmd, type, e.Message, mostHandle)
-                Else
+                ElseIf e.Rights >= Group.Moderator Then
                     ReplyToSender(msgSender, GetUsagesStr(type))
                 End If
             End If
