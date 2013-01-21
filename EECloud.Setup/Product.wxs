@@ -2,7 +2,7 @@
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?define AppName = EECloud ?>
-  <?define AppVersion = 0.9.18 ?>
+  <?define AppVersion = 0.9.19 ?>
   <?define AppAuthor = EEDev ?>
   <?define UpgradeCode = {EBE9213C-08D9-4561-8028-FB63B80AEA90} ?>
 
@@ -75,7 +75,7 @@
         <CreateFolder />
         <RemoveFolder Id='RemoveINSTALLLOCATION' On='uninstall' />
 
-        <File Id="MainExecutable" Source="$(var.EECloud.TargetDir)EECloud.exe">
+        <File Id="MainExecutable" Source="$(var.EECloud.Launcher.TargetDir)EECloud.Launcher.exe">
           <Shortcut Id="StartMenuShortcut"
                     Directory="ProgramMenuFolder"
                     Name="$(var.AppName)"
@@ -87,6 +87,7 @@
                     WorkingDirectory="INSTALLLOCATION"
                     Icon="ProgramIcon" />
         </File>
+        <File Id="EECloudAssembly" Source="$(var.EECloud.TargetDir)EECloud.exe" />
         <File Id="APIAssembly" Source="$(var.EECloud.API.TargetDir)EECloud.API.dll" />
         <File Id="HostAssembly" Source="$(var.EECloud.Host.TargetDir)EECloud.Host.dll" />
         <File Id="PlayerIOAssembly" Source="$(var.SolutionDir)References\PlayerIOClient.dll" />
