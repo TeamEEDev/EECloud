@@ -306,16 +306,22 @@ Friend NotInheritable Class DefaultCommandListner
         cmd.Reply("Current host: " & Cloud.LicenseUsername)
     End Sub
 
+    <Command("restart", Group.Moderator)>
+    Public Sub RestartCommand(cmd As ICommand(Of Player))
+        cmd.Reply("Restarting...")
+        myClient.Connection.Close(True)
+    End Sub
+
     <Command("end", Group.Moderator, Aliases:={"shutdown", "leave", "leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
     Public Sub EndCommand(cmd As ICommand(Of Player))
         cmd.Reply("Terminating...")
         myClient.Connection.Close()
     End Sub
 
-    <Command("killbot", Group.Admin)>
+    <Command("killbot", Group.Operator)>
     Public Sub KillBotCommand(cmd As ICommand(Of Player))
         cmd.Reply("Dying...")
-        Environment.Exit(0) 'Makes the program not start again on the cloud; must re-deploy, the connection is terminated and plugins will not have their OnDisable command run.
+        Environment.Exit(0)
     End Sub
 
     <Command("clear", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"clearworld", "clearlevel"})>

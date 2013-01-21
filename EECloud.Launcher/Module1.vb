@@ -1,5 +1,7 @@
 ﻿Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
+Imports System.Threading
+
 Module Module1
 #Region "Unmanaged calls"
 
@@ -28,6 +30,8 @@ Module Module1
     Public WithEvents NotifyIcon As New NotifyIcon With {.Icon = My.Resources.Icon, .Visible = True}
     Public Handle As IntPtr = GetConsoleWindow()
     Public TempNoAutoHide As Boolean
+    Public LastRestart As Date
+    Public RestartTry As Integer
 #End Region
 
 #Region "Properties"
@@ -74,10 +78,11 @@ Module Module1
                 ConsoleVisible = True
             End Sub
 
-        Console.Title = "EECloud Launcher"
+        Console.Title = "EECloud"
         Console.WriteLine("Welcome to EECloud.Launcher")
         Console.WriteLine("Starting EECloud...")
         Do
+            LastRestart = Now
             Console.WriteLine("---------------------------------------------------")
             'Start Process
             Dim p = New Process()
@@ -97,7 +102,7 @@ Module Module1
                     End If
                 End If
 
-                Threading.Thread.Sleep(1000)
+                Thread.Sleep(1000)
             Loop
 
             'Exit if it exists with a 0 exit code
@@ -105,8 +110,20 @@ Module Module1
                 Exit Sub
             End If
 
-            'Restart 
+            Console.WriteLine()
             Console.WriteLine("---------------------------------------------------")
+
+            'Wait if failing too often
+            If Now.Subtract(LastRestart).TotalMinutes >= 1 Then
+                RestartTry = 0
+            Else
+                Dim waitSecs As Integer = 2 ^ RestartTry
+                Console.WriteLine(String.Format("Restarting in {0} second(s)...", waitSecs))
+                Thread.Sleep(waitSecs * 1000)
+                RestartTry += 1
+            End If
+
+            'Restart 
             Console.WriteLine("Restarting EECloud...")
         Loop
     End Sub

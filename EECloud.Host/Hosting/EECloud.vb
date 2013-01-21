@@ -160,16 +160,22 @@ Public NotInheritable Class EECloud
     End Sub
 
     Public Shared Async Function ShowLogin() As Task
-        Await Task.Run(
-            Sub()
+        If Not My.Settings.Restart Then
+            Await Task.Run(
+                Sub()
                 If Not New LoginForm().ShowDialog = DialogResult.OK Then
                     Environment.Exit(0)
                 End If
             End Sub)
-        myUsername = My.Settings.LoginEmail
-        myPassword = My.Settings.LoginPassword
-        myType = My.Settings.LoginType
-        myWorldID = My.Settings.LoginWorldID
+
+            myUsername = My.Settings.LoginEmail
+            myPassword = My.Settings.LoginPassword
+            myType = My.Settings.LoginType
+            myWorldID = My.Settings.LoginWorldID
+        Else
+            My.Settings.Restart = False
+            My.Settings.Save()
+        End If
     End Function
 
     Private Shared Sub CheckLicense()
@@ -218,14 +224,21 @@ Public NotInheritable Class EECloud
             Dim task As Task = Client.Connection.ConnectAsync(myType, myUsername, myPassword, myWorldID)
 
             AddHandler Client.Connection.Disconnect,
-                Sub()
+                Sub(sender As Object, e As DisconnectEventArgs)
                     Cloud.Logger.Log(LogPriority.Info, "Disconnected!")
 
                     For Each plugin In Client.PluginManager.Plugins
                         Cloud.Logger.Log(LogPriority.Info, String.Format("Disabling {0}...", plugin.Name))
                         plugin.Stop()
                     Next
-                    Environment.Exit(1)
+
+                    If e.Unexpected OrElse e.Restarting Then
+                        My.Settings.Restart = True
+                        My.Settings.Save()
+                        Environment.Exit(1)
+                    Else
+                        Environment.Exit(0)
+                    End If
                 End Sub
 
             Await task
@@ -233,7 +246,7 @@ Public NotInheritable Class EECloud
         Catch ex As Exception
             Cloud.Logger.Log(LogPriority.Info, "Failed to connect!")
             Cloud.Logger.LogEx(ex)
-            Environment.Exit(1000)
+            Environment.Exit(1)
         End Try
     End Function
 End Class

@@ -173,5 +173,5 @@
     '''     Terminates the connection
     ''' </summary>
     ''' <remarks></remarks>
-    Sub Close()
+    Sub Close(Optional restart As Boolean = False)
 End Interface
