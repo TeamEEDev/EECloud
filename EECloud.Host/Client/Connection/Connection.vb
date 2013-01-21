@@ -10,6 +10,7 @@ Friend NotInheritable Class Connection
     Private WithEvents myConnection As PlayerIOClient.Connection
     Private ReadOnly myMessageDictionary As New Dictionary(Of String, Type)
     Private myExpectingDisconnect As Boolean
+    Private myRestarting As Boolean
     Private Const GameID As String = "everybody-edits-su9rn58o40itdbnw69plyw"
     Private Const NormalRoom As String = "Everybodyedits"
     Private Const GameVersionSetting As String = "GameVersion"
@@ -814,8 +815,7 @@ Friend NotInheritable Class Connection
 
     Private Sub myConnection_OnDisconnect(sender As Object, message As String) Handles myConnection.OnDisconnect
         UnRegisterAll()
-        RaiseEvent Disconnect(Me, New DisconnectEventArgs(myExpectingDisconnect))
-        myExpectingDisconnect = False
+        RaiseEvent Disconnect(Me, New DisconnectEventArgs(Not myExpectingDisconnect, myRestarting))
     End Sub
 
     Private Sub myConnection_OnMessage(sender As Object, m As Message) Handles myConnection.OnMessage
@@ -882,9 +882,11 @@ Friend NotInheritable Class Connection
         End If
     End Sub
 
-    Friend Sub Close() Implements IConnection.Close
+    Friend Sub Close(Optional restart As Boolean = False) Implements IConnection.Close
         SyncLock myLockObj
             If Connected Then
+                myExpectingDisconnect = True
+                myRestarting = restart
                 RaiseEvent Disconnecting(Me, EventArgs.Empty)
                 myConnection.Disconnect()
             End If
