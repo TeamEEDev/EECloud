@@ -117,7 +117,7 @@ Module Module1
             If Now.Subtract(LastRestart).TotalMinutes >= 1 Then
                 RestartTry = 0
             Else
-                Dim waitSecs As Integer = 2 ^ RestartTry
+                Dim waitSecs As Integer = RestartTry << 1
                 Console.WriteLine(String.Format("Restarting in {0} second(s)...", waitSecs))
                 Thread.Sleep(waitSecs * 1000)
                 RestartTry += 1
