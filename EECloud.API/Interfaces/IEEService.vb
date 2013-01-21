@@ -1,4 +1,6 @@
 ﻿Public Interface IEEService
+    ReadOnly Property ConnectionString As String
+
     Function CheckLicense(ByVal username As String, ByVal authKey As String) As Boolean
 
     Function GetSetting(ByVal key As String) As String

@@ -1,6 +1,12 @@
 ﻿Friend Class EEService
     Implements IEEService
 
+    Public ReadOnly Property ConnectionString As String Implements IEEService.ConnectionString
+        Get
+            Return ConnStr
+        End Get
+    End Property
+
     Friend Function GetSetting(key As String) As String Implements IEEService.GetSetting
         If String.IsNullOrEmpty(key) Then
             Throw New ArgumentNullException("key")
@@ -46,7 +52,6 @@
 
         Using connection As New MySqlConnection(ConnStr)
             connection.Open()
-
             Using command As MySqlCommand = connection.CreateCommand()
                 command.CommandText = "SELECT * FROM playerData WHERE Username = @Username"
                 command.Parameters.AddWithValue("@Username", username)
