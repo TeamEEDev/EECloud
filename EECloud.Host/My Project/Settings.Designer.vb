@@ -161,6 +161,18 @@ Namespace My
                 Me("BanString") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property Restart() As Boolean
+            Get
+                Return CType(Me("Restart"),Boolean)
+            End Get
+            Set
+                Me("Restart") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

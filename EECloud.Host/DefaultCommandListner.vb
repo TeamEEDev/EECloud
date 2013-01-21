@@ -1,4 +1,6 @@
-﻿Friend NotInheritable Class DefaultCommandListner
+﻿Imports System.Threading
+
+Friend NotInheritable Class DefaultCommandListner
 
 #Region "Fields"
     Private ReadOnly myClient As IClient(Of Player)
@@ -25,6 +27,25 @@
     End Sub
 #End If
 
+    Private pinging As Boolean
+
+    <Command("pinghost", Group.Moderator)>
+    Public Sub PingHostCommand(cmd As ICommand(Of Player))
+        If cmd.Sender IsNot Nothing Then
+            If Not pinging Then
+                pinging = True
+                Call New Thread(Sub(obj As Object)
+                                    MsgBox("Ping from user: " & cmd.Sender.Username)
+                                    pinging = False
+                                End Sub).Start()
+            Else
+                cmd.Reply("A ping has been already sent.")
+            End If
+        Else
+            cmd.Reply("Can not ping from console")
+        End If
+    End Sub
+
     <Command("respawnall", Group.Moderator)>
     Public Sub RespawnAllCommand(cmd As ICommand(Of Player))
         myClient.Chatter.RespawnAll()
@@ -37,7 +58,7 @@
 
     <Command("kill", Group.Moderator)>
     Public Sub KillCommand(cmd As ICommand(Of Player), player As String)
-        Dim player1 As IPlayer = myClient.PlayerManager.Player(Player)
+        Dim player1 As IPlayer = myClient.PlayerManager.Player(player)
         If player1 IsNot Nothing Then
             player1.Kill()
             cmd.Reply("Killed.")
@@ -141,7 +162,7 @@
     Public Sub WhoCommand(cmd As ICommand(Of Player))
         Dim playerList As String() = (From player In myClient.PlayerManager Select player.Username).ToArray()
         If playerList.Count > 0 Then
-            cmd.Reply(String.Join("({0} players online) {1}", playerList.Count, String.Join(", ", playerList)))
+            cmd.Reply(String.Format("({0} players online) {1}", playerList.Count, String.Join(", ", playerList)))
         Else
             cmd.Reply("No one is currently online.")
         End If
@@ -260,7 +281,7 @@
 
     <Command("reloadplayer", Group.Moderator, Aliases:={"rplayer"})>
     Public Async Sub ReloadPlayerCommand(cmd As ICommand(Of Player), player As String)
-        Dim player1 As IPlayer = myClient.PlayerManager.Player(Player)
+        Dim player1 As IPlayer = myClient.PlayerManager.Player(player)
         If player1 IsNot Nothing Then
             Await player1.ReloadUserDataAsync()
             cmd.Reply("Reloaded userdata.")
