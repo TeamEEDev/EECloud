@@ -241,11 +241,6 @@
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
     </None>
-    <None Include="My Project\Settings.settings">
-      <CustomToolNamespace>My</CustomToolNamespace>
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
