@@ -164,8 +164,8 @@ Public NotInheritable Class EECloud
             Sub()
                 If Not New LoginForm().ShowDialog = DialogResult.OK Then
                     Environment.Exit(0)
-                          End If
-                          End Sub)
+                End If
+            End Sub)
         myUsername = My.Settings.LoginEmail
         myPassword = My.Settings.LoginPassword
         myType = My.Settings.LoginType
