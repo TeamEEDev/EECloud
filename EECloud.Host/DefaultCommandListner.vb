@@ -27,6 +27,18 @@ Friend NotInheritable Class DefaultCommandListner
     End Sub
 #End If
 
+    <Command("getrank", Group.Moderator, Aliases:={"rank", "group", "getgroup", "userrank", "usergroup", "playerrank", "playergroup"})>
+    Public Sub GetRankCommand(cmd As ICommand(Of Player), player As String)
+        Dim player1 As IPlayer = myClient.PlayerManager.Player(player)
+        Dim rank As Group
+        If player1 IsNot Nothing Then
+            rank = player1.Group
+        Else
+            rank = Cloud.Service.GetPlayerData(player).Username
+        End If
+        cmd.Reply(String.Format("User {0} is {1}", player.ToUpper, GetGroupString(rank)))
+    End Sub
+
     Private pinging As Boolean
 
     <Command("pinghost", Group.Moderator)>
@@ -98,40 +110,40 @@ Friend NotInheritable Class DefaultCommandListner
 
     <Command("admin", Group.Host)>
     Public Sub AdminCommand(cmd As ICommand(Of Player), username As String)
-        ChangeRank(cmd, username, Group.Admin, "an admin")
+        ChangeRank(cmd, username, Group.Admin)
     End Sub
 
     <Command("op", Group.Admin)>
     Public Sub OpCommand(cmd As ICommand(Of Player), username As String)
-        ChangeRank(cmd, username, Group.Operator, "an operator")
+        ChangeRank(cmd, username, Group.Operator)
     End Sub
 
     <Command("mod", Group.Operator)>
     Public Sub ModCommand(cmd As ICommand(Of Player), username As String)
-        ChangeRank(cmd, username, Group.Moderator, "a moderator")
+        ChangeRank(cmd, username, Group.Moderator)
     End Sub
 
     <Command("trust", Group.Operator)>
     Public Sub TrustCommand(cmd As ICommand(Of Player), username As String)
-        ChangeRank(cmd, username, Group.Trusted, "a trusted player")
+        ChangeRank(cmd, username, Group.Trusted)
     End Sub
 
     <Command("default", Group.Operator, Aliases:={"normal", "user"})>
     Public Sub NormalCommand(cmd As ICommand(Of Player), username As String)
-        ChangeRank(cmd, username, Group.User, "a normal user")
+        ChangeRank(cmd, username, Group.User)
     End Sub
 
     <Command("limit", Group.Operator)>
     Public Sub LimitCommand(cmd As ICommand(Of Player), username As String)
-        ChangeRank(cmd, username, Group.Limited, "limited")
+        ChangeRank(cmd, username, Group.Limited)
     End Sub
 
     <Command("ban", Group.Operator)>
     Public Sub BanCommand(cmd As ICommand(Of Player), username As String)
-        ChangeRank(cmd, username, Group.Banned, "banned")
+        ChangeRank(cmd, username, Group.Banned)
     End Sub
 
-    Private Sub ChangeRank(cmd As ICommand(Of Player), username As String, rank As Group, groupName As String)
+    Private Sub ChangeRank(cmd As ICommand(Of Player), username As String, rank As Group)
         Dim currRank As Group
         Dim player As Player = myClient.PlayerManager.Player(username)
         If player IsNot Nothing Then
@@ -152,11 +164,34 @@ Friend NotInheritable Class DefaultCommandListner
                 Cloud.Service.SetPlayerDataGroupID(username, rank)
             End If
 
-            cmd.Reply(String.Format("{0} is now {1}.", username, groupName))
+            cmd.Reply(String.Format("{0} is now {1}.", username.ToUpper, GetGroupString(rank)))
         Else
             cmd.Reply(String.Format("Not allowed to change rank of that player."))
         End If
     End Sub
+
+    Private Function GetGroupString(rank As Group) As String
+        Select Case rank
+            Case Group.Host
+                Return "the host"
+            Case Group.Admin
+                Return "an admin"
+            Case Group.Operator
+                Return "an operator"
+            Case Group.Moderator
+                Return "a moderator"
+            Case Group.Trusted
+                Return "a trusted player"
+            Case Group.User
+                Return "a normal player"
+            Case Group.Limited
+                Return "limited"
+            Case Group.Banned
+                Return "banned"
+            Case Else
+                Return "a player with an unknown rank"
+        End Select
+    End Function
 
     <Command("who", Group.Host)>
     Public Sub WhoCommand(cmd As ICommand(Of Player))
