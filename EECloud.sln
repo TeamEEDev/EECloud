@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud.API", "EECloud.API\EECloud.API.vbproj", "{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud.Launcher", "EECloud.Launcher\EECloud.Launcher.vbproj", "{C79E759B-B7FD-4343-A221-EB68EA4C6A06}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud", "EECloud\EECloud.vbproj", "{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud.Host", "EECloud.Host\EECloud.Host.vbproj", "{D71FCE6C-423C-44DA-8039-B798C7B2DFAA}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "EECloud.Setup", "EECloud.Setup\EECloud.Setup.wixproj", "{D7D5A251-8434-4400-A623-94CE1B15DEBA}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud.API", "EECloud.API\EECloud.API.vbproj", "{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EECloud.Launcher", "EECloud.Launcher\EECloud.Launcher.vbproj", "{C79E759B-B7FD-4343-A221-EB68EA4C6A06}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "EECloud.Setup", "EECloud.Setup\EECloud.Setup.wixproj", "{D7D5A251-8434-4400-A623-94CE1B15DEBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		Release|Mixed Platforms = Release|Mixed Platforms
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}.Release|Mixed Platforms.Build.0 = Release|x86
+		{C79E759B-B7FD-4343-A221-EB68EA4C6A06}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{C79E759B-B7FD-4343-A221-EB68EA4C6A06}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{C79E759B-B7FD-4343-A221-EB68EA4C6A06}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C79E759B-B7FD-4343-A221-EB68EA4C6A06}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{27B0DF5F-91E8-460C-9C18-3F3DE3A2600E}.Release|Mixed Platforms.ActiveCfg = Release|x86
@@ -29,14 +29,14 @@ Global
 		{D71FCE6C-423C-44DA-8039-B798C7B2DFAA}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{D71FCE6C-423C-44DA-8039-B798C7B2DFAA}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{D71FCE6C-423C-44DA-8039-B798C7B2DFAA}.Release|Mixed Platforms.Build.0 = Release|x86
+		{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}.Release|Mixed Platforms.Build.0 = Release|x86
 		{D7D5A251-8434-4400-A623-94CE1B15DEBA}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{D7D5A251-8434-4400-A623-94CE1B15DEBA}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{D7D5A251-8434-4400-A623-94CE1B15DEBA}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{D7D5A251-8434-4400-A623-94CE1B15DEBA}.Release|Mixed Platforms.Build.0 = Release|x86
-		{C79E759B-B7FD-4343-A221-EB68EA4C6A06}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{C79E759B-B7FD-4343-A221-EB68EA4C6A06}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{C79E759B-B7FD-4343-A221-EB68EA4C6A06}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{C79E759B-B7FD-4343-A221-EB68EA4C6A06}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
