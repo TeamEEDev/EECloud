@@ -1,4 +1,6 @@
-﻿Imports System.Reflection
+﻿Imports System.Resources
+
+Imports System.Reflection
 Imports System.Runtime.InteropServices
 
 ' General Information about an assembly is controlled through the following 
@@ -9,7 +11,8 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyTitle("EECloud.Launcher")> 
 <Assembly: AssemblyDescription("EECloud Launcher")> 
-<Assembly: ComVisible(False)>
+<Assembly: ComVisible(False)> 
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
 <Assembly: Guid("6a6f4dcc-1ade-4455-b588-45337b7bf3e7")> 
+<Assembly: NeutralResourcesLanguageAttribute("en")> 
