@@ -27,8 +27,9 @@ Module Module1
     Const SW_HIDE As Integer = 0
     Const SW_SHOW As Integer = 5
 
-    Public WithEvents NotifyIcon As New NotifyIcon With {.Icon = My.Resources.Icon, .Visible = True}
     Public Handle As IntPtr = GetConsoleWindow()
+    Public WithEvents NotifyIcon As New NotifyIcon With {.Icon = My.Resources.Icon, .Visible = True}
+
     Public TempNoAutoHide As Boolean
     Public LastRestart As Date
     Public RestartTry As Integer
@@ -36,8 +37,14 @@ Module Module1
 
 #Region "Properties"
 
-    Private myConsoleVisible As Boolean = True
+    Private ReadOnly mySeparatorText As String = StrDup(Console.BufferWidth - 1, "-")
+    Public ReadOnly Property SeparatorText As String
+        Get
+            Return mySeparatorText
+        End Get
+    End Property
 
+    Private myConsoleVisible As Boolean = True
     Public Property ConsoleVisible As Boolean
         Get
             Return myConsoleVisible
@@ -65,6 +72,7 @@ Module Module1
         If activatedHandle = IntPtr.Zero Then
             Return False
         End If
+
         Dim activeProcId As Integer
         GetWindowThreadProcessId(activatedHandle, activeProcId)
 
@@ -79,11 +87,12 @@ Module Module1
             End Sub
 
         Console.Title = "EECloud"
-        Console.WriteLine("Welcome to EECloud.Launcher")
-        Console.WriteLine("Starting EECloud...")
+        Console.WriteLine("Welcome to EECloud.Launcher" & Environment.NewLine &
+                          "Starting EECloud...")
+
         Do
             LastRestart = Now
-            Console.WriteLine("---------------------------------------------------")
+            Console.WriteLine(SeparatorText)
             'Start Process
             Using p = New Process()
                 p.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}
@@ -111,8 +120,7 @@ Module Module1
                 End If
             End Using
 
-            Console.WriteLine()
-            Console.WriteLine("---------------------------------------------------")
+            Console.WriteLine(Environment.NewLine & SeparatorText)
 
             'Wait if failing too often
             If Now.Subtract(LastRestart).TotalMinutes >= 1 Then
