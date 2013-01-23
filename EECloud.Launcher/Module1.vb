@@ -76,7 +76,7 @@ Module Module1
         Dim activeProcId As Integer
         GetWindowThreadProcessId(activatedHandle, activeProcId)
 
-        Marshal.FreeHGlobal(activatedHandle)
+        Marshal.FreeCoTaskMem(activatedHandle)
 
         Return activeProcId = myEECProcId OrElse activeProcId = myThisProcId
     End Function
