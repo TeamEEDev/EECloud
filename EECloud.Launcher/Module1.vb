@@ -85,30 +85,31 @@ Module Module1
             LastRestart = Now
             Console.WriteLine("---------------------------------------------------")
             'Start Process
-            Dim p = New Process()
-            p.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "/EECloud.exe") With {.UseShellExecute = False}
-            p.Start()
-            myEECProcId = p.Id
+            Using p = New Process()
+                p.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}
+                p.Start()
+                myEECProcId = p.Id
 
-            'Hide Window as it looses focus
-            Do Until p.HasExited
-                If TempNoAutoHide Then
-                    If ApplicationIsActivated() Then
-                        TempNoAutoHide = False
+                'Hide Window as it looses focus
+                Do Until p.HasExited
+                    If TempNoAutoHide Then
+                        If ApplicationIsActivated() Then
+                            TempNoAutoHide = False
+                        End If
+                    ElseIf ConsoleVisible Then
+                        If Not ApplicationIsActivated() Then
+                            ConsoleVisible = False
+                        End If
                     End If
-                ElseIf ConsoleVisible Then
-                    If Not ApplicationIsActivated() Then
-                        ConsoleVisible = False
-                    End If
+
+                    Thread.Sleep(1000)
+                Loop
+
+                'Exit if it exists with a 0 exit code
+                If p.ExitCode = 0 Then
+                    Exit Sub
                 End If
-
-                Thread.Sleep(1000)
-            Loop
-
-            'Exit if it exists with a 0 exit code
-            If p.ExitCode = 0 Then
-                Exit Sub
-            End If
+            End Using
 
             Console.WriteLine()
             Console.WriteLine("---------------------------------------------------")
