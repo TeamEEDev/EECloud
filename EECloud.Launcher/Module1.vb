@@ -95,13 +95,13 @@ Module Module1
         Do
             LastRestart = Now
             Console.WriteLine(SeparatorText)
-            'Start Process
+            'Start process
             Using p = New Process()
                 p.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}
                 p.Start()
                 myEECProcId = p.Id
 
-                'Hide Window as it looses focus
+                'Hide window as it looses focus
                 Do Until p.HasExited
                     If TempNoAutoHide Then
                         If ApplicationIsActivated() Then
@@ -134,7 +134,7 @@ Module Module1
                 RestartTry += 1
             End If
 
-            'Restart 
+            'Restart
             Console.WriteLine("Restarting EECloud...")
         Loop
     End Sub
