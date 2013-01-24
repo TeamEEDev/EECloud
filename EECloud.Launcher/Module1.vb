@@ -21,18 +21,32 @@ Module Module1
     Public Function ShowWindow(hWnd As IntPtr, nCmdShow As Integer) As Boolean
     End Function
 
+    <DllImport("kernel32.dll")>
+    Public Function SetConsoleCtrlHandler(handler As HandlerRoutine, add As Boolean) As Boolean
+    End Function
+
 #End Region
 
 #Region "Fields"
-    Const SW_HIDE As Integer = 0
-    Const SW_SHOW As Integer = 5
-
     Public Handle As IntPtr = GetConsoleWindow()
     Public WithEvents NotifyIcon As New NotifyIcon With {.Icon = My.Resources.Icon, .Visible = True}
 
     Public TempNoAutoHide As Boolean
     Public LastRestart As Date
     Public RestartTry As Integer
+
+    Const SW_HIDE As Integer = 0
+    Const SW_SHOW As Integer = 5
+
+    Public Delegate Function HandlerRoutine(ctrlType As CtrlTypes) As Boolean
+
+    Public Enum CtrlTypes
+        CTRL_C_EVENT = 0
+        CTRL_BREAK_EVENT
+        CTRL_CLOSE_EVENT
+        CTRL_LOGOFF_EVENT = 5
+        CTRL_SHUTDOWN_EVENT
+    End Enum
 #End Region
 
 #Region "Properties"
@@ -80,7 +94,7 @@ Module Module1
     End Function
 
     Sub Main()
-        AddHandler AppDomain.CurrentDomain.ProcessExit, AddressOf OnProcessExit
+        SetConsoleCtrlHandler(New HandlerRoutine(AddressOf ConsoleCtrlCheck), True)
         AddHandler NotifyIcon.Click,
             Sub()
                 TempNoAutoHide = True
@@ -138,9 +152,15 @@ Module Module1
         Loop
     End Sub
 
-    Private Sub OnProcessExit(sender As Object, e As EventArgs)
+    Private isClosing As Boolean = False
+
+    Private Function ConsoleCtrlCheck(ctrlType As CtrlTypes) As Boolean
+        'TODO: Wait for plugins operations to stop
+
         NotifyIcon.Dispose()
-    End Sub
+
+        Return False
+    End Function
 
 #End Region
 End Module
