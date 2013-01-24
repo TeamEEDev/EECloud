@@ -152,8 +152,6 @@ Module Module1
         Loop
     End Sub
 
-    Private isClosing As Boolean = False
-
     Private Function ConsoleCtrlCheck(ctrlType As CtrlTypes) As Boolean
         'TODO: Wait for plugins to stop properly
 
