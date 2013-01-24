@@ -35,6 +35,8 @@ Module Module1
     Public Handle As IntPtr = GetConsoleWindow()
     Public WithEvents NotifyIcon As New NotifyIcon With {.Icon = My.Resources.Icon, .Visible = True}
 
+    Private AppProcess As New Process With {.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}}
+
     Public TempNoAutoHide As Boolean
     Public LastRestart As Date
     Public RestartTry As Integer
@@ -114,31 +116,28 @@ Module Module1
             LastRestart = Now
             Console.WriteLine(SeparatorText)
             'Start process
-            Using p = New Process()
-                p.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}
-                p.Start()
-                myEECProcId = p.Id
+            AppProcess.Start()
+            myEECProcId = AppProcess.Id
 
-                'Hide window as it looses focus
-                Do Until p.HasExited
-                    If TempNoAutoHide Then
-                        If ApplicationIsActivated() Then
-                            TempNoAutoHide = False
-                        End If
-                    ElseIf ConsoleVisible Then
-                        If Not ApplicationIsActivated() Then
-                            ConsoleVisible = False
-                        End If
+            'Hide window as it looses focus
+            Do Until AppProcess.HasExited
+                If TempNoAutoHide Then
+                    If ApplicationIsActivated() Then
+                        TempNoAutoHide = False
                     End If
-
-                    Thread.Sleep(1000)
-                Loop
-
-                'Exit if it exists with a 0 exit code
-                If p.ExitCode = 0 Then
-                    Exit Sub
+                ElseIf ConsoleVisible Then
+                    If Not ApplicationIsActivated() Then
+                        ConsoleVisible = False
+                    End If
                 End If
-            End Using
+
+                Thread.Sleep(1000)
+            Loop
+
+            'Exit if it exists with a 0 exit code
+            If AppProcess.ExitCode = 0 Then
+                Exit Sub
+            End If
 
             Console.WriteLine(Environment.NewLine & SeparatorText)
 
@@ -158,6 +157,8 @@ Module Module1
     End Sub
 
     Private Function ConsoleCtrlCheck(ctrlType As CtrlTypes) As Boolean
+        AppProcess.Dispose()
+
         'TODO: Wait for plugins to stop properly
 
         NotifyIcon.Dispose()
