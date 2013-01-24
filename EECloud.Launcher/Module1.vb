@@ -136,7 +136,8 @@ Module Module1
 
             'Exit if it exists with a 0 exit code
             If AppProcess.ExitCode = 0 Then
-                Exit Sub
+                Close(False)
+                End
             End If
 
             Console.WriteLine(Environment.NewLine & SeparatorText)
@@ -156,12 +157,18 @@ Module Module1
         Loop
     End Sub
 
-    Private Function ConsoleCtrlCheck(ctrlType As CtrlTypes) As Boolean
+    Sub Close(Optional waitForPlugins As Boolean = True)
         AppProcess.Dispose()
 
-        'TODO: Wait for plugins to stop properly
+        If waitForPlugins Then
+            'TODO: Wait for plugins to stop properly
+        End If
 
         NotifyIcon.Dispose()
+    End Sub
+
+    Private Function ConsoleCtrlCheck(ctrlType As CtrlTypes) As Boolean
+        Close()
 
         Return False
     End Function
