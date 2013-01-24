@@ -102,7 +102,7 @@
     <Compile Include="Client\PotionManager\PotionManager.vb" />
     <Compile Include="Client\Uploader\Uploader.vb" />
     <Compile Include="Client\World\World.vb" />
-    <Compile Include="DefaultCommandListner.vb" />
+    <Compile Include="DefaultCommandListener.vb" />
     <Compile Include="Deque\Deque.Enumrator.vb" />
     <Compile Include="Deque\Deque.Node.vb" />
     <Compile Include="Deque\Deque.Synchronized.vb" />
