@@ -155,7 +155,7 @@ Module Module1
     Private isClosing As Boolean = False
 
     Private Function ConsoleCtrlCheck(ctrlType As CtrlTypes) As Boolean
-        'TODO: Wait for plugins operations to stop
+        'TODO: Wait for plugins to stop properly
 
         NotifyIcon.Dispose()
 
