@@ -21,8 +21,8 @@ Module ModuleMain
     Private Function AppDomain_AssemblyResolve(sender As Object, e As ResolveEventArgs) As Assembly
         Dim assemblyName As String = e.Name.Split(","c)(0)
         Try
-            Return Assembly.LoadFile(My.Application.Info.DirectoryPath & "\plugins\" & assemblyName & ".dll")
-        Catch ex As Exception
+            Return Assembly.LoadFile(My.Application.Info.DirectoryPath & "\Plugins\" & assemblyName & ".dll")
+        Catch
             Return Nothing
         End Try
     End Function
@@ -35,31 +35,36 @@ Module ModuleMain
         Try
             Using webClient As New WebClient()
                 Dim version As String = Await webClient.DownloadStringTaskAsync(New Uri("http://dl.dropbox.com/u/13946635/EECloud/Version.txt"))
-                If New Version(version) > My.Application.Info.Version AndAlso MsgBox(String.Format("There is an update available (Version {0}), do you want to update?", version), vbYesNo, "Update") = MsgBoxResult.Yes Then
+                If New Version(version) > My.Application.Info.Version AndAlso MsgBox(String.Format("An update is available (version {0}). Do you want to update now?", version), DirectCast(vbYesNo + vbInformation, MsgBoxStyle), "Update available") = MsgBoxResult.Yes Then
                     'Download
                     Await webClient.DownloadFileTaskAsync(New Uri("http://dl.dropbox.com/u/13946635/EECloud/EECloud.Setup.msi"), My.Application.Info.DirectoryPath & "\EECloud.msi")
+
                     'Notify user
-                    MsgBox("Update ready. Press OK to start updating.", MsgBoxStyle.OkOnly, "Update")
+                    MsgBox("The update has been downloaded and it's ready to be installed. Press OK to start updating!", DirectCast(vbOKOnly + vbInformation, MsgBoxStyle), "Update ready")
+
                     'Write a batch file
-                    Using writer As New StreamWriter(My.Application.Info.DirectoryPath & "\update.bat")
+                    Using writer As New StreamWriter(My.Application.Info.DirectoryPath & "\Update.bat")
                         writer.WriteLine("start /w EECloud.msi")
                         writer.WriteLine("del EECloud.msi")
                         writer.WriteLine("start EECloud.exe")
                         writer.WriteLine("del %0")
                     End Using
+
                     'Start the batch file
                     Dim process As New Process()
                     process.StartInfo.CreateNoWindow = True
                     process.StartInfo.RedirectStandardOutput = True
                     process.StartInfo.UseShellExecute = False
-                    process.StartInfo.FileName = My.Application.Info.DirectoryPath & "\update.bat"
+                    process.StartInfo.FileName = My.Application.Info.DirectoryPath & "\Update.bat"
                     process.Start()
                     'Exit
                     End
                 End If
             End Using
         Catch ex As Exception
-            MsgBox("Failed to check for updates: " + ex.ToString, vbOKOnly, "Error")
+            MsgBox("Failed to check for updates: " & Environment.NewLine &
+                   ex.ToString(),
+                   DirectCast(vbOKOnly + vbExclamation, MsgBoxStyle), "Error")
         End Try
     End Sub
 

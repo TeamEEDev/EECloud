@@ -42,7 +42,7 @@ Public NotInheritable Class EECloud
         SetLoginData(username, password, type, worldID)
         Init(False, False, True)
         CheckLicense()
-        Client.CommandManager.Load(New DefaultCommandListner(Client))
+        Client.CommandManager.Load(New DefaultCommandListener(Client))
 
         LoadDir(My.Application.Info.DirectoryPath)
 
@@ -54,7 +54,7 @@ Public NotInheritable Class EECloud
         Init(False, False, False)
         CheckLicense()
         Dim loginTask As Task = ShowLogin()
-        Client.CommandManager.Load(New DefaultCommandListner(Client))
+        Client.CommandManager.Load(New DefaultCommandListener(Client))
 
         LoadDir(My.Application.Info.DirectoryPath)
         Dim pluginDir As String = My.Application.Info.DirectoryPath & "\Plugins"
@@ -76,7 +76,7 @@ Public NotInheritable Class EECloud
         Init(True, False, False)
         CheckLicense()
         Dim loginTask As Task = ShowLogin()
-        Client.CommandManager.Load(New DefaultCommandListner(Client))
+        Client.CommandManager.Load(New DefaultCommandListener(Client))
         Client.PluginManager.Load(plugin)
 
         If Not loginTask.IsCompleted Then

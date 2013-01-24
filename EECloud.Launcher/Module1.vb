@@ -80,6 +80,7 @@ Module Module1
     End Function
 
     Sub Main()
+        AddHandler AppDomain.CurrentDomain.ProcessExit, AddressOf OnProcessExit
         AddHandler NotifyIcon.Click,
             Sub()
                 TempNoAutoHide = True
@@ -135,6 +136,10 @@ Module Module1
             'Restart
             Console.WriteLine("Restarting EECloud...")
         Loop
+    End Sub
+
+    Private Sub OnProcessExit(sender As Object, e As EventArgs)
+        NotifyIcon.Dispose()
     End Sub
 
 #End Region

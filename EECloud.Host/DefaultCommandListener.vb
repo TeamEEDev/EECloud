@@ -1,6 +1,6 @@
 ﻿Imports System.Threading
 
-Friend NotInheritable Class DefaultCommandListner
+Friend NotInheritable Class DefaultCommandListener
 
 #Region "Fields"
     Private ReadOnly myClient As IClient(Of Player)
