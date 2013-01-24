@@ -9,11 +9,15 @@ Module Module1
     Public Function GetForegroundWindow() As IntPtr
     End Function
 
+    <DllImport("user32.dll")>
+    Private Function SetForegroundWindow(handle As IntPtr) As <MarshalAs(UnmanagedType.Bool)> Boolean
+    End Function
+
     <DllImport("user32.dll", CharSet:=CharSet.Auto, SetLastError:=True)>
     Public Function GetWindowThreadProcessId(handle As IntPtr, ByRef processId As Integer) As Integer
     End Function
 
-    <DllImport("kernel32.dll")>
+    <DllImport("kernel32.dll", SetLastError:=True)>
     Public Function GetConsoleWindow() As IntPtr
     End Function
 
@@ -36,7 +40,7 @@ Module Module1
     Public RestartTry As Integer
 
     Const SW_HIDE As Integer = 0
-    Const SW_SHOW As Integer = 5
+    Const SW_RESTORE As Integer = 9
 
     Public Delegate Function HandlerRoutine(ctrlType As CtrlTypes) As Boolean
 
@@ -65,7 +69,8 @@ Module Module1
         End Get
         Set(value As Boolean)
             If value Then
-                ShowWindow(Handle, SW_SHOW)
+                ShowWindow(Handle, SW_RESTORE)
+                SetForegroundWindow(GetConsoleWindow())
             Else
                 ShowWindow(Handle, SW_HIDE)
             End If
