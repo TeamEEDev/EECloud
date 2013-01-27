@@ -325,6 +325,14 @@
         End Get
     End Property
 
+    Private myProtectionPotion As Boolean
+
+    Public ReadOnly Property ProtectionPotion As Boolean Implements IPlayer.ProtectionPotion
+        Get
+            Return myProtectionPotion
+        End Get
+    End Property
+
     Private myLastPotion As Potion?
 
     Public ReadOnly Property LastPotion As Potion? Implements IPlayer.LastPotion
@@ -507,14 +515,16 @@
                     myBlueAuraPotion = e.Enabled
                 Case Potion.YellowAura
                     myYellowAuraPotion = e.Enabled
-                Case Potion.Jump
-                    myJumpPotion = e.Enabled
                 Case Potion.GreenAura
                     myGreenAuraPotion = e.Enabled
-                Case Potion.Fire
-                    myFirePotion = e.Enabled
+                Case Potion.Jump
+                    myJumpPotion = e.Enabled
                 Case Potion.Curse
                     myCursePotion = e.Enabled
+                Case Potion.Fire
+                    myFirePotion = e.Enabled
+                Case Potion.Protection
+                    myProtectionPotion = e.Enabled
             End Select
         End If
     End Sub

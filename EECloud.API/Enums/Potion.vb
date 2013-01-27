@@ -6,5 +6,5 @@
     GreenAura = 5
     Fire = 6
     Curse = 7
-    'Protection = 8
+    Protection = 8
 End Enum

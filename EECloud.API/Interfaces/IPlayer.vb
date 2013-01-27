@@ -43,8 +43,9 @@
     ReadOnly Property YellowAuraPotion As Boolean
     ReadOnly Property JumpPotion As Boolean
     ReadOnly Property GreenAuraPotion As Boolean
-    ReadOnly Property FirePotion As Boolean
     ReadOnly Property CursePotion As Boolean
+    ReadOnly Property FirePotion As Boolean
+    ReadOnly Property ProtectionPotion As Boolean
 
     Property Group As Group
 
