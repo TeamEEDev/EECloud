@@ -9,5 +9,6 @@
 *.csproj merge=union text
 
 # VB.NET
+*.vb     text eol=lf
 *.vbproj merge=union text
 *.sln    merge=union text
