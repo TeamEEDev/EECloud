@@ -64,18 +64,18 @@
         End Set
     End Property
 
+    Public ReadOnly Property IsGuest As Boolean Implements IPlayer.IsGuest
+        Get
+            'Not my fault for this being the way it is done in the swf
+            Return Username.Contains("-"c)
+        End Get
+    End Property
+
     Private myIsGod As Boolean
 
     Friend ReadOnly Property IsGod As Boolean Implements IPlayer.IsGod
         Get
             Return myIsGod
-        End Get
-    End Property
-
-    Public ReadOnly Property IsGuest As Boolean Implements IPlayer.IsGuest
-        Get
-            'Not my fault for this being the way it is done in the swf
-            Return Username.Contains("-"c)
         End Get
     End Property
 
