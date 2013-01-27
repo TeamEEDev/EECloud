@@ -38,10 +38,10 @@
 
 #Region "Properties"
 
-    Public ReadOnly Property Coins As Integer Implements IPlayer.Coins
+    Public ReadOnly Property Username As String Implements IPlayer.Username
         Get
             Try
-                Return myPlayer.Coins
+                Return myPlayer.Username
             Catch ex As Exception
                 Return Nothing
             End Try
@@ -58,40 +58,47 @@
         End Get
     End Property
 
-    Public ReadOnly Property Username As String Implements IPlayer.Username
+    Public ReadOnly Property IsUserDataReady As Boolean Implements IPlayer.IsUserDataReady
         Get
             Try
-                Return myPlayer.Username
+                Return myPlayer.IsUserDataReady
             Catch ex As Exception
                 Return Nothing
             End Try
         End Get
     End Property
 
-    Public ReadOnly Property Smiley As Smiley Implements IPlayer.Smiley
+    Public ReadOnly Property DatabaseName As String Implements IPlayer.DatabaseName
         Get
             Try
-                Return myPlayer.Smiley
+                Return myPlayer.DatabaseName
             Catch ex As Exception
                 Return Nothing
             End Try
         End Get
     End Property
 
-    Public ReadOnly Property HasChat As Boolean Implements IPlayer.HasChat
+    Public Property Group As Group Implements IPlayer.Group
         Get
             Try
-                Return myPlayer.HasChat
+                Return myPlayer.Group
             Catch ex As Exception
                 Return Nothing
             End Try
         End Get
+
+        Set(value As Group)
+            Try
+                myPlayer.Group = value
+            Catch
+            End Try
+        End Set
     End Property
 
-    Public ReadOnly Property Horizontal As Double Implements IPlayer.Horizontal
+    Public ReadOnly Property IsGuest As Boolean Implements IPlayer.IsGuest
         Get
             Try
-                Return myPlayer.Horizontal
+                Return myPlayer.IsGuest
             Catch ex As Exception
                 Return Nothing
             End Try
@@ -128,137 +135,60 @@
         End Get
     End Property
 
-    Public ReadOnly Property ModifierX As Double Implements IPlayer.ModifierX
+    Public ReadOnly Property IsClubMember As Boolean Implements IPlayer.IsClubMember
         Get
             Try
-                Return myPlayer.ModifierX
+                Return myPlayer.IsClubMember
             Catch ex As Exception
                 Return Nothing
             End Try
         End Get
     End Property
 
-    Public ReadOnly Property ModifierY As Double Implements IPlayer.ModifierY
+    Public ReadOnly Property IsDisconnected As Boolean Implements IPlayer.IsDisconnected
         Get
             Try
-                Return myPlayer.ModifierY
+                Return myPlayer.IsDisconnected
             Catch ex As Exception
                 Return Nothing
             End Try
         End Get
     End Property
 
-    Public ReadOnly Property PlayerPosX As Integer Implements IPlayer.PlayerPosX
+    Public ReadOnly Property HasChat As Boolean Implements IPlayer.HasChat
         Get
             Try
-                Return myPlayer.PlayerPosX
+                Return myPlayer.HasChat
             Catch ex As Exception
                 Return Nothing
             End Try
         End Get
     End Property
 
-    Public ReadOnly Property PlayerPosY As Integer Implements IPlayer.PlayerPosY
+    Public ReadOnly Property MagicClass As MagicClass Implements IPlayer.MagicClass
         Get
             Try
-                Return myPlayer.PlayerPosY
+                Return myPlayer.MagicClass
             Catch ex As Exception
                 Return Nothing
             End Try
         End Get
     End Property
 
-    Public ReadOnly Property SpeedX As Double Implements IPlayer.SpeedX
+    Public ReadOnly Property Smiley As Smiley Implements IPlayer.Smiley
         Get
             Try
-                Return myPlayer.SpeedX
+                Return myPlayer.Smiley
             Catch ex As Exception
                 Return Nothing
             End Try
         End Get
     End Property
 
-    Public ReadOnly Property SpeedY As Double Implements IPlayer.SpeedY
+    Public ReadOnly Property Coins As Integer Implements IPlayer.Coins
         Get
             Try
-                Return myPlayer.SpeedY
-            Catch ex As Exception
-                Return Nothing
-            End Try
-        End Get
-    End Property
-
-    Public ReadOnly Property Vertical As Double Implements IPlayer.Vertical
-        Get
-            Try
-                Return myPlayer.Vertical
-            Catch ex As Exception
-                Return Nothing
-            End Try
-        End Get
-    End Property
-
-    Friend ReadOnly Property HasSilverCrown As Boolean Implements IPlayer.HasSilverCrown
-        Get
-            Try
-                Return myPlayer.HasSilverCrown
-            Catch ex As Exception
-                Return Nothing
-            End Try
-        End Get
-    End Property
-
-    Friend ReadOnly Property HasCrown As Boolean Implements IPlayer.HasCrown
-        Get
-            Try
-                Return myPlayer.HasCrown
-            Catch ex As Exception
-                Return Nothing
-            End Try
-        End Get
-    End Property
-
-    Public Property Group As Group Implements IPlayer.Group
-        Get
-            Try
-                Return myPlayer.Group
-            Catch ex As Exception
-                Return Nothing
-            End Try
-        End Get
-
-        Set(value As Group)
-            Try
-                myPlayer.Group = value
-            Catch
-            End Try
-        End Set
-    End Property
-
-    Public ReadOnly Property BlueAuraPotion As Boolean Implements IPlayer.BlueAuraPotion
-        Get
-            Try
-                Return myPlayer.BlueAuraPotion
-            Catch ex As Exception
-                Return Nothing
-            End Try
-        End Get
-    End Property
-
-    Public ReadOnly Property RedAuraPotion As Boolean Implements IPlayer.RedAuraPotion
-        Get
-            Try
-                Return myPlayer.RedAuraPotion
-            Catch ex As Exception
-                Return Nothing
-            End Try
-        End Get
-    End Property
-
-    Public ReadOnly Property YellowAuraPotion As Boolean Implements IPlayer.YellowAuraPotion
-        Get
-            Try
-                Return myPlayer.YellowAuraPotion
+                Return myPlayer.Coins
             Catch ex As Exception
                 Return Nothing
             End Try
@@ -285,6 +215,26 @@
         End Get
     End Property
 
+    Public ReadOnly Property PlayerPosX As Integer Implements IPlayer.PlayerPosX
+        Get
+            Try
+                Return myPlayer.PlayerPosX
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property PlayerPosY As Integer Implements IPlayer.PlayerPosY
+        Get
+            Try
+                Return myPlayer.PlayerPosY
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
     Public ReadOnly Property BlockX As Integer Implements IPlayer.BlockX
         Get
             Try
@@ -305,10 +255,60 @@
         End Get
     End Property
 
-    Public ReadOnly Property AutoText As String Implements IPlayer.AutoText
+    Public ReadOnly Property SpeedX As Double Implements IPlayer.SpeedX
         Get
             Try
-                Return myPlayer.AutoText
+                Return myPlayer.SpeedX
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property SpeedY As Double Implements IPlayer.SpeedY
+        Get
+            Try
+                Return myPlayer.SpeedY
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property ModifierX As Double Implements IPlayer.ModifierX
+        Get
+            Try
+                Return myPlayer.ModifierX
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property ModifierY As Double Implements IPlayer.ModifierY
+        Get
+            Try
+                Return myPlayer.ModifierY
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property Vertical As Double Implements IPlayer.Vertical
+        Get
+            Try
+                Return myPlayer.Vertical
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property Horizontal As Double Implements IPlayer.Horizontal
+        Get
+            Try
+                Return myPlayer.Horizontal
             Catch ex As Exception
                 Return Nothing
             End Try
@@ -325,20 +325,60 @@
         End Get
     End Property
 
-    Public ReadOnly Property IsUserDataReady As Boolean Implements IPlayer.IsUserDataReady
+    Public ReadOnly Property AutoText As String Implements IPlayer.AutoText
         Get
             Try
-                Return myPlayer.IsUserDataReady
+                Return myPlayer.AutoText
             Catch ex As Exception
                 Return Nothing
             End Try
         End Get
     End Property
 
-    Public ReadOnly Property MagicClass As MagicClass Implements IPlayer.MagicClass
+    Friend ReadOnly Property HasCrown As Boolean Implements IPlayer.HasCrown
         Get
             Try
-                Return myPlayer.MagicClass
+                Return myPlayer.HasCrown
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Friend ReadOnly Property HasSilverCrown As Boolean Implements IPlayer.HasSilverCrown
+        Get
+            Try
+                Return myPlayer.HasSilverCrown
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property RedAuraPotion As Boolean Implements IPlayer.RedAuraPotion
+        Get
+            Try
+                Return myPlayer.RedAuraPotion
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property BlueAuraPotion As Boolean Implements IPlayer.BlueAuraPotion
+        Get
+            Try
+                Return myPlayer.BlueAuraPotion
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property YellowAuraPotion As Boolean Implements IPlayer.YellowAuraPotion
+        Get
+            Try
+                Return myPlayer.YellowAuraPotion
             Catch ex As Exception
                 Return Nothing
             End Try
@@ -365,40 +405,30 @@
         End Get
     End Property
 
-    Public ReadOnly Property IsClubMember As Boolean Implements IPlayer.IsClubMember
+    Public ReadOnly Property CursePotion As Boolean Implements IPlayer.CursePotion
         Get
             Try
-                Return myPlayer.IsClubMember
+                Return myPlayer.CursePotion
             Catch ex As Exception
                 Return Nothing
             End Try
         End Get
     End Property
 
-    Public ReadOnly Property IsDisconnected As Boolean Implements IPlayer.IsDisconnected
+    Public ReadOnly Property FirePotion As Boolean Implements IPlayer.FirePotion
         Get
             Try
-                Return myPlayer.IsDisconnected
+                Return myPlayer.FirePotion
             Catch ex As Exception
                 Return Nothing
             End Try
         End Get
     End Property
 
-    Public ReadOnly Property IsGuest As Boolean Implements IPlayer.IsGuest
+    Public ReadOnly Property ProtectionPotion As Boolean Implements IPlayer.ProtectionPotion
         Get
             Try
-                Return myPlayer.IsGuest
-            Catch ex As Exception
-                Return Nothing
-            End Try
-        End Get
-    End Property
-
-    Public ReadOnly Property DatabaseName As String Implements IPlayer.DatabaseName
-        Get
-            Try
-                Return myPlayer.DatabaseName
+                Return myPlayer.ProtectionPotion
             Catch ex As Exception
                 Return Nothing
             End Try
@@ -429,36 +459,6 @@
         Get
             Try
                 Return myPlayer.LastPotionTimeout
-            Catch ex As Exception
-                Return Nothing
-            End Try
-        End Get
-    End Property
-
-    Public ReadOnly Property FirePotion As Boolean Implements IPlayer.FirePotion
-        Get
-            Try
-                Return myPlayer.FirePotion
-            Catch ex As Exception
-                Return Nothing
-            End Try
-        End Get
-    End Property
-
-    Public ReadOnly Property CursePotion As Boolean Implements IPlayer.CursePotion
-        Get
-            Try
-                Return myPlayer.CursePotion
-            Catch ex As Exception
-                Return Nothing
-            End Try
-        End Get
-    End Property
-
-    Public ReadOnly Property ProtectionPotion As Boolean Implements IPlayer.ProtectionPotion
-        Get
-            Try
-                Return myPlayer.ProtectionPotion
             Catch ex As Exception
                 Return Nothing
             End Try
