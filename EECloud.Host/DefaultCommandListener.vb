@@ -48,6 +48,7 @@ Friend NotInheritable Class DefaultCommandListener
                 pinging = True
                 Call New Thread(Sub(obj As Object)
                                     MsgBox("Ping from user: " & cmd.Sender.Username)
+                                    Beep()
                                     pinging = False
                                 End Sub).Start()
             Else
