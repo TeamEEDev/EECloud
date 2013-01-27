@@ -455,6 +455,16 @@
         End Get
     End Property
 
+    Public ReadOnly Property ProtectionPotion As Boolean Implements IPlayer.ProtectionPotion
+        Get
+            Try
+                Return myPlayer.ProtectionPotion
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
 #End Region
 
 #Region "Methods"

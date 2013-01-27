@@ -6,19 +6,20 @@
 #End Region
 
 #Region "Properties"
-    Private myBlueAuraPotionCount As Integer
-
-    Friend ReadOnly Property BlueAuraPotionCount As Integer Implements IPotionManager.BlueAuraPotionCount
-        Get
-            Return myBlueAuraPotionCount
-        End Get
-    End Property
 
     Private myRedAuraPotionCount As Integer
 
     Friend ReadOnly Property RedAuraPotionCount As Integer Implements IPotionManager.RedAuraPotionCount
         Get
             Return myRedAuraPotionCount
+        End Get
+    End Property
+
+    Private myBlueAuraPotionCount As Integer
+
+    Friend ReadOnly Property BlueAuraPotionCount As Integer Implements IPotionManager.BlueAuraPotionCount
+        Get
+            Return myBlueAuraPotionCount
         End Get
     End Property
 
@@ -46,6 +47,14 @@
         End Get
     End Property
 
+    Private myCursePotionCount As Integer
+
+    Public ReadOnly Property CursePotionCount As Integer Implements IPotionManager.CursePotionCount
+        Get
+            Return myCursePotionCount
+        End Get
+    End Property
+
     Private myFirePotionCount As Integer
 
     Public ReadOnly Property FirePotionCount As Integer Implements IPotionManager.FirePotionCount
@@ -54,11 +63,11 @@
         End Get
     End Property
 
-    Private myCursePotionCount As Integer
+    Private myProtectionPotionCount As Integer
 
-    Public ReadOnly Property CursePotionCount As Integer Implements IPotionManager.CursePotionCount
+    Public ReadOnly Property ProtectionPotionCount As Integer Implements IPotionManager.ProtectionPotionCount
         Get
-            Return myCursePotionCount
+            Return myProtectionPotionCount
         End Get
     End Property
 
@@ -89,14 +98,16 @@
                     myRedAuraPotionCount = e.PlayerIOMessage.GetInteger(pointer)
                 Case Potion.YellowAura
                     myYellowAuraPotionCount = e.PlayerIOMessage.GetInteger(pointer)
-                Case Potion.Jump
-                    myJumpPotionCount = e.PlayerIOMessage.GetInteger(pointer)
                 Case Potion.GreenAura
                     myGreenAuraPotionCount = e.PlayerIOMessage.GetInteger(pointer)
-                Case Potion.Fire
-                    myFirePotionCount = e.PlayerIOMessage.GetInteger(pointer)
+                Case Potion.Jump
+                    myJumpPotionCount = e.PlayerIOMessage.GetInteger(pointer)
                 Case Potion.Curse
                     myCursePotionCount = e.PlayerIOMessage.GetInteger(pointer)
+                Case Potion.Fire
+                    myFirePotionCount = e.PlayerIOMessage.GetInteger(pointer)
+                Case Potion.Protection
+                    myProtectionPotionCount = e.PlayerIOMessage.GetInteger(pointer)
             End Select
             pointer = CUInt(pointer - 2)
         Loop
