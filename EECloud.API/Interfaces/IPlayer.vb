@@ -53,6 +53,7 @@
     Function ReloadUserDataAsync() As Task
     Sub Reply(msg As String)
     Sub Kick(msg As String)
+    Sub Kick()
     Sub GiveEdit()
     Sub RemoveEdit()
     Sub Kill()
