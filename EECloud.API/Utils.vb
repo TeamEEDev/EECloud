@@ -22,7 +22,7 @@
 
     Friend ReadOnly Property IsRotatable(id As Block) As Boolean
         Get
-            Return id = Block.BlockHazardSpike OrElse id = Block.BlockHazardFire
+            Return id = Block.BlockHazardSpike
         End Get
     End Property
 
