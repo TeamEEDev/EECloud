@@ -302,19 +302,26 @@ Friend NotInheritable Class DefaultCommandListener
 
     <Command("kick", Group.Trusted, AccessRight:=AccessRight.Owner, Aliases:={"ki", "kickp", "kickplayer"})>
     Public Sub KickCommand(cmd As ICommand(Of Player), player As String, ParamArray reason As String())
-        KickPlayer(cmd, player, String.Join(" ", reason))
+        Dim player1 As Player = myClient.PlayerManager.Player(player)
+        If player1 IsNot Nothing Then
+            If cmd.Sender Is Nothing OrElse cmd.Sender.Group >= Group.Operator OrElse player1.Group <= cmd.Sender.Group Then
+                player1.Kick(String.Join(" ", reason))
+
+                cmd.Reply("Kicked.")
+            Else
+                cmd.Reply(String.Format("Not allowed to kick a player with a higher rank that yourself."))
+            End If
+        Else
+            cmd.Reply("Can not find player.")
+        End If
     End Sub
 
     <Command("kick", Group.Trusted, AccessRight:=AccessRight.Owner, Aliases:={"ki", "kickp", "kickplayer"})>
     Public Sub KickCommand(cmd As ICommand(Of Player), player As String)
-        KickPlayer(cmd, player, "Tsk tsk tsk")
-    End Sub
-
-    Private Sub KickPlayer(cmd As ICommand(Of Player), player As String, reason As String)
         Dim player1 As Player = myClient.PlayerManager.Player(player)
         If player1 IsNot Nothing Then
             If cmd.Sender Is Nothing OrElse cmd.Sender.Group >= Group.Operator OrElse player1.Group <= cmd.Sender.Group Then
-                player1.Kick(reason)
+                player1.Kick()
 
                 cmd.Reply("Kicked.")
             Else

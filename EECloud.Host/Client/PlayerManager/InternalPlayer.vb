@@ -552,5 +552,9 @@
         myClient.Chatter.Teleport(Username, x, y)
     End Sub
 
+    Public Sub Kick() Implements IPlayer.Kick
+        myClient.Chatter.Kick(myUsername)
+    End Sub
+
 #End Region
 End Class
