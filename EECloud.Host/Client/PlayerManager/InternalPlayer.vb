@@ -17,27 +17,11 @@
 #End Region
 
 #Region "Properties"
-    Private myCoins As Integer
+    Private ReadOnly myUsername As String
 
-    Friend ReadOnly Property Coins As Integer Implements IPlayer.Coins
+    Friend ReadOnly Property Username As String Implements IPlayer.Username
         Get
-            Return myCoins
-        End Get
-    End Property
-
-    Private myPlayerPosX As Integer
-
-    Friend ReadOnly Property PlayerPosX As Integer Implements IPlayer.PlayerPosX
-        Get
-            Return myPlayerPosX
-        End Get
-    End Property
-
-    Private myPlayerPosY As Integer
-
-    Friend ReadOnly Property PlayerPosY As Integer Implements IPlayer.PlayerPosY
-        Get
-            Return myPlayerPosY
+            Return myUsername
         End Get
     End Property
 
@@ -49,36 +33,35 @@
         End Get
     End Property
 
-    Private ReadOnly myUsername As String
+    Private myIsUserDataReady As Boolean
 
-    Friend ReadOnly Property Username As String Implements IPlayer.Username
+    Public ReadOnly Property IsUserDataReady As Boolean Implements IPlayer.IsUserDataReady
         Get
-            Return myUsername
+            Return myIsUserDataReady
         End Get
     End Property
 
-    Private mySmiley As Smiley
-
-    Friend ReadOnly Property Smiley As Smiley Implements IPlayer.Smiley
+    Public ReadOnly Property DatabaseName As String Implements IPlayer.DatabaseName
         Get
-            Return mySmiley
+            If IsGuest Then
+                Return "guest"
+            Else
+                Return Username
+            End If
         End Get
     End Property
 
-    Private ReadOnly myHasChat As Boolean
+    Private myGroup As Group
 
-    Friend ReadOnly Property HasChat As Boolean Implements IPlayer.HasChat
+    Friend Property Group As Group Implements IPlayer.Group
         Get
-            Return myHasChat
+            Return myGroup
         End Get
-    End Property
 
-    Private myHorizontal As Double
-
-    Friend ReadOnly Property Horizontal As Double Implements IPlayer.Horizontal
-        Get
-            Return myHorizontal
-        End Get
+        Set(value As Group)
+            myGroup = value
+            RaiseEvent GroupChange(Me, EventArgs.Empty)
+        End Set
     End Property
 
     Private myIsGod As Boolean
@@ -86,6 +69,13 @@
     Friend ReadOnly Property IsGod As Boolean Implements IPlayer.IsGod
         Get
             Return myIsGod
+        End Get
+    End Property
+
+    Public ReadOnly Property IsGuest As Boolean Implements IPlayer.IsGuest
+        Get
+            'Not my fault for this being the way it is done in the swf
+            Return Username.Contains("-"c)
         End Get
     End Property
 
@@ -105,98 +95,51 @@
         End Get
     End Property
 
-    Private myModifierX As Double
+    Private ReadOnly myIsClubMember As Boolean
 
-    Friend ReadOnly Property ModifierX As Double Implements IPlayer.ModifierX
+    Public ReadOnly Property IsClubMember As Boolean Implements IPlayer.IsClubMember
         Get
-            Return myModifierX
+            Return myIsClubMember
         End Get
     End Property
 
-    Private myModifierY As Double
+    Private myIsDisconnected As Boolean
 
-    Friend ReadOnly Property ModifierY As Double Implements IPlayer.ModifierY
+    Public ReadOnly Property IsDisconnected As Boolean Implements IPlayer.IsDisconnected
         Get
-            Return myModifierY
+            Return myIsDisconnected
         End Get
     End Property
 
-    Private mySpeedX As Double
+    Private ReadOnly myHasChat As Boolean
 
-    Friend ReadOnly Property SpeedX As Double Implements IPlayer.SpeedX
+    Friend ReadOnly Property HasChat As Boolean Implements IPlayer.HasChat
         Get
-            Return mySpeedX
+            Return myHasChat
         End Get
     End Property
 
-    Private mySpeedY As Double
+    Private myMagicClass As MagicClass
 
-    Friend ReadOnly Property SpeedY As Double Implements IPlayer.SpeedY
+    Public ReadOnly Property MagicClass As MagicClass Implements IPlayer.MagicClass
         Get
-            Return mySpeedY
+            Return myMagicClass
         End Get
     End Property
 
-    Private myVertical As Double
+    Private mySmiley As Smiley
 
-    Friend ReadOnly Property Vertical As Double Implements IPlayer.Vertical
+    Friend ReadOnly Property Smiley As Smiley Implements IPlayer.Smiley
         Get
-            Return myVertical
+            Return mySmiley
         End Get
     End Property
 
-    Private myHasSilverCrown As Boolean
+    Private myCoins As Integer
 
-    Friend ReadOnly Property HasSilverCrown As Boolean Implements IPlayer.HasSilverCrown
+    Friend ReadOnly Property Coins As Integer Implements IPlayer.Coins
         Get
-            Return myHasSilverCrown
-        End Get
-    End Property
-
-    Friend ReadOnly Property HasCrown As Boolean Implements IPlayer.HasCrown
-        Get
-            Try
-                Return myClient.PlayerManager.Crown.UserID = myUserID
-            Catch
-                Return False
-            End Try
-        End Get
-    End Property
-
-    Private myGroup As Group
-
-    Friend Property Group As Group Implements IPlayer.Group
-        Get
-            Return myGroup
-        End Get
-
-        Set(value As Group)
-            myGroup = value
-            RaiseEvent GroupChange(Me, EventArgs.Empty)
-        End Set
-    End Property
-
-    Private myBlueAuraPotion As Boolean
-
-    Friend ReadOnly Property BlueAuraPotion As Boolean Implements IPlayer.BlueAuraPotion
-        Get
-            Return myBlueAuraPotion
-        End Get
-    End Property
-
-    Private myRedAuraPotion As Boolean
-
-    Friend ReadOnly Property RedAuraPotion As Boolean Implements IPlayer.RedAuraPotion
-        Get
-            Return myRedAuraPotion
-        End Get
-    End Property
-
-    Private myYellowAuraPotion As Boolean
-
-    Friend ReadOnly Property YellowAuraPotion As Boolean Implements IPlayer.YellowAuraPotion
-        Get
-            Return myYellowAuraPotion
+            Return myCoins
         End Get
     End Property
 
@@ -216,6 +159,22 @@
         End Get
     End Property
 
+    Private myPlayerPosX As Integer
+
+    Friend ReadOnly Property PlayerPosX As Integer Implements IPlayer.PlayerPosX
+        Get
+            Return myPlayerPosX
+        End Get
+    End Property
+
+    Private myPlayerPosY As Integer
+
+    Friend ReadOnly Property PlayerPosY As Integer Implements IPlayer.PlayerPosY
+        Get
+            Return myPlayerPosY
+        End Get
+    End Property
+
     Friend ReadOnly Property BlockX As Integer Implements IPlayer.BlockX
         Get
             Return myPlayerPosX + 8 >> 4
@@ -228,11 +187,51 @@
         End Get
     End Property
 
-    Private myAutoText As String
+    Private mySpeedX As Double
 
-    Friend ReadOnly Property AutoText As String Implements IPlayer.AutoText
+    Friend ReadOnly Property SpeedX As Double Implements IPlayer.SpeedX
         Get
-            Return myAutoText
+            Return mySpeedX
+        End Get
+    End Property
+
+    Private mySpeedY As Double
+
+    Friend ReadOnly Property SpeedY As Double Implements IPlayer.SpeedY
+        Get
+            Return mySpeedY
+        End Get
+    End Property
+
+    Private myModifierX As Double
+
+    Friend ReadOnly Property ModifierX As Double Implements IPlayer.ModifierX
+        Get
+            Return myModifierX
+        End Get
+    End Property
+
+    Private myModifierY As Double
+
+    Friend ReadOnly Property ModifierY As Double Implements IPlayer.ModifierY
+        Get
+            Return myModifierY
+        End Get
+    End Property
+
+    Private myVertical As Double
+
+    Friend ReadOnly Property Vertical As Double Implements IPlayer.Vertical
+        Get
+            Return myVertical
+        End Get
+    End Property
+
+    Private myHorizontal As Double
+
+    Friend ReadOnly Property Horizontal As Double Implements IPlayer.Horizontal
+        Get
+            Return myHorizontal
         End Get
     End Property
 
@@ -244,19 +243,53 @@
         End Get
     End Property
 
-    Private myIsUserDataReady As Boolean
+    Private myAutoText As String
 
-    Public ReadOnly Property IsUserDataReady As Boolean Implements IPlayer.IsUserDataReady
+    Friend ReadOnly Property AutoText As String Implements IPlayer.AutoText
         Get
-            Return myIsUserDataReady
+            Return myAutoText
         End Get
     End Property
 
-    Private myMagicClass As MagicClass
-
-    Public ReadOnly Property MagicClass As MagicClass Implements IPlayer.MagicClass
+    Friend ReadOnly Property HasCrown As Boolean Implements IPlayer.HasCrown
         Get
-            Return myMagicClass
+            Try
+                Return myClient.PlayerManager.Crown.UserID = myUserID
+            Catch
+                Return False
+            End Try
+        End Get
+    End Property
+
+    Private myHasSilverCrown As Boolean
+
+    Friend ReadOnly Property HasSilverCrown As Boolean Implements IPlayer.HasSilverCrown
+        Get
+            Return myHasSilverCrown
+        End Get
+    End Property
+
+    Private myRedAuraPotion As Boolean
+
+    Friend ReadOnly Property RedAuraPotion As Boolean Implements IPlayer.RedAuraPotion
+        Get
+            Return myRedAuraPotion
+        End Get
+    End Property
+
+    Private myBlueAuraPotion As Boolean
+
+    Friend ReadOnly Property BlueAuraPotion As Boolean Implements IPlayer.BlueAuraPotion
+        Get
+            Return myBlueAuraPotion
+        End Get
+    End Property
+
+    Private myYellowAuraPotion As Boolean
+
+    Friend ReadOnly Property YellowAuraPotion As Boolean Implements IPlayer.YellowAuraPotion
+        Get
+            Return myYellowAuraPotion
         End Get
     End Property
 
@@ -276,36 +309,19 @@
         End Get
     End Property
 
-    Private ReadOnly myIsClubMember As Boolean
+    Private myCursePotion As Boolean
 
-    Public ReadOnly Property IsClubMember As Boolean Implements IPlayer.IsClubMember
+    Public ReadOnly Property CursePotion As Boolean Implements IPlayer.CursePotion
         Get
-            Return myIsClubMember
+            Return myCursePotion
         End Get
     End Property
 
-    Private myIsDisconnected As Boolean
+    Private myFirePotion As Boolean
 
-    Public ReadOnly Property IsDisconnected As Boolean Implements IPlayer.IsDisconnected
+    Public ReadOnly Property FirePotion As Boolean Implements IPlayer.FirePotion
         Get
-            Return myIsDisconnected
-        End Get
-    End Property
-
-    Public ReadOnly Property IsGuest As Boolean Implements IPlayer.IsGuest
-        Get
-            'Not my fault for this being the way it is done in the swf
-            Return Username.Contains("-"c)
-        End Get
-    End Property
-
-    Public ReadOnly Property DatabaseName As String Implements IPlayer.DatabaseName
-        Get
-            If IsGuest Then
-                Return "guest"
-            Else
-                Return Username
-            End If
+            Return myFirePotion
         End Get
     End Property
 
@@ -330,22 +346,6 @@
     Public ReadOnly Property LastPotionTimeout As Integer Implements IPlayer.LastPotionTimeout
         Get
             Return myLastPotionTimeout
-        End Get
-    End Property
-
-    Private myFirePotion As Boolean
-
-    Public ReadOnly Property FirePotion As Boolean Implements IPlayer.FirePotion
-        Get
-            Return myFirePotion
-        End Get
-    End Property
-
-    Private myCursePotion As Boolean
-
-    Public ReadOnly Property CursePotion As Boolean Implements IPlayer.CursePotion
-        Get
-            Return myCursePotion
         End Get
     End Property
 
