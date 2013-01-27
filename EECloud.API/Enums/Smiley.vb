@@ -85,4 +85,5 @@
     NewYear2013 = 83
     Winter = 84
     FireDemon = 85
+    Bishop = 86
 End Enum
