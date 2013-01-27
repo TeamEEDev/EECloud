@@ -56,4 +56,6 @@
     Sub GiveEdit()
     Sub RemoveEdit()
     Sub Kill()
+    Sub Teleport()
+    Sub Teleport(x As Integer, y As Integer)
 End Interface

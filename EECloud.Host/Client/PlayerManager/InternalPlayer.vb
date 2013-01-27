@@ -544,5 +544,13 @@
         myClient.Chatter.Kill(myUsername)
     End Sub
 
+    Public Sub Teleport() Implements IPlayer.Teleport
+        myClient.Chatter.Teleport(Username)
+    End Sub
+
+    Public Sub Teleport(x As Integer, y As Integer) Implements IPlayer.Teleport
+        myClient.Chatter.Teleport(Username, x, y)
+    End Sub
+
 #End Region
 End Class

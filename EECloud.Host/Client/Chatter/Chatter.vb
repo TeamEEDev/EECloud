@@ -77,5 +77,17 @@
         myInternalChatter.SendChat("/killemall")
     End Sub
 
+    Public Sub Kick(username As String) Implements IChatter.Kick
+        myInternalChatter.SendChat(myInternalChatter.ChatSyntaxProvider.ApplyKickSyntax(myChatName, username, "Tsk tsk tsk"))
+    End Sub
+
+    Public Sub Teleport(username As String) Implements IChatter.Teleport
+        myInternalChatter.SendChat("/teleport " & username)
+    End Sub
+
+    Public Sub Teleport(username As String, x As Integer, y As Integer) Implements IChatter.Teleport
+        myInternalChatter.SendChat("/teleport " & username & " " & x & " " & y)
+    End Sub
+
 #End Region
 End Class

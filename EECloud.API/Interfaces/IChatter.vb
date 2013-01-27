@@ -31,6 +31,13 @@ Public Interface IChatter
     '''     Kicks a user.
     ''' </summary>
     ''' <param name="username">The username of the person being kicked.</param>
+    ''' <remarks></remarks>
+    Sub Kick(username As String)
+
+    ''' <summary>
+    '''     Kicks a user.
+    ''' </summary>
+    ''' <param name="username">The username of the person being kicked.</param>
     ''' <param name="msg">The reason for the kick.</param>
     ''' <remarks></remarks>
     Sub Kick(username As String, msg As String)
@@ -84,6 +91,18 @@ Public Interface IChatter
     ''' </summary>
     ''' <remarks></remarks>
     Sub KillAll()
+
+    ''' <summary>
+    ''' Teleports the given player
+    ''' </summary>
+    ''' <remarks></remarks>
+    Sub Teleport(username As String)
+
+    ''' <summary>
+    ''' Teleports the given player
+    ''' </summary>
+    ''' <remarks></remarks>
+    Sub Teleport(username As String, x As Integer, y As Integer)
 
     ''' <summary>
     '''     The Syntax provider used to generate chat strings
