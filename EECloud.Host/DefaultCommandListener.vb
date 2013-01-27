@@ -273,14 +273,24 @@ Friend NotInheritable Class DefaultCommandListener
         cmd.Reply("Pong!")
     End Sub
 
-    <Command("hi", Group.Moderator, aliases:={"hello", "hai"})>
-    Public Sub HiCommand(cmd As ICommand(Of Player))
-        cmd.Reply("Hi!")
+    <Command("hello", Group.Moderator, aliases:={"hi", "hai"})>
+    Public Sub HelloCommand(cmd As ICommand(Of Player))
+        cmd.Reply("Hello!")
     End Sub
 
-    <Command("hi", Group.Moderator, aliases:={"hello", "hai"})>
-    Public Sub HiCommand(cmd As ICommand(Of Player), player As String)
-        myClient.Chatter.Chat(String.Format("Hi {0}!", player))
+    <Command("hello", Group.Moderator, aliases:={"hi", "hai"})>
+    Public Sub HelloCommand(cmd As ICommand(Of Player), player As String)
+        myClient.Chatter.Chat(String.Format("Hello {0}!", player))
+    End Sub
+
+    <Command("goodbye", Group.Moderator, aliases:={"bye", "bai"})>
+    Public Sub GoodbyeCommand(cmd As ICommand(Of Player))
+        cmd.Reply("Goodbye!")
+    End Sub
+
+    <Command("goodbye", Group.Moderator, aliases:={"bye", "bai"})>
+    Public Sub GoodbyeCommand(cmd As ICommand(Of Player), player As String)
+        myClient.Chatter.Chat(String.Format("Goodbye {0}!", player))
     End Sub
 
     <Command("setcode", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"code", "editkey", "seteditkey"})>
