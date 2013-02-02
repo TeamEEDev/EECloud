@@ -36,7 +36,7 @@ Friend NotInheritable Class DefaultCommandListener
         Else
             rank = Cloud.Service.GetPlayerData(player).Username
         End If
-        cmd.Reply(String.Format("User {0} is {1}", player.ToUpper, GetGroupString(rank)))
+        cmd.Reply(String.Format("User {0} is {1}", player.ToUpper(InvariantCulture), GetGroupString(rank)))
     End Sub
 
     Private pinging As Boolean
@@ -165,7 +165,7 @@ Friend NotInheritable Class DefaultCommandListener
                 Cloud.Service.SetPlayerDataGroupID(username, rank)
             End If
 
-            cmd.Reply(String.Format("{0} is now {1}.", username.ToUpper, GetGroupString(rank)))
+            cmd.Reply(String.Format("{0} is now {1}.", username.ToUpper(InvariantCulture), GetGroupString(rank)))
         Else
             cmd.Reply(String.Format("Not allowed to change rank of that player."))
         End If

@@ -66,8 +66,8 @@
     Friend ReadOnly Property Player(username As String) As TPlayer Implements IPlayerManager(Of TPlayer).Player
         Get
             SyncLock myUsernameDictionary
-                If myUsernameDictionary.ContainsKey(username.ToLower) Then
-                    Dim list As List(Of TPlayer) = myUsernameDictionary(username.ToLower)
+                If myUsernameDictionary.ContainsKey(username.ToLower(InvariantCulture)) Then
+                    Dim list As List(Of TPlayer) = myUsernameDictionary(username.ToLower(InvariantCulture))
                     If list.Count > 0 Then
                         Return list(0)
                     Else

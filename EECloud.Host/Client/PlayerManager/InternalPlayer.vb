@@ -365,7 +365,7 @@
         myClient = client
         myConnection = client.Connection
         myUserID = addMessage.UserID
-        myUsername = addMessage.Username.ToLower
+        myUsername = addMessage.Username.ToLower(InvariantCulture)
         mySmiley = addMessage.Face
         myHasChat = addMessage.HasChat
         myIsGod = addMessage.IsGod
@@ -385,7 +385,7 @@
         myClient = client
         myConnection = client.Connection
         myUserID = initMessage.UserID
-        myUsername = initMessage.Username.ToLower
+        myUsername = initMessage.Username.ToLower(InvariantCulture)
         myPlayerPosX = initMessage.SpawnX
         myPlayerPosY = initMessage.SpawnY
         mySpawnX = initMessage.SpawnX
