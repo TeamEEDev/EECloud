@@ -3,7 +3,7 @@
 
     Public ReadOnly Property ConnectionString As String Implements IEEService.ConnectionString
         Get
-            Return ConnStr
+            Return MySQLConnStr
         End Get
     End Property
 
@@ -12,7 +12,7 @@
             Throw New ArgumentNullException("key")
         End If
 
-        Using connection As New MySqlConnection(ConnStr)
+        Using connection As New MySqlConnection(MySQLConnStr)
             connection.Open()
 
             Using command As MySqlCommand = connection.CreateCommand()
@@ -32,7 +32,7 @@
             Throw New ArgumentNullException("value")
         End If
 
-        Using connection As New MySqlConnection(ConnStr)
+        Using connection As New MySqlConnection(MySQLConnStr)
             connection.Open()
 
             Using command As MySqlCommand = connection.CreateCommand()
@@ -50,7 +50,7 @@
             Throw New ArgumentNullException("username")
         End If
 
-        Using connection As New MySqlConnection(ConnStr)
+        Using connection As New MySqlConnection(MySQLConnStr)
             connection.Open()
             Using command As MySqlCommand = connection.CreateCommand()
                 command.CommandText = "SELECT * FROM playerData WHERE Username = @Username"
@@ -87,7 +87,7 @@
         limit = Math.Min(limit, CUInt(1000))
         If orderBy Is Nothing Then orderBy = "Username"
 
-        Using connection As New MySqlConnection(ConnStr)
+        Using connection As New MySqlConnection(MySQLConnStr)
             connection.Open()
 
             Using command As MySqlCommand = connection.CreateCommand()
@@ -123,7 +123,7 @@
             Exit Sub
         End If
 
-        Using connection As New MySqlConnection(ConnStr)
+        Using connection As New MySqlConnection(MySQLConnStr)
             connection.Open()
 
             Using command As MySqlCommand = connection.CreateCommand()
@@ -141,7 +141,7 @@
             Throw New ArgumentNullException("username")
         End If
 
-        Using connection As New MySqlConnection(ConnStr)
+        Using connection As New MySqlConnection(MySQLConnStr)
             connection.Open()
 
             Using command As MySqlCommand = connection.CreateCommand()
@@ -159,7 +159,7 @@
             Throw New ArgumentNullException("username")
         End If
 
-        Using connection As New MySqlConnection(ConnStr)
+        Using connection As New MySqlConnection(MySQLConnStr)
             connection.Open()
 
             Using command As MySqlCommand = connection.CreateCommand()
@@ -177,7 +177,7 @@
             Throw New ArgumentNullException("factGroup")
         End If
 
-        Using connection As New MySqlConnection(ConnStr)
+        Using connection As New MySqlConnection(MySQLConnStr)
             connection.Open()
 
             Using command As MySqlCommand = connection.CreateCommand()
@@ -201,7 +201,7 @@
         End If
 
         Try
-            Using connection As New MySqlConnection(ConnStr)
+            Using connection As New MySqlConnection(MySQLConnStr)
                 connection.Open()
 
                 Using command As MySqlCommand = connection.CreateCommand()
@@ -223,7 +223,7 @@
             Throw New ArgumentNullException("factGroup")
         End If
 
-        Using connection As New MySqlConnection(ConnStr)
+        Using connection As New MySqlConnection(MySQLConnStr)
             connection.Open()
 
             Using command As MySqlCommand = connection.CreateCommand()
@@ -237,7 +237,7 @@
     End Sub
 
     Friend Function CheckLicense(username As String, authKey As String) As Boolean Implements IEEService.CheckLicense
-        Using connection As New MySqlConnection(ConnStr)
+        Using connection As New MySqlConnection(MySQLConnStr)
             connection.Open()
 
             Using command As MySqlCommand = connection.CreateCommand()

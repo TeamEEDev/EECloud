@@ -122,7 +122,7 @@
     </Compile>
     <Compile Include="Hosting\EECloud.vb" />
     <Compile Include="Logger\Logger.vb" />
-    <Compile Include="Misc\Secret.vb" />
+    <Compile Include="Config.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
