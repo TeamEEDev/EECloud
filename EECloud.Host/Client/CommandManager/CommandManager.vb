@@ -65,11 +65,11 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
         If Not e.Handled Then
             Dim msgSender As TPlayer = myClient.PlayerManager.Player(e.UserID)
             Dim cmd As String() = e.Message.Split(" "c)
-            Dim type As String = cmd(0).ToLower
-            If e.Message.StartsWith("help ", StringComparison.OrdinalIgnoreCase) AndAlso myCommandsDictionary.ContainsKey(cmd(1).ToLower) Then
+            Dim type As String = cmd(0).ToLower(InvariantCulture)
+            If e.Message.StartsWith("help ", StringComparison.OrdinalIgnoreCase) AndAlso myCommandsDictionary.ContainsKey(cmd(1).ToLower(InvariantCulture)) Then
                 e.Handled = True
                 If e.Rights >= Group.Moderator Then
-                    ReplyToSender(msgSender, GetUsagesStr(cmd(1).ToLower))
+                    ReplyToSender(msgSender, GetUsagesStr(cmd(1).ToLower(InvariantCulture)))
                 End If
             ElseIf myCommandsDictionary.ContainsKey(type) Then
                 e.Handled = True

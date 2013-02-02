@@ -86,7 +86,7 @@ Friend NotInheritable Class Logger
     ' ReSharper restore FunctionNeverReturns
 
     Friend Sub Log(priority As LogPriority, str As String) Implements ILogger.Log
-        Dim output As String = String.Format("{0} [{1}] {2}", Now.ToLongTimeString, priority.ToString.ToUpper, str)
+        Dim output As String = String.Format("{0} [{1}] {2}", Now.ToLongTimeString, priority.ToString.ToUpper(InvariantCulture), str)
         If Not Cloud.IsNoConsole Then
             myOldTop = Console.CursorTop
             Overwrite(Input.Length + 1, output)
