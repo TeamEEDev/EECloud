@@ -255,18 +255,18 @@
         End Using
     End Function
 
-    Private Function ParsePlayerData(reader As MySqlDataReader) As UserData
+    Private Shared Function ParsePlayerData(reader As MySqlDataReader) As UserData
         If reader Is Nothing Then
             Throw New ArgumentNullException("reader")
         End If
 
-        Return New UserData With {.Username = TryCastStr(reader.GetString(0)), _
-            .GroupID = TryCastShort(reader.GetValue(1)), _
-            .YoScrollWins = TryCastUShort(reader.GetValue(2)), _
+        Return New UserData With {.Username = TryCastStr(reader.GetString(0)),
+            .GroupID = TryCastShort(reader.GetValue(1)),
+            .YoScrollWins = TryCastUShort(reader.GetValue(2)),
             .FTBreakerWins = TryCastUShort(reader.GetValue(3))}
     End Function
 
-    Private Function TryCastStr(input As Object) As String
+    Private Shared Function TryCastStr(input As Object) As String
         Try
             If input IsNot DBNull.Value AndAlso input IsNot Nothing Then
                 Return CStr(input)
@@ -278,7 +278,7 @@
         End Try
     End Function
 
-    Private Function TryCastShort(input As Object) As Short
+    Private Shared Function TryCastShort(input As Object) As Short
         Try
             If input IsNot DBNull.Value AndAlso input IsNot Nothing Then
                 Return CShort(input)
@@ -290,7 +290,7 @@
         End Try
     End Function
 
-    Private Function TryCastUShort(input As Object) As UShort
+    Private Shared Function TryCastUShort(input As Object) As UShort
         Try
             If input IsNot DBNull.Value AndAlso input IsNot Nothing Then
                 Return CUShort(input)
