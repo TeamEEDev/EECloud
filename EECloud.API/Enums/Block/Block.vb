@@ -92,7 +92,7 @@
     BlockGlassOrange = 58
 
     BlockSummer2011Sand = 59
-    BlockSummer2011Sunshade = 228
+    DecorationSummer2011Sunshade = 228
     DecorationSummer20111 = 229
     DecorationSummer20112 = 230
     DecorationSummer2011Rock = 231
