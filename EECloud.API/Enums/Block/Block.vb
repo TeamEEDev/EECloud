@@ -57,6 +57,7 @@
     BlockGateBlue = 28
     BlockGateTimedGate = 157
     BlockGateCoinGate = 165
+    BlockGatePurpleSwitchable = 185
 
     BlockMetalWhite = 29
     BlockMetalRed = 30
