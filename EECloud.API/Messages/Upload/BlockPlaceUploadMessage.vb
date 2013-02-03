@@ -17,7 +17,7 @@ Public Class BlockPlaceUploadMessage
         myForced = forced
     End Sub
 
-    Friend Overrides Function GetMessage(ByVal game As IGame) As Message
+    Friend Overrides Function GetMessage(game As IGame) As Message
         Return Message.Create(game.Encryption, CInt(CorrectLayer(Block, Layer)), X, Y, CInt(Block))
     End Function
 

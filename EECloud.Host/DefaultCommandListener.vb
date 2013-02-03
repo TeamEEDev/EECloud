@@ -10,7 +10,7 @@ Friend NotInheritable Class DefaultCommandListener
 
 #Region "Methods"
 
-    Sub New(ByVal client As IClient(Of Player))
+    Sub New(client As IClient(Of Player))
         myClient = client
         myConnection = myClient.Connection
         myPlayerManager = myClient.PlayerManager

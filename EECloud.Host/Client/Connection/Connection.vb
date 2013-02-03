@@ -312,7 +312,7 @@ Friend NotInheritable Class Connection
 
 #Region "Methods"
 
-    Sub New(ByVal client As IClient(Of Player))
+    Sub New(client As IClient(Of Player))
         myClient = client
 
         If myGameVersionNumber = 0 Then

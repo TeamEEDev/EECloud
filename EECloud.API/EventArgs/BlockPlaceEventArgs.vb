@@ -31,7 +31,7 @@
 
 #Region "Methods"
 
-    Sub New(x As Integer, y As Integer, ByVal layer As Layer)
+    Sub New(x As Integer, y As Integer, layer As Layer)
         myX = x
         myY = y
         myLayer = layer

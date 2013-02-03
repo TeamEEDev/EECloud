@@ -38,5 +38,5 @@
     ''' <param name="msg">The command being invoked</param>
     ''' <param name="rights">Minimum rights, if the player has higher rights, this will be ignored</param>
     ''' <remarks></remarks>
-    Sub InvokeCommand(ByVal player As Player, ByVal msg As String, ByVal rights As Group)
+    Sub InvokeCommand(player As Player, msg As String, rights As Group)
 End Interface

@@ -11,7 +11,7 @@ Public Class TouchPlayerSendMessage
         Me.Reason = reason
     End Sub
 
-    Friend Overrides Function GetMessage(ByVal game As IGame) As Message
+    Friend Overrides Function GetMessage(game As IGame) As Message
         Return Message.Create("touch", UserID, Reason)
     End Function
 End Class

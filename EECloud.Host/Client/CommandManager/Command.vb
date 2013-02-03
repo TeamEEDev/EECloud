@@ -31,10 +31,10 @@
 
 #Region "Methods"
 
-    Friend Sub New(sender As TPlayer, label As String, ByVal commandText As String)
+    Friend Sub New(sender As TPlayer, label As String, commandText As String)
         mySender = sender
         myLabel = label
-        myCommandText = CommandText
+        myCommandText = commandText
     End Sub
 
     Friend Sub Reply(msg As String) Implements ICommand(Of TPlayer).Reply

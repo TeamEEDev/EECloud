@@ -4,7 +4,7 @@ Public NotInheritable Class InitSendMessage
     Inherits SendMessage
     'No arguments
 
-    Friend Overrides Function GetMessage(ByVal game As IGame) As Message
+    Friend Overrides Function GetMessage(game As IGame) As Message
         Return Message.Create("init")
     End Function
 End Class

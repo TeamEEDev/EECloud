@@ -11,7 +11,7 @@ Public Class CheckpointSendMessage
     End Sub
 
 
-    Friend Overrides Function GetMessage(ByVal game As IGame) As Message
+    Friend Overrides Function GetMessage(game As IGame) As Message
         Return Message.Create("checkpoint", X, Y)
     End Function
 End Class

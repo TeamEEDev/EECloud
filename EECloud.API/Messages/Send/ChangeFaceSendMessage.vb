@@ -8,7 +8,7 @@ Public NotInheritable Class ChangeFaceSendMessage
         Me.Face = face
     End Sub
 
-    Friend Overrides Function GetMessage(ByVal game As IGame) As Message
+    Friend Overrides Function GetMessage(game As IGame) As Message
         Return Message.Create(game.Encryption & "f", Face)
     End Function
 End Class

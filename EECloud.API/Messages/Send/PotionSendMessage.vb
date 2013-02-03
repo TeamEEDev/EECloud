@@ -8,7 +8,7 @@ Public NotInheritable Class PotionSendMessage
         Me.Potion = potion
     End Sub
 
-    Friend Overrides Function GetMessage(ByVal game As IGame) As Message
+    Friend Overrides Function GetMessage(game As IGame) As Message
         Return Message.Create(game.Encryption & "p", CInt(Potion))
     End Function
 End Class

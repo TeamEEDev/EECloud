@@ -36,7 +36,7 @@ Friend NotInheritable Class PluginManager
         myCloneFactory = cloneFactory
     End Sub
 
-    Friend Sub Load(ByVal t As Type) Implements IPluginManager.Load
+    Friend Sub Load(t As Type) Implements IPluginManager.Load
         SyncLock myPluginsList
             If (Not t.Namespace = "EECloud" AndAlso Not t.Namespace.StartsWith("EECloud.", StringComparison.Ordinal)) Then
                 If GetType(IPlugin).IsAssignableFrom(t) Then

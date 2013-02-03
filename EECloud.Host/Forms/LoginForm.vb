@@ -5,7 +5,7 @@ Friend NotInheritable Class LoginForm
 #Region "Methods"
 
     <DllImport("user32.dll")>
-    Private Shared Sub SetForegroundWindow(ByVal hWnd As IntPtr)
+    Private Shared Sub SetForegroundWindow(hWnd As IntPtr)
     End Sub
 
     Friend Sub New()
