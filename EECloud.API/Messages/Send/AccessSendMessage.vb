@@ -8,7 +8,7 @@ Public NotInheritable Class AccessSendMessage
         Me.EditKey = editKey
     End Sub
 
-    Friend Overrides Function GetMessage(ByVal game As IGame) As Message
+    Friend Overrides Function GetMessage(game As IGame) As Message
         Return Message.Create("access", EditKey)
     End Function
 End Class

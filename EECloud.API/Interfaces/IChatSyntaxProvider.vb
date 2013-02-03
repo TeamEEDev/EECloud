@@ -26,5 +26,5 @@
     ''' <param name="reason">The kick reason</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Function ApplyKickSyntax(chatName As String, player As String, ByVal reason As String) As String
+    Function ApplyKickSyntax(chatName As String, player As String, reason As String) As String
 End Interface

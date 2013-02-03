@@ -41,7 +41,7 @@
 
 #Region "Methods"
 
-    Friend Sub New(plugin As Type, ByVal attribute As PluginAttribute, ByVal cloneFactory As IClientCloneFactory)
+    Friend Sub New(plugin As Type, attribute As PluginAttribute, cloneFactory As IClientCloneFactory)
         myAttribute = attribute
         myCloneFactory = cloneFactory
         myPluginType = plugin

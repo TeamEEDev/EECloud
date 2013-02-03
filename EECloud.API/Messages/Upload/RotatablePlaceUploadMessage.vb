@@ -10,7 +10,7 @@ Public Class RotatablePlaceUploadMessage
         Me.Rotation = rotation
     End Sub
 
-    Friend Overrides Function GetMessage(ByVal game As IGame) As Message
+    Friend Overrides Function GetMessage(game As IGame) As Message
         If IsRotatable(Block) Then
             Dim message As Message = MyBase.GetMessage(game)
             message.Add(Rotation)

@@ -8,7 +8,7 @@ Public NotInheritable Class SaySendMessage
         Me.Text = text
     End Sub
 
-    Friend Overrides Function GetMessage(ByVal game As IGame) As Message
+    Friend Overrides Function GetMessage(game As IGame) As Message
         Return Message.Create("say", Text)
     End Function
 End Class

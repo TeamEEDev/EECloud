@@ -1,29 +1,29 @@
 ﻿Public Interface IEEService
     ReadOnly Property ConnectionString As String
 
-    Function CheckLicense(ByVal username As String, ByVal authKey As String) As Boolean
+    Function CheckLicense(username As String, authKey As String) As Boolean
 
-    Function GetSetting(ByVal key As String) As String
+    Function GetSetting(key As String) As String
 
-    Sub SetSetting(ByVal key As String, value As String)
+    Sub SetSetting(key As String, value As String)
 
-    Sub SetFact(ByVal factID As String, ByVal factGroup As String)
+    Sub SetFact(factID As String, factGroup As String)
 
-    Sub RemoveFact(ByVal factID As String)
+    Sub RemoveFact(factID As String)
 
-    Function GetFacts(ByVal factGroup As String) As String()
+    Function GetFacts(factGroup As String) As String()
 
-    Function GetPlayerData(ByVal username As String) As UserData
+    Function GetPlayerData(username As String) As UserData
 
-    Function GetPlayerDatas(ByVal usernames() As String) As UserData()
+    Function GetPlayerDatas(usernames() As String) As UserData()
 
-    Function GetPlayerDataRange(Optional ByVal offset As UInteger = 0, Optional ByVal limit As UInteger = 1000, Optional ByVal orderBy As String = "Username") As UserData()
+    Function GetPlayerDataRange(Optional offset As UInteger = 0, Optional limit As UInteger = 1000, Optional orderBy As String = "Username") As UserData()
 
-    Sub SetPlayerDataGroupID(ByVal username As String, groupID As Short)
+    Sub SetPlayerDataGroupID(username As String, groupID As Short)
 
-    Sub SetPlayerDataYoScrollWins(ByVal username As String, yoScrollWins As UShort)
+    Sub SetPlayerDataYoScrollWins(username As String, yoScrollWins As UShort)
 
-    Sub SetPlayerDataFTBreakerWins(ByVal username As String, ftBreakerWins As UShort)
+    Sub SetPlayerDataFTBreakerWins(username As String, ftBreakerWins As UShort)
 End Interface
 
 Public NotInheritable Class UserData

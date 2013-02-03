@@ -8,7 +8,7 @@ Friend NotInheritable Class CustomSendMessage
         myMessage = Message.Create(type, parameters)
     End Sub
 
-    Friend Overrides Function GetMessage(ByVal game As IGame) As Message
+    Friend Overrides Function GetMessage(game As IGame) As Message
         Return myMessage
     End Function
 End Class

@@ -12,7 +12,7 @@
 
 #Region "Methods"
 
-    Friend Sub New(ByVal client As InternalClient, commandChar As Char)
+    Friend Sub New(client As InternalClient, commandChar As Char)
         SyncLock myRegisteredCmdChars
             If myRegisteredCmdChars.Contains(commandChar) Then
                 Throw New ArgumentException("Command char already taken", "commandChar")

@@ -36,7 +36,7 @@ Friend NotInheritable Class CommandHandle (Of TPlayer As {New, Player})
 
 #Region "Methods"
 
-    Friend Sub New(attribute As CommandAttribute, method As MethodInfo, ByVal target As Object)
+    Friend Sub New(attribute As CommandAttribute, method As MethodInfo, target As Object)
         myAttribute = attribute
         myMethodInfo = method
         myTarget = target
