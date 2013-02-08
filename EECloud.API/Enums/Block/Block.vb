@@ -212,6 +212,13 @@
     BackgroundWaterSeaHorse = 577
     BackgroundWaterSeaweed = 578
 
+    BlockSwamp = 369
+    DecorationSwamp1 = 370
+    DecorationSwamp2 = 371
+    DecorationSwamp3 = 372
+    DecorationSwamp4 = 373
+    BackgroundSwamp = 630
+
     BlockLadderCastle = 118
     BlockLadderNinja = 120
     BlockLadderJungleVertical = 98
