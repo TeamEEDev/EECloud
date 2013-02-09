@@ -322,6 +322,22 @@
     BackgroundTimbered8 = 597
     BackgroundTimbered9 = 598
 
+    BlockCastleOneWay = 158
+    BlockCastleWall = 159
+    BlockCastleWindow = 160
+    DecorationCastle1 = 325
+    DecorationCastle2 = 326
+    BackgroundCastle = 599
+
+    BlockMedievalAnvil = 162
+    BlockMedievalBarrel = 163
+    DecorationMedievalBlueBanner = 327
+    DecorationMedievalRedBanner = 328
+    DecorationMedievalSword = 329
+    DecorationMedievalShield = 330
+    DecorationMedievalRock = 331
+    BackgroundMedieval = 600
+
     BlockPipeHoleOnLeft = 166
     BlockPipeHorizontalMiddle = 167
     BlockPipeHoleOnRight = 168
