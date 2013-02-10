@@ -27,7 +27,7 @@
       <Value Profile="(Default)">!</Value>
     </Setting>
     <Setting Name="BanString" Type="System.String" Scope="User">
-      <Value Profile="(Default)">You are banned from all EECloud powered worlds.</Value>
+      <Value Profile="(Default)">You're banned from all EECloud powered worlds.</Value>
     </Setting>
     <Setting Name="Restart" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
