@@ -12,15 +12,15 @@ Friend NotInheritable Class LoginForm
         Icon = My.Resources.Icon
         InitializeComponent()
 
-        TextBoxEmail.Text = My.Settings.LoginEmail
-        Select Case My.Settings.LoginType
+        TextBoxEmail.Text = My.Settings.LoginEmails(0)
+        Select Case My.Settings.LoginTypes(0)
             Case AccountType.Regular
-                TextBoxPassword.Text = My.Settings.LoginPassword
+                TextBoxPassword.Text = My.Settings.LoginPasswords(0)
                 RadioButtonRegular.Checked = True
             Case AccountType.Facebook
                 RadioButtonFacebook.Checked = True
         End Select
-        TextBoxWorldID.Text = My.Settings.LoginWorldID
+        TextBoxWorldID.Text = My.Settings.LoginWorldIDs(0)
     End Sub
 
     Private Sub LoginForm_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
@@ -51,14 +51,27 @@ Friend NotInheritable Class LoginForm
         If Not TextBoxEmail.Text = "" Then
             If Not TextBoxPassword.Text = "" Or RadioButtonFacebook.Checked Then
                 If Not TextBoxWorldID.Text = "" Then
-                    If RadioButtonRegular.Checked Then
-                        My.Settings.LoginType = AccountType.Regular
-                    Else
-                        My.Settings.LoginType = AccountType.Facebook
+                    Dim myLoginTypes As List(Of AccountType) = My.Settings.LoginTypes.ToList()
+
+                    Dim settingIndex As Integer = My.Settings.LoginEmails.IndexOf(TextBoxEmail.Text)
+                    If settingIndex > -1 Then
+                        myLoginTypes.RemoveAt(settingIndex)
+                        My.Settings.LoginEmails.Remove(settingIndex)
+                        My.Settings.LoginPasswords.Remove(settingIndex)
+                        My.Settings.LoginWorldIDs.Remove(settingIndex)
                     End If
-                    My.Settings.LoginEmail = TextBoxEmail.Text
-                    My.Settings.LoginPassword = TextBoxPassword.Text
-                    My.Settings.LoginWorldID = TextBoxWorldID.Text
+
+                    If RadioButtonRegular.Checked Then
+                        myLoginTypes.Insert(0, AccountType.Regular)
+                    Else
+                        myLoginTypes.Insert(0, AccountType.Facebook)
+                    End If
+
+                    My.Settings.LoginTypes = myLoginTypes.ToArray()
+                    My.Settings.LoginEmails.Insert(0, TextBoxEmail.Text)
+                    My.Settings.LoginPasswords.Insert(0, TextBoxPassword.Text)
+                    My.Settings.LoginWorldIDs.Insert(0, TextBoxWorldID.Text)
+
                     My.Settings.Save()
                     DialogResult = DialogResult.OK
                     Close()
@@ -98,7 +111,7 @@ Friend NotInheritable Class LoginForm
         If senderAsRadioButton IsNot Nothing AndAlso senderAsRadioButton.Checked Then
             If senderAsRadioButton Is RadioButtonRegular Then
                 LabelPassword.Enabled = True
-                TextBoxPassword.Text = My.Settings.LoginPassword
+                TextBoxPassword.Text = My.Settings.LoginPasswords(0)
                 TextBoxPassword.Enabled = True
                 LabelEmail.Text = "E-mail:"
             Else 'If senderAsRadioButton Is RadioButtonFacebook Then
