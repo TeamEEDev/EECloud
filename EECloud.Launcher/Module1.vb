@@ -34,10 +34,13 @@ Module Module1
 #Region "Fields"
 
     Private ReadOnly Handle As IntPtr = GetConsoleWindow()
-    Public WithEvents NotifyIcon As New NotifyIcon With {.Icon = My.Resources.Icon,
-                                                         .Visible = True}
 
-    Private ReadOnly BgAppProcess As New Process With {.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}}
+    Public WithEvents TrayIcon As New NotifyIcon() With {.Icon = My.Resources.Icon,
+                                                         .Visible = True,
+                                                         .Text = "EECloud"}
+    Public WithEvents TrayMenu As New ContextMenuStrip()
+
+    Private ReadOnly BgAppProcess As New Process() With {.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}}
 
     Private TempNoAutoHide As Boolean
     Private LastRestart As Date
@@ -94,7 +97,8 @@ Module Module1
 
     Private Sub Initialize()
         SetConsoleCtrlHandler(New HandlerRoutine(AddressOf ConsoleCtrlCheck), True)
-        AddHandler NotifyIcon.Click,
+
+        AddHandler TrayIcon.DoubleClick,
             Sub()
                 TempNoAutoHide = True
                 ConsoleVisible = True
@@ -103,6 +107,10 @@ Module Module1
         Console.Title = "EECloud"
         Console.WriteLine("Welcome to EECloud.Launcher" & Environment.NewLine &
                           "Starting EECloud...")
+
+        TrayMenu.Items.Add("Exit", Nothing, Sub() Close())
+
+        TrayIcon.ContextMenuStrip = TrayMenu
     End Sub
 
     Sub Main()
@@ -111,6 +119,7 @@ Module Module1
         Do
             LastRestart = Now
             Console.WriteLine(SeparatorText)
+
             'Start process
             BgAppProcess.Start()
             myBgAppProcId = BgAppProcess.Id
@@ -160,7 +169,7 @@ Module Module1
             'TODO: Wait for plugins to stop properly
         End If
 
-        NotifyIcon.Dispose()
+        TrayIcon.Dispose()
     End Sub
 
     Private Function ConsoleCtrlCheck(ctrlType As CtrlTypes) As Boolean
