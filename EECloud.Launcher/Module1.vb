@@ -35,12 +35,12 @@ Module Module1
 
     Private ReadOnly Handle As IntPtr = GetConsoleWindow()
 
+    Private ReadOnly BgAppProcess As New Process() With {.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}}
+
     Public WithEvents TrayIcon As New NotifyIcon() With {.Icon = My.Resources.Icon,
                                                          .Visible = True,
                                                          .Text = "EECloud"}
     Public WithEvents TrayMenu As New ContextMenuStrip()
-
-    Private ReadOnly BgAppProcess As New Process() With {.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}}
 
     Private TempNoAutoHide As Boolean
     Private LastRestart As Date
