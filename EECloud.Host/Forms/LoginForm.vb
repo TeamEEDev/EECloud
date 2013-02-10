@@ -51,23 +51,19 @@ Friend NotInheritable Class LoginForm
         If Not TextBoxEmail.Text = "" Then
             If Not TextBoxPassword.Text = "" Or RadioButtonFacebook.Checked Then
                 If Not TextBoxWorldID.Text = "" Then
-                    Dim myLoginTypes As List(Of AccountType) = My.Settings.LoginTypes.ToList()
-
                     Dim settingIndex As Integer = My.Settings.LoginEmails.IndexOf(TextBoxEmail.Text)
                     If settingIndex > -1 Then
-                        myLoginTypes.RemoveAt(settingIndex)
+                        My.Settings.LoginTypes.RemoveAt(settingIndex)
                         My.Settings.LoginEmails.Remove(settingIndex)
                         My.Settings.LoginPasswords.Remove(settingIndex)
                         My.Settings.LoginWorldIDs.Remove(settingIndex)
                     End If
 
                     If RadioButtonRegular.Checked Then
-                        myLoginTypes.Insert(0, AccountType.Regular)
+                        My.Settings.LoginTypes.Insert(0, AccountType.Regular)
                     Else
-                        myLoginTypes.Insert(0, AccountType.Facebook)
+                        My.Settings.LoginTypes.Insert(0, AccountType.Facebook)
                     End If
-
-                    My.Settings.LoginTypes = myLoginTypes.ToArray()
                     My.Settings.LoginEmails.Insert(0, TextBoxEmail.Text)
                     My.Settings.LoginPasswords.Insert(0, TextBoxPassword.Text)
                     My.Settings.LoginWorldIDs.Insert(0, TextBoxWorldID.Text)
