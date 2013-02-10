@@ -10,8 +10,8 @@ Module Module1
     End Function
 
     <DllImport("user32.dll")>
-    Private Function SetForegroundWindow(handle As IntPtr) As <MarshalAs(UnmanagedType.Bool)> Boolean
-    End Function
+    Private Sub SetForegroundWindow(ByVal handle As IntPtr)
+    End Sub
 
     <DllImport("user32.dll", CharSet:=CharSet.Auto, SetLastError:=True)>
     Private Function GetWindowThreadProcessId(handle As IntPtr, ByRef processId As Integer) As Integer
@@ -141,7 +141,7 @@ Module Module1
 
             'Exit if it exists with a 0 exit code
             If BgAppProcess.ExitCode = 0 Then
-                Close(False)
+                Close()
                 End
             End If
 
@@ -162,12 +162,9 @@ Module Module1
         Loop
     End Sub
 
-    Sub Close(Optional waitForPlugins As Boolean = True)
+    Sub Close()
+        BgAppProcess.Close()
         BgAppProcess.Dispose()
-
-        If waitForPlugins Then
-            'TODO: Wait for plugins to stop properly
-        End If
 
         TrayIcon.Dispose()
     End Sub

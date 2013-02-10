@@ -46,7 +46,7 @@ Module ModuleMain
                     Using writer As New StreamWriter(My.Application.Info.DirectoryPath & "\Update.bat")
                         writer.WriteLine("start /w EECloud.msi")
                         writer.WriteLine("del EECloud.msi")
-                        writer.WriteLine("start EECloud.exe")
+                        writer.WriteLine("start EECloud.Launcher.exe")
                         writer.WriteLine("del %0")
                     End Using
 
