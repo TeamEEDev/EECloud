@@ -40,7 +40,6 @@ Module Module1
     Public WithEvents TrayIcon As New NotifyIcon() With {.Icon = My.Resources.Icon,
                                                          .Visible = True,
                                                          .Text = "EECloud"}
-    Public WithEvents TrayMenu As New ContextMenuStrip()
 
     Private TempNoAutoHide As Boolean
     Private LastRestart As Date
@@ -107,10 +106,6 @@ Module Module1
         Console.Title = "EECloud"
         Console.WriteLine("Welcome to EECloud.Launcher" & Environment.NewLine &
                           "Starting EECloud...")
-
-        TrayMenu.Items.Add("Exit", Nothing, Sub() Close())
-
-        TrayIcon.ContextMenuStrip = TrayMenu
     End Sub
 
     Sub Main()
