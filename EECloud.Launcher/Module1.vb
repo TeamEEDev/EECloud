@@ -6,7 +6,7 @@ Module Module1
 #Region "Unmanaged calls"
 
     <DllImport("user32.dll", CharSet:=CharSet.Auto, ExactSpelling:=True)>
-    Public Function GetForegroundWindow() As IntPtr
+    Private Function GetForegroundWindow() As IntPtr
     End Function
 
     <DllImport("user32.dll")>
@@ -14,51 +14,55 @@ Module Module1
     End Function
 
     <DllImport("user32.dll", CharSet:=CharSet.Auto, SetLastError:=True)>
-    Public Function GetWindowThreadProcessId(handle As IntPtr, ByRef processId As Integer) As Integer
+    Private Function GetWindowThreadProcessId(handle As IntPtr, ByRef processId As Integer) As Integer
     End Function
 
     <DllImport("kernel32.dll", SetLastError:=True)>
-    Public Function GetConsoleWindow() As IntPtr
+    Private Function GetConsoleWindow() As IntPtr
     End Function
 
     <DllImport("user32.dll")>
-    Public Function ShowWindow(hWnd As IntPtr, nCmdShow As Integer) As Boolean
+    Private Function ShowWindow(hWnd As IntPtr, nCmdShow As Integer) As Boolean
     End Function
 
     <DllImport("kernel32.dll")>
-    Public Function SetConsoleCtrlHandler(handler As HandlerRoutine, add As Boolean) As Boolean
+    Private Function SetConsoleCtrlHandler(handler As HandlerRoutine, add As Boolean) As Boolean
     End Function
 
 #End Region
 
 #Region "Fields"
-    Public Handle As IntPtr = GetConsoleWindow()
-    Public WithEvents NotifyIcon As New NotifyIcon With {.Icon = My.Resources.Icon, .Visible = True}
 
-    Private AppProcess As New Process With {.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}}
+    Private ReadOnly Handle As IntPtr = GetConsoleWindow()
+    Public WithEvents NotifyIcon As New NotifyIcon With {.Icon = My.Resources.Icon,
+                                                         .Visible = True}
 
-    Public TempNoAutoHide As Boolean
-    Public LastRestart As Date
-    Public RestartTry As Integer
+    Private ReadOnly BgAppProcess As New Process With {.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}}
+
+    Private TempNoAutoHide As Boolean
+    Private LastRestart As Date
+    Private RestartTry As Integer
+
 
     Const SW_HIDE As Integer = 0
     Const SW_RESTORE As Integer = 9
 
-    Public Delegate Function HandlerRoutine(ctrlType As CtrlTypes) As Boolean
+    Private Delegate Function HandlerRoutine(ctrlType As CtrlTypes) As Boolean
 
-    Public Enum CtrlTypes
+    Private Enum CtrlTypes
         CTRL_C_EVENT = 0
         CTRL_BREAK_EVENT
         CTRL_CLOSE_EVENT
         CTRL_LOGOFF_EVENT = 5
         CTRL_SHUTDOWN_EVENT
     End Enum
+
 #End Region
 
 #Region "Properties"
 
     Private ReadOnly mySeparatorText As String = StrDup(Console.BufferWidth - 1, "-")
-    Public ReadOnly Property SeparatorText As String
+    Private ReadOnly Property SeparatorText As String
         Get
             Return mySeparatorText
         End Get
@@ -85,22 +89,10 @@ Module Module1
 
 #Region "Methods"
 
-    Private myEECProcId As Integer
+    Private myBgAppProcId As Integer
     Private ReadOnly myThisProcId As Integer = Process.GetCurrentProcess().Id
 
-    Public Function ApplicationIsActivated() As Boolean
-        Dim activatedHandle = GetForegroundWindow()
-        If activatedHandle = IntPtr.Zero Then
-            Return False
-        End If
-
-        Dim activeProcId As Integer
-        GetWindowThreadProcessId(activatedHandle, activeProcId)
-
-        Return activeProcId = myEECProcId OrElse activeProcId = myThisProcId
-    End Function
-
-    Sub Main()
+    Private Sub Initialize()
         SetConsoleCtrlHandler(New HandlerRoutine(AddressOf ConsoleCtrlCheck), True)
         AddHandler NotifyIcon.Click,
             Sub()
@@ -111,16 +103,20 @@ Module Module1
         Console.Title = "EECloud"
         Console.WriteLine("Welcome to EECloud.Launcher" & Environment.NewLine &
                           "Starting EECloud...")
+    End Sub
+
+    Sub Main()
+        Initialize()
 
         Do
             LastRestart = Now
             Console.WriteLine(SeparatorText)
             'Start process
-            AppProcess.Start()
-            myEECProcId = AppProcess.Id
+            BgAppProcess.Start()
+            myBgAppProcId = BgAppProcess.Id
 
             'Hide window as it looses focus
-            Do Until AppProcess.HasExited
+            Do Until BgAppProcess.HasExited
                 If TempNoAutoHide Then
                     If ApplicationIsActivated() Then
                         TempNoAutoHide = False
@@ -135,7 +131,7 @@ Module Module1
             Loop
 
             'Exit if it exists with a 0 exit code
-            If AppProcess.ExitCode = 0 Then
+            If BgAppProcess.ExitCode = 0 Then
                 Close(False)
                 End
             End If
@@ -158,7 +154,7 @@ Module Module1
     End Sub
 
     Sub Close(Optional waitForPlugins As Boolean = True)
-        AppProcess.Dispose()
+        BgAppProcess.Dispose()
 
         If waitForPlugins Then
             'TODO: Wait for plugins to stop properly
@@ -171,6 +167,18 @@ Module Module1
         Close()
 
         Return False
+    End Function
+
+    Function ApplicationIsActivated() As Boolean
+        Dim activatedHandle = GetForegroundWindow()
+        If activatedHandle = IntPtr.Zero Then
+            Return False
+        End If
+
+        Dim activeProcId As Integer
+        GetWindowThreadProcessId(activatedHandle, activeProcId)
+
+        Return activeProcId = myBgAppProcId OrElse activeProcId = myThisProcId
     End Function
 
 #End Region
