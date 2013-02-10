@@ -57,6 +57,7 @@ publish
 # Others
 [Bb]in
 [Oo]bj
+[Hh]elp
 sql
 TestResults
 *.Cache
