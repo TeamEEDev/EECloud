@@ -22,9 +22,9 @@ Partial NotInheritable Class LoginForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.TextBoxEmail = New System.Windows.Forms.TextBox()
-        Me.TextBoxWorldID = New System.Windows.Forms.TextBox()
+        Me.TextBoxEmail = New System.Windows.Forms.ComboBox()
         Me.TextBoxPassword = New System.Windows.Forms.TextBox()
+        Me.TextBoxWorldID = New System.Windows.Forms.ComboBox()
         Me.ButtonJoinWorld = New System.Windows.Forms.Button()
         Me.LabelEmail = New System.Windows.Forms.Label()
         Me.LabelPassword = New System.Windows.Forms.Label()
@@ -148,9 +148,9 @@ Partial NotInheritable Class LoginForm
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents TextBoxEmail As System.Windows.Forms.TextBox
-    Friend WithEvents TextBoxWorldID As System.Windows.Forms.TextBox
+    Friend WithEvents TextBoxEmail As System.Windows.Forms.ComboBox
     Friend WithEvents TextBoxPassword As System.Windows.Forms.TextBox
+    Friend WithEvents TextBoxWorldID As System.Windows.Forms.ComboBox
     Friend WithEvents ButtonJoinWorld As System.Windows.Forms.Button
     Friend WithEvents LabelEmail As System.Windows.Forms.Label
     Friend WithEvents LabelPassword As System.Windows.Forms.Label
