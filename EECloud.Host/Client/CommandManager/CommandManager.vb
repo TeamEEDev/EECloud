@@ -157,11 +157,13 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
 
     Friend Sub InvokeCommand(player As Player, msg As String, rights As Group) Implements ICommandManager.InvokeCommand
         Try
-            myInternalCommandManager.HandleMessage(My.Settings.CommandChar & msg, player.UserID, rights)
-        Catch ex As NullReferenceException
-            myInternalCommandManager.HandleMessage(msg, -1, rights) 'Command was handled correctly without command char
-        Catch ex As ArgumentNullException
-            myInternalCommandManager.HandleMessage(msg, -1, rights)
+            If player IsNot Nothing Then
+                myInternalCommandManager.HandleMessage(My.Settings.CommandChar & msg, player.UserID, rights)
+            Else
+                myInternalCommandManager.HandleMessage(msg, -1, rights) 'Works without sending CommandChar
+            End If
+        Catch ex As Exception
+
         End Try
     End Sub
 
