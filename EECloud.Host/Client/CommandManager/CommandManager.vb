@@ -156,7 +156,19 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
     End Sub
 
     Friend Sub InvokeCommand(player As Player, msg As String, rights As Group) Implements ICommandManager.InvokeCommand
-        myInternalCommandManager.HandleMessage(My.Settings.CommandChar & msg, player.UserID, rights)
+        Try
+            If player IsNot Nothing Then
+                If player.Group >= rights Then
+                    myInternalCommandManager.HandleMessage(My.Settings.CommandChar & msg, player.UserID, player.Group)
+                Else
+                    myInternalCommandManager.HandleMessage(My.Settings.CommandChar & msg, player.UserID, rights)
+                End If
+            Else
+                myInternalCommandManager.HandleMessage(msg, -1, rights) 'Works without sending CommandChar
+            End If
+        Catch ex As Exception
+            Cloud.Logger.LogEx(ex)
+        End Try
     End Sub
 
     Private Sub AddCommand(name As String, handle As CommandHandle(Of TPlayer))
