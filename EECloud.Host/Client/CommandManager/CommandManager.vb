@@ -158,7 +158,11 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
     Friend Sub InvokeCommand(player As Player, msg As String, rights As Group) Implements ICommandManager.InvokeCommand
         Try
             If player IsNot Nothing Then
-                myInternalCommandManager.HandleMessage(My.Settings.CommandChar & msg, player.UserID, rights)
+                If player.Group >= rights Then
+                    myInternalCommandManager.HandleMessage(My.Settings.CommandChar & msg, player.UserID, player.Group)
+                Else
+                    myInternalCommandManager.HandleMessage(My.Settings.CommandChar & msg, player.UserID, rights)
+                End If
             Else
                 myInternalCommandManager.HandleMessage(msg, -1, rights) 'Works without sending CommandChar
             End If
