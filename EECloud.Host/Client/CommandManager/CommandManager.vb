@@ -163,7 +163,7 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
                 myInternalCommandManager.HandleMessage(msg, -1, rights) 'Works without sending CommandChar
             End If
         Catch ex As Exception
-
+            Cloud.Logger.LogEx(ex)
         End Try
     End Sub
 
