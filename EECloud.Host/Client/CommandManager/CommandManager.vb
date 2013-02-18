@@ -159,9 +159,9 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
         Try
             myInternalCommandManager.HandleMessage(My.Settings.CommandChar & msg, player.UserID, rights)
         Catch ex As NullReferenceException
-            myInternalCommandManager.HandleMessage(My.Settings.CommandChar & msg, -1, rights)
+            myInternalCommandManager.HandleMessage(msg, -1, rights) 'Command was handled correctly without command char
         Catch ex As ArgumentNullException
-            myInternalCommandManager.HandleMessage(My.Settings.CommandChar & msg, -1, rights)
+            myInternalCommandManager.HandleMessage(msg, -1, rights)
         End Try
     End Sub
 
