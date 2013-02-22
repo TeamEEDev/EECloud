@@ -38,15 +38,8 @@ Partial NotInheritable Class LoginForm
         '
         Me.TextBoxEmail.Location = New System.Drawing.Point(74, 35)
         Me.TextBoxEmail.Name = "TextBoxEmail"
-        Me.TextBoxEmail.Size = New System.Drawing.Size(150, 20)
+        Me.TextBoxEmail.Size = New System.Drawing.Size(150, 21)
         Me.TextBoxEmail.TabIndex = 2
-        '
-        'TextBoxWorldID
-        '
-        Me.TextBoxWorldID.Location = New System.Drawing.Point(74, 87)
-        Me.TextBoxWorldID.Name = "TextBoxWorldID"
-        Me.TextBoxWorldID.Size = New System.Drawing.Size(150, 20)
-        Me.TextBoxWorldID.TabIndex = 4
         '
         'TextBoxPassword
         '
@@ -55,6 +48,13 @@ Partial NotInheritable Class LoginForm
         Me.TextBoxPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.TextBoxPassword.Size = New System.Drawing.Size(150, 20)
         Me.TextBoxPassword.TabIndex = 3
+        '
+        'TextBoxWorldID
+        '
+        Me.TextBoxWorldID.Location = New System.Drawing.Point(74, 87)
+        Me.TextBoxWorldID.Name = "TextBoxWorldID"
+        Me.TextBoxWorldID.Size = New System.Drawing.Size(150, 21)
+        Me.TextBoxWorldID.TabIndex = 4
         '
         'ButtonJoinWorld
         '
