@@ -7,6 +7,8 @@ Friend NotInheritable Class LoginForm
     Private ReadOnly regularAccounts As New List(Of Integer)
     Private ReadOnly facebookAccounts As New List(Of Integer)
 
+    Private selectedLoginType As AccountType
+
 #End Region
 
 #Region "Methods"
@@ -126,6 +128,8 @@ Friend NotInheritable Class LoginForm
             TextBoxEmail.Items.Clear()
 
             If senderAsRadioButton.Text = RadioButtonRegular.Text Then
+                selectedLoginType = AccountType.Regular
+
                 For n = 0 To regularAccounts.Count - 1
                     TextBoxEmail.Items.Add(My.Settings.LoginEmails(regularAccounts(n)))
                 Next
@@ -135,7 +139,9 @@ Friend NotInheritable Class LoginForm
                 TextBoxPassword.Text = My.Settings.LoginPasswords(0)
                 TextBoxPassword.Enabled = True
                 LabelEmail.Text = "E-mail:"
-            Else 'If senderAsRadioButton Is RadioButtonFacebook Then
+            Else 'If senderAsRadioButton.Text = RadioButtonFacebook.Text Then
+                selectedLoginType = AccountType.Facebook
+
                 If facebookAccounts.Count > 0 Then
                     For n = 0 To facebookAccounts.Count - 1
                         TextBoxEmail.Items.Add(My.Settings.LoginEmails(facebookAccounts(n)))
@@ -151,6 +157,15 @@ Friend NotInheritable Class LoginForm
                 LabelEmail.Text = "Token:"
             End If
         End If
+    End Sub
+
+    Private Sub TextBoxEmail_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TextBoxEmail.SelectedIndexChanged
+        Select Case selectedLoginType
+            Case AccountType.Regular
+                TextBoxPassword.Text = My.Settings.LoginPasswords(regularAccounts(TextBoxEmail.SelectedIndex))
+            Case AccountType.Facebook
+                TextBoxPassword.Text = My.Settings.LoginPasswords(facebookAccounts(TextBoxEmail.SelectedIndex))
+        End Select
     End Sub
 
 #End Region
