@@ -43,7 +43,7 @@ Partial NotInheritable Class LoginForm
         '
         'TextBoxPassword
         '
-        Me.TextBoxPassword.Location = New System.Drawing.Point(74, 61)
+        Me.TextBoxPassword.Location = New System.Drawing.Point(74, 62)
         Me.TextBoxPassword.Name = "TextBoxPassword"
         Me.TextBoxPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.TextBoxPassword.Size = New System.Drawing.Size(150, 20)
@@ -51,14 +51,14 @@ Partial NotInheritable Class LoginForm
         '
         'TextBoxWorldID
         '
-        Me.TextBoxWorldID.Location = New System.Drawing.Point(74, 87)
+        Me.TextBoxWorldID.Location = New System.Drawing.Point(74, 88)
         Me.TextBoxWorldID.Name = "TextBoxWorldID"
         Me.TextBoxWorldID.Size = New System.Drawing.Size(150, 21)
         Me.TextBoxWorldID.TabIndex = 4
         '
         'ButtonJoinWorld
         '
-        Me.ButtonJoinWorld.Location = New System.Drawing.Point(12, 113)
+        Me.ButtonJoinWorld.Location = New System.Drawing.Point(12, 115)
         Me.ButtonJoinWorld.Name = "ButtonJoinWorld"
         Me.ButtonJoinWorld.Size = New System.Drawing.Size(212, 23)
         Me.ButtonJoinWorld.TabIndex = 5
@@ -77,7 +77,7 @@ Partial NotInheritable Class LoginForm
         'LabelPassword
         '
         Me.LabelPassword.AutoSize = True
-        Me.LabelPassword.Location = New System.Drawing.Point(12, 64)
+        Me.LabelPassword.Location = New System.Drawing.Point(12, 65)
         Me.LabelPassword.Name = "LabelPassword"
         Me.LabelPassword.Size = New System.Drawing.Size(56, 13)
         Me.LabelPassword.TabIndex = 0
@@ -86,7 +86,7 @@ Partial NotInheritable Class LoginForm
         'LabelWorldID
         '
         Me.LabelWorldID.AutoSize = True
-        Me.LabelWorldID.Location = New System.Drawing.Point(12, 90)
+        Me.LabelWorldID.Location = New System.Drawing.Point(12, 91)
         Me.LabelWorldID.Name = "LabelWorldID"
         Me.LabelWorldID.Size = New System.Drawing.Size(52, 13)
         Me.LabelWorldID.TabIndex = 0
@@ -128,7 +128,7 @@ Partial NotInheritable Class LoginForm
         Me.AcceptButton = Me.ButtonJoinWorld
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(236, 148)
+        Me.ClientSize = New System.Drawing.Size(236, 150)
         Me.Controls.Add(Me.RadioButtonFacebook)
         Me.Controls.Add(Me.RadioButtonRegular)
         Me.Controls.Add(Me.LabelWorldID)
