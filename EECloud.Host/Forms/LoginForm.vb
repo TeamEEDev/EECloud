@@ -72,11 +72,16 @@ Friend NotInheritable Class LoginForm
             If Not TextBoxPassword.Text = "" Or RadioButtonFacebook.Checked Then
                 If Not TextBoxWorldID.Text = "" Then
                     Dim settingIndex As Integer = My.Settings.LoginEmails.IndexOf(TextBoxEmail.Text)
+
                     If settingIndex > -1 Then
                         My.Settings.LoginTypes.RemoveAt(settingIndex)
-                        My.Settings.LoginEmails.Remove(settingIndex)
-                        My.Settings.LoginPasswords.Remove(settingIndex)
-                        My.Settings.LoginWorldIDs.Remove(settingIndex)
+                        My.Settings.LoginEmails.RemoveAt(settingIndex)
+                        My.Settings.LoginPasswords.RemoveAt(settingIndex)
+                    End If
+
+                    settingIndex = My.Settings.LoginWorldIDs.IndexOf(TextBoxWorldID.Text)
+                    If settingIndex > -1 Then
+                        My.Settings.LoginWorldIDs.RemoveAt(settingIndex)
                     End If
 
                     If RadioButtonRegular.Checked Then
