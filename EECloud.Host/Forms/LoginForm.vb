@@ -2,6 +2,13 @@
 
 Friend NotInheritable Class LoginForm
 
+#Region "Fields"
+
+    Private ReadOnly regularAccounts As New List(Of Integer)
+    Private ReadOnly facebookAccounts As New List(Of Integer)
+
+#End Region
+
 #Region "Methods"
 
     <DllImport("user32.dll")>
@@ -11,16 +18,27 @@ Friend NotInheritable Class LoginForm
     Friend Sub New()
         Icon = My.Resources.Icon
         InitializeComponent()
+    End Sub
 
-        TextBoxEmail.Text = My.Settings.LoginEmails(0)
+    Private Sub LoginForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        For n = 0 To My.Settings.LoginTypes.Count - 1
+            Select Case My.Settings.LoginTypes(n)
+                Case AccountType.Regular
+                    regularAccounts.Add(n)
+                Case AccountType.Facebook
+                    facebookAccounts.Add(n)
+            End Select
+        Next
+
         Select Case My.Settings.LoginTypes(0)
             Case AccountType.Regular
-                TextBoxPassword.Text = My.Settings.LoginPasswords(0)
                 RadioButtonRegular.Checked = True
             Case AccountType.Facebook
                 RadioButtonFacebook.Checked = True
         End Select
-        TextBoxWorldID.Text = My.Settings.LoginWorldIDs(0)
+
+        TextBoxWorldID.Items.AddRange(My.Settings.LoginWorldIDs.Cast(Of String)().ToArray())
+        TextBoxWorldID.Text = TextBoxWorldID.Items(0)
     End Sub
 
     Private Sub LoginForm_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
@@ -105,12 +123,28 @@ Friend NotInheritable Class LoginForm
         Dim senderAsRadioButton As RadioButton = TryCast(sender, RadioButton)
 
         If senderAsRadioButton IsNot Nothing AndAlso senderAsRadioButton.Checked Then
-            If senderAsRadioButton Is RadioButtonRegular Then
+            TextBoxEmail.Items.Clear()
+
+            If senderAsRadioButton.Text = RadioButtonRegular.Text Then
+                For n = 0 To regularAccounts.Count - 1
+                    TextBoxEmail.Items.Add(My.Settings.LoginEmails(regularAccounts(n)))
+                Next
+                TextBoxEmail.Text = TextBoxEmail.Items(0)
+
                 LabelPassword.Enabled = True
                 TextBoxPassword.Text = My.Settings.LoginPasswords(0)
                 TextBoxPassword.Enabled = True
                 LabelEmail.Text = "E-mail:"
             Else 'If senderAsRadioButton Is RadioButtonFacebook Then
+                If facebookAccounts.Count > 0 Then
+                    For n = 0 To facebookAccounts.Count - 1
+                        TextBoxEmail.Items.Add(My.Settings.LoginEmails(facebookAccounts(n)))
+                    Next
+                    TextBoxEmail.Text = TextBoxEmail.Items(0)
+                Else
+                    TextBoxEmail.Text = ""
+                End If
+
                 TextBoxPassword.Enabled = False
                 TextBoxPassword.Text = ""
                 LabelPassword.Enabled = False
