@@ -116,7 +116,7 @@ Module Module1
                 ConsoleVisible = True
             End Sub
 
-        TrayMenu.Items.Add("Exit", Nothing, Sub() Close())
+        TrayMenu.Items.Add("Exit", Nothing, Sub() Close()) 'TODO: Invoke the Close() method from the main thread
         TrayIcon.ContextMenuStrip = TrayMenu
 
         Application.Run()
@@ -151,7 +151,6 @@ Module Module1
             'Exit if it exists with a 0 exit code
             If BgAppProcess.ExitCode = 0 Then
                 Close()
-                End
             End If
 
             Console.WriteLine(Environment.NewLine & SeparatorText)
@@ -172,6 +171,11 @@ Module Module1
     End Sub
 
     Sub Close()
+        BeforeClose()
+        End
+    End Sub
+
+    Private Sub BeforeClose()
         BgAppProcess.Close()
         BgAppProcess.Dispose()
 
@@ -181,7 +185,7 @@ Module Module1
     End Sub
 
     Private Function ConsoleCtrlCheck(ctrlType As CtrlTypes) As Boolean
-        Close()
+        BeforeClose()
 
         Return False
     End Function
