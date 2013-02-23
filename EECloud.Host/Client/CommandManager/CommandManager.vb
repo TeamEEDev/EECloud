@@ -232,7 +232,7 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
         MyBase.Finalize()
     End Sub
 
-    Friend Sub Dispose() Implements IDisposable.Dispose
+    Friend Sub Dispose() Implements IDisposable.Dispose, ICommandManager.Dispose
         ' Do not change this code.  Put cleanup code in Dispose(disposing As Boolean) above.
         Dispose(True)
         GC.SuppressFinalize(Me)
