@@ -37,9 +37,7 @@ Module Module1
 
     Private ReadOnly BgAppProcess As New Process() With {.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}}
 
-    Public WithEvents TrayIcon As New NotifyIcon() With {.Icon = My.Resources.Icon,
-                                                         .Visible = True,
-                                                         .Text = "EECloud"}
+    Public WithEvents TrayIcon As NotifyIcon
 
     Private TempNoAutoHide As Boolean
     Private LastRestart As Date
@@ -97,15 +95,26 @@ Module Module1
     Private Sub Initialize()
         SetConsoleCtrlHandler(New HandlerRoutine(AddressOf ConsoleCtrlCheck), True)
 
+        Dim trayIconThread As New Thread(AddressOf InitializeTrayIcon)
+        trayIconThread.Start()
+
+        Console.Title = "EECloud"
+        Console.WriteLine("Welcome to EECloud.Launcher" & Environment.NewLine &
+                          "Starting EECloud...")
+    End Sub
+
+    Private Sub InitializeTrayIcon()
+        TrayIcon = New NotifyIcon() With {.Icon = My.Resources.Icon,
+                                          .Visible = True,
+                                          .Text = "EECloud"}
+
         AddHandler TrayIcon.DoubleClick,
             Sub()
                 TempNoAutoHide = True
                 ConsoleVisible = True
             End Sub
 
-        Console.Title = "EECloud"
-        Console.WriteLine("Welcome to EECloud.Launcher" & Environment.NewLine &
-                          "Starting EECloud...")
+        Application.Run()
     End Sub
 
     Sub Main()
@@ -161,7 +170,9 @@ Module Module1
         BgAppProcess.Close()
         BgAppProcess.Dispose()
 
-        TrayIcon.Dispose()
+        If TrayIcon IsNot Nothing Then
+            TrayIcon.Dispose()
+        End If
     End Sub
 
     Private Function ConsoleCtrlCheck(ctrlType As CtrlTypes) As Boolean
