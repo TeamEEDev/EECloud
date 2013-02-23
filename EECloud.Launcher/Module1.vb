@@ -38,6 +38,7 @@ Module Module1
     Private ReadOnly BgAppProcess As New Process() With {.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}}
 
     Public WithEvents TrayIcon As NotifyIcon
+    Public WithEvents TrayMenu As New ContextMenuStrip()
 
     Private TempNoAutoHide As Boolean
     Private LastRestart As Date
@@ -96,6 +97,7 @@ Module Module1
         SetConsoleCtrlHandler(New HandlerRoutine(AddressOf ConsoleCtrlCheck), True)
 
         Dim trayIconThread As New Thread(AddressOf InitializeTrayIcon)
+        trayIconThread.SetApartmentState(ApartmentState.STA)
         trayIconThread.Start()
 
         Console.Title = "EECloud"
@@ -113,6 +115,9 @@ Module Module1
                 TempNoAutoHide = True
                 ConsoleVisible = True
             End Sub
+
+        TrayMenu.Items.Add("Exit", Nothing, Sub() Close())
+        TrayIcon.ContextMenuStrip = TrayMenu
 
         Application.Run()
     End Sub
