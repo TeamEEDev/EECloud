@@ -2,7 +2,8 @@
 '''     Describes the direction of a portal.
 ''' </summary>
 ''' <remarks></remarks>
-    Public Enum PortalRotation
+Public Enum PortalRotation
+
     ''' <summary>
     '''     Portal pointing downwards
     ''' </summary>
@@ -26,4 +27,5 @@
     ''' </summary>
     ''' <remarks></remarks>
     Right = 3
+
 End Enum
