@@ -825,7 +825,7 @@ Friend NotInheritable Class Connection
                 Dim constructorInfo As ConstructorInfo = messageType.GetConstructor(BindingFlags.NonPublic Or BindingFlags.Instance, Nothing, New Type() {GetType(Message)}, Nothing)
                 Dim message As ReceiveMessage = CType(constructorInfo.Invoke(New Object() {m}), ReceiveMessage)
                 RaiseEvent ReceiveMessage(Me, message)
-            Else
+            ElseIf myInited Then 'Don't pass annoying "unregistered message" warnings
                 Dim messageArguments As New List(Of String)
                 For n As UInteger = 0 To CType(m.Count - 1, UInteger)
                     messageArguments.Add("   [" & m.Item(n).GetType.Name & "] " & CType(m.Item(n), String))
