@@ -116,8 +116,8 @@ Module Module1
                 ConsoleVisible = True
             End Sub
 
-        TrayMenu.Items.Add("Exit", Nothing, Sub() Close()) 'TODO: Invoke the Close() method from the main thread
-        TrayIcon.ContextMenuStrip = TrayMenu
+        'TrayMenu.Items.Add("Exit", Nothing, Sub() Close()) 'TODO: Invoke the Close() method from the main thread
+        'TrayIcon.ContextMenuStrip = TrayMenu
 
         Application.Run()
     End Sub
