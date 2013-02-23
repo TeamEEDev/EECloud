@@ -1,5 +1,5 @@
 ﻿Friend NotInheritable Class InternalClient
-    Implements IClient(Of Player)
+    Implements IClient(Of Player), IDisposable
 
 #Region "Properties"
 
@@ -128,6 +128,33 @@
         myChatter = New Chatter(myInternalChatter, "Bot")
         myPlayerManager = New PlayerManager(Of Player)(Me, Me)
         myCommandManager = New CommandManager(Of Player)(Me, myInternalCommandManager)
+    End Sub
+
+#End Region
+
+#Region "IDisposable Support"
+    Private myDisposedValue As Boolean
+
+    Private Sub Dispose(disposing As Boolean)
+        If Not myDisposedValue Then
+            If disposing Then
+
+            End If
+
+            myPlayerManager.Dispose()
+            myCommandManager.Dispose()
+        End If
+        myDisposedValue = True
+    End Sub
+
+    Protected Overrides Sub Finalize()
+        Dispose(False)
+        MyBase.Finalize()
+    End Sub
+
+    Friend Sub Dispose() Implements IDisposable.Dispose
+        Dispose(True)
+        GC.SuppressFinalize(Me)
     End Sub
 
 #End Region

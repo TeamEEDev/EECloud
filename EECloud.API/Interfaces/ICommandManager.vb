@@ -39,4 +39,6 @@
     ''' <param name="rights">Minimum rights, if the player has higher rights, this will be ignored</param>
     ''' <remarks></remarks>
     Sub InvokeCommand(player As Player, msg As String, rights As Group)
+
+    Sub Dispose()
 End Interface

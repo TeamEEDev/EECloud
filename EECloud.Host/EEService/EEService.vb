@@ -91,7 +91,8 @@
             connection.Open()
 
             Using command As MySqlCommand = connection.CreateCommand()
-                command.CommandText = "SELECT * FROM playerData ORDER BY " & orderBy & " LIMIT @Limit OFFSET @Offset"
+                command.CommandText = "SELECT * FROM playerData ORDER BY @OrderBy LIMIT @Limit OFFSET @Offset"
+                command.Parameters.AddWithValue("@OrderBy", orderBy)
                 command.Parameters.AddWithValue("@Limit", limit)
                 command.Parameters.AddWithValue("@Offset", offset)
 
