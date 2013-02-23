@@ -317,7 +317,7 @@ Friend NotInheritable Class Connection
 
         If myGameVersionNumber = 0 Then
             Try
-                myGameVersionNumber = CInt(Cloud.Service.GetSetting(GameVersionSetting))
+                myGameVersionNumber = CType(Cloud.Service.GetSetting(GameVersionSetting), Integer)
             Catch
                 Cloud.Logger.Log(LogPriority.Warning, "Invalid GameVersion setting.")
             End Try
@@ -590,7 +590,7 @@ Friend NotInheritable Class Connection
                 Dim m As InitReceiveMessage = CType(e, InitReceiveMessage)
                 RaiseEvent PreviewReceiveInit(Me, m)
                 RegisterMessages()
-                Send(New Init2SendMessage)
+                Send(New Init2SendMessage())
                 RaiseEvent ReceiveInit(Me, m)
 
             Case GetType(GroupDisallowedJoinReceiveMessage)
