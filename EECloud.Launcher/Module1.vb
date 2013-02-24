@@ -41,6 +41,8 @@ Module Module1
     Public WithEvents TrayMenu As New ContextMenuStrip()
 
     Private TempNoAutoHide As Boolean
+
+    Private RestartingOnRequest As Boolean
     Private LastRestart As Date
     Private RestartTry As Integer
 
@@ -117,7 +119,8 @@ Module Module1
             End Sub
 
         'TrayMenu.Items.Add("Exit", Nothing, Sub() Close()) 'TODO: Invoke the Close() method from the main thread
-        'TrayIcon.ContextMenuStrip = TrayMenu
+        TrayMenu.Items.Add("Restart EECloud", Nothing, Sub() RestartBgApp())
+        TrayIcon.ContextMenuStrip = TrayMenu
 
         Application.Run()
     End Sub
@@ -155,14 +158,16 @@ Module Module1
 
             Console.WriteLine(Environment.NewLine & SeparatorText)
 
-            'Wait if failing too often
-            If Now.Subtract(LastRestart).TotalMinutes >= 1 Then
-                RestartTry = 0
-            Else
-                Dim waitSecs As Integer = RestartTry << 1
-                Console.WriteLine(String.Format("Restarting in {0} second(s)...", waitSecs))
-                Thread.Sleep(waitSecs * 1000)
-                RestartTry += 1
+            If Not RestartingOnRequest Then
+                'Wait if failing too often
+                If Now.Subtract(LastRestart).TotalMinutes >= 1 Then
+                    RestartTry = 0
+                Else
+                    Dim waitSecs As Integer = RestartTry << 1
+                    Console.WriteLine(String.Format("Restarting in {0} second(s)...", waitSecs))
+                    Thread.Sleep(waitSecs * 1000)
+                    RestartTry += 1
+                End If
             End If
 
             'Restart
@@ -201,6 +206,11 @@ Module Module1
 
         Return activeProcId = myBgAppProcId OrElse activeProcId = myThisProcId
     End Function
+
+    Private Sub RestartBgApp()
+        RestartingOnRequest = True
+        BgAppProcess.Kill()
+    End Sub
 
 #End Region
 End Module
