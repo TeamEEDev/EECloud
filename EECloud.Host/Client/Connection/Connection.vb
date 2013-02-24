@@ -837,7 +837,7 @@ Friend NotInheritable Class Connection
                                                       "})")
             End If
         Catch ex As Exception
-            Cloud.Logger.Log(LogPriority.Error, "Failed to parse message: """ & m.Type & """")
+            Cloud.Logger.Log(LogPriority.Error, "Failed to parse message with type """ & m.Type & """.")
             Cloud.Logger.LogEx(ex)
         End Try
     End Sub
@@ -969,7 +969,7 @@ Friend NotInheritable Class Connection
                 myMessageDictionary.Add(str, type)
             End If
         Catch ex As Exception
-            Cloud.Logger.Log(LogPriority.Error, "Failed to register Value: " & str)
+            Cloud.Logger.Log(LogPriority.Error, "Failed to register messages with type """ & str & """.")
         End Try
     End Sub
 
@@ -977,7 +977,7 @@ Friend NotInheritable Class Connection
         Try
             myMessageDictionary.Remove(pString)
         Catch ex As Exception
-            Cloud.Logger.Log(LogPriority.Error, "Failed to unregister Value: " & pString)
+            Cloud.Logger.Log(LogPriority.Error, "Failed to unregister messages with type """ & pString & """.")
         End Try
     End Sub
 

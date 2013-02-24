@@ -35,7 +35,7 @@ Public Class BlockPlaceUploadMessage
             UploadCheck = CByte(UploadCheck + 1)
             Return X = message.PosX AndAlso Y = message.PosY AndAlso Layer = message.Layer
         Else
-            Cloud.Logger.Log(LogPriority.Warning, String.Format("Block failed to upload with ID {0}, at postion {1} x {2}.", Block, X, Y))
+            Cloud.Logger.Log(LogPriority.Warning, String.Format("Block failed to upload with ID {0}, at postion {1} | {2}.", Block, X, Y))
             Return True
         End If
     End Function

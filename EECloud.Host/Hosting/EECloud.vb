@@ -209,10 +209,10 @@ Public NotInheritable Class EECloud
         Try
             Return Assembly.LoadFile(dll)
         Catch ex As FileLoadException
-            Cloud.Logger.Log(LogPriority.Error, "Failed to load Assembly: " & dll)
+            Cloud.Logger.Log(LogPriority.Error, "Failed to load assembly: " & dll)
             Cloud.Logger.LogEx(ex)
         Catch ex As BadImageFormatException
-            Cloud.Logger.Log(LogPriority.Error, "Currupt assembly: " & dll)
+            Cloud.Logger.Log(LogPriority.Error, "Currupted assembly: " & dll)
             Cloud.Logger.LogEx(ex)
         End Try
         Return Nothing
@@ -242,9 +242,9 @@ Public NotInheritable Class EECloud
                 End Sub
 
             Await task
-            Cloud.Logger.Log(LogPriority.Info, "Connected!")
+            Cloud.Logger.Log(LogPriority.Info, "Connected.")
         Catch ex As Exception
-            Cloud.Logger.Log(LogPriority.Info, "Failed to connect!")
+            Cloud.Logger.Log(LogPriority.Info, "Failed to connect.")
             Cloud.Logger.LogEx(ex)
             Environment.Exit(1)
         End Try
