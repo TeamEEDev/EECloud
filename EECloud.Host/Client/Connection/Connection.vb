@@ -831,9 +831,9 @@ Friend NotInheritable Class Connection
                     messageArguments.Add("   [" & m.Item(n).GetType.Name & "] " & CType(m.Item(n), String))
                 Next
 
-                Cloud.Logger.Log(LogPriority.Warning, "Received unregistered message: " & """" & m.Type & """" & vbCrLf &
-                                                      "(Arguments: {" & vbCrLf &
-                                                      String.Join(vbCrLf, messageArguments) & vbCrLf &
+                Cloud.Logger.Log(LogPriority.Warning, "Received unregistered message with type """ & m.Type & """." & Environment.NewLine &
+                                                      "(Arguments: {" & Environment.NewLine &
+                                                      String.Join(Environment.NewLine, messageArguments) & Environment.NewLine &
                                                       "})")
             End If
         Catch ex As Exception
