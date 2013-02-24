@@ -64,12 +64,7 @@ Module Module1
 
 #Region "Properties"
 
-    Private ReadOnly mySeparatorText As String = StrDup(Console.BufferWidth - 1, "-")
-    Private ReadOnly Property SeparatorText As String
-        Get
-            Return mySeparatorText
-        End Get
-    End Property
+    Private ReadOnly SeparatorText As String = StrDup(Console.BufferWidth - 1, "_") & Environment.NewLine
 
     Private myConsoleVisible As Boolean = True
     Public Property ConsoleVisible As Boolean
@@ -103,7 +98,7 @@ Module Module1
         trayIconThread.Start()
 
         Console.Title = "EECloud"
-        Console.WriteLine("Welcome to EECloud.Launcher" & Environment.NewLine &
+        Console.WriteLine("Welcome to EECloud.Launcher!" & Environment.NewLine &
                           "Starting EECloud...")
     End Sub
 
