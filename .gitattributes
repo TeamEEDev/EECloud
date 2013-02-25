@@ -2,12 +2,12 @@
 * text=auto
 
 # Visual Studio
-*.sln    merge=union text eol=crlf
+*.sln    text eol=crlf merge=union
 
 # C#
-*.cs     diff=csharp text eol=lf
-*.csproj merge=union text eol=crlf
+*.cs     text eol=lf diff=csharp
+*.csproj text eol=crlf merge=union
 
 # VB.NET
-*.vb     merge=union text eol=lf
-*.vbproj merge=union text eol=crlf
+*.vb     text eol=lf merge=union
+*.vbproj text eol=crlf merge=union
