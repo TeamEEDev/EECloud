@@ -1,18 +1,13 @@
 # Automatically detect text files and perform LF normalization
-*                text=auto
+*         text=auto
 
 # Visual Studio
-*.sln            text eol=crlf merge=union
+*.sln     text eol=crlf merge=union
 
 # C#
-*.cs             text eol=lf filter=indent diff=csharp
-*.csproj         text eol=crlf merge=union
+*.cs      text eol=lf diff=csharp
+*.csproj  text eol=crlf merge=union
 
 # VB.NET
-*.vb             text eol=lf filter=indent
-*.vbproj         text eol=crlf merge=union
-
-# Git files
-*.gitattributes  text merge=union
-*.gitignore      text merge=union
-README.*         text
+*.vb      text eol=lf
+*.vbproj  text eol=crlf merge=union
