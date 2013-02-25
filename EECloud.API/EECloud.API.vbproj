@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{580DDF14-7848-4318-B9D8-55CBC3A2BC9E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>EECloud.API</RootNamespace>
+    <AssemblyName>EECloud.API</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>On</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>EECloud.API.xml</DocumentationFile>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\Release\</OutputPath>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>EECloud.API.xml</DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PlayerIOClient, Version=2.3.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\PlayerIOClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="EECloud.API" />
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\EECloud\SharedAssemblyInfo.vb">
+      <Link>SharedAssemblyInfo.vb</Link>
+    </Compile>
+    <Compile Include="Cloud.vb" />
+    <Compile Include="Attributes\CommandAttribute.vb" />
+    <Compile Include="Enums\AccountType.vb" />
+    <Compile Include="Enums\BlockType.vb" />
+    <Compile Include="Enums\Block\RotatableBlock.vb" />
+    <Compile Include="Enums\MagicClass.vb" />
+    <Compile Include="Enums\Potion.vb" />
+    <Compile Include="Enums\SpikeRotation.vb" />
+    <Compile Include="EventArgs\BlockPlaceEventArgs.vb" />
+    <Compile Include="EventArgs\DiconnectEventArgs.vb" />
+    <Compile Include="EventArgs\CancelableEventArgs.vb" />
+    <Compile Include="Enums\AccessRight.vb" />
+    <Compile Include="Interfaces\IChatSyntaxProvider.vb" />
+    <Compile Include="Interfaces\ICommand.vb" />
+    <Compile Include="Interfaces\ICommandManager.vb" />
+    <Compile Include="Interfaces\IClientFactory.vb" />
+    <Compile Include="Interfaces\IClientCloneFactory.vb" />
+    <Compile Include="Interfaces\IEEService.vb" />
+    <Compile Include="Interfaces\IGame.vb" />
+    <Compile Include="Interfaces\IKeyManager.vb" />
+    <Compile Include="Interfaces\IPlayer.vb" />
+    <Compile Include="Interfaces\IPlayerManager.vb" />
+    <Compile Include="Interfaces\IConnection.vb" />
+    <Compile Include="Interfaces\IPotionManager.vb" />
+    <Compile Include="Interfaces\IUploader.vb" />
+    <Compile Include="Interfaces\World\IWorld.vb" />
+    <Compile Include="Interfaces\World\IWorldBlock.vb" />
+    <Compile Include="Interfaces\World\IWorldCoinDoorBlock.vb" />
+    <Compile Include="Interfaces\World\IWorldLabelBlock.vb" />
+    <Compile Include="Interfaces\World\IWorldPortalBlock.vb" />
+    <Compile Include="Interfaces\World\IWorldRotatableBlock.vb" />
+    <Compile Include="Interfaces\World\IWorldSoundBlock.vb" />
+    <Compile Include="Location.vb" />
+    <Compile Include="Messages\Receive\AllowPotionsReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\KillReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\RotatablePlaceReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\WootUpReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\MagicRecieveMessage.vb" />
+    <Compile Include="Messages\Receive\LevelupRecieveMessage.vb" />
+    <Compile Include="Messages\Receive\PotionReceiveMessage.vb" />
+    <Compile Include="Messages\Send\AllowPotionsSendMessage.vb" />
+    <Compile Include="Messages\Send\CheckpointSendMessage.vb" />
+    <Compile Include="Messages\Send\CustomSendMessage.vb" />
+    <Compile Include="Messages\Send\DeathSendMessage.vb" />
+    <Compile Include="Messages\Send\RotatablePlaceSendMessage.vb" />
+    <Compile Include="Messages\Send\TouchCakeSendMessage.vb" />
+    <Compile Include="Messages\Send\PotionSendMessage.vb" />
+    <Compile Include="Messages\Send\TouchPlayerSendMessage.vb" />
+    <Compile Include="Messages\Send\WootUpSendMessage.vb" />
+    <Compile Include="Messages\Upload\BlockPlaceUploadMessage.vb" />
+    <Compile Include="Messages\Upload\CoinDoorPlaceUploadMessage.vb" />
+    <Compile Include="Messages\Upload\LabelPlaceUploadMessage.vb" />
+    <Compile Include="Messages\Upload\PortalPlaceUploadMessage.vb" />
+    <Compile Include="Messages\Upload\RotatablePlaceUploadMessage.vb" />
+    <Compile Include="Messages\Upload\SoundPlaceUploadMessage.vb" />
+    <Compile Include="Messages\Upload\UploadMessage.vb" />
+    <Compile Include="MustInherits\Player.vb" />
+    <Compile Include="Enums\Block\CoinDoorBlock.vb" />
+    <Compile Include="Enums\Block\LabelBlock.vb" />
+    <Compile Include="Enums\Block\PortalBlock.vb" />
+    <Compile Include="Enums\Block\SoundBlock.vb" />
+    <Compile Include="Enums\Group.vb" />
+    <Compile Include="Interfaces\IChatter.vb" />
+    <Compile Include="Interfaces\IClient.vb" />
+    <Compile Include="Messages\Send\SaveWorldSendMessage.vb" />
+    <Compile Include="Messages\Send\SaySendMessage.vb" />
+    <Compile Include="Messages\Send\ChangeFaceSendMessage.vb" />
+    <Compile Include="Messages\Send\ChangeWorldNameSendMessage.vb" />
+    <Compile Include="Messages\Send\ChangeWorldEditKeySendMessage.vb" />
+    <Compile Include="Messages\Send\ClearWorldSendMessage.vb" />
+    <Compile Include="Messages\Send\KillWorldSendMessage.vb" />
+    <Compile Include="Messages\Send\AccessSendMessage.vb" />
+    <Compile Include="Messages\Send\MoveSendMessage.vb" />
+    <Compile Include="Messages\Send\GodModeSendMessage.vb" />
+    <Compile Include="Messages\Send\AutoSaySendMessage.vb" />
+    <Compile Include="Messages\Send\ModModeSendMessage.vb" />
+    <Compile Include="Messages\Send\CompleteLevelSendMessage.vb" />
+    <Compile Include="Messages\Send\TouchDiamondSendMessage.vb" />
+    <Compile Include="Messages\Send\GetCrownSendMessage.vb" />
+    <Compile Include="Messages\Send\PressBlueKeySendMessage.vb" />
+    <Compile Include="Messages\Send\PressGreenKeySendMessage.vb" />
+    <Compile Include="Messages\Send\PressRedKeySendMessage.vb" />
+    <Compile Include="Messages\Send\CoinSendMessage.vb" />
+    <Compile Include="Messages\Send\LabelPlaceSendMessage.vb" />
+    <Compile Include="Messages\Send\PortalPlaceSendMessage.vb" />
+    <Compile Include="Messages\Send\SoundPlaceSendMessage.vb" />
+    <Compile Include="Messages\Send\CoinDoorPlaceSendMessage.vb" />
+    <Compile Include="Messages\Send\BlockPlaceSendMessage.vb" />
+    <Compile Include="Messages\Send\Init2SendMessage.vb" />
+    <Compile Include="Messages\Send\InitSendMessage.vb" />
+    <Compile Include="Messages\Send\SendMessage.vb" />
+    <Compile Include="Interfaces\IPlugin.vb" />
+    <Compile Include="Messages\Receive\AccessReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\AddReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\AutoTextReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\BlockPlaceReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\ClearReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\CoinReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\CoinDoorPlaceReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\CrownReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\FaceReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\GiveFireWizardReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\GiveWitchReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\GodModeReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\HideKeyReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\InitReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\LeftReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\ModModeReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\RefreshShopReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\ResetReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\SayReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\ShowKeyReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\TeleportReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\UpdateMetaReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\WriteReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\SaveDoneReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\SilverCrownReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\SoundPlaceReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\SayOldReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\PortalPlaceReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\MoveReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\LostAccessReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\LabelPlaceReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\InfoReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\GiveWizardReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\GiveGrinchReceiveMessage.vb" />
+    <Compile Include="MustInherits\Plugin.vb" />
+    <Compile Include="Exceptions\EECloudPlayerIOException.vb" />
+    <Compile Include="Exceptions\EECloudException.vb" />
+    <Compile Include="Attributes\PluginAttribute.vb" />
+    <Compile Include="Enums\ErrorCode.vb" />
+    <Compile Include="Enums\LogPriority.vb" />
+    <Compile Include="Enums\PluginCategory.vb" />
+    <Compile Include="Interfaces\IPluginObject.vb" />
+    <Compile Include="Interfaces\IPluginManager.vb" />
+    <Compile Include="Interfaces\ILogger.vb" />
+    <Compile Include="Enums\Key.vb" />
+    <Compile Include="Enums\PortalRotation.vb" />
+    <Compile Include="Enums\AutoText.vb" />
+    <Compile Include="Enums\Smiley.vb" />
+    <Compile Include="Enums\Block\Block.vb" />
+    <Compile Include="Enums\Layer.vb" />
+    <Compile Include="MustInherits\PluginBase.vb" />
+    <Compile Include="MustInherits\PluginPart.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="Messages\Receive\GroupDisallowedJoinReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\ReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\UpgradeReceiveMessage.vb" />
+    <Compile Include="UploadSnapshot.vb" />
+    <Compile Include="Utils.vb" />
+    <Compile Include="World\WorldBlock.vb" />
+    <Compile Include="World\WorldCoinDoorBlock.vb" />
+    <Compile Include="World\WorldLabelBlock.vb" />
+    <Compile Include="World\WorldPortalBlock.vb" />
+    <Compile Include="World\WorldRotatableBlock.vb" />
+    <Compile Include="World\WorldSoundBlock.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
