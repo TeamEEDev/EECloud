@@ -5,14 +5,14 @@
 *.sln            text eol=crlf merge=union
 
 # C#
-*.cs             text filter=indent diff=csharp
+*.cs             text eol=lf filter=indent diff=csharp
 *.csproj         text eol=crlf merge=union
 
 # VB.NET
-*.vb             text filter=indent
+*.vb             text eol=lf filter=indent
 *.vbproj         text eol=crlf merge=union
 
 # Git files
-*.gitattributes  text
-*.gitignore      text
+*.gitattributes  text merge=union
+*.gitignore      text merge=union
 README.*         text
