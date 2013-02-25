@@ -2,12 +2,16 @@
 * text=auto
 
 # Visual Studio
-*.sln    text eol=crlf merge=union
+*.sln text eol=crlf merge=union
 
 # C#
-*.cs     text eol=lf diff=csharp
+*.cs text eol=lf diff=csharp
 *.csproj text eol=crlf merge=union
 
 # VB.NET
-*.vb     text eol=lf
+*.vb text eol=lf
 *.vbproj text eol=crlf merge=union
+
+# Git files
+*.gitattributes text
+*.gitignore text
