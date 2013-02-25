@@ -1,6 +1,3 @@
-# Automatically detect text files and perform LF normalization
-* text=auto
-
 # Visual Studio
 *.sln text eol=crlf merge=union
 
@@ -15,3 +12,4 @@
 # Git files
 *.gitattributes text
 *.gitignore text
+README.* text
