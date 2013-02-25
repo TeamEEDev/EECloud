@@ -5,9 +5,9 @@
 *.sln     text eol=crlf merge=union
 
 # C#
-*.cs      text eol=lf diff=csharp
+*.cs      text diff=csharp
 *.csproj  text eol=crlf merge=union
 
 # VB.NET
-*.vb      text eol=lf
+*.vb      text
 *.vbproj  text eol=crlf merge=union
