@@ -40,9 +40,9 @@ Friend NotInheritable Class PluginManager
         SyncLock myPluginsList
             If (Not t.Namespace = "EECloud" AndAlso Not t.Namespace.StartsWith("EECloud.", StringComparison.Ordinal)) Then
                 If GetType(IPlugin).IsAssignableFrom(t) Then
-                    Dim attributes As Object() = t.GetCustomAttributes(GetType(PluginAttribute), True)
+                    Dim attributes As PluginAttribute() = t.GetCustomAttributes(GetType(PluginAttribute), True)
                     If attributes IsNot Nothing AndAlso attributes.Length = 1 Then
-                        Dim pluginObj As IPluginObject = New PluginObject(t, CType(attributes(0), PluginAttribute), myCloneFactory)
+                        Dim pluginObj As IPluginObject = New PluginObject(t, attributes(0), myCloneFactory)
                         myPluginsList.Add(pluginObj)
                         Exit Sub
                     End If
