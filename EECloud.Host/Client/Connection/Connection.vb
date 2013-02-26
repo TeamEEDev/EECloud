@@ -827,7 +827,7 @@ Friend NotInheritable Class Connection
                 RaiseEvent ReceiveMessage(Me, message)
             ElseIf myInited Then 'Don't pass annoying "unregistered message" warnings
                 Dim messageArguments As New List(Of String)
-                For n As UInteger = 0 To CType(m.Count - 1, UInteger)
+                For n As UInteger = 0 To CUInt(m.Count - 1)
                     messageArguments.Add("   [" & m.Item(n).GetType.Name & "] " & DirectCast(m.Item(n), String))
                 Next
 
