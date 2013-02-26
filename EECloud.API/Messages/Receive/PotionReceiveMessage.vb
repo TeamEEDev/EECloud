@@ -16,7 +16,7 @@ Public NotInheritable Class PotionReceiveMessage
         MyBase.New(message)
 
         UserID = message.GetInteger(0)
-        Potion = CType(message.GetInteger(1), Potion)
+        Potion = DirectCast(message.GetInteger(1), Potion)
         Enabled = message.GetBoolean(2)
         Timeout = message.GetInteger(3)
     End Sub

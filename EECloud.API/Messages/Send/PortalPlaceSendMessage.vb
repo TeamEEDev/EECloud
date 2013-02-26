@@ -7,7 +7,7 @@ Public NotInheritable Class PortalPlaceSendMessage
     Public ReadOnly PortalRotation As PortalRotation
 
     Public Sub New(layer As Layer, x As Integer, y As Integer, block As PortalBlock, portalID As Integer, portalTarget As Integer, portalRotation As PortalRotation)
-        MyBase.New(layer, x, y, CType(block, Block))
+        MyBase.New(layer, x, y, DirectCast(block, Block))
 
         Me.PortalID = portalID
         Me.PortalTarget = portalTarget
