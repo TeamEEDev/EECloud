@@ -51,7 +51,7 @@ Friend NotInheritable Class World
         Dim start As UInteger
         For i As UInteger = offset To CUInt(m.Count - 1)
             If TryCast(m.Item(i), String) IsNot Nothing AndAlso m.GetString(i) = "ws" Then
-                start = CType((i + 1), UInteger)
+                start = CType(i + 1, UInteger)
                 Exit For
             End If
         Next
