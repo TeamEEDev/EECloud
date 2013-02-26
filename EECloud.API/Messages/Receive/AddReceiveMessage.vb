@@ -34,7 +34,7 @@ Public NotInheritable Class AddReceiveMessage
 
         UserID = message.GetInteger(0)
         Username = message.GetString(1)
-        Face = CType(message.GetInteger(2), Smiley)
+        Face = DirectCast(message.GetInteger(2), Smiley)
         PlayerPosX = message.GetInteger(3)
         PlayerPosY = message.GetInteger(4)
         IsGod = message.GetBoolean(5)
@@ -43,7 +43,7 @@ Public NotInheritable Class AddReceiveMessage
         Coins = message.GetInteger(8)
         IsMyFriend = message.GetBoolean(9)
         IsPurple = message.GetBoolean(10)
-        MagicClass = CType(message.GetInteger(11), MagicClass)
+        MagicClass = DirectCast(message.GetInteger(11), MagicClass)
         IsClubMember = message.GetBoolean(12)
     End Sub
 End Class

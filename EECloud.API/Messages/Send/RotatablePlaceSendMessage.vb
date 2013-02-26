@@ -5,7 +5,7 @@ Public Class RotatablePlaceSendMessage
     Public ReadOnly Rotation As Integer
 
     Public Sub New(layer As Layer, x As Integer, y As Integer, block As RotatableBlock, rotation As Integer)
-        MyBase.New(layer, x, y, CType(block, Block))
+        MyBase.New(layer, x, y, DirectCast(block, Block))
 
         Me.Rotation = rotation
     End Sub

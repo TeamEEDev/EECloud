@@ -71,9 +71,9 @@ Friend NotInheritable Class World
                 Exit Do
             End If
 
-            Dim block1 As Block = DirectCast(CType(m.Item(pointer), Integer), Block)
+            Dim block1 As Block = DirectCast(m.GetInteger(pointer), Block)
             pointer += 1
-            Dim layer As Layer = DirectCast(CType(m.Item(pointer), Integer), Layer)
+            Dim layer As Layer = DirectCast(m.GetInteger(pointer), Layer)
             pointer += 1
             Dim byteArrayX As Byte() = m.GetByteArray(pointer)
             pointer += 1
@@ -98,7 +98,7 @@ Friend NotInheritable Class World
                         value(layer, x, y) = New WorldSoundBlock(DirectCast(block1, SoundBlock), soundID)
                     Next
                 Case Block.BlockPortal
-                    Dim portalRotation As PortalRotation = DirectCast(CType(m.Item(pointer), Integer), PortalRotation)
+                    Dim portalRotation As PortalRotation = DirectCast(m.GetInteger(pointer), PortalRotation)
                     pointer = CUInt(pointer + 1)
                     Dim portalID As Integer = m.GetInteger(pointer)
                     pointer = CUInt(pointer + 1)
