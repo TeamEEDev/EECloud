@@ -2,7 +2,7 @@
 Imports System.Windows.Forms
 Imports System.Threading
 
-Module Module1
+Module ModuleMain
 #Region "Unmanaged calls"
 
     <DllImport("user32.dll", CharSet:=CharSet.Auto, ExactSpelling:=True)>
@@ -37,11 +37,12 @@ Module Module1
 
     Private ReadOnly BgAppProcess As New Process() With {.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}}
 
-    Public WithEvents TrayIcon As New NotifyIcon() With {.Icon = My.Resources.Icon,
-                                                         .Visible = True,
-                                                         .Text = "EECloud"}
+    Public WithEvents TrayIcon As NotifyIcon
+    Public WithEvents TrayMenu As New ContextMenuStrip()
 
     Private TempNoAutoHide As Boolean
+
+    Private RestartingOnRequest As Boolean
     Private LastRestart As Date
     Private RestartTry As Integer
 
@@ -63,12 +64,7 @@ Module Module1
 
 #Region "Properties"
 
-    Private ReadOnly mySeparatorText As String = StrDup(Console.BufferWidth - 1, "-")
-    Private ReadOnly Property SeparatorText As String
-        Get
-            Return mySeparatorText
-        End Get
-    End Property
+    Private ReadOnly SeparatorText As String = StrDup(Console.BufferWidth - 1, "_") & Environment.NewLine
 
     Private myConsoleVisible As Boolean = True
     Public Property ConsoleVisible As Boolean
@@ -97,15 +93,31 @@ Module Module1
     Private Sub Initialize()
         SetConsoleCtrlHandler(New HandlerRoutine(AddressOf ConsoleCtrlCheck), True)
 
+        Dim trayIconThread As New Thread(AddressOf InitializeTrayIcon)
+        trayIconThread.SetApartmentState(ApartmentState.STA)
+        trayIconThread.Start()
+
+        Console.Title = "EECloud"
+        Console.WriteLine("Welcome to EECloud.Launcher!" & Environment.NewLine &
+                          "Starting EECloud...")
+    End Sub
+
+    Private Sub InitializeTrayIcon()
+        TrayIcon = New NotifyIcon() With {.Icon = My.Resources.Icon,
+                                          .Visible = True,
+                                          .Text = "EECloud"}
+
         AddHandler TrayIcon.DoubleClick,
             Sub()
                 TempNoAutoHide = True
                 ConsoleVisible = True
             End Sub
 
-        Console.Title = "EECloud"
-        Console.WriteLine("Welcome to EECloud.Launcher" & Environment.NewLine &
-                          "Starting EECloud...")
+        'TrayMenu.Items.Add("Exit", Nothing, Sub() Close()) 'TODO: Invoke the Close() method from the main thread
+        TrayMenu.Items.Add("Restart EECloud", Nothing, Sub() RestartBgApp())
+        TrayIcon.ContextMenuStrip = TrayMenu
+
+        Application.Run()
     End Sub
 
     Sub Main()
@@ -137,19 +149,20 @@ Module Module1
             'Exit if it exists with a 0 exit code
             If BgAppProcess.ExitCode = 0 Then
                 Close()
-                End
             End If
 
             Console.WriteLine(Environment.NewLine & SeparatorText)
 
-            'Wait if failing too often
-            If Now.Subtract(LastRestart).TotalMinutes >= 1 Then
-                RestartTry = 0
-            Else
-                Dim waitSecs As Integer = RestartTry << 1
-                Console.WriteLine(String.Format("Restarting in {0} second(s)...", waitSecs))
-                Thread.Sleep(waitSecs * 1000)
-                RestartTry += 1
+            If Not RestartingOnRequest Then
+                'Wait if failing too often
+                If Now.Subtract(LastRestart).TotalMinutes >= 1 Then
+                    RestartTry = 0
+                Else
+                    Dim waitSecs As Integer = RestartTry << 1
+                    Console.WriteLine(String.Format("Restarting in {0} second(s)...", waitSecs))
+                    Thread.Sleep(waitSecs * 1000)
+                    RestartTry += 1
+                End If
             End If
 
             'Restart
@@ -158,14 +171,21 @@ Module Module1
     End Sub
 
     Sub Close()
-        BgAppProcess.Close()
+        BeforeClose()
+        End
+    End Sub
+
+    Private Sub BeforeClose()
         BgAppProcess.Dispose()
 
-        TrayIcon.Dispose()
+        If TrayIcon IsNot Nothing Then
+            TrayIcon.Dispose()
+        End If
+        TrayMenu.Dispose()
     End Sub
 
     Private Function ConsoleCtrlCheck(ctrlType As CtrlTypes) As Boolean
-        Close()
+        BeforeClose()
 
         Return False
     End Function
@@ -181,6 +201,11 @@ Module Module1
 
         Return activeProcId = myBgAppProcId OrElse activeProcId = myThisProcId
     End Function
+
+    Private Sub RestartBgApp()
+        RestartingOnRequest = True
+        BgAppProcess.Kill()
+    End Sub
 
 #End Region
 End Module

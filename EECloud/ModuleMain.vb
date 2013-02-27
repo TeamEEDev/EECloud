@@ -40,7 +40,9 @@ Module ModuleMain
                     Await webClient.DownloadFileTaskAsync(New Uri("http://dl.dropbox.com/u/13946635/EECloud/EECloud.Setup.msi"), My.Application.Info.DirectoryPath & "\EECloud.msi")
 
                     'Notify user
-                    MsgBox("The update has been downloaded and it's ready to be installed. Press OK to start updating!", DirectCast(vbOKOnly + vbInformation, MsgBoxStyle), "Update ready")
+                    MsgBox("The update has been downloaded and it's ready to be installed. Press OK to start updating!",
+                           MsgBoxStyle.Information,
+                           "Update ready")
 
                     'Write a batch file
                     Using writer As New StreamWriter(My.Application.Info.DirectoryPath & "\Update.bat")
@@ -64,7 +66,7 @@ Module ModuleMain
         Catch ex As Exception
             MsgBox("Failed to check for updates: " & Environment.NewLine &
                    ex.ToString(),
-                   DirectCast(vbOKOnly + vbExclamation, MsgBoxStyle), "Error")
+                   MsgBoxStyle.Exclamation, "Error")
         End Try
     End Sub
 

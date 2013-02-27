@@ -23,7 +23,7 @@
 #Region "Methods"
 
     Public Sub New(block As RotatableBlock, coinsToCollect As Integer)
-        MyBase.New(CType(block, Block))
+        MyBase.New(DirectCast(block, Block))
         myRotation = coinsToCollect
     End Sub
 

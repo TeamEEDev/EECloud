@@ -10,7 +10,7 @@ Public NotInheritable Class HideKeyReceiveMessage
 
         ReDim Keys(CInt(message.Count - 1))
         For i = 0 To message.Count - 1
-            Keys(CInt(i)) = CType([Enum].Parse(GetType(Key), message.GetString(CUInt(i)), True), Key)
+            Keys(CInt(i)) = DirectCast([Enum].Parse(GetType(Key), message.GetString(CUInt(i)), True), Key)
         Next
     End Sub
 End Class

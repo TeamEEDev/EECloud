@@ -39,7 +39,7 @@
 #Region "Methods"
 
     Public Sub New(block As PortalBlock, portalRotation As PortalRotation, portalID As Integer, portalTarget As Integer)
-        MyBase.New(CType(block, Block))
+        MyBase.New(DirectCast(block, Block))
         myPortalRotation = portalRotation
         myPortalID = portalID
         myPortalTarget = portalTarget

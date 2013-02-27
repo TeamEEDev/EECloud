@@ -40,9 +40,9 @@ Friend NotInheritable Class PluginManager
         SyncLock myPluginsList
             If (Not t.Namespace = "EECloud" AndAlso Not t.Namespace.StartsWith("EECloud.", StringComparison.Ordinal)) Then
                 If GetType(IPlugin).IsAssignableFrom(t) Then
-                    Dim attributes As Object() = t.GetCustomAttributes(GetType(PluginAttribute), True)
+                    Dim attributes As PluginAttribute() = t.GetCustomAttributes(GetType(PluginAttribute), True)
                     If attributes IsNot Nothing AndAlso attributes.Length = 1 Then
-                        Dim pluginObj As IPluginObject = New PluginObject(t, CType(attributes(0), PluginAttribute), myCloneFactory)
+                        Dim pluginObj As IPluginObject = New PluginObject(t, attributes(0), myCloneFactory)
                         myPluginsList.Add(pluginObj)
                         Exit Sub
                     End If
@@ -55,13 +55,13 @@ Friend NotInheritable Class PluginManager
     Public Sub Load(assembly As Assembly) Implements IPluginManager.Load
         'Checking for valid plugins
         Dim plugins1 As IEnumerable(Of Type) =
-                From type As Type In assembly.GetTypes
-                Where GetType(IPlugin).IsAssignableFrom(type)
-                Let attributes As Object() = type.GetCustomAttributes(GetType(PluginAttribute), True)
-                Where attributes IsNot Nothing AndAlso attributes.Length = 1
-                Let attribute As PluginAttribute = CType(attributes(0), PluginAttribute)
-                Where attribute.StartupLoaded AndAlso (attribute.StartupRooms Is Nothing OrElse attribute.StartupRooms.Length = 0 OrElse attribute.StartupRooms.Contains(Cloud.StartupWorldID))
-                Select type
+            From type As Type In assembly.GetTypes
+            Where GetType(IPlugin).IsAssignableFrom(type)
+            Let attributes As PluginAttribute() = type.GetCustomAttributes(GetType(PluginAttribute), True)
+            Where attributes IsNot Nothing AndAlso attributes.Length = 1
+            Let attribute As PluginAttribute = attributes(0)
+            Where attribute.StartupLoaded AndAlso (attribute.StartupRooms Is Nothing OrElse attribute.StartupRooms.Length = 0 OrElse attribute.StartupRooms.Contains(Cloud.StartupWorldID))
+            Select type
 
         'Activating valid plugins
         Using enumrator As IEnumerator(Of Type) = plugins1.GetEnumerator

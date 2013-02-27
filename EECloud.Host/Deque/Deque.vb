@@ -30,7 +30,7 @@ Partial Friend Class Deque (Of T)
             Throw New ArgumentNullException("collection")
         End If
 
-        For Each item As T In collection
+        For Each item In collection
             PushBack(item)
         Next
     End Sub
