@@ -23,10 +23,10 @@ Public NotInheritable Class EECloud
 
         myLicenseUsername = My.Settings.LicenseUsername
         myLicenseKey = My.Settings.LicenseKey
-        myUsername = My.Settings.LoginEmail
-        myPassword = My.Settings.LoginPassword
-        myType = My.Settings.LoginType
-        myWorldID = My.Settings.LoginWorldID
+        myUsername = My.Settings.LoginEmails(0)
+        myPassword = My.Settings.LoginPasswords(0)
+        myType = My.Settings.LoginTypes(0)
+        myWorldID = My.Settings.LoginWorldIDs(0)
         myCommandChar = My.Settings.CommandChar
         Cloud.LicenseUsername = myLicenseUsername
     End Sub
@@ -163,15 +163,15 @@ Public NotInheritable Class EECloud
         If Not My.Settings.Restart Then
             Await Task.Run(
                 Sub()
-                If Not New LoginForm().ShowDialog = DialogResult.OK Then
-                    Environment.Exit(0)
-                End If
-            End Sub)
+                    If Not New LoginForm().ShowDialog = DialogResult.OK Then
+                        Environment.Exit(0)
+                    End If
+                End Sub)
 
-            myUsername = My.Settings.LoginEmail
-            myPassword = My.Settings.LoginPassword
-            myType = My.Settings.LoginType
-            myWorldID = My.Settings.LoginWorldID
+            myUsername = My.Settings.LoginEmails(0)
+            myPassword = My.Settings.LoginPasswords(0)
+            myType = My.Settings.LoginTypes(0)
+            myWorldID = My.Settings.LoginWorldIDs(0)
         Else
             My.Settings.Restart = False
             My.Settings.Save()
@@ -209,10 +209,10 @@ Public NotInheritable Class EECloud
         Try
             Return Assembly.LoadFile(dll)
         Catch ex As FileLoadException
-            Cloud.Logger.Log(LogPriority.Error, "Failed to load Assembly: " & dll)
+            Cloud.Logger.Log(LogPriority.Error, "Failed to load assembly: " & dll)
             Cloud.Logger.LogEx(ex)
         Catch ex As BadImageFormatException
-            Cloud.Logger.Log(LogPriority.Error, "Currupt assembly: " & dll)
+            Cloud.Logger.Log(LogPriority.Error, "Currupted assembly: " & dll)
             Cloud.Logger.LogEx(ex)
         End Try
         Return Nothing
@@ -242,9 +242,9 @@ Public NotInheritable Class EECloud
                 End Sub
 
             Await task
-            Cloud.Logger.Log(LogPriority.Info, "Connected!")
+            Cloud.Logger.Log(LogPriority.Info, "Connected.")
         Catch ex As Exception
-            Cloud.Logger.Log(LogPriority.Info, "Failed to connect!")
+            Cloud.Logger.Log(LogPriority.Info, "Failed to connect.")
             Cloud.Logger.LogEx(ex)
             Environment.Exit(1)
         End Try

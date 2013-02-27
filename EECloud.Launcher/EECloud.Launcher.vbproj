@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C79E759B-B7FD-4343-A221-EB68EA4C6A06}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <StartupObject>EECloud.Launcher.Module1</StartupObject>
+    <StartupObject>EECloud.Launcher.ModuleMain</StartupObject>
     <RootNamespace>EECloud.Launcher</RootNamespace>
     <AssemblyName>EECloud.Launcher</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -83,7 +83,7 @@
     <Compile Include="..\EECloud\SharedAssemblyInfo.vb">
       <Link>SharedAssemblyInfo.vb</Link>
     </Compile>
-    <Compile Include="Module1.vb" />
+    <Compile Include="ModuleMain.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

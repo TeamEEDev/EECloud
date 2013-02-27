@@ -19,7 +19,7 @@
                 command.CommandText = "SELECT SettingValue FROM settings WHERE SettingKey = @SettingKey"
                 command.Parameters.AddWithValue("@SettingKey", key)
 
-                Return CType(command.ExecuteScalar(), String)
+                Return DirectCast(command.ExecuteScalar(), String)
             End Using
         End Using
     End Function
@@ -91,7 +91,8 @@
             connection.Open()
 
             Using command As MySqlCommand = connection.CreateCommand()
-                command.CommandText = "SELECT * FROM playerData ORDER BY " & orderBy & " LIMIT @Limit OFFSET @Offset"
+                command.CommandText = "SELECT * FROM playerData ORDER BY @OrderBy LIMIT @Limit OFFSET @Offset"
+                command.Parameters.AddWithValue("@OrderBy", orderBy)
                 command.Parameters.AddWithValue("@Limit", limit)
                 command.Parameters.AddWithValue("@Offset", offset)
 

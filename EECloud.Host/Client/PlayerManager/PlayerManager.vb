@@ -322,7 +322,7 @@
         MyBase.Finalize()
     End Sub
 
-    Friend Sub Dispose() Implements IDisposable.Dispose
+    Friend Sub Dispose() Implements IDisposable.Dispose, IPlayerManager(Of TPlayer).Dispose
         Dispose(True)
         GC.SuppressFinalize(Me)
     End Sub
