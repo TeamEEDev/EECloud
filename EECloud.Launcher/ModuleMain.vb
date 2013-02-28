@@ -232,7 +232,6 @@ Module ModuleMain
             HideCheckerThread.Abort()
             AutoHideToolStripMenuItem.Checked = False
 
-            ConsoleVisible = True
             TempNoAutoHide = False
 
             My.Settings.AutoHideEnabled = False
@@ -242,6 +241,8 @@ Module ModuleMain
 
             My.Settings.AutoHideEnabled = True
         End If
+
+        ConsoleVisible = True
 
         My.Settings.Save()
     End Sub
