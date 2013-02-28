@@ -137,7 +137,7 @@ Module ModuleMain
         End If
     End Sub
 
-    Private Sub InitializeHideChecker()
+    Private Sub HideCheckerThreadActions()
         Do
             If Not ApplicationIsActivated() Then
                 If Not TempNoAutoHide Then
@@ -152,7 +152,7 @@ Module ModuleMain
     End Sub
 
     Private Sub StartHideCheckerThread()
-        HideCheckerThread = New Thread(AddressOf InitializeHideChecker)
+        HideCheckerThread = New Thread(AddressOf HideCheckerThreadActions)
         HideCheckerThread.SetApartmentState(ApartmentState.STA)
         HideCheckerThread.Start()
     End Sub
