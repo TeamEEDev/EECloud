@@ -45,7 +45,6 @@ Module ModuleMain
     Private ReadOnly AutoHideToolStripMenuItem As New ToolStripMenuItem("Auto-hide window when inactive", Nothing, Sub() ToggleAutoHide())
 
     Private AutoHideEnabled As Boolean
-    Private TempNoAutoHide As Boolean
 
     Private RestartingOnRequest As Boolean
     Private LastRestart As Date
@@ -114,7 +113,6 @@ Module ModuleMain
 
         AddHandler TrayIcon.DoubleClick,
             Sub()
-                TempNoAutoHide = True
                 ConsoleVisible = True
             End Sub
 
@@ -140,11 +138,7 @@ Module ModuleMain
     Private Sub HideCheckerThreadActions()
         Do
             If Not ApplicationIsActivated() Then
-                If Not TempNoAutoHide Then
-                    ConsoleVisible = False
-                Else
-                    TempNoAutoHide = False
-                End If
+                ConsoleVisible = False
             End If
 
             Thread.Sleep(100)
@@ -231,8 +225,6 @@ Module ModuleMain
         If AutoHideToolStripMenuItem.Checked Then 'Disabling AutoHide
             HideCheckerThread.Abort()
             AutoHideToolStripMenuItem.Checked = False
-
-            TempNoAutoHide = False
 
             My.Settings.AutoHideEnabled = False
         Else 'Enabling AutoHide
