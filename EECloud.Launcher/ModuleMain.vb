@@ -97,6 +97,10 @@ Module ModuleMain
         trayIconThread.SetApartmentState(ApartmentState.STA)
         trayIconThread.Start()
 
+        Dim hideCheckerThread As New Thread(AddressOf InitializeHideChecker)
+        hideCheckerThread.SetApartmentState(ApartmentState.STA)
+        hideCheckerThread.Start()
+
         Console.Title = "EECloud"
         Console.WriteLine("Welcome to EECloud.Launcher!" & Environment.NewLine &
                           "Starting EECloud...")
@@ -120,6 +124,20 @@ Module ModuleMain
         Application.Run()
     End Sub
 
+    Private Sub InitializeHideChecker()
+        Do
+            If Not ApplicationIsActivated() Then
+                If Not TempNoAutoHide Then
+                    ConsoleVisible = False
+                Else
+                    TempNoAutoHide = False
+                End If
+            End If
+
+            Thread.Sleep(100)
+        Loop
+    End Sub
+
     Sub Main()
         Initialize()
 
@@ -131,18 +149,7 @@ Module ModuleMain
             BgAppProcess.Start()
             myBgAppProcId = BgAppProcess.Id
 
-            'Hide window as it looses focus
             Do Until BgAppProcess.HasExited
-                If TempNoAutoHide Then
-                    If ApplicationIsActivated() Then
-                        TempNoAutoHide = False
-                    End If
-                ElseIf ConsoleVisible Then
-                    If Not ApplicationIsActivated() Then
-                        ConsoleVisible = False
-                    End If
-                End If
-
                 Thread.Sleep(1000)
             Loop
 
