@@ -132,7 +132,7 @@ Module ModuleMain
 
     Private Sub InitializeAutoHideTrayMenuItem()
         If My.Settings.AutoHideEnabled Then
-            HideCheckerThread.Start()
+            StartHideCheckerThread()
             AutoHideToolStripMenuItem.Checked = True
         End If
     End Sub
@@ -149,6 +149,12 @@ Module ModuleMain
 
             Thread.Sleep(100)
         Loop
+    End Sub
+
+    Private Sub StartHideCheckerThread()
+        HideCheckerThread = New Thread(AddressOf InitializeHideChecker)
+        HideCheckerThread.SetApartmentState(ApartmentState.STA)
+        HideCheckerThread.Start()
     End Sub
 
     Sub Main()
@@ -234,10 +240,7 @@ Module ModuleMain
 
             My.Settings.AutoHideEnabled = False
         Else 'Enabling AutoHide
-            HideCheckerThread = New Thread(AddressOf InitializeHideChecker)
-            HideCheckerThread.SetApartmentState(ApartmentState.STA)
-            HideCheckerThread.Start()
-
+            StartHideCheckerThread()
             AutoHideToolStripMenuItem.Checked = True
 
             My.Settings.AutoHideEnabled = True
