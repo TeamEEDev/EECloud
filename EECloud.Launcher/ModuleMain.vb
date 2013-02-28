@@ -207,9 +207,6 @@ Module ModuleMain
         If TrayIcon IsNot Nothing Then
             TrayIcon.Dispose()
         End If
-        If Not TrayMenu.InvokeRequired Then
-            TrayMenu.Dispose()
-        End If
     End Sub
 
     Private Function ConsoleCtrlCheck(ctrlType As CtrlTypes) As Boolean
