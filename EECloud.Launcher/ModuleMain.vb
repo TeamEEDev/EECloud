@@ -37,9 +37,14 @@ Module ModuleMain
 
     Private ReadOnly BgAppProcess As New Process() With {.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}}
 
+    Private HideCheckerThread As Thread
+
     Public WithEvents TrayIcon As NotifyIcon
     Public WithEvents TrayMenu As New ContextMenuStrip()
 
+    Private ReadOnly AutoHideToolStripMenuItem As New ToolStripMenuItem("Auto-hide window when inactive", Nothing, Sub() ToggleAutoHide())
+
+    Private AutoHideEnabled As Boolean
     Private TempNoAutoHide As Boolean
 
     Private RestartingOnRequest As Boolean
@@ -97,10 +102,6 @@ Module ModuleMain
         trayIconThread.SetApartmentState(ApartmentState.STA)
         trayIconThread.Start()
 
-        Dim hideCheckerThread As New Thread(AddressOf InitializeHideChecker)
-        hideCheckerThread.SetApartmentState(ApartmentState.STA)
-        hideCheckerThread.Start()
-
         Console.Title = "EECloud"
         Console.WriteLine("Welcome to EECloud.Launcher!" & Environment.NewLine &
                           "Starting EECloud...")
@@ -117,11 +118,23 @@ Module ModuleMain
                 ConsoleVisible = True
             End Sub
 
-        'TrayMenu.Items.Add("Exit", Nothing, Sub() Close()) 'TODO: Invoke the Close() method from the main thread
+        TrayMenu.Items.Add(AutoHideToolStripMenuItem)
+        TrayMenu.Items.Add(New ToolStripSeparator())
         TrayMenu.Items.Add("Restart EECloud", Nothing, Sub() RestartBgApp())
+        'TrayMenu.Items.Add("Exit", Nothing, Sub() Close()) 'TODO: Invoke the Close() method from the main thread
+
+        InitializeAutoHideTrayMenuItem()
+
         TrayIcon.ContextMenuStrip = TrayMenu
 
         Application.Run()
+    End Sub
+
+    Private Sub InitializeAutoHideTrayMenuItem()
+        If My.Settings.AutoHideEnabled Then
+            HideCheckerThread.Start()
+            AutoHideToolStripMenuItem.Checked = True
+        End If
     End Sub
 
     Private Sub InitializeHideChecker()
@@ -188,7 +201,9 @@ Module ModuleMain
         If TrayIcon IsNot Nothing Then
             TrayIcon.Dispose()
         End If
-        TrayMenu.Dispose()
+        If Not TrayMenu.InvokeRequired Then
+            TrayMenu.Dispose()
+        End If
     End Sub
 
     Private Function ConsoleCtrlCheck(ctrlType As CtrlTypes) As Boolean
@@ -208,6 +223,28 @@ Module ModuleMain
 
         Return activeProcId = myBgAppProcId OrElse activeProcId = myThisProcId
     End Function
+
+    Private Sub ToggleAutoHide()
+        If AutoHideToolStripMenuItem.Checked Then 'Disabling AutoHide
+            HideCheckerThread.Abort()
+            AutoHideToolStripMenuItem.Checked = False
+
+            ConsoleVisible = True
+            TempNoAutoHide = False
+
+            My.Settings.AutoHideEnabled = False
+        Else 'Enabling AutoHide
+            HideCheckerThread = New Thread(AddressOf InitializeHideChecker)
+            HideCheckerThread.SetApartmentState(ApartmentState.STA)
+            HideCheckerThread.Start()
+
+            AutoHideToolStripMenuItem.Checked = True
+
+            My.Settings.AutoHideEnabled = True
+        End If
+
+        My.Settings.Save()
+    End Sub
 
     Private Sub RestartBgApp()
         RestartingOnRequest = True
