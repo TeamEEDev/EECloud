@@ -222,6 +222,8 @@ Module ModuleMain
     End Function
 
     Private Sub ToggleAutoHide()
+        ConsoleVisible = True
+
         If AutoHideToolStripMenuItem.Checked Then 'Disabling AutoHide
             HideCheckerThread.Abort()
             AutoHideToolStripMenuItem.Checked = False
@@ -233,8 +235,6 @@ Module ModuleMain
 
             My.Settings.AutoHideEnabled = True
         End If
-
-        ConsoleVisible = True
 
         My.Settings.Save()
     End Sub
