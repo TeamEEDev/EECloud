@@ -33,6 +33,8 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveChatlogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.restartEECloudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.hideWindowToTrayOnMinimizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxOutput = new System.Windows.Forms.GroupBox();
             this.textBoxOutput = new System.Windows.Forms.TextBox();
@@ -51,8 +53,6 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel13 = new System.Windows.Forms.Panel();
-            this.restartEECloudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemExit = new System.Windows.Forms.ToolStripMenuItem();
@@ -97,6 +97,17 @@
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
+            // restartEECloudToolStripMenuItem
+            // 
+            this.restartEECloudToolStripMenuItem.Name = "restartEECloudToolStripMenuItem";
+            this.restartEECloudToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.restartEECloudToolStripMenuItem.Text = "Restart EECloud";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(247, 6);
+            // 
             // hideWindowToTrayOnMinimizeToolStripMenuItem
             // 
             this.hideWindowToTrayOnMinimizeToolStripMenuItem.Name = "hideWindowToTrayOnMinimizeToolStripMenuItem";
@@ -114,18 +125,22 @@
             this.groupBoxOutput.Location = new System.Drawing.Point(12, 27);
             this.groupBoxOutput.Name = "groupBoxOutput";
             this.groupBoxOutput.Size = new System.Drawing.Size(440, 232);
-            this.groupBoxOutput.TabIndex = 0;
+            this.groupBoxOutput.TabIndex = 1;
             this.groupBoxOutput.TabStop = false;
             this.groupBoxOutput.Text = "Output";
             // 
             // textBoxOutput
             // 
+            this.textBoxOutput.BackColor = System.Drawing.SystemColors.Window;
             this.textBoxOutput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxOutput.Location = new System.Drawing.Point(6, 19);
             this.textBoxOutput.Multiline = true;
             this.textBoxOutput.Name = "textBoxOutput";
+            this.textBoxOutput.ReadOnly = true;
+            this.textBoxOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxOutput.Size = new System.Drawing.Size(428, 207);
             this.textBoxOutput.TabIndex = 0;
+            this.textBoxOutput.Text = "Welcome to EECloud.Launcher!\r\nStarting EECloud...";
             // 
             // panel8
             // 
@@ -170,7 +185,7 @@
             this.groupBoxInput.Location = new System.Drawing.Point(12, 265);
             this.groupBoxInput.Name = "groupBoxInput";
             this.groupBoxInput.Size = new System.Drawing.Size(440, 45);
-            this.groupBoxInput.TabIndex = 1;
+            this.groupBoxInput.TabIndex = 0;
             this.groupBoxInput.TabStop = false;
             this.groupBoxInput.Text = "Input";
             // 
@@ -254,22 +269,12 @@
             this.panel13.Size = new System.Drawing.Size(440, 6);
             this.panel13.TabIndex = 0;
             // 
-            // restartEECloudToolStripMenuItem
-            // 
-            this.restartEECloudToolStripMenuItem.Name = "restartEECloudToolStripMenuItem";
-            this.restartEECloudToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
-            this.restartEECloudToolStripMenuItem.Text = "Restart EECloud";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(247, 6);
-            // 
             // notifyIcon1
             // 
             this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
             this.notifyIcon1.Text = "EECloud Launcher";
             this.notifyIcon1.Visible = true;
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
             // contextMenuStrip1
             // 
@@ -281,7 +286,7 @@
             // toolStripMenuItemExit
             // 
             this.toolStripMenuItemExit.Name = "toolStripMenuItemExit";
-            this.toolStripMenuItemExit.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemExit.Size = new System.Drawing.Size(92, 22);
             this.toolStripMenuItemExit.Text = "Exit";
             // 
             // Form1
@@ -301,6 +306,7 @@
             this.MinimumSize = new System.Drawing.Size(246, 193);
             this.Name = "Form1";
             this.Text = "EECloud Launcher";
+            this.Resize += new System.EventHandler(this.Form1_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBoxOutput.ResumeLayout(false);
