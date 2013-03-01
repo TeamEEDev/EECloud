@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -20,10 +21,11 @@ namespace EECloud.Launcher.WinForms
         private readonly Process BgAppProcess = new Process { StartInfo = new ProcessStartInfo(AppDomain.CurrentDomain.BaseDirectory + "EECloud.exe")
                                                                               {
                                                                                   UseShellExecute = false,
-                                                                                  RedirectStandardOutput = true,
-                                                                                  CreateNoWindow = true
+                                                                                  RedirectStandardOutput = true
                                                                               }
                                                             };
+
+        private Thread KeepCheckingForOutputThread;
 
         private bool RestartingOnRequest;
         private DateTime LastRestart;
@@ -45,6 +47,8 @@ namespace EECloud.Launcher.WinForms
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            AbortKeepCheckingForOutputThread();
+
             try
             {
                 BgAppProcess.Kill();
@@ -81,9 +85,10 @@ namespace EECloud.Launcher.WinForms
             LastRestart = DateTime.UtcNow;
             BgAppProcess.Start();
 
-            var thread = new System.Threading.Thread(KeepCheckingForOutput);
-            thread.SetApartmentState(System.Threading.ApartmentState.STA);
-            thread.Start();
+            AbortKeepCheckingForOutputThread();
+            KeepCheckingForOutputThread = new Thread(KeepCheckingForOutput);
+            KeepCheckingForOutputThread.SetApartmentState(ApartmentState.STA);
+            KeepCheckingForOutputThread.Start();
         }
 
         private void KeepCheckingForOutput()
@@ -94,6 +99,12 @@ namespace EECloud.Launcher.WinForms
                 if (output != null && output != ">")
                     Invoke((MethodInvoker)(() => textBoxOutput.AppendText(Environment.NewLine + output)));
             }
+        }
+
+        private void AbortKeepCheckingForOutputThread()
+        {
+            if (KeepCheckingForOutputThread != null && KeepCheckingForOutputThread.IsAlive)
+                KeepCheckingForOutputThread.Abort();
         }
     }
 }
