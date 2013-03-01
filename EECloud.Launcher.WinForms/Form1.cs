@@ -17,7 +17,13 @@ namespace EECloud.Launcher.WinForms
 
         public FormWindowState LastShownWindowState;
 
-        private readonly Process BgAppProcess = new Process { StartInfo = new ProcessStartInfo(AppDomain.CurrentDomain.BaseDirectory + "EECloud.exe") { UseShellExecute = false, RedirectStandardOutput = true, CreateNoWindow = true } };
+        private readonly Process BgAppProcess = new Process { StartInfo = new ProcessStartInfo(AppDomain.CurrentDomain.BaseDirectory + "EECloud.exe")
+                                                                              {
+                                                                                  UseShellExecute = false,
+                                                                                  RedirectStandardOutput = true,
+                                                                                  CreateNoWindow = true
+                                                                              }
+                                                            };
 
         private bool RestartingOnRequest;
         private DateTime LastRestart;
@@ -39,7 +45,14 @@ namespace EECloud.Launcher.WinForms
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            BgAppProcess.Kill();
+            try
+            {
+                BgAppProcess.Kill();
+            }
+            catch
+            {
+                BgAppProcess.Dispose();
+            }
         }
 
         private void BgAppProcess_Exited(object sender, EventArgs e)
@@ -75,7 +88,7 @@ namespace EECloud.Launcher.WinForms
 
         private void KeepCheckingForOutput()
         {
-            while (!BgAppProcess.StandardOutput.EndOfStream)
+            while (!BgAppProcess.StandardError.EndOfStream)
             {
                 var output = BgAppProcess.StandardOutput.ReadLine();
                 if (output != null && output != ">")
