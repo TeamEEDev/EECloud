@@ -17,14 +17,34 @@ namespace EECloud.Launcher.New
 
         public FormWindowState LastShownWindowState;
 
+        private readonly Process BgAppProcess = new Process { StartInfo = new ProcessStartInfo(AppDomain.CurrentDomain.BaseDirectory + "\\EECloud.exe") { UseShellExecute = false } };
+
+        private bool RestartingOnRequest;
+        private DateTime LastRestart;
+        private int RestartTry;
+
         public Form1()
         {
             LastShownWindowState = WindowState;
             InitializeComponent();
+
             textBoxOutput.AppendText(SeparatorText);
 
             Icon = Properties.Resources.Icon;
             notifyIcon1.Icon = Properties.Resources.Icon;
+
+            BgAppProcess.Exited += BgAppProcess_Exited;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            BgAppProcess.Dispose();
+        }
+
+        private void BgAppProcess_Exited(object sender, EventArgs e)
+        {
+            if (BgAppProcess.ExitCode == 0)
+                Close();
         }
 
         private void Form1_Resize(object sender, EventArgs e)
