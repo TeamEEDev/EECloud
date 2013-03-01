@@ -15,6 +15,7 @@ namespace EECloud.Launcher.New
         public Form1()
         {
             InitializeComponent();
+            Icon = Properties.Resources.Icon;
         }
     }
 }
