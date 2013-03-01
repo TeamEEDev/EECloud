@@ -16,6 +16,7 @@ namespace EECloud.Launcher.New
         {
             InitializeComponent();
             Icon = Properties.Resources.Icon;
+            notifyIcon1.Icon = Properties.Resources.Icon;
         }
     }
 }
