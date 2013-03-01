@@ -36,8 +36,6 @@ namespace EECloud.Launcher.WinForms
             LastShownWindowState = WindowState;
             InitializeComponent();
 
-            textBoxOutput.AppendText(SeparatorText);
-
             Icon = Properties.Resources.Icon;
             notifyIcon1.Icon = Properties.Resources.Icon;
 
@@ -83,6 +81,7 @@ namespace EECloud.Launcher.WinForms
         private void RestartBgAppProcess()
         {
             LastRestart = DateTime.UtcNow;
+            textBoxOutput.AppendText(SeparatorText);
             BgAppProcess.Start();
 
             AbortKeepCheckingForOutputThread();
