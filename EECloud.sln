@@ -13,7 +13,7 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "EECloud.Setup", "EECloud.Se
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "EECloud.API.Docs", "EECloud.API.Docs\EECloud.API.Docs.shfbproj", "{87845ED9-58C3-4824-A414-2CAF2187393E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EECloud.Launcher.WinForms", "EECloud.Launcher.New\EECloud.Launcher.WinForms.csproj", "{C8DEE485-BC5F-4BAA-ACDB-D7AE0DA5016A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EECloud.Launcher.WinForms", "EECloud.Launcher.WinForms\EECloud.Launcher.WinForms.csproj", "{C8DEE485-BC5F-4BAA-ACDB-D7AE0DA5016A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
