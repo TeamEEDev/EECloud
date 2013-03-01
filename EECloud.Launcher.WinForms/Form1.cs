@@ -21,7 +21,8 @@ namespace EECloud.Launcher.WinForms
         private readonly Process BgAppProcess = new Process { StartInfo = new ProcessStartInfo(AppDomain.CurrentDomain.BaseDirectory + "EECloud.exe")
                                                                               {
                                                                                   UseShellExecute = false,
-                                                                                  RedirectStandardOutput = true
+                                                                                  RedirectStandardOutput = true,
+                                                                                  CreateNoWindow = true
                                                                               }
                                                             };
 
