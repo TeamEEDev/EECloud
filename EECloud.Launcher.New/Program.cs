@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace EECloud.Launcher.New
+namespace EECloud.Launcher.WinForms
 {
     static class Program
     {

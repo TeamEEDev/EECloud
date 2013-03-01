@@ -7,13 +7,13 @@
     <ProjectGuid>{C8DEE485-BC5F-4BAA-ACDB-D7AE0DA5016A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EECloud.Launcher.New</RootNamespace>
+    <RootNamespace>EECloud.Launcher.WinForms</RootNamespace>
     <AssemblyName>EECloud Launcher</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>EECloud.Launcher.New.Program</StartupObject>
+    <StartupObject>EECloud.Launcher.WinForms.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>

@@ -1,4 +1,4 @@
-﻿namespace EECloud.Launcher.New
+﻿namespace EECloud.Launcher.WinForms
 {
     partial class Form1
     {
