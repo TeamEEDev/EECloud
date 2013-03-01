@@ -92,7 +92,7 @@ namespace EECloud.Launcher.WinForms
             {
                 var output = BgAppProcess.StandardOutput.ReadLine();
                 if (output != null && output != ">")
-                    Invoke((MethodInvoker) (() => textBoxOutput.AppendText(Environment.NewLine + output)));
+                    Invoke((MethodInvoker)(() => textBoxOutput.AppendText(Environment.NewLine + output)));
             }
         }
     }
