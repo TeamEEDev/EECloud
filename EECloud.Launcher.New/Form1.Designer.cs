@@ -50,6 +50,8 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel13 = new System.Windows.Forms.Panel();
+            this.restartEECloudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.groupBoxOutput.SuspendLayout();
             this.groupBoxInput.SuspendLayout();
@@ -83,6 +85,8 @@
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.restartEECloudToolStripMenuItem,
+            this.toolStripSeparator1,
             this.hideWindowToTrayOnMinimizeToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
@@ -245,6 +249,17 @@
             this.panel13.Size = new System.Drawing.Size(440, 6);
             this.panel13.TabIndex = 0;
             // 
+            // restartEECloudToolStripMenuItem
+            // 
+            this.restartEECloudToolStripMenuItem.Name = "restartEECloudToolStripMenuItem";
+            this.restartEECloudToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.restartEECloudToolStripMenuItem.Text = "Restart EECloud";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(247, 6);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -296,6 +311,8 @@
         private System.Windows.Forms.Panel panel11;
         private System.Windows.Forms.Panel panel12;
         private System.Windows.Forms.Panel panel13;
+        private System.Windows.Forms.ToolStripMenuItem restartEECloudToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 
     }
 }
