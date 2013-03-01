@@ -88,7 +88,7 @@ namespace EECloud.Launcher.WinForms
 
         private void KeepCheckingForOutput()
         {
-            while (!BgAppProcess.StandardError.EndOfStream)
+            while (!BgAppProcess.StandardOutput.EndOfStream)
             {
                 var output = BgAppProcess.StandardOutput.ReadLine();
                 if (output != null && output != ">")
