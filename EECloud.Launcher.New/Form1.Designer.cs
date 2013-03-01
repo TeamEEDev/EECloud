@@ -306,6 +306,7 @@
             this.MinimumSize = new System.Drawing.Size(246, 193);
             this.Name = "Form1";
             this.Text = "EECloud Launcher";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
