@@ -94,6 +94,18 @@ Module ModuleMain
     Private myBgAppProcId As Integer
     Private ReadOnly myThisProcId As Integer = Process.GetCurrentProcess().Id
 
+    Function ApplicationIsActivated() As Boolean
+        Dim activatedHandle = GetForegroundWindow()
+        If activatedHandle = IntPtr.Zero Then
+            Return False
+        End If
+
+        Dim activeProcId As Integer
+        GetWindowThreadProcessId(activatedHandle, activeProcId)
+
+        Return activeProcId = myBgAppProcId OrElse activeProcId = myThisProcId
+    End Function
+
     Private Sub Initialize()
         SetConsoleCtrlHandler(New HandlerRoutine(AddressOf ConsoleCtrlCheck), True)
 
@@ -207,18 +219,6 @@ Module ModuleMain
         BeforeClose()
 
         Return False
-    End Function
-
-    Function ApplicationIsActivated() As Boolean
-        Dim activatedHandle = GetForegroundWindow()
-        If activatedHandle = IntPtr.Zero Then
-            Return False
-        End If
-
-        Dim activeProcId As Integer
-        GetWindowThreadProcessId(activatedHandle, activeProcId)
-
-        Return activeProcId = myBgAppProcId OrElse activeProcId = myThisProcId
     End Function
 
     Private Sub ToggleAutoHide()
