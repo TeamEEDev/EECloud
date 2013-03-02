@@ -31,7 +31,6 @@ namespace EECloud.Launcher.WinForms
 
         private Thread KeepCheckingForOutputThread;
 
-        private bool RestartingOnRequest;
         private DateTime LastRestart;
         private int RestartTry;
         #endregion
@@ -122,6 +121,11 @@ namespace EECloud.Launcher.WinForms
         #endregion
 
         #region Main menu strip
+        private void restartEECloudToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RestartBgAppProcess();
+        }
+
         private void hideWindowToTrayOnMinimizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             hideWindowToTrayOnMinimizeToolStripMenuItem.Checked = !hideWindowToTrayOnMinimizeToolStripMenuItem.Checked;
