@@ -93,7 +93,6 @@ namespace EECloud.Launcher.WinForms
         private async void RestartBgAppProcess()
         {
             restartEECloudToolStripMenuItem.Enabled = false;
-            await Task.Delay(7000);
 
             if (!RestartingOnPurpose)
             {
@@ -115,7 +114,8 @@ namespace EECloud.Launcher.WinForms
             else
             {
                 RestartingOnPurpose = false;
-                textBoxOutput.AppendText(Environment.NewLine + "Restarting EECloud by user request...");
+                textBoxOutput.AppendText(SeparatorText + Environment.NewLine +
+                                         "Restarting EECloud by user request...");
             }
 
             LastRestart = DateTime.UtcNow;
