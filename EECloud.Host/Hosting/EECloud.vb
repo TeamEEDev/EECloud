@@ -106,9 +106,9 @@ Public NotInheritable Class EECloud
         Cloud.IsNoConsole = noConsole
         Cloud.IsNoGUI = Not SystemInformation.UserInteractive
 
-        Cloud.Logger = New Logger
-        Cloud.ClientFactory = New ClientFactory
-        Cloud.Service = New EEService
+        Cloud.Logger = New Logger()
+        Cloud.ClientFactory = New ClientFactory()
+        Cloud.Service = New EEService()
 
         myClient = Cloud.ClientFactory.CreateClient(myCommandChar)
     End Sub
