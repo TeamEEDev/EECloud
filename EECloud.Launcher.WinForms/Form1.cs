@@ -103,10 +103,13 @@ namespace EECloud.Launcher.WinForms
                 else
                 {
                     var waitSecs = RestartTry << 1;
-                    textBoxOutput.AppendText(Environment.NewLine +
+                    textBoxOutput.AppendText(SeparatorText + Environment.NewLine +
                                              "Restarting EECloud in " + waitSecs + " second(s)...");
                     await Task.Delay(waitSecs * 1000);
                     RestartTry += 1;
+
+                    textBoxOutput.AppendText(SeparatorText + Environment.NewLine +
+                                             "Restarting EECloud ...");
                 }
             }
             else
