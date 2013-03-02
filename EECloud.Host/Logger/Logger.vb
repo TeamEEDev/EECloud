@@ -5,6 +5,8 @@ Friend NotInheritable Class Logger
 
 #Region "Fields"
     Private myInput As String = String.Empty
+
+    Private Shared ReadOnly myMaxInputLength As Integer = Console.BufferWidth - 4
 #End Region
 
 #Region "Events"
@@ -53,14 +55,15 @@ Friend NotInheritable Class Logger
                 Case ConsoleKey.Backspace
                     If Input.Length >= 1 Then
                         Input = Input.Substring(0, Input.Length - 1)
-                        Console.Write(inputKey.KeyChar)
                     End If
 
                 Case Else
-                    If inputKey.Modifiers = 0 AndAlso inputKey.KeyChar <> Nothing Then
-                        If Input.Length <= 76 Then
-                            myInput &= inputKey.KeyChar
-                            Console.Write(inputKey.KeyChar)
+                    If inputKey.Key <> ConsoleKey.Tab Then
+                        If inputKey.Modifiers <> ConsoleModifiers.Control AndAlso inputKey.KeyChar <> Nothing Then
+                            If Input.Length <= myMaxInputLength Then
+                                myInput &= inputKey.KeyChar
+                                Console.Write(inputKey.KeyChar)
+                            End If
                         End If
                     End If
             End Select
