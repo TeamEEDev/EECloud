@@ -82,10 +82,10 @@ Friend NotInheritable Class Logger
     End Sub
 
     Friend Sub LogEx(ex As Exception) Implements ILogger.LogEx
-        Cloud.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled: {1} {2}", ex.ToString, ex.Message, ex.StackTrace))
+        Cloud.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled: {1} {2}", ex.ToString(), ex.Message, ex.StackTrace))
     End Sub
 
-    Private Sub Overwrite(oldLength As Integer, newStr As String)
+    Private Shared Sub Overwrite(oldLength As Integer, newStr As String)
         Console.CursorLeft = 0
         Dim spaces As Integer = oldLength - newStr.Length
         If spaces > 0 Then
