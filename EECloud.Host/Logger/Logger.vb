@@ -35,9 +35,7 @@ Friend NotInheritable Class Logger
     Friend Sub New()
         If Not Cloud.IsNoConsole Then
             Console.Write(">")
-            Dim worker As New Thread(AddressOf HandleInput)
-            worker.IsBackground = True
-            worker.Start()
+            Call New Thread(AddressOf HandleInput) With {.IsBackground = True}.Start()
         End If
     End Sub
 
