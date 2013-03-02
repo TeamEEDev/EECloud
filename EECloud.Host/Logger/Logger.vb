@@ -5,8 +5,6 @@ Friend NotInheritable Class Logger
 
 #Region "Fields"
     Private myInput As String = String.Empty
-    Dim myOldTop As Integer
-    Dim myOldLeft As Integer
 #End Region
 
 #Region "Events"
@@ -43,8 +41,6 @@ Friend NotInheritable Class Logger
 
     Private Sub HandleInput()
         Do
-            myOldTop = Console.CursorTop
-            myOldLeft = Console.CursorLeft
             Dim inputKey As ConsoleKeyInfo = Console.ReadKey(True)
 
             Select Case inputKey.Key
@@ -61,7 +57,7 @@ Friend NotInheritable Class Logger
                     End If
 
                 Case Else
-                    If inputKey.KeyChar <> Nothing AndAlso inputKey.Modifiers = 0 Then
+                    If inputKey.Modifiers = 0 AndAlso inputKey.KeyChar <> Nothing Then
                         If Input.Length <= 76 Then
                             myInput &= inputKey.KeyChar
                             Console.Write(inputKey.KeyChar)
