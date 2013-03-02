@@ -87,38 +87,40 @@ namespace EECloud.Launcher.WinForms
 
             if (BgAppProcess.ExitCode == 0)
                 Close();
-            else
-            {
-                var thread = new Thread(() =>
-                {
-                    //Wait if failing too often
-                    if (DateTime.UtcNow.Subtract(LastRestart).TotalMinutes >= 1)
-                        RestartTry = 0;
-                    else
-                    {
-                        var waitSecs = RestartTry << 1;
-                        Invoke((MethodInvoker)(() => textBoxOutput.AppendText(Environment.NewLine + "Restarting EECloud in " + waitSecs + " second(s)...")));
-                        Thread.Sleep(waitSecs * 1000);
-                        RestartTry += 1;
-
-                        Invoke((MethodInvoker)RestartBgAppProcess);
-                    }
-                });
-
-                thread.SetApartmentState(ApartmentState.STA);
-                thread.Start();
-            }
         }
 
         private void RestartBgAppProcess()
         {
-            LastRestart = DateTime.UtcNow;
-            textBoxOutput.AppendText(SeparatorText);
-            BgAppProcess.Start();
+            var thread = new Thread(() =>
+            {
+                //Wait if failing too often
+                if (DateTime.UtcNow.Subtract(LastRestart).TotalMinutes >= 1)
+                    RestartTry = 0;
+                else
+                {
+                    var waitSecs = RestartTry << 1;
+                    Invoke((MethodInvoker)(() => textBoxOutput.AppendText(Environment.NewLine + "Restarting EECloud in " + waitSecs + " second(s)...")));
+                    Thread.Sleep(waitSecs * 1000);
+                    RestartTry += 1;
 
-            KeepCheckingForOutputThread = new Thread(KeepCheckingForOutput);
-            KeepCheckingForOutputThread.SetApartmentState(ApartmentState.STA);
-            KeepCheckingForOutputThread.Start();
+                    Invoke((MethodInvoker)RestartBgAppProcess);
+                }
+
+                LastRestart = DateTime.UtcNow;
+
+                Invoke((MethodInvoker) (() =>
+                {
+                    textBoxOutput.AppendText(SeparatorText);
+                    BgAppProcess.Start();
+
+                    KeepCheckingForOutputThread = new Thread(KeepCheckingForOutput);
+                    KeepCheckingForOutputThread.SetApartmentState(ApartmentState.STA);
+                    KeepCheckingForOutputThread.Start();
+                }));
+            });
+
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
         }
 
         private void KeepCheckingForOutput()
