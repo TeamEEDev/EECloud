@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveChatlogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveOutputLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restartEECloudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -76,16 +76,16 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveChatlogToolStripMenuItem});
+            this.saveOutputLogToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
-            // saveChatlogToolStripMenuItem
+            // saveOutputLogToolStripMenuItem
             // 
-            this.saveChatlogToolStripMenuItem.Name = "saveChatlogToolStripMenuItem";
-            this.saveChatlogToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.saveChatlogToolStripMenuItem.Text = "Save chatlog";
+            this.saveOutputLogToolStripMenuItem.Name = "saveOutputLogToolStripMenuItem";
+            this.saveOutputLogToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.saveOutputLogToolStripMenuItem.Text = "Save output log";
             // 
             // optionsToolStripMenuItem
             // 
@@ -102,6 +102,7 @@
             this.restartEECloudToolStripMenuItem.Name = "restartEECloudToolStripMenuItem";
             this.restartEECloudToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
             this.restartEECloudToolStripMenuItem.Text = "Restart EECloud";
+            this.restartEECloudToolStripMenuItem.Click += new System.EventHandler(this.restartEECloudToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -135,6 +136,7 @@
             this.textBoxOutput.BackColor = System.Drawing.SystemColors.Window;
             this.textBoxOutput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxOutput.Location = new System.Drawing.Point(6, 19);
+            this.textBoxOutput.MaxLength = 2147483647;
             this.textBoxOutput.Multiline = true;
             this.textBoxOutput.Name = "textBoxOutput";
             this.textBoxOutput.ReadOnly = true;
@@ -325,7 +327,7 @@
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveChatlogToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveOutputLogToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hideWindowToTrayOnMinimizeToolStripMenuItem;
         private System.Windows.Forms.GroupBox groupBoxOutput;
