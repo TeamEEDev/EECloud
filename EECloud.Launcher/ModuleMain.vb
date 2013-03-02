@@ -29,7 +29,7 @@ Module ModuleMain
 #End Region
 
 #Region "Fields"
-    Private ReadOnly myBgAppProcess As New Process() With {.StartInfo = New ProcessStartInfo(AppDomain.CurrentDomain.BaseDirectory & "EECloud.exe") With {.UseShellExecute = False}}
+    Private ReadOnly myBgAppProcess As New Process() With {.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}}
     Private ReadOnly myHandle As IntPtr = GetConsoleWindow()
 
     Private ReadOnly mySeparatorText As String = Environment.NewLine &
