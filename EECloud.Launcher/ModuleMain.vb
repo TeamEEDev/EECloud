@@ -102,7 +102,7 @@ Module ModuleMain
                 Thread.Sleep(1000)
             Loop
 
-            'Exit if it exists with a 0 exit code
+            'Exit if the process exits with a 0 exit code
             If myBgAppProcess.ExitCode = 0 Then
                 Close()
             End If
