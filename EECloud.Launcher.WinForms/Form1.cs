@@ -40,6 +40,8 @@ namespace EECloud.Launcher.WinForms
             Icon = Properties.Resources.Icon;
             notifyIcon1.Icon = Properties.Resources.Icon;
 
+            hideWindowToTrayOnMinimizeToolStripMenuItem.Checked = Properties.Settings.Default.AutoHideEnabled;
+
             BgAppProcess.Exited += BgAppProcess_Exited;
             RestartBgAppProcess();
         }
@@ -106,5 +108,14 @@ namespace EECloud.Launcher.WinForms
             if (KeepCheckingForOutputThread != null && KeepCheckingForOutputThread.IsAlive)
                 KeepCheckingForOutputThread.Abort();
         }
+
+        #region Main menu strip
+        private void hideWindowToTrayOnMinimizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            hideWindowToTrayOnMinimizeToolStripMenuItem.Checked = !hideWindowToTrayOnMinimizeToolStripMenuItem.Checked;
+            Properties.Settings.Default.AutoHideEnabled = hideWindowToTrayOnMinimizeToolStripMenuItem.Checked;
+            Properties.Settings.Default.Save();
+        }
+        #endregion
     }
 }

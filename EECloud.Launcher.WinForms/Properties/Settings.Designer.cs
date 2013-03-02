@@ -22,5 +22,17 @@ namespace EECloud.Launcher.WinForms.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoHideEnabled {
+            get {
+                return ((bool)(this["AutoHideEnabled"]));
+            }
+            set {
+                this["AutoHideEnabled"] = value;
+            }
+        }
     }
 }

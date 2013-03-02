@@ -113,6 +113,7 @@
             this.hideWindowToTrayOnMinimizeToolStripMenuItem.Name = "hideWindowToTrayOnMinimizeToolStripMenuItem";
             this.hideWindowToTrayOnMinimizeToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
             this.hideWindowToTrayOnMinimizeToolStripMenuItem.Text = "Hide window to tray on minimize";
+            this.hideWindowToTrayOnMinimizeToolStripMenuItem.Click += new System.EventHandler(this.hideWindowToTrayOnMinimizeToolStripMenuItem_Click);
             // 
             // groupBoxOutput
             // 
@@ -307,6 +308,7 @@
             this.Name = "Form1";
             this.Text = "EECloud Launcher";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
