@@ -55,7 +55,7 @@ Friend NotInheritable Class DefaultCommandListener
                 cmd.Reply("A ping has been already sent.")
             End If
         Else
-            cmd.Reply("Can not ping from console")
+            cmd.Reply("Cannot ping from console.")
         End If
     End Sub
 

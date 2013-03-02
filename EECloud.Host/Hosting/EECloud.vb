@@ -95,7 +95,7 @@ Public NotInheritable Class EECloud
 
     Private Shared Sub Init(dev As Boolean, hosted As Boolean, noConsole As Boolean)
         Console.WriteLine(String.Format("{0} Version {1}", My.Application.Info.Title, My.Application.Info.Version))
-        Console.WriteLine("Built on " & RetrieveLinkerTimestamp.ToString)
+        Console.WriteLine("Built on " & RetrieveLinkerTimestamp.ToString())
 
         If SystemInformation.UserInteractive Then
             Application.EnableVisualStyles()
@@ -106,9 +106,9 @@ Public NotInheritable Class EECloud
         Cloud.IsNoConsole = noConsole
         Cloud.IsNoGUI = Not SystemInformation.UserInteractive
 
-        Cloud.Logger = New Logger
-        Cloud.ClientFactory = New ClientFactory
-        Cloud.Service = New EEService
+        Cloud.Logger = New Logger()
+        Cloud.ClientFactory = New ClientFactory()
+        Cloud.Service = New EEService()
 
         myClient = Cloud.ClientFactory.CreateClient(myCommandChar)
     End Sub
@@ -117,20 +117,15 @@ Public NotInheritable Class EECloud
         Dim filePath As String = Assembly.GetCallingAssembly().Location
         Const peHeaderOffset As Integer = 60
         Const linkerTimestampOffset As Integer = 8
-        Dim b As Byte() = New Byte(2047) {}
-        Dim s As Stream = Nothing
+        Dim b(2047) As Byte
 
-        Try
-            s = New FileStream(filePath, FileMode.Open, FileAccess.Read)
+        Using s As New FileStream(filePath, FileMode.Open, FileAccess.Read)
             s.Read(b, 0, 2048)
-        Finally
-            If s IsNot Nothing Then
-                s.Close()
-            End If
-        End Try
+        End Using
 
         Dim i As Integer = BitConverter.ToInt32(b, peHeaderOffset)
         Dim secondsSince1970 As Integer = BitConverter.ToInt32(b, i + linkerTimestampOffset)
+
         Dim dt As New DateTime(1970, 1, 1, 0, 0, 0)
         dt = dt.AddSeconds(secondsSince1970)
         dt = dt.AddHours(TimeZone.CurrentTimeZone.GetUtcOffset(dt).Hours)

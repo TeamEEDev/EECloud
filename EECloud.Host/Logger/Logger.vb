@@ -5,8 +5,8 @@ Friend NotInheritable Class Logger
 
 #Region "Fields"
     Private myInput As String = String.Empty
-    Dim myOldTop As Integer
-    Dim myOldLeft As Integer
+
+    Private Shared ReadOnly myMaxInputLength As Integer = Console.BufferWidth - 4
 #End Region
 
 #Region "Events"
@@ -35,51 +35,36 @@ Friend NotInheritable Class Logger
     Friend Sub New()
         If Not Cloud.IsNoConsole Then
             Console.Write(">")
-            Dim worker As New Thread(AddressOf HandleInput)
-            worker.IsBackground = True
-            worker.Start()
+            Call New Thread(AddressOf HandleInput) With {.IsBackground = True}.Start()
         End If
     End Sub
 
     Private Sub HandleInput()
         Do
-            myOldTop = Console.CursorTop
-            myOldLeft = Console.CursorLeft
-            Dim inputKey As ConsoleKeyInfo = Console.ReadKey
-            If inputKey.Key = ConsoleKey.Backspace Then
-                If Input.Length >= 1 Then
-                    Input = Input.Substring(0, Input.Length - 1)
-                Else 'Cancel
-                    Console.CursorTop = myOldTop
-                    Console.CursorLeft = myOldLeft
-                End If
-            ElseIf inputKey.Key = ConsoleKey.Enter Then
-                If Input IsNot String.Empty Then
-                    Console.WriteLine()
-                    RaiseEvent OnInput(Me, New EventArgs)
-                End If
-                Input = String.Empty
-            ElseIf inputKey.Key = ConsoleKey.Tab Then
-                Console.CursorTop = myOldTop
-                Console.CursorLeft = myOldLeft
-            ElseIf inputKey.Modifiers = ConsoleModifiers.Control Then
-                Console.CursorTop = myOldTop
-                Console.CursorLeft = myOldLeft
-                Console.Write(" "c)
-                Console.CursorLeft -= 1
-            ElseIf inputKey.KeyChar <> Nothing Then
-                If Input.Length <= 76 Then
-                    myInput &= inputKey.KeyChar
-                Else
-                    Console.CursorLeft -= 1
-                    Console.Write(" "c)
-                    Console.CursorTop = myOldTop
-                    Console.CursorLeft = myOldLeft
-                End If
-            Else
-                Console.CursorTop = myOldTop
-                Console.CursorLeft = myOldLeft
-            End If
+            Dim inputKey As ConsoleKeyInfo = Console.ReadKey(True)
+
+            Select Case inputKey.Key
+                Case ConsoleKey.Enter
+                    If Input IsNot String.Empty Then
+                        Console.WriteLine()
+                        RaiseEvent OnInput(Me, New EventArgs)
+                    End If
+                    Input = String.Empty
+                Case ConsoleKey.Backspace
+                    If Input.Length >= 1 Then
+                        Input = Input.Substring(0, Input.Length - 1)
+                    End If
+
+                Case Else
+                    If inputKey.Key <> ConsoleKey.Tab Then
+                        If inputKey.Modifiers <> ConsoleModifiers.Control AndAlso inputKey.KeyChar <> Nothing Then
+                            If Input.Length <= myMaxInputLength Then
+                                myInput &= inputKey.KeyChar
+                                Console.Write(inputKey.KeyChar)
+                            End If
+                        End If
+                    End If
+            End Select
         Loop
         ' ReSharper disable FunctionNeverReturns
     End Sub
@@ -88,18 +73,17 @@ Friend NotInheritable Class Logger
     Friend Sub Log(priority As LogPriority, str As String) Implements ILogger.Log
         Dim output As String = String.Format("{0} [{1}] {2}", Now.ToLongTimeString, priority.ToString.ToUpper(InvariantCulture), str)
         If Not Cloud.IsNoConsole Then
-            myOldTop = Console.CursorTop
             Overwrite(Input.Length + 1, output)
-            Console.WriteLine()
-            Console.Write(">" & Input)
+            Console.Write(Environment.NewLine &
+                          ">" & Input)
         End If
     End Sub
 
     Friend Sub LogEx(ex As Exception) Implements ILogger.LogEx
-        Cloud.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled: {1} {2}", ex.ToString, ex.Message, ex.StackTrace))
+        Cloud.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled: {1} {2}", ex.ToString(), ex.Message, ex.StackTrace))
     End Sub
 
-    Private Sub Overwrite(oldLength As Integer, newStr As String)
+    Private Shared Sub Overwrite(oldLength As Integer, newStr As String)
         Console.CursorLeft = 0
         Dim spaces As Integer = oldLength - newStr.Length
         If spaces > 0 Then
