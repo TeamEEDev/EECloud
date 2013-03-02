@@ -90,13 +90,12 @@ namespace EECloud.Launcher.WinForms
                 Close();
         }
 
-        private void RestartBgAppProcess()
+        private async void RestartBgAppProcess()
         {
             restartEECloudToolStripMenuItem.Enabled = false;
+            await Task.Delay(7000);
 
-            var thread = new Thread(() =>
-            {
-                if (!RestartingOnPurpose)
+            if (!RestartingOnPurpose)
                 {
                     //Wait if failing too often
                     if (DateTime.UtcNow.Subtract(LastRestart).TotalMinutes >= 1)
@@ -104,25 +103,20 @@ namespace EECloud.Launcher.WinForms
                     else
                     {
                         var waitSecs = RestartTry << 1;
-                        Invoke(
-                            (MethodInvoker)
-                            (() =>
-                             textBoxOutput.AppendText(Environment.NewLine +
-                                                      "Restarting EECloud in " + waitSecs + " second(s)...")));
-                        Thread.Sleep(waitSecs*1000);
+                        textBoxOutput.AppendText(Environment.NewLine +
+                                                 "Restarting EECloud in " + waitSecs + " second(s)...");
+                        await Task.Delay(waitSecs * 1000);
                         RestartTry += 1;
                     }
                 }
-                else
+            else
                 {
                     RestartingOnPurpose = false;
-                    Invoke((MethodInvoker)(() => textBoxOutput.AppendText(Environment.NewLine + "Restarting EECloud by user request...")));
+                    textBoxOutput.AppendText(Environment.NewLine + "Restarting EECloud by user request...");
                 }
 
                 LastRestart = DateTime.UtcNow;
 
-                Invoke((MethodInvoker) (() =>
-                {
                     textBoxOutput.AppendText(SeparatorText);
                     BgAppProcess.Start();
 
@@ -131,11 +125,6 @@ namespace EECloud.Launcher.WinForms
                     KeepCheckingForOutputThread.Start();
 
                     restartEECloudToolStripMenuItem.Enabled = true;
-                }));
-            });
-
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
         }
 
         private void KeepCheckingForOutput()
