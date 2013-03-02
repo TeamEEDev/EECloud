@@ -32,7 +32,8 @@ Module ModuleMain
     Private ReadOnly myBgAppProcess As New Process() With {.StartInfo = New ProcessStartInfo(AppDomain.CurrentDomain.BaseDirectory & "EECloud.exe") With {.UseShellExecute = False}}
     Private ReadOnly myHandle As IntPtr = GetConsoleWindow()
 
-    Private ReadOnly mySeparatorText As String = Environment.NewLine & New String("_"c, Console.BufferWidth - 1) & Environment.NewLine
+    Private ReadOnly mySeparatorText As String = Environment.NewLine &
+                                                 New String("_"c, Console.BufferWidth - 1) & Environment.NewLine
 
     Private WithEvents myTrayIcon As NotifyIcon
 
