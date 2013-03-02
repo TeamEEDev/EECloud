@@ -96,35 +96,35 @@ namespace EECloud.Launcher.WinForms
             await Task.Delay(7000);
 
             if (!RestartingOnPurpose)
+            {
+                //Wait if failing too often
+                if (DateTime.UtcNow.Subtract(LastRestart).TotalMinutes >= 1)
+                    RestartTry = 0;
+                else
                 {
-                    //Wait if failing too often
-                    if (DateTime.UtcNow.Subtract(LastRestart).TotalMinutes >= 1)
-                        RestartTry = 0;
-                    else
-                    {
-                        var waitSecs = RestartTry << 1;
-                        textBoxOutput.AppendText(Environment.NewLine +
-                                                 "Restarting EECloud in " + waitSecs + " second(s)...");
-                        await Task.Delay(waitSecs * 1000);
-                        RestartTry += 1;
-                    }
+                    var waitSecs = RestartTry << 1;
+                    textBoxOutput.AppendText(Environment.NewLine +
+                                             "Restarting EECloud in " + waitSecs + " second(s)...");
+                    await Task.Delay(waitSecs * 1000);
+                    RestartTry += 1;
                 }
+            }
             else
-                {
-                    RestartingOnPurpose = false;
-                    textBoxOutput.AppendText(Environment.NewLine + "Restarting EECloud by user request...");
-                }
+            {
+                RestartingOnPurpose = false;
+                textBoxOutput.AppendText(Environment.NewLine + "Restarting EECloud by user request...");
+            }
 
-                LastRestart = DateTime.UtcNow;
+            LastRestart = DateTime.UtcNow;
 
-                    textBoxOutput.AppendText(SeparatorText);
-                    BgAppProcess.Start();
+            textBoxOutput.AppendText(SeparatorText);
+            BgAppProcess.Start();
 
-                    KeepCheckingForOutputThread = new Thread(KeepCheckingForOutput);
-                    KeepCheckingForOutputThread.SetApartmentState(ApartmentState.STA);
-                    KeepCheckingForOutputThread.Start();
+            KeepCheckingForOutputThread = new Thread(KeepCheckingForOutput);
+            KeepCheckingForOutputThread.SetApartmentState(ApartmentState.STA);
+            KeepCheckingForOutputThread.Start();
 
-                    restartEECloudToolStripMenuItem.Enabled = true;
+            restartEECloudToolStripMenuItem.Enabled = true;
         }
 
         private void KeepCheckingForOutput()
