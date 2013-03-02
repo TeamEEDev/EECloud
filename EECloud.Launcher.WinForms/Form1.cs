@@ -68,15 +68,15 @@ namespace EECloud.Launcher.WinForms
         private void Form1_Resize(object sender, EventArgs e)
         {
             if (WindowState != FormWindowState.Minimized)
-            {
                 LastShownWindowState = WindowState;
-            }
+            else if (hideWindowToTrayOnMinimizeToolStripMenuItem.Checked)
+                Visible = false;
         }
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            WindowState = LastShownWindowState;
             Visible = true;
+            WindowState = LastShownWindowState;
             Activate();
         }
         #endregion
