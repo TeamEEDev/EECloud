@@ -53,16 +53,12 @@ Module ModuleMain
                     End Using
 
                     'Start the batch file
-                    Call New Process() With
-                    {
-                        .StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\Update.bat") With
-                            {
-                                .UseShellExecute = False,
-                                .CreateNoWindow = True,
-                                .RedirectStandardOutput = True
-                            }
-                    }.Start()
-
+                    Dim process As New Process()
+                    process.StartInfo.CreateNoWindow = True
+                    process.StartInfo.RedirectStandardOutput = True
+                    process.StartInfo.UseShellExecute = False
+                    process.StartInfo.FileName = My.Application.Info.DirectoryPath & "\Update.bat"
+                    process.Start()
                     'Exit
                     End
                 End If
