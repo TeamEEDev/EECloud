@@ -5,70 +5,42 @@ Imports System.Threading
 Module ModuleMain
 #Region "Unmanaged calls"
 
-    <DllImport("user32.dll", CharSet:=CharSet.Auto, ExactSpelling:=True)>
-    Private Function GetForegroundWindow() As IntPtr
-    End Function
+    Private Delegate Function HandlerRoutine(ctrlType As Integer) As Boolean
+
+    Const SW_HIDE As Integer = 0
+    Const SW_RESTORE As Integer = 9
 
     <DllImport("user32.dll")>
     Private Sub SetForegroundWindow(ByVal handle As IntPtr)
     End Sub
-
-    <DllImport("user32.dll", CharSet:=CharSet.Auto, SetLastError:=True)>
-    Private Function GetWindowThreadProcessId(handle As IntPtr, ByRef processId As Integer) As Integer
-    End Function
 
     <DllImport("kernel32.dll", SetLastError:=True)>
     Private Function GetConsoleWindow() As IntPtr
     End Function
 
     <DllImport("user32.dll")>
-    Private Function ShowWindow(hWnd As IntPtr, nCmdShow As Integer) As Boolean
-    End Function
+    Private Sub ShowWindow(ByVal hWnd As IntPtr, ByVal nCmdShow As Integer)
+    End Sub
 
     <DllImport("kernel32.dll")>
-    Private Function SetConsoleCtrlHandler(handler As HandlerRoutine, add As Boolean) As Boolean
-    End Function
+    Private Sub SetConsoleCtrlHandler(ByVal handler As HandlerRoutine, ByVal add As Boolean)
+    End Sub
 
 #End Region
 
 #Region "Fields"
+    Private ReadOnly myBgAppProcess As New Process() With {.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}}
+    Private ReadOnly myHandle As IntPtr = GetConsoleWindow()
 
-    Private ReadOnly Handle As IntPtr = GetConsoleWindow()
+    Private ReadOnly mySeparatorText As String = Environment.NewLine & New String("_"c, Console.BufferWidth - 1) & Environment.NewLine
 
-    Private ReadOnly BgAppProcess As New Process() With {.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}}
+    Private WithEvents myTrayIcon As NotifyIcon
 
-    Private HideCheckerThread As Thread
-
-    Public WithEvents TrayIcon As NotifyIcon
-    Public WithEvents TrayMenu As New ContextMenuStrip()
-
-    Private ReadOnly AutoHideToolStripMenuItem As New ToolStripMenuItem("Auto-hide window when inactive", Nothing, Sub() ToggleAutoHide())
-
-    Private AutoHideEnabled As Boolean
-
-    Private RestartingOnRequest As Boolean
-    Private LastRestart As Date
-    Private RestartTry As Integer
-
-
-    Const SW_HIDE As Integer = 0
-    Const SW_RESTORE As Integer = 9
-
-    Private Delegate Function HandlerRoutine(ctrlType As CtrlTypes) As Boolean
-
-    Private Enum CtrlTypes
-        CTRL_C_EVENT = 0
-        CTRL_BREAK_EVENT
-        CTRL_CLOSE_EVENT
-        CTRL_LOGOFF_EVENT = 5
-        CTRL_SHUTDOWN_EVENT
-    End Enum
-
+    Private myLastRestart As Date
+    Private myRestartTry As Integer
 #End Region
 
 #Region "Properties"
-
-    Private ReadOnly SeparatorText As String = StrDup(Console.BufferWidth - 1, "_") & Environment.NewLine
 
     Private myConsoleVisible As Boolean = True
     Public Property ConsoleVisible As Boolean
@@ -77,10 +49,10 @@ Module ModuleMain
         End Get
         Set(value As Boolean)
             If value Then
-                ShowWindow(Handle, SW_RESTORE)
+                ShowWindow(myHandle, SW_RESTORE)
                 SetForegroundWindow(GetConsoleWindow())
             Else
-                ShowWindow(Handle, SW_HIDE)
+                ShowWindow(myHandle, SW_HIDE)
             End If
 
             myConsoleVisible = value
@@ -91,116 +63,70 @@ Module ModuleMain
 
 #Region "Methods"
 
-    Private myBgAppProcId As Integer
-    Private ReadOnly myThisProcId As Integer = Process.GetCurrentProcess().Id
-
-    Function ApplicationIsActivated() As Boolean
-        Dim activatedHandle = GetForegroundWindow()
-        If activatedHandle = IntPtr.Zero Then
-            Return False
-        End If
-
-        Dim activeProcId As Integer
-        GetWindowThreadProcessId(activatedHandle, activeProcId)
-
-        Return activeProcId = myBgAppProcId OrElse activeProcId = myThisProcId
-    End Function
-
     Private Sub Initialize()
-        SetConsoleCtrlHandler(New HandlerRoutine(AddressOf ConsoleCtrlCheck), True)
+        SetConsoleCtrlHandler(AddressOf ConsoleCtrlCheck, True)
 
         Dim trayIconThread As New Thread(AddressOf InitializeTrayIcon)
         trayIconThread.SetApartmentState(ApartmentState.STA)
         trayIconThread.Start()
 
         Console.Title = "EECloud"
-        Console.WriteLine("Welcome to EECloud.Launcher!" & Environment.NewLine &
-                          "Starting EECloud...")
+        Console.WriteLine("Welcome to EECloud.Launcher!")
+        Console.Write("Starting EECloud...")
     End Sub
 
     Private Sub InitializeTrayIcon()
-        TrayIcon = New NotifyIcon() With {.Icon = My.Resources.Icon,
+        myTrayIcon = New NotifyIcon() With {.Icon = My.Resources.Icon,
                                           .Visible = True,
                                           .Text = "EECloud"}
 
-        AddHandler TrayIcon.DoubleClick,
+        AddHandler myTrayIcon.DoubleClick,
             Sub()
-                ConsoleVisible = True
+                ConsoleVisible = Not ConsoleVisible
             End Sub
 
-        TrayMenu.Items.Add(AutoHideToolStripMenuItem)
-        TrayMenu.Items.Add(New ToolStripSeparator())
-        TrayMenu.Items.Add("Restart EECloud", Nothing, Sub() RestartBgApp())
-        'TrayMenu.Items.Add("Exit", Nothing, Sub() Close()) 'TODO: Invoke the Close() method from the main thread
-
-        InitializeAutoHideTrayMenuItem()
-
-        TrayIcon.ContextMenuStrip = TrayMenu
-
         Application.Run()
-    End Sub
-
-    Private Sub InitializeAutoHideTrayMenuItem()
-        If My.Settings.AutoHideEnabled Then
-            StartHideCheckerThread()
-            AutoHideToolStripMenuItem.Checked = True
-        End If
-    End Sub
-
-    Private Sub HideCheckerThreadActions()
-        Do
-            If Not ApplicationIsActivated() Then
-                ConsoleVisible = False
-            End If
-
-            Thread.Sleep(100)
-        Loop
-    End Sub
-
-    Private Sub StartHideCheckerThread()
-        HideCheckerThread = New Thread(AddressOf HideCheckerThreadActions)
-        HideCheckerThread.SetApartmentState(ApartmentState.STA)
-        HideCheckerThread.Start()
     End Sub
 
     Sub Main()
         Initialize()
 
         Do
-            LastRestart = Now
-            Console.WriteLine(SeparatorText)
+            myLastRestart = Now
+            Console.WriteLine(mySeparatorText)
 
             'Start process
-            BgAppProcess.Start()
-            myBgAppProcId = BgAppProcess.Id
+            myBgAppProcess.Start()
 
-            Do Until BgAppProcess.HasExited
+            Do Until myBgAppProcess.HasExited
                 Thread.Sleep(1000)
             Loop
 
             'Exit if it exists with a 0 exit code
-            If BgAppProcess.ExitCode = 0 Then
+            If myBgAppProcess.ExitCode = 0 Then
                 Close()
             End If
 
-            Console.WriteLine(Environment.NewLine & SeparatorText)
+            Console.WriteLine(mySeparatorText)
 
-            If Not RestartingOnRequest Then
-                'Wait if failing too often
-                If Now.Subtract(LastRestart).TotalMinutes >= 1 Then
-                    RestartTry = 0
-                Else
-                    Dim waitSecs As Integer = RestartTry << 1
-                    Console.WriteLine(String.Format("Restarting in {0} second(s)...", waitSecs))
-                    Thread.Sleep(waitSecs * 1000)
-                    RestartTry += 1
-                End If
+            'Wait if failing too often
+            If Now.Subtract(myLastRestart).TotalMinutes >= 1 Then
+                myRestartTry = 0
+            Else
+                Dim waitSecs As Integer = CInt(2 ^ myRestartTry)
+                Console.WriteLine(String.Format("Restarting in {0} second(s)...", waitSecs))
+                Thread.Sleep(waitSecs * 1000)
+
+                myRestartTry += 1
             End If
 
             'Restart
-            Console.WriteLine("Restarting EECloud...")
+            Console.Write("Restarting EECloud...")
         Loop
+
+        ' ReSharper disable FunctionNeverReturns
     End Sub
+    ' ReSharper restore FunctionNeverReturns
 
     Sub Close()
         BeforeClose()
@@ -208,41 +134,18 @@ Module ModuleMain
     End Sub
 
     Private Sub BeforeClose()
-        BgAppProcess.Dispose()
+        myBgAppProcess.Dispose()
 
-        If TrayIcon IsNot Nothing Then
-            TrayIcon.Dispose()
+        If myTrayIcon IsNot Nothing Then
+            myTrayIcon.Dispose()
         End If
     End Sub
 
-    Private Function ConsoleCtrlCheck(ctrlType As CtrlTypes) As Boolean
+    Private Function ConsoleCtrlCheck(ctrlType As Integer) As Boolean
         BeforeClose()
 
         Return False
     End Function
-
-    Private Sub ToggleAutoHide()
-        ConsoleVisible = True
-
-        If AutoHideToolStripMenuItem.Checked Then 'Disabling AutoHide
-            HideCheckerThread.Abort()
-            AutoHideToolStripMenuItem.Checked = False
-
-            My.Settings.AutoHideEnabled = False
-        Else 'Enabling AutoHide
-            StartHideCheckerThread()
-            AutoHideToolStripMenuItem.Checked = True
-
-            My.Settings.AutoHideEnabled = True
-        End If
-
-        My.Settings.Save()
-    End Sub
-
-    Private Sub RestartBgApp()
-        RestartingOnRequest = True
-        BgAppProcess.Kill()
-    End Sub
 
 #End Region
 End Module
