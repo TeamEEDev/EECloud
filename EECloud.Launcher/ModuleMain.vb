@@ -11,7 +11,7 @@ Module ModuleMain
     Private Const SW_RESTORE As Integer = 9
 
     <DllImport("user32.dll")>
-    Private Sub SetForegroundWindow(ByVal handle As IntPtr)
+    Private Sub SetForegroundWindow(handle As IntPtr)
     End Sub
 
     <DllImport("kernel32.dll")>
@@ -19,11 +19,11 @@ Module ModuleMain
     End Function
 
     <DllImport("user32.dll")>
-    Private Sub ShowWindow(ByVal hWnd As IntPtr, ByVal nCmdShow As Integer)
+    Private Sub ShowWindow(hWnd As IntPtr, nCmdShow As Integer)
     End Sub
 
     <DllImport("kernel32.dll")>
-    Private Sub SetConsoleCtrlHandler(ByVal handler As HandlerRoutine, ByVal add As Boolean)
+    Private Sub SetConsoleCtrlHandler(handler As HandlerRoutine, add As Boolean)
     End Sub
 
 #End Region
