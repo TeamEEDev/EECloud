@@ -31,6 +31,7 @@ namespace EECloud.Launcher.WinForms
 
         private Thread KeepCheckingForOutputThread;
 
+        private bool RestartingOnPurpose;
         private DateTime LastRestart;
         private int RestartTry;
         #endregion
@@ -91,19 +92,31 @@ namespace EECloud.Launcher.WinForms
 
         private void RestartBgAppProcess()
         {
+            restartEECloudToolStripMenuItem.Enabled = false;
+
             var thread = new Thread(() =>
             {
-                //Wait if failing too often
-                if (DateTime.UtcNow.Subtract(LastRestart).TotalMinutes >= 1)
-                    RestartTry = 0;
+                if (!RestartingOnPurpose)
+                {
+                    //Wait if failing too often
+                    if (DateTime.UtcNow.Subtract(LastRestart).TotalMinutes >= 1)
+                        RestartTry = 0;
+                    else
+                    {
+                        var waitSecs = RestartTry << 1;
+                        Invoke(
+                            (MethodInvoker)
+                            (() =>
+                             textBoxOutput.AppendText(Environment.NewLine +
+                                                      "Restarting EECloud in " + waitSecs + " second(s)...")));
+                        Thread.Sleep(waitSecs*1000);
+                        RestartTry += 1;
+                    }
+                }
                 else
                 {
-                    var waitSecs = RestartTry << 1;
-                    Invoke((MethodInvoker)(() => textBoxOutput.AppendText(Environment.NewLine + "Restarting EECloud in " + waitSecs + " second(s)...")));
-                    Thread.Sleep(waitSecs * 1000);
-                    RestartTry += 1;
-
-                    Invoke((MethodInvoker)RestartBgAppProcess);
+                    RestartingOnPurpose = false;
+                    Invoke((MethodInvoker)(() => textBoxOutput.AppendText(Environment.NewLine + "Restarting EECloud by user request...")));
                 }
 
                 LastRestart = DateTime.UtcNow;
@@ -116,6 +129,8 @@ namespace EECloud.Launcher.WinForms
                     KeepCheckingForOutputThread = new Thread(KeepCheckingForOutput);
                     KeepCheckingForOutputThread.SetApartmentState(ApartmentState.STA);
                     KeepCheckingForOutputThread.Start();
+
+                    restartEECloudToolStripMenuItem.Enabled = true;
                 }));
             });
 
@@ -143,7 +158,11 @@ namespace EECloud.Launcher.WinForms
         #region Main menu strip
         private void restartEECloudToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            BgAppProcess.Kill();
+            RestartingOnPurpose = true;
+
+            if (!BgAppProcess.HasExited)
+                BgAppProcess.Kill();
+
             RestartBgAppProcess();
         }
 
