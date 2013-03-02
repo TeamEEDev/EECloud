@@ -54,10 +54,6 @@
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PlayerIOClient, Version=2.3.6.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -144,6 +140,7 @@
     <Compile Include="Enums\Group.vb" />
     <Compile Include="Interfaces\IChatter.vb" />
     <Compile Include="Interfaces\IClient.vb" />
+    <Compile Include="Interfaces\IPlugin.vb" />
     <Compile Include="Messages\Send\SaveWorldSendMessage.vb" />
     <Compile Include="Messages\Send\SaySendMessage.vb" />
     <Compile Include="Messages\Send\ChangeFaceSendMessage.vb" />
@@ -171,7 +168,6 @@
     <Compile Include="Messages\Send\Init2SendMessage.vb" />
     <Compile Include="Messages\Send\InitSendMessage.vb" />
     <Compile Include="Messages\Send\SendMessage.vb" />
-    <Compile Include="Interfaces\IPlugin.vb" />
     <Compile Include="Messages\Receive\AccessReceiveMessage.vb" />
     <Compile Include="Messages\Receive\AddReceiveMessage.vb" />
     <Compile Include="Messages\Receive\AutoTextReceiveMessage.vb" />
@@ -251,8 +247,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
 </Project>
