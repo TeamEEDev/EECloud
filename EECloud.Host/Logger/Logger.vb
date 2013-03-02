@@ -45,7 +45,7 @@ Friend NotInheritable Class Logger
         Do
             myOldTop = Console.CursorTop
             myOldLeft = Console.CursorLeft
-            Dim inputKey As ConsoleKeyInfo = Console.ReadKey()
+            Dim inputKey As ConsoleKeyInfo = Console.ReadKey(True)
 
             Select Case inputKey.Key
                 Case ConsoleKey.Enter
@@ -57,32 +57,15 @@ Friend NotInheritable Class Logger
                 Case ConsoleKey.Backspace
                     If Input.Length >= 1 Then
                         Input = Input.Substring(0, Input.Length - 1)
-                    Else 'Cancel
-                        Console.CursorTop = myOldTop
-                        Console.CursorLeft = myOldLeft
+                        Console.Write(inputKey.KeyChar)
                     End If
-                Case ConsoleKey.Tab
-                    Console.CursorTop = myOldTop
-                    Console.CursorLeft = myOldLeft
 
                 Case Else
-                    If inputKey.Modifiers = ConsoleModifiers.Control Then
-                        Console.CursorTop = myOldTop
-                        Console.CursorLeft = myOldLeft
-                        Console.Write(" "c)
-                        Console.CursorLeft -= 1
-                    ElseIf inputKey.KeyChar <> Nothing Then
+                    If inputKey.KeyChar <> Nothing AndAlso inputKey.Modifiers = 0 Then
                         If Input.Length <= 76 Then
                             myInput &= inputKey.KeyChar
-                        Else
-                            Console.CursorLeft -= 1
-                            Console.Write(" "c)
-                            Console.CursorTop = myOldTop
-                            Console.CursorLeft = myOldLeft
+                            Console.Write(inputKey.KeyChar)
                         End If
-                    Else
-                        Console.CursorTop = myOldTop
-                        Console.CursorLeft = myOldLeft
                     End If
             End Select
         Loop
