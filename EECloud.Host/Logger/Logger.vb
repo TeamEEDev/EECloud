@@ -45,41 +45,46 @@ Friend NotInheritable Class Logger
         Do
             myOldTop = Console.CursorTop
             myOldLeft = Console.CursorLeft
-            Dim inputKey As ConsoleKeyInfo = Console.ReadKey
-            If inputKey.Key = ConsoleKey.Backspace Then
-                If Input.Length >= 1 Then
-                    Input = Input.Substring(0, Input.Length - 1)
-                Else 'Cancel
+            Dim inputKey As ConsoleKeyInfo = Console.ReadKey()
+
+            Select Case inputKey.Key
+                Case ConsoleKey.Enter
+                    If Input IsNot String.Empty Then
+                        Console.WriteLine()
+                        RaiseEvent OnInput(Me, New EventArgs)
+                    End If
+                    Input = String.Empty
+                Case ConsoleKey.Backspace
+                    If Input.Length >= 1 Then
+                        Input = Input.Substring(0, Input.Length - 1)
+                    Else 'Cancel
+                        Console.CursorTop = myOldTop
+                        Console.CursorLeft = myOldLeft
+                    End If
+                Case ConsoleKey.Tab
                     Console.CursorTop = myOldTop
                     Console.CursorLeft = myOldLeft
-                End If
-            ElseIf inputKey.Key = ConsoleKey.Enter Then
-                If Input IsNot String.Empty Then
-                    Console.WriteLine()
-                    RaiseEvent OnInput(Me, New EventArgs)
-                End If
-                Input = String.Empty
-            ElseIf inputKey.Key = ConsoleKey.Tab Then
-                Console.CursorTop = myOldTop
-                Console.CursorLeft = myOldLeft
-            ElseIf inputKey.Modifiers = ConsoleModifiers.Control Then
-                Console.CursorTop = myOldTop
-                Console.CursorLeft = myOldLeft
-                Console.Write(" "c)
-                Console.CursorLeft -= 1
-            ElseIf inputKey.KeyChar <> Nothing Then
-                If Input.Length <= 76 Then
-                    myInput &= inputKey.KeyChar
-                Else
-                    Console.CursorLeft -= 1
-                    Console.Write(" "c)
-                    Console.CursorTop = myOldTop
-                    Console.CursorLeft = myOldLeft
-                End If
-            Else
-                Console.CursorTop = myOldTop
-                Console.CursorLeft = myOldLeft
-            End If
+
+                Case Else
+                    If inputKey.Modifiers = ConsoleModifiers.Control Then
+                        Console.CursorTop = myOldTop
+                        Console.CursorLeft = myOldLeft
+                        Console.Write(" "c)
+                        Console.CursorLeft -= 1
+                    ElseIf inputKey.KeyChar <> Nothing Then
+                        If Input.Length <= 76 Then
+                            myInput &= inputKey.KeyChar
+                        Else
+                            Console.CursorLeft -= 1
+                            Console.Write(" "c)
+                            Console.CursorTop = myOldTop
+                            Console.CursorLeft = myOldLeft
+                        End If
+                    Else
+                        Console.CursorTop = myOldTop
+                        Console.CursorLeft = myOldLeft
+                    End If
+            End Select
         Loop
         ' ReSharper disable FunctionNeverReturns
     End Sub
@@ -90,8 +95,8 @@ Friend NotInheritable Class Logger
         If Not Cloud.IsNoConsole Then
             myOldTop = Console.CursorTop
             Overwrite(Input.Length + 1, output)
-            Console.WriteLine()
-            Console.Write(">" & Input)
+            Console.Write(Environment.NewLine &
+                          ">" & Input)
         End If
     End Sub
 
