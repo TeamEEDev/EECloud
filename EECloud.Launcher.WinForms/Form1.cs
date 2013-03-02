@@ -83,11 +83,30 @@ namespace EECloud.Launcher.WinForms
         #region BgAppProcess-related stuff
         private void BgAppProcess_Exited(object sender, EventArgs e)
         {
+            AbortKeepCheckingForOutputThread();
+
             if (BgAppProcess.ExitCode == 0)
                 Close();
             else
             {
-                RestartBgAppProcess();
+                var thread = new Thread(() =>
+                {
+                    //Wait if failing too often
+                    if (DateTime.UtcNow.Subtract(LastRestart).TotalMinutes >= 1)
+                        RestartTry = 0;
+                    else
+                    {
+                        var waitSecs = RestartTry << 1;
+                        Invoke((MethodInvoker)(() => textBoxOutput.AppendText(Environment.NewLine + "Restarting EECloud in " + waitSecs + " second(s)...")));
+                        Thread.Sleep(waitSecs * 1000);
+                        RestartTry += 1;
+
+                        Invoke((MethodInvoker)RestartBgAppProcess);
+                    }
+                });
+
+                thread.SetApartmentState(ApartmentState.STA);
+                thread.Start();
             }
         }
 
@@ -97,7 +116,6 @@ namespace EECloud.Launcher.WinForms
             textBoxOutput.AppendText(SeparatorText);
             BgAppProcess.Start();
 
-            AbortKeepCheckingForOutputThread();
             KeepCheckingForOutputThread = new Thread(KeepCheckingForOutput);
             KeepCheckingForOutputThread.SetApartmentState(ApartmentState.STA);
             KeepCheckingForOutputThread.Start();
@@ -123,6 +141,7 @@ namespace EECloud.Launcher.WinForms
         #region Main menu strip
         private void restartEECloudToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            BgAppProcess.Kill();
             RestartBgAppProcess();
         }
 
