@@ -5,6 +5,7 @@ Friend NotInheritable Class Logger
 
 #Region "Fields"
     Private myInput As String = String.Empty
+    Dim myOldTop As Integer
 #End Region
 
 #Region "Events"
