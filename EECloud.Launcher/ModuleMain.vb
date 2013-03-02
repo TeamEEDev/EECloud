@@ -14,7 +14,7 @@ Module ModuleMain
     Private Sub SetForegroundWindow(ByVal handle As IntPtr)
     End Sub
 
-    <DllImport("kernel32.dll", SetLastError:=True)>
+    <DllImport("kernel32.dll")>
     Private Function GetConsoleWindow() As IntPtr
     End Function
 
@@ -71,14 +71,14 @@ Module ModuleMain
         trayIconThread.Start()
 
         Console.Title = "EECloud"
-        Console.WriteLine("Welcome to EECloud.Launcher!")
-        Console.Write("Starting EECloud...")
+        Console.Write("Welcome to EECloud.Launcher!" & Environment.NewLine &
+                      "Starting EECloud...")
     End Sub
 
     Private Sub InitializeTrayIcon()
         myTrayIcon = New NotifyIcon() With {.Icon = My.Resources.Icon,
-                                          .Visible = True,
-                                          .Text = "EECloud"}
+                                            .Visible = True,
+                                            .Text = "EECloud"}
 
         AddHandler myTrayIcon.DoubleClick,
             Sub()
