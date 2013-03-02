@@ -7,8 +7,8 @@ Module ModuleMain
 
     Private Delegate Function HandlerRoutine(ctrlType As Integer) As Boolean
 
-    Const SW_HIDE As Integer = 0
-    Const SW_RESTORE As Integer = 9
+    Private Const SW_HIDE As Integer = 0
+    Private Const SW_RESTORE As Integer = 9
 
     <DllImport("user32.dll")>
     Private Sub SetForegroundWindow(ByVal handle As IntPtr)
