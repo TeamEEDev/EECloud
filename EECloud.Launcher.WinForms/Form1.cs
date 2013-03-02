@@ -14,9 +14,12 @@ namespace EECloud.Launcher.WinForms
 {
     public partial class Form1 : Form
     {
-        private readonly string SeparatorText = Environment.NewLine + new string('—', 28);
+        #region Fields and properties
 
-        public FormWindowState LastShownWindowState;
+        private readonly string _separatorText = Environment.NewLine + new string('—', 28);
+        private string SeparatorText { get { return _separatorText;  } }
+
+        public FormWindowState LastShownWindowState { get; private set; }
 
         private readonly Process BgAppProcess = new Process { StartInfo = new ProcessStartInfo(AppDomain.CurrentDomain.BaseDirectory + "EECloud.exe")
                                                                               {
@@ -31,7 +34,9 @@ namespace EECloud.Launcher.WinForms
         private bool RestartingOnRequest;
         private DateTime LastRestart;
         private int RestartTry;
+        #endregion
 
+        #region Form and NotifyIcon events
         public Form1()
         {
             LastShownWindowState = WindowState;
@@ -60,12 +65,6 @@ namespace EECloud.Launcher.WinForms
             }
         }
 
-        private void BgAppProcess_Exited(object sender, EventArgs e)
-        {
-            if (BgAppProcess.ExitCode == 0)
-                Close();
-        }
-
         private void Form1_Resize(object sender, EventArgs e)
         {
             if (WindowState != FormWindowState.Minimized)
@@ -79,6 +78,18 @@ namespace EECloud.Launcher.WinForms
             WindowState = LastShownWindowState;
             Visible = true;
             Activate();
+        }
+        #endregion
+
+        #region BgAppProcess-related stuff
+        private void BgAppProcess_Exited(object sender, EventArgs e)
+        {
+            if (BgAppProcess.ExitCode == 0)
+                Close();
+            else
+            {
+                RestartBgAppProcess();
+            }
         }
 
         private void RestartBgAppProcess()
@@ -108,6 +119,7 @@ namespace EECloud.Launcher.WinForms
             if (KeepCheckingForOutputThread != null && KeepCheckingForOutputThread.IsAlive)
                 KeepCheckingForOutputThread.Abort();
         }
+        #endregion
 
         #region Main menu strip
         private void hideWindowToTrayOnMinimizeToolStripMenuItem_Click(object sender, EventArgs e)
