@@ -4,7 +4,7 @@
 
     Friend ReadOnly Property CorrectLayer(id As Block, layer As Layer) As Layer
         Get
-            If (id > 0 AndAlso id < 500) Or id = 1000 Then
+            If (id > 0 AndAlso id < 500) OrElse id = 1000 Then
                 Return layer.Foreground
             ElseIf id >= 500 AndAlso id < 1000 Then
                 Return layer.Background

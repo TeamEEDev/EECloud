@@ -141,17 +141,26 @@
     End Sub
 
     Friend Shared Function Derot(str As String) As String
+        Const AscLa = Asc("a"c)
+        Const AscLm = Asc("m"c)
+        Const AscLz = Asc("z"c)
+
+        Const AscUa = Asc("A"c)
+        Const AscUm = Asc("M"c)
+        Const AscUz = Asc("Z"c)
+
         Derot = String.Empty
+
         For N = 1 To str.Length
             Dim charNum As Integer = Asc(GetChar(str, N))
-            If charNum >= Asc("a") And charNum <= Asc("z") Then
-                If charNum > Asc("m") Then
+            If charNum >= AscLa AndAlso charNum <= AscLz Then
+                If charNum > AscLm Then
                     charNum -= 13
                 Else
                     charNum += 13
                 End If
-            ElseIf charNum >= Asc("A") And charNum <= Asc("Z") Then
-                If charNum > Asc("M") Then
+            ElseIf charNum >= AscUa AndAlso charNum <= AscUz Then
+                If charNum > AscUm Then
                     charNum -= 13
                 Else
                     charNum += 13
@@ -159,6 +168,7 @@
             End If
             Derot &= Chr(charNum)
         Next
+
         Return Derot
     End Function
 
