@@ -68,7 +68,7 @@
     End Function
 
     Friend Function GetPlayerDatas(usernames() As String) As UserData() Implements IEEService.GetPlayerDatas
-        If usernames Is Nothing OrElse usernames.Length > 0 Then
+        If usernames Is Nothing OrElse usernames.Length < 1 Then
             Throw New ArgumentNullException("usernames")
         End If
 
