@@ -15,7 +15,7 @@ Public NotInheritable Class PluginAttribute
     Public Property Authors As String()
     
     ''' <summary>
-    '''     A short text describing the fuctionality of this plugin
+    '''     A short text describing the fuctionality of this plugin.
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
@@ -23,7 +23,7 @@ Public NotInheritable Class PluginAttribute
     Public Property Description As String = "No description"
     
     ''' <summary>
-    '''     The plugins version.
+    '''     The plugin's version.
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
@@ -31,7 +31,7 @@ Public NotInheritable Class PluginAttribute
     Public Property Version As String = "1.0.0.0"
     
     ''' <summary>
-    '''     The Category of this plugin.
+    '''     The category of this plugin.
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
@@ -39,7 +39,7 @@ Public NotInheritable Class PluginAttribute
     Public Property Category As PluginCategory
     
     ''' <summary>
-    '''     Determins whether this plugin should be started automatically once loaded at startup. Defaults to true.
+    '''     Determines whether this plugin should be started automatically once loaded at startup. Defaults to true.
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
@@ -47,7 +47,7 @@ Public NotInheritable Class PluginAttribute
     Public Property IsStartup As Boolean = True
     
     ''' <summary>
-    '''     Whether the plugin should be loaded into plugin manager to allow "!enable pluginname". Defaults to true.
+    '''     Determines whether the plugin should be loaded into the plugin manager to allow "!enable PluginName". Defaults to true.
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
@@ -55,7 +55,7 @@ Public NotInheritable Class PluginAttribute
     Public Property StartupLoaded As Boolean = True
     
     ''' <summary>
-    '''     If not null, the plugin will startup only in the specified worlds.
+    '''     If not null, the plugin will start up only in the specified worlds.
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
