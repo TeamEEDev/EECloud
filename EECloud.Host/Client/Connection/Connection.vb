@@ -374,7 +374,8 @@ Friend NotInheritable Class Connection
 
     Private Function RaiseSendEvent(message As SendMessage) As Boolean
         RaiseEvent SendMessage(Me, message)
-        Select Case message.GetType
+
+        Select Case message.GetType()
             Case GetType(InitSendMessage)
                 Dim eventArgs As New Cancelable(Of InitSendMessage)(DirectCast(message, InitSendMessage))
                 RaiseEvent SendInit(Me, eventArgs)
@@ -586,7 +587,7 @@ Friend NotInheritable Class Connection
     Private myInited As Boolean
 
     Private Sub Connection_ReceiveMessage(sender As Object, e As ReceiveMessage) Handles Me.ReceiveMessage
-        Select Case e.GetType
+        Select Case e.GetType()
             Case GetType(InitReceiveMessage)
                 Dim m As InitReceiveMessage = DirectCast(e, InitReceiveMessage)
                 RaiseEvent PreviewReceiveInit(Me, m)

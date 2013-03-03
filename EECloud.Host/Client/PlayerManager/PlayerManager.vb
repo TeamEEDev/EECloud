@@ -123,6 +123,7 @@
                 SyncLock myUsernameDictionary
                     If myUsernameDictionary.ContainsKey(player1.Username) Then
                         Dim list As List(Of TPlayer) = myUsernameDictionary(player1.Username)
+
                         For Each item In From item1 In list Where item1.UserID = e.UserID
                             list.Remove(item)
                             Exit For
