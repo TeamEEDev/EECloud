@@ -51,7 +51,7 @@ Friend NotInheritable Class World
         Dim start As UInteger
         For i As UInteger = offset To CUInt(m.Count - 1)
             If TryCast(m.Item(i), String) IsNot Nothing AndAlso m.GetString(i) = "ws" Then
-                start = CUInt(i + 1)
+                start = i + 1
                 Exit For
             End If
         Next
@@ -83,7 +83,7 @@ Friend NotInheritable Class World
             Select Case block1
                 Case Block.BlockDoorCoinDoor, Block.BlockGateCoinGate
                     Dim coinsToCollect As Integer = m.GetInteger(pointer)
-                    pointer = CUInt(pointer + 1)
+                    pointer += 1
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
@@ -91,7 +91,7 @@ Friend NotInheritable Class World
                     Next
                 Case Block.BlockMusicPiano, Block.BlockMusicDrum
                     Dim soundID As Integer = m.GetInteger(pointer)
-                    pointer = CUInt(pointer + 1)
+                    pointer += 1
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
@@ -99,11 +99,11 @@ Friend NotInheritable Class World
                     Next
                 Case Block.BlockPortal
                     Dim portalRotation As PortalRotation = DirectCast(m.GetInteger(pointer), PortalRotation)
-                    pointer = CUInt(pointer + 1)
+                    pointer += 1
                     Dim portalID As Integer = m.GetInteger(pointer)
-                    pointer = CUInt(pointer + 1)
+                    pointer += 1
                     Dim portalTarget As Integer = m.GetInteger(pointer)
-                    pointer = CUInt(pointer + 1)
+                    pointer += 1
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
@@ -111,7 +111,7 @@ Friend NotInheritable Class World
                     Next
                 Case Block.BlockLabel
                     Dim text As String = m.GetString(pointer)
-                    pointer = CUInt(pointer + 1)
+                    pointer += 1
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
@@ -119,7 +119,7 @@ Friend NotInheritable Class World
                     Next
                 Case Block.BlockHazardSpike
                     Dim rotation As Integer = m.GetInteger(pointer)
-                    pointer = CUInt(pointer + 1)
+                    pointer += 1
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)

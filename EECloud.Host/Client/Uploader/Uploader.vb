@@ -96,7 +96,7 @@ retry:
 
     Friend Sub Upload(blockMessage As BlockPlaceUploadMessage) Implements IUploader.Upload
         If myBlockUploadQueue.Count = 0 Then
-            myVersion = CUInt(myVersion + 1)
+            myVersion += 1
         End If
         myBlockUploadQueue.PushBack(blockMessage)
     End Sub

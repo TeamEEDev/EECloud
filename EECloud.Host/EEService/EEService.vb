@@ -84,7 +84,7 @@
             Throw New ArgumentException("limit must be bigger than 0", "limit")
         End If
 
-        limit = Math.Min(limit, CUInt(1000))
+        limit = Math.Min(limit, 1000)
         If orderBy Is Nothing Then orderBy = "Username"
 
         Using connection As New MySqlConnection(MySQLConnStr)
@@ -102,7 +102,7 @@
                         Dim pointer As UInteger
                         While reader.Read() AndAlso limit > pointer
                             userDatas.Add(ParsePlayerData(reader))
-                            pointer += CUInt(1)
+                            pointer += 1
                         End While
 
                         Return userDatas.ToArray()
