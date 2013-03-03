@@ -81,7 +81,7 @@
 
     Friend Function GetPlayerDataRange(Optional offset As UInteger = 0, Optional limit As UInteger = 1000, Optional orderBy As String = "Username") As UserData() Implements IEEService.GetPlayerDataRange
         If Not limit > 0 Then
-            Throw New ArgumentException("limit must be bigger than 0", "limit")
+            Throw New ArgumentException("Limit must be bigger than 0.", "limit")
         End If
 
         limit = Math.Min(limit, 1000)
