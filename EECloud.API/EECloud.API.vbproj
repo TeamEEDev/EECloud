@@ -84,7 +84,7 @@
     <Compile Include="Enums\Potion.vb" />
     <Compile Include="Enums\SpikeRotation.vb" />
     <Compile Include="EventArgs\BlockPlaceEventArgs.vb" />
-    <Compile Include="EventArgs\DiconnectEventArgs.vb" />
+    <Compile Include="EventArgs\DisconnectEventArgs.vb" />
     <Compile Include="EventArgs\CancelableEventArgs.vb" />
     <Compile Include="Enums\AccessRight.vb" />
     <Compile Include="Interfaces\IChatSyntaxProvider.vb" />
