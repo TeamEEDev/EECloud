@@ -23,13 +23,13 @@ Friend Class LicenseForm
     End Sub
 
     Private Sub TextBoxUsername_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBoxUsername.KeyPress
-        If e.KeyChar = Convert.ToChar(1) Then
+        If e.KeyChar = CtrlA Then
             TextBoxUsername.SelectAll()
         End If
     End Sub
 
     Private Sub TextBoxKey_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBoxKey.KeyPress
-        If e.KeyChar = Convert.ToChar(1) Then
+        If e.KeyChar = CtrlA Then
             TextBoxKey.SelectAll()
         End If
     End Sub

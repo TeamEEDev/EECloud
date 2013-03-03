@@ -50,19 +50,19 @@ Friend NotInheritable Class LoginForm
     End Sub
 
     Private Sub TextBoxEmail_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBoxEmail.KeyPress
-        If e.KeyChar = Convert.ToChar(1) Then
+        If e.KeyChar = CtrlA Then
             TextBoxEmail.SelectAll()
         End If
     End Sub
 
     Private Sub TextBoxPassword_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBoxPassword.KeyPress
-        If e.KeyChar = Convert.ToChar(1) Then
+        If e.KeyChar = CtrlA Then
             TextBoxPassword.SelectAll()
         End If
     End Sub
 
     Private Sub TextBoxWorldID_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBoxWorldID.KeyPress
-        If e.KeyChar = Convert.ToChar(1) Then
+        If e.KeyChar = CtrlA Then
             TextBoxWorldID.SelectAll()
         End If
     End Sub

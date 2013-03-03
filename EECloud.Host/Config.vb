@@ -6,4 +6,6 @@ Friend Module Config
 
     Friend ReadOnly InvariantCulture As CultureInfo = CultureInfo.InvariantCulture
 
+    Friend ReadOnly CtrlA As Char = Convert.ToChar(1)
+
 End Module
