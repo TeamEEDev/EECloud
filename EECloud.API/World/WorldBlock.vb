@@ -3,17 +3,17 @@
 
 #Region "Properties"
 
+    Public Overridable ReadOnly Property BlockType As BlockType Implements IWorldBlock.BlockType
+        Get
+            Return BlockType.Normal
+        End Get
+    End Property
+
     Private ReadOnly myBlock As Block
 
     Public ReadOnly Property Block As Block Implements IWorldBlock.Block
         Get
             Return myBlock
-        End Get
-    End Property
-
-    Public Overridable ReadOnly Property BlockType As BlockType Implements IWorldBlock.BlockType
-        Get
-            Return BlockType.Normal
         End Get
     End Property
 

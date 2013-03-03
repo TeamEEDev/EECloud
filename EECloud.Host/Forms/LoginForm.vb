@@ -69,7 +69,7 @@ Friend NotInheritable Class LoginForm
 
     Private Sub ButtonJoinWorld_Click(sender As Object, e As EventArgs) Handles ButtonJoinWorld.Click
         If Not TextBoxEmail.Text = "" Then
-            If Not TextBoxPassword.Text = "" Or RadioButtonFacebook.Checked Then
+            If Not TextBoxPassword.Text = "" OrElse RadioButtonFacebook.Checked Then
                 If Not TextBoxWorldID.Text = "" Then
                     Dim settingIndex As Integer = My.Settings.LoginEmails.IndexOf(TextBoxEmail.Text)
 
@@ -109,7 +109,7 @@ Friend NotInheritable Class LoginForm
                 TextBoxPassword.Focus()
             End If
         Else
-            If Not TextBoxPassword.Text = "" Or RadioButtonFacebook.Checked Then
+            If Not TextBoxPassword.Text = "" OrElse RadioButtonFacebook.Checked Then
                 If Not TextBoxWorldID.Text = "" Then
                     MsgBox("You didn't enter your e-mail address.", MsgBoxStyle.Critical, "Error")
                 Else
