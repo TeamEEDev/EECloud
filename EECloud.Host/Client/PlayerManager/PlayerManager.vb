@@ -180,7 +180,7 @@
 
         SyncLock myIDDictionary
             If Not myIDDictionary.ContainsKey(internalPlayer.UserID) Then
-                player1 = New TPlayer
+                player1 = New TPlayer()
                 player1.SetupPlayer(internalPlayer, myClient.Chatter)
                 myIDDictionary.Add(player1.UserID, player1)
 
@@ -223,7 +223,7 @@
         Dim p As TPlayer = Player(e.UserID)
 
         If p IsNot Nothing Then
-            RaiseEvent onkill(Me, p)
+            RaiseEvent OnKill(Me, p)
         End If
     End Sub
 

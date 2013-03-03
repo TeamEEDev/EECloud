@@ -171,7 +171,7 @@ Friend NotInheritable Class DefaultCommandListener
         End If
     End Sub
 
-    Private Function GetGroupString(rank As Group) As String
+    Private Shared Function GetGroupString(rank As Group) As String
         Select Case rank
             Case Group.Host
                 Return "the host"
