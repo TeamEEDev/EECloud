@@ -140,7 +140,7 @@
         myTotalWoots = e.TotalWoots
     End Sub
 
-    Friend Shared Function Derot(str As String) As String
+    Friend Shared Function Derot(input As String) As String
         Const AscLa = Asc("a"c)
         Const AscLm = Asc("m"c)
         Const AscLz = Asc("z"c)
@@ -149,10 +149,12 @@
         Const AscUm = Asc("M"c)
         Const AscUz = Asc("Z"c)
 
-        Derot = String.Empty
+        Dim array() As Char = input.ToCharArray()
 
-        For N = 1 To str.Length
-            Dim charNum As Integer = Asc(GetChar(str, N))
+        Dim charNum As Integer
+        For n = 0 To input.Length - 1
+            charNum = Asc(array(n))
+
             If charNum >= AscLa AndAlso charNum <= AscLz Then
                 If charNum > AscLm Then
                     charNum -= 13
@@ -166,10 +168,11 @@
                     charNum += 13
                 End If
             End If
-            Derot &= Chr(charNum)
+
+            array(n) = Chr(charNum)
         Next
 
-        Return Derot
+        Return New String(array)
     End Function
 
 #End Region
