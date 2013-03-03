@@ -350,13 +350,14 @@ Friend NotInheritable Class Connection
     End Function
 
     Private Shared Sub UpdateVersion(ex As PlayerIOError)
-        Dim errorMessage() As String = ex.Message.Split("["c)(1).Split(CChar(" "))
+        Dim errorMessage() As String = ex.Message.Split("["c)(1).Split(" "c)
         Dim idSet As Boolean
+
         For N = errorMessage.Length - 1 To 0 Step -1
             Dim currentRoomType As String
             currentRoomType = errorMessage(N)
             If currentRoomType.StartsWith(NormalRoom, StringComparison.Ordinal) Then
-                Dim newNum As Integer = CInt(currentRoomType.Substring(NormalRoom.Length, currentRoomType.Length - NormalRoom.Length - 1))
+                Dim newNum As Integer = Integer.Parse(currentRoomType.Substring(NormalRoom.Length, currentRoomType.Length - NormalRoom.Length - 1))
                 If newNum > myGameVersionNumber Then
                     myGameVersionNumber = newNum
                     Cloud.Service.SetSetting(GameVersionSetting, CStr(myGameVersionNumber))
@@ -851,7 +852,7 @@ Friend NotInheritable Class Connection
             If Not myRunConnect Then
                 myRunConnect = True
             Else
-                Throw New Exception("A connection has been already established")
+                Throw New Exception("A connection has been already established.")
             End If
         End SyncLock
 

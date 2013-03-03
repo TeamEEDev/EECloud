@@ -127,7 +127,7 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
         Dim toCount As Integer = cmd.Length - 1
         If toCount > handle.Count Then toCount = handle.Count
 
-        Dim args(toCount + CInt(IIf(handle.HasParamArray, 1, 0))) As Object
+        Dim args(toCount + DirectCast(IIf(handle.HasParamArray, 1, 0), Integer)) As Object
         args(0) = New Command(Of TPlayer)(sender, type, text)
 
         For i = 1 To toCount
