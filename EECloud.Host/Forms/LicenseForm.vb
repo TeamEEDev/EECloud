@@ -35,8 +35,8 @@ Friend Class LicenseForm
     End Sub
 
     Private Sub ButtonOk_Click(sender As Object, e As EventArgs) Handles ButtonOk.Click
-        If Not TextBoxUsername.Text = "" Then
-            If Not TextBoxKey.Text = "" Then
+        If Not TextBoxUsername.Text = String.Empty Then
+            If Not TextBoxKey.Text = String.Empty Then
                 My.Settings.LicenseUsername = TextBoxUsername.Text
                 My.Settings.LicenseKey = TextBoxKey.Text
                 My.Settings.Save()
@@ -47,7 +47,7 @@ Friend Class LicenseForm
                 TextBoxKey.Focus()
             End If
         Else
-            If Not TextBoxKey.Text = "" Then
+            If Not TextBoxKey.Text = String.Empty Then
                 MsgBox("You didn't enter your username.", MsgBoxStyle.Critical, "Error")
             Else
                 MsgBox("You didn't enter your username, and your license key.", MsgBoxStyle.Critical, "Error")

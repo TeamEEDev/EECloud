@@ -865,7 +865,7 @@ Friend NotInheritable Class Connection
                         Case AccountType.Regular
                             ioClient = PlayerIO.QuickConnect.SimpleConnect(GameID, username, password)
                         Case AccountType.Facebook
-                            ioClient = PlayerIO.QuickConnect.FacebookOAuthConnect(GameID, username, "")
+                            ioClient = PlayerIO.QuickConnect.FacebookOAuthConnect(GameID, username, String.Empty)
                     End Select
 
                     Dim ioConnection As PlayerIOClient.Connection = GetIOConnection(ioClient, id)
