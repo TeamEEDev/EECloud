@@ -43,14 +43,14 @@ Friend Class LicenseForm
                 DialogResult = DialogResult.OK
                 Close()
             Else
-                MsgBox("You didn't enter your license key.", MsgBoxStyle.Critical, "Error")
+                MessageBox.Show("You didn't enter your license key.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 TextBoxKey.Focus()
             End If
         Else
             If Not TextBoxKey.Text = String.Empty Then
-                MsgBox("You didn't enter your username.", MsgBoxStyle.Critical, "Error")
+                MessageBox.Show("You didn't enter your username.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Else
-                MsgBox("You didn't enter your username, and your license key.", MsgBoxStyle.Critical, "Error")
+                MessageBox.Show("You didn't enter your username, and your license key.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
             TextBoxUsername.Focus()
         End If
