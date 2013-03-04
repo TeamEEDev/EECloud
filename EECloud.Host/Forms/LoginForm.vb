@@ -97,29 +97,29 @@ Friend NotInheritable Class LoginForm
                     DialogResult = DialogResult.OK
                     Close()
                 Else
-                    MsgBox("You didn't enter the world's ID you want to join to.", MsgBoxStyle.Critical, "Error")
+                    MessageBox.Show("You didn't enter the world's ID you want to join to.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     TextBoxWorldID.Focus()
                 End If
             Else
                 If Not TextBoxWorldID.Text = String.Empty Then
-                    MsgBox("You didn't enter your password.", MsgBoxStyle.Critical, "Error")
+                    MessageBox.Show("You didn't enter your password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Else
-                    MsgBox("You didn't enter your password, and the world's ID you want to join to.", MsgBoxStyle.Critical, "Error")
+                    MessageBox.Show("You didn't enter your password, and the world's ID you want to join to.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
                 TextBoxPassword.Focus()
             End If
         Else
             If Not TextBoxPassword.Text = String.Empty OrElse RadioButtonFacebook.Checked Then
                 If Not TextBoxWorldID.Text = String.Empty Then
-                    MsgBox("You didn't enter your e-mail address.", MsgBoxStyle.Critical, "Error")
+                    MessageBox.Show("You didn't enter your e-mail address.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Else
-                    MsgBox("You didn't enter your e-mail address, and the world's ID you want to join to.", MsgBoxStyle.Critical, "Error")
+                    MessageBox.Show("You didn't enter your e-mail address, and the world's ID you want to join to.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
             Else
                 If Not TextBoxWorldID.Text = String.Empty Then
-                    MsgBox("You didn't enter your e-mail address, and your password.", MsgBoxStyle.Critical, "Error")
+                    MessageBox.Show("You didn't enter your e-mail address, and your password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Else
-                    MsgBox("You didn't enter your e-mail address, your password, and the world's ID you want to join to.", MsgBoxStyle.Critical, "Error")
+                    MessageBox.Show("You didn't enter your e-mail address, your password, and the world's ID you want to join to.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
             End If
             TextBoxEmail.Focus()

@@ -78,9 +78,10 @@ Module ModuleMain
                 End Using
             End Using
         Catch ex As Exception
-            MsgBox("Failed to check for updates: " & Environment.NewLine &
-                   ex.ToString(),
-                   MsgBoxStyle.Exclamation, "Error")
+            MessageBox.Show("Failed to check for updates: " & Environment.NewLine & ex.ToString(),
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Exclamation)
         End Try
     End Sub
 
