@@ -46,9 +46,9 @@ Module ModuleMain
                                        MessageBoxIcon.Information) = DialogResult.Yes Then
 
                             'Download
-                            MsgBox("teszt")
+                            MsgBox("Test1")
                             Await webClient.DownloadFileTaskAsync(New Uri("http://dl.dropbox.com/u/13946635/EECloud/EECloud.Setup.msi"), My.Application.Info.DirectoryPath & "\EECloud.msi")
-                            MsgBox("teszt2")
+                            MsgBox("Test2 <- Doesn't want to appear...")
 
                             'Notify user
                             MessageBox.Show(form,
