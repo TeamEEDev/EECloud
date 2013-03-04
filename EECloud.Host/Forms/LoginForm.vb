@@ -98,6 +98,7 @@ Friend NotInheritable Class LoginForm
                     Close()
                 Else
                     MessageBox.Show("You didn't enter the world's ID you want to join to.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
                     TextBoxWorldID.Focus()
                 End If
             Else
@@ -106,6 +107,7 @@ Friend NotInheritable Class LoginForm
                 Else
                     MessageBox.Show("You didn't enter your password, and the world's ID you want to join to.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
+
                 TextBoxPassword.Focus()
             End If
         Else
@@ -122,6 +124,7 @@ Friend NotInheritable Class LoginForm
                     MessageBox.Show("You didn't enter your e-mail address, your password, and the world's ID you want to join to.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
             End If
+
             TextBoxEmail.Focus()
         End If
     End Sub

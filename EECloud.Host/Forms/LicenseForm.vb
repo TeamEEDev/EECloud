@@ -39,11 +39,13 @@ Friend Class LicenseForm
             If Not TextBoxKey.Text = String.Empty Then
                 My.Settings.LicenseUsername = TextBoxUsername.Text
                 My.Settings.LicenseKey = TextBoxKey.Text
+
                 My.Settings.Save()
                 DialogResult = DialogResult.OK
                 Close()
             Else
                 MessageBox.Show("You didn't enter your license key.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
                 TextBoxKey.Focus()
             End If
         Else
@@ -52,6 +54,7 @@ Friend Class LicenseForm
             Else
                 MessageBox.Show("You didn't enter your username, and your license key.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
+
             TextBoxUsername.Focus()
         End If
     End Sub
