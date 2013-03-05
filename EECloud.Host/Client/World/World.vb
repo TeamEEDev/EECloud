@@ -57,13 +57,7 @@ Friend NotInheritable Class World
         Next
 
         Dim value(1, sizeX - 1, sizeY - 1) As IWorldBlock
-        For l = 0 To 1
-            For x = 0 To sizeX - 1
-                For y = 0 To sizeY - 1
-                    value(l, x, y) = New WorldBlock(Block.BlockGravityNothing)
-                Next
-            Next
-        Next
+        value = ClearWorld(value, False)
 
         Dim block1 As Block
         Dim layer As Layer
@@ -162,6 +156,23 @@ Friend NotInheritable Class World
         Return value
     End Function
 
+    Private Shared Function ClearWorld(blockArray As IWorldBlock(,,), Optional drawBorder As Boolean = True)
+        Dim toX = blockArray.GetLength(1) - 1
+        Dim toY = blockArray.GetLength(2) - 1
+
+        Dim tmpBlock As New WorldBlock(Block.BlockGravityNothing)
+
+        For l = 0 To 1
+            For x = 0 To toX
+                For y = 0 To toY
+                    blockArray(l, x, y) = tmpBlock
+                Next
+            Next
+        Next
+
+        Return blockArray
+    End Function
+
     Private Sub myConnection_ReceiveInit(sender As Object, e As InitReceiveMessage) Handles myConnection.ReceiveInit
         mySizeX = e.SizeX
         mySizeY = e.SizeY
@@ -214,7 +225,9 @@ Friend NotInheritable Class World
         myBlocks = ParseWorld(e.PlayerIOMessage, mySizeX, mySizeY, 0)
     End Sub
 
-    'TODO: IMPLEMENT CLEAR!!!
+    Private Sub myConnection_ReceiveClear(sender As Object, e As ClearReceiveMessage) Handles myConnection.ReceiveClear
+        myBlocks = ClearWorld(myBlocks)
+    End Sub
 
 #End Region
 End Class
