@@ -3,7 +3,7 @@
 ''' </summary>
 ''' <remarks></remarks>
     Public Interface IWorldSoundBlock
-    Inherits IBlock
+    Inherits IWorldBlock
     
     ''' <summary>
     '''     Returns the SoundID associated with a note block

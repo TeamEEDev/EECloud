@@ -1,5 +1,5 @@
 ﻿Public Interface IWorldLabelBlock
-    Inherits IBlock
+    Inherits IWorldBlock
     
     ''' <summary>
     '''     Returns the Text associated with a label block
