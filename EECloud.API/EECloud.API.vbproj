@@ -100,6 +100,7 @@
     <Compile Include="Interfaces\IConnection.vb" />
     <Compile Include="Interfaces\IPotionManager.vb" />
     <Compile Include="Interfaces\IUploader.vb" />
+    <Compile Include="Interfaces\World\IWorldWorldPortalBlock.vb" />
     <Compile Include="Interfaces\World\IWorld.vb" />
     <Compile Include="Interfaces\World\IWorldBlock.vb" />
     <Compile Include="Interfaces\World\IWorldCoinDoorBlock.vb" />
@@ -226,6 +227,7 @@
     <Compile Include="Messages\Receive\UpgradeReceiveMessage.vb" />
     <Compile Include="UploadSnapshot.vb" />
     <Compile Include="Utils.vb" />
+    <Compile Include="World\WorldWorldPortalBlock.vb" />
     <Compile Include="World\WorldBlock.vb" />
     <Compile Include="World\WorldCoinDoorBlock.vb" />
     <Compile Include="World\WorldLabelBlock.vb" />

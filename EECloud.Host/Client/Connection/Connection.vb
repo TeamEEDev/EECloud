@@ -94,6 +94,8 @@ Friend NotInheritable Class Connection
 
     Friend Event ReceivePortalPlace(sender As Object, e As PortalPlaceReceiveMessage) Implements IConnection.ReceivePortalPlace
 
+    Friend Event ReceiveWorldPortalPlace(sender As Object, e As WorldPortalPlaceReceiveMessage) Implements IConnection.ReceiveWorldPortalPlace
+
     Friend Event ReceivePotion(sender As Object, e As PotionReceiveMessage) Implements IConnection.ReceivePotion
 
     Friend Event ReceiveRefreshShop(sender As Object, e As RefreshShopReceiveMessage) Implements IConnection.ReceiveRefreshShop
@@ -231,6 +233,8 @@ Friend NotInheritable Class Connection
     Friend Event PreviewReceiveMove(sender As Object, e As MoveReceiveMessage) Implements IConnection.PreviewReceiveMove
 
     Friend Event PreviewReceivePortalPlace(sender As Object, e As PortalPlaceReceiveMessage) Implements IConnection.PreviewReceivePortalPlace
+
+    Friend Event PreviewReceiveWorldPortalPlace(sender As Object, e As WorldPortalPlaceReceiveMessage) Implements IConnection.PreviewReceiveWorldPortalPlace
 
     Friend Event PreviewReceivePotion(sender As Object, e As PotionReceiveMessage) Implements IConnection.PreviewReceivePotion
 
@@ -711,6 +715,11 @@ Friend NotInheritable Class Connection
                 Dim m As PortalPlaceReceiveMessage = DirectCast(e, PortalPlaceReceiveMessage)
                 RaiseEvent PreviewReceivePortalPlace(Me, m)
                 RaiseEvent ReceivePortalPlace(Me, m)
+
+            Case GetType(WorldPortalPlaceReceiveMessage)
+                Dim m As WorldPortalPlaceReceiveMessage = DirectCast(e, WorldPortalPlaceReceiveMessage)
+                RaiseEvent PreviewReceiveWorldPortalPlace(Me, m)
+                RaiseEvent ReceiveWorldPortalPlace(Me, m)
 
             Case GetType(LabelPlaceReceiveMessage)
                 Dim m As LabelPlaceReceiveMessage = DirectCast(e, LabelPlaceReceiveMessage)

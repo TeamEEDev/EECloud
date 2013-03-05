@@ -89,6 +89,7 @@ Friend NotInheritable Class World
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
                         value(layer, x, y) = New WorldCoinDoorBlock(DirectCast(block1, CoinDoorBlock), coinsToCollect)
                     Next
+
                 Case Block.BlockMusicPiano, Block.BlockMusicDrum
                     Dim soundID As Integer = m.GetInteger(pointer)
                     pointer += 1
@@ -97,6 +98,7 @@ Friend NotInheritable Class World
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
                         value(layer, x, y) = New WorldSoundBlock(DirectCast(block1, SoundBlock), soundID)
                     Next
+
                 Case Block.BlockPortal
                     Dim portalRotation As PortalRotation = DirectCast(m.GetInteger(pointer), PortalRotation)
                     pointer += 1
@@ -109,6 +111,16 @@ Friend NotInheritable Class World
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
                         value(layer, x, y) = New WorldPortalBlock(DirectCast(block1, PortalBlock), portalRotation, portalID, portalTarget)
                     Next
+
+                Case Block.BlockWorldPortal
+                    Dim portalTarget As String = m.GetString(pointer)
+                    pointer += 1
+                    For i As Integer = 0 To byteArrayX.Length - 1 Step 2
+                        Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
+                        Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
+                        value(layer, x, y) = New WorldWorldPortalBlock(DirectCast(block1, PortalBlock), portalTarget)
+                    Next
+
                 Case Block.BlockLabel
                     Dim text As String = m.GetString(pointer)
                     pointer += 1
@@ -117,6 +129,7 @@ Friend NotInheritable Class World
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
                         value(layer, x, y) = New WorldLabelBlock(DirectCast(block1, LabelBlock), text)
                     Next
+
                 Case Block.BlockHazardSpike
                     Dim rotation As Integer = m.GetInteger(pointer)
                     pointer += 1
@@ -125,6 +138,7 @@ Friend NotInheritable Class World
                         Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
                         value(layer, x, y) = New WorldRotatableBlock(DirectCast(block1, RotatableBlock), rotation)
                     Next
+
                 Case Else
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
@@ -162,6 +176,12 @@ Friend NotInheritable Class World
 
     Private Sub myConnection_ReceivePortalPlace(sender As Object, e As PortalPlaceReceiveMessage) Handles myConnection.ReceivePortalPlace
         Dim block As New WorldPortalBlock(e.PortalBlock, e.PortalRotation, e.PortalID, e.PortalTarget)
+        myBlocks(e.Layer, e.PosX, e.PosY) = block
+        RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer))
+    End Sub
+
+    Private Sub myConnection_ReceiveWorldPortalPlace(sender As Object, e As WorldPortalPlaceReceiveMessage) Handles myConnection.ReceiveWorldPortalPlace
+        Dim block As New WorldWorldPortalBlock(e.PortalBlock, e.PortalTarget)
         myBlocks(e.Layer, e.PosX, e.PosY) = block
         RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer))
     End Sub
