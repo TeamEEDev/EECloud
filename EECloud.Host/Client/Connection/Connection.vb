@@ -918,8 +918,9 @@ Friend NotInheritable Class Connection
 
     Private Sub RegisterMessages()
         SyncLock myLockObj
-            If myRegisteredMessages = False Then
+            If Not myRegisteredMessages Then
                 myRegisteredMessages = True
+
                 UnRegisterMessage("init")
                 UnRegisterMessage("groupdisallowedjoin")
 
@@ -940,6 +941,7 @@ Friend NotInheritable Class Connection
                 RegisterMessage("bs", GetType(SoundPlaceReceiveMessage))
                 RegisterMessage("br", GetType(RotatablePlaceReceiveMessage))
                 RegisterMessage("pt", GetType(PortalPlaceReceiveMessage))
+                RegisterMessage("wp", GetType(WorldPortalPlaceReceiveMessage))
                 RegisterMessage("lb", GetType(LabelPlaceReceiveMessage))
                 RegisterMessage("god", GetType(GodModeReceiveMessage))
                 RegisterMessage("mod", GetType(ModModeReceiveMessage))

@@ -109,6 +109,7 @@
     <Compile Include="Interfaces\World\IWorldSoundBlock.vb" />
     <Compile Include="Location.vb" />
     <Compile Include="Messages\Receive\AllowPotionsReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\PortalPlaceReceiveMessage.vb" />
     <Compile Include="Messages\Receive\KillReceiveMessage.vb" />
     <Compile Include="Messages\Receive\RotatablePlaceReceiveMessage.vb" />
     <Compile Include="Messages\Receive\WootUpReceiveMessage.vb" />
@@ -194,7 +195,7 @@
     <Compile Include="Messages\Receive\SilverCrownReceiveMessage.vb" />
     <Compile Include="Messages\Receive\SoundPlaceReceiveMessage.vb" />
     <Compile Include="Messages\Receive\SayOldReceiveMessage.vb" />
-    <Compile Include="Messages\Receive\PortalPlaceReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\WorldPortalPlaceReceiveMessage.vb" />
     <Compile Include="Messages\Receive\MoveReceiveMessage.vb" />
     <Compile Include="Messages\Receive\LostAccessReceiveMessage.vb" />
     <Compile Include="Messages\Receive\LabelPlaceReceiveMessage.vb" />
