@@ -157,18 +157,41 @@ Friend NotInheritable Class World
     End Function
 
     Private Shared Function ClearWorld(blockArray As IWorldBlock(,,), Optional drawBorder As Boolean = True)
-        Dim toX = blockArray.GetLength(1) - 1
-        Dim toY = blockArray.GetLength(2) - 1
+        Dim toX = blockArray.GetLength(1) - 2
+        Dim toY = blockArray.GetLength(2) - 2
 
         Dim tmpBlock As New WorldBlock(Block.BlockGravityNothing)
 
+        '<Fill the middle with GravityNothing blocks>
         For l = 0 To 1
-            For x = 0 To toX
-                For y = 0 To toY
+            For x = 1 To toX
+                For y = 1 To toY
                     blockArray(l, x, y) = tmpBlock
                 Next
             Next
         Next
+        '</Fill the middle with GravityNothing blocks>
+
+        '<Border drawing>
+        If drawBorder Then
+            tmpBlock = New WorldBlock(Block.BlockBasicGrey)
+        End If
+
+        toX += 1
+        toY += 1
+
+        For l = 0 To 1
+            For x = 0 To toX
+                blockArray(l, x, 0) = tmpBlock
+                blockArray(l, x, toY) = tmpBlock
+            Next
+
+            For y = 1 To toY - 1
+                blockArray(l, 0, y) = tmpBlock
+                blockArray(l, toX, y) = tmpBlock
+            Next
+        Next
+        '</Border drawing>
 
         Return blockArray
     End Function
