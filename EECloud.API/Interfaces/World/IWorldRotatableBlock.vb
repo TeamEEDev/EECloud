@@ -3,7 +3,7 @@
 ''' </summary>
 ''' <remarks></remarks>
 Public Interface IWorldRotatableBlock
-    Inherits IWorldBlock
+    Inherits IBlock
 
     ''' <summary>
     '''     Returns the rotation associated with a rotatable block

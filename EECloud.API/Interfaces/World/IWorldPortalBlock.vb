@@ -3,7 +3,7 @@
 ''' </summary>
 ''' <remarks></remarks>
     Public Interface IWorldPortalBlock
-    Inherits IWorldBlock
+    Inherits IBlock
     
     ''' <summary>
     '''     Returns the PortalRotation associated with a portal block

@@ -17,8 +17,8 @@
     Private ReadOnly Property IsSame(blockMessage As BlockPlaceUploadMessage) As Boolean
         Get
             Dim loc As New Location(blockMessage.X, blockMessage.Y, blockMessage.Layer)
-            Dim worldBlock As IWorldBlock = myWorld(loc.X, loc.Y, loc.Layer)
-            Return worldBlock.BlockType = BlockType.Normal AndAlso worldBlock.Block = blockMessage.Block
+            Dim Block As IBlock = myWorld(loc.X, loc.Y, loc.Layer)
+            Return Block.BlockType = BlockType.Normal AndAlso Block.Block = blockMessage.Block
         End Get
     End Property
 
