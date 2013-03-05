@@ -202,7 +202,7 @@ Friend NotInheritable Class World
         myBlocks = ParseWorld(e.PlayerIOMessage, mySizeX, mySizeY, 0)
     End Sub
 
-    'TODO: IMPLEMENT CLEAR
+    'TODO: IMPLEMENT CLEAR!!!
 
 #End Region
 End Class
