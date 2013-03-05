@@ -57,13 +57,18 @@ Friend NotInheritable Class World
         Next
 
         Dim value(1, sizeX - 1, sizeY - 1) As IWorldBlock
-        For i = 0 To 1
-            For j = 0 To sizeX - 1
-                For k = 0 To sizeY - 1
-                    value(i, j, k) = New WorldBlock(Block.BlockGravityNothing)
+        For l = 0 To 1
+            For x = 0 To sizeX - 1
+                For y = 0 To sizeY - 1
+                    value(l, x, y) = New WorldBlock(Block.BlockGravityNothing)
                 Next
             Next
         Next
+
+        Dim block1 As Block
+        Dim layer As Layer
+        Dim byteArrayX As Byte()
+        Dim byteArrayY As Byte()
 
         Dim pointer As UInteger = start
         Do
@@ -71,32 +76,34 @@ Friend NotInheritable Class World
                 Exit Do
             End If
 
-            Dim block1 As Block = DirectCast(m.GetInteger(pointer), Block)
+            block1 = DirectCast(m.GetInteger(pointer), Block)
             pointer += 1
-            Dim layer As Layer = DirectCast(m.GetInteger(pointer), Layer)
+            layer = DirectCast(m.GetInteger(pointer), Layer)
             pointer += 1
-            Dim byteArrayX As Byte() = m.GetByteArray(pointer)
+            byteArrayX = m.GetByteArray(pointer)
             pointer += 1
-            Dim byteArrayY As Byte() = m.GetByteArray(pointer)
+            byteArrayY = m.GetByteArray(pointer)
             pointer += 1
 
             Select Case block1
                 Case Block.BlockDoorCoinDoor, Block.BlockGateCoinGate
                     Dim coinsToCollect As Integer = m.GetInteger(pointer)
                     pointer += 1
+
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
-                        Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
-                        Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
-                        value(layer, x, y) = New WorldCoinDoorBlock(DirectCast(block1, CoinDoorBlock), coinsToCollect)
+                        value(layer,
+                              byteArrayX(i) << 8 + byteArrayX(i + 1),
+                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldCoinDoorBlock(DirectCast(block1, CoinDoorBlock), coinsToCollect)
                     Next
 
                 Case Block.BlockMusicPiano, Block.BlockMusicDrum
                     Dim soundID As Integer = m.GetInteger(pointer)
                     pointer += 1
+
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
-                        Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
-                        Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
-                        value(layer, x, y) = New WorldSoundBlock(DirectCast(block1, SoundBlock), soundID)
+                        value(layer,
+                              byteArrayX(i) << 8 + byteArrayX(i + 1),
+                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldSoundBlock(DirectCast(block1, SoundBlock), soundID)
                     Next
 
                 Case Block.BlockPortal
@@ -106,47 +113,52 @@ Friend NotInheritable Class World
                     pointer += 1
                     Dim portalTarget As Integer = m.GetInteger(pointer)
                     pointer += 1
+
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
-                        Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
-                        Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
-                        value(layer, x, y) = New WorldPortalBlock(DirectCast(block1, PortalBlock), portalRotation, portalID, portalTarget)
+                        value(layer,
+                              byteArrayX(i) << 8 + byteArrayX(i + 1),
+                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldPortalBlock(DirectCast(block1, PortalBlock), portalRotation, portalID, portalTarget)
                     Next
 
                 Case Block.BlockWorldPortal
                     Dim portalTarget As String = m.GetString(pointer)
                     pointer += 1
+
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
-                        Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
-                        Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
-                        value(layer, x, y) = New WorldWorldPortalBlock(DirectCast(block1, PortalBlock), portalTarget)
+                        value(layer,
+                              byteArrayX(i) << 8 + byteArrayX(i + 1),
+                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldWorldPortalBlock(DirectCast(block1, PortalBlock), portalTarget)
                     Next
 
                 Case Block.BlockLabel
                     Dim text As String = m.GetString(pointer)
                     pointer += 1
+
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
-                        Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
-                        Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
-                        value(layer, x, y) = New WorldLabelBlock(DirectCast(block1, LabelBlock), text)
+                        value(layer,
+                              byteArrayX(i) << 8 + byteArrayX(i + 1),
+                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldLabelBlock(DirectCast(block1, LabelBlock), text)
                     Next
 
                 Case Block.BlockHazardSpike
                     Dim rotation As Integer = m.GetInteger(pointer)
                     pointer += 1
+
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
-                        Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
-                        Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
-                        value(layer, x, y) = New WorldRotatableBlock(DirectCast(block1, RotatableBlock), rotation)
+                        value(layer,
+                              byteArrayX(i) << 8 + byteArrayX(i + 1),
+                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldRotatableBlock(DirectCast(block1, RotatableBlock), rotation)
                     Next
 
                 Case Else
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
-                        Dim x = byteArrayX(i) * 256 + byteArrayX(i + 1)
-                        Dim y = byteArrayY(i) * 256 + byteArrayY(i + 1)
-                        value(layer, x, y) = New WorldBlock(block1)
+                        value(layer,
+                              byteArrayX(i) << 8 + byteArrayX(i + 1),
+                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldBlock(block1)
                     Next
             End Select
         Loop
+
         Return value
     End Function
 
