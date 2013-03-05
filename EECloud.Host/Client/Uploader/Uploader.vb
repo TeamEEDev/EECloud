@@ -149,6 +149,10 @@ retry:
         HandleBlockPlace(e)
     End Sub
 
+    Private Sub myConnection_ReceiveWorldPortalPlace(sender As Object, e As WorldPortalPlaceReceiveMessage) Handles myConnection.ReceiveWorldPortalPlace
+        HandleBlockPlace(e)
+    End Sub
+
     Private Sub myConnection_ReceiveSoundPlace(sender As Object, e As SoundPlaceReceiveMessage) Handles myConnection.ReceiveSoundPlace
         HandleBlockPlace(e)
     End Sub
