@@ -1,5 +1,4 @@
 ﻿Imports PlayerIOClient
-Imports EECloud.API.World
 
 Friend NotInheritable Class World
     Implements IWorld

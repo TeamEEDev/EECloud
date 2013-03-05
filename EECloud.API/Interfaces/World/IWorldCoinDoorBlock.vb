@@ -5,7 +5,7 @@
 ''' </summary>
 ''' <remarks></remarks>
     Public Interface IWorldCoinDoorBlock
-    Inherits IBlock
+    Inherits IWorldBlock
     
     ''' <summary>
     '''     Returns the CoinsToCollect associated with a coin door
