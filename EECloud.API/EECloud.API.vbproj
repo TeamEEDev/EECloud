@@ -77,7 +77,7 @@
     </Compile>
     <Compile Include="Cloud.vb" />
     <Compile Include="Attributes\CommandAttribute.vb" />
-    <Compile Include="Point.vb" />
+    <Compile Include="Custom stuff\Point.vb" />
     <Compile Include="Enums\AccountType.vb" />
     <Compile Include="Enums\BlockType.vb" />
     <Compile Include="Enums\Block\RotatableBlock.vb" />
@@ -109,7 +109,7 @@
     <Compile Include="Interfaces\World\IWorldPortalBlock.vb" />
     <Compile Include="Interfaces\World\IWorldRotatableBlock.vb" />
     <Compile Include="Interfaces\World\IWorldSoundBlock.vb" />
-    <Compile Include="Location.vb" />
+    <Compile Include="Custom stuff\Location.vb" />
     <Compile Include="Messages\Receive\AllowPotionsReceiveMessage.vb" />
     <Compile Include="Messages\Receive\PortalPlaceReceiveMessage.vb" />
     <Compile Include="Messages\Receive\KillReceiveMessage.vb" />

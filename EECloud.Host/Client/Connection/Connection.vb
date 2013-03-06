@@ -914,13 +914,16 @@ Friend NotInheritable Class Connection
         SyncLock myLockObj
             If myRegisteredStartMessages = False Then
                 myRegisteredStartMessages = True
+                RegisterMessage("init", GetType(InitReceiveMessage))
+
                 RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoinReceiveMessage))
                 RegisterMessage("info", GetType(InfoReceiveMessage))
                 RegisterMessage("upgrade", GetType(UpgradeReceiveMessage))
-                RegisterMessage("init", GetType(InitReceiveMessage))
+
+                RegisterMessage("updatemeta", GetType(UpdateMetaReceiveMessage))
+
                 RegisterMessage("show", GetType(ShowKeyReceiveMessage))
                 RegisterMessage("hide", GetType(HideKeyReceiveMessage))
-                RegisterMessage("updatemeta", GetType(UpdateMetaReceiveMessage))
             End If
         End SyncLock
     End Sub
@@ -985,7 +988,7 @@ Friend NotInheritable Class Connection
     Private Sub RegisterMessage(str As String, type As Type)
         Try
             If Not type.IsSubclassOf(GetType(ReceiveMessage)) Then
-                Throw New InvalidOperationException("Invalid Value class! Must inherit " & GetType(ReceiveMessage).ToString)
+                Throw New InvalidOperationException("Invalid class! Must inherit '" & GetType(ReceiveMessage).FullName & "'.")
             Else
                 myMessageDictionary.Add(str, type)
             End If
@@ -994,11 +997,11 @@ Friend NotInheritable Class Connection
         End Try
     End Sub
 
-    Private Sub UnRegisterMessage(pString As String)
+    Private Sub UnRegisterMessage(str As String)
         Try
-            myMessageDictionary.Remove(pString)
+            myMessageDictionary.Remove(str)
         Catch ex As Exception
-            Cloud.Logger.Log(LogPriority.Error, "Failed to unregister messages with type """ & pString & """.")
+            Cloud.Logger.Log(LogPriority.Error, "Failed to unregister messages with type """ & str & """.")
         End Try
     End Sub
 
