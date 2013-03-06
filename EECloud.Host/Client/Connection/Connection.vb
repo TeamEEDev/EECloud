@@ -935,16 +935,35 @@ Friend NotInheritable Class Connection
 
                 RegisterMessage("add", GetType(AddReceiveMessage))
                 RegisterMessage("left", GetType(LeftReceiveMessage))
+
                 RegisterMessage("m", GetType(MoveReceiveMessage))
+                RegisterMessage("face", GetType(FaceReceiveMessage))
+                RegisterMessage("p", GetType(PotionReceiveMessage))
                 RegisterMessage("c", GetType(CoinReceiveMessage))
                 RegisterMessage("k", GetType(CrownReceiveMessage))
                 RegisterMessage("ks", GetType(SilverCrownReceiveMessage))
-                RegisterMessage("face", GetType(FaceReceiveMessage))
+
+                RegisterMessage("w", GetType(MagicRecieveMessage))
+                RegisterMessage("levelup", GetType(LevelupRecieveMessage))
+
+                RegisterMessage("god", GetType(GodModeReceiveMessage))
+                RegisterMessage("mod", GetType(ModModeReceiveMessage))
+
+                RegisterMessage("wu", GetType(WootUpReceiveMessage))
+                RegisterMessage("allowpotions", GetType(AllowPotionsReceiveMessage))
+                RegisterMessage("kill", GetType(KillReceiveMessage))
+                RegisterMessage("access", GetType(AccessReceiveMessage))
+                RegisterMessage("lostaccess", GetType(LostAccessReceiveMessage))
+                RegisterMessage("reset", GetType(ResetReceiveMessage))
+                RegisterMessage("tele", GetType(TeleportReceiveMessage))
+                RegisterMessage("saved", GetType(SaveDoneReceiveMessage))
+                RegisterMessage("clear", GetType(ClearReceiveMessage))
+
                 RegisterMessage("say", GetType(SayReceiveMessage))
                 RegisterMessage("say_old", GetType(SayOldReceiveMessage))
                 RegisterMessage("autotext", GetType(AutoTextReceiveMessage))
                 RegisterMessage("write", GetType(WriteReceiveMessage))
-                RegisterMessage("p", GetType(PotionReceiveMessage))
+
                 RegisterMessage("b", GetType(BlockPlaceReceiveMessage))
                 RegisterMessage("bc", GetType(CoinDoorPlaceReceiveMessage))
                 RegisterMessage("bs", GetType(SoundPlaceReceiveMessage))
@@ -952,24 +971,13 @@ Friend NotInheritable Class Connection
                 RegisterMessage("pt", GetType(PortalPlaceReceiveMessage))
                 RegisterMessage("wp", GetType(WorldPortalPlaceReceiveMessage))
                 RegisterMessage("lb", GetType(LabelPlaceReceiveMessage))
-                RegisterMessage("god", GetType(GodModeReceiveMessage))
-                RegisterMessage("mod", GetType(ModModeReceiveMessage))
-                RegisterMessage("access", GetType(AccessReceiveMessage))
-                RegisterMessage("lostaccess", GetType(LostAccessReceiveMessage))
-                RegisterMessage("tele", GetType(TeleportReceiveMessage))
-                RegisterMessage("reset", GetType(ResetReceiveMessage))
-                RegisterMessage("clear", GetType(ClearReceiveMessage))
-                RegisterMessage("saved", GetType(SaveDoneReceiveMessage))
-                RegisterMessage("refreshshop", GetType(RefreshShopReceiveMessage))
+
                 RegisterMessage("givewizard", GetType(GiveWizardReceiveMessage))
                 RegisterMessage("givewizard2", GetType(GiveFireWizardReceiveMessage))
                 RegisterMessage("givewitch", GetType(GiveWitchReceiveMessage))
                 RegisterMessage("givegrinch", GetType(GiveGrinchReceiveMessage))
-                RegisterMessage("allowpotions", GetType(AllowPotionsReceiveMessage))
-                RegisterMessage("w", GetType(MagicRecieveMessage))
-                RegisterMessage("levelup", GetType(LevelupRecieveMessage))
-                RegisterMessage("wu", GetType(WootUpReceiveMessage))
-                RegisterMessage("kill", GetType(KillReceiveMessage))
+
+                RegisterMessage("refreshshop", GetType(RefreshShopReceiveMessage))
             End If
         End SyncLock
     End Sub
