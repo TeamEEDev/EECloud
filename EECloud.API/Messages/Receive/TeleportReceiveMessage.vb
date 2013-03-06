@@ -1,5 +1,4 @@
-﻿Imports System.Drawing
-Imports PlayerIOClient
+﻿Imports PlayerIOClient
 
 Public NotInheritable Class TeleportReceiveMessage
     Inherits ReceiveMessage
