@@ -37,7 +37,7 @@ Module ModuleMain
             Using webClient As New WebClient()
                 Dim version As String = Await webClient.DownloadStringTaskAsync(New Uri("http://dl.dropbox.com/u/13946635/EECloud/Version.txt"))
 
-                If New Version(version).CompareTo(New Version(0, 0, 0, 0)) > 0 Then 'My.Application.Info.version
+                If New Version(version).CompareTo(My.Application.Info.Version) > 0 Then
                     Using form As New Form() With {.TopMost = True}
                         If MessageBox.Show(form,
                                            String.Format("An update is available (Version {0}). Do you want to update now?", version),
