@@ -102,6 +102,7 @@
     Event SendRotatablePlace As EventHandler(Of Cancelable(Of RotatablePlaceSendMessage))
     Event SendSoundPlace As EventHandler(Of Cancelable(Of SoundPlaceSendMessage))
     Event SendPortalPlace As EventHandler(Of Cancelable(Of PortalPlaceSendMessage))
+    Event SendWorldPortalPlace As EventHandler(Of Cancelable(Of WorldPortalPlaceSendMessage))
     Event SendLabelPlace As EventHandler(Of Cancelable(Of LabelPlaceSendMessage))
     Event SendCoin As EventHandler(Of Cancelable(Of CoinSendMessage))
     Event SendPressRedKey As EventHandler(Of Cancelable(Of PressRedKeySendMessage))
@@ -133,6 +134,7 @@
     Event UploadCoindoorPlace As EventHandler(Of Cancelable(Of CoinDoorPlaceUploadMessage))
     Event UploadSoundPlace As EventHandler(Of Cancelable(Of SoundPlaceUploadMessage))
     Event UploadPortalPlace As EventHandler(Of Cancelable(Of PortalPlaceUploadMessage))
+    Event UploadWorldPortalPlace As EventHandler(Of Cancelable(Of WorldPortalPlaceUploadMessage))
     Event UploadLabelPlace As EventHandler(Of Cancelable(Of LabelPlaceUploadMessage))
     Event UploadRotatablePlace As EventHandler(Of Cancelable(Of RotatablePlaceUploadMessage))
 

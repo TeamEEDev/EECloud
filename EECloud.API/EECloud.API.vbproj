@@ -120,6 +120,7 @@
     <Compile Include="Messages\Receive\PotionReceiveMessage.vb" />
     <Compile Include="Messages\Send\AllowPotionsSendMessage.vb" />
     <Compile Include="Messages\Send\CheckpointSendMessage.vb" />
+    <Compile Include="Messages\Send\WorldPortalPlaceSendMessage.vb" />
     <Compile Include="Messages\Send\CustomSendMessage.vb" />
     <Compile Include="Messages\Send\DeathSendMessage.vb" />
     <Compile Include="Messages\Send\RotatablePlaceSendMessage.vb" />
@@ -129,6 +130,7 @@
     <Compile Include="Messages\Send\WootUpSendMessage.vb" />
     <Compile Include="Messages\Upload\BlockPlaceUploadMessage.vb" />
     <Compile Include="Messages\Upload\CoinDoorPlaceUploadMessage.vb" />
+    <Compile Include="Messages\Upload\WorldPortalPlaceUploadMessage.vb" />
     <Compile Include="Messages\Upload\LabelPlaceUploadMessage.vb" />
     <Compile Include="Messages\Upload\PortalPlaceUploadMessage.vb" />
     <Compile Include="Messages\Upload\RotatablePlaceUploadMessage.vb" />
