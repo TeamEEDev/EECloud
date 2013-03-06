@@ -162,6 +162,8 @@ Friend NotInheritable Class Connection
 
     Friend Event SendPortalPlace(sender As Object, e As Cancelable(Of PortalPlaceSendMessage)) Implements IConnection.SendPortalPlace
 
+    Friend Event SendWorldPortalPlace(sender As Object, e As Cancelable(Of WorldPortalPlaceSendMessage)) Implements IConnection.SendWorldPortalPlace
+
     Friend Event SendPressBlueKey(sender As Object, e As Cancelable(Of PressBlueKeySendMessage)) Implements IConnection.SendPressBlueKey
 
     Friend Event SendPressGreenKey(sender As Object, e As Cancelable(Of PressGreenKeySendMessage)) Implements IConnection.SendPressGreenKey
@@ -292,6 +294,8 @@ Friend NotInheritable Class Connection
 
     Friend Event UploadPortalPlace(sender As Object, e As Cancelable(Of PortalPlaceUploadMessage)) Implements IConnection.UploadPortalPlace
 
+    Friend Event UploadWorldPortalPlace(sender As Object, e As Cancelable(Of WorldPortalPlaceUploadMessage)) Implements IConnection.UploadWorldPortalPlace
+
     Friend Event UploadSoundPlace(sender As Object, e As Cancelable(Of SoundPlaceUploadMessage)) Implements IConnection.UploadSoundPlace
 
     Friend Event ReceiveRotatablePlace(sender As Object, e As RotatablePlaceReceiveMessage) Implements IConnection.ReceiveRotatablePlace
@@ -408,6 +412,11 @@ Friend NotInheritable Class Connection
             Case GetType(PortalPlaceSendMessage)
                 Dim eventArgs As New Cancelable(Of PortalPlaceSendMessage)(DirectCast(message, PortalPlaceSendMessage))
                 RaiseEvent SendPortalPlace(Me, eventArgs)
+                Return eventArgs.Handled
+
+            Case GetType(WorldPortalPlaceSendMessage)
+                Dim eventArgs As New Cancelable(Of WorldPortalPlaceSendMessage)(DirectCast(message, WorldPortalPlaceSendMessage))
+                RaiseEvent SendWorldPortalPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(LabelPlaceSendMessage)
@@ -548,6 +557,11 @@ Friend NotInheritable Class Connection
             Case GetType(PortalPlaceUploadMessage)
                 Dim eventArgs As New Cancelable(Of PortalPlaceUploadMessage)(DirectCast(message, PortalPlaceUploadMessage))
                 RaiseEvent UploadPortalPlace(Me, eventArgs)
+                Return eventArgs.Handled
+
+            Case GetType(WorldPortalPlaceUploadMessage)
+                Dim eventArgs As New Cancelable(Of WorldPortalPlaceUploadMessage)(DirectCast(message, WorldPortalPlaceUploadMessage))
+                RaiseEvent UploadWorldPortalPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(LabelPlaceUploadMessage)
