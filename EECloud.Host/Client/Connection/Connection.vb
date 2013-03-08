@@ -822,6 +822,13 @@ Friend NotInheritable Class Connection
                 RaiseEvent PreviewReceiveUpdateMeta(Me, m)
                 RaiseEvent ReceiveUpdateMeta(Me, m)
 
+            Case GetType(InitReceiveMessage)
+                Dim m As InitReceiveMessage = DirectCast(e, InitReceiveMessage)
+                RaiseEvent PreviewReceiveInit(Me, m)
+                RegisterMessages()
+                Send(New Init2SendMessage())
+                RaiseEvent ReceiveInit(Me, m)
+
             Case GetType(UpgradeReceiveMessage)
                 Dim m As UpgradeReceiveMessage = DirectCast(e, UpgradeReceiveMessage)
                 RaiseEvent PreviewReceiveUpgrade(Me, m)
@@ -829,13 +836,6 @@ Friend NotInheritable Class Connection
                 Cloud.Logger.Log(LogPriority.Info, "The game has been updated!")
                 Cloud.Service.SetSetting("GameVersion", CStr(myGameVersionNumber))
                 RaiseEvent ReceiveUpgrade(Me, m)
-
-            Case GetType(InitReceiveMessage)
-                Dim m As InitReceiveMessage = DirectCast(e, InitReceiveMessage)
-                RaiseEvent PreviewReceiveInit(Me, m)
-                RegisterMessages()
-                Send(New Init2SendMessage())
-                RaiseEvent ReceiveInit(Me, m)
 
             Case GetType(InfoReceiveMessage)
                 Dim m As InfoReceiveMessage = DirectCast(e, InfoReceiveMessage)
