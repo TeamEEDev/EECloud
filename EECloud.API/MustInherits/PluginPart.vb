@@ -9,7 +9,7 @@
 
     Private myHost As TProtocol
 
-    Public ReadOnly Property Host As TProtocol
+    Protected ReadOnly Property Host As TProtocol
         Get
             Return myHost
         End Get
