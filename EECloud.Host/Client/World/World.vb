@@ -80,7 +80,8 @@ Friend NotInheritable Class World
             pointer += 1
 
             Select Case block1
-                Case Block.BlockDoorCoinDoor, Block.BlockGateCoinGate
+                Case Block.BlockDoorCoinDoor,
+                     Block.BlockGateCoinGate
                     Dim coinsToCollect As Integer = m.GetInteger(pointer)
                     pointer += 1
 
@@ -90,7 +91,8 @@ Friend NotInheritable Class World
                               byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldCoinDoorBlock(DirectCast(block1, CoinDoorBlock), coinsToCollect)
                     Next
 
-                Case Block.BlockMusicPiano, Block.BlockMusicDrum
+                Case Block.BlockMusicPiano,
+                     Block.BlockMusicDrum
                     Dim soundID As Integer = m.GetInteger(pointer)
                     pointer += 1
 
@@ -100,7 +102,13 @@ Friend NotInheritable Class World
                               byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldSoundBlock(DirectCast(block1, SoundBlock), soundID)
                     Next
 
-                Case Block.BlockHazardSpike
+                Case Block.BlockHazardSpike,
+                     Block.DecorationSciFi2013BlueSlope,
+                     Block.DecorationSciFi2013BlueStraight,
+                     Block.DecorationSciFi2013YellowSlope,
+                     Block.DecorationSciFi2013YellowStraight,
+                     Block.DecorationSciFi2013GreenSlope,
+                     Block.DecorationSciFi2013GreenStraight
                     Dim rotation As Integer = m.GetInteger(pointer)
                     pointer += 1
 
