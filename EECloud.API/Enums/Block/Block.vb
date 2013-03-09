@@ -51,6 +51,7 @@
     BlockDoorCoinDoor = 43
     BlockDoorTimedDoor = 156
     BlockDoorPurpleSwitchable = 184
+    BlockDoorZombie = 207
 
     BlockGateRed = 26
     BlockGateGreen = 27
@@ -58,6 +59,7 @@
     BlockGateTimedGate = 157
     BlockGateCoinGate = 165
     BlockGatePurpleSwitchable = 185
+    BlockGateZombie = 206
 
     BlockMetalWhite = 29
     BlockMetalRed = 30

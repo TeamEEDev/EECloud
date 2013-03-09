@@ -100,6 +100,16 @@ Friend NotInheritable Class World
                               byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldSoundBlock(DirectCast(block1, SoundBlock), soundID)
                     Next
 
+                Case Block.BlockHazardSpike
+                    Dim rotation As Integer = m.GetInteger(pointer)
+                    pointer += 1
+
+                    For i As Integer = 0 To byteArrayX.Length - 1 Step 2
+                        value(layer,
+                              byteArrayX(i) << 8 + byteArrayX(i + 1),
+                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldRotatableBlock(DirectCast(block1, RotatableBlock), rotation)
+                    Next
+
                 Case Block.BlockPortal
                     Dim portalRotation As PortalRotation = DirectCast(m.GetInteger(pointer), PortalRotation)
                     pointer += 1
@@ -132,16 +142,6 @@ Friend NotInheritable Class World
                         value(layer,
                               byteArrayX(i) << 8 + byteArrayX(i + 1),
                               byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldLabelBlock(DirectCast(block1, LabelBlock), text)
-                    Next
-
-                Case Block.BlockHazardSpike
-                    Dim rotation As Integer = m.GetInteger(pointer)
-                    pointer += 1
-
-                    For i As Integer = 0 To byteArrayX.Length - 1 Step 2
-                        value(layer,
-                              byteArrayX(i) << 8 + byteArrayX(i + 1),
-                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldRotatableBlock(DirectCast(block1, RotatableBlock), rotation)
                     Next
 
                 Case Else
