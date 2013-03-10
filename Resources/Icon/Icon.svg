@@ -6,7 +6,7 @@
   <!-- Definitions -->
   <defs>
     <filter id="CloudInnerGlow" width='150%' height='150%' x='-25%' y='-25%'>
-      <feOffset dx="0" dy="-7" />
+      <feOffset dx="-2" dy="-7" />
 
       <feGaussianBlur stdDeviation="4" result="offset-blur" />
       <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse" />
@@ -46,20 +46,26 @@
   </g>
 
   <!-- Cloud (inside) -->
-  <g fill="url(#CloudInsideGradient)" filter="url(#CloudInnerGlow)">
-    <circle cx="52" cy="150" r="38" />
-    <circle cx="92" cy="114" r="42" />
-    <circle cx="152" cy="94" r="46" />
-    <circle cx="192" cy="138" r="50" />
+  <g filter="url(#CloudInnerGlow)">
+    <!-- Base -->
+    <g fill="url(#CloudInsideGradient)">
+      <circle cx="52" cy="150" r="38" />
+      <circle cx="92" cy="114" r="42" />
+      <circle cx="152" cy="94" r="46" />
+      <circle cx="192" cy="138" r="50" />
 
-    <path d="M 52 188  L 124 102  L 192 188  L 52 188  Z" />
+      <path d="M 52 188  L 124 102  L 192 188  L 52 188  Z" />
+    </g>
+
+    <!-- Smiley -->
+    <g opacity="0.24">
+      <circle cx="128" cy="131" r="32"
+       style="stroke:black;stroke-width:5;fill:grey" />
+
+      <ellipse cx="118" cy="121" rx="5" ry="8" />
+      <ellipse cx="138" cy="121" rx="5" ry="8" />
+
+      <path d="M 110 137.5  A 18 7.5 0 0 0 146 137.5  L 146 139  A 18 12 0 0 1 110 139  L 110 137.5  Z" />
+    </g>
   </g>
-
-
-
-
-  <!--
-  <rect x0="0" y0="0" width="250" height="90" fill="url(#checker)"/>
-	<use xlink:href="#obj" style="fill:url(#greenBg);stroke:none;filter:url(#innershadow)"/>
-  -->
 </svg>
