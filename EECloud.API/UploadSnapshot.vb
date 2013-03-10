@@ -16,14 +16,15 @@
 
     Private ReadOnly Property IsSame(blockMessage As BlockPlaceUploadMessage) As Boolean
         Get
-            Dim loc As Location = New Location(blockMessage.X, blockMessage.Y, blockMessage.Layer)
+            Dim loc As New Location(blockMessage.X, blockMessage.Y, blockMessage.Layer)
             Dim worldBlock As IWorldBlock = myWorld(loc.X, loc.Y, loc.Layer)
             Return worldBlock.BlockType = BlockType.Normal AndAlso worldBlock.Block = blockMessage.Block
         End Get
     End Property
 
     Public Sub SetBlock(blockMessage As BlockPlaceUploadMessage)
-        Dim loc As Location = New Location(blockMessage.X, blockMessage.Y, blockMessage.Layer)
+        Dim loc As New Location(blockMessage.X, blockMessage.Y, blockMessage.Layer)
+
         If IsChanged(loc) Then
             If Not myUploadDictionary(loc).Block = blockMessage.Block Then
                 myUploadDictionary.Remove(loc)
@@ -45,7 +46,8 @@
     End Sub
 
     Private Sub myWorld_BlockPlace(sender As Object, e As BlockPlaceEventArgs) Handles myWorld.BlockPlace
-        Dim loc As Location = New Location(e.X, e.Y, e.Layer)
+        Dim loc As New Location(e.X, e.Y, e.Layer)
+
         If IsChanged(loc) Then
             myUploadDictionary.Remove(loc)
         End If

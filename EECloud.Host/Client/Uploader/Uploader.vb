@@ -96,7 +96,7 @@ retry:
 
     Friend Sub Upload(blockMessage As BlockPlaceUploadMessage) Implements IUploader.Upload
         If myBlockUploadQueue.Count = 0 Then
-            myVersion = CUInt(myVersion + 1)
+            myVersion += 1
         End If
         myBlockUploadQueue.PushBack(blockMessage)
     End Sub
@@ -146,6 +146,10 @@ retry:
     End Sub
 
     Private Sub myConnection_ReceivePortalPlace(sender As Object, e As PortalPlaceReceiveMessage) Handles myConnection.ReceivePortalPlace
+        HandleBlockPlace(e)
+    End Sub
+
+    Private Sub myConnection_ReceiveWorldPortalPlace(sender As Object, e As WorldPortalPlaceReceiveMessage) Handles myConnection.ReceiveWorldPortalPlace
         HandleBlockPlace(e)
     End Sub
 

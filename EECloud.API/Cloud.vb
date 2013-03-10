@@ -114,6 +114,7 @@
 #Region "Methods"
 
     Private Sub New()
+
     End Sub
 
 #End Region
