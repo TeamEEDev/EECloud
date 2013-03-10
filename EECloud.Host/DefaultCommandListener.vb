@@ -47,7 +47,10 @@ Friend NotInheritable Class DefaultCommandListener
             If Not pinging Then
                 pinging = True
                 Call New Thread(Sub(obj As Object)
-                                    MsgBox("Ping from user: " & cmd.Sender.Username)
+                                    MessageBox.Show("Ping from user: " & cmd.Sender.Username,
+                                                    "Ping",
+                                                     MessageBoxButtons.OK,
+                                                     MessageBoxIcon.Information)
                                     Beep()
                                     pinging = False
                                 End Sub).Start()
@@ -171,7 +174,7 @@ Friend NotInheritable Class DefaultCommandListener
         End If
     End Sub
 
-    Private Function GetGroupString(rank As Group) As String
+    Private Shared Function GetGroupString(rank As Group) As String
         Select Case rank
             Case Group.Host
                 Return "the host"

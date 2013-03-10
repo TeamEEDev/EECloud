@@ -1,6 +1,7 @@
 ﻿Imports System.IO
 Imports System.Net
 Imports System.Reflection
+Imports System.Windows.Forms
 
 Module ModuleMain
 
@@ -35,42 +36,56 @@ Module ModuleMain
         Try
             Using webClient As New WebClient()
                 Dim version As String = Await webClient.DownloadStringTaskAsync(New Uri("http://dl.dropbox.com/u/13946635/EECloud/Version.txt"))
-                If New Version(version).CompareTo(My.Application.Info.Version) > 0 AndAlso MsgBox(String.Format("An update is available (Version {0}). Do you want to update now?", version), DirectCast(vbYesNo + vbInformation, MsgBoxStyle), "Update available") = MsgBoxResult.Yes Then
-                    'Download
-                    Await webClient.DownloadFileTaskAsync(New Uri("http://dl.dropbox.com/u/13946635/EECloud/EECloud.Setup.msi"), My.Application.Info.DirectoryPath & "\EECloud.msi")
 
-                    'Notify user
-                    MsgBox("The update has been downloaded and it's ready to be installed. Press OK to start updating!",
-                           MsgBoxStyle.Information,
-                           "Update ready")
+                If New Version(version).CompareTo(My.Application.Info.Version) > 0 Then
+                    Using form As New Form() With {.TopMost = True}
+                        If MessageBox.Show(form,
+                                           String.Format("An update is available (Version {0}). Do you want to update now?", version),
+                                           "Update available",
+                                           MessageBoxButtons.YesNo,
+                                           MessageBoxIcon.Information) = DialogResult.Yes Then
 
-                    'Write a batch file
-                    Using writer As New StreamWriter(My.Application.Info.DirectoryPath & "\Update.bat")
-                        writer.WriteLine("start /w EECloud.msi")
-                        writer.WriteLine("del EECloud.msi")
-                        writer.WriteLine("start EECloud.Launcher.exe")
-                        writer.WriteLine("del %0")
-                    End Using
+                            'Download
+                            webClient.DownloadFile(New Uri("http://dl.dropbox.com/u/13946635/EECloud/EECloud.Setup.msi"), My.Application.Info.DirectoryPath & "\EECloud.msi")
 
-                    'Start the batch file
-                    Call New Process() With
-                    {
-                        .StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\Update.bat") With
+                            'Notify user
+                            MessageBox.Show(form,
+                                            "The update has been downloaded and it's ready to be installed. Press OK to start updating!",
+                                            "Update ready",
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Information)
+
+                            'Write a batch file
+                            Using writer As New StreamWriter(My.Application.Info.DirectoryPath & "\Update.bat")
+                                writer.WriteLine("start /w EECloud.msi")
+                                writer.WriteLine("del EECloud.msi")
+                                writer.WriteLine("start EECloud.Launcher.exe")
+                                writer.WriteLine("del %0")
+                            End Using
+
+                            'Start the batch file
+                            Call New Process() With
                             {
-                                .UseShellExecute = False,
-                                .CreateNoWindow = True,
-                                .RedirectStandardOutput = True
-                            }
-                    }.Start()
+                                .StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\Update.bat") With
+                                    {
+                                        .UseShellExecute = False,
+                                        .CreateNoWindow = True,
+                                        .RedirectStandardOutput = True
+                                    }
+                            }.Start()
 
-                    'Exit
-                    End
+                            'Exit
+                            End
+
+                        End If
+                    End Using
                 End If
             End Using
         Catch ex As Exception
-            MsgBox("Failed to check for updates: " & Environment.NewLine &
-                   ex.ToString(),
-                   MsgBoxStyle.Exclamation, "Error")
+            MessageBox.Show("Failed to check for updates: " & Environment.NewLine & ex.ToString(),
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Exclamation)
         End Try
     End Sub
 

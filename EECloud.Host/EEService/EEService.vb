@@ -68,7 +68,7 @@
     End Function
 
     Friend Function GetPlayerDatas(usernames() As String) As UserData() Implements IEEService.GetPlayerDatas
-        If usernames Is Nothing OrElse usernames.Length > 0 Then
+        If usernames Is Nothing OrElse usernames.Length < 1 Then
             Throw New ArgumentNullException("usernames")
         End If
 
@@ -81,10 +81,10 @@
 
     Friend Function GetPlayerDataRange(Optional offset As UInteger = 0, Optional limit As UInteger = 1000, Optional orderBy As String = "Username") As UserData() Implements IEEService.GetPlayerDataRange
         If Not limit > 0 Then
-            Throw New ArgumentException("limit must be bigger than 0", "limit")
+            Throw New ArgumentException("Limit must be bigger than 0.", "limit")
         End If
 
-        limit = Math.Min(limit, CUInt(1000))
+        limit = Math.Min(limit, 1000)
         If orderBy Is Nothing Then orderBy = "Username"
 
         Using connection As New MySqlConnection(MySQLConnStr)
@@ -102,7 +102,7 @@
                         Dim pointer As UInteger
                         While reader.Read() AndAlso limit > pointer
                             userDatas.Add(ParsePlayerData(reader))
-                            pointer += CUInt(1)
+                            pointer += 1
                         End While
 
                         Return userDatas.ToArray()

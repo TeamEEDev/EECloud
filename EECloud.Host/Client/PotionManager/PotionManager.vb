@@ -81,9 +81,9 @@
 
     Private Sub myConnection_ReceiveInit(sender As Object, e As InitReceiveMessage) Handles myConnection.ReceiveInit
         Dim startNum As UInteger
-        For i = CInt(e.PlayerIOMessage.Count - 1) To 0 Step -1
-            If TryCast(e.PlayerIOMessage.Item(CUInt(i)), String) IsNot Nothing AndAlso e.PlayerIOMessage.GetString(CUInt(i)) = "pe" Then
-                startNum = CUInt(i - 1)
+        For i = CInt(e.PlayerIOMessage.Count - 1) To 1 Step -1
+            If TryCast(e.PlayerIOMessage.Item(i), String) IsNot Nothing AndAlso e.PlayerIOMessage.GetString(i) = "pe" Then
+                startNum = i - 1
             End If
         Next
         Dim pointer As UInteger = startNum
@@ -109,7 +109,7 @@
                 Case Potion.Protection
                     myProtectionPotionCount = e.PlayerIOMessage.GetInteger(pointer)
             End Select
-            pointer = CUInt(pointer - 2)
+            pointer -= 2
         Loop
     End Sub
 

@@ -38,9 +38,10 @@ Friend NotInheritable Class PluginManager
 
     Friend Sub Load(t As Type) Implements IPluginManager.Load
         SyncLock myPluginsList
-            If (Not t.Namespace = "EECloud" AndAlso Not t.Namespace.StartsWith("EECloud.", StringComparison.Ordinal)) Then
+            If Not t.Namespace = "EECloud" AndAlso Not t.Namespace.StartsWith("EECloud.", StringComparison.Ordinal) Then
                 If GetType(IPlugin).IsAssignableFrom(t) Then
                     Dim attributes As PluginAttribute() = t.GetCustomAttributes(GetType(PluginAttribute), True)
+
                     If attributes IsNot Nothing AndAlso attributes.Length = 1 Then
                         Dim pluginObj As IPluginObject = New PluginObject(t, attributes(0), myCloneFactory)
                         myPluginsList.Add(pluginObj)
@@ -48,6 +49,7 @@ Friend NotInheritable Class PluginManager
                     End If
                 End If
             End If
+
             Throw New EECloudException(ErrorCode.InvalidPlugin)
         End SyncLock
     End Sub
@@ -64,14 +66,14 @@ Friend NotInheritable Class PluginManager
             Select type
 
         'Activating valid plugins
-        Using enumrator As IEnumerator(Of Type) = plugins1.GetEnumerator
+        Using enumerator As IEnumerator(Of Type) = plugins1.GetEnumerator()
             Do
                 Try
-                    Dim hasNext As Boolean = enumrator.MoveNext()
-                    If Not hasNext Then Exit Do
+                    'Exit the loop if there are no more elements in the collection
+                    If Not enumerator.MoveNext() Then Exit Do
 
-                    Cloud.Logger.Log(LogPriority.Info, String.Format("Enabling {0}...", enumrator.Current.Name))
-                    Load(enumrator.Current)
+                    Cloud.Logger.Log(LogPriority.Info, String.Format("Enabling {0}...", enumerator.Current.Name))
+                    Load(enumerator.Current)
                 Catch ex As Exception
                     Cloud.Logger.LogEx(ex)
                 End Try

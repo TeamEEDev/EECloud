@@ -51,6 +51,8 @@
     BlockDoorCoinDoor = 43
     BlockDoorTimedDoor = 156
     BlockDoorPurpleSwitchable = 184
+    BlockDoorBuildersClub = 200
+    BlockDoorZombie = 207
 
     BlockGateRed = 26
     BlockGateGreen = 27
@@ -58,6 +60,8 @@
     BlockGateTimedGate = 157
     BlockGateCoinGate = 165
     BlockGatePurpleSwitchable = 185
+    BlockGateBuildersClub = 201
+    BlockGateZombie = 206
 
     BlockMetalWhite = 29
     BlockMetalRed = 30
@@ -400,6 +404,7 @@
     BlockDiamond = 241
 
     BlockPortal = 242
+    BlockWorldPortal = 374
 
     DecorationNewYear2010Purple = 244
     DecorationNewYear2010Yellow = 245
@@ -481,6 +486,14 @@
     DecorationChristmas2012RedVertical = 365
     DecorationChristmas2012RedHorizontal = 366
     DecorationChristmas2012RedCross = 367
+
+    DecorationSciFi2013BlueSlope = 375
+    DecorationSciFi2013BlueStraight = 376
+    DecorationSciFi2013YellowSlope = 377
+    DecorationSciFi2013YellowStraight = 378
+    DecorationSciFi2013GreenSlope = 379
+    DecorationSciFi2013GreenStraight = 380
+    BackgroundSciFi2013 = 637
 
     BackgroundCheckeredGrey = 513
     BackgroundCheckeredDarkBlue = 514
