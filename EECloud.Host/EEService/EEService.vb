@@ -19,7 +19,7 @@
                 command.CommandText = "SELECT SettingValue FROM settings WHERE SettingKey = @SettingKey"
                 command.Parameters.AddWithValue("@SettingKey", key)
 
-                Return DirectCast(command.ExecuteScalar(), String)
+                Return CType(command.ExecuteScalar(), String)
             End Using
         End Using
     End Function

@@ -23,7 +23,7 @@
 #Region "Methods"
 
     Public Sub New(block As CoinDoorBlock, coinsToCollect As Integer)
-        MyBase.New(DirectCast(block, Block))
+        MyBase.New(CType(block, Block))
         myCoinsToCollect = coinsToCollect
     End Sub
 

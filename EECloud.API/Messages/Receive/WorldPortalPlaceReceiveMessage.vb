@@ -8,9 +8,9 @@ Public NotInheritable Class WorldPortalPlaceReceiveMessage
     '3
 
     Friend Sub New(message As Message)
-        MyBase.New(message, Layer.Foreground, message.GetInteger(0), message.GetInteger(1), DirectCast(message.GetInteger(2), Block))
+        MyBase.New(message, Layer.Foreground, message.GetInteger(0), message.GetInteger(1), CType(message.GetInteger(2), Block))
 
-        PortalBlock = DirectCast(message.GetInteger(2), PortalBlock)
+        PortalBlock = CType(message.GetInteger(2), PortalBlock)
         PortalTarget = message.GetString(3)
     End Sub
 End Class

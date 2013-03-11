@@ -57,7 +57,7 @@
     Private Sub Enable()
         SyncLock myLockObj
             If Not Started Then
-                myPlugin = DirectCast(Activator.CreateInstance(myPluginType, True), IPlugin)
+                myPlugin = CType(Activator.CreateInstance(myPluginType, True), IPlugin)
                 myPlugin.Enable(myCloneFactory, Me)
 
                 RaiseEvent OnEnable(Me, EventArgs.Empty)
