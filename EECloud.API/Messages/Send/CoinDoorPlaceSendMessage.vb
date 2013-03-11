@@ -5,7 +5,7 @@ Public NotInheritable Class CoinDoorPlaceSendMessage
     Public ReadOnly CoinsToCollect As Integer
 
     Public Sub New(layer As Layer, x As Integer, y As Integer, block As CoinDoorBlock, coinsToCollect As Integer)
-        MyBase.New(layer, x, y, CType(block, Block))
+        MyBase.New(layer, x, y, DirectCast(block, Block))
 
         Me.CoinsToCollect = coinsToCollect
     End Sub

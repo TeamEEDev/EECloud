@@ -70,9 +70,9 @@ Friend NotInheritable Class World
                 Exit Do
             End If
 
-            block1 = CType(m.GetInteger(pointer), Block)
+            block1 = DirectCast(m.GetInteger(pointer), Block)
             pointer += 1
-            layer = CType(m.GetInteger(pointer), Layer)
+            layer = DirectCast(m.GetInteger(pointer), Layer)
             pointer += 1
             byteArrayX = m.GetByteArray(pointer)
             pointer += 1
@@ -88,7 +88,7 @@ Friend NotInheritable Class World
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         value(layer,
                               byteArrayX(i) << 8 + byteArrayX(i + 1),
-                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldCoinDoorBlock(CType(block1, CoinDoorBlock), coinsToCollect)
+                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldCoinDoorBlock(DirectCast(block1, CoinDoorBlock), coinsToCollect)
                     Next
 
                 Case Block.BlockMusicPiano,
@@ -99,7 +99,7 @@ Friend NotInheritable Class World
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         value(layer,
                               byteArrayX(i) << 8 + byteArrayX(i + 1),
-                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldSoundBlock(CType(block1, SoundBlock), soundID)
+                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldSoundBlock(DirectCast(block1, SoundBlock), soundID)
                     Next
 
                 Case Block.BlockHazardSpike,
@@ -115,11 +115,11 @@ Friend NotInheritable Class World
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         value(layer,
                               byteArrayX(i) << 8 + byteArrayX(i + 1),
-                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldRotatableBlock(CType(block1, RotatableBlock), rotation)
+                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldRotatableBlock(DirectCast(block1, RotatableBlock), rotation)
                     Next
 
                 Case Block.BlockPortal
-                    Dim portalRotation As PortalRotation = CType(m.GetInteger(pointer), PortalRotation)
+                    Dim portalRotation As PortalRotation = DirectCast(m.GetInteger(pointer), PortalRotation)
                     pointer += 1
                     Dim portalID As Integer = m.GetInteger(pointer)
                     pointer += 1
@@ -129,7 +129,7 @@ Friend NotInheritable Class World
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         value(layer,
                               byteArrayX(i) << 8 + byteArrayX(i + 1),
-                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldPortalBlock(CType(block1, PortalBlock), portalRotation, portalID, portalTarget)
+                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldPortalBlock(DirectCast(block1, PortalBlock), portalRotation, portalID, portalTarget)
                     Next
 
                 Case Block.BlockWorldPortal
@@ -139,7 +139,7 @@ Friend NotInheritable Class World
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         value(layer,
                               byteArrayX(i) << 8 + byteArrayX(i + 1),
-                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldWorldPortalBlock(CType(block1, PortalBlock), portalTarget)
+                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldWorldPortalBlock(DirectCast(block1, PortalBlock), portalTarget)
                     Next
 
                 Case Block.BlockLabel
@@ -149,7 +149,7 @@ Friend NotInheritable Class World
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         value(layer,
                               byteArrayX(i) << 8 + byteArrayX(i + 1),
-                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldLabelBlock(CType(block1, LabelBlock), text)
+                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldLabelBlock(DirectCast(block1, LabelBlock), text)
                     Next
 
                 Case Else

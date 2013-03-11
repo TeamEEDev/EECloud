@@ -6,7 +6,7 @@ Public NotInheritable Class WorldPortalPlaceUploadMessage
     Public ReadOnly PortalTarget As String
 
     Public Sub New(layer As Layer, x As Integer, y As Integer, block As PortalBlock, portalTarget As String)
-        MyBase.New(layer, x, y, CType(block, Block))
+        MyBase.New(layer, x, y, DirectCast(block, Block))
 
         Me.PortalTarget = portalTarget
     End Sub
