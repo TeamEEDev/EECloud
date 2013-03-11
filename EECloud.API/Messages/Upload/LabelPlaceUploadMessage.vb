@@ -5,7 +5,7 @@ Public NotInheritable Class LabelPlaceUploadMessage
     Public ReadOnly Text As String
 
     Public Sub New(layer As Layer, x As Integer, y As Integer, block As LabelBlock, text As String)
-        MyBase.New(layer, x, y, CType(block, Block))
+        MyBase.New(layer, x, y, DirectCast(block, Block))
         Me.Text = text
     End Sub
 

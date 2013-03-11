@@ -23,7 +23,7 @@
 #Region "Methods"
 
     Public Sub New(block As PortalBlock, portalTarget As String)
-        MyBase.New(CType(block, Block))
+        MyBase.New(DirectCast(block, Block))
         myPortalTarget = portalTarget
     End Sub
 
