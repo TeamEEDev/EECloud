@@ -23,7 +23,7 @@
 #Region "Methods"
 
     Public Sub New(block As SoundBlock, soundID As Integer)
-        MyBase.New(DirectCast(block, Block))
+        MyBase.New(CType(block, Block))
         mySoundID = soundID
     End Sub
 

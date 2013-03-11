@@ -11,6 +11,6 @@ Public NotInheritable Class FaceReceiveMessage
         MyBase.New(message)
 
         UserID = message.GetInteger(0)
-        Face = DirectCast(message.GetInteger(1), Smiley)
+        Face = CType(message.GetInteger(1), Smiley)
     End Sub
 End Class

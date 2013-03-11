@@ -14,10 +14,10 @@ Public Class BlockPlaceReceiveMessage
     Friend Sub New(message As Message)
         MyBase.New(message)
 
-        Layer = DirectCast(message.GetInteger(0), Layer)
+        Layer = CType(message.GetInteger(0), Layer)
         PosX = message.GetInteger(1)
         PosY = message.GetInteger(2)
-        Block = DirectCast(message.GetInteger(3), Block)
+        Block = CType(message.GetInteger(3), Block)
     End Sub
 
     Protected Sub New(message As Message, layer As Layer, posX As Integer, posY As Integer, block As Block)

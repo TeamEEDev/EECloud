@@ -385,218 +385,218 @@ Friend NotInheritable Class Connection
 
         Select Case message.GetType()
             Case GetType(BlockPlaceUploadMessage)
-                Dim eventArgs As New Cancelable(Of BlockPlaceUploadMessage)(DirectCast(message, BlockPlaceUploadMessage))
+                Dim eventArgs As New Cancelable(Of BlockPlaceUploadMessage)(CType(message, BlockPlaceUploadMessage))
                 RaiseEvent UploadBlockPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(CoinDoorPlaceUploadMessage)
-                Dim eventArgs As New Cancelable(Of CoinDoorPlaceUploadMessage)(DirectCast(message, CoinDoorPlaceUploadMessage))
+                Dim eventArgs As New Cancelable(Of CoinDoorPlaceUploadMessage)(CType(message, CoinDoorPlaceUploadMessage))
                 RaiseEvent UploadCoindoorPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(SoundPlaceUploadMessage)
-                Dim eventArgs As New Cancelable(Of SoundPlaceUploadMessage)(DirectCast(message, SoundPlaceUploadMessage))
+                Dim eventArgs As New Cancelable(Of SoundPlaceUploadMessage)(CType(message, SoundPlaceUploadMessage))
                 RaiseEvent UploadSoundPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(RotatablePlaceUploadMessage)
-                Dim eventArgs As New Cancelable(Of RotatablePlaceUploadMessage)(DirectCast(message, RotatablePlaceUploadMessage))
+                Dim eventArgs As New Cancelable(Of RotatablePlaceUploadMessage)(CType(message, RotatablePlaceUploadMessage))
                 RaiseEvent UploadRotatablePlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(PortalPlaceUploadMessage)
-                Dim eventArgs As New Cancelable(Of PortalPlaceUploadMessage)(DirectCast(message, PortalPlaceUploadMessage))
+                Dim eventArgs As New Cancelable(Of PortalPlaceUploadMessage)(CType(message, PortalPlaceUploadMessage))
                 RaiseEvent UploadPortalPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(WorldPortalPlaceUploadMessage)
-                Dim eventArgs As New Cancelable(Of WorldPortalPlaceUploadMessage)(DirectCast(message, WorldPortalPlaceUploadMessage))
+                Dim eventArgs As New Cancelable(Of WorldPortalPlaceUploadMessage)(CType(message, WorldPortalPlaceUploadMessage))
                 RaiseEvent UploadWorldPortalPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(LabelPlaceUploadMessage)
-                Dim eventArgs As New Cancelable(Of LabelPlaceUploadMessage)(DirectCast(message, LabelPlaceUploadMessage))
+                Dim eventArgs As New Cancelable(Of LabelPlaceUploadMessage)(CType(message, LabelPlaceUploadMessage))
                 RaiseEvent UploadLabelPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
 
             Case GetType(SaySendMessage)
-                Dim eventArgs As New Cancelable(Of SaySendMessage)(DirectCast(message, SaySendMessage))
+                Dim eventArgs As New Cancelable(Of SaySendMessage)(CType(message, SaySendMessage))
                 RaiseEvent SendSay(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(AutoSaySendMessage)
-                Dim eventArgs As New Cancelable(Of AutoSaySendMessage)(DirectCast(message, AutoSaySendMessage))
+                Dim eventArgs As New Cancelable(Of AutoSaySendMessage)(CType(message, AutoSaySendMessage))
                 RaiseEvent SendAutoSay(Me, eventArgs)
                 Return eventArgs.Handled
 
 
             Case GetType(PressRedKeySendMessage)
-                Dim eventArgs As New Cancelable(Of PressRedKeySendMessage)(DirectCast(message, PressRedKeySendMessage))
+                Dim eventArgs As New Cancelable(Of PressRedKeySendMessage)(CType(message, PressRedKeySendMessage))
                 RaiseEvent SendPressRedKey(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(PressGreenKeySendMessage)
-                Dim eventArgs As New Cancelable(Of PressGreenKeySendMessage)(DirectCast(message, PressGreenKeySendMessage))
+                Dim eventArgs As New Cancelable(Of PressGreenKeySendMessage)(CType(message, PressGreenKeySendMessage))
                 RaiseEvent SendPressGreenKey(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(PressBlueKeySendMessage)
-                Dim eventArgs As New Cancelable(Of PressBlueKeySendMessage)(DirectCast(message, PressBlueKeySendMessage))
+                Dim eventArgs As New Cancelable(Of PressBlueKeySendMessage)(CType(message, PressBlueKeySendMessage))
                 RaiseEvent SendPressBlueKey(Me, eventArgs)
                 Return eventArgs.Handled
 
 
             Case GetType(ChangeWorldEditKeySendMessage)
-                Dim eventArgs As New Cancelable(Of ChangeWorldEditKeySendMessage)(DirectCast(message, ChangeWorldEditKeySendMessage))
+                Dim eventArgs As New Cancelable(Of ChangeWorldEditKeySendMessage)(CType(message, ChangeWorldEditKeySendMessage))
                 RaiseEvent SendChangeWorldEditKey(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(ChangeWorldNameSendMessage)
-                Dim eventArgs As New Cancelable(Of ChangeWorldNameSendMessage)(DirectCast(message, ChangeWorldNameSendMessage))
+                Dim eventArgs As New Cancelable(Of ChangeWorldNameSendMessage)(CType(message, ChangeWorldNameSendMessage))
                 RaiseEvent SendChangeWorldName(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(SaveWorldSendMessage)
-                Dim eventArgs As New Cancelable(Of SaveWorldSendMessage)(DirectCast(message, SaveWorldSendMessage))
+                Dim eventArgs As New Cancelable(Of SaveWorldSendMessage)(CType(message, SaveWorldSendMessage))
                 RaiseEvent SendSaveWorld(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(AllowPotionsSendMessage)
-                Dim eventArgs As New Cancelable(Of AllowPotionsSendMessage)(DirectCast(message, AllowPotionsSendMessage))
+                Dim eventArgs As New Cancelable(Of AllowPotionsSendMessage)(CType(message, AllowPotionsSendMessage))
                 RaiseEvent SendAllowPotions(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(ClearWorldSendMessage)
-                Dim eventArgs As New Cancelable(Of ClearWorldSendMessage)(DirectCast(message, ClearWorldSendMessage))
+                Dim eventArgs As New Cancelable(Of ClearWorldSendMessage)(CType(message, ClearWorldSendMessage))
                 RaiseEvent SendClearWorld(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(AccessSendMessage)
-                Dim eventArgs As New Cancelable(Of AccessSendMessage)(DirectCast(message, AccessSendMessage))
+                Dim eventArgs As New Cancelable(Of AccessSendMessage)(CType(message, AccessSendMessage))
                 RaiseEvent SendAccess(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(KillWorldSendMessage)
-                Dim eventArgs As New Cancelable(Of KillWorldSendMessage)(DirectCast(message, KillWorldSendMessage))
+                Dim eventArgs As New Cancelable(Of KillWorldSendMessage)(CType(message, KillWorldSendMessage))
                 RaiseEvent SendKillWorld(Me, eventArgs)
                 Return eventArgs.Handled
 
 
             Case GetType(MoveSendMessage)
-                Dim eventArgs As New Cancelable(Of MoveSendMessage)(DirectCast(message, MoveSendMessage))
+                Dim eventArgs As New Cancelable(Of MoveSendMessage)(CType(message, MoveSendMessage))
                 RaiseEvent SendMove(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(GodModeSendMessage)
-                Dim eventArgs As New Cancelable(Of GodModeSendMessage)(DirectCast(message, GodModeSendMessage))
+                Dim eventArgs As New Cancelable(Of GodModeSendMessage)(CType(message, GodModeSendMessage))
                 RaiseEvent SendGodMode(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(ModModeSendMessage)
-                Dim eventArgs As New Cancelable(Of ModModeSendMessage)(DirectCast(message, ModModeSendMessage))
+                Dim eventArgs As New Cancelable(Of ModModeSendMessage)(CType(message, ModModeSendMessage))
                 RaiseEvent SendModMode(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(CoinSendMessage)
-                Dim eventArgs As New Cancelable(Of CoinSendMessage)(DirectCast(message, CoinSendMessage))
+                Dim eventArgs As New Cancelable(Of CoinSendMessage)(CType(message, CoinSendMessage))
                 RaiseEvent SendCoin(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(ChangeFaceSendMessage)
-                Dim eventArgs As New Cancelable(Of ChangeFaceSendMessage)(DirectCast(message, ChangeFaceSendMessage))
+                Dim eventArgs As New Cancelable(Of ChangeFaceSendMessage)(CType(message, ChangeFaceSendMessage))
                 RaiseEvent SendChangeFace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(WootUpSendMessage)
-                Dim eventArgs As New Cancelable(Of WootUpSendMessage)(DirectCast(message, WootUpSendMessage))
+                Dim eventArgs As New Cancelable(Of WootUpSendMessage)(CType(message, WootUpSendMessage))
                 RaiseEvent SendWootUp(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(GetCrownSendMessage)
-                Dim eventArgs As New Cancelable(Of GetCrownSendMessage)(DirectCast(message, GetCrownSendMessage))
+                Dim eventArgs As New Cancelable(Of GetCrownSendMessage)(CType(message, GetCrownSendMessage))
                 RaiseEvent SendGetCrown(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(TouchCakeSendMessage)
-                Dim eventArgs As New Cancelable(Of TouchCakeSendMessage)(DirectCast(message, TouchCakeSendMessage))
+                Dim eventArgs As New Cancelable(Of TouchCakeSendMessage)(CType(message, TouchCakeSendMessage))
                 RaiseEvent SendTouchCake(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(TouchDiamondSendMessage)
-                Dim eventArgs As New Cancelable(Of TouchDiamondSendMessage)(DirectCast(message, TouchDiamondSendMessage))
+                Dim eventArgs As New Cancelable(Of TouchDiamondSendMessage)(CType(message, TouchDiamondSendMessage))
                 RaiseEvent SendTouchDiamond(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(PotionSendMessage)
-                Dim eventArgs As New Cancelable(Of PotionSendMessage)(DirectCast(message, PotionSendMessage))
+                Dim eventArgs As New Cancelable(Of PotionSendMessage)(CType(message, PotionSendMessage))
                 RaiseEvent SendPotion(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(TouchPlayerSendMessage)
-                Dim eventArgs As New Cancelable(Of TouchPlayerSendMessage)(DirectCast(message, TouchPlayerSendMessage))
+                Dim eventArgs As New Cancelable(Of TouchPlayerSendMessage)(CType(message, TouchPlayerSendMessage))
                 RaiseEvent SendTouchPlayer(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(DeathSendMessage)
-                Dim eventArgs As New Cancelable(Of DeathSendMessage)(DirectCast(message, DeathSendMessage))
+                Dim eventArgs As New Cancelable(Of DeathSendMessage)(CType(message, DeathSendMessage))
                 RaiseEvent SendDeath(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(CheckpointSendMessage)
-                Dim eventArgs As New Cancelable(Of CheckpointSendMessage)(DirectCast(message, CheckpointSendMessage))
+                Dim eventArgs As New Cancelable(Of CheckpointSendMessage)(CType(message, CheckpointSendMessage))
                 RaiseEvent SendCheckpoint(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(CompleteLevelSendMessage)
-                Dim eventArgs As New Cancelable(Of CompleteLevelSendMessage)(DirectCast(message, CompleteLevelSendMessage))
+                Dim eventArgs As New Cancelable(Of CompleteLevelSendMessage)(CType(message, CompleteLevelSendMessage))
                 RaiseEvent SendCompleteLevel(Me, eventArgs)
                 Return eventArgs.Handled
 
 
             Case GetType(BlockPlaceSendMessage)
-                Dim eventArgs As New Cancelable(Of BlockPlaceSendMessage)(DirectCast(message, BlockPlaceSendMessage))
+                Dim eventArgs As New Cancelable(Of BlockPlaceSendMessage)(CType(message, BlockPlaceSendMessage))
                 RaiseEvent SendBlockPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(CoinDoorPlaceSendMessage)
-                Dim eventArgs As New Cancelable(Of CoinDoorPlaceSendMessage)(DirectCast(message, CoinDoorPlaceSendMessage))
+                Dim eventArgs As New Cancelable(Of CoinDoorPlaceSendMessage)(CType(message, CoinDoorPlaceSendMessage))
                 RaiseEvent SendCoindoorPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(SoundPlaceSendMessage)
-                Dim eventArgs As New Cancelable(Of SoundPlaceSendMessage)(DirectCast(message, SoundPlaceSendMessage))
+                Dim eventArgs As New Cancelable(Of SoundPlaceSendMessage)(CType(message, SoundPlaceSendMessage))
                 RaiseEvent SendSoundPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(RotatablePlaceSendMessage)
-                Dim eventArgs As New Cancelable(Of RotatablePlaceSendMessage)(DirectCast(message, RotatablePlaceSendMessage))
+                Dim eventArgs As New Cancelable(Of RotatablePlaceSendMessage)(CType(message, RotatablePlaceSendMessage))
                 RaiseEvent SendRotatablePlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(PortalPlaceSendMessage)
-                Dim eventArgs As New Cancelable(Of PortalPlaceSendMessage)(DirectCast(message, PortalPlaceSendMessage))
+                Dim eventArgs As New Cancelable(Of PortalPlaceSendMessage)(CType(message, PortalPlaceSendMessage))
                 RaiseEvent SendPortalPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(WorldPortalPlaceSendMessage)
-                Dim eventArgs As New Cancelable(Of WorldPortalPlaceSendMessage)(DirectCast(message, WorldPortalPlaceSendMessage))
+                Dim eventArgs As New Cancelable(Of WorldPortalPlaceSendMessage)(CType(message, WorldPortalPlaceSendMessage))
                 RaiseEvent SendWorldPortalPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(LabelPlaceSendMessage)
-                Dim eventArgs As New Cancelable(Of LabelPlaceSendMessage)(DirectCast(message, LabelPlaceSendMessage))
+                Dim eventArgs As New Cancelable(Of LabelPlaceSendMessage)(CType(message, LabelPlaceSendMessage))
                 RaiseEvent SendLabelPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
 
             Case GetType(InitSendMessage)
-                Dim eventArgs As New Cancelable(Of InitSendMessage)(DirectCast(message, InitSendMessage))
+                Dim eventArgs As New Cancelable(Of InitSendMessage)(CType(message, InitSendMessage))
                 RaiseEvent SendInit(Me, eventArgs)
                 Return eventArgs.Handled
 
             Case GetType(Init2SendMessage)
-                Dim eventArgs As New Cancelable(Of Init2SendMessage)(DirectCast(message, Init2SendMessage))
+                Dim eventArgs As New Cancelable(Of Init2SendMessage)(CType(message, Init2SendMessage))
                 RaiseEvent SendInit2(Me, eventArgs)
                 Return eventArgs.Handled
 
@@ -615,38 +615,38 @@ Friend NotInheritable Class Connection
     Private Sub Connection_ReceiveMessage(sender As Object, e As ReceiveMessage) Handles Me.ReceiveMessage
         Select Case e.GetType()
             Case GetType(AddReceiveMessage)
-                Dim m As AddReceiveMessage = DirectCast(e, AddReceiveMessage)
+                Dim m As AddReceiveMessage = CType(e, AddReceiveMessage)
                 RaiseEvent PreviewReceiveAdd(Me, m)
                 RaiseEvent ReceiveAdd(Me, m)
 
             Case GetType(LeftReceiveMessage)
-                Dim m As LeftReceiveMessage = DirectCast(e, LeftReceiveMessage)
+                Dim m As LeftReceiveMessage = CType(e, LeftReceiveMessage)
                 RaiseEvent PreviewReceiveLeft(Me, m)
                 RaiseEvent ReceiveLeft(Me, m)
 
 
             Case GetType(MoveReceiveMessage)
-                Dim m As MoveReceiveMessage = DirectCast(e, MoveReceiveMessage)
+                Dim m As MoveReceiveMessage = CType(e, MoveReceiveMessage)
                 RaiseEvent PreviewReceiveMove(Me, m)
                 RaiseEvent ReceiveMove(Me, m)
 
             Case GetType(CoinReceiveMessage)
-                Dim m As CoinReceiveMessage = DirectCast(e, CoinReceiveMessage)
+                Dim m As CoinReceiveMessage = CType(e, CoinReceiveMessage)
                 RaiseEvent PreviewReceiveCoin(Me, m)
                 RaiseEvent ReceiveCoin(Me, m)
 
             Case GetType(FaceReceiveMessage)
-                Dim m As FaceReceiveMessage = DirectCast(e, FaceReceiveMessage)
+                Dim m As FaceReceiveMessage = CType(e, FaceReceiveMessage)
                 RaiseEvent PreviewReceiveFace(Me, m)
                 RaiseEvent ReceiveFace(Me, m)
 
             Case GetType(PotionReceiveMessage)
-                Dim m As PotionReceiveMessage = DirectCast(e, PotionReceiveMessage)
+                Dim m As PotionReceiveMessage = CType(e, PotionReceiveMessage)
                 RaiseEvent PreviewReceivePotion(Me, m)
                 RaiseEvent ReceivePotion(Me, m)
 
             Case GetType(CrownReceiveMessage)
-                Dim m As CrownReceiveMessage = DirectCast(e, CrownReceiveMessage)
+                Dim m As CrownReceiveMessage = CType(e, CrownReceiveMessage)
                 RaiseEvent PreviewReceiveCrown(Me, m)
                 RaiseEvent ReceiveCrown(Me, m)
                 If Not myInited Then
@@ -655,182 +655,182 @@ Friend NotInheritable Class Connection
                 End If
 
             Case GetType(SilverCrownReceiveMessage)
-                Dim m As SilverCrownReceiveMessage = DirectCast(e, SilverCrownReceiveMessage)
+                Dim m As SilverCrownReceiveMessage = CType(e, SilverCrownReceiveMessage)
                 RaiseEvent PreviewReceiveSilverCrown(Me, m)
                 RaiseEvent ReceiveSilverCrown(Me, m)
 
 
             Case GetType(ShowKeyReceiveMessage)
-                Dim m As ShowKeyReceiveMessage = DirectCast(e, ShowKeyReceiveMessage)
+                Dim m As ShowKeyReceiveMessage = CType(e, ShowKeyReceiveMessage)
                 RaiseEvent PreviewReceiveShowKey(Me, m)
                 RaiseEvent ReceiveShowKey(Me, m)
 
             Case GetType(HideKeyReceiveMessage)
-                Dim m As HideKeyReceiveMessage = DirectCast(e, HideKeyReceiveMessage)
+                Dim m As HideKeyReceiveMessage = CType(e, HideKeyReceiveMessage)
                 RaiseEvent PreviewReceiveHideKey(Me, m)
                 RaiseEvent ReceiveHideKey(Me, m)
 
 
             Case GetType(SayReceiveMessage)
-                Dim m As SayReceiveMessage = DirectCast(e, SayReceiveMessage)
+                Dim m As SayReceiveMessage = CType(e, SayReceiveMessage)
                 RaiseEvent PreviewReceiveSay(Me, m)
                 RaiseEvent ReceiveSay(Me, m)
 
             Case GetType(SayOldReceiveMessage)
-                Dim m As SayOldReceiveMessage = DirectCast(e, SayOldReceiveMessage)
+                Dim m As SayOldReceiveMessage = CType(e, SayOldReceiveMessage)
                 RaiseEvent PreviewReceiveSayOld(Me, m)
                 RaiseEvent ReceiveSayOld(Me, m)
 
             Case GetType(AutoTextReceiveMessage)
-                Dim m As AutoTextReceiveMessage = DirectCast(e, AutoTextReceiveMessage)
+                Dim m As AutoTextReceiveMessage = CType(e, AutoTextReceiveMessage)
                 RaiseEvent PreviewReceiveAutoText(Me, m)
                 RaiseEvent ReceiveAutoText(Me, m)
 
             Case GetType(WriteReceiveMessage)
-                Dim m As WriteReceiveMessage = DirectCast(e, WriteReceiveMessage)
+                Dim m As WriteReceiveMessage = CType(e, WriteReceiveMessage)
                 RaiseEvent PreviewReceiveWrite(Me, m)
                 RaiseEvent ReceiveWrite(Me, m)
 
 
             Case GetType(BlockPlaceReceiveMessage)
-                Dim m As BlockPlaceReceiveMessage = DirectCast(e, BlockPlaceReceiveMessage)
+                Dim m As BlockPlaceReceiveMessage = CType(e, BlockPlaceReceiveMessage)
                 RaiseEvent PreviewReceiveBlockPlace(Me, m)
                 RaiseEvent ReceiveBlockPlace(Me, m)
 
             Case GetType(CoinDoorPlaceReceiveMessage)
-                Dim m As CoinDoorPlaceReceiveMessage = DirectCast(e, CoinDoorPlaceReceiveMessage)
+                Dim m As CoinDoorPlaceReceiveMessage = CType(e, CoinDoorPlaceReceiveMessage)
                 RaiseEvent PreviewReceiveCoinDoorPlace(Me, m)
                 RaiseEvent ReceiveCoinDoorPlace(Me, m)
 
             Case GetType(SoundPlaceReceiveMessage)
-                Dim m As SoundPlaceReceiveMessage = DirectCast(e, SoundPlaceReceiveMessage)
+                Dim m As SoundPlaceReceiveMessage = CType(e, SoundPlaceReceiveMessage)
                 RaiseEvent PreviewReceiveSoundPlace(Me, m)
                 RaiseEvent ReceiveSoundPlace(Me, m)
 
             Case GetType(RotatablePlaceReceiveMessage)
-                Dim m As RotatablePlaceReceiveMessage = DirectCast(e, RotatablePlaceReceiveMessage)
+                Dim m As RotatablePlaceReceiveMessage = CType(e, RotatablePlaceReceiveMessage)
                 RaiseEvent PreviewReceiveRotatablePlace(Me, m)
                 RaiseEvent ReceiveRotatablePlace(Me, m)
 
             Case GetType(PortalPlaceReceiveMessage)
-                Dim m As PortalPlaceReceiveMessage = DirectCast(e, PortalPlaceReceiveMessage)
+                Dim m As PortalPlaceReceiveMessage = CType(e, PortalPlaceReceiveMessage)
                 RaiseEvent PreviewReceivePortalPlace(Me, m)
                 RaiseEvent ReceivePortalPlace(Me, m)
 
             Case GetType(WorldPortalPlaceReceiveMessage)
-                Dim m As WorldPortalPlaceReceiveMessage = DirectCast(e, WorldPortalPlaceReceiveMessage)
+                Dim m As WorldPortalPlaceReceiveMessage = CType(e, WorldPortalPlaceReceiveMessage)
                 RaiseEvent PreviewReceiveWorldPortalPlace(Me, m)
                 RaiseEvent ReceiveWorldPortalPlace(Me, m)
 
             Case GetType(LabelPlaceReceiveMessage)
-                Dim m As LabelPlaceReceiveMessage = DirectCast(e, LabelPlaceReceiveMessage)
+                Dim m As LabelPlaceReceiveMessage = CType(e, LabelPlaceReceiveMessage)
                 RaiseEvent PreviewReceiveLabelPlace(Me, m)
                 RaiseEvent ReceiveLabelPlace(Me, m)
 
 
             Case GetType(MagicRecieveMessage)
-                Dim m As MagicRecieveMessage = DirectCast(e, MagicRecieveMessage)
+                Dim m As MagicRecieveMessage = CType(e, MagicRecieveMessage)
                 RaiseEvent PreviewReceiveMagic(Me, m)
                 RaiseEvent ReceiveMagic(Me, m)
 
             Case GetType(LevelupRecieveMessage)
-                Dim m As LevelupRecieveMessage = DirectCast(e, LevelupRecieveMessage)
+                Dim m As LevelupRecieveMessage = CType(e, LevelupRecieveMessage)
                 RaiseEvent PreviewReceiveLevelup(Me, m)
                 RaiseEvent ReceiveLevelup(Me, m)
 
 
             Case GetType(WootUpReceiveMessage)
-                Dim m As WootUpReceiveMessage = DirectCast(e, WootUpReceiveMessage)
+                Dim m As WootUpReceiveMessage = CType(e, WootUpReceiveMessage)
                 RaiseEvent PreviewReceiveWootUp(Me, m)
                 RaiseEvent ReceiveWootUp(Me, m)
 
             Case GetType(KillReceiveMessage)
-                Dim m As KillReceiveMessage = DirectCast(e, KillReceiveMessage)
+                Dim m As KillReceiveMessage = CType(e, KillReceiveMessage)
                 RaiseEvent PreviewReceiveKill(Me, m)
                 RaiseEvent ReceiveKill(Me, m)
 
             Case GetType(AccessReceiveMessage)
-                Dim m As AccessReceiveMessage = DirectCast(e, AccessReceiveMessage)
+                Dim m As AccessReceiveMessage = CType(e, AccessReceiveMessage)
                 RaiseEvent PreviewReceiveAccess(Me, m)
                 RaiseEvent ReceiveAccess(Me, m)
 
             Case GetType(LostAccessReceiveMessage)
-                Dim m As LostAccessReceiveMessage = DirectCast(e, LostAccessReceiveMessage)
+                Dim m As LostAccessReceiveMessage = CType(e, LostAccessReceiveMessage)
                 RaiseEvent PreviewReceiveLostAccess(Me, m)
                 RaiseEvent ReceiveLostAccess(Me, m)
 
             Case GetType(ResetReceiveMessage)
-                Dim m As ResetReceiveMessage = DirectCast(e, ResetReceiveMessage)
+                Dim m As ResetReceiveMessage = CType(e, ResetReceiveMessage)
                 RaiseEvent PreviewReceiveReset(Me, m)
                 RaiseEvent ReceiveReset(Me, m)
 
             Case GetType(TeleportReceiveMessage)
-                Dim m As TeleportReceiveMessage = DirectCast(e, TeleportReceiveMessage)
+                Dim m As TeleportReceiveMessage = CType(e, TeleportReceiveMessage)
                 RaiseEvent PreviewReceiveTeleport(Me, m)
                 RaiseEvent ReceiveTeleport(Me, m)
 
             Case GetType(SaveDoneReceiveMessage)
-                Dim m As SaveDoneReceiveMessage = DirectCast(e, SaveDoneReceiveMessage)
+                Dim m As SaveDoneReceiveMessage = CType(e, SaveDoneReceiveMessage)
                 RaiseEvent PreviewReceiveSaveDone(Me, m)
                 RaiseEvent ReceiveSaveDone(Me, m)
 
             Case GetType(AllowPotionsReceiveMessage)
-                Dim m As AllowPotionsReceiveMessage = DirectCast(e, AllowPotionsReceiveMessage)
+                Dim m As AllowPotionsReceiveMessage = CType(e, AllowPotionsReceiveMessage)
                 RaiseEvent PreviewReceiveAllowPotions(Me, m)
                 RaiseEvent ReceiveAllowPotions(Me, m)
 
             Case GetType(ClearReceiveMessage)
-                Dim m As ClearReceiveMessage = DirectCast(e, ClearReceiveMessage)
+                Dim m As ClearReceiveMessage = CType(e, ClearReceiveMessage)
                 RaiseEvent PreviewReceiveClear(Me, m)
                 RaiseEvent ReceiveClear(Me, m)
 
 
             Case GetType(GodModeReceiveMessage)
-                Dim m As GodModeReceiveMessage = DirectCast(e, GodModeReceiveMessage)
+                Dim m As GodModeReceiveMessage = CType(e, GodModeReceiveMessage)
                 RaiseEvent PreviewReceiveGodMode(Me, m)
                 RaiseEvent ReceiveGodMode(Me, m)
 
             Case GetType(ModModeReceiveMessage)
-                Dim m As ModModeReceiveMessage = DirectCast(e, ModModeReceiveMessage)
+                Dim m As ModModeReceiveMessage = CType(e, ModModeReceiveMessage)
                 RaiseEvent PreviewReceiveModMode(Me, m)
                 RaiseEvent ReceiveModMode(Me, m)
 
 
             Case GetType(GiveWizardReceiveMessage)
-                Dim m As GiveWizardReceiveMessage = DirectCast(e, GiveWizardReceiveMessage)
+                Dim m As GiveWizardReceiveMessage = CType(e, GiveWizardReceiveMessage)
                 RaiseEvent PreviewReceiveGiveWizard(Me, m)
                 RaiseEvent ReceiveGiveWizard(Me, m)
 
             Case GetType(GiveFireWizardReceiveMessage)
-                Dim m As GiveFireWizardReceiveMessage = DirectCast(e, GiveFireWizardReceiveMessage)
+                Dim m As GiveFireWizardReceiveMessage = CType(e, GiveFireWizardReceiveMessage)
                 RaiseEvent PreviewReceiveGiveFireWizard(Me, m)
                 RaiseEvent ReceiveGiveFireWizard(Me, m)
 
             Case GetType(GiveWitchReceiveMessage)
-                Dim m As GiveWitchReceiveMessage = DirectCast(e, GiveWitchReceiveMessage)
+                Dim m As GiveWitchReceiveMessage = CType(e, GiveWitchReceiveMessage)
                 RaiseEvent PreviewReceiveGiveWitch(Me, m)
                 RaiseEvent ReceiveGiveWitch(Me, m)
 
             Case GetType(GiveGrinchReceiveMessage)
-                Dim m As GiveGrinchReceiveMessage = DirectCast(e, GiveGrinchReceiveMessage)
+                Dim m As GiveGrinchReceiveMessage = CType(e, GiveGrinchReceiveMessage)
                 RaiseEvent PreviewReceiveGiveGrinch(Me, m)
                 RaiseEvent ReceiveGiveGrinch(Me, m)
 
 
             Case GetType(UpdateMetaReceiveMessage)
-                Dim m As UpdateMetaReceiveMessage = DirectCast(e, UpdateMetaReceiveMessage)
+                Dim m As UpdateMetaReceiveMessage = CType(e, UpdateMetaReceiveMessage)
                 RaiseEvent PreviewReceiveUpdateMeta(Me, m)
                 RaiseEvent ReceiveUpdateMeta(Me, m)
 
             Case GetType(InitReceiveMessage)
-                Dim m As InitReceiveMessage = DirectCast(e, InitReceiveMessage)
+                Dim m As InitReceiveMessage = CType(e, InitReceiveMessage)
                 RaiseEvent PreviewReceiveInit(Me, m)
                 RegisterMessages()
                 Send(New Init2SendMessage())
                 RaiseEvent ReceiveInit(Me, m)
 
             Case GetType(UpgradeReceiveMessage)
-                Dim m As UpgradeReceiveMessage = DirectCast(e, UpgradeReceiveMessage)
+                Dim m As UpgradeReceiveMessage = CType(e, UpgradeReceiveMessage)
                 RaiseEvent PreviewReceiveUpgrade(Me, m)
                 myGameVersionNumber += 1
                 Cloud.Logger.Log(LogPriority.Info, "The game has been updated!")
@@ -838,18 +838,18 @@ Friend NotInheritable Class Connection
                 RaiseEvent ReceiveUpgrade(Me, m)
 
             Case GetType(InfoReceiveMessage)
-                Dim m As InfoReceiveMessage = DirectCast(e, InfoReceiveMessage)
+                Dim m As InfoReceiveMessage = CType(e, InfoReceiveMessage)
                 RaiseEvent PreviewReceiveInfo(Me, m)
                 RaiseEvent ReceiveInfo(Me, m)
 
             Case GetType(GroupDisallowedJoinReceiveMessage)
-                Dim m As GroupDisallowedJoinReceiveMessage = DirectCast(e, GroupDisallowedJoinReceiveMessage)
+                Dim m As GroupDisallowedJoinReceiveMessage = CType(e, GroupDisallowedJoinReceiveMessage)
                 RaiseEvent PreviewReceiveGroupDisallowedJoin(Me, m)
                 RaiseEvent ReceiveGroupDisallowedJoin(Me, m)
 
 
             Case GetType(RefreshShopReceiveMessage)
-                Dim m As RefreshShopReceiveMessage = DirectCast(e, RefreshShopReceiveMessage)
+                Dim m As RefreshShopReceiveMessage = CType(e, RefreshShopReceiveMessage)
                 RaiseEvent PreviewReceiveRefreshShop(Me, m)
                 RaiseEvent ReceiveRefreshShop(Me, m)
 
@@ -866,7 +866,7 @@ Friend NotInheritable Class Connection
             If myMessageDictionary.ContainsKey(m.Type) Then
                 Dim messageType As Type = myMessageDictionary(m.Type)
                 Dim constructorInfo As ConstructorInfo = messageType.GetConstructor(BindingFlags.NonPublic Or BindingFlags.Instance, Nothing, New Type() {GetType(Message)}, Nothing)
-                Dim message As ReceiveMessage = DirectCast(constructorInfo.Invoke(New Object() {m}), ReceiveMessage)
+                Dim message As ReceiveMessage = CType(constructorInfo.Invoke(New Object() {m}), ReceiveMessage)
                 RaiseEvent ReceiveMessage(Me, message)
             ElseIf myInited Then 'Don't pass annoying "unregistered message" warnings
                 Dim messageArguments As New List(Of String)

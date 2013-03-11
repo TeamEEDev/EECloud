@@ -91,7 +91,7 @@
             If TryCast(e.PlayerIOMessage.Item(pointer), String) IsNot Nothing AndAlso e.PlayerIOMessage.GetString(pointer) = "ps" Then
                 Exit Do
             End If
-            Select Case DirectCast(e.PlayerIOMessage.GetInteger(CUInt(pointer - 1)), Potion)
+            Select Case CType(e.PlayerIOMessage.GetInteger(CUInt(pointer - 1)), Potion)
                 Case Potion.BlueAura
                     myBlueAuraPotionCount = e.PlayerIOMessage.GetInteger(pointer)
                 Case Potion.RedAura
