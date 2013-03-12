@@ -87,8 +87,8 @@ Friend NotInheritable Class World
 
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         value(layer,
-                              byteArrayX(i) << 8 + byteArrayX(i + 1),
-                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldCoinDoorBlock(DirectCast(block1, CoinDoorBlock), coinsToCollect)
+                              byteArrayX(i) * 256 + byteArrayX(i + 1),
+                              byteArrayY(i) * 256 + byteArrayY(i + 1)) = New WorldCoinDoorBlock(DirectCast(block1, CoinDoorBlock), coinsToCollect)
                     Next
 
                 Case Block.BlockMusicPiano,
@@ -98,8 +98,8 @@ Friend NotInheritable Class World
 
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         value(layer,
-                              byteArrayX(i) << 8 + byteArrayX(i + 1),
-                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldSoundBlock(DirectCast(block1, SoundBlock), soundID)
+                              byteArrayX(i) * 256 + byteArrayX(i + 1),
+                              byteArrayY(i) * 256 + byteArrayY(i + 1)) = New WorldSoundBlock(DirectCast(block1, SoundBlock), soundID)
                     Next
 
                 Case Block.BlockHazardSpike,
@@ -114,8 +114,8 @@ Friend NotInheritable Class World
 
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         value(layer,
-                              byteArrayX(i) << 8 + byteArrayX(i + 1),
-                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldRotatableBlock(DirectCast(block1, RotatableBlock), rotation)
+                              byteArrayX(i) * 256 + byteArrayX(i + 1),
+                              byteArrayY(i) * 256 + byteArrayY(i + 1)) = New WorldRotatableBlock(DirectCast(block1, RotatableBlock), rotation)
                     Next
 
                 Case Block.BlockPortal
@@ -128,8 +128,8 @@ Friend NotInheritable Class World
 
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         value(layer,
-                              byteArrayX(i) << 8 + byteArrayX(i + 1),
-                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldPortalBlock(DirectCast(block1, PortalBlock), portalRotation, portalID, portalTarget)
+                              byteArrayX(i) * 256 + byteArrayX(i + 1),
+                              byteArrayY(i) * 256 + byteArrayY(i + 1)) = New WorldPortalBlock(DirectCast(block1, PortalBlock), portalRotation, portalID, portalTarget)
                     Next
 
                 Case Block.BlockWorldPortal
@@ -138,8 +138,8 @@ Friend NotInheritable Class World
 
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         value(layer,
-                              byteArrayX(i) << 8 + byteArrayX(i + 1),
-                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldWorldPortalBlock(DirectCast(block1, PortalBlock), portalTarget)
+                              byteArrayX(i) * 256 + byteArrayX(i + 1),
+                              byteArrayY(i) * 256 + byteArrayY(i + 1)) = New WorldWorldPortalBlock(DirectCast(block1, PortalBlock), portalTarget)
                     Next
 
                 Case Block.BlockLabel
@@ -148,15 +148,15 @@ Friend NotInheritable Class World
 
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         value(layer,
-                              byteArrayX(i) << 8 + byteArrayX(i + 1),
-                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldLabelBlock(DirectCast(block1, LabelBlock), text)
+                              byteArrayX(i) * 256 + byteArrayX(i + 1),
+                              byteArrayY(i) * 256 + byteArrayY(i + 1)) = New WorldLabelBlock(DirectCast(block1, LabelBlock), text)
                     Next
 
                 Case Else
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         value(layer,
-                              byteArrayX(i) << 8 + byteArrayX(i + 1),
-                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldBlock(block1)
+                              byteArrayX(i) * 256 + byteArrayX(i + 1),
+                              byteArrayY(i) * 256 + byteArrayY(i + 1)) = New WorldBlock(block1)
                     Next
             End Select
         Loop
