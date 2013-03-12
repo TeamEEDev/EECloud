@@ -81,6 +81,8 @@
     <Compile Include="Enums\AccountType.vb" />
     <Compile Include="Enums\BlockType.vb" />
     <Compile Include="Enums\Block\RotatableBlock.vb" />
+    <Compile Include="Enums\ScifiStraightRotation.vb" />
+    <Compile Include="Enums\ScifiSlopeRotation.vb" />
     <Compile Include="Enums\MagicClass.vb" />
     <Compile Include="Enums\Potion.vb" />
     <Compile Include="Enums\SpikeRotation.vb" />
