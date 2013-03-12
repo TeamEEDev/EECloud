@@ -57,7 +57,7 @@ Friend NotInheritable Class World
         Next
 
         Dim value(1, sizeX - 1, sizeY - 1) As IWorldBlock
-        value = ClearWorld(value, False)
+        ClearWorld(value, False)
 
         Dim block1 As Block
         Dim layer As Layer
@@ -164,7 +164,7 @@ Friend NotInheritable Class World
         Return value
     End Function
 
-    Private Shared Function ClearWorld(blockArray As IWorldBlock(,,), Optional drawBorder As Boolean = True)
+    Private Shared Sub ClearWorld(ByRef blockArray As IWorldBlock(,,), Optional drawBorder As Boolean = True)
         Dim toX = blockArray.GetLength(1) - 2
         Dim toY = blockArray.GetLength(2) - 2
 
@@ -181,14 +181,10 @@ Friend NotInheritable Class World
         '</Fill the middle with GravityNothing blocks>
 
         '<Border drawing>
-        If drawBorder Then
-            tmpBlock = New WorldBlock(Block.BlockBasicGrey)
-        End If
-
         toX += 1
         toY += 1
 
-        For l = 0 To 1
+        For l = 1 To 0 Step -1
             For x = 0 To toX
                 blockArray(l, x, 0) = tmpBlock
                 blockArray(l, x, toY) = tmpBlock
@@ -198,11 +194,13 @@ Friend NotInheritable Class World
                 blockArray(l, 0, y) = tmpBlock
                 blockArray(l, toX, y) = tmpBlock
             Next
+
+            If drawBorder Then 'l = Layer.Foreground AndAlso drawBorder
+                tmpBlock = New WorldBlock(Block.BlockBasicGrey)
+            End If
         Next
         '</Border drawing>
-
-        Return blockArray
-    End Function
+    End Sub
 
     Private Sub myConnection_ReceiveInit(sender As Object, e As InitReceiveMessage) Handles myConnection.ReceiveInit
         mySizeX = e.SizeX
@@ -257,7 +255,7 @@ Friend NotInheritable Class World
     End Sub
 
     Private Sub myConnection_ReceiveClear(sender As Object, e As ClearReceiveMessage) Handles myConnection.ReceiveClear
-        myBlocks = ClearWorld(myBlocks)
+        ClearWorld(myBlocks)
     End Sub
 
 #End Region
