@@ -4,7 +4,7 @@
     ReadOnly Property Encryption As String
     ReadOnly Property Plays As Integer
     ReadOnly Property Owner As String
-    ReadOnly Property GravityMultiplayer As Double
+    ReadOnly Property GravityMultiplier As Double
     ReadOnly Property IsTutorialRoom As Boolean
     ReadOnly Property AllowPotions As Boolean
     ReadOnly Property CurrentWoots As Integer
