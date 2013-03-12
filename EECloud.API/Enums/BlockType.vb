@@ -5,4 +5,5 @@
     Portal
     Sound
     Label
+    WorldPortal
 End Enum

@@ -146,7 +146,7 @@
     ''' <returns></returns>
     ''' <remarks></remarks>
     ReadOnly Property WorldID As String
-    
+
     ''' <summary>
     '''     Returns true if the connection is still active
     ''' </summary>
@@ -154,7 +154,7 @@
     ''' <returns></returns>
     ''' <remarks></remarks>
     ReadOnly Property Connected As Boolean
-    
+
     ''' <summary>
     '''     Connects using the given data
     ''' </summary>
@@ -165,14 +165,14 @@
     ''' <returns></returns>
     ''' <remarks></remarks>
     Function ConnectAsync(type As AccountType, username As String, password As String, id As String) As Task
-    
+
     ''' <summary>
     '''     Sends the given message
     ''' </summary>
     ''' <param name="message">The message being sent</param>
     ''' <remarks></remarks>
     Sub Send(message As SendMessage)
-    
+
     ''' <summary>
     '''     Terminates the connection
     ''' </summary>
