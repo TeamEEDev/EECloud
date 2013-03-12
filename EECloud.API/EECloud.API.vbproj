@@ -83,7 +83,7 @@
     <Compile Include="Enums\Block\RotatableBlock.vb" />
     <Compile Include="Enums\MagicClass.vb" />
     <Compile Include="Enums\Potion.vb" />
-    <Compile Include="Enums\BlockRotation.vb" />
+    <Compile Include="Enums\SpikeRotation.vb" />
     <Compile Include="EventArgs\BlockPlaceEventArgs.vb" />
     <Compile Include="EventArgs\DisconnectEventArgs.vb" />
     <Compile Include="EventArgs\CancelableEventArgs.vb" />

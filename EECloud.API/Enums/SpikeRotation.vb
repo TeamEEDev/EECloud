@@ -1,4 +1,4 @@
-﻿Public Enum BlockRotation
+﻿Public Enum SpikeRotation
     Left = 0
     Up = 1
     Right = 2
