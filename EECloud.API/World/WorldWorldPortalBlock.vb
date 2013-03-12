@@ -6,7 +6,7 @@
 
     Public Overrides ReadOnly Property BlockType As BlockType
         Get
-            Return BlockType.Portal
+            Return BlockType.WorldPortal
         End Get
     End Property
 
