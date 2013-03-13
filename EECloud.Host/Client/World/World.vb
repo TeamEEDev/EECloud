@@ -139,7 +139,7 @@ Friend NotInheritable Class World
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         value(layer,
                               byteArrayX(i) * 256 + byteArrayX(i + 1),
-                              byteArrayY(i) * 256 + byteArrayY(i + 1)) = New WorldWorldPortalBlock(DirectCast(block1, PortalBlock), portalTarget)
+                              byteArrayY(i) * 256 + byteArrayY(i + 1)) = New WorldWorldPortalBlock(DirectCast(block1, API.WorldPortalBlock), portalTarget)
                     Next
 
                 Case Block.BlockLabel

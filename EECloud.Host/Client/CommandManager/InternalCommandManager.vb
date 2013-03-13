@@ -46,7 +46,11 @@
     End Property
 
     Friend Sub HandleMessage(msg As String, user As Integer, rights As Group)
-        Dim sender As IPlayer = myClient.InternalPlayerManager.Players(user)
+        Dim sender As IPlayer = Nothing
+        If myClient.InternalPlayerManager.Players.ContainsKey(user) Then
+            sender = myClient.InternalPlayerManager.Players(user)
+        End If
+
         If sender IsNot Nothing Then
             If sender.Group > rights Then rights = sender.Group
         End If
