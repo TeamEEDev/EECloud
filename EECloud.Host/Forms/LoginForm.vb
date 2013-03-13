@@ -58,7 +58,34 @@ Friend NotInheritable Class LoginForm
             End If
         ElseIf e.KeyCode = Keys.Delete Then
             If TextBoxEmail.SelectedIndex > -1 Then
-                'TODO: Remove that account and select the one in the top of the list.
+                Dim removeLocation As Integer
+
+                Select Case selectedLoginType
+                    Case AccountType.Regular
+                        If TextBoxEmail.Text.ToLower(InvariantCulture) = "guest" Then
+                            Exit Sub
+                        End If
+
+                        removeLocation = regularAccounts(TextBoxEmail.SelectedIndex)
+
+                    Case AccountType.Facebook
+                        removeLocation = facebookAccounts(TextBoxEmail.SelectedIndex)
+                End Select
+
+                e.Handled = True
+
+                TextBoxEmail.Items.RemoveAt(removeLocation)
+                My.Settings.LoginTypes.RemoveAt(removeLocation)
+                My.Settings.LoginEmails.RemoveAt(removeLocation)
+                My.Settings.LoginPasswords.RemoveAt(removeLocation)
+
+                My.Settings.Save()
+                If TextBoxEmail.Items.Count > 0 Then
+                    TextBoxEmail.SelectedIndex = 0
+                Else
+                    TextBoxEmail.Text = String.Empty
+                    TextBoxPassword.Text = String.Empty
+                End If
             End If
         End If
     End Sub
@@ -78,7 +105,19 @@ Friend NotInheritable Class LoginForm
             End If
         ElseIf e.KeyCode = Keys.Delete Then
             If TextBoxWorldID.SelectedIndex > -1 Then
-                'TODO: Remove that world and select the one in the top of the list.
+                If TextBoxWorldID.Text <> "ChrisWorld" Then
+                    e.Handled = True
+
+                    TextBoxWorldID.Items.RemoveAt(TextBoxWorldID.SelectedIndex)
+                    My.Settings.LoginWorldIDs.RemoveAt(TextBoxWorldID.SelectedIndex)
+
+                    My.Settings.Save()
+                    If TextBoxWorldID.Items.Count > 0 Then
+                        TextBoxWorldID.SelectedIndex = 0
+                    Else
+                        TextBoxWorldID.Text = String.Empty
+                    End If
+                End If
             End If
         End If
     End Sub
