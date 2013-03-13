@@ -1,0 +1,71 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="256" height="256">
+  <!-- Definitions -->
+  <defs>
+    <filter id="CloudInnerGlow" width='150%' height='150%' x='-25%' y='-25%'>
+      <feOffset dx="-2" dy="-7" />
+
+      <feGaussianBlur stdDeviation="4" result="offset-blur" />
+      <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse" />
+
+      <feFlood flood-color="rgb(242,247,247)" flood-opacity="0.76" result="color" />
+
+      <feComposite operator="in" in="color" in2="inverse" result="shadow" />
+      <feComposite operator="over" in="shadow" in2="SourceGraphic" />
+    </filter>
+
+    <filter id="CloudShadow" width="150%" height="150%" x="-25%" y="-25%">
+      <feOffset dx="0" dy="10" />
+
+      <feGaussianBlur stdDeviation="5" result="offset-blur" />
+
+      <feFlood flood-color="rgb(64,64,64)" flood-opacity="0.5" result="color" />
+
+      <feComposite operator="in" in="color" in2="offset-blur" result="shadow" />
+      <feComposite operator="over" in="SourceGraphic" in2="shadow" />
+    </filter>
+
+    <linearGradient id="CloudInsideGradient" x1="0%" y1="0%" x2="0%" y2="100%" gradientUnits="userSpaceOnUse">
+      <stop offset="39%" stop-color="rgb(252,254,254)" />
+      <stop offset="80.5%" stop-color="rgb(210,214,214)" />
+    </linearGradient>
+  </defs>
+
+
+  <!-- Cloud (border) -->
+  <g fill="rgb(188,204,204)" filter="url(#CloudShadow)">
+    <circle cx="52" cy="150" r="42" />
+    <circle cx="92" cy="114" r="46" />
+    <circle cx="152" cy="94" r="50" />
+    <circle cx="192" cy="138" r="54" />
+
+    <path d="M 52 192  L 124 102  L 192 192  L 52 192  Z" />
+  </g>
+
+  <!-- Cloud (inside) -->
+  <g filter="url(#CloudInnerGlow)">
+    <!-- Base -->
+    <g fill="url(#CloudInsideGradient)">
+      <circle cx="52" cy="150" r="38" />
+      <circle cx="92" cy="114" r="42" />
+      <circle cx="152" cy="94" r="46" />
+      <circle cx="192" cy="138" r="50" />
+
+      <path d="M 52 188  L 124 102  L 192 188  L 52 188  Z" />
+    </g>
+
+    <!-- Smiley -->
+    <g opacity="0.24">
+      <circle cx="128" cy="131" r="32"
+       style="stroke:black;stroke-width:5;fill:grey" />
+
+      <ellipse cx="118" cy="121" rx="5" ry="8" />
+      <ellipse cx="138" cy="121" rx="5" ry="8" />
+
+      <path d="M 110 137.5  A 18 7.5 0 0 0 146 137.5  L 146 139  A 18 12 0 0 1 110 139  L 110 137.5  Z" />
+    </g>
+  </g>
+</svg>

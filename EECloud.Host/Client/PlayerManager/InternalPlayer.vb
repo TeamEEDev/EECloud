@@ -485,7 +485,7 @@
 
     Private Sub myConnection_OnReceiveTeleport(sender As Object, e As TeleportReceiveMessage) Handles myConnection.PreviewReceiveTeleport
         If e.Coordinates.ContainsKey(myUserID) Then
-            Dim loc = e.Coordinates(myUserID)
+            Dim loc = e.Coordinates.Item(myUserID)
             myPlayerPosX = loc.X
             myPlayerPosY = loc.Y
 

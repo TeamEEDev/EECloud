@@ -63,11 +63,11 @@
         End Get
     End Property
 
-    Private myGravityMultiplayer As Double
+    Private myGravityMultiplier As Double
 
-    Friend ReadOnly Property GravityMultiplayer As Double Implements IGame.GravityMultiplayer
+    Friend ReadOnly Property GravityMultiplier As Double Implements IGame.GravityMultiplier
         Get
-            Return myGravityMultiplayer
+            Return myGravityMultiplier
         End Get
     End Property
 
@@ -112,7 +112,7 @@
         myPlays = e.Plays
         myEncryption = Derot(e.Encryption)
         myIsTutorialRoom = e.IsTutorialRoom
-        myGravityMultiplayer = e.Gravity
+        myGravityMultiplier = e.Gravity
         myAllowPotions = e.AllowPotions
         myCurrentWoots = e.CurrentWoots
         myTotalWoots = e.TotalWoots

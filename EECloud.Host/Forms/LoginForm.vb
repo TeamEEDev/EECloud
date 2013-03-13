@@ -20,6 +20,8 @@ Friend NotInheritable Class LoginForm
     Friend Sub New()
         Icon = My.Resources.Icon
         InitializeComponent()
+
+        KeyPreview = True
     End Sub
 
     Private Sub LoginForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -49,21 +51,74 @@ Friend NotInheritable Class LoginForm
         End If
     End Sub
 
-    Private Sub TextBoxEmail_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBoxEmail.KeyPress
-        If e.KeyChar = CtrlA Then
-            TextBoxEmail.SelectAll()
+    Private Sub TextBoxEmail_KeyDown(sender As Object, e As KeyEventArgs) Handles TextBoxEmail.KeyDown
+        If e.Control Then
+            If e.KeyCode = Keys.A Then
+                TextBoxEmail.SelectAll()
+            End If
+        ElseIf e.KeyCode = Keys.Delete Then
+            If TextBoxEmail.SelectedIndex > -1 Then
+                Dim removeLocation As Integer
+
+                Select Case selectedLoginType
+                    Case AccountType.Regular
+                        If TextBoxEmail.Text.ToLower(InvariantCulture) = "guest" Then
+                            Exit Sub
+                        End If
+
+                        removeLocation = regularAccounts(TextBoxEmail.SelectedIndex)
+
+                    Case AccountType.Facebook
+                        removeLocation = facebookAccounts(TextBoxEmail.SelectedIndex)
+                End Select
+
+                e.Handled = True
+
+                TextBoxEmail.Items.RemoveAt(removeLocation)
+                My.Settings.LoginTypes.RemoveAt(removeLocation)
+                My.Settings.LoginEmails.RemoveAt(removeLocation)
+                My.Settings.LoginPasswords.RemoveAt(removeLocation)
+
+                My.Settings.Save()
+                If TextBoxEmail.Items.Count > 0 Then
+                    TextBoxEmail.SelectedIndex = 0
+                Else
+                    TextBoxEmail.Text = String.Empty
+                    TextBoxPassword.Text = String.Empty
+                End If
+            End If
         End If
     End Sub
 
-    Private Sub TextBoxPassword_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBoxPassword.KeyPress
-        If e.KeyChar = CtrlA Then
-            TextBoxPassword.SelectAll()
+    Private Sub TextBoxPassword_KeyDown(sender As Object, e As KeyEventArgs) Handles TextBoxPassword.KeyDown
+        If e.Control Then
+            If e.KeyCode = Keys.A Then
+                TextBoxPassword.SelectAll()
+            End If
         End If
     End Sub
 
-    Private Sub TextBoxWorldID_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBoxWorldID.KeyPress
-        If e.KeyChar = CtrlA Then
-            TextBoxWorldID.SelectAll()
+    Private Sub TextBoxWorldID_KeyDown(sender As Object, e As KeyEventArgs) Handles TextBoxWorldID.KeyDown
+        If e.Control Then
+            If e.KeyCode = Keys.A Then
+                TextBoxWorldID.SelectAll()
+            End If
+        ElseIf e.KeyCode = Keys.Delete Then
+            If TextBoxWorldID.SelectedIndex > -1 Then
+                If TextBoxWorldID.Text <> "ChrisWorld" Then
+                    e.Handled = True
+
+                    TextBoxWorldID.Items.RemoveAt(TextBoxWorldID.SelectedIndex)
+                    My.Settings.LoginWorldIDs.RemoveAt(TextBoxWorldID.SelectedIndex)
+
+                    My.Settings.Save()
+                    If TextBoxWorldID.Items.Count > 0 Then
+                        TextBoxWorldID.SelectedIndex = 0
+                    Else
+                        TextBoxWorldID.Text = String.Empty
+                    End If
+                End If
+            End If
         End If
     End Sub
 

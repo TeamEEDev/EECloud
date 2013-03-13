@@ -43,7 +43,13 @@
     Friend ReadOnly Property IsPortal(id As Block) As Boolean
         Get
             Return id = Block.BlockPortal OrElse
-                   id = Block.BlockWorldPortal
+                   id = Block.BlockInvisiblePortal
+        End Get
+    End Property
+
+    Friend ReadOnly Property IsWorldPortal(id As Block) As Boolean
+        Get
+            Return id = Block.BlockWorldPortal
         End Get
     End Property
 
