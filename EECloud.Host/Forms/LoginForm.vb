@@ -20,6 +20,8 @@ Friend NotInheritable Class LoginForm
     Friend Sub New()
         Icon = My.Resources.Icon
         InitializeComponent()
+
+        KeyPreview = True
     End Sub
 
     Private Sub LoginForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -49,21 +51,35 @@ Friend NotInheritable Class LoginForm
         End If
     End Sub
 
-    Private Sub TextBoxEmail_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBoxEmail.KeyPress
-        If e.KeyChar = CtrlA Then
-            TextBoxEmail.SelectAll()
+    Private Sub TextBoxEmail_KeyDown(sender As Object, e As KeyEventArgs) Handles TextBoxEmail.KeyDown
+        If e.Control Then
+            If e.KeyCode = Keys.A Then
+                TextBoxEmail.SelectAll()
+            End If
+        ElseIf e.KeyCode = Keys.Delete Then
+            If TextBoxEmail.SelectedIndex > -1 Then
+                'TODO: Remove that account and select the one in the top of the list.
+            End If
         End If
     End Sub
 
-    Private Sub TextBoxPassword_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBoxPassword.KeyPress
-        If e.KeyChar = CtrlA Then
-            TextBoxPassword.SelectAll()
+    Private Sub TextBoxPassword_KeyDown(sender As Object, e As KeyEventArgs) Handles TextBoxPassword.KeyDown
+        If e.Control Then
+            If e.KeyCode = Keys.A Then
+                TextBoxPassword.SelectAll()
+            End If
         End If
     End Sub
 
-    Private Sub TextBoxWorldID_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBoxWorldID.KeyPress
-        If e.KeyChar = CtrlA Then
-            TextBoxWorldID.SelectAll()
+    Private Sub TextBoxWorldID_KeyDown(sender As Object, e As KeyEventArgs) Handles TextBoxWorldID.KeyDown
+        If e.Control Then
+            If e.KeyCode = Keys.A Then
+                TextBoxWorldID.SelectAll()
+            End If
+        ElseIf e.KeyCode = Keys.Delete Then
+            If TextBoxWorldID.SelectedIndex > -1 Then
+                'TODO: Remove that world and select the one in the top of the list.
+            End If
         End If
     End Sub
 
