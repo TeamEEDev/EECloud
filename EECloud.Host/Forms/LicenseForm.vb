@@ -12,6 +12,8 @@ Friend Class LicenseForm
         Icon = My.Resources.Icon
         InitializeComponent()
 
+        KeyPreview = True
+
         TextBoxUsername.Text = My.Settings.LicenseUsername
         TextBoxKey.Text = My.Settings.LicenseKey
     End Sub
@@ -22,15 +24,19 @@ Friend Class LicenseForm
         End If
     End Sub
 
-    Private Sub TextBoxUsername_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBoxUsername.KeyPress
-        If e.KeyChar = CtrlA Then
-            TextBoxUsername.SelectAll()
+    Private Sub TextBoxUsername_KeyDown(sender As Object, e As KeyEventArgs) Handles TextBoxUsername.KeyDown
+        If e.Control Then
+            If e.KeyCode = Keys.A Then
+                TextBoxUsername.SelectAll()
+            End If
         End If
     End Sub
 
-    Private Sub TextBoxKey_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBoxKey.KeyPress
-        If e.KeyChar = CtrlA Then
-            TextBoxKey.SelectAll()
+    Private Sub TextBoxKey_KeyDown(sender As Object, e As KeyEventArgs) Handles TextBoxKey.KeyDown
+        If e.Control Then
+            If e.KeyCode = Keys.A Then
+                TextBoxKey.SelectAll()
+            End If
         End If
     End Sub
 
