@@ -12,7 +12,7 @@ Public NotInheritable Class WorldPortalPlaceUploadMessage
     End Sub
 
     Friend Overrides Function GetMessage(game As IGame) As Message
-        If IsPortal(Block) Then
+        If IsWorldPortal(Block) Then
             Dim message As Message = MyBase.GetMessage(game)
             message.Add(PortalTarget)
             Return message
