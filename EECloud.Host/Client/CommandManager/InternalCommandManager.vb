@@ -46,15 +46,20 @@
     End Property
 
     Friend Sub HandleMessage(msg As String, user As Integer, rights As Group)
+        Dim sender As IPlayer = myClient.InternalPlayerManager.Players(user)
+        If sender IsNot Nothing Then
+            If sender.Group > rights Then rights = sender.Group
+        End If
+
         Dim eventArgs As New CommandEventArgs(msg, rights, user)
         RaiseEvent OnCommand(Me, eventArgs)
+
         If eventArgs.Handled = False Then
-            If myClient.InternalPlayerManager.Players.ContainsKey(user) Then
-                Dim sender As IPlayer = myClient.InternalPlayerManager.Players(user)
-                If sender.Group >= Group.Trusted Then
+            If sender IsNot Nothing Then
+                If eventArgs.Rights >= Group.Trusted Then
                     sender.Reply("Unknown command")
                 End If
-            ElseIf rights >= Group.Moderator Then
+            ElseIf eventArgs.Rights >= Group.Moderator Then
                 Cloud.Logger.Log(LogPriority.Info, "Unknown command")
             End If
         End If
