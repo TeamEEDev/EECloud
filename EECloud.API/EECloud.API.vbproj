@@ -81,6 +81,7 @@
     <Compile Include="Enums\AccountType.vb" />
     <Compile Include="Enums\BlockType.vb" />
     <Compile Include="Enums\Block\RotatableBlock.vb" />
+    <Compile Include="Enums\Block\WorldPortalBlock.vb" />
     <Compile Include="Enums\ScifiStraightRotation.vb" />
     <Compile Include="Enums\ScifiSlopeRotation.vb" />
     <Compile Include="Enums\MagicClass.vb" />
@@ -232,13 +233,6 @@
     <Compile Include="Messages\Receive\UpgradeReceiveMessage.vb" />
     <Compile Include="UploadSnapshot.vb" />
     <Compile Include="Utils.vb" />
-    <Compile Include="World\WorldWorldPortalBlock.vb" />
-    <Compile Include="World\WorldBlock.vb" />
-    <Compile Include="World\WorldCoinDoorBlock.vb" />
-    <Compile Include="World\WorldLabelBlock.vb" />
-    <Compile Include="World\WorldPortalBlock.vb" />
-    <Compile Include="World\WorldRotatableBlock.vb" />
-    <Compile Include="World\WorldSoundBlock.vb" />
   </ItemGroup>
   <ItemGroup>
     <None Include="My Project\Application.myapp">

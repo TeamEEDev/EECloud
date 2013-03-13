@@ -138,6 +138,13 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Client\World\Blocks\WorldBlock.vb" />
+    <Compile Include="Client\World\Blocks\WorldCoinDoorBlock.vb" />
+    <Compile Include="Client\World\Blocks\WorldLabelBlock.vb" />
+    <Compile Include="Client\World\Blocks\WorldPortalBlock.vb" />
+    <Compile Include="Client\World\Blocks\WorldRotatableBlock.vb" />
+    <Compile Include="Client\World\Blocks\WorldSoundBlock.vb" />
+    <Compile Include="Client\World\Blocks\WorldWorldPortalBlock.vb" />
   </ItemGroup>
   <ItemGroup>
     <None Include="My Project\Application.myapp">
