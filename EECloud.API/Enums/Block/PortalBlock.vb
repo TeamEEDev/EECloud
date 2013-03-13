@@ -1,4 +1,4 @@
 ﻿Public Enum PortalBlock
     BlockPortal = Block.BlockPortal
-    BlockWorldPortal = Block.BlockWorldPortal
+    BlockInvisiblePortal = Block.BlockInvisiblePortal
 End Enum

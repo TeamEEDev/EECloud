@@ -6,7 +6,7 @@
 
     Public Overrides ReadOnly Property BlockType As BlockType
         Get
-            Return BlockType.Portal
+            Return BlockType.WorldPortal
         End Get
     End Property
 
@@ -22,7 +22,7 @@
 
 #Region "Methods"
 
-    Public Sub New(block As PortalBlock, portalTarget As String)
+    Public Sub New(block As API.WorldPortalBlock, portalTarget As String)
         MyBase.New(DirectCast(block, Block))
         myPortalTarget = portalTarget
     End Sub

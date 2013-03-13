@@ -57,7 +57,7 @@ Friend NotInheritable Class World
         Next
 
         Dim value(1, sizeX - 1, sizeY - 1) As IWorldBlock
-        value = ClearWorld(value, False)
+        ClearWorld(value, False)
 
         Dim block1 As Block
         Dim layer As Layer
@@ -87,8 +87,8 @@ Friend NotInheritable Class World
 
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         value(layer,
-                              byteArrayX(i) << 8 + byteArrayX(i + 1),
-                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldCoinDoorBlock(DirectCast(block1, CoinDoorBlock), coinsToCollect)
+                              byteArrayX(i) * 256 + byteArrayX(i + 1),
+                              byteArrayY(i) * 256 + byteArrayY(i + 1)) = New WorldCoinDoorBlock(DirectCast(block1, CoinDoorBlock), coinsToCollect)
                     Next
 
                 Case Block.BlockMusicPiano,
@@ -98,8 +98,8 @@ Friend NotInheritable Class World
 
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         value(layer,
-                              byteArrayX(i) << 8 + byteArrayX(i + 1),
-                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldSoundBlock(DirectCast(block1, SoundBlock), soundID)
+                              byteArrayX(i) * 256 + byteArrayX(i + 1),
+                              byteArrayY(i) * 256 + byteArrayY(i + 1)) = New WorldSoundBlock(DirectCast(block1, SoundBlock), soundID)
                     Next
 
                 Case Block.BlockHazardSpike,
@@ -114,11 +114,11 @@ Friend NotInheritable Class World
 
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         value(layer,
-                              byteArrayX(i) << 8 + byteArrayX(i + 1),
-                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldRotatableBlock(DirectCast(block1, RotatableBlock), rotation)
+                              byteArrayX(i) * 256 + byteArrayX(i + 1),
+                              byteArrayY(i) * 256 + byteArrayY(i + 1)) = New WorldRotatableBlock(DirectCast(block1, RotatableBlock), rotation)
                     Next
 
-                Case Block.BlockPortal
+                Case Block.BlockPortal, Block.BlockInvisiblePortal
                     Dim portalRotation As PortalRotation = DirectCast(m.GetInteger(pointer), PortalRotation)
                     pointer += 1
                     Dim portalID As Integer = m.GetInteger(pointer)
@@ -128,8 +128,8 @@ Friend NotInheritable Class World
 
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         value(layer,
-                              byteArrayX(i) << 8 + byteArrayX(i + 1),
-                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldPortalBlock(DirectCast(block1, PortalBlock), portalRotation, portalID, portalTarget)
+                              byteArrayX(i) * 256 + byteArrayX(i + 1),
+                              byteArrayY(i) * 256 + byteArrayY(i + 1)) = New WorldPortalBlock(DirectCast(block1, PortalBlock), portalRotation, portalID, portalTarget)
                     Next
 
                 Case Block.BlockWorldPortal
@@ -138,8 +138,8 @@ Friend NotInheritable Class World
 
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         value(layer,
-                              byteArrayX(i) << 8 + byteArrayX(i + 1),
-                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldWorldPortalBlock(DirectCast(block1, PortalBlock), portalTarget)
+                              byteArrayX(i) * 256 + byteArrayX(i + 1),
+                              byteArrayY(i) * 256 + byteArrayY(i + 1)) = New WorldWorldPortalBlock(DirectCast(block1, API.WorldPortalBlock), portalTarget)
                     Next
 
                 Case Block.BlockLabel
@@ -148,15 +148,15 @@ Friend NotInheritable Class World
 
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         value(layer,
-                              byteArrayX(i) << 8 + byteArrayX(i + 1),
-                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldLabelBlock(DirectCast(block1, LabelBlock), text)
+                              byteArrayX(i) * 256 + byteArrayX(i + 1),
+                              byteArrayY(i) * 256 + byteArrayY(i + 1)) = New WorldLabelBlock(DirectCast(block1, LabelBlock), text)
                     Next
 
                 Case Else
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         value(layer,
-                              byteArrayX(i) << 8 + byteArrayX(i + 1),
-                              byteArrayY(i) << 8 + byteArrayY(i + 1)) = New WorldBlock(block1)
+                              byteArrayX(i) * 256 + byteArrayX(i + 1),
+                              byteArrayY(i) * 256 + byteArrayY(i + 1)) = New WorldBlock(block1)
                     Next
             End Select
         Loop
@@ -164,7 +164,7 @@ Friend NotInheritable Class World
         Return value
     End Function
 
-    Private Shared Function ClearWorld(blockArray As IWorldBlock(,,), Optional drawBorder As Boolean = True)
+    Private Shared Sub ClearWorld(ByRef blockArray As IWorldBlock(,,), Optional drawBorder As Boolean = True)
         Dim toX = blockArray.GetLength(1) - 2
         Dim toY = blockArray.GetLength(2) - 2
 
@@ -181,14 +181,10 @@ Friend NotInheritable Class World
         '</Fill the middle with GravityNothing blocks>
 
         '<Border drawing>
-        If drawBorder Then
-            tmpBlock = New WorldBlock(Block.BlockBasicGrey)
-        End If
-
         toX += 1
         toY += 1
 
-        For l = 0 To 1
+        For l = 1 To 0 Step -1
             For x = 0 To toX
                 blockArray(l, x, 0) = tmpBlock
                 blockArray(l, x, toY) = tmpBlock
@@ -198,11 +194,13 @@ Friend NotInheritable Class World
                 blockArray(l, 0, y) = tmpBlock
                 blockArray(l, toX, y) = tmpBlock
             Next
+
+            If drawBorder Then 'l = Layer.Foreground AndAlso drawBorder
+                tmpBlock = New WorldBlock(Block.BlockBasicGrey)
+            End If
         Next
         '</Border drawing>
-
-        Return blockArray
-    End Function
+    End Sub
 
     Private Sub myConnection_ReceiveInit(sender As Object, e As InitReceiveMessage) Handles myConnection.ReceiveInit
         mySizeX = e.SizeX
@@ -235,7 +233,7 @@ Friend NotInheritable Class World
     End Sub
 
     Private Sub myConnection_ReceiveWorldPortalPlace(sender As Object, e As WorldPortalPlaceReceiveMessage) Handles myConnection.ReceiveWorldPortalPlace
-        Dim block As New WorldWorldPortalBlock(e.PortalBlock, e.PortalTarget)
+        Dim block As New WorldWorldPortalBlock(e.WorldPortalBlock, e.PortalTarget)
         myBlocks(e.Layer, e.PosX, e.PosY) = block
         RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer))
     End Sub
@@ -257,7 +255,7 @@ Friend NotInheritable Class World
     End Sub
 
     Private Sub myConnection_ReceiveClear(sender As Object, e As ClearReceiveMessage) Handles myConnection.ReceiveClear
-        myBlocks = ClearWorld(myBlocks)
+        ClearWorld(myBlocks)
     End Sub
 
 #End Region

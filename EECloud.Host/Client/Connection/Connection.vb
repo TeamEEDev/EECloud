@@ -738,7 +738,7 @@ Friend NotInheritable Class Connection
                 RaiseEvent PreviewReceiveLevelup(Me, m)
                 RaiseEvent ReceiveLevelup(Me, m)
 
-            
+
             Case GetType(WootUpReceiveMessage)
                 Dim m As WootUpReceiveMessage = DirectCast(e, WootUpReceiveMessage)
                 RaiseEvent PreviewReceiveWootUp(Me, m)
@@ -871,7 +871,7 @@ Friend NotInheritable Class Connection
             ElseIf myInited Then 'Don't pass annoying "unregistered message" warnings
                 Dim messageArguments As New List(Of String)
                 For n As UInteger = 0 To CUInt(m.Count - 1)
-                    messageArguments.Add("   [" & m.Item(n).GetType.Name & "] " & DirectCast(m.Item(n), String))
+                    messageArguments.Add("   [" & m.Item(n).GetType.Name & "] " & CStr(m.Item(n)))
                 Next
 
                 Cloud.Logger.Log(LogPriority.Warning, "Received unregistered message with type """ & m.Type & """." & Environment.NewLine &

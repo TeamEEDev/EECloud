@@ -5,14 +5,14 @@ Public NotInheritable Class WorldPortalPlaceUploadMessage
 
     Public ReadOnly PortalTarget As String
 
-    Public Sub New(layer As Layer, x As Integer, y As Integer, block As PortalBlock, portalTarget As String)
+    Public Sub New(layer As Layer, x As Integer, y As Integer, block As WorldPortalBlock, portalTarget As String)
         MyBase.New(layer, x, y, DirectCast(block, Block))
 
         Me.PortalTarget = portalTarget
     End Sub
 
     Friend Overrides Function GetMessage(game As IGame) As Message
-        If IsPortal(Block) Then
+        If IsWorldPortal(Block) Then
             Dim message As Message = MyBase.GetMessage(game)
             message.Add(PortalTarget)
             Return message
