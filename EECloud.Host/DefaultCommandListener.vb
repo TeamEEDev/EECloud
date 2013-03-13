@@ -437,15 +437,18 @@ Friend NotInheritable Class DefaultCommandListener
         End If
     End Sub
 
-    Private Sub myPlayerManager_OnSay(sender As Object, e As Player) Handles myPlayerManager.OnSay
-        Cloud.Logger.Log(LogPriority.Info, myClient.Chatter.SyntaxProvider.ApplyChatSyntax(e.Say, e.Username))
+    Private Sub myConnection_PreviewReceiveSay(sender As Object, e As SayReceiveMessage) Handles myConnection.PreviewReceiveSay
+        Dim player As Player = myPlayerManager.Player(e.UserID)
+        If player IsNot Nothing Then
+            Cloud.Logger.Log(LogPriority.Info, myClient.Chatter.SyntaxProvider.ApplyChatSyntax(e.Text, player.Username))
+        End If
     End Sub
 
-    Private Sub myConnection_ReceiveSayOld(sender As Object, e As SayOldReceiveMessage) Handles myConnection.ReceiveSayOld
+    Private Sub myConnection_PreviewReceiveSayOld(sender As Object, e As SayOldReceiveMessage) Handles myConnection.PreviewReceiveSayOld
         Cloud.Logger.Log(LogPriority.Info, myClient.Chatter.SyntaxProvider.ApplyChatSyntax(e.Text, e.Username))
     End Sub
 
-    Private Sub myConnection_ReceiveWrite(sender As Object, e As WriteReceiveMessage) Handles myConnection.ReceiveWrite
+    Private Sub myConnection_PreviewReceiveWrite(sender As Object, e As WriteReceiveMessage) Handles myConnection.PreviewReceiveWrite
         Cloud.Logger.Log(LogPriority.Info, myClient.Chatter.SyntaxProvider.ApplyChatSyntax(e.Text, e.Title))
     End Sub
 
