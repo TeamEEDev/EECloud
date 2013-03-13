@@ -405,6 +405,7 @@
 
     BlockPortal = 242
     BlockWorldPortal = 374
+    BlockInvisiblePortal = 381
 
     DecorationNewYear2010Purple = 244
     DecorationNewYear2010Yellow = 245

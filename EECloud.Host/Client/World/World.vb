@@ -118,7 +118,7 @@ Friend NotInheritable Class World
                               byteArrayY(i) * 256 + byteArrayY(i + 1)) = New WorldRotatableBlock(DirectCast(block1, RotatableBlock), rotation)
                     Next
 
-                Case Block.BlockPortal
+                Case Block.BlockPortal, Block.BlockInvisiblePortal
                     Dim portalRotation As PortalRotation = DirectCast(m.GetInteger(pointer), PortalRotation)
                     pointer += 1
                     Dim portalID As Integer = m.GetInteger(pointer)
@@ -233,7 +233,7 @@ Friend NotInheritable Class World
     End Sub
 
     Private Sub myConnection_ReceiveWorldPortalPlace(sender As Object, e As WorldPortalPlaceReceiveMessage) Handles myConnection.ReceiveWorldPortalPlace
-        Dim block As New WorldWorldPortalBlock(e.PortalBlock, e.PortalTarget)
+        Dim block As New WorldWorldPortalBlock(e.WorldPortalBlock, e.PortalTarget)
         myBlocks(e.Layer, e.PosX, e.PosY) = block
         RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer))
     End Sub
