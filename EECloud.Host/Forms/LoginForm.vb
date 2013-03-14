@@ -63,6 +63,8 @@ Friend NotInheritable Class LoginForm
 
         ElseIf e.KeyCode = Keys.Delete Then
             If TextBoxEmail.SelectedIndex > -1 Then
+                e.Handled = True
+
                 Dim removeLocation As Integer
 
                 Select Case selectedLoginType
@@ -71,8 +73,6 @@ Friend NotInheritable Class LoginForm
                     Case AccountType.Facebook
                         removeLocation = facebookAccounts(TextBoxEmail.SelectedIndex)
                 End Select
-
-                e.Handled = True
 
                 TextBoxEmail.Items.RemoveAt(removeLocation)
                 My.Settings.LoginTypes.RemoveAt(removeLocation)
@@ -107,8 +107,8 @@ Friend NotInheritable Class LoginForm
             If TextBoxWorldID.SelectedIndex > -1 Then
                 e.Handled = True
 
-                TextBoxWorldID.Items.RemoveAt(TextBoxWorldID.SelectedIndex)
                 My.Settings.LoginWorldIDs.RemoveAt(TextBoxWorldID.SelectedIndex)
+                TextBoxWorldID.Items.RemoveAt(TextBoxWorldID.SelectedIndex)
 
                 My.Settings.Save()
                 If TextBoxWorldID.Items.Count > 0 Then
