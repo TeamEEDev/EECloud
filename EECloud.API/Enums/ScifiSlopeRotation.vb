@@ -1,6 +1,6 @@
-﻿Public Enum ScifiSlopeRotation
-    SouthEast = 0
-    SouthWest = 1
-    NorthWest = 2
-    NorthEast = 3
+﻿Public Enum SciFiSlopeRotation
+    InSouthEastPart = 0
+    InSouthWestPart = 1
+    InNorthWestPart = 2
+    InNorthEastPart = 3
 End Enum
