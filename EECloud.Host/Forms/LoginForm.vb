@@ -25,24 +25,28 @@ Friend NotInheritable Class LoginForm
     End Sub
 
     Private Sub LoginForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        For n = 0 To My.Settings.LoginTypes.Count - 1
-            Select Case My.Settings.LoginTypes(n)
+        If My.Settings.LoginTypes.Count > 0 Then
+            For n = 0 To My.Settings.LoginTypes.Count - 1
+                Select Case My.Settings.LoginTypes(n)
+                    Case AccountType.Regular
+                        regularAccounts.Add(n)
+                    Case AccountType.Facebook
+                        facebookAccounts.Add(n)
+                End Select
+            Next
+
+            Select Case My.Settings.LoginTypes(0)
                 Case AccountType.Regular
-                    regularAccounts.Add(n)
+                    RadioButtonRegular.Checked = True
                 Case AccountType.Facebook
-                    facebookAccounts.Add(n)
+                    RadioButtonFacebook.Checked = True
             End Select
-        Next
 
-        Select Case My.Settings.LoginTypes(0)
-            Case AccountType.Regular
-                RadioButtonRegular.Checked = True
-            Case AccountType.Facebook
-                RadioButtonFacebook.Checked = True
-        End Select
-
-        TextBoxWorldID.Items.AddRange(My.Settings.LoginWorldIDs.Cast(Of String)().ToArray())
-        TextBoxWorldID.Text = TextBoxWorldID.Items(0)
+            TextBoxWorldID.Items.AddRange(My.Settings.LoginWorldIDs.Cast(Of String)().ToArray())
+            TextBoxWorldID.Text = TextBoxWorldID.Items(0)
+        Else
+            RadioButtonRegular.Checked = True
+        End If
     End Sub
 
     Private Sub LoginForm_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
@@ -56,18 +60,14 @@ Friend NotInheritable Class LoginForm
             If e.KeyCode = Keys.A Then
                 TextBoxEmail.SelectAll()
             End If
+
         ElseIf e.KeyCode = Keys.Delete Then
             If TextBoxEmail.SelectedIndex > -1 Then
                 Dim removeLocation As Integer
 
                 Select Case selectedLoginType
                     Case AccountType.Regular
-                        If TextBoxEmail.Text.ToLower(InvariantCulture) = "guest" Then
-                            Exit Sub
-                        End If
-
                         removeLocation = regularAccounts(TextBoxEmail.SelectedIndex)
-
                     Case AccountType.Facebook
                         removeLocation = facebookAccounts(TextBoxEmail.SelectedIndex)
                 End Select
@@ -105,29 +105,26 @@ Friend NotInheritable Class LoginForm
             End If
         ElseIf e.KeyCode = Keys.Delete Then
             If TextBoxWorldID.SelectedIndex > -1 Then
-                If TextBoxWorldID.Text <> "ChrisWorld" Then
-                    e.Handled = True
+                e.Handled = True
 
-                    TextBoxWorldID.Items.RemoveAt(TextBoxWorldID.SelectedIndex)
-                    My.Settings.LoginWorldIDs.RemoveAt(TextBoxWorldID.SelectedIndex)
+                TextBoxWorldID.Items.RemoveAt(TextBoxWorldID.SelectedIndex)
+                My.Settings.LoginWorldIDs.RemoveAt(TextBoxWorldID.SelectedIndex)
 
-                    My.Settings.Save()
-                    If TextBoxWorldID.Items.Count > 0 Then
-                        TextBoxWorldID.SelectedIndex = 0
-                    Else
-                        TextBoxWorldID.Text = String.Empty
-                    End If
+                My.Settings.Save()
+                If TextBoxWorldID.Items.Count > 0 Then
+                    TextBoxWorldID.SelectedIndex = 0
+                Else
+                    TextBoxWorldID.Text = String.Empty
                 End If
             End If
         End If
     End Sub
 
     Private Sub ButtonJoinWorld_Click(sender As Object, e As EventArgs) Handles ButtonJoinWorld.Click
-        If Not TextBoxEmail.Text = String.Empty Then
-            If Not TextBoxPassword.Text = String.Empty OrElse RadioButtonFacebook.Checked Then
-                If Not TextBoxWorldID.Text = String.Empty Then
+        If TextBoxEmail.Text <> String.Empty Then
+            If TextBoxPassword.Text <> String.Empty OrElse RadioButtonFacebook.Checked Then
+                If TextBoxWorldID.Text <> String.Empty Then
                     Dim settingIndex As Integer = My.Settings.LoginEmails.IndexOf(TextBoxEmail.Text)
-
                     If settingIndex > -1 Then
                         My.Settings.LoginTypes.RemoveAt(settingIndex)
                         My.Settings.LoginEmails.RemoveAt(settingIndex)
@@ -193,15 +190,21 @@ Friend NotInheritable Class LoginForm
             If senderAsRadioButton.Text = RadioButtonRegular.Text Then
                 selectedLoginType = AccountType.Regular
 
-                For n = 0 To regularAccounts.Count - 1
-                    TextBoxEmail.Items.Add(My.Settings.LoginEmails(regularAccounts(n)))
-                Next
-                TextBoxEmail.Text = TextBoxEmail.Items(0)
+                If regularAccounts.Count > 0 Then
+                    For n = 0 To regularAccounts.Count - 1
+                        TextBoxEmail.Items.Add(My.Settings.LoginEmails(regularAccounts(n)))
+                    Next
 
-                LabelPassword.Enabled = True
-                TextBoxPassword.Text = My.Settings.LoginPasswords(0)
+                    TextBoxEmail.Text = TextBoxEmail.Items(0)
+                    TextBoxPassword.Text = My.Settings.LoginPasswords(regularAccounts(0))
+                Else
+                    TextBoxEmail.Text = String.Empty
+                End If
+
                 TextBoxPassword.Enabled = True
                 LabelEmail.Text = "E-mail:"
+                LabelPassword.Enabled = True
+
             Else 'If senderAsRadioButton.Text = RadioButtonFacebook.Text Then
                 selectedLoginType = AccountType.Facebook
 
@@ -209,6 +212,7 @@ Friend NotInheritable Class LoginForm
                     For n = 0 To facebookAccounts.Count - 1
                         TextBoxEmail.Items.Add(My.Settings.LoginEmails(facebookAccounts(n)))
                     Next
+
                     TextBoxEmail.Text = TextBoxEmail.Items(0)
                 Else
                     TextBoxEmail.Text = String.Empty
@@ -216,8 +220,8 @@ Friend NotInheritable Class LoginForm
 
                 TextBoxPassword.Enabled = False
                 TextBoxPassword.Text = String.Empty
-                LabelPassword.Enabled = False
                 LabelEmail.Text = "Token:"
+                LabelPassword.Enabled = False
             End If
         End If
     End Sub

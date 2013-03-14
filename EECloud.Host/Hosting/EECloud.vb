@@ -23,11 +23,19 @@ Public NotInheritable Class EECloud
 
         myLicenseUsername = My.Settings.LicenseUsername
         myLicenseKey = My.Settings.LicenseKey
-        myUsername = My.Settings.LoginEmails(0)
-        myPassword = My.Settings.LoginPasswords(0)
-        myType = My.Settings.LoginTypes(0)
-        myWorldID = My.Settings.LoginWorldIDs(0)
+
+        If My.Settings.LoginTypes.Count > 0 Then
+            myUsername = My.Settings.LoginEmails(0)
+            myPassword = My.Settings.LoginPasswords(0)
+            myType = My.Settings.LoginTypes(0)
+        End If
+
+        If My.Settings.LoginWorldIDs.Count > 0 Then
+            myWorldID = My.Settings.LoginWorldIDs(0)
+        End If
+
         myCommandChar = My.Settings.CommandChar
+
         Cloud.LicenseUsername = myLicenseUsername
     End Sub
 
@@ -158,15 +166,20 @@ Public NotInheritable Class EECloud
         If Not My.Settings.Restart Then
             Await Task.Run(
                 Sub()
-                    If Not New LoginForm().ShowDialog = DialogResult.OK Then
+                    If Not New LoginForm().ShowDialog() = DialogResult.OK Then
                         Environment.Exit(0)
                     End If
                 End Sub)
 
-            myUsername = My.Settings.LoginEmails(0)
-            myPassword = My.Settings.LoginPasswords(0)
-            myType = My.Settings.LoginTypes(0)
-            myWorldID = My.Settings.LoginWorldIDs(0)
+            If My.Settings.LoginTypes.Count > 0 Then
+                myUsername = My.Settings.LoginEmails(0)
+                myPassword = My.Settings.LoginPasswords(0)
+                myType = My.Settings.LoginTypes(0)
+            End If
+
+            If My.Settings.LoginWorldIDs.Count > 0 Then
+                myWorldID = My.Settings.LoginWorldIDs(0)
+            End If
         Else
             My.Settings.Restart = False
             My.Settings.Save()
