@@ -41,11 +41,13 @@ Friend NotInheritable Class LoginForm
                 Case AccountType.Facebook
                     RadioButtonFacebook.Checked = True
             End Select
-
-            TextBoxWorldID.Items.AddRange(My.Settings.LoginWorldIDs.Cast(Of String)().ToArray())
-            TextBoxWorldID.Text = TextBoxWorldID.Items(0)
         Else
             RadioButtonRegular.Checked = True
+        End If
+
+        If My.Settings.LoginWorldIDs.Count > 0 Then
+            TextBoxWorldID.Items.AddRange(My.Settings.LoginWorldIDs.Cast(Of String)().ToArray())
+            TextBoxWorldID.Text = TextBoxWorldID.Items(0)
         End If
     End Sub
 
