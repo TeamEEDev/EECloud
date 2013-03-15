@@ -24,6 +24,45 @@
         End Using
     End Function
 
+    Friend Function GetSettings(ParamArray keyList() As String) As KeyValuePair(Of String, String)() Implements IEEService.GetSettings
+        If keyList Is Nothing OrElse keyList.Count < 0 Then
+            Throw New ArgumentNullException("keyList", "KeyList can't be null, and its length must be 1 or more.")
+        End If
+
+        For i = 0 To keyList.Length - 1
+            If String.IsNullOrEmpty(keyList(i)) Then
+                Throw New ArgumentNullException("keyList", "KeyList mustn't contain empty or null values.")
+            End If
+        Next
+
+        Using connection As New MySqlConnection(MySQLConnStr)
+            connection.Open()
+
+            Using command As MySqlCommand = connection.CreateCommand()
+                command.CommandText = "SELECT SettingKey, SettingValue FROM settings WHERE SettingKey = @SettingKey0"
+                command.Parameters.AddWithValue("@SettingKey0", keyList(0))
+
+                For i = 1 To keyList.Length - 1
+                    command.CommandText &= " OR SettingKey = @SettingKey" & i
+                    command.Parameters.AddWithValue("@SettingKey" & i, keyList(i))
+                Next
+
+                Try
+                    Using reader As MySqlDataReader = command.ExecuteReader()
+                        Dim settings As New List(Of KeyValuePair(Of String, String))
+                        While reader.Read()
+                            settings.Add(New KeyValuePair(Of String, String)(reader.GetString(0), reader.GetString(1)))
+                        End While
+
+                        Return settings.ToArray()
+                    End Using
+                Catch ex As Exception
+                    Throw New Exception("Unknown error", ex)
+                End Try
+            End Using
+        End Using
+    End Function
+
     Friend Sub SetSetting(key As String, value As String) Implements IEEService.SetSetting
         If String.IsNullOrEmpty(key) Then
             Throw New ArgumentNullException("key")
@@ -108,7 +147,7 @@
                         Return userDatas.ToArray()
                     End Using
                 Catch ex As Exception
-                    Return GetPlayerDataRange(offset, limit)
+                    Throw New Exception("Unknown error", ex)
                 End Try
             End Using
         End Using
@@ -261,7 +300,7 @@
             Throw New ArgumentNullException("reader")
         End If
 
-        Return New UserData With {.Username = TryCastStr(reader.GetString(0)),
+        Return New UserData With {.Username = reader.GetString(0),
             .GroupID = TryCastShort(reader.GetValue(1)),
             .YoScrollWins = TryCastUShort(reader.GetValue(2)),
             .FTBreakerWins = TryCastUShort(reader.GetValue(3))}

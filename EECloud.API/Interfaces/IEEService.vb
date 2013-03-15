@@ -5,6 +5,8 @@
 
     Function GetSetting(key As String) As String
 
+    Function GetSettings(ParamArray keyList As String()) As KeyValuePair(Of String, String)()
+
     Sub SetSetting(key As String, value As String)
 
     Sub SetFact(factID As String, factGroup As String)
