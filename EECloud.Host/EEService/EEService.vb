@@ -24,7 +24,7 @@
         End Using
     End Function
 
-    Friend Function GetSettings(ParamArray keyList() As String) As KeyValuePair(Of String, String)() Implements IEEService.GetSettings
+    Friend Function GetSettings(ParamArray keyList() As String) As Dictionary(Of String, String) Implements IEEService.GetSettings
         If keyList Is Nothing OrElse keyList.Count < 0 Then
             Throw New ArgumentNullException("keyList", "KeyList can't be null, and its length must be 1 or more.")
         End If
@@ -49,12 +49,12 @@
 
                 Try
                     Using reader As MySqlDataReader = command.ExecuteReader()
-                        Dim settings As New List(Of KeyValuePair(Of String, String))
+                        Dim dic As New Dictionary(Of String, String)
                         While reader.Read()
-                            settings.Add(New KeyValuePair(Of String, String)(reader.GetString(0), reader.GetString(1)))
+                            dic.Add(reader.GetString(0), reader.GetString(1))
                         End While
 
-                        Return settings.ToArray()
+                        Return dic
                     End Using
                 Catch ex As Exception
                     Throw New Exception("Unknown error", ex)
