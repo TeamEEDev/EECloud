@@ -227,7 +227,7 @@
         End If
     End Sub
 
-    Private Sub myConnection_ReceiveLevelUp(sender As Object, e As LevelUpRecieveMessage) Handles myConnection.ReceiveLevelUp
+    Private Sub myConnection_ReceiveLevelUp(sender As Object, e As LevelUpReceiveMessage) Handles myConnection.ReceiveLevelUp
         Dim p As TPlayer = Player(e.UserID)
 
         If p IsNot Nothing Then
@@ -235,7 +235,7 @@
         End If
     End Sub
 
-    Private Sub myConnection_ReceiveMagic(sender As Object, e As MagicRecieveMessage) Handles myConnection.ReceiveMagic
+    Private Sub myConnection_ReceiveMagic(sender As Object, e As MagicReceiveMessage) Handles myConnection.ReceiveMagic
         Dim p As TPlayer = Player(e.UserID)
 
         If p IsNot Nothing Then
