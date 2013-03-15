@@ -9,6 +9,8 @@
 
     Sub SetSetting(key As String, value As String)
 
+    Sub SetSettings(ParamArray keyValuePairs() As KeyValuePair(Of String, String))
+
     Sub SetFact(factID As String, factGroup As String)
 
     Sub RemoveFact(factID As String)

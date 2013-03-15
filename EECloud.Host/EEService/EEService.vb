@@ -25,13 +25,13 @@
     End Function
 
     Friend Function GetSettings(ParamArray keyList() As String) As Dictionary(Of String, String) Implements IEEService.GetSettings
-        If keyList Is Nothing OrElse keyList.Count < 0 Then
-            Throw New ArgumentNullException("keyList", "KeyList can't be null, and its length must be 1 or more.")
+        If keyList Is Nothing OrElse keyList.Count < 1 Then
+            Throw New ArgumentNullException("keyList", "'KeyList' can't be null, and its length must be 1 or more.")
         End If
 
         For i = 0 To keyList.Length - 1
             If String.IsNullOrEmpty(keyList(i)) Then
-                Throw New ArgumentNullException("keyList", "KeyList mustn't contain empty or null values.")
+                Throw New ArgumentNullException("keyList", "'KeyList' mustn't contain empty or null values.")
             End If
         Next
 
@@ -78,6 +78,32 @@
                 command.CommandText = "INSERT INTO settings VALUES (@SettingKey, @SettingValue) ON DUPLICATE KEY UPDATE SettingValue = @SettingValue"
                 command.Parameters.AddWithValue("@SettingKey", key)
                 command.Parameters.AddWithValue("@SettingValue", value)
+
+                command.ExecuteNonQuery()
+            End Using
+        End Using
+    End Sub
+
+    Friend Sub SetSettings(ParamArray keyValuePairs() As KeyValuePair(Of String, String)) Implements IEEService.SetSettings
+        If keyValuePairs Is Nothing OrElse keyValuePairs.Length < 1 Then
+            Throw New ArgumentNullException("keyValuePairs", "'KeyValuePairs' can't be null, and its length must be 1 or more.")
+        End If
+
+        For i = 0 To keyValuePairs.Length - 1
+            If String.IsNullOrEmpty(keyValuePairs(i).Key) OrElse String.IsNullOrEmpty(keyValuePairs(i).Value) Then
+                Throw New ArgumentNullException("keyValuePairs", "'KeyValuePairs' mustn't contain empty or null values.")
+            End If
+        Next
+
+        Using connection As New MySqlConnection(MySQLConnStr)
+            connection.Open()
+
+            Using command As MySqlCommand = connection.CreateCommand()
+                For i = 0 To keyValuePairs.Length - 1
+                    command.CommandText &= String.Format("INSERT INTO settings VALUES (@SettingKey{0}, @SettingValue{0}) ON DUPLICATE KEY UPDATE SettingValue = @SettingValue{0};", i)
+                    command.Parameters.AddWithValue("@SettingKey" & i, keyValuePairs(i).Key)
+                    command.Parameters.AddWithValue("@SettingValue" & i, keyValuePairs(i).Value)
+                Next
 
                 command.ExecuteNonQuery()
             End Using
