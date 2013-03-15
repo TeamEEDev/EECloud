@@ -71,7 +71,7 @@ Friend NotInheritable Class Logger
     ' ReSharper restore FunctionNeverReturns
 
     Friend Sub Log(priority As LogPriority, str As String) Implements ILogger.Log
-        Dim output As String = String.Format("{0} [{1}] {2}", Now.ToLongTimeString, priority.ToString.ToUpper(InvariantCulture), str)
+        Dim output As String = String.Format("{0} [{1}] {2}", Now.ToLongTimeString(), priority.ToString().ToUpper(InvariantCulture), str)
         If Not Cloud.IsNoConsole Then
             Overwrite(Input.Length + 1, output)
             Console.Write(Environment.NewLine &
@@ -80,7 +80,9 @@ Friend NotInheritable Class Logger
     End Sub
 
     Friend Sub LogEx(ex As Exception) Implements ILogger.LogEx
-        Cloud.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled: {1} {2}", ex.ToString(), ex.Message, ex.StackTrace))
+        Cloud.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled:" & Environment.NewLine &
+                                                          "{1}" & Environment.NewLine &
+                                                          "{2}", ex.ToString(), ex.Message, ex.StackTrace))
     End Sub
 
     Private Shared Sub Overwrite(oldLength As Integer, newStr As String)
