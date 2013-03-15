@@ -19,7 +19,7 @@
 
     Function GetPlayerData(username As String) As UserData
 
-    Function GetPlayerDatas(usernames() As String) As UserData()
+    Function GetPlayerDatas(ParamArray usernames() As String) As UserData()
 
     Function GetPlayerDataRange(Optional offset As UInteger = 0, Optional limit As UInteger = 1000, Optional orderBy As String = "Username") As UserData()
 
