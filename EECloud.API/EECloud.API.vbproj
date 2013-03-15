@@ -119,7 +119,7 @@
     <Compile Include="Messages\Receive\RotatablePlaceReceiveMessage.vb" />
     <Compile Include="Messages\Receive\WootUpReceiveMessage.vb" />
     <Compile Include="Messages\Receive\MagicRecieveMessage.vb" />
-    <Compile Include="Messages\Receive\LevelupRecieveMessage.vb" />
+    <Compile Include="Messages\Receive\LevelUpRecieveMessage.vb" />
     <Compile Include="Messages\Receive\PotionReceiveMessage.vb" />
     <Compile Include="Messages\Send\AllowPotionsSendMessage.vb" />
     <Compile Include="Messages\Send\CheckpointSendMessage.vb" />

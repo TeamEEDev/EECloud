@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public Class LevelupRecieveMessage
+Public Class LevelUpRecieveMessage
     Inherits ReceiveMessage
     Public ReadOnly UserID As Integer
     '0

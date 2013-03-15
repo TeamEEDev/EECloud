@@ -32,7 +32,7 @@
 
     Friend Event OnSay(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnSay
 
-    Public Event OnLevelup(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnLevelup
+    Public Event OnLevelUp(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnLevelUp
 
     Public Event OnMagic(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnMagic
 
@@ -227,11 +227,11 @@
         End If
     End Sub
 
-    Private Sub myConnection_ReceiveLevelup(sender As Object, e As LevelupRecieveMessage) Handles myConnection.ReceiveLevelup
+    Private Sub myConnection_ReceiveLevelUp(sender As Object, e As LevelUpRecieveMessage) Handles myConnection.ReceiveLevelUp
         Dim p As TPlayer = Player(e.UserID)
 
         If p IsNot Nothing Then
-            RaiseEvent OnLevelup(Me, p)
+            RaiseEvent OnLevelUp(Me, p)
         End If
     End Sub
 

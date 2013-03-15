@@ -272,13 +272,13 @@ Friend NotInheritable Class Connection
 
     Friend Event SendAllowPotions(sender As Object, e As Cancelable(Of AllowPotionsSendMessage)) Implements IConnection.SendAllowPotions
 
-    Friend Event PreviewReceiveLevelup(sender As Object, e As LevelupRecieveMessage) Implements IConnection.PreviewReceiveLevelup
+    Friend Event PreviewReceiveLevelUp(sender As Object, e As LevelUpRecieveMessage) Implements IConnection.PreviewReceiveLevelUp
 
     Friend Event PreviewReceiveMagic(sender As Object, e As MagicRecieveMessage) Implements IConnection.PreviewReceiveMagic
 
     Friend Event PreviewReceiveWootUp(sender As Object, e As WootUpReceiveMessage) Implements IConnection.PreviewReceiveWootUp
 
-    Friend Event ReceiveLevelup(sender As Object, e As LevelupRecieveMessage) Implements IConnection.ReceiveLevelup
+    Friend Event ReceiveLevelUp(sender As Object, e As LevelUpRecieveMessage) Implements IConnection.ReceiveLevelUp
 
     Friend Event ReceiveMagic(sender As Object, e As MagicRecieveMessage) Implements IConnection.ReceiveMagic
 
@@ -733,10 +733,10 @@ Friend NotInheritable Class Connection
                 RaiseEvent PreviewReceiveMagic(Me, m)
                 RaiseEvent ReceiveMagic(Me, m)
 
-            Case GetType(LevelupRecieveMessage)
-                Dim m As LevelupRecieveMessage = DirectCast(e, LevelupRecieveMessage)
-                RaiseEvent PreviewReceiveLevelup(Me, m)
-                RaiseEvent ReceiveLevelup(Me, m)
+            Case GetType(LevelUpRecieveMessage)
+                Dim m As LevelUpRecieveMessage = DirectCast(e, LevelUpRecieveMessage)
+                RaiseEvent PreviewReceiveLevelUp(Me, m)
+                RaiseEvent ReceiveLevelUp(Me, m)
 
 
             Case GetType(WootUpReceiveMessage)
@@ -979,7 +979,7 @@ Friend NotInheritable Class Connection
                 RegisterMessage("ks", GetType(SilverCrownReceiveMessage))
 
                 RegisterMessage("w", GetType(MagicRecieveMessage))
-                RegisterMessage("levelup", GetType(LevelupRecieveMessage))
+                RegisterMessage("levelup", GetType(LevelUpRecieveMessage))
 
                 RegisterMessage("god", GetType(GodModeReceiveMessage))
                 RegisterMessage("mod", GetType(ModModeReceiveMessage))
