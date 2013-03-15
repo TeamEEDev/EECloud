@@ -10,7 +10,7 @@
     Event OnSilverCrown As EventHandler(Of TPlayer)
     Event OnSay As EventHandler(Of TPlayer)
     Event OnAutoText As EventHandler(Of TPlayer)
-    Event OnLevelup As EventHandler(Of TPlayer)
+    Event OnLevelUp As EventHandler(Of TPlayer)
     Event OnWootUp As EventHandler(Of TPlayer)
     Event OnMagic As EventHandler(Of TPlayer)
     Event OnTeleport As EventHandler(Of TPlayer)

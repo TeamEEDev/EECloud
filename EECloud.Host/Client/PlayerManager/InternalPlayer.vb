@@ -535,7 +535,7 @@
         End If
     End Sub
 
-    Private Sub myConnection_PreviewReceiveLevelup(sender As Object, e As LevelupRecieveMessage) Handles myConnection.PreviewReceiveLevelup
+    Private Sub myConnection_PreviewReceiveLevelUp(sender As Object, e As LevelUpRecieveMessage) Handles myConnection.PreviewReceiveLevelUp
         If e.UserID = myUserID Then
             myMagicClass = e.NewClass
         End If
