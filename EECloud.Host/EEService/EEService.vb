@@ -132,16 +132,46 @@
         End Using
     End Function
 
-    Friend Function GetPlayerDatas(usernames() As String) As UserData() Implements IEEService.GetPlayerDatas
+    Friend Function GetPlayerDatas(ParamArray usernames() As String) As UserData() Implements IEEService.GetPlayerDatas
         If usernames Is Nothing OrElse usernames.Length < 1 Then
             Throw New ArgumentNullException("usernames")
         End If
 
-        Dim userDatas(usernames.Length - 1) As UserData
-        For i As Integer = 0 To usernames.Length - 1
-            userDatas(i) = GetPlayerData(usernames(i))
-        Next
-        Return userDatas
+        Using connection As New MySqlConnection(MySQLConnStr)
+            connection.Open()
+            Using command As MySqlCommand = connection.CreateCommand()
+                Dim usernamesCountMinus1 = usernames.Length - 1
+
+                command.CommandText = "SELECT * FROM playerData WHERE Username = @Username0"
+                command.Parameters.AddWithValue("@Username0", usernames(0))
+
+                For i = 1 To usernamesCountMinus1
+                    command.CommandText &= " OR Username = @Username" & i
+                    command.Parameters.AddWithValue("@Username" & i, usernames(i))
+                Next
+
+                Try
+                    Using reader As MySqlDataReader = command.ExecuteReader()
+                        Dim dic As New Dictionary(Of String, UserData)
+
+                        Dim currentUserData As UserData
+                        While reader.Read()
+                            currentUserData = ParsePlayerData(reader)
+                            dic.Add(currentUserData.Username, currentUserData)
+                        End While
+
+                        Dim userDatas(usernamesCountMinus1) As UserData
+                        For i = 0 To usernamesCountMinus1
+                            userDatas(i) = dic(usernames(i))
+                        Next
+
+                        Return userDatas
+                    End Using
+                Catch ex As Exception
+                    Throw New Exception("Unknown error", ex)
+                End Try
+            End Using
+        End Using
     End Function
 
     Friend Function GetPlayerDataRange(Optional offset As UInteger = 0, Optional limit As UInteger = 1000, Optional orderBy As String = "Username") As UserData() Implements IEEService.GetPlayerDataRange
