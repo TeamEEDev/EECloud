@@ -189,14 +189,14 @@ Public NotInheritable Class EECloud
     Private Shared Sub CheckLicense()
         If Not Cloud.Service.CheckLicense(myLicenseUsername, myLicenseKey) Then
             If Not Cloud.IsNoGUI Then
-                If New LicenseForm().ShowDialog = DialogResult.OK Then
+                If New LicenseForm().ShowDialog() = DialogResult.OK Then
                     SetLicenseData(My.Settings.LicenseUsername, My.Settings.LicenseKey)
                     CheckLicense()
                 Else
                     Environment.Exit(0)
                 End If
             Else
-                Throw New Exception("Unable to auth!")
+                Throw New Exception("Unable to authenticate.")
             End If
         End If
     End Sub

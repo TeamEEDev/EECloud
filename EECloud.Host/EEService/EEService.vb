@@ -256,7 +256,7 @@
                         items.Add(reader.GetString(0))
                     Loop
                 End Using
-                Return items.ToArray
+                Return items.ToArray()
             End Using
         End Using
     End Function
