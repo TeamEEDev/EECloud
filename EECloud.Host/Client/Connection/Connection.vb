@@ -272,15 +272,15 @@ Friend NotInheritable Class Connection
 
     Friend Event SendAllowPotions(sender As Object, e As Cancelable(Of AllowPotionsSendMessage)) Implements IConnection.SendAllowPotions
 
-    Friend Event PreviewReceiveLevelUp(sender As Object, e As LevelUpRecieveMessage) Implements IConnection.PreviewReceiveLevelUp
+    Friend Event PreviewReceiveLevelUp(sender As Object, e As LevelUpReceiveMessage) Implements IConnection.PreviewReceiveLevelUp
 
-    Friend Event PreviewReceiveMagic(sender As Object, e As MagicRecieveMessage) Implements IConnection.PreviewReceiveMagic
+    Friend Event PreviewReceiveMagic(sender As Object, e As MagicReceiveMessage) Implements IConnection.PreviewReceiveMagic
 
     Friend Event PreviewReceiveWootUp(sender As Object, e As WootUpReceiveMessage) Implements IConnection.PreviewReceiveWootUp
 
-    Friend Event ReceiveLevelUp(sender As Object, e As LevelUpRecieveMessage) Implements IConnection.ReceiveLevelUp
+    Friend Event ReceiveLevelUp(sender As Object, e As LevelUpReceiveMessage) Implements IConnection.ReceiveLevelUp
 
-    Friend Event ReceiveMagic(sender As Object, e As MagicRecieveMessage) Implements IConnection.ReceiveMagic
+    Friend Event ReceiveMagic(sender As Object, e As MagicReceiveMessage) Implements IConnection.ReceiveMagic
 
     Friend Event ReceiveWootUp(sender As Object, e As WootUpReceiveMessage) Implements IConnection.ReceiveWootUp
 
@@ -728,13 +728,13 @@ Friend NotInheritable Class Connection
                 RaiseEvent ReceiveLabelPlace(Me, m)
 
 
-            Case GetType(MagicRecieveMessage)
-                Dim m As MagicRecieveMessage = DirectCast(e, MagicRecieveMessage)
+            Case GetType(MagicReceiveMessage)
+                Dim m As MagicReceiveMessage = DirectCast(e, MagicReceiveMessage)
                 RaiseEvent PreviewReceiveMagic(Me, m)
                 RaiseEvent ReceiveMagic(Me, m)
 
-            Case GetType(LevelUpRecieveMessage)
-                Dim m As LevelUpRecieveMessage = DirectCast(e, LevelUpRecieveMessage)
+            Case GetType(LevelUpReceiveMessage)
+                Dim m As LevelUpReceiveMessage = DirectCast(e, LevelUpReceiveMessage)
                 RaiseEvent PreviewReceiveLevelUp(Me, m)
                 RaiseEvent ReceiveLevelUp(Me, m)
 
@@ -978,8 +978,8 @@ Friend NotInheritable Class Connection
                 RegisterMessage("k", GetType(CrownReceiveMessage))
                 RegisterMessage("ks", GetType(SilverCrownReceiveMessage))
 
-                RegisterMessage("w", GetType(MagicRecieveMessage))
-                RegisterMessage("levelup", GetType(LevelUpRecieveMessage))
+                RegisterMessage("w", GetType(MagicReceiveMessage))
+                RegisterMessage("levelup", GetType(LevelUpReceiveMessage))
 
                 RegisterMessage("god", GetType(GodModeReceiveMessage))
                 RegisterMessage("mod", GetType(ModModeReceiveMessage))
