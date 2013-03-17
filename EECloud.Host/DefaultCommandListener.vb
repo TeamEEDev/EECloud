@@ -458,7 +458,6 @@ Friend NotInheritable Class DefaultCommandListener
 
     Private Function GetPlayer(username As String) As Player
         Dim name As String = username.Replace("."c, Nothing)
-
         Dim user As Player = Nothing
 
         For Each p In myPlayerManager
