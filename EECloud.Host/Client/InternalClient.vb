@@ -111,7 +111,7 @@
 
 #Region "Methods"
 
-    Friend Sub New(commandChar As Char)
+    Friend Sub New(Optional commandChar As Char = Nothing)
         'Creating instances
         myPluginManager = New PluginManager(New ClientCloneFactory(Me))
         myConnection = New Connection(Me)

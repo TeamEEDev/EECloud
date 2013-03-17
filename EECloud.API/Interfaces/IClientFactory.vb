@@ -6,4 +6,5 @@
 ''' <returns></returns>
 ''' <remarks></remarks>
     Function CreateClient(commandChar As Char) As IClient(Of Player)
+    Function CreateClient() As IClient(Of Player)
 End Interface

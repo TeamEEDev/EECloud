@@ -13,15 +13,18 @@
 #Region "Methods"
 
     Friend Sub New(client As InternalClient, commandChar As Char)
-        SyncLock myRegisteredCmdChars
-            If myRegisteredCmdChars.Contains(commandChar) Then
-                Throw New ArgumentException("Command char already taken", "commandChar")
-            End If
-            myRegisteredCmdChars.Add(commandChar)
-        End SyncLock
+        If commandChar <> Nothing Then
+            SyncLock myRegisteredCmdChars
+                If myRegisteredCmdChars.Contains(commandChar) Then
+                    Throw New ArgumentException("Command char already taken", "commandChar")
+                End If
+                myRegisteredCmdChars.Add(commandChar)
+            End SyncLock
+        End If
 
         myClient = client
         myCommandChar = commandChar
+
         AddHandler myClient.Connection.ReceiveSay, AddressOf myConnection_OnReceiveSay
         AddHandler GlobalCommandManager.Value.OnConsoleCommand, AddressOf GlobalCommandManager_OnConsoleCommand
     End Sub
@@ -41,7 +44,7 @@
 
     Private ReadOnly Property ShouldHandle(str As String) As Boolean
         Get
-            Return str.StartsWith(myCommandChar, StringComparison.Ordinal)
+            Return myCommandChar <> Nothing AndAlso str.StartsWith(myCommandChar, StringComparison.Ordinal)
         End Get
     End Property
 
