@@ -29,7 +29,7 @@ Friend NotInheritable Class DefaultCommandListener
 
     <Command("getrank", Group.Moderator, Aliases:={"rank", "group", "getgroup", "userrank", "usergroup", "playerrank", "playergroup"})>
     Public Sub GetRankCommand(cmd As ICommand(Of Player), player As String)
-        Dim player1 As IPlayer = myClient.PlayerManager.Player(player)
+        Dim player1 As IPlayer = GetPlayer(player)
         Dim rank As Group
         If player1 IsNot Nothing Then
             rank = player1.Group
@@ -75,7 +75,7 @@ Friend NotInheritable Class DefaultCommandListener
 
     <Command("kill", Group.Moderator)>
     Public Sub KillCommand(cmd As ICommand(Of Player), player As String)
-        Dim player1 As IPlayer = myClient.PlayerManager.Player(player)
+        Dim player1 As IPlayer = GetPlayer(player)
         If player1 IsNot Nothing Then
             player1.Kill()
             cmd.Reply("Killed.")
@@ -150,7 +150,7 @@ Friend NotInheritable Class DefaultCommandListener
 
     Private Sub ChangeRank(cmd As ICommand(Of Player), username As String, rank As Group)
         Dim currRank As Group
-        Dim player As Player = myClient.PlayerManager.Player(username)
+        Dim player As Player = GetPlayer(username)
         If player IsNot Nothing Then
             currRank = player.Group
         Else
@@ -306,7 +306,7 @@ Friend NotInheritable Class DefaultCommandListener
 
     <Command("kick", Group.Trusted, AccessRight:=AccessRight.Owner, Aliases:={"ki", "kickp", "kickplayer"})>
     Public Sub KickCommand(cmd As ICommand(Of Player), player As String, ParamArray reason As String())
-        Dim player1 As Player = myClient.PlayerManager.Player(player)
+        Dim player1 As Player = GetPlayer(player)
         If player1 IsNot Nothing Then
             If cmd.Sender Is Nothing OrElse cmd.Sender.Group >= Group.Operator OrElse player1.Group <= cmd.Sender.Group Then
                 player1.Kick(String.Join(" ", reason))
@@ -322,7 +322,7 @@ Friend NotInheritable Class DefaultCommandListener
 
     <Command("kick", Group.Trusted, AccessRight:=AccessRight.Owner, Aliases:={"ki", "kickp", "kickplayer"})>
     Public Sub KickCommand(cmd As ICommand(Of Player), player As String)
-        Dim player1 As Player = myClient.PlayerManager.Player(player)
+        Dim player1 As Player = GetPlayer(player)
         If player1 IsNot Nothing Then
             If cmd.Sender Is Nothing OrElse cmd.Sender.Group >= Group.Operator OrElse player1.Group <= cmd.Sender.Group Then
                 player1.Kick()
@@ -338,7 +338,7 @@ Friend NotInheritable Class DefaultCommandListener
 
     <Command("reloadplayer", Group.Moderator, Aliases:={"rplayer"})>
     Public Async Sub ReloadPlayerCommand(cmd As ICommand(Of Player), player As String)
-        Dim player1 As IPlayer = myClient.PlayerManager.Player(player)
+        Dim player1 As IPlayer = GetPlayer(player)
         If player1 IsNot Nothing Then
             Await player1.ReloadUserDataAsync()
             cmd.Reply("Reloaded userdata.")
@@ -455,6 +455,26 @@ Friend NotInheritable Class DefaultCommandListener
     Private Sub myConnection_SendSay(sender As Object, e As Cancelable(Of SaySendMessage)) Handles myConnection.SendSay
         Cloud.Logger.Log(LogPriority.Info, myClient.Chatter.SyntaxProvider.ApplyChatSyntax(e.Value.Text, myClient.Game.MyPlayer.Username))
     End Sub
+
+    Private Function GetPlayer(username As String) As Player
+        Dim name As String = username.Replace("."c, Nothing)
+
+        Dim user As Player = Nothing
+
+        For Each p In myPlayerManager
+            If p.Username = name Then
+                Return p
+            ElseIf p.Username.StartsWith(name) Then
+                If user Is Nothing Then
+                    user = p
+                Else
+                    Return Nothing
+                End If
+            End If
+        Next
+
+        Return user
+    End Function
 
 #End Region
 End Class
