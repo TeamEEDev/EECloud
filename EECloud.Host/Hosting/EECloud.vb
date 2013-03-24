@@ -240,7 +240,7 @@ Public NotInheritable Class EECloud
                         plugin.Stop()
                     Next
 
-                    If e.Unexpected OrElse e.Restarting Then
+                    If e Is Nothing OrElse e.Unexpected OrElse e.Restarting Then
                         My.Settings.Restart = True
                         My.Settings.Save()
                         Environment.Exit(1)
