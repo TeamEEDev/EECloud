@@ -8,8 +8,6 @@
 
 <Assembly: AssemblyProduct("EECloud")>
 <Assembly: AssemblyCompany("EEDev")>
-<Assembly: AssemblyCopyright("")>
-<Assembly: AssemblyTrademark("")>
 
 ' Version information for an assembly consists of the following four values:
 '

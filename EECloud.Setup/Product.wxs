@@ -113,7 +113,7 @@
 
     <!-- EEDev folder -->
     <DirectoryRef Id="$(var.AppAuthor)">
-      <Component Id="c$(var.AppAuthor)" Guid="{078f6c30-61af-4fe3-9135-f84142592ab1}">
+      <Component Id="c$(var.AppAuthor)" Guid="{078F6C30-61AF-4FE3-9135-F84142592AB1}">
         <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)" Name="Installed"
                        Type="integer" Value="1"
                        KeyPath="yes" />
@@ -125,7 +125,7 @@
 
   <Fragment>
     <DirectoryRef Id="TARGETDIR">
-      <Component Id="cAPIRegistryKeys" Guid="{c7d3c0f0-3c06-11e2-81c1-0800200c9a66}">
+      <Component Id="cAPIRegistryKeys" Guid="{C7D3C0F0-3C06-11E2-81C1-0800200C9A66}">
         <RegistryKey Root="HKCU" Key="Software\Microsoft\.NETFramework\v4.5.50709\AssemblyFoldersEx\EECloud">
           <RegistryValue Name="Installed" Type="integer" Value="1" KeyPath="yes" />
           <RegistryValue Type="string" Value="[API]" />
