@@ -7,16 +7,13 @@ using System.Resources;
 // associated with an assembly.
 [assembly: AssemblyTitle("EECloud Launcher")]
 [assembly: AssemblyDescription("A launcher application for EECloud.")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Processor and Jojatekok")]
-[assembly: AssemblyProduct("EECloud Launcher")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
-// to COM components.  If you need to access a type in this assembly from
+// to COM components. If you need to access a type in this assembly from
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("7eac5cc1-7274-4846-ab82-9910b6fbe18d")]
+[assembly: Guid("7EAC5CC1-7274-4846-AB82-9910B6FBE18D")]
 
 [assembly: NeutralResourcesLanguageAttribute("en")]
