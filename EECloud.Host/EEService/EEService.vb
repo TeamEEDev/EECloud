@@ -132,7 +132,7 @@
         End Using
     End Function
 
-    Friend Function GetPlayerDatas(ParamArray usernames() As String) As UserData() Implements IEEService.GetPlayerDatas
+    Friend Function GetPlayerDatas(ParamArray usernames() As String) As Dictionary(Of String, UserData) Implements IEEService.GetPlayerDatas
         If usernames Is Nothing OrElse usernames.Length < 1 Then
             Throw New ArgumentNullException("usernames")
         End If
@@ -160,12 +160,7 @@
                             dic.Add(currentUserData.Username, currentUserData)
                         End While
 
-                        Dim userDatas(usernamesCountMinus1) As UserData
-                        For i = 0 To usernamesCountMinus1
-                            userDatas(i) = dic(usernames(i))
-                        Next
-
-                        Return userDatas
+                        Return dic
                     End Using
                 Catch ex As Exception
                     Throw New Exception("Unknown error", ex)
