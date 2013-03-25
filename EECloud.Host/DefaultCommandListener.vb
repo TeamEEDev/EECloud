@@ -210,7 +210,13 @@ Friend NotInheritable Class DefaultCommandListener
 
     <Command("say", Group.Moderator)>
     Public Sub SayCommand(cmd As ICommand(Of Player), ParamArray msg As String())
-        myClient.Chatter.Send(String.Join(" ", msg))
+        If cmd.Sender Is Nothing Then
+            myClient.Chatter.Send("<" & Cloud.LicenseUsername & "> " &
+                                  String.Join(" ", msg))
+        Else
+            myClient.Chatter.Send("<" & StrConv(cmd.Sender.Username, VbStrConv.ProperCase) & "> " &
+                                  String.Join(" ", msg))
+        End If
     End Sub
 
     <Command("send", Group.Admin)>
@@ -383,7 +389,7 @@ Friend NotInheritable Class DefaultCommandListener
 
     <Command("clear", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"clearworld", "clearlevel"})>
     Public Sub ClearWorldCommand(cmd As ICommand(Of Player))
-        myClient.Connection.Send(New ClearWorldSendMessage)
+        myClient.Connection.Send(New ClearWorldSendMessage())
         cmd.Reply("Cleared.")
     End Sub
 
