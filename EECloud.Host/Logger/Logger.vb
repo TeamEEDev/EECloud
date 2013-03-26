@@ -45,13 +45,13 @@ Friend NotInheritable Class Logger
 
             Select Case inputKey.Key
                 Case ConsoleKey.Enter
-                    If Input IsNot String.Empty Then
+                    If Input.Length > 0 Then
                         Console.WriteLine()
-                        RaiseEvent OnInput(Me, New EventArgs)
+                        RaiseEvent OnInput(Me, New EventArgs())
+                        Input = String.Empty
                     End If
-                    Input = String.Empty
                 Case ConsoleKey.Backspace
-                    If Input.Length >= 1 Then
+                    If Input.Length > 0 Then
                         Input = Input.Substring(0, Input.Length - 1)
                     End If
 
