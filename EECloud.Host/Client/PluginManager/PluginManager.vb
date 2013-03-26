@@ -72,8 +72,8 @@ Friend NotInheritable Class PluginManager
                     'Exit the loop if there are no more elements in the collection
                     If Not enumerator.MoveNext() Then Exit Do
 
-                    Cloud.Logger.Log(LogPriority.Info, String.Format("Enabling {0}...", enumerator.Current.Name))
                     Load(enumerator.Current)
+                    Cloud.Logger.Log(LogPriority.Info, String.Format("Enabled '{0}'.", enumerator.Current.Name))
                 Catch ex As Exception
                     Cloud.Logger.LogEx(ex)
                 End Try
