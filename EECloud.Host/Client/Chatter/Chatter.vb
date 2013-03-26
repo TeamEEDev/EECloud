@@ -78,7 +78,7 @@
     End Sub
 
     Public Sub Kick(username As String) Implements IChatter.Kick
-        myInternalChatter.SendChat(myInternalChatter.ChatSyntaxProvider.ApplyKickSyntax(myChatName, username, "Tsk tsk tsk"))
+        myInternalChatter.SendChat(myInternalChatter.ChatSyntaxProvider.ApplyKickSyntax(myChatName, username, String.Empty))
     End Sub
 
     Public Sub Teleport(username As String) Implements IChatter.Teleport
