@@ -6,4 +6,13 @@ Friend Module Config
 
     Friend ReadOnly InvariantCulture As CultureInfo = CultureInfo.InvariantCulture
 
+    'Custom null checking method for strings
+    Friend Function StringIsNullOrEmpty(value As String) As Boolean
+        If value = Nothing OrElse value.Length = 0 Then
+            Return True
+        End If
+
+        Return False
+    End Function
+
 End Module
