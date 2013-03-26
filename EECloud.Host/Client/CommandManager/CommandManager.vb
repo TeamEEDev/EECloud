@@ -1,6 +1,6 @@
 ﻿Imports System.Reflection
 
-Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
+Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
     Implements ICommandManager, IDisposable
 
 #Region "Fields"
@@ -139,8 +139,8 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
 
         If handle.HasParamArray Then
             toCount += 1
-            Dim pramArgs(cmd.Length - toCount - 3) As String
-            For i = 0 To cmd.Length - toCount - 3
+            Dim pramArgs(cmd.Length - toCount - 1) As String
+            For i = 0 To pramArgs.Length - 1
                 pramArgs(i) = cmd(i + toCount)
             Next
 
@@ -179,7 +179,7 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
         If myCommandsDictionary.ContainsKey(name) Then
             Dim list As List(Of CommandHandle(Of TPlayer)) = myCommandsDictionary(name)
             Dim usedNums As New List(Of Integer)
-            Dim maxNum As Integer = - 1
+            Dim maxNum As Integer = -1
             For Each item In list
                 If item.HasParamArray Then
                     maxNum = item.Count
