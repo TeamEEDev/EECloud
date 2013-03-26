@@ -96,16 +96,19 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
     End Sub
 
     Private Function GetUsagesStr(cmd As String) As String
-        Dim usages As String
-        usages = myCommandsDictionary(cmd).Aggregate(usages, Function(current, handle) current & handle.ToString() & " / ")
+        Dim usages As String = myCommandsDictionary(cmd).Aggregate(usages, Function(current, handle) current & handle.ToString() & " / ")
         Return "Command usage(s): " & Left(usages, usages.Length - 3)
     End Function
 
     Private Sub TryRunCmd(sender As TPlayer, rights As Group, cmd As String(), type As String, text As String, handle As CommandHandle(Of TPlayer))
         'Check for rights
         If handle.Attribute.MinPermission > rights Then
-            If sender Is Nothing OrElse handle.Attribute.MinPermission > sender.Group Then
-                If sender IsNot Nothing AndAlso sender.Group >= Group.Moderator Then
+            If sender Is Nothing Then
+                Exit Sub
+            End If
+
+            If handle.Attribute.MinPermission > sender.Group Then
+                If sender.Group >= Group.Moderator Then
                     ReplyToSender(sender, "You are not allowed to use this command!")
                 End If
 
@@ -113,12 +116,12 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
             End If
         End If
 
-        'Check for bots access rights
+        'Check for the bot's access rights
         If myClient.Game.AccessRight < handle.Attribute.AccessRight Then
             If handle.Attribute.AccessRight = AccessRight.Edit Then
-                ReplyToSender(sender, "Bot needs edit rights to run this command!")
+                ReplyToSender(sender, "Bot needs edit rights to run this command")
             Else
-                ReplyToSender(sender, "Bot needs owner rights to run this command!")
+                ReplyToSender(sender, "Bot needs owner rights to run this command.")
             End If
             Exit Sub
         End If
@@ -135,9 +138,10 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
         Next
 
         If handle.HasParamArray Then
-            Dim pramArgs(cmd.Length - toCount - 2) As String
-            For i = 0 To cmd.Length - toCount - 2
-                pramArgs(i) = cmd(i + toCount + 1)
+            toCount += 1
+            Dim pramArgs(cmd.Length - toCount - 3) As String
+            For i = 0 To cmd.Length - toCount - 3
+                pramArgs(i) = cmd(i + toCount)
             Next
 
             args(args.Length - 1) = pramArgs
@@ -147,7 +151,7 @@ Friend NotInheritable Class CommandManager (Of TPlayer As {New, Player})
         handle.Run(args)
     End Sub
 
-    Private Sub ReplyToSender(sender As TPlayer, msg As String)
+    Private Shared Sub ReplyToSender(sender As TPlayer, msg As String)
         If sender IsNot Nothing Then
             sender.Reply(msg)
         Else
