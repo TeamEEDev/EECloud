@@ -9,6 +9,7 @@
     Friend Sub InvokeConsoleCmd(msg As String, logger As ILogger)
         Dim e As New CommandEventArgs(msg, Group.Host, -1)
         RaiseEvent OnConsoleCommand(Me, e)
+
         If Not e.Handled Then
             logger.Log(LogPriority.Info, "Unknown command char")
         End If

@@ -233,14 +233,18 @@ Public NotInheritable Class EECloud
 
             AddHandler Client.Connection.Disconnect,
                 Sub(sender As Object, e As DisconnectEventArgs)
-                    Cloud.Logger.Log(LogPriority.Info, "Disconnected!")
+                    If e.Reason Is Nothing OrElse e.Reason.Length = 0 Then
+                        Cloud.Logger.Log(LogPriority.Info, "Disconnected.")
+                    Else
+                        Cloud.Logger.Log(LogPriority.Info, "Disconnected. Reason: " & e.Reason)
+                    End If
 
                     For Each plugin In Client.PluginManager.Plugins
-                        Cloud.Logger.Log(LogPriority.Info, String.Format("Disabling {0}...", plugin.Name))
                         plugin.Stop()
+                        Cloud.Logger.Log(LogPriority.Info, "Disabled " & plugin.Name)
                     Next
 
-                    If e Is Nothing OrElse e.Unexpected OrElse e.Restarting Then
+                    If e.Unexpected OrElse e.Restarting Then
                         My.Settings.Restart = True
                         My.Settings.Save()
                         Environment.Exit(1)
