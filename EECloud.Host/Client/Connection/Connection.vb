@@ -858,7 +858,7 @@ Friend NotInheritable Class Connection
 
     Private Sub myConnection_OnDisconnect(sender As Object, message As String) Handles myConnection.OnDisconnect
         UnRegisterAll()
-        RaiseEvent Disconnect(Me, New DisconnectEventArgs(Not myExpectingDisconnect, myRestarting))
+        RaiseEvent Disconnect(Me, New DisconnectEventArgs(Not myExpectingDisconnect, myRestarting, message))
     End Sub
 
     Private Sub myConnection_OnMessage(sender As Object, m As Message) Handles myConnection.OnMessage
