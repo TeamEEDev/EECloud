@@ -33,7 +33,8 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
                 If myAddedTargets.Contains(target) Then
                     Throw New EECloudException(ErrorCode.CommandTargetAlreadyAdded)
                 End If
-                For Each method As MethodInfo In target.GetType.GetMethods
+
+                For Each method As MethodInfo In target.GetType.GetMethods()
                     Dim attributes As CommandAttribute() = method.GetCustomAttributes(GetType(CommandAttribute), True)
                     If attributes IsNot Nothing AndAlso attributes.Length = 1 Then
                         Dim attribute As CommandAttribute = attributes(0)
@@ -48,7 +49,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
                                     Next
                                 End If
                             Catch ex As Exception
-                                Cloud.Logger.Log(LogPriority.Error, "Failed to Load command: " & attribute.Type)
+                                Cloud.Logger.Log(LogPriority.Error, "Failed to load command: " & attribute.Type)
                                 Cloud.Logger.LogEx(ex)
                             End Try
                         Catch ex As Exception
@@ -66,6 +67,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
             Dim msgSender As TPlayer = myClient.PlayerManager.Player(e.UserID)
             Dim cmd As String() = e.Message.Split(" "c)
             Dim type As String = cmd(0).ToLower(InvariantCulture)
+
             If e.Message.StartsWith("help ", StringComparison.OrdinalIgnoreCase) AndAlso myCommandsDictionary.ContainsKey(cmd(1).ToLower(InvariantCulture)) Then
                 e.Handled = True
                 If e.Rights >= Group.Moderator Then
@@ -73,19 +75,22 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
                 End If
             ElseIf myCommandsDictionary.ContainsKey(type) Then
                 e.Handled = True
+                Dim cmdLengthMinus1 As Integer = cmd.Length - 1
+
                 Dim mostHandle As CommandHandle(Of TPlayer) = Nothing
                 For Each handle In myCommandsDictionary(type)
                     'Check for syntax
-                    If handle.Count = cmd.Length - 1 OrElse (handle.Count < cmd.Length AndAlso handle.HasParamArray) Then
+                    If handle.Count = cmdLengthMinus1 OrElse (handle.Count < cmdLengthMinus1 AndAlso handle.HasParamArray) Then
                         TryRunCmd(msgSender, e.Rights, cmd, type, e.Message, handle)
                         Exit Sub
-                    ElseIf handle.Count < cmd.Length - 1 Then
+                    ElseIf handle.Count < cmdLengthMinus1 Then
                         If mostHandle Is Nothing OrElse handle.Count > mostHandle.Count Then
                             mostHandle = handle
                         End If
                     End If
                 Next
-                'Try the one that most methods fit in 
+
+                'Try the one that most methods fit in
                 If mostHandle IsNot Nothing Then
                     TryRunCmd(msgSender, e.Rights, cmd, type, e.Message, mostHandle)
                 ElseIf e.Rights >= Group.Moderator Then
@@ -181,6 +186,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
             Dim list As List(Of CommandHandle(Of TPlayer)) = myCommandsDictionary(name)
             Dim usedNums As New List(Of Integer)
             Dim maxNum As Integer = -1
+
             For Each item In list
                 If item.HasParamArray Then
                     maxNum = item.Count
@@ -188,6 +194,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
                     usedNums.Add(item.Count)
                 End If
             Next
+
             If maxNum = -1 OrElse (handle.Count <= maxNum AndAlso Not handle.HasParamArray) Then
                 If Not usedNums.Contains(handle.Count) OrElse (handle.HasParamArray AndAlso Not usedNums.Contains(handle.Count + 1)) Then
                     myCommandsDictionary(name).Add(handle)
