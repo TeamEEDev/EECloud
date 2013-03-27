@@ -80,12 +80,14 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
                 Dim mostHandle As CommandHandle(Of TPlayer) = Nothing
                 For Each handle In myCommandsDictionary(type)
                     'Check for syntax
-                    If handle.Count = cmdLengthMinus1 OrElse (handle.Count < cmdLengthMinus1 AndAlso handle.HasParamArray) Then
-                        TryRunCmd(msgSender, e.Rights, cmd, type, e.Message, handle)
-                        Exit Sub
-                    ElseIf handle.Count < cmdLengthMinus1 Then
-                        If mostHandle Is Nothing OrElse handle.Count > mostHandle.Count Then
-                            mostHandle = handle
+                    If handle.Count <= cmdLengthMinus1 Then
+                        If handle.Count = cmdLengthMinus1 OrElse handle.HasParamArray Then
+                            TryRunCmd(msgSender, e.Rights, cmd, type, e.Message, handle)
+                            Exit Sub
+                        Else
+                            If mostHandle Is Nothing OrElse handle.Count > mostHandle.Count Then
+                                mostHandle = handle
+                            End If
                         End If
                     End If
                 Next
