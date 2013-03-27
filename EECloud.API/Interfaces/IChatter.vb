@@ -43,13 +43,13 @@ Public Interface IChatter
     Sub Kick(username As String, msg As String)
 
     ''' <summary>
-    '''     Reloads the level data. />.
+    '''     Reloads the level data.
     ''' </summary>
     ''' <remarks></remarks>
     Sub Loadlevel()
 
     ''' <summary>
-    '''     Resets everyones position. />.
+    '''     Resets everyone's position.
     ''' </summary>
     ''' <remarks></remarks>
     Sub Reset()
