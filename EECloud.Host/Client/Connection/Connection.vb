@@ -376,7 +376,7 @@ Friend NotInheritable Class Connection
         Next
 
         If Not idSet Then
-            Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get room version")
+            Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get room version.")
         End If
     End Sub
 

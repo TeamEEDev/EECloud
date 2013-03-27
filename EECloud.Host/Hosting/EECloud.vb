@@ -254,7 +254,10 @@ Public NotInheritable Class EECloud
                 End Sub
 
             Await task
-            Cloud.Logger.Log(LogPriority.Info, "Connected.")
+
+            If Client.Connection.Connected Then
+                Cloud.Logger.Log(LogPriority.Info, "Connected.")
+            End If
         Catch ex As Exception
             Cloud.Logger.Log(LogPriority.Info, "Failed to connect.")
             Cloud.Logger.LogEx(ex)
