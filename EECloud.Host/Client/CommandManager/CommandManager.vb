@@ -201,10 +201,10 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
                 If Not usedNums.Contains(handle.Count) OrElse (handle.HasParamArray AndAlso Not usedNums.Contains(handle.Count + 1)) Then
                     myCommandsDictionary(name).Add(handle)
                 Else
-                    Cloud.Logger.Log(LogPriority.Error, "Can not overload command because of conflicting parameter count: " & name)
+                    Cloud.Logger.Log(LogPriority.Error, "Can't overload command because of conflicting parameter count: " & name)
                 End If
             Else
-                Cloud.Logger.Log(LogPriority.Error, "Can not overload command because of conflicting ParamArray variable: " & name)
+                Cloud.Logger.Log(LogPriority.Error, "Can't overload command because of conflicting ParamArray variable: " & name)
             End If
         Else
             Dim list As New List(Of CommandHandle(Of TPlayer))

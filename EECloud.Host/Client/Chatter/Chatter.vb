@@ -14,7 +14,7 @@
         End Get
         Set(value As IChatSyntaxProvider)
             If value Is Nothing Then
-                Throw New ArgumentException("value can not be null.", "value")
+                Throw New ArgumentNullException("value")
             End If
             myInternalChatter.ChatSyntaxProvider = value
         End Set

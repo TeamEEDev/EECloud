@@ -331,7 +331,7 @@ Friend NotInheritable Class DefaultCommandListener
                 cmd.Reply("Not allowed to kick a player with a higher rank than yourself.")
             End If
         Else
-            cmd.Reply("Can not find player.")
+            cmd.Reply("Can't find player.")
         End If
     End Sub
 
@@ -347,7 +347,7 @@ Friend NotInheritable Class DefaultCommandListener
                 cmd.Reply("Not allowed to kick a player with a higher rank than yourself.")
             End If
         Else
-            cmd.Reply("Can not find player.")
+            cmd.Reply("Can't find player.")
         End If
     End Sub
 
