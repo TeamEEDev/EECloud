@@ -366,9 +366,9 @@ Friend NotInheritable Class DefaultCommandListener
     Public Sub GetEnvironmentCommand(cmd As ICommand(Of Player))
         Dim env As String
         If Cloud.IsNoGUI Then
-            env = "cloud"
+            env = "Cloud"
         Else
-            env = "desktop"
+            env = "Desktop"
         End If
         cmd.Reply("Current environment: " & env)
     End Sub
@@ -387,7 +387,12 @@ Friend NotInheritable Class DefaultCommandListener
     <Command("end", Group.Moderator, Aliases:={"shutdown", "leave", "leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
     Public Sub EndCommand(cmd As ICommand(Of Player))
         cmd.Reply("Terminating...")
-        myClient.Connection.Close()
+
+        If myClient.Connection.Connected Then
+            myClient.Connection.Close()
+        Else
+            Environment.Exit(0)
+        End If
     End Sub
 
     <Command("killbot", Group.Operator)>
