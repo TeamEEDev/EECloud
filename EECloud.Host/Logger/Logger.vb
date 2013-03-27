@@ -72,7 +72,10 @@ Friend NotInheritable Class Logger
 
     Friend Sub Log(priority As LogPriority, str As String) Implements ILogger.Log
         If Not Cloud.IsNoConsole Then
-            Dim output As String = String.Format("{0} [{1}] {2}", Now.ToLongTimeString(), priority.ToString().ToUpper(InvariantCulture), str)
+            Dim output As String = String.Format("{0} [{1}] {2}",
+                                                 Now.ToLongTimeString(),
+                                                 priority.ToString().ToUpper(InvariantCulture),
+                                                 str)
             Overwrite(Input.Length + 1, output)
             Console.Write(Environment.NewLine &
                           ">" & Input)

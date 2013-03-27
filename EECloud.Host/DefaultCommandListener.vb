@@ -36,7 +36,7 @@ Friend NotInheritable Class DefaultCommandListener
         Else
             rank = Cloud.Service.GetPlayerData(player).Username
         End If
-        cmd.Reply(String.Format("User {0} is {1}", player.ToUpper(InvariantCulture), GetGroupString(rank)))
+        cmd.Reply(String.Format("User {0} is {1}.", player.ToUpper(InvariantCulture), GetGroupString(rank)))
     End Sub
 
     Private pinging As Boolean
@@ -102,7 +102,7 @@ Friend NotInheritable Class DefaultCommandListener
         cmd.Reply("Ban message changed.")
     End Sub
 
-    <Command("cmdchar", Group.Host, Aliases:={"commandchar"})>
+    <Command("cmdchar", Group.Host, Aliases:={"commandchar", "cmdchr"})>
     Public Sub CmdCharCommand(cmd As ICommand(Of Player), character As String)
         If character.Length = 1 Then
             My.Settings.CommandChar = character(0)
@@ -113,17 +113,17 @@ Friend NotInheritable Class DefaultCommandListener
         End If
     End Sub
 
-    <Command("admin", Group.Host)>
+    <Command("admin", Group.Host, Aliases:={"administrator"})>
     Public Sub AdminCommand(cmd As ICommand(Of Player), username As String)
         ChangeRank(cmd, username, Group.Admin)
     End Sub
 
-    <Command("op", Group.Admin)>
+    <Command("op", Group.Admin, Aliases:={"operator"})>
     Public Sub OpCommand(cmd As ICommand(Of Player), username As String)
         ChangeRank(cmd, username, Group.Operator)
     End Sub
 
-    <Command("mod", Group.Operator)>
+    <Command("mod", Group.Operator, Aliases:={"moderator"})>
     Public Sub ModCommand(cmd As ICommand(Of Player), username As String)
         ChangeRank(cmd, username, Group.Moderator)
     End Sub
@@ -171,7 +171,7 @@ Friend NotInheritable Class DefaultCommandListener
 
             cmd.Reply(String.Format("{0} is now {1}.", username.ToUpper(InvariantCulture), GetGroupString(rank)))
         Else
-            cmd.Reply(String.Format("Not allowed to change rank of that player."))
+            cmd.Reply("Not allowed to change rank of that player.")
         End If
     End Sub
 
@@ -180,7 +180,7 @@ Friend NotInheritable Class DefaultCommandListener
             Case Group.Host
                 Return "the host"
             Case Group.Admin
-                Return "an admin"
+                Return "an administrator"
             Case Group.Operator
                 Return "an operator"
             Case Group.Moderator
@@ -190,7 +190,7 @@ Friend NotInheritable Class DefaultCommandListener
             Case Group.User
                 Return "a normal player"
             Case Group.Limited
-                Return "limited"
+                Return "a limited player"
             Case Group.Banned
                 Return "banned"
             Case Else
@@ -198,11 +198,11 @@ Friend NotInheritable Class DefaultCommandListener
         End Select
     End Function
 
-    <Command("who", Group.Host)>
-    Public Sub WhoCommand(cmd As ICommand(Of Player))
+    <Command("online", Group.Host, Aliases:={"who"})>
+    Public Sub OnlineCommand(cmd As ICommand(Of Player))
         Dim playerList As String() = (From player In myClient.PlayerManager Select player.Username).ToArray()
         If playerList.Count > 0 Then
-            cmd.Reply(String.Format("({0} players online) {1}", playerList.Count, String.Join(", ", playerList)))
+            cmd.Reply(String.Format("{0} players are online: {1}", playerList.Count, String.Join(", ", playerList)))
         Else
             cmd.Reply("No one is currently online.")
         End If
@@ -328,7 +328,7 @@ Friend NotInheritable Class DefaultCommandListener
 
                 cmd.Reply("Kicked.")
             Else
-                cmd.Reply(String.Format("Not allowed to kick a player with a higher rank that yourself."))
+                cmd.Reply("Not allowed to kick a player with a higher rank than yourself.")
             End If
         Else
             cmd.Reply("Can not find player.")
@@ -344,7 +344,7 @@ Friend NotInheritable Class DefaultCommandListener
 
                 cmd.Reply("Kicked.")
             Else
-                cmd.Reply(String.Format("Not allowed to kick a player with a higher rank that yourself."))
+                cmd.Reply("Not allowed to kick a player with a higher rank than yourself.")
             End If
         Else
             cmd.Reply("Can not find player.")
