@@ -212,12 +212,16 @@ Friend NotInheritable Class DefaultCommandListener
     Public Sub SayCommand(cmd As ICommand(Of Player), ParamArray msg As String())
         Dim realSenderString As String = String.Empty
 
-        If cmd.Sender Is Nothing Then
-            'TODO: Check if Cloud.LicenseUsername is the same as the currently used EE account's name. If it isn't, then modify realSenderString.
-            realSenderString = "<" & Cloud.LicenseUsername & "> "
-        Else
-            'TODO: Check if cmd.Sender.Username is the same as the currently used EE account's name. If it isn't, then modify realSenderString.
-            realSenderString = "<" & StrConv(cmd.Sender.Username, VbStrConv.ProperCase) & "> "
+        If myClient.Game.MyPlayer IsNot Nothing Then
+            If cmd.Sender Is Nothing Then
+                If Cloud.LicenseUsername.ToLower(InvariantCulture) <> myClient.Game.MyPlayer.Username Then
+                    realSenderString = "<" & Cloud.LicenseUsername & "> "
+                End If
+            Else
+                If cmd.Sender.Username <> myClient.Game.MyPlayer.Username Then
+                    realSenderString = "<" & StrConv(cmd.Sender.Username, VbStrConv.ProperCase) & "> "
+                End If
+            End If
         End If
 
         myClient.Chatter.Send(realSenderString &
