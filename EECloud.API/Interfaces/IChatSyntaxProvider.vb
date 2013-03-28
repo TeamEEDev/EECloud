@@ -13,18 +13,18 @@
     ''' </summary>
     ''' <param name="chat">The text being chatted</param>
     ''' <param name="chatName">The chatName of the chatting plugin</param>
-    ''' <param name="player">The target player</param>
+    ''' <param name="playerName">The target player</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Function ApplyReplySyntax(chat As String, chatName As String, player As String) As String
+    Function ApplyReplySyntax(chat As String, chatName As String, playerName As String) As String
 
     ''' <summary>
     '''     Runs whenever Chatter.Kick or Player.Kick is invoked
     ''' </summary>
     ''' <param name="chatName">The chatName of the chatting plugin</param>
-    ''' <param name="player">The target player</param>
+    ''' <param name="playerName">The target player</param>
     ''' <param name="reason">The kick reason</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Function ApplyKickSyntax(chatName As String, player As String, reason As String) As String
+    Function ApplyKickSyntax(chatName As String, playerName As String, reason As String) As String
 End Interface
