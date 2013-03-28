@@ -113,6 +113,9 @@
 
     Friend Sub New(Optional commandChar As Char = Nothing)
         'Creating instances
+        Cloud.Logger = New Logger(Me)
+        Console.CursorVisible = True
+
         myPluginManager = New PluginManager(New ClientCloneFactory(Me))
         myConnection = New Connection(Me)
         myWorld = New World(Me)
@@ -128,9 +131,6 @@
         myChatter = New Chatter(myInternalChatter, "Bot")
         myPlayerManager = New PlayerManager(Of Player)(Me, Me)
         myCommandManager = New CommandManager(Of Player)(Me, myInternalCommandManager)
-
-        Cloud.Logger = New Logger(Me)
-        Console.CursorVisible = True
     End Sub
 
 #End Region
