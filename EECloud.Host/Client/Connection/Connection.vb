@@ -77,8 +77,6 @@ Friend NotInheritable Class Connection
 
     Friend Event ReceiveGodMode(sender As Object, e As GodModeReceiveMessage) Implements IConnection.ReceiveGodMode
 
-    Friend Event ReceiveGroupDisallowedJoin(sender As Object, e As GroupDisallowedJoinReceiveMessage) Implements IConnection.ReceiveGroupDisallowedJoin
-
     Friend Event ReceiveHideKey(sender As Object, e As HideKeyReceiveMessage) Implements IConnection.ReceiveHideKey
 
     Friend Event ReceiveInfo(sender As Object, e As InfoReceiveMessage) Implements IConnection.ReceiveInfo
@@ -218,8 +216,6 @@ Friend NotInheritable Class Connection
     Friend Event PreviewReceiveGiveWizard(sender As Object, e As GiveWizardReceiveMessage) Implements IConnection.PreviewReceiveGiveWizard
 
     Friend Event PreviewReceiveGodMode(sender As Object, e As GodModeReceiveMessage) Implements IConnection.PreviewReceiveGodMode
-
-    Friend Event PreviewReceiveGroupDisallowedJoin(sender As Object, e As GroupDisallowedJoinReceiveMessage) Implements IConnection.PreviewReceiveGroupDisallowedJoin
 
     Friend Event PreviewReceiveHideKey(sender As Object, e As HideKeyReceiveMessage) Implements IConnection.PreviewReceiveHideKey
 
@@ -847,11 +843,6 @@ Friend NotInheritable Class Connection
                 RaiseEvent PreviewReceiveInfo(Me, m)
                 RaiseEvent ReceiveInfo(Me, m)
 
-            Case GetType(GroupDisallowedJoinReceiveMessage)
-                Dim m As GroupDisallowedJoinReceiveMessage = DirectCast(e, GroupDisallowedJoinReceiveMessage)
-                RaiseEvent PreviewReceiveGroupDisallowedJoin(Me, m)
-                RaiseEvent ReceiveGroupDisallowedJoin(Me, m)
-
 
             Case GetType(RefreshShopReceiveMessage)
                 Dim m As RefreshShopReceiveMessage = DirectCast(e, RefreshShopReceiveMessage)
@@ -953,7 +944,6 @@ Friend NotInheritable Class Connection
                 myRegisteredStartMessages = True
                 RegisterMessage("init", GetType(InitReceiveMessage))
 
-                RegisterMessage("groupdisallowedjoin", GetType(GroupDisallowedJoinReceiveMessage))
                 RegisterMessage("info", GetType(InfoReceiveMessage))
                 RegisterMessage("upgrade", GetType(UpgradeReceiveMessage))
 
@@ -971,7 +961,6 @@ Friend NotInheritable Class Connection
                 myRegisteredMessages = True
 
                 UnRegisterMessage("init")
-                UnRegisterMessage("groupdisallowedjoin")
 
                 RegisterMessage("add", GetType(AddReceiveMessage))
                 RegisterMessage("left", GetType(LeftReceiveMessage))

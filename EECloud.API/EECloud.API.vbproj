@@ -228,7 +228,6 @@
     <Compile Include="MustInherits\PluginBase.vb" />
     <Compile Include="MustInherits\PluginPart.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
-    <Compile Include="Messages\Receive\GroupDisallowedJoinReceiveMessage.vb" />
     <Compile Include="Messages\Receive\ReceiveMessage.vb" />
     <Compile Include="Messages\Receive\UpgradeReceiveMessage.vb" />
     <Compile Include="UploadSnapshot.vb" />
