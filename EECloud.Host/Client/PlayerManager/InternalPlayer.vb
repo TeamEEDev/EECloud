@@ -410,7 +410,7 @@
         Await Task.Run(Sub() userData = Cloud.Service.GetPlayerData(DatabaseName))
         If userData IsNot Nothing Then
             ' ReSharper disable VBWarnings::BC42104
-            myGroup = CType(userData.GroupID, Group)
+            myGroup = userData.GroupID
             ' ReSharper restore VBWarnings::BC42104
             RaiseEvent LoadUserData(Me, userData)
         End If
