@@ -156,7 +156,7 @@
     ReadOnly Property WorldID As String
 
     ''' <summary>
-    '''    Returns true if the connection is expected to disconnect by the user. In that case, EECloud won't try to rejoin the same world as it is in.
+    '''    Determines whether a disconnect is expected by the user. If it is, EECloud won't try to rejoin the same world as it is in, but will restart showing the "Join world" dialog.
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
