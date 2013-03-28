@@ -13,6 +13,7 @@ Public NotInheritable Class EECloud
     Private Shared myClient As IClient(Of Player)
 
     Private Sub New()
+
     End Sub
 
     Shared Sub New()
@@ -114,7 +115,6 @@ Public NotInheritable Class EECloud
         Cloud.IsNoConsole = noConsole
         Cloud.IsNoGUI = Not SystemInformation.UserInteractive
 
-        Cloud.Logger = New Logger()
         Cloud.ClientFactory = New ClientFactory()
         Cloud.Service = New EEService()
 

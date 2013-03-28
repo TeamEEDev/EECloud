@@ -4,8 +4,9 @@ Friend NotInheritable Class Logger
     Implements ILogger
 
 #Region "Fields"
-    Private myInput As String = String.Empty
+    Private ReadOnly myClient As IClient(Of Player)
 
+    Private myInput As String = String.Empty
     Private Shared ReadOnly myMaxInputLength As Integer = Console.BufferWidth - 4
 #End Region
 
@@ -32,7 +33,9 @@ Friend NotInheritable Class Logger
 
 #Region "Methods"
 
-    Friend Sub New()
+    Sub New(client As IClient(Of Player))
+        myClient = client
+
         If Not Cloud.IsNoConsole Then
             Console.Write(">")
             Call New Thread(AddressOf HandleInput) With {.IsBackground = True}.Start()
@@ -52,16 +55,27 @@ Friend NotInheritable Class Logger
                     End If
                 Case ConsoleKey.Backspace
                     If Input.Length > 0 Then
-                        Input = Input.Substring(0, Input.Length - 1)
+                        Input = Left(Input, Input.Length - 1)
+                    End If
+                Case ConsoleKey.Tab
+                    'TODO: Username tabbing (not yet done)
+                    If myClient.PlayerManager IsNot Nothing AndAlso myClient.PlayerManager.Count > 0 Then
+                        Dim lastWord As String = Input.Split(" "c).Last()
+                        If lastWord <> String.Empty Then
+                            For Each user In myClient.PlayerManager
+                                If user.Username.StartsWith(lastWord) Then
+                                    MsgBox("Success")
+                                End If
+                            Next
+                            MsgBox("|" & lastWord & "|")
+                        End If
                     End If
 
                 Case Else
-                    If inputKey.Key <> ConsoleKey.Tab Then
-                        If inputKey.Modifiers <> ConsoleModifiers.Control AndAlso inputKey.KeyChar <> Nothing Then
-                            If Input.Length <= myMaxInputLength Then
-                                myInput &= inputKey.KeyChar
-                                Console.Write(inputKey.KeyChar)
-                            End If
+                    If inputKey.Modifiers <> ConsoleModifiers.Control AndAlso inputKey.KeyChar <> Nothing Then
+                        If Input.Length <= myMaxInputLength Then
+                            myInput &= inputKey.KeyChar
+                            Console.Write(inputKey.KeyChar)
                         End If
                     End If
             End Select
