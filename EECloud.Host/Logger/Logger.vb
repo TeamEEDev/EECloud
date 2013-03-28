@@ -7,7 +7,11 @@ Friend NotInheritable Class Logger
     Private ReadOnly myClient As IClient(Of Player)
 
     Private myInput As String = String.Empty
-    Private Shared ReadOnly myMaxInputLength As Integer = Console.BufferWidth - 4
+    Private Shared ReadOnly maxInputLength As Integer = Console.BufferWidth - 4
+
+    Private tabbingWord As String = String.Empty
+    Private myIsTabbingMultipleUsers As Boolean
+    Private ReadOnly currentlyTabbableUsers As New List(Of String)
 #End Region
 
 #Region "Events"
@@ -26,6 +30,19 @@ Friend NotInheritable Class Logger
                 Console.CursorLeft = value.Length + 1
                 myInput = value
             End If
+        End Set
+    End Property
+
+    Private Property IsTabbingMultipleUsers As Boolean
+        Get
+            Return myIsTabbingMultipleUsers
+        End Get
+        Set(value As Boolean)
+            If myIsTabbingMultipleUsers <> value AndAlso Not value Then
+                currentlyTabbableUsers.Clear()
+            End If
+
+            myIsTabbingMultipleUsers = value
         End Set
     End Property
 
@@ -52,30 +69,53 @@ Friend NotInheritable Class Logger
                         Console.WriteLine()
                         RaiseEvent OnInput(Me, New EventArgs())
                         Input = String.Empty
+
+                        IsTabbingMultipleUsers = False
                     End If
                 Case ConsoleKey.Backspace
                     If Input.Length > 0 Then
                         Input = Left(Input, Input.Length - 1)
+
+                        IsTabbingMultipleUsers = False
                     End If
                 Case ConsoleKey.Tab
                     'TODO: Username tabbing (not yet done)
-                    If myClient.PlayerManager IsNot Nothing AndAlso myClient.PlayerManager.Count > 0 Then
-                        Dim lastWord As String = Input.Split(" "c).Last()
-                        If lastWord <> String.Empty Then
-                            For Each user In myClient.PlayerManager
-                                If user.Username.StartsWith(lastWord) Then
-                                    MsgBox("Success")
+                    If myClient.PlayerManager IsNot Nothing Then 'AndAlso myClient.PlayerManager.Count > 0
+                        If Not IsTabbingMultipleUsers Then
+                            tabbingWord = Input.Split(" "c).Last()
+
+                            If tabbingWord <> String.Empty Then
+                                For Each user In From user1 In myClient.PlayerManager Where user1.Username.StartsWith(tabbingWord)
+                                    currentlyTabbableUsers.Add(user.Username)
+                                Next
+
+                                If currentlyTabbableUsers.Count = 1 Then
+                                    Console.CursorLeft -= tabbingWord.Length
+                                    Console.Write(currentlyTabbableUsers(0))
+                                    currentlyTabbableUsers.Clear()
+
+                                ElseIf currentlyTabbableUsers.Count > 1 Then
+                                    IsTabbingMultipleUsers = True
+                                    currentlyTabbableUsers.Sort()
+
+                                    GoTo IsTabbingMultipleUsers
                                 End If
-                            Next
-                            MsgBox("|" & lastWord & "|")
+                            End If
+
+                            Exit Sub
                         End If
+
+IsTabbingMultipleUsers:
+
                     End If
 
                 Case Else
                     If inputKey.Modifiers <> ConsoleModifiers.Control AndAlso inputKey.KeyChar <> Nothing Then
-                        If Input.Length <= myMaxInputLength Then
+                        If Input.Length <= maxInputLength Then
                             myInput &= inputKey.KeyChar
                             Console.Write(inputKey.KeyChar)
+
+                            IsTabbingMultipleUsers = False
                         End If
                     End If
             End Select

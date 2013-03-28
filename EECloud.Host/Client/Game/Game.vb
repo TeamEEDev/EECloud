@@ -105,7 +105,7 @@
     End Sub
 
     Private Sub myConnection_ReceiveInit(sender As Object, e As InitReceiveMessage) Handles myConnection.ReceiveInit
-        myMyPlayer = New Player
+        myMyPlayer = New Player()
         myMyPlayer.SetupPlayer(New InternalPlayer(myClient, e), myClient.Chatter)
         myOwner = e.UsernameOwner
         myWorldName = e.WorldName
