@@ -244,13 +244,18 @@ Public NotInheritable Class EECloud
                         Cloud.Logger.Log(LogPriority.Info, String.Format("Disabled '{0}'.", plugin.Name))
                     Next
 
-                    If e.Unexpected OrElse e.Restarting Then
-                        My.Settings.Restart = True
-                        My.Settings.Save()
-                        Environment.Exit(1)
+                    If Client.Connection.UserExpectingDisconnect Then
+                        My.Settings.Restart = False
                     Else
-                        Environment.Exit(0)
+                        If e.Unexpected OrElse e.Restarting Then
+                            My.Settings.Restart = True
+                        Else
+                            Environment.Exit(0)
+                        End If
                     End If
+
+                    My.Settings.Save()
+                    Environment.Exit(1)
                 End Sub
 
             Await task
