@@ -11,7 +11,7 @@
         RaiseEvent OnConsoleCommand(Me, e)
 
         If Not e.Handled Then
-            logger.Log(LogPriority.Info, "Unknown command char")
+            logger.Log(LogPriority.Info, "Unknown command char.")
         End If
     End Sub
 End Class

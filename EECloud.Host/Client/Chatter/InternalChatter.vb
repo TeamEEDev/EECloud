@@ -40,8 +40,9 @@ Friend NotInheritable Class InternalChatter
         End If
 
         SyncLock myChatQueue
+            Dim left As Integer
             For i = 0 To msg.Length Step 80
-                Dim left As Integer = msg.Length - i
+                left = msg.Length - i
                 If left >= 80 Then
                     myChatQueue.Enqueue(New SaySendMessage(msg.Substring(i, 80)))
                 Else
