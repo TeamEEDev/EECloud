@@ -1,4 +1,5 @@
 ﻿Imports System.Globalization
+Imports System.Text.RegularExpressions
 
 Friend Module Config
 
@@ -6,9 +7,11 @@ Friend Module Config
 
     Friend ReadOnly InvariantCulture As CultureInfo = CultureInfo.InvariantCulture
 
+    Private ReadOnly myWhitespacesRegex As New Regex("^\s+|\s+$", RegexOptions.Compiled)
+
     'Custom null checking method for strings
     Friend Function StringIsNullOrEmpty(value As String) As Boolean
-        value = value.Replace(" ", String.Empty)
+        value = myWhitespacesRegex.Replace(value, String.Empty)
 
         If value = Nothing OrElse value.Length = 0 Then
             Return True
