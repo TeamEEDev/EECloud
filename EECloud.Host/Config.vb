@@ -8,6 +8,8 @@ Friend Module Config
 
     'Custom null checking method for strings
     Friend Function StringIsNullOrEmpty(value As String) As Boolean
+        value = value.Replace(" ", String.Empty)
+
         If value = Nothing OrElse value.Length = 0 Then
             Return True
         End If
