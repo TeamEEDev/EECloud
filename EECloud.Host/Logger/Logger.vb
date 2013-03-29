@@ -65,8 +65,10 @@ Friend NotInheritable Class Logger
     End Sub
 
     Private Sub HandleInput()
+        Dim inputKey As ConsoleKeyInfo
+
         Do
-            Dim inputKey As ConsoleKeyInfo = Console.ReadKey(True)
+            inputKey = Console.ReadKey(True)
 
             Select Case inputKey.Key
                 Case ConsoleKey.Enter
@@ -84,47 +86,7 @@ Friend NotInheritable Class Logger
                         IsTabbingMultipleUsers = False
                     End If
                 Case ConsoleKey.Tab
-                    'TODO: Username tabbing (not yet done)
-                    If myClient.PlayerManager IsNot Nothing Then 'AndAlso myClient.PlayerManager.Count > 0
-                        If Not IsTabbingMultipleUsers Then
-                            tabbingWord = Input.Split(" "c).Last()
-
-                            If tabbingWord <> String.Empty Then
-                                For Each user In From user1 In myClient.PlayerManager Where user1.Username.StartsWith(tabbingWord)
-                                    currentlyTabbableUsers.Add(user.Username)
-                                Next
-
-                                If currentlyTabbableUsers.Count = 1 Then
-                                    Console.CursorLeft -= tabbingWord.Length
-                                    Console.Write(currentlyTabbableUsers(0))
-                                    currentlyTabbableUsers.Clear()
-
-                                ElseIf currentlyTabbableUsers.Count > 1 Then
-                                    IsTabbingMultipleUsers = True
-                                    currentlyTabbableUsers.Sort()
-
-                                    GoTo IsTabbingMultipleUsers
-                                End If
-                            End If
-
-                            Exit Sub
-                        End If
-
-IsTabbingMultipleUsers:
-                        If myTabbingMultipleUsersAt = -1 Then
-                            Console.CursorLeft -= tabbingWord.Length
-                        Else
-                            Console.CursorLeft -= currentlyTabbableUsers(myTabbingMultipleUsersAt).Length
-                        End If
-
-                        If currentlyTabbableUsers.Count - 1 = myTabbingMultipleUsersAt Then
-                            myTabbingMultipleUsersAt = 0
-                        Else
-                            myTabbingMultipleUsersAt += 1
-                        End If
-
-                        Console.Write(currentlyTabbableUsers(myTabbingMultipleUsersAt))
-                    End If
+                    HandleUsernameTabbing()
 
                 Case Else
                     If inputKey.Modifiers <> ConsoleModifiers.Control AndAlso inputKey.KeyChar <> Nothing Then
@@ -140,6 +102,49 @@ IsTabbingMultipleUsers:
         ' ReSharper disable FunctionNeverReturns
     End Sub
     ' ReSharper restore FunctionNeverReturns
+
+    Private Sub HandleUsernameTabbing()
+        If myClient.PlayerManager IsNot Nothing Then 'AndAlso myClient.PlayerManager.Count > 0
+            If Not IsTabbingMultipleUsers Then
+                tabbingWord = Input.Split(" "c).Last()
+
+                If tabbingWord <> String.Empty Then
+                    For Each user In From user1 In myClient.PlayerManager Where user1.Username.StartsWith(tabbingWord)
+                        currentlyTabbableUsers.Add(user.Username)
+                    Next
+
+                    If currentlyTabbableUsers.Count = 1 Then
+                        Console.CursorLeft -= tabbingWord.Length
+                        Console.Write(currentlyTabbableUsers(0))
+                        currentlyTabbableUsers.Clear()
+
+                    ElseIf currentlyTabbableUsers.Count > 1 Then
+                        IsTabbingMultipleUsers = True
+                        currentlyTabbableUsers.Sort()
+
+                        GoTo IsTabbingMultipleUsers
+                    End If
+                End If
+
+                Exit Sub
+            End If
+
+IsTabbingMultipleUsers:
+            If myTabbingMultipleUsersAt = -1 Then
+                Console.CursorLeft -= tabbingWord.Length
+            Else
+                Console.CursorLeft -= currentlyTabbableUsers(myTabbingMultipleUsersAt).Length
+            End If
+
+            If currentlyTabbableUsers.Count - 1 = myTabbingMultipleUsersAt Then
+                myTabbingMultipleUsersAt = 0
+            Else
+                myTabbingMultipleUsersAt += 1
+            End If
+
+            Console.Write(currentlyTabbableUsers(myTabbingMultipleUsersAt))
+        End If
+    End Sub
 
     Friend Sub Log(priority As LogPriority, str As String) Implements ILogger.Log
         If Not Cloud.IsNoConsole Then
