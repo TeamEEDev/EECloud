@@ -10,8 +10,9 @@ Friend NotInheritable Class Logger
     Private Shared ReadOnly maxInputLength As Integer = Console.BufferWidth - 4
 
     Private tabbingWord As String = String.Empty
-    Private myIsTabbingMultipleUsers As Boolean
     Private ReadOnly currentlyTabbableUsers As New List(Of String)
+    Private myIsTabbingMultipleUsers As Boolean
+    Private myTabbingMultipleUsersAt As Integer
 #End Region
 
 #Region "Events"
@@ -38,11 +39,15 @@ Friend NotInheritable Class Logger
             Return myIsTabbingMultipleUsers
         End Get
         Set(value As Boolean)
-            If myIsTabbingMultipleUsers <> value AndAlso Not value Then
-                currentlyTabbableUsers.Clear()
-            End If
+            If myIsTabbingMultipleUsers <> value Then
+                If value Then
+                    myTabbingMultipleUsersAt = -1
+                Else
+                    currentlyTabbableUsers.Clear()
+                End If
 
-            myIsTabbingMultipleUsers = value
+                myIsTabbingMultipleUsers = value
+            End If
         End Set
     End Property
 
@@ -106,7 +111,19 @@ Friend NotInheritable Class Logger
                         End If
 
 IsTabbingMultipleUsers:
+                        If myTabbingMultipleUsersAt = -1 Then
+                            Console.CursorLeft -= tabbingWord.Length
+                        Else
+                            Console.CursorLeft -= currentlyTabbableUsers(myTabbingMultipleUsersAt)
+                        End If
 
+                        If currentlyTabbableUsers.Count - 1 = myTabbingMultipleUsersAt Then
+                            myTabbingMultipleUsersAt = 0
+                        Else
+                            myTabbingMultipleUsersAt += 1
+                        End If
+
+                        Console.Write(currentlyTabbableUsers(myTabbingMultipleUsersAt))
                     End If
 
                 Case Else
