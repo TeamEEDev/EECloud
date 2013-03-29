@@ -39,7 +39,7 @@ Friend NotInheritable Class Logger
             Return myIsTabbingMultipleUsers
         End Get
         Set(value As Boolean)
-            If myIsTabbingMultipleUsers <> value Then
+            If value <> myIsTabbingMultipleUsers Then
                 If value Then
                     myTabbingMultipleUsersAt = -1
                 Else
@@ -104,22 +104,21 @@ Friend NotInheritable Class Logger
     ' ReSharper restore FunctionNeverReturns
 
     Private Sub HandleUsernameTabbing()
-        If myClient.PlayerManager IsNot Nothing Then 'AndAlso myClient.PlayerManager.Count > 0
+        If myClient.PlayerManager IsNot Nothing AndAlso myClient.PlayerManager.Count > 0 Then
             If Not IsTabbingMultipleUsers Then
                 tabbingWord = Input.Split(" "c).Last()
 
                 If tabbingWord <> String.Empty Then
-                    For Each user In From user1 In myClient.PlayerManager Where user1.Username.StartsWith(tabbingWord)
-                        currentlyTabbableUsers.Add(user.Username)
-                    Next
+                    Dim users() As String = (From player In myClient.PlayerManager Select player.Username.ToUpper(InvariantCulture) & " ").ToArray()
 
-                    If currentlyTabbableUsers.Count = 1 Then
+                    If users.Count = 1 Then
                         Console.CursorLeft -= tabbingWord.Length
-                        Console.Write(currentlyTabbableUsers(0))
-                        currentlyTabbableUsers.Clear()
+                        Console.Write(users(0))
+                        myInput = Left(myInput, myInput.Length - tabbingWord.Length) & users(0)
 
-                    ElseIf currentlyTabbableUsers.Count > 1 Then
+                    ElseIf users.Count > 1 Then
                         IsTabbingMultipleUsers = True
+                        currentlyTabbableUsers.AddRange((From player In myClient.PlayerManager Select player.Username).ToArray())
                         currentlyTabbableUsers.Sort()
 
                         GoTo IsTabbingMultipleUsers
@@ -130,10 +129,11 @@ Friend NotInheritable Class Logger
             End If
 
 IsTabbingMultipleUsers:
+            Dim minusPos As Integer
             If myTabbingMultipleUsersAt = -1 Then
-                Console.CursorLeft -= tabbingWord.Length
+                minusPos = tabbingWord.Length
             Else
-                Console.CursorLeft -= currentlyTabbableUsers(myTabbingMultipleUsersAt).Length
+                minusPos = currentlyTabbableUsers(myTabbingMultipleUsersAt).Length
             End If
 
             If currentlyTabbableUsers.Count - 1 = myTabbingMultipleUsersAt Then
@@ -142,7 +142,10 @@ IsTabbingMultipleUsers:
                 myTabbingMultipleUsersAt += 1
             End If
 
-            Console.Write(currentlyTabbableUsers(myTabbingMultipleUsersAt))
+            Dim tabbedUsername As String = currentlyTabbableUsers(myTabbingMultipleUsersAt)
+            Console.CursorLeft -= minusPos
+            Console.Write(tabbedUsername)
+            myInput = Left(myInput, myInput.Length - minusPos) & tabbedUsername
         End If
     End Sub
 
