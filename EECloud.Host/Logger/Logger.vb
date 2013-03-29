@@ -114,7 +114,7 @@ IsTabbingMultipleUsers:
                         If myTabbingMultipleUsersAt = -1 Then
                             Console.CursorLeft -= tabbingWord.Length
                         Else
-                            Console.CursorLeft -= currentlyTabbableUsers(myTabbingMultipleUsersAt)
+                            Console.CursorLeft -= currentlyTabbableUsers(myTabbingMultipleUsersAt).Length
                         End If
 
                         If currentlyTabbableUsers.Count - 1 = myTabbingMultipleUsersAt Then
