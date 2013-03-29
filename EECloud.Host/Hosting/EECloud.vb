@@ -240,8 +240,8 @@ Public NotInheritable Class EECloud
                     End If
 
                     For Each plugin In Client.PluginManager.Plugins
+                        Cloud.Logger.Log(LogPriority.Info, String.Format("Disabling {0}...", plugin.Name))
                         plugin.Stop()
-                        Cloud.Logger.Log(LogPriority.Info, "Disabled " & plugin.Name)
                     Next
 
                     If Client.Connection.UserExpectingDisconnect Then
