@@ -61,13 +61,13 @@
         Dim eventArgs As New CommandEventArgs(msg, rights, user)
         RaiseEvent OnCommand(Me, eventArgs)
 
-        If eventArgs.Handled = False Then
+        If Not eventArgs.Handled Then
             If sender IsNot Nothing Then
                 If eventArgs.Rights >= Group.Trusted Then
-                    sender.Reply("Unknown command")
+                    sender.Reply("Unknown command.")
                 End If
             ElseIf eventArgs.Rights >= Group.Moderator Then
-                Cloud.Logger.Log(LogPriority.Info, "Unknown command")
+                Cloud.Logger.Log(LogPriority.Info, "Unknown command.")
             End If
         End If
     End Sub

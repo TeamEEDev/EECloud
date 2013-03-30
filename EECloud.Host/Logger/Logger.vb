@@ -180,6 +180,10 @@ IsTabbingMultipleUsers:
     End Sub
 
     Private Sub Logger_OnInput(sender As Object, e As EventArgs) Handles Me.OnInput
+        If Input.ToCharArray()(0) <> My.Settings.CommandChar Then
+            myInput = My.Settings.CommandChar & "say " & Input
+        End If
+
         GlobalCommandManager.Value.InvokeConsoleCmd(Input, Me)
     End Sub
 
