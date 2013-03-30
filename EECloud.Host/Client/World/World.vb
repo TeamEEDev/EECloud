@@ -165,40 +165,31 @@ Friend NotInheritable Class World
     End Function
 
     Private Shared Sub ClearWorld(ByRef blockArray As IWorldBlock(,,), Optional drawBorder As Boolean = True)
-        Dim toX = blockArray.GetLength(1) - 2
-        Dim toY = blockArray.GetLength(2) - 2
-
-        Dim tmpBlock As New WorldBlock(Block.BlockGravityNothing)
+        Dim sizeX = blockArray.GetLength(1)
+        Dim sizeY = blockArray.GetLength(2)
 
         '<Fill the middle with GravityNothing blocks>
         For l = 0 To 1
-            For x = 1 To toX
-                For y = 1 To toY
-                    blockArray(l, x, y) = tmpBlock
+            For x = 1 To sizeX - 1
+                For y = 1 To sizeY - 1
+                    blockArray(l, x, y) = New WorldBlock(Block.BlockGravityNothing) 'Create a new instance for every block
                 Next
             Next
         Next
         '</Fill the middle with GravityNothing blocks>
 
         '<Border drawing>
-        toX += 1
-        toY += 1
-
-        For l = 1 To 0 Step -1
-            For x = 0 To toX
-                blockArray(l, x, 0) = tmpBlock
-                blockArray(l, x, toY) = tmpBlock
+        If drawBorder Then
+            For x = 0 To sizeX - 1
+                blockArray(0, x, 0) = New WorldBlock(Block.BlockBasicGrey)
+                blockArray(0, x, sizeY - 1) = New WorldBlock(Block.BlockBasicGrey)
             Next
 
-            For y = 1 To toY - 1
-                blockArray(l, 0, y) = tmpBlock
-                blockArray(l, toX, y) = tmpBlock
+            For y = 1 To sizeY - 2
+                blockArray(0, 0, y) = New WorldBlock(Block.BlockBasicGrey)
+                blockArray(0, sizeY - 1, y) = New WorldBlock(Block.BlockBasicGrey)
             Next
-
-            If drawBorder Then 'l = Layer.Foreground AndAlso drawBorder
-                tmpBlock = New WorldBlock(Block.BlockBasicGrey)
-            End If
-        Next
+        End If
         '</Border drawing>
     End Sub
 

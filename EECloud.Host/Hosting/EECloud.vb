@@ -22,6 +22,7 @@ Public NotInheritable Class EECloud
             My.Settings.Updated = True
         End If
 
+        Cloud.Logger = New Logger()
         myLicenseUsername = My.Settings.LicenseUsername
         myLicenseKey = My.Settings.LicenseKey
 
@@ -233,7 +234,7 @@ Public NotInheritable Class EECloud
 
             AddHandler Client.Connection.Disconnect,
                 Sub(sender As Object, e As DisconnectEventArgs)
-                    If StringIsNullOrEmpty(e.Reason) Then
+                    If String.IsNullOrEmpty(e.Reason) Then
                         Cloud.Logger.Log(LogPriority.Info, "Disconnected.")
                     Else
                         Cloud.Logger.Log(LogPriority.Info, "Disconnected. Reason: " & e.Reason)
