@@ -332,11 +332,12 @@
             connection.Open()
 
             Using command As MySqlCommand = connection.CreateCommand()
-                command.CommandText = "SELECT authKey FROM licenses WHERE Username = @Username"
+                command.CommandText = "SELECT AuthKey, InGameName FROM licenses WHERE Username = @Username"
                 command.Parameters.AddWithValue("@Username", username)
 
                 Using reader As MySqlDataReader = command.ExecuteReader()
                     If reader.Read() Then
+                        Cloud.LicenseInGameName = reader.GetString(1)
                         Return reader.GetString(0) = authKey
                     Else
                         Return Nothing
