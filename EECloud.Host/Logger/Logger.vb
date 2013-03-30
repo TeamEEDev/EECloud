@@ -106,12 +106,14 @@ Friend NotInheritable Class Logger
     Private Sub HandleUsernameTabbing()
         If myClient.PlayerManager IsNot Nothing AndAlso myClient.PlayerManager.Count > 0 Then
             If Not IsTabbingMultipleUsers Then
-                tabbingWord = Input.Split(" "c).Last().ToLower(InvariantCulture)
+                Dim splitInput() As String = Input.Split(" "c)
+                tabbingWord = splitInput.Last().ToLower(InvariantCulture)
 
                 If tabbingWord <> String.Empty Then
                     Dim users() As String = (From player In myClient.PlayerManager
-                                             Where player.Username.StartsWith(tabbingWord)
-                                             Select player.Username.ToUpper(InvariantCulture) & " ").ToArray()
+                                             Where player.Username.StartsWith(tabbingWord, StringComparison.Ordinal)
+                                             Select player.Username.ToUpper(InvariantCulture) &
+                                             DirectCast(IIf(splitInput.Count = 1, ": ", " "), String)).ToArray()
 
                     If users.Count = 1 Then
                         Console.CursorLeft -= tabbingWord.Length
@@ -144,10 +146,7 @@ IsTabbingMultipleUsers:
                 myTabbingMultipleUsersAt += 1
             End If
 
-            Dim tabbedUsername As String = currentlyTabbableUsers(myTabbingMultipleUsersAt)
-            Console.CursorLeft -= minusPos
-            Console.Write(tabbedUsername)
-            Input = Left(myInput, myInput.Length - minusPos) & tabbedUsername
+            Input = Left(myInput, myInput.Length - minusPos) & currentlyTabbableUsers(myTabbingMultipleUsersAt)
         End If
     End Sub
 

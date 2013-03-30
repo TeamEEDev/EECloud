@@ -44,7 +44,7 @@
 
     Private ReadOnly Property ShouldHandle(str As String) As Boolean
         Get
-            Return myCommandChar <> Nothing AndAlso str.StartsWith(myCommandChar, StringComparison.Ordinal)
+            Return myCommandChar <> Nothing AndAlso str.ToCharArray()(0) = myCommandChar
         End Get
     End Property
 
