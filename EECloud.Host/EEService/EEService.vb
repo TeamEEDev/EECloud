@@ -220,7 +220,7 @@
             Using command As MySqlCommand = connection.CreateCommand()
                 command.CommandText = "INSERT INTO playerData (Username, GroupID) VALUES (@Username, @GroupID) ON DUPLICATE KEY UPDATE GroupID = @GroupID"
                 command.Parameters.AddWithValue("@Username", username)
-                command.Parameters.AddWithValue("@GroupID", NumberToDbValue(groupID))
+                command.Parameters.AddWithValue("@GroupID", groupID)
 
                 command.ExecuteNonQuery()
             End Using
@@ -238,7 +238,7 @@
             Using command As MySqlCommand = connection.CreateCommand()
                 command.CommandText = "INSERT INTO playerData (Username, YoScrollWins) VALUES (@Username, @YoScrollWins) ON DUPLICATE KEY UPDATE YoScrollWins = @YoScrollWins"
                 command.Parameters.AddWithValue("@Username", username)
-                command.Parameters.AddWithValue("@YoScrollWins", NumberToDbValue(yoScrollWins))
+                command.Parameters.AddWithValue("@YoScrollWins", yoScrollWins)
 
                 command.ExecuteNonQuery()
             End Using
@@ -256,7 +256,7 @@
             Using command As MySqlCommand = connection.CreateCommand()
                 command.CommandText = "INSERT INTO playerData (Username, FTBreakerWins) VALUES (@Username, @FTBreakerWins) ON DUPLICATE KEY UPDATE FTBreakerWins = @FTBreakerWins"
                 command.Parameters.AddWithValue("@Username", username)
-                command.Parameters.AddWithValue("@FTBreakerWins", NumberToDbValue(ftBreakerWins))
+                command.Parameters.AddWithValue("@FTBreakerWins", ftBreakerWins)
 
                 command.ExecuteNonQuery()
             End Using
@@ -286,6 +286,26 @@
         End Using
     End Function
 
+    Friend Sub RemoveFact(factID As String) Implements IEEService.RemoveFact
+        If StringIsNullOrEmpty(factID) Then
+            Throw New ArgumentNullException("factID")
+        End If
+
+        Try
+            Using connection As New MySqlConnection(MySQLConnStr)
+                connection.Open()
+
+                Using command As MySqlCommand = connection.CreateCommand()
+                    command.CommandText = "DELETE FROM facts WHERE FactID = @FactID"
+                    command.Parameters.AddWithValue("@FactID", factID)
+
+                    command.ExecuteNonQuery()
+                End Using
+            End Using
+        Catch
+        End Try
+    End Sub
+
     Friend Sub SetFact(factID As String, factGroup As String) Implements IEEService.SetFact
         If StringIsNullOrEmpty(factID) Then
             Throw New ArgumentNullException("factID")
@@ -305,26 +325,6 @@
                 command.ExecuteNonQuery()
             End Using
         End Using
-    End Sub
-
-    Friend Sub RemoveFact(factID As String) Implements IEEService.RemoveFact
-        If StringIsNullOrEmpty(factID) Then
-            Throw New ArgumentNullException("factID")
-        End If
-
-        Try
-            Using connection As New MySqlConnection(MySQLConnStr)
-                connection.Open()
-
-                Using command As MySqlCommand = connection.CreateCommand()
-                    command.CommandText = "DELETE FROM facts WHERE FactID = @FactID"
-                    command.Parameters.AddWithValue("@FactID", factID)
-
-                    command.ExecuteNonQuery()
-                End Using
-            End Using
-        Catch
-        End Try
     End Sub
 
     Friend Function CheckLicense(username As String, authKey As String) As Boolean Implements IEEService.CheckLicense
@@ -363,6 +363,18 @@
             .FTBreakerWins = TryCastUShort(reader.GetValue(3))}
     End Function
 
+    Private Shared Function TryCastString(input As Object) As String
+        Try
+            If input IsNot DBNull.Value AndAlso input IsNot Nothing Then
+                Return CStr(input)
+            Else
+                Return String.Empty
+            End If
+        Catch
+            Return String.Empty
+        End Try
+    End Function
+
     Private Shared Function TryCastShort(input As Object) As Short
         Try
             If input IsNot DBNull.Value AndAlso input IsNot Nothing Then
@@ -385,13 +397,5 @@
         Catch
             Return 0
         End Try
-    End Function
-
-    Private Shared Function NumberToDbValue(input As Object)
-        If input = 0 Then
-            Return DBNull.Value
-        End If
-
-        Return input
     End Function
 End Class
