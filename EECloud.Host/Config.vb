@@ -7,19 +7,6 @@ Friend Module Config
 
     Friend ReadOnly InvariantCulture As CultureInfo = CultureInfo.InvariantCulture
 
-    Private ReadOnly myWhitespacesRegex As New Regex("^\s+|\s+$", RegexOptions.Compiled)
-
-    'Custom null checking method for strings
-    Friend Function StringIsNullOrEmpty(value As String) As Boolean
-        value = myWhitespacesRegex.Replace(value, String.Empty)
-
-        If value = Nothing OrElse value.Length = 0 Then
-            Return True
-        End If
-
-        Return False
-    End Function
-
     Friend Function MakeFirstLetterUpperCased(value As String)
         Dim letters() As Char = value.ToCharArray()
         letters(0) = Char.ToUpper(letters(0), InvariantCulture)

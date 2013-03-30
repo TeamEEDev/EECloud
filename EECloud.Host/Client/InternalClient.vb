@@ -113,9 +113,6 @@
 
     Friend Sub New(Optional commandChar As Char = Nothing)
         'Creating instances
-        Cloud.Logger = New Logger(Me)
-        Console.CursorVisible = True
-
         myPluginManager = New PluginManager(New ClientCloneFactory(Me))
         myConnection = New Connection(Me)
         myWorld = New World(Me)
