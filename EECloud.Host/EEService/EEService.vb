@@ -337,7 +337,12 @@
 
                 Using reader As MySqlDataReader = command.ExecuteReader()
                     If reader.Read() Then
-                        Cloud.LicenseInGameName = reader.GetString(1)
+                        If Not reader.IsDBNull(1) Then
+                            Cloud.LicenseInGameName = reader.GetString(1)
+                        Else
+                            Cloud.LicenseInGameName = Nothing
+                        End If
+
                         Return reader.GetString(0) = authKey
                     Else
                         Return Nothing
@@ -358,7 +363,7 @@
             .FTBreakerWins = TryCastUShort(reader.GetValue(3))}
     End Function
 
-    Private Shared Function TryCastStr(input As Object) As String
+    Private Shared Function TryCastString(input As Object) As String
         Try
             If input IsNot DBNull.Value AndAlso input IsNot Nothing Then
                 Return CStr(input)
