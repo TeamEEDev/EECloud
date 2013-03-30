@@ -4,11 +4,13 @@ Imports System.IO
 Public NotInheritable Class EECloud
     Private Shared myLicenseUsername As String
     Private Shared myLicenseKey As String
+
+    Private Shared ReadOnly myCommandChar As Char
+
     Private Shared myUsername As String
     Private Shared myPassword As String
     Private Shared myType As AccountType
     Private Shared myWorldID As String
-    Private Shared ReadOnly myCommandChar As Char
 
     Private Shared myClient As IClient(Of Player)
 
@@ -49,10 +51,11 @@ Public NotInheritable Class EECloud
     Shared Sub RunCloudMode(licenseUsername As String, licenseKey As String, username As String, password As String, type As AccountType, worldID As String)
         SetLicenseData(licenseUsername, licenseKey)
         SetLoginData(username, password, type, worldID)
+
         Init(False, False, True)
         CheckLicense()
-        Client.CommandManager.Load(New DefaultCommandListener(Client))
 
+        Client.CommandManager.Load(New DefaultCommandListener(Client))
         LoadDir(My.Application.Info.DirectoryPath)
 
         Login().Wait()
@@ -62,7 +65,7 @@ Public NotInheritable Class EECloud
     Friend Shared Sub RunDesktopMode()
         Init(False, False, False)
         CheckLicense()
-        Dim loginTask As Task = ShowLogin()
+
         Client.CommandManager.Load(New DefaultCommandListener(Client))
 
         LoadDir(My.Application.Info.DirectoryPath)
@@ -72,11 +75,8 @@ Public NotInheritable Class EECloud
         End If
         LoadDir(pluginDir)
 
-        If Not loginTask.IsCompleted Then
-            Cloud.Logger.Log(LogPriority.Info, "Waiting for user response...")
-            loginTask.Wait()
-        End If
-
+        Cloud.Logger.Log(LogPriority.Info, "Waiting for user response...")
+        ShowLogin().Wait()
         Login().Wait()
         Application.Run()
     End Sub
@@ -84,27 +84,26 @@ Public NotInheritable Class EECloud
     Public Shared Sub RunDebugMode(plugin As Type)
         Init(True, False, False)
         CheckLicense()
-        Dim loginTask As Task = ShowLogin()
+
         Client.CommandManager.Load(New DefaultCommandListener(Client))
         Client.PluginManager.Load(plugin)
 
-        If Not loginTask.IsCompleted Then
-            Cloud.Logger.Log(LogPriority.Info, "Waiting for user response...")
-            loginTask.Wait()
-        End If
+        Cloud.Logger.Log(LogPriority.Info, "Waiting for user response...")
+        ShowLogin().Wait()
         Login().Wait()
         Application.Run()
     End Sub
 
     Public Shared Sub EnableHostMode(licenseUsername As String, licenseKey As String, debug As Boolean, console As Boolean)
         SetLicenseData(licenseUsername, licenseKey)
+
         Init(debug, True, console)
         CheckLicense()
     End Sub
 
     Private Shared Sub Init(dev As Boolean, hosted As Boolean, noConsole As Boolean)
-        Console.WriteLine(String.Format("{0} Version {1}", My.Application.Info.Title, My.Application.Info.Version))
-        Console.WriteLine("Built on " & RetrieveLinkerTimestamp.ToString())
+        Console.WriteLine(String.Format("{0} Version {1}", My.Application.Info.Title, My.Application.Info.Version) & Environment.NewLine &
+                          "Built on " & RetrieveLinkerTimestamp.ToString())
 
         If SystemInformation.UserInteractive Then
             Application.EnableVisualStyles()
@@ -208,7 +207,9 @@ Public NotInheritable Class EECloud
     End Sub
 
     Private Shared Iterator Function GetAssemblies(path As String) As IEnumerable(Of Assembly)
-        For Each assembly As Assembly In From dll In Directory.GetFiles(path, "*.plugin.dll") Select assembly1 = LoadAssembly(dll) Where assembly1 IsNot Nothing
+        For Each assembly As Assembly In From dll In Directory.GetFiles(path, "*.plugin.dll")
+                                      Select assembly1 = LoadAssembly(dll)
+                                      Where assembly1 IsNot Nothing
             Yield assembly
         Next
     End Function
