@@ -370,7 +370,7 @@
             Else
                 Return String.Empty
             End If
-        Catch ex As Exception
+        Catch
             Return String.Empty
         End Try
     End Function
@@ -380,10 +380,10 @@
             If input IsNot DBNull.Value AndAlso input IsNot Nothing Then
                 Return CShort(input)
             Else
-                Return Nothing
+                Return 0
             End If
-        Catch ex As Exception
-            Return Nothing
+        Catch
+            Return 0
         End Try
     End Function
 
@@ -392,10 +392,10 @@
             If input IsNot DBNull.Value AndAlso input IsNot Nothing Then
                 Return CUShort(input)
             Else
-                Return Nothing
+                Return 0
             End If
-        Catch ex As Exception
-            Return Nothing
+        Catch
+            Return 0
         End Try
     End Function
 End Class
