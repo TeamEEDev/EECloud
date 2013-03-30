@@ -222,12 +222,14 @@ Friend NotInheritable Class DefaultCommandListener
 
         If myClient.Game.MyPlayer IsNot Nothing Then
             If cmd.Sender Is Nothing Then
-                If Cloud.LicenseUsername.ToLower(InvariantCulture) <> myClient.Game.MyPlayer.Username Then
-                    realSenderString = "<" & Cloud.LicenseUsername & "> "
+                If Cloud.LicenseInGameName IsNot Nothing Then
+                    If Cloud.LicenseInGameName <> myClient.Game.MyPlayer.Username Then
+                        realSenderString = "[" & MakeFirstLetterUpperCased(Cloud.LicenseInGameName) & "] "
+                    End If
                 End If
             Else
                 If cmd.Sender.Username <> myClient.Game.MyPlayer.Username Then
-                    realSenderString = "<" & StrConv(cmd.Sender.Username, VbStrConv.ProperCase) & "> "
+                    realSenderString = "[" & MakeFirstLetterUpperCased(cmd.Sender.Username) & "] "
                 End If
             End If
         End If

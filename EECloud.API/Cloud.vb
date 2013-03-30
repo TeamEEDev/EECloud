@@ -97,6 +97,18 @@
         End Set
     End Property
 
+    Private Shared myLicenseInGameName As String
+
+    Public Shared Property LicenseInGameName As String
+        Get
+            Return myLicenseInGameName
+        End Get
+
+        Friend Set(value As String)
+            myLicenseInGameName = value
+        End Set
+    End Property
+
     Private Shared myStartupWorldID As String
 
     Public Shared Property StartupWorldID As String
