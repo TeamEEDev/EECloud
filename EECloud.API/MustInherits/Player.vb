@@ -42,7 +42,7 @@
         Get
             Try
                 Return myPlayer.Username
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -52,7 +52,7 @@
         Get
             Try
                 Return myPlayer.UserID
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -62,7 +62,7 @@
         Get
             Try
                 Return myPlayer.IsUserDataReady
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -72,7 +72,7 @@
         Get
             Try
                 Return myPlayer.DatabaseName
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -82,7 +82,7 @@
         Get
             Try
                 Return myPlayer.Group
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -99,7 +99,7 @@
         Get
             Try
                 Return myPlayer.IsGuest
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -109,7 +109,7 @@
         Get
             Try
                 Return myPlayer.IsGod
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -119,7 +119,7 @@
         Get
             Try
                 Return myPlayer.IsMod
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -129,7 +129,7 @@
         Get
             Try
                 Return myPlayer.IsMyFriend
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -139,7 +139,7 @@
         Get
             Try
                 Return myPlayer.IsClubMember
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -149,7 +149,7 @@
         Get
             Try
                 Return myPlayer.IsDisconnected
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -159,7 +159,7 @@
         Get
             Try
                 Return myPlayer.HasChat
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -169,7 +169,7 @@
         Get
             Try
                 Return myPlayer.MagicClass
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -179,7 +179,7 @@
         Get
             Try
                 Return myPlayer.Smiley
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -189,7 +189,7 @@
         Get
             Try
                 Return myPlayer.Coins
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -199,7 +199,7 @@
         Get
             Try
                 Return myPlayer.SpawnX
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -209,7 +209,7 @@
         Get
             Try
                 Return myPlayer.SpawnY
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -219,7 +219,7 @@
         Get
             Try
                 Return myPlayer.PlayerPosX
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -229,7 +229,7 @@
         Get
             Try
                 Return myPlayer.PlayerPosY
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -239,7 +239,7 @@
         Get
             Try
                 Return myPlayer.BlockX
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -249,7 +249,7 @@
         Get
             Try
                 Return myPlayer.BlockY
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -259,7 +259,7 @@
         Get
             Try
                 Return myPlayer.SpeedX
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -269,7 +269,7 @@
         Get
             Try
                 Return myPlayer.SpeedY
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -279,7 +279,7 @@
         Get
             Try
                 Return myPlayer.ModifierX
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -289,7 +289,7 @@
         Get
             Try
                 Return myPlayer.ModifierY
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -299,7 +299,7 @@
         Get
             Try
                 Return myPlayer.Vertical
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -309,7 +309,7 @@
         Get
             Try
                 Return myPlayer.Horizontal
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -319,7 +319,7 @@
         Get
             Try
                 Return myPlayer.Say
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -329,7 +329,7 @@
         Get
             Try
                 Return myPlayer.AutoText
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -339,7 +339,7 @@
         Get
             Try
                 Return myPlayer.HasCrown
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -349,7 +349,7 @@
         Get
             Try
                 Return myPlayer.HasSilverCrown
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -359,7 +359,7 @@
         Get
             Try
                 Return myPlayer.RedAuraPotion
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -369,7 +369,7 @@
         Get
             Try
                 Return myPlayer.BlueAuraPotion
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -379,7 +379,7 @@
         Get
             Try
                 Return myPlayer.YellowAuraPotion
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -389,7 +389,7 @@
         Get
             Try
                 Return myPlayer.GreenAuraPotion
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -399,7 +399,7 @@
         Get
             Try
                 Return myPlayer.JumpPotion
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -409,7 +409,7 @@
         Get
             Try
                 Return myPlayer.CursePotion
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -419,7 +419,7 @@
         Get
             Try
                 Return myPlayer.FirePotion
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -429,7 +429,7 @@
         Get
             Try
                 Return myPlayer.ProtectionPotion
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -439,7 +439,7 @@
         Get
             Try
                 Return myPlayer.LastPotion
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -449,7 +449,7 @@
         Get
             Try
                 Return myPlayer.LastPotionEnabled
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get
@@ -459,7 +459,7 @@
         Get
             Try
                 Return myPlayer.LastPotionTimeout
-            Catch ex As Exception
+            Catch
                 Return Nothing
             End Try
         End Get

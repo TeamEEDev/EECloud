@@ -908,6 +908,16 @@ Friend NotInheritable Class Connection
                     Dim ioConnection As PlayerIOClient.Connection = GetIOConnection(ioClient, id)
                     SetupConnection(ioConnection, id)
                 Catch ex As PlayerIOError
+                    'TODO:
+                    'Select Case ex.ErrorCode
+                    '    Case ErrorCode.UnknownUser
+
+                    '    Case ErrorCode.InvalidPassword
+
+                    '    Case Else
+                    '        Throw New EECloudPlayerIOException(ex)
+                    'End Select
+
                     Throw New EECloudPlayerIOException(ex)
                 End Try
             End Sub)
@@ -1018,7 +1028,7 @@ Friend NotInheritable Class Connection
             Else
                 myMessageDictionary.Add(str, type)
             End If
-        Catch ex As Exception
+        Catch
             Cloud.Logger.Log(LogPriority.Error, "Failed to register messages with type """ & str & """.")
         End Try
     End Sub
@@ -1026,7 +1036,7 @@ Friend NotInheritable Class Connection
     Private Sub UnRegisterMessage(str As String)
         Try
             myMessageDictionary.Remove(str)
-        Catch ex As Exception
+        Catch
             Cloud.Logger.Log(LogPriority.Error, "Failed to unregister messages with type """ & str & """.")
         End Try
     End Sub
