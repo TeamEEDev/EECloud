@@ -34,10 +34,13 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
                     Throw New EECloudException(ErrorCode.CommandTargetAlreadyAdded)
                 End If
 
+                Dim attributes As CommandAttribute()
                 For Each method As MethodInfo In target.GetType.GetMethods()
-                    Dim attributes As CommandAttribute() = method.GetCustomAttributes(GetType(CommandAttribute), True)
+                    attributes = method.GetCustomAttributes(GetType(CommandAttribute), True)
+
                     If attributes IsNot Nothing AndAlso attributes.Length = 1 Then
-                        Dim attribute As CommandAttribute = attributes(0)
+                        Dim attribute = attributes(0)
+
                         Try
                             Dim handle As New CommandHandle(Of TPlayer)(attribute, method, target)
                             Try

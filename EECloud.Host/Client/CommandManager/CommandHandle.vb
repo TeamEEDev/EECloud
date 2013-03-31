@@ -41,24 +41,25 @@ Friend NotInheritable Class CommandHandle (Of TPlayer As {New, Player})
         myMethodInfo = method
         myTarget = target
 
-        Dim prams As ParameterInfo() = method.GetParameters
-        If Not prams(0).ParameterType = GetType(ICommand(Of TPlayer)) Then
+        Dim params As ParameterInfo() = method.GetParameters()
+        If Not params(0).ParameterType = GetType(ICommand(Of TPlayer)) Then
             Cloud.Logger.Log(LogPriority.Error, "First parameter must be a Command: " & attribute.Type)
             Throw New EECloudException(ErrorCode.InvalidCommand)
         End If
 
         mySyntaxStr = "!command"
-        For i As Integer = 1 To prams.Count - 1
-            Dim pram As ParameterInfo = prams(i)
-            Select Case pram.ParameterType
+        Dim param As ParameterInfo
+        For i As Integer = 1 To params.Count - 1
+            param = params(i)
+            Select Case param.ParameterType
                 Case GetType(String)
                     myCount += 1
-                    mySyntaxStr += " [" & pram.Name & "]"
+                    mySyntaxStr &= " [" & param.Name & "]"
                 Case GetType(String())
-                    Dim attributes As ParamArrayAttribute() = CType(pram.GetCustomAttributes(GetType(ParamArrayAttribute)), ParamArrayAttribute())
-                    If attributes IsNot Nothing AndAlso attributes.Length >= 1 Then
+                    Dim attributes As ParamArrayAttribute() = CType(param.GetCustomAttributes(GetType(ParamArrayAttribute)), ParamArrayAttribute())
+                    If attributes IsNot Nothing AndAlso attributes.Length > 0 Then
                         myHasParamArray = True
-                        mySyntaxStr += " [" & pram.Name & "...]"
+                        mySyntaxStr &= " [" & param.Name & "...]"
                     Else
                         Cloud.Logger.Log(LogPriority.Error, "String Arrays in commands must have the ParamArrayAttribute on them: " & attribute.Type)
                         Throw New EECloudException(ErrorCode.InvalidCommand)
