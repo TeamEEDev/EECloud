@@ -30,7 +30,7 @@ Friend NotInheritable Class LoginForm
                 Select Case My.Settings.LoginTypes(n)
                     Case AccountType.Regular
                         regularAccounts.Add(n)
-                    Case AccountType.Facebook
+                    Case Else 'AccountType.Facebook
                         facebookAccounts.Add(n)
                 End Select
             Next
@@ -38,7 +38,7 @@ Friend NotInheritable Class LoginForm
             Select Case My.Settings.LoginTypes(0)
                 Case AccountType.Regular
                     RadioButtonRegular.Checked = True
-                Case AccountType.Facebook
+                Case Else 'AccountType.Facebook
                     RadioButtonFacebook.Checked = True
             End Select
         Else
@@ -72,7 +72,7 @@ Friend NotInheritable Class LoginForm
                 Select Case selectedLoginType
                     Case AccountType.Regular
                         removeLocation = regularAccounts(TextBoxEmail.SelectedIndex)
-                    Case AccountType.Facebook
+                    Case Else 'AccountType.Facebook
                         removeLocation = facebookAccounts(TextBoxEmail.SelectedIndex)
                 End Select
 
@@ -123,9 +123,9 @@ Friend NotInheritable Class LoginForm
     End Sub
 
     Private Sub ButtonJoinWorld_Click(sender As Object, e As EventArgs) Handles ButtonJoinWorld.Click
-        If Not String.IsNullOrEmpty(TextBoxEmail.Text) Then
-            If Not String.IsNullOrEmpty(TextBoxPassword.Text) OrElse RadioButtonFacebook.Checked Then
-                If Not String.IsNullOrEmpty(TextBoxWorldID.Text) Then
+        If Not String.IsNullOrWhiteSpace(TextBoxEmail.Text) Then
+            If Not String.IsNullOrWhiteSpace(TextBoxPassword.Text) OrElse RadioButtonFacebook.Checked Then
+                If Not String.IsNullOrWhiteSpace(TextBoxWorldID.Text) Then
                     Dim settingIndex As Integer = My.Settings.LoginEmails.IndexOf(TextBoxEmail.Text)
                     If settingIndex > -1 Then
                         My.Settings.LoginTypes.RemoveAt(settingIndex)
@@ -140,7 +140,7 @@ Friend NotInheritable Class LoginForm
 
                     If RadioButtonRegular.Checked Then
                         My.Settings.LoginTypes.Insert(0, AccountType.Regular)
-                    Else
+                    Else 'If RadioButtonFacebook.Checked Then
                         My.Settings.LoginTypes.Insert(0, AccountType.Facebook)
                     End If
                     My.Settings.LoginEmails.Insert(0, TextBoxEmail.Text)
@@ -156,7 +156,7 @@ Friend NotInheritable Class LoginForm
                     TextBoxWorldID.Focus()
                 End If
             Else
-                If Not String.IsNullOrEmpty(TextBoxWorldID.Text) Then
+                If Not String.IsNullOrWhiteSpace(TextBoxWorldID.Text) Then
                     MessageBox.Show("You didn't enter your password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Else
                     MessageBox.Show("You didn't enter your password, and the world's ID you want to join to.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -165,14 +165,14 @@ Friend NotInheritable Class LoginForm
                 TextBoxPassword.Focus()
             End If
         Else
-            If Not String.IsNullOrEmpty(TextBoxPassword.Text) OrElse RadioButtonFacebook.Checked Then
-                If Not String.IsNullOrEmpty(TextBoxWorldID.Text) Then
+            If Not String.IsNullOrWhiteSpace(TextBoxPassword.Text) OrElse RadioButtonFacebook.Checked Then
+                If Not String.IsNullOrWhiteSpace(TextBoxWorldID.Text) Then
                     MessageBox.Show("You didn't enter your e-mail address.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Else
                     MessageBox.Show("You didn't enter your e-mail address, and the world's ID you want to join to.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
             Else
-                If Not String.IsNullOrEmpty(TextBoxWorldID.Text) Then
+                If Not String.IsNullOrWhiteSpace(TextBoxWorldID.Text) Then
                     MessageBox.Show("You didn't enter your e-mail address, and your password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Else
                     MessageBox.Show("You didn't enter your e-mail address, your password, and the world's ID you want to join to.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -232,7 +232,7 @@ Friend NotInheritable Class LoginForm
         Select Case selectedLoginType
             Case AccountType.Regular
                 TextBoxPassword.Text = My.Settings.LoginPasswords(regularAccounts(TextBoxEmail.SelectedIndex))
-            Case AccountType.Facebook
+            Case Else 'AccountType.Facebook
                 TextBoxPassword.Text = My.Settings.LoginPasswords(facebookAccounts(TextBoxEmail.SelectedIndex))
         End Select
     End Sub

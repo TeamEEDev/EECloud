@@ -8,7 +8,7 @@
     End Property
 
     Friend Function GetSetting(key As String) As String Implements IEEService.GetSetting
-        If String.IsNullOrEmpty(key) Then
+        If String.IsNullOrWhiteSpace(key) Then
             Throw New ArgumentNullException("key")
         End If
 
@@ -30,7 +30,7 @@
         End If
 
         For i = 0 To keyList.Length - 1
-            If String.IsNullOrEmpty(keyList(i)) Then
+            If String.IsNullOrWhiteSpace(keyList(i)) Then
                 Throw New ArgumentNullException("keyList", "'KeyList' mustn't contain empty or null values.")
             End If
         Next
@@ -64,10 +64,10 @@
     End Function
 
     Friend Sub SetSetting(key As String, value As String) Implements IEEService.SetSetting
-        If String.IsNullOrEmpty(key) Then
+        If String.IsNullOrWhiteSpace(key) Then
             Throw New ArgumentNullException("key")
         End If
-        If String.IsNullOrEmpty(value) Then
+        If String.IsNullOrWhiteSpace(value) Then
             Throw New ArgumentNullException("value")
         End If
 
@@ -90,7 +90,7 @@
         End If
 
         For i = 0 To keyValuePairs.Length - 1
-            If String.IsNullOrEmpty(keyValuePairs(i).Key) OrElse String.IsNullOrEmpty(keyValuePairs(i).Value) Then
+            If String.IsNullOrWhiteSpace(keyValuePairs(i).Key) OrElse String.IsNullOrWhiteSpace(keyValuePairs(i).Value) Then
                 Throw New ArgumentNullException("keyValuePairs", "'KeyValuePairs' mustn't contain empty or null values.")
             End If
         Next
@@ -111,7 +111,7 @@
     End Sub
 
     Friend Function GetPlayerData(username As String) As UserData Implements IEEService.GetPlayerData
-        If String.IsNullOrEmpty(username) Then
+        If String.IsNullOrWhiteSpace(username) Then
             Throw New ArgumentNullException("username")
         End If
 
@@ -207,7 +207,7 @@
     Private Shared ReadOnly myAcceptedGroupIDs() As Short = {400, 300, 100, 0, -100, -200}
 
     Friend Sub SetPlayerDataGroupID(username As String, groupID As Short) Implements IEEService.SetPlayerDataGroupID
-        If String.IsNullOrEmpty(username) Then
+        If String.IsNullOrWhiteSpace(username) Then
             Throw New ArgumentNullException("username")
         End If
         If Not myAcceptedGroupIDs.Contains(groupID) Then
@@ -220,7 +220,7 @@
             Using command As MySqlCommand = connection.CreateCommand()
                 command.CommandText = "INSERT INTO playerData (Username, GroupID) VALUES (@Username, @GroupID) ON DUPLICATE KEY UPDATE GroupID = @GroupID"
                 command.Parameters.AddWithValue("@Username", username)
-                command.Parameters.AddWithValue("@GroupID", groupID)
+                command.Parameters.AddWithValue("@GroupID", NumberToDbValue(groupID))
 
                 command.ExecuteNonQuery()
             End Using
@@ -228,7 +228,7 @@
     End Sub
 
     Friend Sub SetPlayerDataYoScrollWins(username As String, yoScrollWins As UShort) Implements IEEService.SetPlayerDataYoScrollWins
-        If String.IsNullOrEmpty(username) Then
+        If String.IsNullOrWhiteSpace(username) Then
             Throw New ArgumentNullException("username")
         End If
 
@@ -238,7 +238,7 @@
             Using command As MySqlCommand = connection.CreateCommand()
                 command.CommandText = "INSERT INTO playerData (Username, YoScrollWins) VALUES (@Username, @YoScrollWins) ON DUPLICATE KEY UPDATE YoScrollWins = @YoScrollWins"
                 command.Parameters.AddWithValue("@Username", username)
-                command.Parameters.AddWithValue("@YoScrollWins", yoScrollWins)
+                command.Parameters.AddWithValue("@YoScrollWins", NumberToDbValue(yoScrollWins))
 
                 command.ExecuteNonQuery()
             End Using
@@ -246,7 +246,7 @@
     End Sub
 
     Friend Sub SetPlayerDataFTBreakerWins(username As String, ftBreakerWins As UShort) Implements IEEService.SetPlayerDataFTBreakerWins
-        If String.IsNullOrEmpty(username) Then
+        If String.IsNullOrWhiteSpace(username) Then
             Throw New ArgumentNullException("username")
         End If
 
@@ -256,7 +256,7 @@
             Using command As MySqlCommand = connection.CreateCommand()
                 command.CommandText = "INSERT INTO playerData (Username, FTBreakerWins) VALUES (@Username, @FTBreakerWins) ON DUPLICATE KEY UPDATE FTBreakerWins = @FTBreakerWins"
                 command.Parameters.AddWithValue("@Username", username)
-                command.Parameters.AddWithValue("@FTBreakerWins", ftBreakerWins)
+                command.Parameters.AddWithValue("@FTBreakerWins", NumberToDbValue(ftBreakerWins))
 
                 command.ExecuteNonQuery()
             End Using
@@ -264,7 +264,7 @@
     End Sub
 
     Friend Function GetFacts(factGroup As String) As String() Implements IEEService.GetFacts
-        If String.IsNullOrEmpty(factGroup) Then
+        If String.IsNullOrWhiteSpace(factGroup) Then
             Throw New ArgumentNullException("factGroup")
         End If
 
@@ -286,8 +286,29 @@
         End Using
     End Function
 
+    Friend Sub SetFact(factID As String, factGroup As String) Implements IEEService.SetFact
+        If String.IsNullOrWhiteSpace(factID) Then
+            Throw New ArgumentNullException("factID")
+        End If
+        If String.IsNullOrWhiteSpace(factGroup) Then
+            Throw New ArgumentNullException("factGroup")
+        End If
+
+        Using connection As New MySqlConnection(MySQLConnStr)
+            connection.Open()
+
+            Using command As MySqlCommand = connection.CreateCommand()
+                command.CommandText = "INSERT INTO facts VALUES (@FactID, @FactGroup)"
+                command.Parameters.AddWithValue("@FactID", factID)
+                command.Parameters.AddWithValue("@FactGroup", factGroup)
+
+                command.ExecuteNonQuery()
+            End Using
+        End Using
+    End Sub
+
     Friend Sub RemoveFact(factID As String) Implements IEEService.RemoveFact
-        If String.IsNullOrEmpty(factID) Then
+        If String.IsNullOrWhiteSpace(factID) Then
             Throw New ArgumentNullException("factID")
         End If
 
@@ -304,27 +325,6 @@
             End Using
         Catch
         End Try
-    End Sub
-
-    Friend Sub SetFact(factID As String, factGroup As String) Implements IEEService.SetFact
-        If String.IsNullOrEmpty(factID) Then
-            Throw New ArgumentNullException("factID")
-        End If
-        If String.IsNullOrEmpty(factGroup) Then
-            Throw New ArgumentNullException("factGroup")
-        End If
-
-        Using connection As New MySqlConnection(MySQLConnStr)
-            connection.Open()
-
-            Using command As MySqlCommand = connection.CreateCommand()
-                command.CommandText = "INSERT INTO facts VALUES (@FactID, @FactGroup)"
-                command.Parameters.AddWithValue("@FactID", factID)
-                command.Parameters.AddWithValue("@FactGroup", factGroup)
-
-                command.ExecuteNonQuery()
-            End Using
-        End Using
     End Sub
 
     Friend Function CheckLicense(username As String, authKey As String) As Boolean Implements IEEService.CheckLicense
@@ -399,4 +399,13 @@
             Return 0
         End Try
     End Function
+
+    Private Shared Function NumberToDbValue(input As Object)
+        If input = 0 Then
+            Return DBNull.Value
+        End If
+
+        Return input
+    End Function
+
 End Class
