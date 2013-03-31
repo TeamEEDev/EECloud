@@ -11,8 +11,8 @@ Public NotInheritable Class TeleportReceiveMessage
 
         ResetCoins = message.GetBoolean(0)
 
-        For i As UInteger = 1 To CUInt(message.Count - 1) Step 3
-            Coordinates.Add(message.GetInteger(i), New Point(message.GetInteger(CUInt(i + 1)), message.GetInteger(CUInt(i + 2))))
+        For i As UInteger = 1 To message.Count - 1UI Step 3
+            Coordinates.Add(message.GetInteger(i), New Point(message.GetInteger(i + 1UI), message.GetInteger(i + 2UI)))
         Next
     End Sub
 End Class

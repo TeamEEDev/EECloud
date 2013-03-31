@@ -49,7 +49,7 @@ Friend NotInheritable Class World
 
     Private Shared Function ParseWorld(m As Message, sizeX As Integer, sizeY As Integer, offset As UInteger) As IWorldBlock(,,)
         Dim start As UInteger
-        For i As UInteger = offset To CUInt(m.Count - 1)
+        For i As UInteger = offset To m.Count - 1UI
             If TryCast(m.Item(i), String) IsNot Nothing AndAlso m.GetString(i) = "ws" Then
                 start = i + 1
                 Exit For
