@@ -420,6 +420,7 @@ Friend NotInheritable Class Connection
                 RaiseEvent UploadLabelPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
+
             Case GetType(SaySendMessage)
                 Dim eventArgs As New Cancelable(Of SaySendMessage)(DirectCast(message, SaySendMessage))
                 RaiseEvent SendSay(Me, eventArgs)
@@ -429,6 +430,7 @@ Friend NotInheritable Class Connection
                 Dim eventArgs As New Cancelable(Of AutoSaySendMessage)(DirectCast(message, AutoSaySendMessage))
                 RaiseEvent SendAutoSay(Me, eventArgs)
                 Return eventArgs.Handled
+
 
             Case GetType(PressRedKeySendMessage)
                 Dim eventArgs As New Cancelable(Of PressRedKeySendMessage)(DirectCast(message, PressRedKeySendMessage))
@@ -444,6 +446,7 @@ Friend NotInheritable Class Connection
                 Dim eventArgs As New Cancelable(Of PressBlueKeySendMessage)(DirectCast(message, PressBlueKeySendMessage))
                 RaiseEvent SendPressBlueKey(Me, eventArgs)
                 Return eventArgs.Handled
+
 
             Case GetType(ChangeWorldEditKeySendMessage)
                 Dim eventArgs As New Cancelable(Of ChangeWorldEditKeySendMessage)(DirectCast(message, ChangeWorldEditKeySendMessage))
@@ -656,6 +659,7 @@ Friend NotInheritable Class Connection
                 RaiseEvent PreviewReceiveSilverCrown(Me, m)
                 RaiseEvent ReceiveSilverCrown(Me, m)
 
+
             Case GetType(ShowKeyReceiveMessage)
                 Dim m As ShowKeyReceiveMessage = DirectCast(e, ShowKeyReceiveMessage)
                 RaiseEvent PreviewReceiveShowKey(Me, m)
@@ -665,6 +669,7 @@ Friend NotInheritable Class Connection
                 Dim m As HideKeyReceiveMessage = DirectCast(e, HideKeyReceiveMessage)
                 RaiseEvent PreviewReceiveHideKey(Me, m)
                 RaiseEvent ReceiveHideKey(Me, m)
+
 
             Case GetType(SayReceiveMessage)
                 Dim m As SayReceiveMessage = DirectCast(e, SayReceiveMessage)
@@ -685,6 +690,7 @@ Friend NotInheritable Class Connection
                 Dim m As WriteReceiveMessage = DirectCast(e, WriteReceiveMessage)
                 RaiseEvent PreviewReceiveWrite(Me, m)
                 RaiseEvent ReceiveWrite(Me, m)
+
 
             Case GetType(BlockPlaceReceiveMessage)
                 Dim m As BlockPlaceReceiveMessage = DirectCast(e, BlockPlaceReceiveMessage)
@@ -721,6 +727,7 @@ Friend NotInheritable Class Connection
                 RaiseEvent PreviewReceiveLabelPlace(Me, m)
                 RaiseEvent ReceiveLabelPlace(Me, m)
 
+
             Case GetType(MagicReceiveMessage)
                 Dim m As MagicReceiveMessage = DirectCast(e, MagicReceiveMessage)
                 RaiseEvent PreviewReceiveMagic(Me, m)
@@ -730,6 +737,7 @@ Friend NotInheritable Class Connection
                 Dim m As LevelUpReceiveMessage = DirectCast(e, LevelUpReceiveMessage)
                 RaiseEvent PreviewReceiveLevelUp(Me, m)
                 RaiseEvent ReceiveLevelUp(Me, m)
+
 
             Case GetType(WootUpReceiveMessage)
                 Dim m As WootUpReceiveMessage = DirectCast(e, WootUpReceiveMessage)
@@ -776,6 +784,7 @@ Friend NotInheritable Class Connection
                 RaiseEvent PreviewReceiveClear(Me, m)
                 RaiseEvent ReceiveClear(Me, m)
 
+
             Case GetType(GodModeReceiveMessage)
                 Dim m As GodModeReceiveMessage = DirectCast(e, GodModeReceiveMessage)
                 RaiseEvent PreviewReceiveGodMode(Me, m)
@@ -785,6 +794,7 @@ Friend NotInheritable Class Connection
                 Dim m As ModModeReceiveMessage = DirectCast(e, ModModeReceiveMessage)
                 RaiseEvent PreviewReceiveModMode(Me, m)
                 RaiseEvent ReceiveModMode(Me, m)
+
 
             Case GetType(GiveWizardReceiveMessage)
                 Dim m As GiveWizardReceiveMessage = DirectCast(e, GiveWizardReceiveMessage)
@@ -805,6 +815,7 @@ Friend NotInheritable Class Connection
                 Dim m As GiveGrinchReceiveMessage = DirectCast(e, GiveGrinchReceiveMessage)
                 RaiseEvent PreviewReceiveGiveGrinch(Me, m)
                 RaiseEvent ReceiveGiveGrinch(Me, m)
+
 
             Case GetType(UpdateMetaReceiveMessage)
                 Dim m As UpdateMetaReceiveMessage = DirectCast(e, UpdateMetaReceiveMessage)
