@@ -360,25 +360,24 @@ Friend NotInheritable Class Connection
 
     Private Shared Sub UpdateVersion(ex As PlayerIOError)
         Dim errorMessage() As String = ex.Message.Split("["c)(1).Split(" "c)
-        Dim idSet As Boolean
+        Dim newVersion As Integer
 
-        For N = errorMessage.Length - 1 To 0 Step -1
-            Dim currentRoomType As String
-            currentRoomType = errorMessage(N)
+        Dim currentRoomType As String
+        For i = errorMessage.Length - 1 To 0 Step -1
+            currentRoomType = errorMessage(i)
+
             If currentRoomType.StartsWith(NormalRoom, StringComparison.Ordinal) Then
-                Dim newNum As Integer = Integer.Parse(currentRoomType.Substring(NormalRoom.Length, currentRoomType.Length - NormalRoom.Length - 1))
-                If newNum > myGameVersionNumber Then
-                    myGameVersionNumber = newNum
-                    Cloud.Service.SetSetting(GameVersionSetting, CStr(myGameVersionNumber))
-                End If
+                newVersion = Integer.Parse(currentRoomType.Substring(NormalRoom.Length, currentRoomType.Length - NormalRoom.Length - 1))
 
-                idSet = True
+                If newVersion > myGameVersionNumber Then
+                    myGameVersionNumber = newVersion
+                    Cloud.Service.SetSetting(GameVersionSetting, CStr(myGameVersionNumber))
+                    Exit Sub
+                End If
             End If
         Next
 
-        If Not idSet Then
-            Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get room version.")
-        End If
+        Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get room version.")
     End Sub
 
     Private Function RaiseSendEvent(message As SendMessage) As Boolean
@@ -420,6 +419,7 @@ Friend NotInheritable Class Connection
                 RaiseEvent UploadLabelPlace(Me, eventArgs)
                 Return eventArgs.Handled
 
+
             Case GetType(SaySendMessage)
                 Dim eventArgs As New Cancelable(Of SaySendMessage)(DirectCast(message, SaySendMessage))
                 RaiseEvent SendSay(Me, eventArgs)
@@ -429,6 +429,7 @@ Friend NotInheritable Class Connection
                 Dim eventArgs As New Cancelable(Of AutoSaySendMessage)(DirectCast(message, AutoSaySendMessage))
                 RaiseEvent SendAutoSay(Me, eventArgs)
                 Return eventArgs.Handled
+
 
             Case GetType(PressRedKeySendMessage)
                 Dim eventArgs As New Cancelable(Of PressRedKeySendMessage)(DirectCast(message, PressRedKeySendMessage))
@@ -444,6 +445,7 @@ Friend NotInheritable Class Connection
                 Dim eventArgs As New Cancelable(Of PressBlueKeySendMessage)(DirectCast(message, PressBlueKeySendMessage))
                 RaiseEvent SendPressBlueKey(Me, eventArgs)
                 Return eventArgs.Handled
+
 
             Case GetType(ChangeWorldEditKeySendMessage)
                 Dim eventArgs As New Cancelable(Of ChangeWorldEditKeySendMessage)(DirectCast(message, ChangeWorldEditKeySendMessage))
@@ -656,6 +658,7 @@ Friend NotInheritable Class Connection
                 RaiseEvent PreviewReceiveSilverCrown(Me, m)
                 RaiseEvent ReceiveSilverCrown(Me, m)
 
+
             Case GetType(ShowKeyReceiveMessage)
                 Dim m As ShowKeyReceiveMessage = DirectCast(e, ShowKeyReceiveMessage)
                 RaiseEvent PreviewReceiveShowKey(Me, m)
@@ -665,6 +668,7 @@ Friend NotInheritable Class Connection
                 Dim m As HideKeyReceiveMessage = DirectCast(e, HideKeyReceiveMessage)
                 RaiseEvent PreviewReceiveHideKey(Me, m)
                 RaiseEvent ReceiveHideKey(Me, m)
+
 
             Case GetType(SayReceiveMessage)
                 Dim m As SayReceiveMessage = DirectCast(e, SayReceiveMessage)
@@ -685,6 +689,7 @@ Friend NotInheritable Class Connection
                 Dim m As WriteReceiveMessage = DirectCast(e, WriteReceiveMessage)
                 RaiseEvent PreviewReceiveWrite(Me, m)
                 RaiseEvent ReceiveWrite(Me, m)
+
 
             Case GetType(BlockPlaceReceiveMessage)
                 Dim m As BlockPlaceReceiveMessage = DirectCast(e, BlockPlaceReceiveMessage)
@@ -721,6 +726,7 @@ Friend NotInheritable Class Connection
                 RaiseEvent PreviewReceiveLabelPlace(Me, m)
                 RaiseEvent ReceiveLabelPlace(Me, m)
 
+
             Case GetType(MagicReceiveMessage)
                 Dim m As MagicReceiveMessage = DirectCast(e, MagicReceiveMessage)
                 RaiseEvent PreviewReceiveMagic(Me, m)
@@ -730,6 +736,7 @@ Friend NotInheritable Class Connection
                 Dim m As LevelUpReceiveMessage = DirectCast(e, LevelUpReceiveMessage)
                 RaiseEvent PreviewReceiveLevelUp(Me, m)
                 RaiseEvent ReceiveLevelUp(Me, m)
+
 
             Case GetType(WootUpReceiveMessage)
                 Dim m As WootUpReceiveMessage = DirectCast(e, WootUpReceiveMessage)
@@ -776,6 +783,7 @@ Friend NotInheritable Class Connection
                 RaiseEvent PreviewReceiveClear(Me, m)
                 RaiseEvent ReceiveClear(Me, m)
 
+
             Case GetType(GodModeReceiveMessage)
                 Dim m As GodModeReceiveMessage = DirectCast(e, GodModeReceiveMessage)
                 RaiseEvent PreviewReceiveGodMode(Me, m)
@@ -785,6 +793,7 @@ Friend NotInheritable Class Connection
                 Dim m As ModModeReceiveMessage = DirectCast(e, ModModeReceiveMessage)
                 RaiseEvent PreviewReceiveModMode(Me, m)
                 RaiseEvent ReceiveModMode(Me, m)
+
 
             Case GetType(GiveWizardReceiveMessage)
                 Dim m As GiveWizardReceiveMessage = DirectCast(e, GiveWizardReceiveMessage)
@@ -805,6 +814,7 @@ Friend NotInheritable Class Connection
                 Dim m As GiveGrinchReceiveMessage = DirectCast(e, GiveGrinchReceiveMessage)
                 RaiseEvent PreviewReceiveGiveGrinch(Me, m)
                 RaiseEvent ReceiveGiveGrinch(Me, m)
+
 
             Case GetType(UpdateMetaReceiveMessage)
                 Dim m As UpdateMetaReceiveMessage = DirectCast(e, UpdateMetaReceiveMessage)
@@ -885,17 +895,19 @@ Friend NotInheritable Class Connection
         Await Task.Run(
             Sub()
                 Try
-                    Dim ioClient As Client = Nothing
+                    Dim ioClient As Client
                     Select Case type
                         Case AccountType.Regular
                             ioClient = PlayerIO.QuickConnect.SimpleConnect(GameID, username, password)
-                        Case AccountType.Facebook
+                        Case Else 'AccountType.Facebook
                             ioClient = PlayerIO.QuickConnect.FacebookOAuthConnect(GameID, username, String.Empty)
                     End Select
 
                     Dim ioConnection As PlayerIOClient.Connection = GetIOConnection(ioClient, id)
                     SetupConnection(ioConnection, id)
                 Catch ex As PlayerIOError
+                    myRunConnect = False
+
                     'Let the caller handle the error
                     Throw New EECloudPlayerIOException(ex)
                 End Try

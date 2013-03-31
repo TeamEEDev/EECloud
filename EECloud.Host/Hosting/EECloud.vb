@@ -4,11 +4,13 @@ Imports System.IO
 Public NotInheritable Class EECloud
     Private Shared myLicenseUsername As String
     Private Shared myLicenseKey As String
+
+    Private Shared ReadOnly myCommandChar As Char
+
     Private Shared myUsername As String
     Private Shared myPassword As String
     Private Shared myType As AccountType
     Private Shared myWorldID As String
-    Private Shared ReadOnly myCommandChar As Char
 
     Private Shared myClient As IClient(Of Player)
 
@@ -50,8 +52,10 @@ Public NotInheritable Class EECloud
     Shared Sub RunCloudMode(licenseUsername As String, licenseKey As String, username As String, password As String, type As AccountType, worldID As String)
         SetLicenseData(licenseUsername, licenseKey)
         SetLoginData(username, password, type, worldID)
+
         Init(False, False, True)
         CheckLicense()
+
         Client.CommandManager.Load(New DefaultCommandListener(Client))
 
         LoadDir(My.Application.Info.DirectoryPath)
@@ -63,6 +67,7 @@ Public NotInheritable Class EECloud
     Friend Shared Sub RunDesktopMode()
         Init(False, False, False)
         CheckLicense()
+
         Dim loginTask As Task = ShowLogin()
         Client.CommandManager.Load(New DefaultCommandListener(Client))
 
@@ -70,8 +75,9 @@ Public NotInheritable Class EECloud
         Dim pluginDir As String = My.Application.Info.DirectoryPath & "\Plugins"
         If Not Directory.Exists(pluginDir) Then
             Directory.CreateDirectory(pluginDir)
+        Else
+            LoadDir(pluginDir)
         End If
-        LoadDir(pluginDir)
 
         If Not loginTask.IsCompleted Then
             Cloud.Logger.Log(LogPriority.Info, "Waiting for user response...")
@@ -85,6 +91,7 @@ Public NotInheritable Class EECloud
     Public Shared Sub RunDebugMode(plugin As Type)
         Init(True, False, False)
         CheckLicense()
+
         Dim loginTask As Task = ShowLogin()
         Client.CommandManager.Load(New DefaultCommandListener(Client))
         Client.PluginManager.Load(plugin)
@@ -93,28 +100,30 @@ Public NotInheritable Class EECloud
             Cloud.Logger.Log(LogPriority.Info, "Waiting for user response...")
             loginTask.Wait()
         End If
+
         Login().Wait()
         Application.Run()
     End Sub
 
     Public Shared Sub EnableHostMode(licenseUsername As String, licenseKey As String, debug As Boolean, console As Boolean)
         SetLicenseData(licenseUsername, licenseKey)
+
         Init(debug, True, console)
         CheckLicense()
     End Sub
 
     Private Shared Sub Init(dev As Boolean, hosted As Boolean, noConsole As Boolean)
-        Console.WriteLine(String.Format("{0} Version {1}", My.Application.Info.Title, My.Application.Info.Version))
-        Console.WriteLine("Built on " & RetrieveLinkerTimestamp.ToString())
-
-        If SystemInformation.UserInteractive Then
-            Application.EnableVisualStyles()
-        End If
+        Console.WriteLine(String.Format("{0} Version {1}", My.Application.Info.Title, My.Application.Info.Version) & Environment.NewLine &
+                          "Built on " & RetrieveLinkerTimestamp.ToString())
 
         Cloud.IsDebug = dev
         Cloud.IsHosted = hosted
         Cloud.IsNoConsole = noConsole
         Cloud.IsNoGUI = Not SystemInformation.UserInteractive
+
+        If Not Cloud.IsNoGUI Then
+            Application.EnableVisualStyles()
+        End If
 
         Cloud.ClientFactory = New ClientFactory()
         Cloud.Service = New EEService()
@@ -228,13 +237,14 @@ Public NotInheritable Class EECloud
     End Function
 
     Public Shared Async Function Login() As Task
+RetryLogin:
         Try
             Cloud.Logger.Log(LogPriority.Info, "Joining world...")
             Dim task As Task = Client.Connection.ConnectAsync(myType, myUsername, myPassword, myWorldID)
 
             AddHandler Client.Connection.Disconnect,
                 Sub(sender As Object, e As DisconnectEventArgs)
-                    If String.IsNullOrEmpty(e.Reason) Then
+                    If String.IsNullOrWhiteSpace(e.Reason) Then
                         Cloud.Logger.Log(LogPriority.Info, "Disconnected.")
                     Else
                         Cloud.Logger.Log(LogPriority.Info, "Disconnected. Reason: " & e.Reason)
@@ -264,10 +274,27 @@ Public NotInheritable Class EECloud
             If Client.Connection.Connected Then
                 Cloud.Logger.Log(LogPriority.Info, "Connected.")
             End If
-        Catch ex As Exception
-            Cloud.Logger.Log(LogPriority.Info, "Failed to connect.")
-            Cloud.Logger.LogEx(ex)
-            Environment.Exit(1)
+        Catch ex As EECloudPlayerIOException
+            Select Case ex.PlayerIOError.ErrorCode
+                Case PlayerIOClient.ErrorCode.UnknownUser
+                    Select Case myType
+                        Case AccountType.Regular
+                            MessageBox.Show("Please check whether the username you provided is correct.", "Invalid username", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Case Else 'AccountType.Facebook
+                            MessageBox.Show("Please check whether the authentication token you provided is correct.", "Invalid auth token", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End Select
+
+                Case PlayerIOClient.ErrorCode.InvalidPassword
+                    MessageBox.Show("Please check whether the password you provided is correct.", "Invalid password", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+                Case Else
+                    Cloud.Logger.Log(LogPriority.Info, "Failed to connect.")
+                    Cloud.Logger.LogEx(ex)
+                    Environment.Exit(1)
+            End Select
+
+            ShowLogin().Wait()
+            GoTo RetryLogin
         End Try
     End Function
 End Class
