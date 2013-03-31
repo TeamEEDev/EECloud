@@ -8,7 +8,7 @@
     End Property
 
     Friend Function GetSetting(key As String) As String Implements IEEService.GetSetting
-        If StringIsNullOrEmpty(key) Then
+        If String.IsNullOrWhiteSpace(key) Then
             Throw New ArgumentNullException("key")
         End If
 
@@ -30,7 +30,7 @@
         End If
 
         For i = 0 To keyList.Length - 1
-            If StringIsNullOrEmpty(keyList(i)) Then
+            If String.IsNullOrWhiteSpace(keyList(i)) Then
                 Throw New ArgumentNullException("keyList", "'KeyList' mustn't contain empty or null values.")
             End If
         Next
@@ -64,10 +64,10 @@
     End Function
 
     Friend Sub SetSetting(key As String, value As String) Implements IEEService.SetSetting
-        If StringIsNullOrEmpty(key) Then
+        If String.IsNullOrWhiteSpace(key) Then
             Throw New ArgumentNullException("key")
         End If
-        If StringIsNullOrEmpty(value) Then
+        If String.IsNullOrWhiteSpace(value) Then
             Throw New ArgumentNullException("value")
         End If
 
@@ -90,7 +90,7 @@
         End If
 
         For i = 0 To keyValuePairs.Length - 1
-            If StringIsNullOrEmpty(keyValuePairs(i).Key) OrElse StringIsNullOrEmpty(keyValuePairs(i).Value) Then
+            If String.IsNullOrWhiteSpace(keyValuePairs(i).Key) OrElse String.IsNullOrWhiteSpace(keyValuePairs(i).Value) Then
                 Throw New ArgumentNullException("keyValuePairs", "'KeyValuePairs' mustn't contain empty or null values.")
             End If
         Next
@@ -111,7 +111,7 @@
     End Sub
 
     Friend Function GetPlayerData(username As String) As UserData Implements IEEService.GetPlayerData
-        If StringIsNullOrEmpty(username) Then
+        If String.IsNullOrWhiteSpace(username) Then
             Throw New ArgumentNullException("username")
         End If
 
@@ -207,7 +207,7 @@
     Private Shared ReadOnly myAcceptedGroupIDs() As Short = {400, 300, 100, 0, -100, -200}
 
     Friend Sub SetPlayerDataGroupID(username As String, groupID As Short) Implements IEEService.SetPlayerDataGroupID
-        If StringIsNullOrEmpty(username) Then
+        If String.IsNullOrWhiteSpace(username) Then
             Throw New ArgumentNullException("username")
         End If
         If Not myAcceptedGroupIDs.Contains(groupID) Then
@@ -228,7 +228,7 @@
     End Sub
 
     Friend Sub SetPlayerDataYoScrollWins(username As String, yoScrollWins As UShort) Implements IEEService.SetPlayerDataYoScrollWins
-        If StringIsNullOrEmpty(username) Then
+        If String.IsNullOrWhiteSpace(username) Then
             Throw New ArgumentNullException("username")
         End If
 
@@ -246,7 +246,7 @@
     End Sub
 
     Friend Sub SetPlayerDataFTBreakerWins(username As String, ftBreakerWins As UShort) Implements IEEService.SetPlayerDataFTBreakerWins
-        If StringIsNullOrEmpty(username) Then
+        If String.IsNullOrWhiteSpace(username) Then
             Throw New ArgumentNullException("username")
         End If
 
@@ -264,7 +264,7 @@
     End Sub
 
     Friend Function GetFacts(factGroup As String) As String() Implements IEEService.GetFacts
-        If StringIsNullOrEmpty(factGroup) Then
+        If String.IsNullOrWhiteSpace(factGroup) Then
             Throw New ArgumentNullException("factGroup")
         End If
 
@@ -287,10 +287,10 @@
     End Function
 
     Friend Sub SetFact(factID As String, factGroup As String) Implements IEEService.SetFact
-        If StringIsNullOrEmpty(factID) Then
+        If String.IsNullOrWhiteSpace(factID) Then
             Throw New ArgumentNullException("factID")
         End If
-        If StringIsNullOrEmpty(factGroup) Then
+        If String.IsNullOrWhiteSpace(factGroup) Then
             Throw New ArgumentNullException("factGroup")
         End If
 
@@ -308,7 +308,7 @@
     End Sub
 
     Friend Sub RemoveFact(factID As String) Implements IEEService.RemoveFact
-        If StringIsNullOrEmpty(factID) Then
+        If String.IsNullOrWhiteSpace(factID) Then
             Throw New ArgumentNullException("factID")
         End If
 
