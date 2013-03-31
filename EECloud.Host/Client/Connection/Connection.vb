@@ -353,32 +353,31 @@ Friend NotInheritable Class Connection
                 UpdateVersion(ex)
                 Return GetIOConnection(ioClient, id)
             Else
-                Throw
+                Throw New EECloudPlayerIOException(ex)
             End If
         End Try
     End Function
 
     Private Shared Sub UpdateVersion(ex As PlayerIOError)
         Dim errorMessage() As String = ex.Message.Split("["c)(1).Split(" "c)
-        Dim idSet As Boolean
+        Dim newVersion As Integer
 
-        For N = errorMessage.Length - 1 To 0 Step -1
-            Dim currentRoomType As String
-            currentRoomType = errorMessage(N)
+        Dim currentRoomType As String
+        For i = errorMessage.Length - 1 To 0 Step -1
+            currentRoomType = errorMessage(i)
+
             If currentRoomType.StartsWith(NormalRoom, StringComparison.Ordinal) Then
-                Dim newNum As Integer = Integer.Parse(currentRoomType.Substring(NormalRoom.Length, currentRoomType.Length - NormalRoom.Length - 1))
-                If newNum > myGameVersionNumber Then
-                    myGameVersionNumber = newNum
-                    Cloud.Service.SetSetting(GameVersionSetting, CStr(myGameVersionNumber))
-                End If
+                newVersion = Integer.Parse(currentRoomType.Substring(NormalRoom.Length, currentRoomType.Length - NormalRoom.Length - 1))
 
-                idSet = True
+                If newVersion > myGameVersionNumber Then
+                    myGameVersionNumber = newVersion
+                    Cloud.Service.SetSetting(GameVersionSetting, CStr(myGameVersionNumber))
+                    Exit Sub
+                End If
             End If
         Next
 
-        If Not idSet Then
-            Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get room version.")
-        End If
+        Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get room version.")
     End Sub
 
     Private Function RaiseSendEvent(message As SendMessage) As Boolean
@@ -896,17 +895,19 @@ Friend NotInheritable Class Connection
         Await Task.Run(
             Sub()
                 Try
-                    Dim ioClient As Client = Nothing
+                    Dim ioClient As Client
                     Select Case type
                         Case AccountType.Regular
                             ioClient = PlayerIO.QuickConnect.SimpleConnect(GameID, username, password)
-                        Case AccountType.Facebook
+                        Case Else 'AccountType.Facebook
                             ioClient = PlayerIO.QuickConnect.FacebookOAuthConnect(GameID, username, String.Empty)
                     End Select
 
                     Dim ioConnection As PlayerIOClient.Connection = GetIOConnection(ioClient, id)
                     SetupConnection(ioConnection, id)
                 Catch ex As PlayerIOError
+                    myRunConnect = False
+
                     'Let the caller handle the error
                     Throw New EECloudPlayerIOException(ex)
                 End Try
