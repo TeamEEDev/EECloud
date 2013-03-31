@@ -237,6 +237,7 @@ Public NotInheritable Class EECloud
     End Function
 
     Public Shared Async Function Login() As Task
+RetryLogin:
         Try
             Cloud.Logger.Log(LogPriority.Info, "Joining world...")
             Dim task As Task = Client.Connection.ConnectAsync(myType, myUsername, myPassword, myWorldID)
@@ -273,10 +274,27 @@ Public NotInheritable Class EECloud
             If Client.Connection.Connected Then
                 Cloud.Logger.Log(LogPriority.Info, "Connected.")
             End If
-        Catch ex As Exception
-            Cloud.Logger.Log(LogPriority.Info, "Failed to connect.")
-            Cloud.Logger.LogEx(ex)
-            Environment.Exit(1)
+        Catch ex As EECloudPlayerIOException
+            Select Case ex.PlayerIOError.ErrorCode
+                Case PlayerIOClient.ErrorCode.UnknownUser
+                    Select Case myType
+                        Case AccountType.Regular
+                            MessageBox.Show("Please check whether the username you provided is correct.", "Invalid username", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Case Else 'AccountType.Facebook
+                            MessageBox.Show("Please check whether the authentication token you provided is correct.", "Invalid auth token", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End Select
+
+                Case PlayerIOClient.ErrorCode.InvalidPassword
+                    MessageBox.Show("Please check whether the password you provided is correct.", "Invalid password", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+                Case Else
+                    Cloud.Logger.Log(LogPriority.Info, "Failed to connect.")
+                    Cloud.Logger.LogEx(ex)
+                    Environment.Exit(1)
+            End Select
+
+            ShowLogin().Wait()
+            GoTo RetryLogin
         End Try
     End Function
 End Class
