@@ -337,6 +337,7 @@
 
                 Using reader As MySqlDataReader = command.ExecuteReader()
                     If reader.Read() Then
+                        'TODO: Move this somewhere else
                         If Not reader.IsDBNull(1) Then
                             Cloud.LicenseInGameName = reader.GetString(1)
                         Else
