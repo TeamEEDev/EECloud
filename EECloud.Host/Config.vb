@@ -11,7 +11,7 @@ Friend Module Config
 
     'Custom null checking method for strings
     Friend Function StringIsNullOrEmpty(value As String) As Boolean
-        If value = Nothing OrElse value.Length = 0 OrElse myWhitespacesRegex.Replace(value, String.Empty) = String.Empty Then
+        If value = Nothing OrElse value.Length = 0 OrElse myWhitespacesRegex.Replace(value, String.Empty).Length = 0 Then
             Return True
         End If
 
