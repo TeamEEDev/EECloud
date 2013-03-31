@@ -243,7 +243,7 @@ Public NotInheritable Class EECloud
 
             AddHandler Client.Connection.Disconnect,
                 Sub(sender As Object, e As DisconnectEventArgs)
-                    If String.IsNullOrEmpty(e.Reason) Then
+                    If StringIsNullOrEmpty(e.Reason) Then
                         Cloud.Logger.Log(LogPriority.Info, "Disconnected.")
                     Else
                         Cloud.Logger.Log(LogPriority.Info, "Disconnected. Reason: " & e.Reason)
