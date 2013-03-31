@@ -49,7 +49,7 @@ Friend NotInheritable Class World
 
     Private Shared Function ParseWorld(m As Message, sizeX As Integer, sizeY As Integer, offset As UInteger) As IWorldBlock(,,)
         Dim start As UInteger
-        For i As UInteger = offset To CUInt(m.Count - 1)
+        For i As UInteger = offset To m.Count - 1UI
             If TryCast(m.Item(i), String) IsNot Nothing AndAlso m.GetString(i) = "ws" Then
                 start = i + 1
                 Exit For
@@ -165,12 +165,12 @@ Friend NotInheritable Class World
     End Function
 
     Private Shared Sub ClearWorld(ByRef blockArray As IWorldBlock(,,), Optional drawBorder As Boolean = True)
-        Dim sizeX = blockArray.GetLength(1)
+        Dim sizeXMinusSomething = blockArray.GetLength(1) - 1
         Dim sizeYMinus1 = blockArray.GetLength(2) - 1
 
         '<Fill the middle with GravityNothing blocks>
-        For l = 0 To 1
-            For x = 1 To sizeX - 1
+        For l = Layer.Foreground To Layer.Background
+            For x = 1 To sizeXMinusSomething
                 For y = 1 To sizeYMinus1
                     blockArray(l, x, y) = New WorldBlock(Block.BlockGravityNothing) 'Create a new instance for every block
                 Next
@@ -179,17 +179,25 @@ Friend NotInheritable Class World
         '</Fill the middle with GravityNothing blocks>
 
         '<Border drawing>
+        Dim blockToDraw As Block
         If drawBorder Then
+            blockToDraw = Block.BlockBasicGrey
+        Else
+            blockToDraw = Block.BlockGravityNothing
+        End If
+
+        sizeXMinusSomething -= 1
+        For l = Layer.Foreground To IIf(drawBorder, Layer.Foreground, Layer.Background)
             For y = 0 To sizeYMinus1
-                blockArray(0, 0, y) = New WorldBlock(Block.BlockBasicGrey)
-                blockArray(0, sizeYMinus1, y) = New WorldBlock(Block.BlockBasicGrey)
+                blockArray(0, 0, y) = New WorldBlock(blockToDraw)
+                blockArray(0, sizeYMinus1, y) = New WorldBlock(blockToDraw)
             Next
 
-            For x = 1 To sizeX - 2
-                blockArray(0, x, 0) = New WorldBlock(Block.BlockBasicGrey)
-                blockArray(0, x, sizeYMinus1) = New WorldBlock(Block.BlockBasicGrey)
+            For x = 1 To sizeXMinusSomething
+                blockArray(0, x, 0) = New WorldBlock(blockToDraw)
+                blockArray(0, x, sizeYMinus1) = New WorldBlock(blockToDraw)
             Next
-        End If
+        Next
         '</Border drawing>
     End Sub
 

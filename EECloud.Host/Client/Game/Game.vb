@@ -141,35 +141,38 @@
     End Sub
 
     Friend Shared Function Derot(input As String) As String
-        Const AscLa = Asc("a"c)
-        Const AscLm = Asc("m"c)
-        Const AscLz = Asc("z"c)
+        ' 'L' stands for Lower case
+        ' 'U' stands for Upper case
 
-        Const AscUa = Asc("A"c)
-        Const AscUm = Asc("M"c)
-        Const AscUz = Asc("Z"c)
+        Const ascLa = Asc("a"c)
+        Const ascLm = Asc("m"c)
+        Const ascLz = Asc("z"c)
+
+        Const ascUa = Asc("A"c)
+        Const ascUm = Asc("M"c)
+        Const ascUz = Asc("Z"c)
 
         Dim array() As Char = input.ToCharArray()
 
         Dim charNum As Integer
-        For n = 0 To input.Length - 1
-            charNum = Asc(array(n))
+        For i = 0 To input.Length - 1
+            charNum = Asc(array(i))
 
-            If charNum >= AscLa AndAlso charNum <= AscLz Then
-                If charNum > AscLm Then
+            If charNum >= ascLa AndAlso charNum <= ascLz Then
+                If charNum > ascLm Then
                     charNum -= 13
                 Else
                     charNum += 13
                 End If
-            ElseIf charNum >= AscUa AndAlso charNum <= AscUz Then
-                If charNum > AscUm Then
+            ElseIf charNum >= ascUa AndAlso charNum <= ascUz Then
+                If charNum > ascUm Then
                     charNum -= 13
                 Else
                     charNum += 13
                 End If
             End If
 
-            array(n) = Chr(charNum)
+            array(i) = Chr(charNum)
         Next
 
         Return New String(array)

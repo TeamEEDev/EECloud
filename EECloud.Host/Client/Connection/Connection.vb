@@ -862,10 +862,11 @@ Friend NotInheritable Class Connection
                 Dim constructorInfo As ConstructorInfo = messageType.GetConstructor(BindingFlags.NonPublic Or BindingFlags.Instance, Nothing, New Type() {GetType(Message)}, Nothing)
                 Dim message As ReceiveMessage = DirectCast(constructorInfo.Invoke(New Object() {m}), ReceiveMessage)
                 RaiseEvent ReceiveMessage(Me, message)
+
             ElseIf myInited Then 'Don't pass annoying "unregistered message" warnings
                 Dim messageArguments As New List(Of String)
-                For n As UInteger = 0 To CUInt(m.Count - 1)
-                    messageArguments.Add("   [" & m.Item(n).GetType.Name & "] " & CStr(m.Item(n)))
+                For n As UInteger = 0 To m.Count - 1UI
+                    messageArguments.Add(String.Format("   [{0} ({1})] {2}", n, m.Item(n).GetType.Name, CStr(m.Item(n))))
                 Next
 
                 Cloud.Logger.Log(LogPriority.Warning, "Received unregistered message with type """ & m.Type & """." & Environment.NewLine &

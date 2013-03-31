@@ -284,8 +284,9 @@
     End Sub
 
     Private Sub myConnection_ReceiveTeleport(sender As Object, e As TeleportReceiveMessage) Handles myConnection.ReceiveTeleport
+        Dim p As TPlayer
         For Each p1 In e.Coordinates
-            Dim p As TPlayer = Player(p1.Key)
+            p = Player(p1.Key)
 
             If p IsNot Nothing Then
                 RaiseEvent OnTeleport(Me, p)
