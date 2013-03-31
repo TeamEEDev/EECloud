@@ -353,7 +353,7 @@ Friend NotInheritable Class Connection
                 UpdateVersion(ex)
                 Return GetIOConnection(ioClient, id)
             Else
-                Throw New EECloudPlayerIOException(ex)
+                Throw
             End If
         End Try
     End Function
