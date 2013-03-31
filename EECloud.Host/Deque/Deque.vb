@@ -166,7 +166,7 @@ Partial Friend Class Deque (Of T)
 
     Friend Overridable Function ToArray() As T()
         Dim array As T() = New T(Count - 1) {}
-        Dim index As Integer = 0
+        Dim index As Integer
 
         For Each item As T In Me
             array(index) = item
