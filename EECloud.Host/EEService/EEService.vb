@@ -24,6 +24,10 @@
         End Using
     End Function
 
+    Friend Function GetSettingAsync(key As String) As Task(Of String) Implements IEEService.GetSettingTask
+        Return Task.FromResult(Of String)(GetSetting(key))
+    End Function
+
     Friend Function GetSettings(ParamArray keyList() As String) As Dictionary(Of String, String) Implements IEEService.GetSettings
         If keyList Is Nothing OrElse keyList.Count < 1 Then
             Throw New ArgumentNullException("keyList", "'KeyList' can't be null, and its length must be 1 or more.")
@@ -63,6 +67,10 @@
         End Using
     End Function
 
+    Friend Function GetSettingsAsync(ParamArray keyList() As String) As Task(Of Dictionary(Of String, String)) Implements IEEService.GetSettingsTask
+        Return Task.FromResult(Of Dictionary(Of String, String))(GetSettings(keyList))
+    End Function
+
     Friend Sub SetSetting(key As String, value As String) Implements IEEService.SetSetting
         If String.IsNullOrWhiteSpace(key) Then
             Throw New ArgumentNullException("key")
@@ -82,6 +90,10 @@
                 command.ExecuteNonQuery()
             End Using
         End Using
+    End Sub
+
+    Friend Sub SetSettingAsync(key As String, value As String) Implements IEEService.SetSettingAsync
+        Task.Run(Sub() SetSetting(key, value))
     End Sub
 
     Friend Sub SetSettings(ParamArray keyValuePairs() As KeyValuePair(Of String, String)) Implements IEEService.SetSettings
@@ -108,6 +120,10 @@
                 command.ExecuteNonQuery()
             End Using
         End Using
+    End Sub
+
+    Friend Sub SetSettingsAsync(ParamArray keyValuePairs() As KeyValuePair(Of String, String)) Implements IEEService.SetSettingsAsync
+        Task.Run(Sub() SetSettings(keyValuePairs))
     End Sub
 
     Friend Function GetPlayerData(username As String) As UserData Implements IEEService.GetPlayerData

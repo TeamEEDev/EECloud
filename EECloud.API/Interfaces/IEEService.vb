@@ -4,12 +4,16 @@
     Function CheckLicense(username As String, authKey As String) As Boolean
 
     Function GetSetting(key As String) As String
+    Function GetSettingTask(key As String) As Task(Of String)
 
     Function GetSettings(ParamArray keyList As String()) As Dictionary(Of String, String)
+    Function GetSettingsTask(ParamArray keyList As String()) As Task(Of Dictionary(Of String, String))
 
     Sub SetSetting(key As String, value As String)
+    Sub SetSettingAsync(key As String, value As String)
 
     Sub SetSettings(ParamArray keyValuePairs() As KeyValuePair(Of String, String))
+    Sub SetSettingsAsync(ParamArray keyValuePairs() As KeyValuePair(Of String, String))
 
     Sub SetFact(factID As String, factGroup As String)
 
