@@ -406,8 +406,7 @@
     End Sub
 
     Public Async Function ReloadUserDataAsync() As Task Implements IPlayer.ReloadUserDataAsync
-        Dim userData As UserData
-        Await Task.Run(Sub() userData = Cloud.Service.GetPlayerData(DatabaseName))
+        Dim userData As UserData = Await Cloud.Service.GetPlayerDataAsync(DatabaseName)
         If userData IsNot Nothing Then
             ' ReSharper disable VBWarnings::BC42104
             myGroup = userData.GroupID
