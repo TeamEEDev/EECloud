@@ -10,8 +10,6 @@ Module ModuleMain
 #Region "Startup"
 
     Sub Main()
-        Console.CursorVisible = False
-
         AddHandler AppDomain.CurrentDomain.AssemblyResolve, AddressOf AppDomain_AssemblyResolve
         CheckForUpdates()
 
