@@ -28,7 +28,7 @@ Friend NotInheritable Class DefaultCommandListener
 #End If
 
     <Command("getrank", Group.Moderator, Aliases:={"rank", "group", "getgroup", "userrank", "usergroup", "playerrank", "playergroup"})>
-    Public Sub GetRankCommand(cmd As ICommand(Of Player), username As String)
+    Public Async Sub GetRankCommand(cmd As ICommand(Of Player), username As String)
         username = GetPlayerNormalizedUsername(username)
         Dim player As IPlayer = GetPlayer(username, True)
         Dim rank As Group
@@ -36,7 +36,7 @@ Friend NotInheritable Class DefaultCommandListener
         If player IsNot Nothing Then
             rank = player.Group
         Else
-            Dim playerData = Cloud.Service.GetPlayerData(username)
+            Dim playerData = Await Cloud.Service.GetPlayerDataAsync(username)
             If playerData IsNot Nothing Then
                 rank = playerData.GroupID
             End If
@@ -154,7 +154,7 @@ Friend NotInheritable Class DefaultCommandListener
         ChangeRank(cmd, GetPlayerNormalizedUsername(username), Group.Banned)
     End Sub
 
-    Private Sub ChangeRank(cmd As ICommand(Of Player), username As String, rank As Group)
+    Private Async Sub ChangeRank(cmd As ICommand(Of Player), username As String, rank As Group)
         username = GetPlayerNormalizedUsername(username)
         Dim currRank As Group
         Dim player As Player = GetPlayer(username, True)
@@ -162,7 +162,7 @@ Friend NotInheritable Class DefaultCommandListener
         If player IsNot Nothing Then
             currRank = player.Group
         Else
-            Dim playerData As UserData = Cloud.Service.GetPlayerData(username)
+            Dim playerData As UserData = Await Cloud.Service.GetPlayerDataAsync(username)
             If playerData IsNot Nothing Then
                 currRank = playerData.GroupID
             End If
