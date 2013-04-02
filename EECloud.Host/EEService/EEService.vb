@@ -272,7 +272,7 @@
     End Function
 
 
-    Friend Sub SetPlayerDataYoScrollWins(username As String, yoScrollWins As UShort) Implements IEEService.SetPlayerDataYoScrollWins
+    Friend Sub SetPlayerDataWins(gameName As RegisteredGameName, username As String, wins As UShort) Implements IEEService.SetPlayerDataWins
         If String.IsNullOrWhiteSpace(username) Then
             Throw New ArgumentNullException("username")
         End If
@@ -281,40 +281,18 @@
             connection.Open()
 
             Using command As MySqlCommand = connection.CreateCommand()
-                command.CommandText = "INSERT INTO playerData (Username, YoScrollWins) VALUES (@Username, @YoScrollWins) ON DUPLICATE KEY UPDATE YoScrollWins = @YoScrollWins"
+                command.CommandText = String.Format("INSERT INTO playerData (Username, {0}Wins) VALUES (@Username, @Wins) ON DUPLICATE KEY UPDATE {0}Wins = @Wins",
+                                                    gameName.ToString())
                 command.Parameters.AddWithValue("@Username", username)
-                command.Parameters.AddWithValue("@YoScrollWins", NumberToDbValue(yoScrollWins))
+                command.Parameters.AddWithValue("@Wins", NumberToDbValue(wins))
 
                 command.ExecuteNonQuery()
             End Using
         End Using
     End Sub
 
-    Friend Function SetPlayerDataYoScrollWinsAsync(username As String, yoScrollWins As UShort) As Task Implements IEEService.SetPlayerDataYoScrollWinsAsync
-        Return Task.Run(Sub() SetPlayerDataYoScrollWins(username, yoScrollWins))
-    End Function
-
-
-    Friend Sub SetPlayerDataFTBreakerWins(username As String, ftBreakerWins As UShort) Implements IEEService.SetPlayerDataFTBreakerWins
-        If String.IsNullOrWhiteSpace(username) Then
-            Throw New ArgumentNullException("username")
-        End If
-
-        Using connection As New MySqlConnection(MySQLConnStr)
-            connection.Open()
-
-            Using command As MySqlCommand = connection.CreateCommand()
-                command.CommandText = "INSERT INTO playerData (Username, FTBreakerWins) VALUES (@Username, @FTBreakerWins) ON DUPLICATE KEY UPDATE FTBreakerWins = @FTBreakerWins"
-                command.Parameters.AddWithValue("@Username", username)
-                command.Parameters.AddWithValue("@FTBreakerWins", NumberToDbValue(ftBreakerWins))
-
-                command.ExecuteNonQuery()
-            End Using
-        End Using
-    End Sub
-
-    Friend Function SetPlayerDataFTBreakerWinsAsync(username As String, ftBreakerWins As UShort) As Task Implements IEEService.SetPlayerDataFTBreakerWinsAsync
-        Return Task.Run(Sub() SetPlayerDataFTBreakerWins(username, ftBreakerWins))
+    Friend Function SetPlayerDataWinsAsync(gameName As RegisteredGameName, username As String, wins As UShort) As Task Implements IEEService.SetPlayerDataWinsAsync
+        Return Task.Run(Sub() SetPlayerDataWins(gameName, username, wins))
     End Function
 
 

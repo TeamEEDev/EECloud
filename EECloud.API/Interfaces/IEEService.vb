@@ -45,11 +45,8 @@
     Sub SetPlayerDataGroupID(username As String, groupID As Short)
     Function SetPlayerDataGroupIDAsync(username As String, groupID As Short) As Task
 
-    Sub SetPlayerDataYoScrollWins(username As String, yoScrollWins As UShort)
-    Function SetPlayerDataYoScrollWinsAsync(username As String, yoScrollWins As UShort) As Task
-
-    Sub SetPlayerDataFTBreakerWins(username As String, ftBreakerWins As UShort)
-    Function SetPlayerDataFTBreakerWinsAsync(username As String, ftBreakerWins As UShort) As Task
+    Sub SetPlayerDataWins(gameName As RegisteredGameName, username As String, wins As UShort)
+    Function SetPlayerDataWinsAsync(gameName As RegisteredGameName, username As String, wins As UShort) As Task
 End Interface
 
 Public NotInheritable Class UserData
