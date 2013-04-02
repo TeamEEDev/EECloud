@@ -95,9 +95,9 @@
         End Using
     End Sub
 
-    Friend Sub SetSettingAsync(key As String, value As String) Implements IEEService.SetSettingAsync
-        Task.Run(Sub() SetSetting(key, value))
-    End Sub
+    Friend Function SetSettingAsync(key As String, value As String) As Task Implements IEEService.SetSettingAsync
+        Return Task.Run(Sub() SetSetting(key, value))
+    End Function
 
 
     Friend Sub SetSettings(ParamArray keyValuePairs() As KeyValuePair(Of String, String)) Implements IEEService.SetSettings
@@ -126,9 +126,9 @@
         End Using
     End Sub
 
-    Friend Sub SetSettingsAsync(ParamArray keyValuePairs() As KeyValuePair(Of String, String)) Implements IEEService.SetSettingsAsync
-        Task.Run(Sub() SetSettings(keyValuePairs))
-    End Sub
+    Friend Function SetSettingsAsync(ParamArray keyValuePairs() As KeyValuePair(Of String, String)) As Task Implements IEEService.SetSettingsAsync
+        Return Task.Run(Sub() SetSettings(keyValuePairs))
+    End Function
 
 
     Friend Function GetPlayerData(username As String) As UserData Implements IEEService.GetPlayerData
@@ -267,9 +267,9 @@
         End Using
     End Sub
 
-    Friend Sub SetPlayerDataGroupIDAsync(username As String, groupID As Short) Implements IEEService.SetPlayerDataGroupIDAsync
-        Task.Run(Sub() SetPlayerDataGroupID(username, groupID))
-    End Sub
+    Friend Function SetPlayerDataGroupIDAsync(username As String, groupID As Short) As Task Implements IEEService.SetPlayerDataGroupIDAsync
+        Return Task.Run(Sub() SetPlayerDataGroupID(username, groupID))
+    End Function
 
 
     Friend Sub SetPlayerDataYoScrollWins(username As String, yoScrollWins As UShort) Implements IEEService.SetPlayerDataYoScrollWins
@@ -290,9 +290,9 @@
         End Using
     End Sub
 
-    Friend Sub SetPlayerDataYoScrollWinsAsync(username As String, yoScrollWins As UShort) Implements IEEService.SetPlayerDataYoScrollWinsAsync
-        Task.Run(Sub() SetPlayerDataYoScrollWins(username, yoScrollWins))
-    End Sub
+    Friend Function SetPlayerDataYoScrollWinsAsync(username As String, yoScrollWins As UShort) As Task Implements IEEService.SetPlayerDataYoScrollWinsAsync
+        Return Task.Run(Sub() SetPlayerDataYoScrollWins(username, yoScrollWins))
+    End Function
 
 
     Friend Sub SetPlayerDataFTBreakerWins(username As String, ftBreakerWins As UShort) Implements IEEService.SetPlayerDataFTBreakerWins
@@ -313,9 +313,9 @@
         End Using
     End Sub
 
-    Friend Sub SetPlayerDataFTBreakerWinsAsync(username As String, ftBreakerWins As UShort) Implements IEEService.SetPlayerDataFTBreakerWinsAsync
-        Task.Run(Sub() SetPlayerDataFTBreakerWins(username, ftBreakerWins))
-    End Sub
+    Friend Function SetPlayerDataFTBreakerWinsAsync(username As String, ftBreakerWins As UShort) As Task Implements IEEService.SetPlayerDataFTBreakerWinsAsync
+        Return Task.Run(Sub() SetPlayerDataFTBreakerWins(username, ftBreakerWins))
+    End Function
 
 
     Friend Function GetFacts(factGroup As String) As String() Implements IEEService.GetFacts
@@ -367,9 +367,9 @@
         End Using
     End Sub
 
-    Friend Sub SetFactAsync(factID As String, factGroup As String) Implements IEEService.SetFactAsync
-        Task.Run(Sub() SetFact(factID, factGroup))
-    End Sub
+    Friend Function SetFactAsync(factID As String, factGroup As String) As Task Implements IEEService.SetFactAsync
+        Return Task.Run(Sub() SetFact(factID, factGroup))
+    End Function
 
 
     Friend Sub RemoveFact(factID As String) Implements IEEService.RemoveFact
@@ -392,9 +392,9 @@
         End Try
     End Sub
 
-    Friend Sub RemoveFactAsync(factID As String) Implements IEEService.RemoveFactAsync
-        Task.Run(Sub() RemoveFact(factID))
-    End Sub
+    Friend Function RemoveFactAsync(factID As String) As Task Implements IEEService.RemoveFactAsync
+        Return Task.Run(Sub() RemoveFact(factID))
+    End Function
 
 
     Friend Function CheckLicense(username As String, authKey As String) As Boolean Implements IEEService.CheckLicense

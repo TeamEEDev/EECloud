@@ -174,7 +174,7 @@ Friend NotInheritable Class DefaultCommandListener
                 player.Group = rank
                 player.Save()
             Else
-                Cloud.Service.SetPlayerDataGroupID(username, rank)
+                Await Cloud.Service.SetPlayerDataGroupIDAsync(username, rank)
             End If
 
             cmd.Reply(String.Format("{0} is now {1}.", username.ToUpper(InvariantCulture), GetGroupString(rank)))

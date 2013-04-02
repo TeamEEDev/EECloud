@@ -544,8 +544,8 @@
         myClient.Chatter.Kick(myUsername, msg)
     End Sub
 
-    Public Sub Save() Implements IPlayer.Save
-        Cloud.Service.SetPlayerDataGroupID(DatabaseName, CShort(Group))
+    Public Async Sub Save() Implements IPlayer.Save
+        Await Cloud.Service.SetPlayerDataGroupIDAsync(DatabaseName, CShort(Group))
         RaiseEvent SaveUserData(Me, EventArgs.Empty)
     End Sub
 

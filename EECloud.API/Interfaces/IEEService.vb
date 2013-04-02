@@ -13,20 +13,20 @@
     Function GetSettingsAsync(ParamArray keyList As String()) As Task(Of Dictionary(Of String, String))
 
     Sub SetSetting(key As String, value As String)
-    Sub SetSettingAsync(key As String, value As String)
+    Function SetSettingAsync(key As String, value As String) As Task
 
     Sub SetSettings(ParamArray keyValuePairs() As KeyValuePair(Of String, String))
-    Sub SetSettingsAsync(ParamArray keyValuePairs() As KeyValuePair(Of String, String))
+    Function SetSettingsAsync(ParamArray keyValuePairs() As KeyValuePair(Of String, String)) As Task
 
 
     Function GetFacts(factGroup As String) As String()
     Function GetFactsAsync(factGroup As String) As Task(Of String())
 
     Sub SetFact(factID As String, factGroup As String)
-    Sub SetFactAsync(factID As String, factGroup As String)
+    Function SetFactAsync(factID As String, factGroup As String) As Task
 
     Sub RemoveFact(factID As String)
-    Sub RemoveFactAsync(factID As String)
+    Function RemoveFactAsync(factID As String) As Task
 
 
     Function GetPlayerData(username As String) As UserData
@@ -43,13 +43,13 @@
                                      Optional orderBy As String = "Username") As Task(Of UserData())
 
     Sub SetPlayerDataGroupID(username As String, groupID As Short)
-    Sub SetPlayerDataGroupIDAsync(username As String, groupID As Short)
+    Function SetPlayerDataGroupIDAsync(username As String, groupID As Short) As Task
 
     Sub SetPlayerDataYoScrollWins(username As String, yoScrollWins As UShort)
-    Sub SetPlayerDataYoScrollWinsAsync(username As String, yoScrollWins As UShort)
+    Function SetPlayerDataYoScrollWinsAsync(username As String, yoScrollWins As UShort) As Task
 
     Sub SetPlayerDataFTBreakerWins(username As String, ftBreakerWins As UShort)
-    Sub SetPlayerDataFTBreakerWinsAsync(username As String, ftBreakerWins As UShort)
+    Function SetPlayerDataFTBreakerWinsAsync(username As String, ftBreakerWins As UShort) As Task
 End Interface
 
 Public NotInheritable Class UserData
