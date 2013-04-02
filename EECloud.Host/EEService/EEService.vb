@@ -7,6 +7,7 @@
         End Get
     End Property
 
+
     Friend Function GetSetting(key As String) As String Implements IEEService.GetSetting
         If String.IsNullOrWhiteSpace(key) Then
             Throw New ArgumentNullException("key")
@@ -24,9 +25,10 @@
         End Using
     End Function
 
-    Friend Function GetSettingAsync(key As String) As Task(Of String) Implements IEEService.GetSettingTask
-        Return Task.FromResult(Of String)(GetSetting(key))
+    Friend Function GetSettingAsync(key As String) As Task(Of String) Implements IEEService.GetSettingAsync
+        Return Task.Run(Of String)(Function() GetSetting(key))
     End Function
+
 
     Friend Function GetSettings(ParamArray keyList() As String) As Dictionary(Of String, String) Implements IEEService.GetSettings
         If keyList Is Nothing OrElse keyList.Count < 1 Then
@@ -67,9 +69,10 @@
         End Using
     End Function
 
-    Friend Function GetSettingsAsync(ParamArray keyList() As String) As Task(Of Dictionary(Of String, String)) Implements IEEService.GetSettingsTask
-        Return Task.FromResult(Of Dictionary(Of String, String))(GetSettings(keyList))
+    Friend Function GetSettingsAsync(ParamArray keyList() As String) As Task(Of Dictionary(Of String, String)) Implements IEEService.GetSettingsAsync
+        Return Task.Run(Of Dictionary(Of String, String))(Function() GetSettings(keyList))
     End Function
+
 
     Friend Sub SetSetting(key As String, value As String) Implements IEEService.SetSetting
         If String.IsNullOrWhiteSpace(key) Then
@@ -95,6 +98,7 @@
     Friend Sub SetSettingAsync(key As String, value As String) Implements IEEService.SetSettingAsync
         Task.Run(Sub() SetSetting(key, value))
     End Sub
+
 
     Friend Sub SetSettings(ParamArray keyValuePairs() As KeyValuePair(Of String, String)) Implements IEEService.SetSettings
         If keyValuePairs Is Nothing OrElse keyValuePairs.Length < 1 Then
@@ -126,6 +130,7 @@
         Task.Run(Sub() SetSettings(keyValuePairs))
     End Sub
 
+
     Friend Function GetPlayerData(username As String) As UserData Implements IEEService.GetPlayerData
         If String.IsNullOrWhiteSpace(username) Then
             Throw New ArgumentNullException("username")
@@ -147,6 +152,11 @@
             End Using
         End Using
     End Function
+
+    Friend Function GetPlayerDataAsync(username As String) As Task(Of UserData) Implements IEEService.GetPlayerDataAsync
+        Return Task.Run(Of UserData)(Function() GetPlayerData(username))
+    End Function
+
 
     Friend Function GetPlayerDatas(ParamArray usernames() As String) As Dictionary(Of String, UserData) Implements IEEService.GetPlayerDatas
         If usernames Is Nothing OrElse usernames.Length < 1 Then
@@ -185,7 +195,14 @@
         End Using
     End Function
 
-    Friend Function GetPlayerDataRange(Optional offset As UInteger = 0, Optional limit As UInteger = 1000, Optional orderBy As String = "Username") As UserData() Implements IEEService.GetPlayerDataRange
+    Friend Function GetPlayerDatasAsync(ParamArray usernames() As String) As Task(Of Dictionary(Of String, UserData)) Implements IEEService.GetPlayerDatasAsync
+        Return Task.Run(Of Dictionary(Of String, UserData))(Function() GetPlayerDatas(usernames))
+    End Function
+
+
+    Friend Function GetPlayerDataRange(Optional offset As UInteger = 0,
+                                       Optional limit As UInteger = 1000,
+                                       Optional orderBy As String = "Username") As UserData() Implements IEEService.GetPlayerDataRange
         If Not limit > 0 Then
             Throw New ArgumentException("Limit must be bigger than 0.", "limit")
         End If
@@ -220,6 +237,13 @@
         End Using
     End Function
 
+    Friend Function GetPlayerDataRangeAsync(Optional offset As UInteger = 0,
+                                            Optional limit As UInteger = 1000,
+                                            Optional orderBy As String = "Username") As Task(Of UserData()) Implements IEEService.GetPlayerDataRangeAsync
+        Return Task.Run(Of UserData())(Function() GetPlayerDataRange(offset, limit, orderBy))
+    End Function
+
+
     Private Shared ReadOnly myAcceptedGroupIDs() As Short = {400, 300, 100, 0, -100, -200}
 
     Friend Sub SetPlayerDataGroupID(username As String, groupID As Short) Implements IEEService.SetPlayerDataGroupID
@@ -243,6 +267,11 @@
         End Using
     End Sub
 
+    Friend Sub SetPlayerDataGroupIDAsync(username As String, groupID As Short) Implements IEEService.SetPlayerDataGroupIDAsync
+        Task.Run(Sub() SetPlayerDataGroupID(username, groupID))
+    End Sub
+
+
     Friend Sub SetPlayerDataYoScrollWins(username As String, yoScrollWins As UShort) Implements IEEService.SetPlayerDataYoScrollWins
         If String.IsNullOrWhiteSpace(username) Then
             Throw New ArgumentNullException("username")
@@ -261,6 +290,11 @@
         End Using
     End Sub
 
+    Friend Sub SetPlayerDataYoScrollWinsAsync(username As String, yoScrollWins As UShort) Implements IEEService.SetPlayerDataYoScrollWinsAsync
+        Task.Run(Sub() SetPlayerDataYoScrollWins(username, yoScrollWins))
+    End Sub
+
+
     Friend Sub SetPlayerDataFTBreakerWins(username As String, ftBreakerWins As UShort) Implements IEEService.SetPlayerDataFTBreakerWins
         If String.IsNullOrWhiteSpace(username) Then
             Throw New ArgumentNullException("username")
@@ -278,6 +312,11 @@
             End Using
         End Using
     End Sub
+
+    Friend Sub SetPlayerDataFTBreakerWinsAsync(username As String, ftBreakerWins As UShort) Implements IEEService.SetPlayerDataFTBreakerWinsAsync
+        Task.Run(Sub() SetPlayerDataFTBreakerWins(username, ftBreakerWins))
+    End Sub
+
 
     Friend Function GetFacts(factGroup As String) As String() Implements IEEService.GetFacts
         If String.IsNullOrWhiteSpace(factGroup) Then
@@ -302,6 +341,11 @@
         End Using
     End Function
 
+    Friend Function GetFactsAsync(factGroup As String) As Task(Of String()) Implements IEEService.GetFactsAsync
+        Return Task.Run(Of String())(Function() GetFacts(factGroup))
+    End Function
+
+
     Friend Sub SetFact(factID As String, factGroup As String) Implements IEEService.SetFact
         If String.IsNullOrWhiteSpace(factID) Then
             Throw New ArgumentNullException("factID")
@@ -323,6 +367,11 @@
         End Using
     End Sub
 
+    Friend Sub SetFactAsync(factID As String, factGroup As String) Implements IEEService.SetFactAsync
+        Task.Run(Sub() SetFact(factID, factGroup))
+    End Sub
+
+
     Friend Sub RemoveFact(factID As String) Implements IEEService.RemoveFact
         If String.IsNullOrWhiteSpace(factID) Then
             Throw New ArgumentNullException("factID")
@@ -342,6 +391,11 @@
         Catch
         End Try
     End Sub
+
+    Friend Sub RemoveFactAsync(factID As String) Implements IEEService.RemoveFactAsync
+        Task.Run(Sub() RemoveFact(factID))
+    End Sub
+
 
     Friend Function CheckLicense(username As String, authKey As String) As Boolean Implements IEEService.CheckLicense
         Using connection As New MySqlConnection(MySQLConnStr)
@@ -369,6 +423,11 @@
         End Using
     End Function
 
+    Friend Function CheckLicenseAsync(username As String, authKey As String) As Task(Of Boolean) Implements IEEService.CheckLicenseAsync
+        Return Task.Run(Of Boolean)(Function() CheckLicense(username, authKey))
+    End Function
+
+
     Private Shared Function ParsePlayerData(reader As MySqlDataReader) As UserData
         If reader Is Nothing Then
             Throw New ArgumentNullException("reader")
@@ -379,6 +438,7 @@
             .YoScrollWins = TryCastUShort(reader.GetValue(2)),
             .FTBreakerWins = TryCastUShort(reader.GetValue(3))}
     End Function
+
 
     Private Shared Function TryCastString(input As Object) As String
         Try
