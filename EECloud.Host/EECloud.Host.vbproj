@@ -106,10 +106,10 @@
     <Compile Include="Deque\Deque.Synchronized.vb" />
     <Compile Include="Deque\Deque.vb" />
     <Compile Include="EEService\EEService.vb" />
-    <Compile Include="Forms\LicenseForm.Designer.vb">
-      <DependentUpon>LicenseForm.vb</DependentUpon>
+    <Compile Include="Forms\UserDataForm.Designer.vb">
+      <DependentUpon>UserDataForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\LicenseForm.vb">
+    <Compile Include="Forms\UserDataForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\LoginForm.Designer.vb">
@@ -145,6 +145,7 @@
     <Compile Include="Client\World\Blocks\WorldWorldPortalBlock.vb" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -162,8 +163,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\LicenseForm.resx">
-      <DependentUpon>LicenseForm.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\UserDataForm.resx">
+      <DependentUpon>UserDataForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.vb</DependentUpon>
