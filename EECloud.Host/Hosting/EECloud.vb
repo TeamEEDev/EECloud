@@ -24,7 +24,6 @@ Public NotInheritable Class EECloud
             My.Settings.Updated = True
         End If
 
-        Cloud.Logger = New Logger()
         myLicenseUsername = My.Settings.LicenseUsername
         myLicenseKey = My.Settings.LicenseKey
 
@@ -115,6 +114,8 @@ Public NotInheritable Class EECloud
     Private Shared Sub Init(dev As Boolean, hosted As Boolean, noConsole As Boolean)
         Console.WriteLine(String.Format("{0} Version {1}", My.Application.Info.Title, My.Application.Info.Version) & Environment.NewLine &
                           "Built on " & RetrieveLinkerTimestamp.ToString())
+
+        Cloud.Logger = New Logger()
 
         Cloud.IsDebug = dev
         Cloud.IsHosted = hosted
