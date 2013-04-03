@@ -1,6 +1,4 @@
-﻿
-
-''' <summary>
+﻿''' <summary>
 '''     Allows chatting using the standard format.
 ''' </summary>
 ''' <remarks></remarks>

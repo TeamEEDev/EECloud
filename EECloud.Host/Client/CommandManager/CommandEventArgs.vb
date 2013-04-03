@@ -1,19 +1,19 @@
-﻿Friend NotInheritable Class CommandEventArgs
-    Inherits EventArgs
-
+﻿Friend Class CommandEventArgs
 #Region "Properties"
-    Friend Property Handled As Boolean
+    Private myRequest As CommandRequest
 
-    Friend Property Message As String
-    Friend Property Rights As Group
-    Friend Property UserID As Integer
+    Friend ReadOnly Property Request As CommandRequest
+        Get
+            Return myRequest
+        End Get
+    End Property
+
+    Friend Handled As Boolean
 #End Region
 
 #Region "Methods"
-    Friend Sub New(msg As String, group As Group, user As Integer)
-        Message = msg
-        Rights = group
-        UserID = user
+    Friend Sub New(request As CommandRequest)
+        myRequest = request
     End Sub
 #End Region
 End Class

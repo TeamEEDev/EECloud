@@ -18,7 +18,7 @@ Friend NotInheritable Class DefaultCommandListener
 
 #If DEBUG Then
     <Command("douploadertest", Group.Operator)>
-    Public Sub DoUploaderTestCommand(cmd As ICommand(Of Player))
+    Public Sub DoUploaderTestCommand(request As CommandRequest)
         For i = 0 To myClient.World.SizeX - 1
             For j = 0 To myClient.World.SizeY - 1
                 myClient.Uploader.Upload(New BlockPlaceUploadMessage(Layer.Foreground, i, j, Block.BlockBasicLightBlue))
@@ -29,6 +29,7 @@ Friend NotInheritable Class DefaultCommandListener
 
     <Command("getrank", Group.Moderator, Aliases:={"rank", "group", "getgroup", "userrank", "usergroup", "playerrank", "playergroup"})>
     Public Async Sub GetRankCommand(cmd As ICommand(Of Player), username As String)
+    Public Sub GetRankCommand(request As CommandRequest, username As String)
         username = GetPlayerNormalizedUsername(username)
         Dim player As IPlayer = GetPlayer(username, True)
         Dim rank As Group
@@ -42,119 +43,121 @@ Friend NotInheritable Class DefaultCommandListener
             End If
         End If
 
-        cmd.Reply(String.Format("User {0} is {1}.", username.ToUpper(InvariantCulture), GetGroupString(rank)))
+        request.Sender.Reply(String.Format("User {0} is {1}.", username.ToUpper(InvariantCulture), GetGroupString(rank)))
     End Sub
 
-    Private pinging As Boolean
+    'TODO: Make this happen in Host application
+    'Private pinging As Boolean
 
-    <Command("pinghost", Group.Moderator)>
-    Public Sub PingHostCommand(cmd As ICommand(Of Player))
-        If cmd.Sender IsNot Nothing Then
-            If Not pinging Then
-                pinging = True
-                Call New Thread(Sub(obj As Object)
-                                    Beep()
-                                    MessageBox.Show("Ping from user: " & cmd.Sender.Username,
-                                                    "Ping received",
-                                                    MessageBoxButtons.OK,
-                                                    MessageBoxIcon.Information)
+    '<Command("pinghost", Group.Moderator)>
+    'Public Sub PingHostCommand(request As CommandRequest)
+    '    If request.Sender IsNot Nothing Then
+    '        If Not pinging Then
+    '            pinging = True
+    '            Call New Thread(Sub(obj As Object)
+    '                                Beep()
+    '                                MessageBox.Show("Ping from user: " & request.Sender.Username,
+    '                                                "Ping received",
+    '                                                MessageBoxButtons.OK,
+    '                                                MessageBoxIcon.Information)
 
-                                    pinging = False
-                                End Sub).Start()
-            Else
-                cmd.Reply("A ping has been already sent.")
-            End If
-        Else
-            cmd.Reply("Cannot ping from console.")
-        End If
-    End Sub
+    '                                pinging = False
+    '                            End Sub).Start()
+    '        Else
+    '            request.Sender.Reply("A ping has been already sent.")
+    '        End If
+    '    Else
+    '        request.Sender.Reply("Cannot ping from console.")
+    '    End If
+    'End Sub
 
     <Command("respawnall", Group.Moderator)>
-    Public Sub RespawnAllCommand(cmd As ICommand(Of Player))
+    Public Sub RespawnAllCommand(request As CommandRequest)
         myClient.Chatter.RespawnAll()
     End Sub
 
     <Command("killemall", Group.Moderator)>
-    Public Sub KillEmAllCommand(cmd As ICommand(Of Player))
+    Public Sub KillEmAllCommand(request As CommandRequest)
         myClient.Chatter.KillAll()
     End Sub
 
     <Command("kill", Group.Moderator)>
-    Public Sub KillCommand(cmd As ICommand(Of Player), username As String)
+    Public Sub KillCommand(request As CommandRequest, username As String)
         Dim player As IPlayer = GetPlayer(username)
         If player IsNot Nothing Then
             player.Kill()
-            cmd.Reply("Killed.")
+            request.Sender.Reply("Killed.")
         Else
-            cmd.Reply("Unknown player.")
+            request.Sender.Reply("Unknown player.")
         End If
     End Sub
 
     <Command("access", Group.Moderator)>
-    Public Sub BanStrCommand(cmd As ICommand(Of Player))
-        cmd.Reply("Test.")
+    Public Sub BanStrCommand(request As CommandRequest)
+        request.Sender.Reply("Test.")
     End Sub
 
     <Command("access", Group.Moderator)>
-    Public Sub BanStrCommand(cmd As ICommand(Of Player), ParamArray editkey As String())
+    Public Sub BanStrCommand(request As CommandRequest, ParamArray editkey As String())
         myConnection.Send(New AccessSendMessage(String.Join(" ", editkey)))
-        cmd.Reply("Key sent.")
+        request.Sender.Reply("Key sent.")
     End Sub
 
     <Command("banstr", Group.Host, Aliases:={"banstring", "banmsg", "banmessage"})>
-    Public Sub BanStrCommand(cmd As ICommand(Of Player), newMessage As String)
+    Public Sub BanStrCommand(request As CommandRequest, newMessage As String)
         My.Settings.BanString = newMessage
         My.Settings.Save()
-        cmd.Reply("Ban message changed.")
+        request.Sender.Reply("Ban message changed.")
     End Sub
 
-    <Command("cmdchar", Group.Host, Aliases:={"commandchar", "cmdchr"})>
-    Public Sub CmdCharCommand(cmd As ICommand(Of Player), character As String)
+    <Command("requestchar", Group.Host, Aliases:={"commandchar", "requestchr"})>
+    Public Sub requestCharCommand(request As CommandRequest, character As String)
         If character.Length = 1 Then
             My.Settings.CommandChar = character(0)
             My.Settings.Save()
-            cmd.Reply("Command character changed, restarting EECloud is required.")
+            request.Sender.Reply("Command character changed, restarting EECloud is required.")
         Else
-            cmd.Reply("Character expected, string received.")
+            request.Sender.Reply("Character expected, string received.")
         End If
     End Sub
 
     <Command("admin", Group.Host, Aliases:={"administrator"})>
-    Public Sub AdminCommand(cmd As ICommand(Of Player), username As String)
-        ChangeRank(cmd, username, Group.Admin)
+    Public Sub AdminCommand(request As CommandRequest, username As String)
+        ChangeRank(request, username, Group.Admin)
     End Sub
 
     <Command("op", Group.Admin, Aliases:={"operator"})>
-    Public Sub OpCommand(cmd As ICommand(Of Player), username As String)
-        ChangeRank(cmd, GetPlayerNormalizedUsername(username), Group.Operator)
+    Public Sub OpCommand(request As CommandRequest, username As String)
+        ChangeRank(request, GetPlayerNormalizedUsername(username), Group.Operator)
     End Sub
 
     <Command("mod", Group.Operator, Aliases:={"moderator"})>
-    Public Sub ModCommand(cmd As ICommand(Of Player), username As String)
-        ChangeRank(cmd, GetPlayerNormalizedUsername(username), Group.Moderator)
+    Public Sub ModCommand(request As CommandRequest, username As String)
+        ChangeRank(request, GetPlayerNormalizedUsername(username), Group.Moderator)
     End Sub
 
     <Command("trust", Group.Operator)>
-    Public Sub TrustCommand(cmd As ICommand(Of Player), username As String)
-        ChangeRank(cmd, GetPlayerNormalizedUsername(username), Group.Trusted)
+    Public Sub TrustCommand(request As CommandRequest, username As String)
+        ChangeRank(request, GetPlayerNormalizedUsername(username), Group.Trusted)
     End Sub
 
     <Command("default", Group.Operator, Aliases:={"normal", "user"})>
-    Public Sub NormalCommand(cmd As ICommand(Of Player), username As String)
-        ChangeRank(cmd, GetPlayerNormalizedUsername(username), Group.User)
+    Public Sub NormalCommand(request As CommandRequest, username As String)
+        ChangeRank(request, GetPlayerNormalizedUsername(username), Group.User)
     End Sub
 
     <Command("limit", Group.Operator)>
-    Public Sub LimitCommand(cmd As ICommand(Of Player), username As String)
-        ChangeRank(cmd, GetPlayerNormalizedUsername(username), Group.Limited)
+    Public Sub LimitCommand(request As CommandRequest, username As String)
+        ChangeRank(request, GetPlayerNormalizedUsername(username), Group.Limited)
     End Sub
 
     <Command("ban", Group.Operator)>
-    Public Sub BanCommand(cmd As ICommand(Of Player), username As String)
-        ChangeRank(cmd, GetPlayerNormalizedUsername(username), Group.Banned)
+    Public Sub BanCommand(request As CommandRequest, username As String)
+        ChangeRank(request, GetPlayerNormalizedUsername(username), Group.Banned)
     End Sub
 
     Private Async Sub ChangeRank(cmd As ICommand(Of Player), username As String, rank As Group)
+    Private Sub ChangeRank(request As CommandRequest, username As String, rank As Group)
         username = GetPlayerNormalizedUsername(username)
         Dim currRank As Group
         Dim player As Player = GetPlayer(username, True)
@@ -169,7 +172,7 @@ Friend NotInheritable Class DefaultCommandListener
         End If
 
 
-        If cmd.Sender Is Nothing OrElse currRank < cmd.Sender.Group Then
+        If request.Sender Is Nothing OrElse currRank < request.Rights Then
             If player IsNot Nothing Then
                 player.Group = rank
                 player.Save()
@@ -177,9 +180,9 @@ Friend NotInheritable Class DefaultCommandListener
                 Await Cloud.Service.SetPlayerDataGroupIDAsync(username, rank)
             End If
 
-            cmd.Reply(String.Format("{0} is now {1}.", username.ToUpper(InvariantCulture), GetGroupString(rank)))
+            request.Sender.Reply(String.Format("{0} is now {1}.", username.ToUpper(InvariantCulture), GetGroupString(rank)))
         Else
-            cmd.Reply("Not allowed to change rank of that player.")
+            request.Sender.Reply("Not allowed to change rank of that player.")
         End If
     End Sub
 
@@ -207,21 +210,21 @@ Friend NotInheritable Class DefaultCommandListener
     End Function
 
     <Command("online", Group.Host, Aliases:={"who"})>
-    Public Sub OnlineCommand(cmd As ICommand(Of Player))
+    Public Sub OnlineCommand(request As CommandRequest)
         Dim playerList As String() = (From player In myClient.PlayerManager Select player.Username).ToArray()
         If playerList.Count > 0 Then
-            cmd.Reply(String.Format("{0} players are online: {1}", playerList.Count, String.Join(", ", playerList)))
+            request.Sender.Reply(String.Format("{0} players are online: {1}", playerList.Count, String.Join(", ", playerList)))
         Else
-            cmd.Reply("No one is currently online.")
+            request.Sender.Reply("No one is currently online.")
         End If
     End Sub
 
     <Command("say", Group.Moderator)>
-    Public Sub SayCommand(cmd As ICommand(Of Player), ParamArray msg As String())
+    Public Sub SayCommand(request As CommandRequest, ParamArray msg As String())
         Dim realSenderString As String = String.Empty
 
         If myClient.Game.MyPlayer IsNot Nothing Then
-            If cmd.Sender Is Nothing Then
+            If request.Sender Is Nothing Then
                 If Cloud.LicenseInGameName IsNot Nothing Then
                     If Cloud.LicenseInGameName <> myClient.Game.MyPlayer.Username Then
                         realSenderString = "[" & MakeFirstLetterUpperCased(Cloud.LicenseInGameName) & "] "
@@ -230,8 +233,8 @@ Friend NotInheritable Class DefaultCommandListener
                     realSenderString = "[" & Cloud.LicenseUsername & "] "
                 End If
             Else
-                If cmd.Sender.Username <> myClient.Game.MyPlayer.Username Then
-                    realSenderString = "[" & MakeFirstLetterUpperCased(cmd.Sender.Username) & "] "
+                If request.Sender.Username <> myClient.Game.MyPlayer.Username Then
+                    realSenderString = "[" & MakeFirstLetterUpperCased(request.Sender.Username) & "] "
                 End If
             End If
         End If
@@ -241,166 +244,166 @@ Friend NotInheritable Class DefaultCommandListener
     End Sub
 
     <Command("send", Group.Admin)>
-    Public Sub SendCommand(cmd As ICommand(Of Player), type As String, ParamArray parameters As String())
+    Public Sub SendCommand(request As CommandRequest, type As String, ParamArray parameters As String())
         myClient.Connection.Send(New CustomSendMessage(type, parameters))
     End Sub
 
     <Command("open", Group.Host)>
-    Public Sub OpenCommand(cmd As ICommand(Of Player))
+    Public Sub OpenCommand(request As CommandRequest)
         Process.Start(My.Application.Info.DirectoryPath & "\Plugins\")
     End Sub
 
     <Command("about", Group.Trusted)>
-    Public Sub AboutCommand(cmd As ICommand(Of Player), plugin As String)
+    Public Sub AboutCommand(request As CommandRequest, plugin As String)
         Dim pluginObj As IPluginObject = myClient.PluginManager.Plugin(plugin)
         If pluginObj IsNot Nothing Then
-            cmd.Reply(String.Format("{0} {1} by {2}. Category: {3} - {4}",
+            request.Sender.Reply(String.Format("{0} {1} by {2}. Category: {3} - {4}",
                                     pluginObj.Name,
                                     pluginObj.Attribute.Version,
                                     String.Join(", ", pluginObj.Attribute.Authors),
                                     pluginObj.Attribute.Category,
                                     pluginObj.Attribute.Description))
         Else
-            cmd.Reply("Unknown plugin.")
+            request.Sender.Reply("Unknown plugin.")
         End If
     End Sub
 
     <Command("about", Group.Trusted)>
-    Public Sub AboutCommand(cmd As ICommand(Of Player))
-        cmd.Reply(String.Format("This bot is run by {0} Version {1}", My.Application.Info.Title, My.Application.Info.Version))
+    Public Sub AboutCommand(request As CommandRequest)
+        request.Sender.Reply(String.Format("This bot is run by {0} Version {1}", My.Application.Info.Title, My.Application.Info.Version))
     End Sub
 
     <Command("enable", Group.Operator)>
-    Public Sub EnableCommand(cmd As ICommand(Of Player), plugin As String)
+    Public Sub EnableCommand(request As CommandRequest, plugin As String)
         Dim pluginObj As IPluginObject = myClient.PluginManager.Plugin(plugin)
         If pluginObj IsNot Nothing Then
             If Not pluginObj.Started Then
                 pluginObj.Restart()
-                cmd.Reply("Started plugin.")
+                request.Sender.Reply("Started plugin.")
             Else
-                cmd.Reply("Plugin already started, please disable it first!")
+                request.Sender.Reply("Plugin already started, please disable it first!")
             End If
         Else
-            cmd.Reply("Unknown plugin.")
+            request.Sender.Reply("Unknown plugin.")
         End If
     End Sub
 
     <Command("disable", Group.Operator)>
-    Public Sub DisableCommand(cmd As ICommand(Of Player), plugin As String)
+    Public Sub DisableCommand(request As CommandRequest, plugin As String)
         Dim pluginObj As IPluginObject = myClient.PluginManager.Plugin(plugin)
         If pluginObj IsNot Nothing Then
             If pluginObj.Started Then
                 pluginObj.Stop()
-                cmd.Reply("Stopped plugin.")
+                request.Sender.Reply("Stopped plugin.")
             Else
-                cmd.Reply("Plugin not started, please enable it first!")
+                request.Sender.Reply("Plugin not started, please enable it first!")
             End If
         Else
-            cmd.Reply("Unknown plugin.")
+            request.Sender.Reply("Unknown plugin.")
         End If
     End Sub
 
     <Command("ping", Group.Trusted)>
-    Public Sub PingCommand(cmd As ICommand(Of Player))
-        cmd.Reply("Pong!")
+    Public Sub PingCommand(request As CommandRequest)
+        request.Sender.Reply("Pong!")
     End Sub
 
     <Command("hello", Group.Moderator, aliases:={"hi", "hai"})>
-    Public Sub HelloCommand(cmd As ICommand(Of Player))
-        cmd.Reply("Hello!")
+    Public Sub HelloCommand(request As CommandRequest)
+        request.Sender.Reply("Hello!")
     End Sub
 
     <Command("hello", Group.Moderator, aliases:={"hi", "hai"})>
-    Public Sub HelloCommand(cmd As ICommand(Of Player), username As String)
+    Public Sub HelloCommand(request As CommandRequest, username As String)
         myClient.Chatter.Chat(String.Format("Hello {0}!", GetPlayerNormalizedUsername(username)))
     End Sub
 
     <Command("goodbye", Group.Moderator, aliases:={"bye", "bai"})>
-    Public Sub GoodbyeCommand(cmd As ICommand(Of Player))
-        cmd.Reply("Goodbye!")
+    Public Sub GoodbyeCommand(request As CommandRequest)
+        request.Sender.Reply("Goodbye!")
     End Sub
 
     <Command("goodbye", Group.Moderator, aliases:={"bye", "bai"})>
-    Public Sub GoodbyeCommand(cmd As ICommand(Of Player), username As String)
+    Public Sub GoodbyeCommand(request As CommandRequest, username As String)
         myClient.Chatter.Chat(String.Format("Goodbye {0}!", GetPlayerNormalizedUsername(username)))
     End Sub
 
     <Command("setcode", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"code", "editkey", "seteditkey"})>
-    Public Sub SetCodeCommand(cmd As ICommand(Of Player), editkey As String)
+    Public Sub SetCodeCommand(request As CommandRequest, editkey As String)
         myClient.Connection.Send(New ChangeWorldEditKeySendMessage(editkey))
-        cmd.Reply("Changed edit key")
+        request.Sender.Reply("Changed edit key")
     End Sub
 
     <Command("kick", Group.Trusted, AccessRight:=AccessRight.Owner, Aliases:={"ki", "kickp", "kickplayer"})>
-    Public Sub KickCommand(cmd As ICommand(Of Player), username As String, ParamArray reason As String())
+    Public Sub KickCommand(request As CommandRequest, username As String, ParamArray reason As String())
         Dim player As Player = GetPlayer(username)
         If player IsNot Nothing Then
-            If cmd.Sender Is Nothing OrElse cmd.Sender.Group >= Group.Operator OrElse player.Group <= cmd.Sender.Group Then
+            If request.Sender Is Nothing OrElse request.Rights >= Group.Operator OrElse player.Group <= request.Rights Then
                 player.Kick(String.Join(" ", reason))
 
-                cmd.Reply("Kicked.")
+                request.Sender.Reply("Kicked.")
             Else
-                cmd.Reply("Not allowed to kick a player with a higher rank than yourself.")
+                request.Sender.Reply("Not allowed to kick a player with a higher rank than yourself.")
             End If
         Else
-            cmd.Reply("Can't find player.")
+            request.Sender.Reply("Can't find player.")
         End If
     End Sub
 
     <Command("kick", Group.Trusted, AccessRight:=AccessRight.Owner, Aliases:={"ki", "kickp", "kickplayer"})>
-    Public Sub KickCommand(cmd As ICommand(Of Player), username As String)
+    Public Sub KickCommand(request As CommandRequest, username As String)
         Dim player As Player = GetPlayer(username)
         If player IsNot Nothing Then
-            If cmd.Sender Is Nothing OrElse cmd.Sender.Group >= Group.Operator OrElse player.Group <= cmd.Sender.Group Then
+            If request.Sender Is Nothing OrElse request.Rights >= Group.Operator OrElse player.Group <= request.Rights Then
                 player.Kick()
 
-                cmd.Reply("Kicked.")
+                request.Sender.Reply("Kicked.")
             Else
-                cmd.Reply("Not allowed to kick a player with a higher rank than yourself.")
+                request.Sender.Reply("Not allowed to kick a player with a higher rank than yourself.")
             End If
         Else
-            cmd.Reply("Can't find player.")
+            request.Sender.Reply("Can't find player.")
         End If
     End Sub
 
     <Command("reloadplayer", Group.Moderator, Aliases:={"rplayer"})>
-    Public Async Sub ReloadPlayerCommand(cmd As ICommand(Of Player), username As String)
+    Public Async Sub ReloadPlayerCommand(request As CommandRequest, username As String)
         username = GetPlayerNormalizedUsername(username)
         Dim player As IPlayer = GetPlayer(username, True)
 
         If player IsNot Nothing Then
             Await player.ReloadUserDataAsync()
-            cmd.Reply(String.Format("Reloaded the UserData of {0}.", username))
+            request.Sender.Reply(String.Format("Reloaded the UserData of {0}.", username))
         Else
-            cmd.Reply("Unknown player.")
+            request.Sender.Reply("Unknown player.")
         End If
     End Sub
 
     <Command("env", Group.Moderator, Aliases:={"getenv", "iscloud"})>
-    Public Sub GetEnvironmentCommand(cmd As ICommand(Of Player))
+    Public Sub GetEnvironmentCommand(request As CommandRequest)
         Dim env As String
         If Cloud.IsNoGUI Then
             env = "Cloud"
         Else
             env = "Desktop"
         End If
-        cmd.Reply("Current environment: " & env)
+        request.Sender.Reply("Current environment: " & env)
     End Sub
 
     <Command("host", Group.Moderator, Aliases:={"gethost", "hoster"})>
-    Public Sub HostCommand(cmd As ICommand(Of Player))
-        cmd.Reply("Current host: " & Cloud.LicenseUsername)
+    Public Sub HostCommand(request As CommandRequest)
+        request.Sender.Reply("Current host: " & Cloud.LicenseUsername)
     End Sub
 
     <Command("restart", Group.Moderator)>
-    Public Sub RestartCommand(cmd As ICommand(Of Player))
-        cmd.Reply("Restarting...")
+    Public Sub RestartCommand(request As CommandRequest)
+        request.Sender.Reply("Restarting...")
         myClient.Connection.Close(True)
     End Sub
 
     <Command("end", Group.Moderator, Aliases:={"shutdown", "leave", "leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
-    Public Sub EndCommand(cmd As ICommand(Of Player))
-        cmd.Reply("Terminating...")
+    Public Sub EndCommand(request As CommandRequest)
+        request.Sender.Reply("Terminating...")
 
         If myClient.Connection.Connected Then
             myClient.Connection.Close()
@@ -410,39 +413,39 @@ Friend NotInheritable Class DefaultCommandListener
     End Sub
 
     <Command("killbot", Group.Operator)>
-    Public Sub KillBotCommand(cmd As ICommand(Of Player))
-        cmd.Reply("Dying...")
+    Public Sub KillBotCommand(request As CommandRequest)
+        request.Sender.Reply("Dying...")
         Environment.Exit(0)
     End Sub
 
     <Command("clear", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"clearworld", "clearlevel"})>
-    Public Sub ClearWorldCommand(cmd As ICommand(Of Player))
+    Public Sub ClearWorldCommand(request As CommandRequest)
         myClient.Connection.Send(New ClearWorldSendMessage())
-        cmd.Reply("Cleared.")
+        request.Sender.Reply("Cleared.")
     End Sub
 
     <Command("name", Group.Moderator, AccessRight:=AccessRight.Owner, Aliases:={"rename", "renameworld", "renamelevel", "worldname", "levelname"})>
-    Public Sub ChangeWorldNameCommand(cmd As ICommand(Of Player), ParamArray newName As String())
+    Public Sub ChangeWorldNameCommand(request As CommandRequest, ParamArray newName As String())
         myClient.Connection.Send(New ChangeWorldNameSendMessage(String.Join(" ", newName)))
-        cmd.Reply("Renamed.")
+        request.Sender.Reply("Renamed.")
     End Sub
 
     <Command("loadlevel", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"load", "loadworld", "reload", "reloadworld", "reloadlevel"})>
-    Public Sub LoadWorldCommand(cmd As ICommand(Of Player))
-        cmd.Reply("Reloaded.")
+    Public Sub LoadWorldCommand(request As CommandRequest)
+        request.Sender.Reply("Reloaded.")
         myClient.Chatter.Loadlevel()
     End Sub
 
     <Command("save", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"saveworld", "savelevel"})>
-    Public Sub SaveWorldCommand(cmd As ICommand(Of Player))
+    Public Sub SaveWorldCommand(request As CommandRequest)
         myClient.Connection.Send(New SaveWorldSendMessage)
-        cmd.Reply("Saved.")
+        request.Sender.Reply("Saved.")
     End Sub
 
     <Command("reset", Group.Operator, Aliases:={"resetworld", "resetlevel", "resetplayers"})>
-    Public Sub ResetCommand(cmd As ICommand(Of Player))
+    Public Sub ResetCommand(request As CommandRequest)
         myClient.Chatter.Reset()
-        cmd.Reply("Reset.")
+        request.Sender.Reply("Reset.")
     End Sub
 
     Private Sub myConnection_ReceiveInfo(sender As Object, e As InfoReceiveMessage) Handles myConnection.ReceiveInfo
