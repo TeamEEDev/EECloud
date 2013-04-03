@@ -375,37 +375,6 @@
     End Function
 
 
-    Friend Function CheckLicense(username As String, authKey As String) As Boolean Implements IEEService.CheckLicense
-        Using connection As New MySqlConnection(MySQLConnStr)
-            connection.Open()
-
-            Using command As MySqlCommand = connection.CreateCommand()
-                command.CommandText = "SELECT AuthKey, InGameName FROM licenses WHERE Username = @Username"
-                command.Parameters.AddWithValue("@Username", username)
-
-                Using reader As MySqlDataReader = command.ExecuteReader()
-                    If reader.Read() Then
-                        'TODO: Move this somewhere else
-                        If Not reader.IsDBNull(1) Then
-                            Cloud.LicenseInGameName = reader.GetString(1)
-                        Else
-                            Cloud.LicenseInGameName = Nothing
-                        End If
-
-                        Return reader.GetString(0) = authKey
-                    Else
-                        Return Nothing
-                    End If
-                End Using
-            End Using
-        End Using
-    End Function
-
-    Friend Function CheckLicenseAsync(username As String, authKey As String) As Task(Of Boolean) Implements IEEService.CheckLicenseAsync
-        Return Task.Run(Of Boolean)(Function() CheckLicense(username, authKey))
-    End Function
-
-
     Private Shared Function ParsePlayerData(reader As MySqlDataReader) As UserData
         If reader Is Nothing Then
             Throw New ArgumentNullException("reader")
