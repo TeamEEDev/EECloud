@@ -106,10 +106,10 @@
     <Compile Include="Deque\Deque.Synchronized.vb" />
     <Compile Include="Deque\Deque.vb" />
     <Compile Include="EEService\EEService.vb" />
-    <Compile Include="Forms\UserDataForm.Designer.vb">
-      <DependentUpon>UserDataForm.vb</DependentUpon>
+    <Compile Include="Forms\HostDataForm.Designer.vb">
+      <DependentUpon>HostDataForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\UserDataForm.vb">
+    <Compile Include="Forms\HostDataForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\LoginForm.Designer.vb">
@@ -163,8 +163,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\UserDataForm.resx">
-      <DependentUpon>UserDataForm.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\HostDataForm.resx">
+      <DependentUpon>HostDataForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.vb</DependentUpon>
