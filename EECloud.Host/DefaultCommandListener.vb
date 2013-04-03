@@ -28,8 +28,7 @@ Friend NotInheritable Class DefaultCommandListener
 #End If
 
     <Command("getrank", Group.Moderator, Aliases:={"rank", "group", "getgroup", "userrank", "usergroup", "playerrank", "playergroup"})>
-    Public Async Sub GetRankCommand(cmd As ICommand(Of Player), username As String)
-    Public Sub GetRankCommand(request As CommandRequest, username As String)
+    Public Async Sub GetRankCommand(request As CommandRequest, username As String)
         username = GetPlayerNormalizedUsername(username)
         Dim player As IPlayer = GetPlayer(username, True)
         Dim rank As Group
@@ -156,8 +155,7 @@ Friend NotInheritable Class DefaultCommandListener
         ChangeRank(request, GetPlayerNormalizedUsername(username), Group.Banned)
     End Sub
 
-    Private Async Sub ChangeRank(cmd As ICommand(Of Player), username As String, rank As Group)
-    Private Sub ChangeRank(request As CommandRequest, username As String, rank As Group)
+    Private Async Sub ChangeRank(request As CommandRequest, username As String, rank As Group)
         username = GetPlayerNormalizedUsername(username)
         Dim currRank As Group
         Dim player As Player = GetPlayer(username, True)
