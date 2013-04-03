@@ -380,7 +380,7 @@ Friend NotInheritable Class DefaultCommandListener
 
     <Command("host", Group.Moderator, Aliases:={"gethost", "hoster"})>
     Public Sub HostCommand(request As CommandRequest)
-        request.Sender.Reply("Current host: " & Cloud.LicenseUsername)
+        request.Sender.Reply("Current host: " & Cloud.HostUsername)
     End Sub
 
     <Command("restart", Group.Moderator)>

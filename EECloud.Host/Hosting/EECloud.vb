@@ -2,8 +2,7 @@
 Imports System.IO
 
 Public NotInheritable Class EECloud
-    Private Shared myLicenseUsername As String
-    Private Shared myLicenseKey As String
+    Private Shared myHostUserame As String
 
     Private Shared ReadOnly myCommandChar As Char
 
@@ -24,8 +23,7 @@ Public NotInheritable Class EECloud
             My.Settings.Updated = True
         End If
 
-        myLicenseUsername = My.Settings.LicenseUsername
-        myLicenseKey = My.Settings.LicenseKey
+        myHostUserame = My.Settings.HostUserame
 
         If My.Settings.LoginTypes.Count > 0 Then
             myUsername = My.Settings.LoginEmails(0)
@@ -39,7 +37,7 @@ Public NotInheritable Class EECloud
 
         myCommandChar = My.Settings.CommandChar
 
-        Cloud.LicenseUsername = myLicenseUsername
+        Cloud.HostUsername = myHostUserame
     End Sub
 
     Public Shared ReadOnly Property Client As IClient(Of Player)
@@ -48,12 +46,12 @@ Public NotInheritable Class EECloud
         End Get
     End Property
 
-    Shared Sub RunCloudMode(licenseUsername As String, licenseKey As String, username As String, password As String, type As AccountType, worldID As String)
-        SetLicenseData(licenseUsername, licenseKey)
+    Shared Sub RunCloudMode(hostUserame As String, username As String, password As String, type As AccountType, worldID As String)
+        SetHostData(hostUserame)
         SetLoginData(username, password, type, worldID)
 
         Init(False, False, True)
-        CheckLicense()
+        CheckHostData()
 
         Client.CommandManager.Load(New DefaultCommandListener(Client))
 
@@ -65,7 +63,7 @@ Public NotInheritable Class EECloud
 
     Friend Shared Sub RunDesktopMode()
         Init(False, False, False)
-        CheckLicense()
+        CheckHostData()
 
         Dim loginTask As Task = ShowLogin()
         Client.CommandManager.Load(New DefaultCommandListener(Client))
@@ -89,7 +87,7 @@ Public NotInheritable Class EECloud
 
     Public Shared Sub RunDebugMode(plugin As Type)
         Init(True, False, False)
-        CheckLicense()
+        CheckHostData()
 
         Dim loginTask As Task = ShowLogin()
         Client.CommandManager.Load(New DefaultCommandListener(Client))
@@ -104,11 +102,11 @@ Public NotInheritable Class EECloud
         Application.Run()
     End Sub
 
-    Public Shared Sub EnableHostMode(licenseUsername As String, licenseKey As String, debug As Boolean, console As Boolean)
-        SetLicenseData(licenseUsername, licenseKey)
+    Public Shared Sub EnableHostMode(hostUserame As String, debug As Boolean, console As Boolean)
+        SetHostData(hostUserame)
 
         Init(debug, True, console)
-        CheckLicense()
+        CheckHostData()
     End Sub
 
     Private Shared Sub Init(dev As Boolean, hosted As Boolean, noConsole As Boolean)
@@ -167,10 +165,9 @@ Public NotInheritable Class EECloud
         myWorldID = worldID
     End Sub
 
-    Public Shared Sub SetLicenseData(username As String, key As String)
-        myLicenseUsername = username
-        myLicenseKey = key
-        Cloud.LicenseUsername = myLicenseUsername
+    Public Shared Sub SetHostData(username As String)
+        myHostUserame = username
+        Cloud.HostUsername = username
     End Sub
 
     Public Shared Async Function ShowLogin() As Task
@@ -197,12 +194,12 @@ Public NotInheritable Class EECloud
         End If
     End Function
 
-    Private Shared Async Sub CheckLicense()
-        If Not Await Cloud.Service.CheckLicenseAsync(myLicenseUsername, myLicenseKey) Then
+    Private Shared Sub CheckHostData()
+        If String.IsNullOrWhiteSpace(My.Settings.HostUserame) Then
             If Not Cloud.IsNoGUI Then
-                If New LicenseForm().ShowDialog() = DialogResult.OK Then
-                    SetLicenseData(My.Settings.LicenseUsername, My.Settings.LicenseKey)
-                    CheckLicense()
+                If New HostDataForm().ShowDialog() = DialogResult.OK Then
+                    SetHostData(My.Settings.HostUserame)
+                    CheckHostData()
                 Else
                     Environment.Exit(0)
                 End If
