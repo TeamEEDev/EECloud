@@ -42,6 +42,4 @@
     ReadOnly Property Count As Integer
 
     ReadOnly Property Crown As TPlayer
-
-    Sub Dispose()
 End Interface
