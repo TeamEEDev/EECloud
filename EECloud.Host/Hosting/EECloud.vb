@@ -39,7 +39,7 @@ Public NotInheritable Class EECloud
 
         myCommandChar = My.Settings.CommandChar
 
-        Cloud.LicenseUsername = myLicenseUsername
+        Cloud.InGameUsername = myLicenseUsername
     End Sub
 
     Public Shared ReadOnly Property Client As IClient(Of Player)
@@ -170,7 +170,7 @@ Public NotInheritable Class EECloud
     Public Shared Sub SetLicenseData(username As String, key As String)
         myLicenseUsername = username
         myLicenseKey = key
-        Cloud.LicenseUsername = myLicenseUsername
+        Cloud.InGameUsername = myLicenseUsername
     End Sub
 
     Public Shared Async Function ShowLogin() As Task
@@ -197,8 +197,8 @@ Public NotInheritable Class EECloud
         End If
     End Function
 
-    Private Shared Async Sub CheckLicense()
-        If Not Await Cloud.Service.CheckLicenseAsync(myLicenseUsername, myLicenseKey) Then
+    Private Shared Sub CheckLicense()
+        If String.IsNullOrWhiteSpace(My.Settings.LicenseUsername) Then
             If Not Cloud.IsNoGUI Then
                 If New LicenseForm().ShowDialog() = DialogResult.OK Then
                     SetLicenseData(My.Settings.LicenseUsername, My.Settings.LicenseKey)
