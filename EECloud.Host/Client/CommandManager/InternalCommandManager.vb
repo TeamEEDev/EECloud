@@ -20,7 +20,7 @@
 
     Private Sub myPlayerManager_OnSay(sender As Object, e As player)
         If ShouldHandle(e.Say) Then
-            HandleMessage(New CommandRequest(New PlayerCommandSender(e), New CommandPhrase(e.Say), e.Group))
+            HandleMessage(New CommandRequest(New PlayerCommandSender(e), New CommandPhrase(e.Say.Substring(1)), e.Group))
         End If
     End Sub
 
@@ -35,6 +35,7 @@
         RaiseEvent OnCommand(Me, eventArgs)
 
         If Not eventArgs.Handled Then
+            request.Sender.InjectChatter(myClient.Chatter)
             request.Sender.Reply("Unknown command.")
         End If
     End Sub
