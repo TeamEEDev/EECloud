@@ -138,7 +138,7 @@
 
 
     ''' <summary>
-    '''     Returns true if the connection is still active.
+    ''' Returns true if the connection is still active.
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
@@ -146,7 +146,7 @@
     ReadOnly Property Connected As Boolean
 
     ''' <summary>
-    '''     The world's ID
+    ''' The world's ID
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
@@ -154,7 +154,7 @@
     ReadOnly Property WorldID As String
 
     ''' <summary>
-    '''    Determines whether a disconnect is expected by the user. If it is, EECloud won't try to rejoin the same world as it is in, but will restart showing the "Join world" dialog.
+    ''' Determines whether a disconnect is expected by the user. If it is, EECloud won't try to rejoin the same world as it is in, but will restart showing the "Join world" dialog.
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
@@ -162,7 +162,7 @@
     Property UserExpectingDisconnect As Boolean
 
     ''' <summary>
-    '''     Connects using the given data.
+    ''' Connects using the given data.
     ''' </summary>
     ''' <param name="type">AccountType we are using to login</param>
     ''' <param name="username">Username, Email or Token</param>
@@ -173,14 +173,14 @@
     Function ConnectAsync(type As AccountType, username As String, password As String, id As String) As Task
 
     ''' <summary>
-    '''     Sends the given message.
+    ''' Sends the given message.
     ''' </summary>
     ''' <param name="message">The message being sent</param>
     ''' <remarks></remarks>
     Sub Send(message As SendMessage)
 
     ''' <summary>
-    '''     Terminates the connection.
+    ''' Terminates the connection.
     ''' </summary>
     ''' <remarks></remarks>
     Sub Close(Optional restart As Boolean = False)

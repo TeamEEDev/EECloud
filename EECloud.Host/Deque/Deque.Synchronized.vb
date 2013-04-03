@@ -1,6 +1,4 @@
-﻿
-
-Partial Friend Class Deque (Of T)
+﻿Partial Friend Class Deque(Of T)
 
 #Region "SynchronizedDeque Class"
 
@@ -22,7 +20,6 @@ Partial Friend Class Deque (Of T)
 #Region "Construction"
 
         Friend Sub New(deque As Deque(Of T))
-
             If deque Is Nothing Then
                 Throw New ArgumentNullException("deque")
             End If
@@ -128,7 +125,9 @@ Partial Friend Class Deque (Of T)
 #End Region
 
 #End Region
+
     End Class
 
 #End Region
+
 End Class

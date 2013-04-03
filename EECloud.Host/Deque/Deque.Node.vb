@@ -1,15 +1,14 @@
 ﻿Partial Friend Class Deque (Of T)
 
 #Region "Node Class"
-
-    ' Represents a node in the deque.
+    'Represents a node in the deque.
     <Serializable>
     Private NotInheritable Class Node
         Private ReadOnly myValue As T
 
-        Private myPrevious As Node = Nothing
+        Private myPrevious As Node
 
-        Private myNext As Node = Nothing
+        Private myNext As Node
 
         Friend Sub New(value As T)
             myValue = value
@@ -39,6 +38,6 @@
             End Set
         End Property
     End Class
-
 #End Region
+
 End Class

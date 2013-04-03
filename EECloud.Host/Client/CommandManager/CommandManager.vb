@@ -200,6 +200,4 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
     End Sub
 
 #End Region
-
-
 End Class
