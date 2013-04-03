@@ -7,7 +7,7 @@
         MyBase.New(CommandSenderType.Host)
     End Sub
 
-    Friend Overrides Sub Reply(msg As String)
+    Public Overrides Sub Reply(msg As String)
         Cloud.Logger.Log(LogPriority.Info, msg)
     End Sub
 #End Region

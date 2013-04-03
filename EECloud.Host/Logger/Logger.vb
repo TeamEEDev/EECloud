@@ -104,7 +104,7 @@ Friend NotInheritable Class Logger
             myInput = My.Settings.CommandChar & "say " & Input
         End If
 
-        GlobalCommandManager.Value.InvokeConsoleCmd(Input, Me)
+        'GlobalCommandManager.Value.InvokeConsoleCmd(Input, Me)
     End Sub
 
 #End Region

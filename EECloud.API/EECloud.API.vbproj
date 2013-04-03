@@ -100,7 +100,6 @@
     <Compile Include="EventArgs\CancelableEventArgs.vb" />
     <Compile Include="Enums\AccessRight.vb" />
     <Compile Include="Interfaces\IChatSyntaxProvider.vb" />
-    <Compile Include="Interfaces\ICommand.vb" />
     <Compile Include="Interfaces\ICommandManager.vb" />
     <Compile Include="Interfaces\IClientFactory.vb" />
     <Compile Include="Interfaces\IClientCloneFactory.vb" />
