@@ -2,7 +2,7 @@
 Imports System.IO
 
 Public NotInheritable Class EECloud
-    Private Shared myInGameUserame As String
+    Private Shared myHostUserame As String
 
     Private Shared ReadOnly myCommandChar As Char
 
@@ -23,7 +23,7 @@ Public NotInheritable Class EECloud
             My.Settings.Updated = True
         End If
 
-        myInGameUserame = My.Settings.InGameUserame
+        myHostUserame = My.Settings.HostUserame
 
         If My.Settings.LoginTypes.Count > 0 Then
             myUsername = My.Settings.LoginEmails(0)
@@ -37,7 +37,7 @@ Public NotInheritable Class EECloud
 
         myCommandChar = My.Settings.CommandChar
 
-        Cloud.InGameUsername = myInGameUserame
+        Cloud.HostUsername = myHostUserame
     End Sub
 
     Public Shared ReadOnly Property Client As IClient(Of Player)
@@ -46,12 +46,12 @@ Public NotInheritable Class EECloud
         End Get
     End Property
 
-    Shared Sub RunCloudMode(inGameUserame As String, username As String, password As String, type As AccountType, worldID As String)
-        SetUserData(inGameUserame)
+    Shared Sub RunCloudMode(hostUserame As String, username As String, password As String, type As AccountType, worldID As String)
+        SetHostData(hostUserame)
         SetLoginData(username, password, type, worldID)
 
         Init(False, False, True)
-        CheckUserData()
+        CheckHostData()
 
         Client.CommandManager.Load(New DefaultCommandListener(Client))
 
@@ -63,7 +63,7 @@ Public NotInheritable Class EECloud
 
     Friend Shared Sub RunDesktopMode()
         Init(False, False, False)
-        CheckUserData()
+        CheckHostData()
 
         Dim loginTask As Task = ShowLogin()
         Client.CommandManager.Load(New DefaultCommandListener(Client))
@@ -87,7 +87,7 @@ Public NotInheritable Class EECloud
 
     Public Shared Sub RunDebugMode(plugin As Type)
         Init(True, False, False)
-        CheckUserData()
+        CheckHostData()
 
         Dim loginTask As Task = ShowLogin()
         Client.CommandManager.Load(New DefaultCommandListener(Client))
@@ -102,11 +102,11 @@ Public NotInheritable Class EECloud
         Application.Run()
     End Sub
 
-    Public Shared Sub EnableHostMode(inGameUserame As String, debug As Boolean, console As Boolean)
-        SetUserData(inGameUserame)
+    Public Shared Sub EnableHostMode(hostUserame As String, debug As Boolean, console As Boolean)
+        SetHostData(hostUserame)
 
         Init(debug, True, console)
-        CheckUserData()
+        CheckHostData()
     End Sub
 
     Private Shared Sub Init(dev As Boolean, hosted As Boolean, noConsole As Boolean)
@@ -165,9 +165,9 @@ Public NotInheritable Class EECloud
         myWorldID = worldID
     End Sub
 
-    Public Shared Sub SetUserData(inGameUsername As String)
-        myInGameUserame = inGameUsername
-        Cloud.InGameUsername = inGameUsername
+    Public Shared Sub SetHostData(username As String)
+        myHostUserame = username
+        Cloud.HostUsername = username
     End Sub
 
     Public Shared Async Function ShowLogin() As Task
@@ -194,12 +194,12 @@ Public NotInheritable Class EECloud
         End If
     End Function
 
-    Private Shared Sub CheckUserData()
-        If String.IsNullOrWhiteSpace(My.Settings.InGameUserame) Then
+    Private Shared Sub CheckHostData()
+        If String.IsNullOrWhiteSpace(My.Settings.HostUserame) Then
             If Not Cloud.IsNoGUI Then
-                If New UserDataForm().ShowDialog() = DialogResult.OK Then
-                    SetUserData(My.Settings.InGameUserame)
-                    CheckUserData()
+                If New HostDataForm().ShowDialog() = DialogResult.OK Then
+                    SetHostData(My.Settings.HostUserame)
+                    CheckHostData()
                 Else
                     Environment.Exit(0)
                 End If

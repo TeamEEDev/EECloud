@@ -105,15 +105,15 @@
     End Property
 
 
-    Private Shared myInGameUsername As String
+    Private Shared myHostUsername As String
 
-    Public Shared Property InGameUsername As String
+    Public Shared Property HostUsername As String
         Get
-            Return myInGameUsername
+            Return myHostUsername
         End Get
 
         Friend Set(value As String)
-            myInGameUsername = value
+            myHostUsername = value
         End Set
     End Property
 

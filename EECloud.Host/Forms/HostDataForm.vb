@@ -1,6 +1,6 @@
 ﻿Imports System.Runtime.InteropServices
 
-Friend Class UserDataForm
+Friend Class HostDataForm
 
 #Region "Methods"
 
@@ -12,7 +12,7 @@ Friend Class UserDataForm
         Icon = My.Resources.Icon
         InitializeComponent()
 
-        TextBoxUsername.Text = My.Settings.InGameUserame
+        TextBoxUsername.Text = My.Settings.HostUserame
     End Sub
 
     Private Sub LoginForm_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
@@ -36,7 +36,7 @@ Friend Class UserDataForm
 
     Private Sub ButtonOk_Click(sender As Object, e As EventArgs) Handles ButtonOk.Click
         If Not String.IsNullOrWhiteSpace(TextBoxUsername.Text) Then
-            My.Settings.InGameUserame = TextBoxUsername.Text
+            My.Settings.HostUserame = TextBoxUsername.Text
             My.Settings.Save()
 
             DialogResult = DialogResult.OK

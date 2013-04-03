@@ -57,12 +57,12 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(), _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.Configuration.DefaultSettingValueAttribute("")> _
-        Public Property InGameUserame() As String
+        Public Property HostUserame() As String
             Get
-                Return CType(Me("InGameUserame"), String)
+                Return CType(Me("HostUserame"), String)
             End Get
             Set(value As String)
-                Me("InGameUserame") = value
+                Me("HostUserame") = value
             End Set
         End Property
         
