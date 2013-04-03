@@ -371,7 +371,7 @@ Friend NotInheritable Class Connection
 
                 If newVersion > myGameVersionNumber Then
                     myGameVersionNumber = newVersion
-                    Cloud.Service.SetSetting(GameVersionSetting, CStr(myGameVersionNumber))
+                    Cloud.Service.SetSettingAsync(GameVersionSetting, CStr(myGameVersionNumber))
                     Exit Sub
                 End If
             End If
@@ -833,7 +833,7 @@ Friend NotInheritable Class Connection
                 RaiseEvent PreviewReceiveUpgrade(Me, m)
                 myGameVersionNumber += 1
                 Cloud.Logger.Log(LogPriority.Info, "The game has been updated!")
-                Cloud.Service.SetSetting("GameVersion", CStr(myGameVersionNumber))
+                Cloud.Service.SetSettingAsync("GameVersion", CStr(myGameVersionNumber))
                 RaiseEvent ReceiveUpgrade(Me, m)
 
             Case GetType(InfoReceiveMessage)

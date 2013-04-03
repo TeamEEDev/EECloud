@@ -1,10 +1,11 @@
 ﻿''' <summary>
-'''     Allows chatting using the standard format.
+''' Allows chatting using the standard format.
 ''' </summary>
 ''' <remarks></remarks>
 Public Interface IChatter
+
     ''' <summary>
-    '''     Sends a message to the specified user.
+    ''' Sends a message to the specified user.
     ''' </summary>
     ''' <param name="username">The username of the user.</param>
     ''' <param name="msg">The message text.</param>
@@ -12,28 +13,28 @@ Public Interface IChatter
     Sub Reply(username As String, msg As String)
 
     ''' <summary>
-    '''     Sends a chat message with the current chat style.
+    ''' Sends a chat message with the current chat style.
     ''' </summary>
     ''' <param name="msg">The message text to be sent.</param>
     ''' <remarks></remarks>
     Sub Chat(msg As String)
 
     ''' <summary>
-    '''     Sends a chat message without formatting it
+    ''' Sends a chat message without formatting it
     ''' </summary>
     ''' <param name="msg">The message text to be sent.</param>
     ''' <remarks></remarks>
     Sub Send(msg As String)
 
     ''' <summary>
-    '''     Kicks a user.
+    ''' Kicks a user.
     ''' </summary>
     ''' <param name="username">The username of the person being kicked.</param>
     ''' <remarks></remarks>
     Sub Kick(username As String)
 
     ''' <summary>
-    '''     Kicks a user.
+    ''' Kicks a user.
     ''' </summary>
     ''' <param name="username">The username of the person being kicked.</param>
     ''' <param name="msg">The reason for the kick.</param>
@@ -41,13 +42,13 @@ Public Interface IChatter
     Sub Kick(username As String, msg As String)
 
     ''' <summary>
-    '''     Reloads the level data.
+    ''' Reloads the level data.
     ''' </summary>
     ''' <remarks></remarks>
     Sub Loadlevel()
 
     ''' <summary>
-    '''     Resets everyone's position.
+    ''' Resets everyone's position.
     ''' </summary>
     ''' <remarks></remarks>
     Sub Reset()
@@ -103,10 +104,11 @@ Public Interface IChatter
     Sub Teleport(username As String, x As Integer, y As Integer)
 
     ''' <summary>
-    '''     The Syntax provider used to generate chat strings
+    ''' The Syntax provider used to generate chat strings
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
     Property SyntaxProvider As IChatSyntaxProvider
+
 End Interface

@@ -406,8 +406,7 @@
     End Sub
 
     Public Async Function ReloadUserDataAsync() As Task Implements IPlayer.ReloadUserDataAsync
-        Dim userData As UserData
-        Await Task.Run(Sub() userData = Cloud.Service.GetPlayerData(DatabaseName))
+        Dim userData As UserData = Await Cloud.Service.GetPlayerDataAsync(DatabaseName)
         If userData IsNot Nothing Then
             ' ReSharper disable VBWarnings::BC42104
             myGroup = userData.GroupID
@@ -545,8 +544,8 @@
         myClient.Chatter.Kick(myUsername, msg)
     End Sub
 
-    Public Sub Save() Implements IPlayer.Save
-        Cloud.Service.SetPlayerDataGroupID(DatabaseName, CShort(Group))
+    Public Async Sub Save() Implements IPlayer.Save
+        Await Cloud.Service.SetPlayerDataGroupIDAsync(DatabaseName, CShort(Group))
         RaiseEvent SaveUserData(Me, EventArgs.Empty)
     End Sub
 

@@ -90,6 +90,7 @@
     <Compile Include="Enums\Block\RotatableBlock.vb" />
     <Compile Include="Enums\Block\WorldPortalBlock.vb" />
     <Compile Include="Enums\CommandSenderType.vb" />
+    <Compile Include="Enums\EEService\RegisteredGameName.vb" />
     <Compile Include="Enums\SciFiSlopeRotation.vb" />
     <Compile Include="Enums\SciFiStraightRotation.vb" />
     <Compile Include="Enums\MagicClass.vb" />

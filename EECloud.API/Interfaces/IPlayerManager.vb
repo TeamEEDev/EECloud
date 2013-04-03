@@ -22,7 +22,7 @@
     Event GroupChange As EventHandler(Of TPlayer)
 
     ''' <summary>
-    '''     Returns the player or nothing if the user does not exist
+    ''' Returns the player or nothing if the user does not exist
     ''' </summary>
     ''' <param name="number">The UserID</param>
     ''' <value></value>
@@ -31,7 +31,7 @@
     ReadOnly Property Player(number As Integer) As TPlayer
     
     ''' <summary>
-    '''     Returns the player or nothing if the user does not exist
+    ''' Returns the player or nothing if the user does not exist
     ''' </summary>
     ''' <param name="username">The username of the user</param>
     ''' <value></value>
