@@ -3,6 +3,7 @@
 ''' </summary>
 ''' <remarks></remarks>
 Public Interface IChatter
+
     ''' <summary>
     ''' Sends a message to the specified user.
     ''' </summary>
@@ -109,4 +110,5 @@ Public Interface IChatter
     ''' <returns></returns>
     ''' <remarks></remarks>
     Property SyntaxProvider As IChatSyntaxProvider
+
 End Interface

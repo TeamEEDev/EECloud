@@ -1,4 +1,5 @@
 ﻿Public MustInherit Class CommandSender
+
 #Region "Properties"
     Private myType As CommandSenderType
 
