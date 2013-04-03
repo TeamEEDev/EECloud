@@ -222,18 +222,8 @@ Friend NotInheritable Class DefaultCommandListener
         Dim realSenderString As String = String.Empty
 
         If myClient.Game.MyPlayer IsNot Nothing Then
-            If request.Sender Is Nothing Then
-                If Cloud.LicenseInGameName IsNot Nothing Then
-                    If Cloud.LicenseInGameName <> myClient.Game.MyPlayer.Username Then
-                        realSenderString = "[" & MakeFirstLetterUpperCased(Cloud.LicenseInGameName) & "] "
-                    End If
-                Else
-                    realSenderString = "[" & Cloud.LicenseUsername & "] "
-                End If
-            Else
-                If request.Sender.Username <> myClient.Game.MyPlayer.Username Then
-                    realSenderString = "[" & MakeFirstLetterUpperCased(request.Sender.Username) & "] "
-                End If
+            If request.Sender.Type = CommandSenderType.Player OrElse request.Sender.Type = CommandSenderType.Remote Then
+                'TODO: realSenderString = ?
             End If
         End If
 
