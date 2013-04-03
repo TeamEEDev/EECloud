@@ -1,6 +1,6 @@
 ﻿Imports System.Reflection
 
-Friend NotInheritable Class CommandHandle (Of TPlayer As {New, Player})
+Friend NotInheritable Class CommandHandle
 
 #Region "Fields"
     Private ReadOnly myMethodInfo As MethodInfo
@@ -41,16 +41,19 @@ Friend NotInheritable Class CommandHandle (Of TPlayer As {New, Player})
         myMethodInfo = method
         myTarget = target
 
+        'Check for first parameter
         Dim params As ParameterInfo() = method.GetParameters()
-        If Not params(0).ParameterType = GetType(ICommand(Of TPlayer)) Then
-            Cloud.Logger.Log(LogPriority.Error, "First parameter must be a Command: " & attribute.Type)
+        If Not params(0).ParameterType = GetType(CommandRequest) Then
+            Cloud.Logger.Log(LogPriority.Error, "First parameter must be a CommandRequest: " & attribute.Type)
             Throw New EECloudException(ErrorCode.InvalidCommand)
         End If
 
+        'Generate syntax string and validate rest of paramters
         mySyntaxStr = "!command"
         Dim param As ParameterInfo
         For i As Integer = 1 To params.Count - 1
             param = params(i)
+
             Select Case param.ParameterType
                 Case GetType(String)
                     myCount += 1
@@ -72,10 +75,11 @@ Friend NotInheritable Class CommandHandle (Of TPlayer As {New, Player})
         Next
     End Sub
 
-    Friend Sub Run(ParamArray args As Object())
+    Friend Sub Run(request As CommandRequest, ParamArray args As Object())
         Try
-            myMethodInfo.Invoke(myTarget, args)
+            myMethodInfo.Invoke(myTarget, {request}.Concat(args))
         Catch ex As Exception
+            request.Sender.Reply("Command failed to excecute: " & myAttribute.Type)
             Cloud.Logger.Log(LogPriority.Error, "Command failed to excecute: " & myAttribute.Type)
             Cloud.Logger.LogEx(ex)
         End Try

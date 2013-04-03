@@ -11,7 +11,7 @@
 #End Region
 
 #Region "Methods"
-    Sub New(name As String)
+    Public Sub New(name As String)
         MyBase.New(CommandSenderType.Remote)
 
         myName = name
