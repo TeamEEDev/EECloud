@@ -2,7 +2,7 @@
     Inherits IWorldBlock
     
     ''' <summary>
-    '''     Returns the Text associated with a label block
+    ''' Returns the Text associated with a label block
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>

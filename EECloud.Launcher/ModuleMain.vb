@@ -72,7 +72,6 @@ Module ModuleMain
         trayIconThread.Start()
 
         Console.Title = "EECloud"
-        Console.CursorVisible = False
         Console.Write("Welcome to EECloud.Launcher!" & Environment.NewLine &
                       "Starting EECloud...")
     End Sub

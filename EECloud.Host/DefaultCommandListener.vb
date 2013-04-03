@@ -28,7 +28,7 @@ Friend NotInheritable Class DefaultCommandListener
 #End If
 
     <Command("getrank", Group.Moderator, Aliases:={"rank", "group", "getgroup", "userrank", "usergroup", "playerrank", "playergroup"})>
-    Public Sub GetRankCommand(request As CommandRequest, username As String)
+    Public Async Sub GetRankCommand(request As CommandRequest, username As String)
         username = GetPlayerNormalizedUsername(username)
         Dim player As IPlayer = GetPlayer(username, True)
         Dim rank As Group
@@ -36,7 +36,7 @@ Friend NotInheritable Class DefaultCommandListener
         If player IsNot Nothing Then
             rank = player.Group
         Else
-            Dim playerData = Cloud.Service.GetPlayerData(username)
+            Dim playerData = Await Cloud.Service.GetPlayerDataAsync(username)
             If playerData IsNot Nothing Then
                 rank = playerData.GroupID
             End If
@@ -155,7 +155,7 @@ Friend NotInheritable Class DefaultCommandListener
         ChangeRank(request, GetPlayerNormalizedUsername(username), Group.Banned)
     End Sub
 
-    Private Sub ChangeRank(request As CommandRequest, username As String, rank As Group)
+    Private Async Sub ChangeRank(request As CommandRequest, username As String, rank As Group)
         username = GetPlayerNormalizedUsername(username)
         Dim currRank As Group
         Dim player As Player = GetPlayer(username, True)
@@ -163,7 +163,7 @@ Friend NotInheritable Class DefaultCommandListener
         If player IsNot Nothing Then
             currRank = player.Group
         Else
-            Dim playerData As UserData = Cloud.Service.GetPlayerData(username)
+            Dim playerData As UserData = Await Cloud.Service.GetPlayerDataAsync(username)
             If playerData IsNot Nothing Then
                 currRank = playerData.GroupID
             End If
@@ -175,7 +175,7 @@ Friend NotInheritable Class DefaultCommandListener
                 player.Group = rank
                 player.Save()
             Else
-                Cloud.Service.SetPlayerDataGroupID(username, rank)
+                Await Cloud.Service.SetPlayerDataGroupIDAsync(username, rank)
             End If
 
             request.Sender.Reply(String.Format("{0} is now {1}.", username.ToUpper(InvariantCulture), GetGroupString(rank)))
@@ -222,18 +222,8 @@ Friend NotInheritable Class DefaultCommandListener
         Dim realSenderString As String = String.Empty
 
         If myClient.Game.MyPlayer IsNot Nothing Then
-            If request.Sender Is Nothing Then
-                If Cloud.LicenseInGameName IsNot Nothing Then
-                    If Cloud.LicenseInGameName <> myClient.Game.MyPlayer.Username Then
-                        realSenderString = "[" & MakeFirstLetterUpperCased(Cloud.LicenseInGameName) & "] "
-                    End If
-                Else
-                    realSenderString = "[" & Cloud.LicenseUsername & "] "
-                End If
-            Else
-                If request.Sender.Username <> myClient.Game.MyPlayer.Username Then
-                    realSenderString = "[" & MakeFirstLetterUpperCased(request.Sender.Username) & "] "
-                End If
+            If request.Sender.Type = CommandSenderType.Player OrElse request.Sender.Type = CommandSenderType.Remote Then
+                'TODO: realSenderString = ?
             End If
         End If
 

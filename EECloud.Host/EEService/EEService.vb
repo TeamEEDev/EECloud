@@ -7,6 +7,7 @@
         End Get
     End Property
 
+
     Friend Function GetSetting(key As String) As String Implements IEEService.GetSetting
         If String.IsNullOrWhiteSpace(key) Then
             Throw New ArgumentNullException("key")
@@ -23,6 +24,11 @@
             End Using
         End Using
     End Function
+
+    Friend Function GetSettingAsync(key As String) As Task(Of String) Implements IEEService.GetSettingAsync
+        Return Task.Run(Of String)(Function() GetSetting(key))
+    End Function
+
 
     Friend Function GetSettings(ParamArray keyList() As String) As Dictionary(Of String, String) Implements IEEService.GetSettings
         If keyList Is Nothing OrElse keyList.Count < 1 Then
@@ -63,6 +69,11 @@
         End Using
     End Function
 
+    Friend Function GetSettingsAsync(ParamArray keyList() As String) As Task(Of Dictionary(Of String, String)) Implements IEEService.GetSettingsAsync
+        Return Task.Run(Of Dictionary(Of String, String))(Function() GetSettings(keyList))
+    End Function
+
+
     Friend Sub SetSetting(key As String, value As String) Implements IEEService.SetSetting
         If String.IsNullOrWhiteSpace(key) Then
             Throw New ArgumentNullException("key")
@@ -83,6 +94,11 @@
             End Using
         End Using
     End Sub
+
+    Friend Function SetSettingAsync(key As String, value As String) As Task Implements IEEService.SetSettingAsync
+        Return Task.Run(Sub() SetSetting(key, value))
+    End Function
+
 
     Friend Sub SetSettings(ParamArray keyValuePairs() As KeyValuePair(Of String, String)) Implements IEEService.SetSettings
         If keyValuePairs Is Nothing OrElse keyValuePairs.Length < 1 Then
@@ -110,6 +126,11 @@
         End Using
     End Sub
 
+    Friend Function SetSettingsAsync(ParamArray keyValuePairs() As KeyValuePair(Of String, String)) As Task Implements IEEService.SetSettingsAsync
+        Return Task.Run(Sub() SetSettings(keyValuePairs))
+    End Function
+
+
     Friend Function GetPlayerData(username As String) As UserData Implements IEEService.GetPlayerData
         If String.IsNullOrWhiteSpace(username) Then
             Throw New ArgumentNullException("username")
@@ -131,6 +152,11 @@
             End Using
         End Using
     End Function
+
+    Friend Function GetPlayerDataAsync(username As String) As Task(Of UserData) Implements IEEService.GetPlayerDataAsync
+        Return Task.Run(Of UserData)(Function() GetPlayerData(username))
+    End Function
+
 
     Friend Function GetPlayerDatas(ParamArray usernames() As String) As Dictionary(Of String, UserData) Implements IEEService.GetPlayerDatas
         If usernames Is Nothing OrElse usernames.Length < 1 Then
@@ -169,7 +195,14 @@
         End Using
     End Function
 
-    Friend Function GetPlayerDataRange(Optional offset As UInteger = 0, Optional limit As UInteger = 1000, Optional orderBy As String = "Username") As UserData() Implements IEEService.GetPlayerDataRange
+    Friend Function GetPlayerDatasAsync(ParamArray usernames() As String) As Task(Of Dictionary(Of String, UserData)) Implements IEEService.GetPlayerDatasAsync
+        Return Task.Run(Of Dictionary(Of String, UserData))(Function() GetPlayerDatas(usernames))
+    End Function
+
+
+    Friend Function GetPlayerDataRange(Optional offset As UInteger = 0,
+                                       Optional limit As UInteger = 1000,
+                                       Optional orderBy As String = "Username") As UserData() Implements IEEService.GetPlayerDataRange
         If Not limit > 0 Then
             Throw New ArgumentException("Limit must be bigger than 0.", "limit")
         End If
@@ -204,6 +237,13 @@
         End Using
     End Function
 
+    Friend Function GetPlayerDataRangeAsync(Optional offset As UInteger = 0,
+                                            Optional limit As UInteger = 1000,
+                                            Optional orderBy As String = "Username") As Task(Of UserData()) Implements IEEService.GetPlayerDataRangeAsync
+        Return Task.Run(Of UserData())(Function() GetPlayerDataRange(offset, limit, orderBy))
+    End Function
+
+
     Private Shared ReadOnly myAcceptedGroupIDs() As Short = {400, 300, 100, 0, -100, -200}
 
     Friend Sub SetPlayerDataGroupID(username As String, groupID As Short) Implements IEEService.SetPlayerDataGroupID
@@ -227,7 +267,12 @@
         End Using
     End Sub
 
-    Friend Sub SetPlayerDataYoScrollWins(username As String, yoScrollWins As UShort) Implements IEEService.SetPlayerDataYoScrollWins
+    Friend Function SetPlayerDataGroupIDAsync(username As String, groupID As Short) As Task Implements IEEService.SetPlayerDataGroupIDAsync
+        Return Task.Run(Sub() SetPlayerDataGroupID(username, groupID))
+    End Function
+
+
+    Friend Sub SetPlayerDataWins(gameName As RegisteredGameName, username As String, wins As UShort) Implements IEEService.SetPlayerDataWins
         If String.IsNullOrWhiteSpace(username) Then
             Throw New ArgumentNullException("username")
         End If
@@ -236,32 +281,20 @@
             connection.Open()
 
             Using command As MySqlCommand = connection.CreateCommand()
-                command.CommandText = "INSERT INTO playerData (Username, YoScrollWins) VALUES (@Username, @YoScrollWins) ON DUPLICATE KEY UPDATE YoScrollWins = @YoScrollWins"
+                command.CommandText = String.Format("INSERT INTO playerData (Username, {0}Wins) VALUES (@Username, @Wins) ON DUPLICATE KEY UPDATE {0}Wins = @Wins",
+                                                    gameName.ToString())
                 command.Parameters.AddWithValue("@Username", username)
-                command.Parameters.AddWithValue("@YoScrollWins", NumberToDbValue(yoScrollWins))
+                command.Parameters.AddWithValue("@Wins", NumberToDbValue(wins))
 
                 command.ExecuteNonQuery()
             End Using
         End Using
     End Sub
 
-    Friend Sub SetPlayerDataFTBreakerWins(username As String, ftBreakerWins As UShort) Implements IEEService.SetPlayerDataFTBreakerWins
-        If String.IsNullOrWhiteSpace(username) Then
-            Throw New ArgumentNullException("username")
-        End If
+    Friend Function SetPlayerDataWinsAsync(gameName As RegisteredGameName, username As String, wins As UShort) As Task Implements IEEService.SetPlayerDataWinsAsync
+        Return Task.Run(Sub() SetPlayerDataWins(gameName, username, wins))
+    End Function
 
-        Using connection As New MySqlConnection(MySQLConnStr)
-            connection.Open()
-
-            Using command As MySqlCommand = connection.CreateCommand()
-                command.CommandText = "INSERT INTO playerData (Username, FTBreakerWins) VALUES (@Username, @FTBreakerWins) ON DUPLICATE KEY UPDATE FTBreakerWins = @FTBreakerWins"
-                command.Parameters.AddWithValue("@Username", username)
-                command.Parameters.AddWithValue("@FTBreakerWins", NumberToDbValue(ftBreakerWins))
-
-                command.ExecuteNonQuery()
-            End Using
-        End Using
-    End Sub
 
     Friend Function GetFacts(factGroup As String) As String() Implements IEEService.GetFacts
         If String.IsNullOrWhiteSpace(factGroup) Then
@@ -286,6 +319,11 @@
         End Using
     End Function
 
+    Friend Function GetFactsAsync(factGroup As String) As Task(Of String()) Implements IEEService.GetFactsAsync
+        Return Task.Run(Of String())(Function() GetFacts(factGroup))
+    End Function
+
+
     Friend Sub SetFact(factID As String, factGroup As String) Implements IEEService.SetFact
         If String.IsNullOrWhiteSpace(factID) Then
             Throw New ArgumentNullException("factID")
@@ -307,6 +345,11 @@
         End Using
     End Sub
 
+    Friend Function SetFactAsync(factID As String, factGroup As String) As Task Implements IEEService.SetFactAsync
+        Return Task.Run(Sub() SetFact(factID, factGroup))
+    End Function
+
+
     Friend Sub RemoveFact(factID As String) Implements IEEService.RemoveFact
         If String.IsNullOrWhiteSpace(factID) Then
             Throw New ArgumentNullException("factID")
@@ -326,6 +369,11 @@
         Catch
         End Try
     End Sub
+
+    Friend Function RemoveFactAsync(factID As String) As Task Implements IEEService.RemoveFactAsync
+        Return Task.Run(Sub() RemoveFact(factID))
+    End Function
+
 
     Friend Function CheckLicense(username As String, authKey As String) As Boolean Implements IEEService.CheckLicense
         Using connection As New MySqlConnection(MySQLConnStr)
@@ -353,6 +401,11 @@
         End Using
     End Function
 
+    Friend Function CheckLicenseAsync(username As String, authKey As String) As Task(Of Boolean) Implements IEEService.CheckLicenseAsync
+        Return Task.Run(Of Boolean)(Function() CheckLicense(username, authKey))
+    End Function
+
+
     Private Shared Function ParsePlayerData(reader As MySqlDataReader) As UserData
         If reader Is Nothing Then
             Throw New ArgumentNullException("reader")
@@ -363,6 +416,7 @@
             .YoScrollWins = TryCastUShort(reader.GetValue(2)),
             .FTBreakerWins = TryCastUShort(reader.GetValue(3))}
     End Function
+
 
     Private Shared Function TryCastString(input As Object) As String
         Try

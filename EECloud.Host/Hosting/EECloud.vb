@@ -24,7 +24,6 @@ Public NotInheritable Class EECloud
             My.Settings.Updated = True
         End If
 
-        Cloud.Logger = New Logger()
         myLicenseUsername = My.Settings.LicenseUsername
         myLicenseKey = My.Settings.LicenseKey
 
@@ -116,6 +115,8 @@ Public NotInheritable Class EECloud
         Console.WriteLine(String.Format("{0} Version {1}", My.Application.Info.Title, My.Application.Info.Version) & Environment.NewLine &
                           "Built on " & RetrieveLinkerTimestamp.ToString())
 
+        Cloud.Logger = New Logger()
+
         Cloud.IsDebug = dev
         Cloud.IsHosted = hosted
         Cloud.IsNoConsole = noConsole
@@ -196,8 +197,8 @@ Public NotInheritable Class EECloud
         End If
     End Function
 
-    Private Shared Sub CheckLicense()
-        If Not Cloud.Service.CheckLicense(myLicenseUsername, myLicenseKey) Then
+    Private Shared Async Sub CheckLicense()
+        If Not Await Cloud.Service.CheckLicenseAsync(myLicenseUsername, myLicenseKey) Then
             If Not Cloud.IsNoGUI Then
                 If New LicenseForm().ShowDialog() = DialogResult.OK Then
                     SetLicenseData(My.Settings.LicenseUsername, My.Settings.LicenseKey)
