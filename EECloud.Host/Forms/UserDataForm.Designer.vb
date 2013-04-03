@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial NotInheritable Class LicenseForm
+Partial NotInheritable Class UserDataForm
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -52,7 +52,7 @@ Partial NotInheritable Class LicenseForm
         Me.LabelUsername.TabIndex = 0
         Me.LabelUsername.Text = "In-game username:"
         '
-        'LicenseForm
+        'UserDataForm
         '
         Me.AcceptButton = Me.ButtonOk
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -64,7 +64,7 @@ Partial NotInheritable Class LicenseForm
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.KeyPreview = True
         Me.MaximizeBox = False
-        Me.Name = "LicenseForm"
+        Me.Name = "UserDataForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "User information"
         Me.ResumeLayout(False)
