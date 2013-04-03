@@ -2,10 +2,6 @@
     ReadOnly Property ConnectionString As String
 
 
-    Function CheckLicense(username As String, authKey As String) As Boolean
-    Function CheckLicenseAsync(username As String, authKey As String) As Task(Of Boolean)
-
-
     Function GetSetting(key As String) As String
     Function GetSettingAsync(key As String) As Task(Of String)
 

@@ -20,8 +20,6 @@ Friend NotInheritable Class LoginForm
     Friend Sub New()
         Icon = My.Resources.Icon
         InitializeComponent()
-
-        KeyPreview = True
     End Sub
 
     Private Sub LoginForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
