@@ -36,7 +36,7 @@
             myMoveResult = False
         End Sub
 
-        Friend ReadOnly Property Current() As Object Implements IEnumerator.Current
+        Friend ReadOnly Property Current As Object Implements IEnumerator.Current
             Get
                 If myDisposed Then
                     Throw New ObjectDisposedException([GetType]().Name)
@@ -69,7 +69,7 @@
 #End Region
 
 #Region "IEnumerator<T> Members"
-        Private ReadOnly Property IEnumerator_Current() As T Implements IEnumerator(Of T).Current
+        Private ReadOnly Property IEnumerator_Current As T Implements IEnumerator(Of T).Current
             Get
                 If myDisposed Then
                     Throw New ObjectDisposedException([GetType]().Name)
