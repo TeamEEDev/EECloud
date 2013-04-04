@@ -1,13 +1,17 @@
 ﻿Friend Class EEService
     Implements IEEService
 
+#Region "Fields"
     Public ReadOnly Property ConnectionString As String Implements IEEService.ConnectionString
         Get
             Return MySQLConnStr
         End Get
     End Property
+#End Region
 
+#Region "Methods"
 
+#Region "Settings"
     Friend Function GetSetting(key As String) As String Implements IEEService.GetSetting
         If String.IsNullOrWhiteSpace(key) Then
             Throw New ArgumentNullException("key")
@@ -30,7 +34,7 @@
     End Function
 
 
-    Friend Function GetSettings(ParamArray keyList() As String) As Dictionary(Of String, String) Implements IEEService.GetSettings
+    Friend Function GetSettings(ParamArray keyList As String()) As Dictionary(Of String, String) Implements IEEService.GetSettings
         If keyList Is Nothing OrElse keyList.Count < 1 Then
             Throw New ArgumentNullException("keyList", "'KeyList' can't be null, and its length must be 1 or more.")
         End If
@@ -69,7 +73,7 @@
         End Using
     End Function
 
-    Friend Function GetSettingsAsync(ParamArray keyList() As String) As Task(Of Dictionary(Of String, String)) Implements IEEService.GetSettingsAsync
+    Friend Function GetSettingsAsync(ParamArray keyList As String()) As Task(Of Dictionary(Of String, String)) Implements IEEService.GetSettingsAsync
         Return Task.Run(Of Dictionary(Of String, String))(Function() GetSettings(keyList))
     End Function
 
@@ -100,7 +104,7 @@
     End Function
 
 
-    Friend Sub SetSettings(ParamArray keyValuePairs() As KeyValuePair(Of String, String)) Implements IEEService.SetSettings
+    Friend Sub SetSettings(ParamArray keyValuePairs As KeyValuePair(Of String, String)()) Implements IEEService.SetSettings
         If keyValuePairs Is Nothing OrElse keyValuePairs.Length < 1 Then
             Throw New ArgumentNullException("keyValuePairs", "'KeyValuePairs' can't be null, and its length must be 1 or more.")
         End If
@@ -126,11 +130,12 @@
         End Using
     End Sub
 
-    Friend Function SetSettingsAsync(ParamArray keyValuePairs() As KeyValuePair(Of String, String)) As Task Implements IEEService.SetSettingsAsync
+    Friend Function SetSettingsAsync(ParamArray keyValuePairs As KeyValuePair(Of String, String)()) As Task Implements IEEService.SetSettingsAsync
         Return Task.Run(Sub() SetSettings(keyValuePairs))
     End Function
+#End Region
 
-
+#Region "PlayerDatas"
     Friend Function GetPlayerData(username As String) As UserData Implements IEEService.GetPlayerData
         If String.IsNullOrWhiteSpace(username) Then
             Throw New ArgumentNullException("username")
@@ -158,7 +163,7 @@
     End Function
 
 
-    Friend Function GetPlayerDatas(ParamArray usernames() As String) As Dictionary(Of String, UserData) Implements IEEService.GetPlayerDatas
+    Friend Function GetPlayerDatas(ParamArray usernames As String()) As Dictionary(Of String, UserData) Implements IEEService.GetPlayerDatas
         If usernames Is Nothing OrElse usernames.Length < 1 Then
             Throw New ArgumentNullException("usernames")
         End If
@@ -195,7 +200,7 @@
         End Using
     End Function
 
-    Friend Function GetPlayerDatasAsync(ParamArray usernames() As String) As Task(Of Dictionary(Of String, UserData)) Implements IEEService.GetPlayerDatasAsync
+    Friend Function GetPlayerDatasAsync(ParamArray usernames As String()) As Task(Of Dictionary(Of String, UserData)) Implements IEEService.GetPlayerDatasAsync
         Return Task.Run(Of Dictionary(Of String, UserData))(Function() GetPlayerDatas(usernames))
     End Function
 
@@ -244,7 +249,7 @@
     End Function
 
 
-    Private Shared ReadOnly myAcceptedGroupIDs() As Short = {400, 300, 100, 0, -100, -200}
+    Private Shared ReadOnly myAcceptedGroupIDs As Short() = {400, 300, 100, 0, -100, -200}
 
     Friend Sub SetPlayerDataGroupID(username As String, groupID As Short) Implements IEEService.SetPlayerDataGroupID
         If String.IsNullOrWhiteSpace(username) Then
@@ -294,8 +299,9 @@
     Friend Function SetPlayerDataWinsAsync(gameName As RegisteredGameName, username As String, wins As UShort) As Task Implements IEEService.SetPlayerDataWinsAsync
         Return Task.Run(Sub() SetPlayerDataWins(gameName, username, wins))
     End Function
+#End Region
 
-
+#Region "Facts"
     Friend Function GetFacts(factGroup As String) As String() Implements IEEService.GetFacts
         If String.IsNullOrWhiteSpace(factGroup) Then
             Throw New ArgumentNullException("factGroup")
@@ -373,8 +379,9 @@
     Friend Function RemoveFactAsync(factID As String) As Task Implements IEEService.RemoveFactAsync
         Return Task.Run(Sub() RemoveFact(factID))
     End Function
+#End Region
 
-
+#Region "Miscellaneous"
     Private Shared Function ParsePlayerData(reader As MySqlDataReader) As UserData
         If reader Is Nothing Then
             Throw New ArgumentNullException("reader")
@@ -423,6 +430,7 @@
         End Try
     End Function
 
+
     Private Shared Function NumberToDbValue(input As Object)
         If input = 0 Then
             Return DBNull.Value
@@ -430,5 +438,8 @@
 
         Return input
     End Function
+#End Region
+
+#End Region
 
 End Class

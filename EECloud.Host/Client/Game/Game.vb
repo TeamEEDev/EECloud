@@ -152,7 +152,7 @@
         Const ascUm = Asc("M"c)
         Const ascUz = Asc("Z"c)
 
-        Dim array() As Char = input.ToCharArray()
+        Dim array As Char() = input.ToCharArray()
 
         Dim charNum As Integer
         For i = 0 To input.Length - 1
@@ -179,4 +179,5 @@
     End Function
 
 #End Region
+
 End Class

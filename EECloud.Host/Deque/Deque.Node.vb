@@ -14,13 +14,13 @@
             myValue = value
         End Sub
 
-        Friend ReadOnly Property Value() As T
+        Friend ReadOnly Property Value As T
             Get
                 Return myValue
             End Get
         End Property
 
-        Friend Property Previous() As Node
+        Friend Property Previous As Node
             Get
                 Return myPrevious
             End Get
@@ -29,7 +29,7 @@
             End Set
         End Property
 
-        Friend Property [Next]() As Node
+        Friend Property [Next] As Node
             Get
                 Return myNext
             End Get

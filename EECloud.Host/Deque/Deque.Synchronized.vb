@@ -108,7 +108,7 @@
 
 #Region "Properties"
 
-        Friend Overrides ReadOnly Property Count() As Integer
+        Friend Overrides ReadOnly Property Count As Integer
             Get
                 SyncLock myRoot
                     Return myDeque.Count
@@ -116,7 +116,7 @@
             End Get
         End Property
 
-        Friend Overrides ReadOnly Property IsSynchronized() As Boolean
+        Friend Overrides ReadOnly Property IsSynchronized As Boolean
             Get
                 Return True
             End Get

@@ -17,4 +17,5 @@
         mySender = sender
     End Sub
 #End Region
+
 End Class

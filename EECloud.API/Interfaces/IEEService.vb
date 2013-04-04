@@ -11,8 +11,8 @@
     Sub SetSetting(key As String, value As String)
     Function SetSettingAsync(key As String, value As String) As Task
 
-    Sub SetSettings(ParamArray keyValuePairs() As KeyValuePair(Of String, String))
-    Function SetSettingsAsync(ParamArray keyValuePairs() As KeyValuePair(Of String, String)) As Task
+    Sub SetSettings(ParamArray keyValuePairs As KeyValuePair(Of String, String)())
+    Function SetSettingsAsync(ParamArray keyValuePairs As KeyValuePair(Of String, String)()) As Task
 
 
     Function GetFacts(factGroup As String) As String()
@@ -28,8 +28,8 @@
     Function GetPlayerData(username As String) As UserData
     Function GetPlayerDataAsync(username As String) As Task(Of UserData)
 
-    Function GetPlayerDatas(ParamArray usernames() As String) As Dictionary(Of String, UserData)
-    Function GetPlayerDatasAsync(ParamArray usernames() As String) As Task(Of Dictionary(Of String, UserData))
+    Function GetPlayerDatas(ParamArray usernames As String()) As Dictionary(Of String, UserData)
+    Function GetPlayerDatasAsync(ParamArray usernames As String()) As Task(Of Dictionary(Of String, UserData))
 
     Function GetPlayerDataRange(Optional offset As UInteger = 0,
                                 Optional limit As UInteger = 1000,
