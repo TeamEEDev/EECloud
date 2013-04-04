@@ -86,4 +86,8 @@
     Winter = 84
     FireDemon = 85
     Bishop = 86
+    Zombie = 87
+    Bruce = 88
+    Unit = 89
+    Spartan = 90
 End Enum
