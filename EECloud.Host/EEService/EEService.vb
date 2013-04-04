@@ -1,13 +1,15 @@
 ﻿Friend Class EEService
     Implements IEEService
 
+#Region "Fields"
     Public ReadOnly Property ConnectionString As String Implements IEEService.ConnectionString
         Get
             Return MySQLConnStr
         End Get
     End Property
+#End Region
 
-
+#Region "Methods"
     Friend Function GetSetting(key As String) As String Implements IEEService.GetSetting
         If String.IsNullOrWhiteSpace(key) Then
             Throw New ArgumentNullException("key")
@@ -430,5 +432,6 @@
 
         Return input
     End Function
+#End Region
 
 End Class

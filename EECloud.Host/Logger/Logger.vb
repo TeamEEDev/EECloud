@@ -108,4 +108,5 @@ Friend NotInheritable Class Logger
     End Sub
 
 #End Region
+
 End Class

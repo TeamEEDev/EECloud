@@ -1041,4 +1041,5 @@ Friend NotInheritable Class Connection
 #End Region
 
 #End Region
+
 End Class
