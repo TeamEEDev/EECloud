@@ -3,6 +3,7 @@ Imports System.Windows.Forms
 Imports System.Threading
 
 Module ModuleMain
+
 #Region "Unmanaged calls"
 
     Private Delegate Function HandlerRoutine(ctrlType As Integer) As Boolean
@@ -149,4 +150,5 @@ Module ModuleMain
     End Function
 
 #End Region
+
 End Module

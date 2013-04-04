@@ -10,6 +10,8 @@
 #End Region
 
 #Region "Methods"
+
+#Region "Settings"
     Friend Function GetSetting(key As String) As String Implements IEEService.GetSetting
         If String.IsNullOrWhiteSpace(key) Then
             Throw New ArgumentNullException("key")
@@ -131,8 +133,9 @@
     Friend Function SetSettingsAsync(ParamArray keyValuePairs() As KeyValuePair(Of String, String)) As Task Implements IEEService.SetSettingsAsync
         Return Task.Run(Sub() SetSettings(keyValuePairs))
     End Function
+#End Region
 
-
+#Region "PlayerDatas"
     Friend Function GetPlayerData(username As String) As UserData Implements IEEService.GetPlayerData
         If String.IsNullOrWhiteSpace(username) Then
             Throw New ArgumentNullException("username")
@@ -296,8 +299,9 @@
     Friend Function SetPlayerDataWinsAsync(gameName As RegisteredGameName, username As String, wins As UShort) As Task Implements IEEService.SetPlayerDataWinsAsync
         Return Task.Run(Sub() SetPlayerDataWins(gameName, username, wins))
     End Function
+#End Region
 
-
+#Region "Facts"
     Friend Function GetFacts(factGroup As String) As String() Implements IEEService.GetFacts
         If String.IsNullOrWhiteSpace(factGroup) Then
             Throw New ArgumentNullException("factGroup")
@@ -375,8 +379,9 @@
     Friend Function RemoveFactAsync(factID As String) As Task Implements IEEService.RemoveFactAsync
         Return Task.Run(Sub() RemoveFact(factID))
     End Function
+#End Region
 
-
+#Region "Miscellaneous"
     Private Shared Function ParsePlayerData(reader As MySqlDataReader) As UserData
         If reader Is Nothing Then
             Throw New ArgumentNullException("reader")
@@ -425,6 +430,7 @@
         End Try
     End Function
 
+
     Private Shared Function NumberToDbValue(input As Object)
         If input = 0 Then
             Return DBNull.Value
@@ -432,6 +438,8 @@
 
         Return input
     End Function
+#End Region
+
 #End Region
 
 End Class
