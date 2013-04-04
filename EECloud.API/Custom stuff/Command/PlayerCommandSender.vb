@@ -28,4 +28,5 @@
         Chatter.Reply(Username, msg)
     End Sub
 #End Region
+
 End Class

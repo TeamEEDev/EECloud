@@ -330,7 +330,7 @@
     End Sub
 
     Public Function GetEnumerator() As IEnumerator(Of TPlayer) Implements IEnumerable(Of TPlayer).GetEnumerator
-        Return myIDDictionary.Values.GetEnumerator
+        Return myIDDictionary.Values.GetEnumerator()
     End Function
 
     Public Function GetEnumerator1() As IEnumerator Implements IEnumerable.GetEnumerator
@@ -338,4 +338,5 @@
     End Function
 
 #End Region
+
 End Class

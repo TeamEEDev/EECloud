@@ -82,4 +82,5 @@ Public NotInheritable Class PluginAttribute
     End Property
 
 #End Region
+
 End Class
