@@ -176,13 +176,13 @@ Partial Friend Class Deque(Of T)
 
 #Region "ICollection Members"
 
-    Friend Overridable ReadOnly Property IsSynchronized() As Boolean Implements ICollection.IsSynchronized
+    Friend Overridable ReadOnly Property IsSynchronized As Boolean Implements ICollection.IsSynchronized
         Get
             Return False
         End Get
     End Property
 
-    Friend Overridable ReadOnly Property Count() As Integer Implements ICollection.Count
+    Friend Overridable ReadOnly Property Count As Integer Implements ICollection.Count
         Get
             Return myCount
         End Get
@@ -209,7 +209,7 @@ Partial Friend Class Deque(Of T)
         Next
     End Sub
 
-    Friend Overridable ReadOnly Property SyncRoot() As Object Implements ICollection.SyncRoot
+    Friend Overridable ReadOnly Property SyncRoot As Object Implements ICollection.SyncRoot
         Get
             Return Me
         End Get

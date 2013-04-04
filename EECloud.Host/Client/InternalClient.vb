@@ -69,7 +69,7 @@
 
     Private ReadOnly myInternalPlayerManager As InternalPlayerManager
 
-    Friend ReadOnly Property InternalPlayerManager() As InternalPlayerManager
+    Friend ReadOnly Property InternalPlayerManager As InternalPlayerManager
         Get
             Return myInternalPlayerManager
         End Get

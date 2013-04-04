@@ -359,7 +359,7 @@ Friend NotInheritable Class Connection
     End Function
 
     Private Shared Sub UpdateVersion(ex As PlayerIOError)
-        Dim errorMessage() As String = ex.Message.Split("["c)(1).Split(" "c)
+        Dim errorMessage As String() = ex.Message.Split("["c)(1).Split(" "c)
         Dim newVersion As Integer
 
         Dim currentRoomType As String
