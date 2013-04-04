@@ -249,4 +249,5 @@ Partial Friend Class Deque(Of T)
     End Function
 
 #End Region
+
 End Class

@@ -82,4 +82,5 @@ Friend NotInheritable Class PluginManager
     End Sub
 
 #End Region
+
 End Class

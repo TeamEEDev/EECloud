@@ -1,4 +1,5 @@
 ﻿Friend Class CommandEventArgs
+
 #Region "Properties"
     Private myRequest As CommandRequest
 
@@ -16,4 +17,5 @@
         myRequest = request
     End Sub
 #End Region
+
 End Class
