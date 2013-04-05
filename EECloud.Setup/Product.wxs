@@ -43,13 +43,13 @@
       <ComponentRef Id="c$(var.AppAuthor)" />
       <ComponentRef Id="cFiles" />
       <ComponentRef Id="cAPIFiles" />
-      <ComponentRef Id="cRegistryKeys" />
+      <ComponentRef Id="cAPIRegistryKeys" />
     </Feature>
   </Product>
 
   <Fragment>
     <!-- Folder structure -->
-    <Directory Id="TargetDir" Name="SourceDir">
+    <Directory Id="TARGETDIR" Name="SourceDir">
       <!-- Programs (in Start Menu) -->
       <Directory Id="ProgramMenuFolder" />
 
@@ -69,6 +69,10 @@
     <!-- Install folder -->
     <DirectoryRef Id="InstallLocation">
       <Component Id="cFiles" Guid="{76A51B27-FBBE-48E8-8E9E-C91CA1EE9DD7}">
+        <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)"
+                       Name="Installed" Type="integer" Value="1"
+                       KeyPath="yes" />
+
         <CreateFolder />
         <RemoveFolder Id="RemoveInstallLocation" On="uninstall" />
 
@@ -98,6 +102,10 @@
     <!-- API folder -->
     <DirectoryRef Id="API">
       <Component Id="cAPIFiles" Guid="{1C536D70-68DA-4867-BB47-B13E19F702EC}">
+        <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)"
+                       Name="Installed" Type="integer" Value="1"
+                       KeyPath="yes" />
+
         <CreateFolder />
         <RemoveFolder Id="RemoveAPI" On="uninstall" />
 
@@ -111,6 +119,10 @@
     <!-- EEDev folder -->
     <DirectoryRef Id="$(var.AppAuthor)">
       <Component Id="c$(var.AppAuthor)" Guid="{078F6C30-61AF-4FE3-9135-F84142592AB1}">
+        <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)"
+                       Name="Installed" Type="integer" Value="1"
+                       KeyPath="yes" />
+
         <CreateFolder />
         <RemoveFolder Id="Remove$(var.AppAuthor)" On="uninstall" />
       </Component>
@@ -118,16 +130,12 @@
   </Fragment>
 
   <Fragment>
-    <DirectoryRef Id="TargetDir">
-      <Component Id="cRegistryKeys" Guid="{C7D3C0F0-3C06-11E2-81C1-0800200C9A66}">
+    <DirectoryRef Id="TARGETDIR">
+      <Component Id="cAPIRegistryKeys" Guid="{C7D3C0F0-3C06-11E2-81C1-0800200C9A66}">
         <RegistryKey Root="HKCU" Key="Software\Microsoft\.NETFramework\v4.5.50709\AssemblyFoldersEx\EECloud">
           <RegistryValue Name="Installed" Type="integer" Value="1" KeyPath="yes" />
           <RegistryValue Type="string" Value="[API]" />
         </RegistryKey>
-
-        <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)"
-                       Name="Installed" Type="integer" Value="1"
-                       KeyPath="yes" />
       </Component>
     </DirectoryRef>
   </Fragment>
