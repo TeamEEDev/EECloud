@@ -1,7 +1,15 @@
 ﻿Friend Class EEService
-    Implements IEEService
+    Implements IEEService, IDisposable
 
-#Region "Fields"
+#Region "Properties"
+    Private Shared ReadOnly myConnection As New Lazy(Of MySqlConnection)(Function() New MySqlConnection(MySQLConnStr))
+
+    Private Shared ReadOnly Property Connection As MySqlConnection
+        Get
+            Return myConnection.Value
+        End Get
+    End Property
+
     Public ReadOnly Property ConnectionString As String Implements IEEService.ConnectionString
         Get
             Return MySQLConnStr
@@ -17,15 +25,13 @@
             Throw New ArgumentNullException("key")
         End If
 
-        Using connection As New MySqlConnection(MySQLConnStr)
-            connection.Open()
+        Connection.Open()
 
-            Using command As MySqlCommand = connection.CreateCommand()
-                command.CommandText = "SELECT SettingValue FROM settings WHERE SettingKey = @SettingKey"
-                command.Parameters.AddWithValue("@SettingKey", key)
+        Using command As MySqlCommand = Connection.CreateCommand()
+            command.CommandText = "SELECT SettingValue FROM settings WHERE SettingKey = @SettingKey"
+            command.Parameters.AddWithValue("@SettingKey", key)
 
-                Return DirectCast(command.ExecuteScalar(), String)
-            End Using
+            Return DirectCast(command.ExecuteScalar(), String)
         End Using
     End Function
 
@@ -45,31 +51,29 @@
             End If
         Next
 
-        Using connection As New MySqlConnection(MySQLConnStr)
-            connection.Open()
+        Connection.Open()
 
-            Using command As MySqlCommand = connection.CreateCommand()
-                command.CommandText = "SELECT SettingKey, SettingValue FROM settings WHERE SettingKey = @SettingKey0"
-                command.Parameters.AddWithValue("@SettingKey0", keyList(0))
+        Using command As MySqlCommand = Connection.CreateCommand()
+            command.CommandText = "SELECT SettingKey, SettingValue FROM settings WHERE SettingKey = @SettingKey0"
+            command.Parameters.AddWithValue("@SettingKey0", keyList(0))
 
-                For i = 1 To keyList.Length - 1
-                    command.CommandText &= " OR SettingKey = @SettingKey" & i
-                    command.Parameters.AddWithValue("@SettingKey" & i, keyList(i))
-                Next
+            For i = 1 To keyList.Length - 1
+                command.CommandText &= " OR SettingKey = @SettingKey" & i
+                command.Parameters.AddWithValue("@SettingKey" & i, keyList(i))
+            Next
 
-                Try
-                    Using reader As MySqlDataReader = command.ExecuteReader()
-                        Dim dic As New Dictionary(Of String, String)
-                        While reader.Read()
-                            dic.Add(reader.GetString(0), reader.GetString(1))
-                        End While
+            Try
+                Using reader As MySqlDataReader = command.ExecuteReader()
+                    Dim dic As New Dictionary(Of String, String)
+                    While reader.Read()
+                        dic.Add(reader.GetString(0), reader.GetString(1))
+                    End While
 
-                        Return dic
-                    End Using
-                Catch ex As Exception
-                    Throw New Exception("Unknown error", ex)
-                End Try
-            End Using
+                    Return dic
+                End Using
+            Catch ex As Exception
+                Throw New Exception("Unknown error", ex)
+            End Try
         End Using
     End Function
 
@@ -86,16 +90,14 @@
             Throw New ArgumentNullException("value")
         End If
 
-        Using connection As New MySqlConnection(MySQLConnStr)
-            connection.Open()
+        Connection.Open()
 
-            Using command As MySqlCommand = connection.CreateCommand()
-                command.CommandText = "INSERT INTO settings VALUES (@SettingKey, @SettingValue) ON DUPLICATE KEY UPDATE SettingValue = @SettingValue"
-                command.Parameters.AddWithValue("@SettingKey", key)
-                command.Parameters.AddWithValue("@SettingValue", value)
+        Using command As MySqlCommand = Connection.CreateCommand()
+            command.CommandText = "INSERT INTO settings VALUES (@SettingKey, @SettingValue) ON DUPLICATE KEY UPDATE SettingValue = @SettingValue"
+            command.Parameters.AddWithValue("@SettingKey", key)
+            command.Parameters.AddWithValue("@SettingValue", value)
 
-                command.ExecuteNonQuery()
-            End Using
+            command.ExecuteNonQuery()
         End Using
     End Sub
 
@@ -115,18 +117,16 @@
             End If
         Next
 
-        Using connection As New MySqlConnection(MySQLConnStr)
-            connection.Open()
+        Connection.Open()
 
-            Using command As MySqlCommand = connection.CreateCommand()
-                For i = 0 To keyValuePairs.Length - 1
-                    command.CommandText &= String.Format("INSERT INTO settings VALUES (@SettingKey{0}, @SettingValue{0}) ON DUPLICATE KEY UPDATE SettingValue = @SettingValue{0};", i)
-                    command.Parameters.AddWithValue("@SettingKey" & i, keyValuePairs(i).Key)
-                    command.Parameters.AddWithValue("@SettingValue" & i, keyValuePairs(i).Value)
-                Next
+        Using command As MySqlCommand = Connection.CreateCommand()
+            For i = 0 To keyValuePairs.Length - 1
+                command.CommandText &= String.Format("INSERT INTO settings VALUES (@SettingKey{0}, @SettingValue{0}) ON DUPLICATE KEY UPDATE SettingValue = @SettingValue{0};", i)
+                command.Parameters.AddWithValue("@SettingKey" & i, keyValuePairs(i).Key)
+                command.Parameters.AddWithValue("@SettingValue" & i, keyValuePairs(i).Value)
+            Next
 
-                command.ExecuteNonQuery()
-            End Using
+            command.ExecuteNonQuery()
         End Using
     End Sub
 
@@ -141,19 +141,18 @@
             Throw New ArgumentNullException("username")
         End If
 
-        Using connection As New MySqlConnection(MySQLConnStr)
-            connection.Open()
-            Using command As MySqlCommand = connection.CreateCommand()
-                command.CommandText = "SELECT * FROM playerData WHERE Username = @Username"
-                command.Parameters.AddWithValue("@Username", username)
+        Connection.Open()
 
-                Using reader As MySqlDataReader = command.ExecuteReader()
-                    If reader.Read() Then
-                        Return ParsePlayerData(reader)
-                    Else
-                        Return Nothing
-                    End If
-                End Using
+        Using command As MySqlCommand = Connection.CreateCommand()
+            command.CommandText = "SELECT * FROM playerData WHERE Username = @Username"
+            command.Parameters.AddWithValue("@Username", username)
+
+            Using reader As MySqlDataReader = command.ExecuteReader()
+                If reader.Read() Then
+                    Return ParsePlayerData(reader)
+                Else
+                    Return Nothing
+                End If
             End Using
         End Using
     End Function
@@ -168,35 +167,34 @@
             Throw New ArgumentNullException("usernames")
         End If
 
-        Using connection As New MySqlConnection(MySQLConnStr)
-            connection.Open()
-            Using command As MySqlCommand = connection.CreateCommand()
-                Dim usernamesCountMinus1 = usernames.Length - 1
+        Connection.Open()
 
-                command.CommandText = "SELECT * FROM playerData WHERE Username = @Username0"
-                command.Parameters.AddWithValue("@Username0", usernames(0))
+        Using command As MySqlCommand = Connection.CreateCommand()
+            Dim usernamesCountMinus1 = usernames.Length - 1
 
-                For i = 1 To usernamesCountMinus1
-                    command.CommandText &= " OR Username = @Username" & i
-                    command.Parameters.AddWithValue("@Username" & i, usernames(i))
-                Next
+            command.CommandText = "SELECT * FROM playerData WHERE Username = @Username0"
+            command.Parameters.AddWithValue("@Username0", usernames(0))
 
-                Try
-                    Using reader As MySqlDataReader = command.ExecuteReader()
-                        Dim dic As New Dictionary(Of String, UserData)
+            For i = 1 To usernamesCountMinus1
+                command.CommandText &= " OR Username = @Username" & i
+                command.Parameters.AddWithValue("@Username" & i, usernames(i))
+            Next
 
-                        Dim currentUserData As UserData
-                        While reader.Read()
-                            currentUserData = ParsePlayerData(reader)
-                            dic.Add(currentUserData.Username, currentUserData)
-                        End While
+            Try
+                Using reader As MySqlDataReader = command.ExecuteReader()
+                    Dim dic As New Dictionary(Of String, UserData)
 
-                        Return dic
-                    End Using
-                Catch ex As Exception
-                    Throw New Exception("Unknown error", ex)
-                End Try
-            End Using
+                    Dim currentUserData As UserData
+                    While reader.Read()
+                        currentUserData = ParsePlayerData(reader)
+                        dic.Add(currentUserData.Username, currentUserData)
+                    End While
+
+                    Return dic
+                End Using
+            Catch ex As Exception
+                Throw New Exception("Unknown error", ex)
+            End Try
         End Using
     End Function
 
@@ -215,30 +213,28 @@
         limit = Math.Min(limit, 1000)
         If orderBy Is Nothing Then orderBy = "Username"
 
-        Using connection As New MySqlConnection(MySQLConnStr)
-            connection.Open()
+        Connection.Open()
 
-            Using command As MySqlCommand = connection.CreateCommand()
-                command.CommandText = "SELECT * FROM playerData ORDER BY @OrderBy LIMIT @Limit OFFSET @Offset"
-                command.Parameters.AddWithValue("@OrderBy", orderBy)
-                command.Parameters.AddWithValue("@Limit", limit)
-                command.Parameters.AddWithValue("@Offset", offset)
+        Using command As MySqlCommand = Connection.CreateCommand()
+            command.CommandText = "SELECT * FROM playerData ORDER BY @OrderBy LIMIT @Limit OFFSET @Offset"
+            command.Parameters.AddWithValue("@OrderBy", orderBy)
+            command.Parameters.AddWithValue("@Limit", limit)
+            command.Parameters.AddWithValue("@Offset", offset)
 
-                Try
-                    Using reader As MySqlDataReader = command.ExecuteReader()
-                        Dim userDatas As New List(Of UserData)
-                        Dim pointer As UInteger
-                        While reader.Read() AndAlso limit > pointer
-                            userDatas.Add(ParsePlayerData(reader))
-                            pointer += 1
-                        End While
+            Try
+                Using reader As MySqlDataReader = command.ExecuteReader()
+                    Dim userDatas As New List(Of UserData)
+                    Dim pointer As UInteger
+                    While reader.Read() AndAlso limit > pointer
+                        userDatas.Add(ParsePlayerData(reader))
+                        pointer += 1
+                    End While
 
-                        Return userDatas.ToArray()
-                    End Using
-                Catch ex As Exception
-                    Throw New Exception("Unknown error", ex)
-                End Try
-            End Using
+                    Return userDatas.ToArray()
+                End Using
+            Catch ex As Exception
+                Throw New Exception("Unknown error", ex)
+            End Try
         End Using
     End Function
 
@@ -259,16 +255,14 @@
             Exit Sub
         End If
 
-        Using connection As New MySqlConnection(MySQLConnStr)
-            connection.Open()
+        Connection.Open()
 
-            Using command As MySqlCommand = connection.CreateCommand()
-                command.CommandText = "INSERT INTO playerData (Username, GroupID) VALUES (@Username, @GroupID) ON DUPLICATE KEY UPDATE GroupID = @GroupID"
-                command.Parameters.AddWithValue("@Username", username)
-                command.Parameters.AddWithValue("@GroupID", NumberToDbValue(groupID))
+        Using command As MySqlCommand = Connection.CreateCommand()
+            command.CommandText = "INSERT INTO playerData (Username, GroupID) VALUES (@Username, @GroupID) ON DUPLICATE KEY UPDATE GroupID = @GroupID"
+            command.Parameters.AddWithValue("@Username", username)
+            command.Parameters.AddWithValue("@GroupID", NumberToDbValue(groupID))
 
-                command.ExecuteNonQuery()
-            End Using
+            command.ExecuteNonQuery()
         End Using
     End Sub
 
@@ -282,17 +276,15 @@
             Throw New ArgumentNullException("username")
         End If
 
-        Using connection As New MySqlConnection(MySQLConnStr)
-            connection.Open()
+        Connection.Open()
 
-            Using command As MySqlCommand = connection.CreateCommand()
-                command.CommandText = String.Format("INSERT INTO playerData (Username, {0}Wins) VALUES (@Username, @Wins) ON DUPLICATE KEY UPDATE {0}Wins = @Wins",
-                                                    gameName.ToString())
-                command.Parameters.AddWithValue("@Username", username)
-                command.Parameters.AddWithValue("@Wins", NumberToDbValue(wins))
+        Using command As MySqlCommand = Connection.CreateCommand()
+            command.CommandText = String.Format("INSERT INTO playerData (Username, {0}Wins) VALUES (@Username, @Wins) ON DUPLICATE KEY UPDATE {0}Wins = @Wins",
+                                                gameName.ToString())
+            command.Parameters.AddWithValue("@Username", username)
+            command.Parameters.AddWithValue("@Wins", NumberToDbValue(wins))
 
-                command.ExecuteNonQuery()
-            End Using
+            command.ExecuteNonQuery()
         End Using
     End Sub
 
@@ -307,21 +299,19 @@
             Throw New ArgumentNullException("factGroup")
         End If
 
-        Using connection As New MySqlConnection(MySQLConnStr)
-            connection.Open()
+        Connection.Open()
 
-            Using command As MySqlCommand = connection.CreateCommand()
-                command.CommandText = "SELECT FactID FROM facts WHERE FactGroup = @FactGroup"
-                command.Parameters.AddWithValue("@FactGroup", factGroup)
+        Using command As MySqlCommand = Connection.CreateCommand()
+            command.CommandText = "SELECT FactID FROM facts WHERE FactGroup = @FactGroup"
+            command.Parameters.AddWithValue("@FactGroup", factGroup)
 
-                Dim items As New List(Of String)
-                Using reader As MySqlDataReader = command.ExecuteReader()
-                    Do While reader.Read()
-                        items.Add(reader.GetString(0))
-                    Loop
-                End Using
-                Return items.ToArray()
+            Dim items As New List(Of String)
+            Using reader As MySqlDataReader = command.ExecuteReader()
+                Do While reader.Read()
+                    items.Add(reader.GetString(0))
+                Loop
             End Using
+            Return items.ToArray()
         End Using
     End Function
 
@@ -338,16 +328,14 @@
             Throw New ArgumentNullException("factGroup")
         End If
 
-        Using connection As New MySqlConnection(MySQLConnStr)
-            connection.Open()
+        Connection.Open()
 
-            Using command As MySqlCommand = connection.CreateCommand()
-                command.CommandText = "INSERT INTO facts VALUES (@FactID, @FactGroup)"
-                command.Parameters.AddWithValue("@FactID", factID)
-                command.Parameters.AddWithValue("@FactGroup", factGroup)
+        Using command As MySqlCommand = Connection.CreateCommand()
+            command.CommandText = "INSERT INTO facts VALUES (@FactID, @FactGroup)"
+            command.Parameters.AddWithValue("@FactID", factID)
+            command.Parameters.AddWithValue("@FactGroup", factGroup)
 
-                command.ExecuteNonQuery()
-            End Using
+            command.ExecuteNonQuery()
         End Using
     End Sub
 
@@ -362,15 +350,13 @@
         End If
 
         Try
-            Using connection As New MySqlConnection(MySQLConnStr)
-                connection.Open()
+            Connection.Open()
 
-                Using command As MySqlCommand = connection.CreateCommand()
-                    command.CommandText = "DELETE FROM facts WHERE FactID = @FactID"
-                    command.Parameters.AddWithValue("@FactID", factID)
+            Using command As MySqlCommand = Connection.CreateCommand()
+                command.CommandText = "DELETE FROM facts WHERE FactID = @FactID"
+                command.Parameters.AddWithValue("@FactID", factID)
 
-                    command.ExecuteNonQuery()
-                End Using
+                command.ExecuteNonQuery()
             End Using
         Catch
         End Try
@@ -439,6 +425,24 @@
         Return input
     End Function
 #End Region
+
+#End Region
+
+#Region "IDisposable Support"
+    Private myDisposedValue As Boolean
+
+    Private Sub Dispose(disposing As Boolean)
+        If Not myDisposedValue Then
+            If disposing Then
+                Connection.Dispose()
+            End If
+        End If
+        myDisposedValue = True
+    End Sub
+
+    Friend Sub Dispose() Implements IDisposable.Dispose
+        Dispose(True)
+    End Sub
 
 #End Region
 
