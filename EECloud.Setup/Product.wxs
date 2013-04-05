@@ -1,23 +1,23 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <?define AppName = EECloud ?>
-  <?define AppVersion = 0.9.29 ?>
-  <?define AppAuthor = EEDev ?>
+  <?define AppName     = EECloud ?>
+  <?define AppVersion  = 0.9.29 ?>
+  <?define AppAuthor   = EEDev ?>
   <?define UpgradeCode = {EBE9213C-08D9-4561-8028-FB63B80AEA90} ?>
 
-  <Product Id="*"
-           Name="$(var.AppName)"
-           Language="1033"
-           Version="$(var.AppVersion)"
-           Manufacturer="$(var.AppAuthor)"
-           UpgradeCode="$(var.UpgradeCode)">
-    <Package Id="*"
-             Manufacturer="$(var.AppAuthor)"
-             InstallerVersion="200"
-             Languages="1033"
-             Compressed="yes"
-             InstallScope='perUser' />
+  <Product Id           = "*"
+           Name         = "$(var.AppName)"
+           Language     = "1033"
+           Version      = "$(var.AppVersion)"
+           Manufacturer = "$(var.AppAuthor)"
+           UpgradeCode  = "$(var.UpgradeCode)">
+    <Package Id               = "*"
+             Manufacturer     = "$(var.AppAuthor)"
+             InstallerVersion = "200"
+             Languages        = "1033"
+             Compressed       = "yes"
+             InstallScope     = "perUser" />
 
     <!-- Included CAB -->
     <Media Id="1" Cabinet="EECloud.cab" EmbedCab="yes" CompressionLevel="high" />
@@ -73,25 +73,28 @@
                        Type="integer" Value="1"
                        KeyPath="yes" />
         <CreateFolder />
-        <RemoveFolder Id='RemoveINSTALLLOCATION' On='uninstall' />
+        <RemoveFolder Id="RemoveINSTALLLOCATION" On="uninstall" />
 
         <File Id="MainExecutable" Source="$(var.EECloud.Launcher.TargetDir)EECloud.Launcher.exe">
-          <Shortcut Id="StartMenuShortcut"
-                    Directory="ProgramMenuFolder"
-                    Name="$(var.AppName)"
-                    WorkingDirectory="INSTALLLOCATION"
-                    Icon="ProgramIcon" />
-          <Shortcut Id="DesktopShortcut"
-                    Directory="DesktopFolder"
-                    Name="$(var.AppName)"
-                    WorkingDirectory="INSTALLLOCATION"
-                    Icon="ProgramIcon" />
+          <Shortcut Id               = "StartMenuShortcut"
+                    Directory        = "ProgramMenuFolder"
+                    Name             = "$(var.AppName)"
+                    Icon             = "ProgramIcon"
+                    WorkingDirectory = "INSTALLLOCATION" />
+
+          <Shortcut Id               = "DesktopShortcut"
+                    Directory        = "DesktopFolder"
+                    Name             = "$(var.AppName)"
+                    Icon             = "ProgramIcon"
+                    WorkingDirectory = "INSTALLLOCATION" />
         </File>
-        <File Id="EECloudAssembly" Source="$(var.EECloud.TargetDir)EECloud.exe" />
-        <File Id="APIAssembly" Source="$(var.EECloud.API.TargetDir)EECloud.API.dll" />
-        <File Id="HostAssembly" Source="$(var.EECloud.Host.TargetDir)EECloud.Host.dll" />
+
+        <File Id="EECloudAssembly"  Source="$(var.EECloud.TargetPath)" />
+        <File Id="APIAssembly"      Source="$(var.EECloud.API.TargetPath)" />
+        <File Id="HostAssembly"     Source="$(var.EECloud.Host.TargetPath)" />
+
         <File Id="PlayerIOAssembly" Source="$(var.SolutionDir)References\PlayerIOClient.dll" />
-        <File Id="MySQLAssembly" Source="$(var.SolutionDir)References\MySQL.Data.dll" />
+        <File Id="MySQLAssembly"    Source="$(var.SolutionDir)References\MySQL.Data.dll" />
       </Component>
     </DirectoryRef>
 
@@ -102,7 +105,7 @@
                        Type="integer" Value="1"
                        KeyPath="yes" />
         <CreateFolder />
-        <RemoveFolder Id='RemoveAPI' On='uninstall' />
+        <RemoveFolder Id="RemoveAPI" On="uninstall" />
 
         <File Id="APIRefrence" Source="$(var.EECloud.API.TargetDir)EECloud.API.dll" />
         <File Id="HostRefrence" Source="$(var.EECloud.Host.TargetDir)EECloud.Host.dll" />
@@ -118,7 +121,7 @@
                        Type="integer" Value="1"
                        KeyPath="yes" />
         <CreateFolder />
-        <RemoveFolder Id='Remove$(var.AppAuthor)' On='uninstall' />
+        <RemoveFolder Id="Remove$(var.AppAuthor)" On="uninstall" />
       </Component>
     </DirectoryRef>
   </Fragment>
