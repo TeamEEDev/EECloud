@@ -43,7 +43,7 @@
       <ComponentRef Id="c$(var.AppAuthor)" />
       <ComponentRef Id="cFiles" />
       <ComponentRef Id="cAPIFiles" />
-      <ComponentRef Id="cAPIRegistryKeys" />
+      <ComponentRef Id="cRegistryKeys" />
     </Feature>
   </Product>
 
@@ -92,10 +92,6 @@
 
         <File Id="PlayerIOAssembly" Source="$(var.SolutionDir)References\PlayerIOClient.dll" />
         <File Id="MySQLAssembly"    Source="$(var.SolutionDir)References\MySQL.Data.dll" />
-
-        <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)"
-                       Name="Installed" Type="integer" Value="1"
-                       KeyPath="yes" />
       </Component>
     </DirectoryRef>
 
@@ -109,10 +105,6 @@
         <File Id="HostReference" Source="$(var.EECloud.Host.TargetPath)" />
         <File Id="APIDoc"        Source="$(var.EECloud.API.TargetDir)EECloud.API.xml" />
         <File Id="HostDoc"       Source="$(var.EECloud.Host.TargetDir)EECloud.Host.xml" />
-
-        <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)"
-                       Name="Installed" Type="integer" Value="1"
-                       KeyPath="yes" />
       </Component>
     </DirectoryRef>
 
@@ -121,21 +113,21 @@
       <Component Id="c$(var.AppAuthor)" Guid="{078F6C30-61AF-4FE3-9135-F84142592AB1}">
         <CreateFolder />
         <RemoveFolder Id="Remove$(var.AppAuthor)" On="uninstall" />
-
-        <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)"
-                       Name="Installed" Type="integer" Value="1"
-                       KeyPath="yes" />
       </Component>
     </DirectoryRef>
   </Fragment>
 
   <Fragment>
     <DirectoryRef Id="TargetDir">
-      <Component Id="cAPIRegistryKeys" Guid="{C7D3C0F0-3C06-11E2-81C1-0800200C9A66}">
+      <Component Id="cRegistryKeys" Guid="{C7D3C0F0-3C06-11E2-81C1-0800200C9A66}">
         <RegistryKey Root="HKCU" Key="Software\Microsoft\.NETFramework\v4.5.50709\AssemblyFoldersEx\EECloud">
           <RegistryValue Name="Installed" Type="integer" Value="1" KeyPath="yes" />
           <RegistryValue Type="string" Value="[API]" />
         </RegistryKey>
+
+        <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)"
+                       Name="Installed" Type="integer" Value="1"
+                       KeyPath="yes" />
       </Component>
     </DirectoryRef>
   </Fragment>
