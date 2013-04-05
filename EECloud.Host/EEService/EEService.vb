@@ -27,8 +27,8 @@
 
         Connection.Open()
 
-        Using command As MySqlCommand = Connection.CreateCommand()
-            command.CommandText = "SELECT SettingValue FROM settings WHERE SettingKey = @SettingKey"
+        Using command As New MySqlCommand("SELECT SettingValue FROM settings WHERE SettingKey = @SettingKey",
+                                          Connection)
             command.Parameters.AddWithValue("@SettingKey", key)
 
             Return DirectCast(command.ExecuteScalar(), String)
@@ -53,8 +53,8 @@
 
         Connection.Open()
 
-        Using command As MySqlCommand = Connection.CreateCommand()
-            command.CommandText = "SELECT SettingKey, SettingValue FROM settings WHERE SettingKey = @SettingKey0"
+        Using command As New MySqlCommand("SELECT SettingKey, SettingValue FROM settings WHERE SettingKey = @SettingKey0",
+                                          Connection)
             command.Parameters.AddWithValue("@SettingKey0", keyList(0))
 
             For i = 1 To keyList.Length - 1
@@ -92,8 +92,8 @@
 
         Connection.Open()
 
-        Using command As MySqlCommand = Connection.CreateCommand()
-            command.CommandText = "INSERT INTO settings VALUES (@SettingKey, @SettingValue) ON DUPLICATE KEY UPDATE SettingValue = @SettingValue"
+        Using command As New MySqlCommand("INSERT INTO settings VALUES (@SettingKey, @SettingValue) ON DUPLICATE KEY UPDATE SettingValue = @SettingValue",
+                                          Connection)
             command.Parameters.AddWithValue("@SettingKey", key)
             command.Parameters.AddWithValue("@SettingValue", value)
 
@@ -119,7 +119,7 @@
 
         Connection.Open()
 
-        Using command As MySqlCommand = Connection.CreateCommand()
+        Using command As New MySqlCommand(String.Empty, Connection)
             For i = 0 To keyValuePairs.Length - 1
                 command.CommandText &= String.Format("INSERT INTO settings VALUES (@SettingKey{0}, @SettingValue{0}) ON DUPLICATE KEY UPDATE SettingValue = @SettingValue{0};", i)
                 command.Parameters.AddWithValue("@SettingKey" & i, keyValuePairs(i).Key)
@@ -143,8 +143,8 @@
 
         Connection.Open()
 
-        Using command As MySqlCommand = Connection.CreateCommand()
-            command.CommandText = "SELECT * FROM playerData WHERE Username = @Username"
+        Using command As New MySqlCommand("SELECT * FROM playerData WHERE Username = @Username",
+                                          Connection)
             command.Parameters.AddWithValue("@Username", username)
 
             Using reader As MySqlDataReader = command.ExecuteReader()
@@ -169,13 +169,11 @@
 
         Connection.Open()
 
-        Using command As MySqlCommand = Connection.CreateCommand()
-            Dim usernamesCountMinus1 = usernames.Length - 1
-
-            command.CommandText = "SELECT * FROM playerData WHERE Username = @Username0"
+        Using command As New MySqlCommand("SELECT * FROM playerData WHERE Username = @Username0",
+                                          Connection)
             command.Parameters.AddWithValue("@Username0", usernames(0))
 
-            For i = 1 To usernamesCountMinus1
+            For i = 1 To usernames.Length - 1
                 command.CommandText &= " OR Username = @Username" & i
                 command.Parameters.AddWithValue("@Username" & i, usernames(i))
             Next
@@ -215,8 +213,8 @@
 
         Connection.Open()
 
-        Using command As MySqlCommand = Connection.CreateCommand()
-            command.CommandText = "SELECT * FROM playerData ORDER BY @OrderBy LIMIT @Limit OFFSET @Offset"
+        Using command As New MySqlCommand("SELECT * FROM playerData ORDER BY @OrderBy LIMIT @Limit OFFSET @Offset",
+                                          Connection)
             command.Parameters.AddWithValue("@OrderBy", orderBy)
             command.Parameters.AddWithValue("@Limit", limit)
             command.Parameters.AddWithValue("@Offset", offset)
@@ -257,8 +255,8 @@
 
         Connection.Open()
 
-        Using command As MySqlCommand = Connection.CreateCommand()
-            command.CommandText = "INSERT INTO playerData (Username, GroupID) VALUES (@Username, @GroupID) ON DUPLICATE KEY UPDATE GroupID = @GroupID"
+        Using command As New MySqlCommand("INSERT INTO playerData (Username, GroupID) VALUES (@Username, @GroupID) ON DUPLICATE KEY UPDATE GroupID = @GroupID",
+                                          Connection)
             command.Parameters.AddWithValue("@Username", username)
             command.Parameters.AddWithValue("@GroupID", NumberToDbValue(groupID))
 
@@ -278,9 +276,9 @@
 
         Connection.Open()
 
-        Using command As MySqlCommand = Connection.CreateCommand()
-            command.CommandText = String.Format("INSERT INTO playerData (Username, {0}Wins) VALUES (@Username, @Wins) ON DUPLICATE KEY UPDATE {0}Wins = @Wins",
-                                                gameName.ToString())
+        Using command As New MySqlCommand(String.Format("INSERT INTO playerData (Username, {0}Wins) VALUES (@Username, @Wins) ON DUPLICATE KEY UPDATE {0}Wins = @Wins",
+                                                        gameName.ToString()),
+                                          Connection)
             command.Parameters.AddWithValue("@Username", username)
             command.Parameters.AddWithValue("@Wins", NumberToDbValue(wins))
 
@@ -301,8 +299,8 @@
 
         Connection.Open()
 
-        Using command As MySqlCommand = Connection.CreateCommand()
-            command.CommandText = "SELECT FactID FROM facts WHERE FactGroup = @FactGroup"
+        Using command As New MySqlCommand("SELECT FactID FROM facts WHERE FactGroup = @FactGroup",
+                                          Connection)
             command.Parameters.AddWithValue("@FactGroup", factGroup)
 
             Dim items As New List(Of String)
@@ -330,8 +328,8 @@
 
         Connection.Open()
 
-        Using command As MySqlCommand = Connection.CreateCommand()
-            command.CommandText = "INSERT INTO facts VALUES (@FactID, @FactGroup)"
+        Using command As New MySqlCommand("INSERT INTO facts VALUES (@FactID, @FactGroup)",
+                                          Connection)
             command.Parameters.AddWithValue("@FactID", factID)
             command.Parameters.AddWithValue("@FactGroup", factGroup)
 
@@ -352,8 +350,8 @@
         Try
             Connection.Open()
 
-            Using command As MySqlCommand = Connection.CreateCommand()
-                command.CommandText = "DELETE FROM facts WHERE FactID = @FactID"
+            Using command As New MySqlCommand("DELETE FROM facts WHERE FactID = @FactID",
+                                              Connection)
                 command.Parameters.AddWithValue("@FactID", factID)
 
                 command.ExecuteNonQuery()
