@@ -30,6 +30,7 @@ Module ModuleMain
 #End Region
 
 #Region "Fields"
+
     Private ReadOnly myHandle As IntPtr = GetConsoleWindow()
 
     Private ReadOnly myAppProcess As New Process() With {.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}}
@@ -40,6 +41,7 @@ Module ModuleMain
 
     Private myLastRestart As Date
     Private myRestartTry As Integer
+
 #End Region
 
 #Region "Properties"
@@ -67,6 +69,8 @@ Module ModuleMain
 
 #Region "Methods"
 
+#Region "Initializers"
+
     Private Sub Initialize()
         SetConsoleCtrlHandler(AddressOf ConsoleCtrlCheck, True)
 
@@ -91,6 +95,10 @@ Module ModuleMain
 
         Application.Run()
     End Sub
+
+#End Region
+
+#Region "Main() sub"
 
     Sub Main()
         Initialize()
@@ -125,8 +133,11 @@ RestartAppProcess:
         'Restart
         Console.Write("Restarting EECloud...")
         GoTo RestartAppProcess
-
     End Sub
+
+#End Region
+
+#Region "Closing-related methods"
 
     Sub Close()
         BeforeClose()
@@ -146,6 +157,8 @@ RestartAppProcess:
 
         Return False
     End Function
+
+#End Region
 
 #End Region
 
