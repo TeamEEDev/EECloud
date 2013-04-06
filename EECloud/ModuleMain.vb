@@ -39,6 +39,8 @@ Module ModuleMain
                 Dim version As String = Await webClient.DownloadStringTaskAsync(New Uri("http://dl.dropbox.com/u/13946635/EECloud/Version.txt"))
 
                 If New Version(version).CompareTo(My.Application.Info.Version) > 0 Then
+                    Dim setupDownload As Task = webClient.DownloadFileTaskAsync(New Uri("http://dl.dropbox.com/u/13946635/EECloud/EECloud.Setup.msi"), My.Application.Info.DirectoryPath & "\EECloud.msi")
+
                     Using form As New Form() With {.TopMost = True}
                         If MessageBox.Show(form,
                                            String.Format("An update is available (Version {0}). Do you want to update now?", version),
@@ -46,8 +48,8 @@ Module ModuleMain
                                            MessageBoxButtons.YesNo,
                                            MessageBoxIcon.Information) = DialogResult.Yes Then
 
-                            'Download
-                            webClient.DownloadFile(New Uri("http://dl.dropbox.com/u/13946635/EECloud/EECloud.Setup.msi"), My.Application.Info.DirectoryPath & "\EECloud.msi")
+                            'Finish downloading the installer
+                            setupDownload.Wait()
 
                             'Notify user
                             MessageBox.Show(form,
@@ -78,6 +80,9 @@ Module ModuleMain
                             'Exit
                             End
 
+                        Else
+                            setupDownload.Wait()
+                            File.Delete(My.Application.Info.DirectoryPath & "\EECloud.msi")
                         End If
                     End Using
                 End If
