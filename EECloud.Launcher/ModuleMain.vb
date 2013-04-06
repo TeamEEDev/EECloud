@@ -95,39 +95,38 @@ Module ModuleMain
     Sub Main()
         Initialize()
 
-        Do
-            myLastRestart = Now
-            Console.WriteLine(mySeparatorText)
+RestartAppProcess:
+        myLastRestart = DateTime.UtcNow
+        Console.WriteLine(mySeparatorText)
 
-            'Start process, and wait for it to exit
-            myAppProcess.Start()
-            myAppProcess.WaitForExit()
+        'Start process, and wait for it to exit
+        myAppProcess.Start()
+        myAppProcess.WaitForExit()
 
-            'Exit if the process exits with a 0 exit code
-            If myAppProcess.ExitCode <= 0 Then
-                Close()
-            End If
+        'Exit if the process exits with a 0 exit code
+        If myAppProcess.ExitCode <= 0 Then
+            Close()
+            Exit Sub
+        End If
 
-            Console.WriteLine(mySeparatorText)
+        Console.WriteLine(mySeparatorText)
 
-            'Wait if failing too often
-            If Now.Subtract(myLastRestart).TotalMinutes >= 1 Then
-                myRestartTry = 0
-            Else
-                Dim waitSecs As Integer = myRestartTry << 1
-                Console.WriteLine("Restarting in " & waitSecs & " second(s)...")
-                Thread.Sleep(waitSecs * 1000)
+        'Wait if failing too often
+        If DateTime.UtcNow.Subtract(myLastRestart).TotalMinutes >= 1 Then
+            myRestartTry = 0
+        Else
+            Dim waitSecs As Integer = myRestartTry << 1
+            Console.WriteLine("Restarting in " & waitSecs & " second(s)...")
+            Thread.Sleep(waitSecs * 1000)
 
-                myRestartTry += 1
-            End If
+            myRestartTry += 1
+        End If
 
-            'Restart
-            Console.Write("Restarting EECloud...")
-        Loop
+        'Restart
+        Console.Write("Restarting EECloud...")
+        GoTo RestartAppProcess
 
-        ' ReSharper disable FunctionNeverReturns
     End Sub
-    ' ReSharper restore FunctionNeverReturns
 
     Sub Close()
         BeforeClose()
