@@ -62,10 +62,10 @@ Module ModuleMain
 
                             'Write a batch file
                             Using writer As New StreamWriter(My.Application.Info.DirectoryPath & "\Updater.bat")
-                                writer.Write("start /wait Update.msi" & Environment.NewLine &
-                                             "del Update.msi" & Environment.NewLine &
-                                             "start EECloud.Launcher.exe" & Environment.NewLine &
-                                             "del %0")
+                                writer.Write("START /wait Update.msi" & Environment.NewLine &
+                                             "DEL /F /Q Update.msi" & Environment.NewLine &
+                                             "START EECloud.Launcher.exe" & Environment.NewLine &
+                                             "DEL %0")
                             End Using
 
                             'Start the batch file
