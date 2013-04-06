@@ -112,7 +112,7 @@ RestartAppProcess:
         myAppProcess.WaitForExit()
 
         'Exit if the process exits with a 0 exit code
-        If myAppProcess.ExitCode <= 0 Then
+        If myAppProcess.ExitCode = 0 Then
             Close()
             Exit Sub
         End If
