@@ -47,6 +47,13 @@
     </Feature>
   </Product>
 
+  <!-- Remove old versions -->
+  <Fragment>
+    <InstallExecuteSequence>
+      <RemoveExistingProducts Before="InstallInitialize" />
+    </InstallExecuteSequence>
+  </Fragment>
+
   <Fragment>
     <!-- Folder structure -->
     <Directory Id="TARGETDIR" Name="SourceDir">
@@ -140,12 +147,5 @@
         </RegistryKey>
       </Component>
     </DirectoryRef>
-  </Fragment>
-
-  <Fragment>
-    <InstallExecuteSequence>
-      <!-- Remove old versions -->
-      <RemoveExistingProducts Before="InstallInitialize" />
-    </InstallExecuteSequence>
   </Fragment>
 </Wix>
