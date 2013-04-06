@@ -30,13 +30,13 @@ Module ModuleMain
 #End Region
 
 #Region "Fields"
-    Private ReadOnly myBgAppProcess As New Process() With {.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}}
     Private ReadOnly myHandle As IntPtr = GetConsoleWindow()
+
+    Private ReadOnly myAppProcess As New Process() With {.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}}
+    Private WithEvents myTrayIcon As NotifyIcon
 
     Private ReadOnly mySeparatorText As String = Environment.NewLine &
                                                  New String("_"c, Console.BufferWidth - 1) & Environment.NewLine
-
-    Private WithEvents myTrayIcon As NotifyIcon
 
     Private myLastRestart As Date
     Private myRestartTry As Integer
@@ -45,10 +45,12 @@ Module ModuleMain
 #Region "Properties"
 
     Private myConsoleVisible As Boolean = True
+
     Public Property ConsoleVisible As Boolean
         Get
             Return myConsoleVisible
         End Get
+
         Set(value As Boolean)
             If value Then
                 ShowWindow(myHandle, SW_RESTORE)
@@ -98,11 +100,11 @@ Module ModuleMain
             Console.WriteLine(mySeparatorText)
 
             'Start process, and wait for it to exit
-            myBgAppProcess.Start()
-            myBgAppProcess.WaitForExit()
+            myAppProcess.Start()
+            myAppProcess.WaitForExit()
 
             'Exit if the process exits with a 0 exit code
-            If myBgAppProcess.ExitCode <= 0 Then
+            If myAppProcess.ExitCode <= 0 Then
                 Close()
             End If
 
@@ -131,8 +133,9 @@ Module ModuleMain
         BeforeClose()
         End
     End Sub
+
     Private Sub BeforeClose()
-        myBgAppProcess.Dispose()
+        myAppProcess.Dispose()
 
         If myTrayIcon IsNot Nothing Then
             myTrayIcon.Dispose()
