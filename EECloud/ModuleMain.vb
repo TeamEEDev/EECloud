@@ -48,15 +48,17 @@ Module ModuleMain
                                            MessageBoxButtons.YesNo,
                                            MessageBoxIcon.Information) = DialogResult.Yes Then
 
-                            'Finish downloading the installer
-                            setupDownload.Wait()
+                            If Not setupDownload.IsCompleted Then
+                                'Finish downloading the installer
+                                setupDownload.Wait()
 
-                            'Notify user
-                            MessageBox.Show(form,
-                                            "The update has been downloaded and it's ready to be installed. Press OK to start updating!",
-                                            "Update ready",
-                                            MessageBoxButtons.OK,
-                                            MessageBoxIcon.Information)
+                                'Notify user
+                                MessageBox.Show(form,
+                                                "The update has been downloaded and it's ready to be installed. Press OK to start updating!",
+                                                "Update ready",
+                                                MessageBoxButtons.OK,
+                                                MessageBoxIcon.Information)
+                            End If
 
                             'Write a batch file
                             Using writer As New StreamWriter(My.Application.Info.DirectoryPath & "\Update.bat")
