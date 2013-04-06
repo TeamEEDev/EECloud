@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C79E759B-B7FD-4343-A221-EB68EA4C6A06}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <StartupObject>Sub Main</StartupObject>
+    <StartupObject>EECloud.Launcher.ModuleMain</StartupObject>
     <RootNamespace>EECloud.Launcher</RootNamespace>
     <AssemblyName>EECloud.Launcher</AssemblyName>
     <FileAlignment>512</FileAlignment>
