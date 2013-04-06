@@ -97,15 +97,12 @@ Module ModuleMain
             myLastRestart = Now
             Console.WriteLine(mySeparatorText)
 
-            'Start process
+            'Start process, and wait for it to exit
             myBgAppProcess.Start()
-
-            Do Until myBgAppProcess.HasExited
-                Thread.Sleep(1000)
-            Loop
+            myBgAppProcess.WaitForExit()
 
             'Exit if the process exits with a 0 exit code
-            If myBgAppProcess.ExitCode = 0 Then
+            If myBgAppProcess.ExitCode <= 0 Then
                 Close()
             End If
 
@@ -134,7 +131,6 @@ Module ModuleMain
         BeforeClose()
         End
     End Sub
-
     Private Sub BeforeClose()
         myBgAppProcess.Dispose()
 

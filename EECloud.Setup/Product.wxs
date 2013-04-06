@@ -124,16 +124,16 @@
                     WorkingDirectory = "InstallLocation" />
         </File>
 
-        <File Id="EECloudAssembly"  Source="$(var.EECloud.TargetPath)" />
-        <File Id="APIAssembly"      Source="$(var.EECloud.API.TargetPath)">
+        <File Id="EECloudAssembly"     Source="$(var.EECloud.TargetPath)" />
+        <File Id="APIAssembly"         Source="$(var.EECloud.API.TargetPath)">
           <CopyFile Id="APIReference"  DestinationDirectory="API" />
         </File>
-        <File Id="HostAssembly"     Source="$(var.EECloud.Host.TargetPath)">
+        <File Id="HostAssembly"        Source="$(var.EECloud.Host.TargetPath)">
           <CopyFile Id="HostReference" DestinationDirectory="API" />
         </File>
 
-        <File Id="PlayerIOAssembly" Source="$(var.SolutionDir)References\PlayerIOClient.dll" />
-        <File Id="MySQLAssembly"    Source="$(var.SolutionDir)References\MySQL.Data.dll" />
+        <File Id="PlayerIOAssembly"    Source="$(var.SolutionDir)References\PlayerIOClient.dll" />
+        <File Id="MySQLAssembly"       Source="$(var.SolutionDir)References\MySQL.Data.dll" />
       </Component>
     </DirectoryRef>
   </Fragment>
