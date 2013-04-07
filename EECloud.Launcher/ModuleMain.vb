@@ -138,7 +138,7 @@ Module ModuleMain
                 myRestartTry += 1
             End If
 
-            'Restart
+            'Restart the process
             Console.Write("Restarting EECloud...")
             RestartAppProcess()
         End If
