@@ -33,7 +33,8 @@ Module ModuleMain
 
     Private ReadOnly myHandle As IntPtr = GetConsoleWindow()
 
-    Private ReadOnly myAppProcess As New Process() With {.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}}
+    Private WithEvents myAppProcess As New Process() With {.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False},
+                                                           .EnableRaisingEvents = True}
     Private WithEvents myTrayIcon As NotifyIcon
 
     Private ReadOnly mySeparatorText As String = Environment.NewLine &
@@ -64,6 +65,8 @@ Module ModuleMain
             myConsoleVisible = value
         End Set
     End Property
+
+    Private Property Closing As Boolean
 
 #End Region
 
@@ -98,41 +101,47 @@ Module ModuleMain
 
 #End Region
 
-#Region "Main() sub"
+#Region "Main methods"
 
     Sub Main()
         Initialize()
 
-RestartAppProcess:
+        RestartAppProcess()
+    End Sub
+
+    Private Sub RestartAppProcess()
         myLastRestart = DateTime.UtcNow
         Console.WriteLine(mySeparatorText)
 
-        'Start process, and wait for it to exit
+        'Start the process
         myAppProcess.Start()
-        myAppProcess.WaitForExit()
+    End Sub
 
-        'Exit if the process exits with a 0 exit code
-        If myAppProcess.ExitCode = 0 Then
-            Close()
-            Exit Sub
+    Private Sub myAppProcess_Exited(sender As Object, e As EventArgs) Handles myAppProcess.Exited
+        If Not Closing Then
+            'Exit if the process exits with a 0 exit code
+            If myAppProcess.ExitCode = 0 Then
+                Close()
+                Exit Sub
+            End If
+
+            Console.WriteLine(mySeparatorText)
+
+            'Wait if failing too often
+            If DateTime.UtcNow.Subtract(myLastRestart).TotalMinutes >= 1 Then
+                myRestartTry = 0
+            Else
+                Dim waitSecs As Integer = myRestartTry << 1
+                Console.WriteLine("Restarting in " & waitSecs & " second(s)...")
+                Thread.Sleep(waitSecs * 1000)
+
+                myRestartTry += 1
+            End If
+
+            'Restart
+            Console.Write("Restarting EECloud...")
+            RestartAppProcess()
         End If
-
-        Console.WriteLine(mySeparatorText)
-
-        'Wait if failing too often
-        If DateTime.UtcNow.Subtract(myLastRestart).TotalMinutes >= 1 Then
-            myRestartTry = 0
-        Else
-            Dim waitSecs As Integer = myRestartTry << 1
-            Console.WriteLine("Restarting in " & waitSecs & " second(s)...")
-            Thread.Sleep(waitSecs * 1000)
-
-            myRestartTry += 1
-        End If
-
-        'Restart
-        Console.Write("Restarting EECloud...")
-        GoTo RestartAppProcess
     End Sub
 
 #End Region
@@ -145,7 +154,7 @@ RestartAppProcess:
     End Sub
 
     Private Sub BeforeClose()
-        myAppProcess.Dispose()
+        Closing = True
 
         If myTrayIcon IsNot Nothing Then
             myTrayIcon.Dispose()
