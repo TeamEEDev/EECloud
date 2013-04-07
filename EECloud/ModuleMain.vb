@@ -36,14 +36,19 @@ Module ModuleMain
     Private Async Sub CheckForUpdates()
         Try
             Using webClient As New WebClient()
-                Dim version As String = Await webClient.DownloadStringTaskAsync(New Uri("http://dl.dropbox.com/u/13946635/EECloud/Version.txt"))
+                Dim newVersionString As String = Await webClient.DownloadStringTaskAsync(New Uri("http://dl.dropbox.com/u/13946635/EECloud/Version.txt"))
+                Dim newVersionComparable As New Version(newVersionString)
 
-                If New Version(version).CompareTo(My.Application.Info.Version) > 0 Then
+                If newVersionComparable.CompareTo(My.Application.Info.Version) > 0 Then
                     Dim setupDownload As Task = webClient.DownloadFileTaskAsync(New Uri("http://dl.dropbox.com/u/13946635/EECloud/EECloud.Setup.msi"), My.Application.Info.DirectoryPath & "\Update.msi")
+
+                    If newVersionComparable.Revision = 0 Then
+                        newVersionString = Left(newVersionString, newVersionString.Length - 2)
+                    End If
 
                     Using form As New Form() With {.TopMost = True}
                         If MessageBox.Show(form,
-                                           String.Format("An update is available (Version {0}). Do you want to update now?", version),
+                                           String.Format("An update is available (Version {0}). Do you want to update now?", newVersionString),
                                            "Update available",
                                            MessageBoxButtons.YesNo,
                                            MessageBoxIcon.Information) = DialogResult.Yes Then
