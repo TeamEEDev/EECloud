@@ -1,23 +1,23 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <?define AppName = EECloud ?>
-  <?define AppVersion = 0.9.29 ?>
-  <?define AppAuthor = EEDev ?>
+  <?define AppName     = EECloud ?>
+  <?define AppVersion  = 0.9.29 ?>
+  <?define AppAuthor   = EEDev ?>
   <?define UpgradeCode = {EBE9213C-08D9-4561-8028-FB63B80AEA90} ?>
 
-  <Product Id="*"
-           Name="$(var.AppName)"
-           Language="1033"
-           Version="$(var.AppVersion)"
-           Manufacturer="$(var.AppAuthor)"
-           UpgradeCode="$(var.UpgradeCode)">
-    <Package Id="*"
-             Manufacturer="$(var.AppAuthor)"
-             InstallerVersion="200"
-             Languages="1033"
-             Compressed="yes"
-             InstallScope='perUser' />
+  <Product Id           = "*"
+           Name         = "$(var.AppName)"
+           Language     = "1033"
+           Version      = "$(var.AppVersion)"
+           Manufacturer = "$(var.AppAuthor)"
+           UpgradeCode  = "$(var.UpgradeCode)">
+    <Package Id               = "*"
+             Manufacturer     = "$(var.AppAuthor)"
+             InstallerVersion = "200"
+             Languages        = "1033"
+             Compressed       = "yes"
+             InstallScope     = "perUser" />
 
     <!-- Included CAB -->
     <Media Id="1" Cabinet="EECloud.cab" EmbedCab="yes" CompressionLevel="high" />
@@ -47,6 +47,13 @@
     </Feature>
   </Product>
 
+  <!-- Remove old versions -->
+  <Fragment>
+    <InstallExecuteSequence>
+      <RemoveExistingProducts Before="InstallInitialize" />
+    </InstallExecuteSequence>
+  </Fragment>
+
   <Fragment>
     <!-- Folder structure -->
     <Directory Id="TARGETDIR" Name="SourceDir">
@@ -56,69 +63,77 @@
       <!-- Desktop -->
       <Directory Id="DesktopFolder" />
 
-      <!-- Directory in Appdata -->
+      <!-- Directory in AppData -->
       <Directory Id="AppDataFolder">
         <Directory Id="$(var.AppAuthor)" Name="$(var.AppAuthor)">
-          <Directory Id="INSTALLLOCATION" Name="$(var.AppName)">
+          <Directory Id="InstallLocation" Name="$(var.AppName)">
             <Directory Id="API" Name="API" />
           </Directory>
         </Directory>
       </Directory>
     </Directory>
 
-    <!-- Install folder -->
-    <DirectoryRef Id="INSTALLLOCATION">
-      <Component Id="cFiles" Guid="{76A51B27-FBBE-48E8-8E9E-C91CA1EE9DD7}">
-        <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)" Name="Installed"
-                       Type="integer" Value="1"
+    <!-- EEDev folder -->
+    <DirectoryRef Id="$(var.AppAuthor)">
+      <Component Id="c$(var.AppAuthor)" Guid="{078F6C30-61AF-4FE3-9135-F84142592AB1}">
+        <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)"
+                       Name="Installed" Type="integer" Value="1"
                        KeyPath="yes" />
-        <CreateFolder />
-        <RemoveFolder Id='RemoveINSTALLLOCATION' On='uninstall' />
 
-        <File Id="MainExecutable" Source="$(var.EECloud.Launcher.TargetDir)EECloud.Launcher.exe">
-          <Shortcut Id="StartMenuShortcut"
-                    Directory="ProgramMenuFolder"
-                    Name="$(var.AppName)"
-                    WorkingDirectory="INSTALLLOCATION"
-                    Icon="ProgramIcon" />
-          <Shortcut Id="DesktopShortcut"
-                    Directory="DesktopFolder"
-                    Name="$(var.AppName)"
-                    WorkingDirectory="INSTALLLOCATION"
-                    Icon="ProgramIcon" />
-        </File>
-        <File Id="EECloudAssembly" Source="$(var.EECloud.TargetDir)EECloud.exe" />
-        <File Id="APIAssembly" Source="$(var.EECloud.API.TargetDir)EECloud.API.dll" />
-        <File Id="HostAssembly" Source="$(var.EECloud.Host.TargetDir)EECloud.Host.dll" />
-        <File Id="PlayerIOAssembly" Source="$(var.SolutionDir)References\PlayerIOClient.dll" />
-        <File Id="MySQLAssembly" Source="$(var.SolutionDir)References\MySQL.Data.dll" />
+        <CreateFolder />
+        <RemoveFolder Id="Remove$(var.AppAuthor)" On="uninstall" />
       </Component>
     </DirectoryRef>
 
-    <!-- API folder -->
+    <!-- API folder preparation -->
     <DirectoryRef Id="API">
       <Component Id="cAPIFiles" Guid="{1C536D70-68DA-4867-BB47-B13E19F702EC}">
-        <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)" Name="Installed"
-                       Type="integer" Value="1"
+        <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)"
+                       Name="Installed" Type="integer" Value="1"
                        KeyPath="yes" />
-        <CreateFolder />
-        <RemoveFolder Id='RemoveAPI' On='uninstall' />
 
-        <File Id="APIRefrence" Source="$(var.EECloud.API.TargetDir)EECloud.API.dll" />
-        <File Id="HostRefrence" Source="$(var.EECloud.Host.TargetDir)EECloud.Host.dll" />
-        <File Id="APIDoc" Source="$(var.EECloud.API.TargetDir)EECloud.API.xml" />
+        <CreateFolder />
+        <RemoveFolder Id="RemoveAPI" On="uninstall" />
+
+        <File Id="APIDoc"  Source="$(var.EECloud.API.TargetDir)EECloud.API.xml" />
         <File Id="HostDoc" Source="$(var.EECloud.Host.TargetDir)EECloud.Host.xml" />
       </Component>
     </DirectoryRef>
 
-    <!-- EEDev folder -->
-    <DirectoryRef Id="$(var.AppAuthor)">
-      <Component Id="c$(var.AppAuthor)" Guid="{078F6C30-61AF-4FE3-9135-F84142592AB1}">
-        <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)" Name="Installed"
-                       Type="integer" Value="1"
+    <!-- Main installation folder -->
+    <DirectoryRef Id="InstallLocation">
+      <Component Id="cFiles" Guid="{76A51B27-FBBE-48E8-8E9E-C91CA1EE9DD7}">
+        <RegistryValue Root="HKCU" Key="Software\$(var.AppAuthor)\$(var.AppName)"
+                       Name="Installed" Type="integer" Value="1"
                        KeyPath="yes" />
+
         <CreateFolder />
-        <RemoveFolder Id='Remove$(var.AppAuthor)' On='uninstall' />
+        <RemoveFolder Id="RemoveInstallLocation" On="uninstall" />
+
+        <File Id="MainExecutable" Source="$(var.EECloud.Launcher.TargetPath)">
+          <Shortcut Id               = "StartMenuShortcut"
+                    Directory        = "ProgramMenuFolder"
+                    Name             = "$(var.AppName)"
+                    Icon             = "ProgramIcon"
+                    WorkingDirectory = "InstallLocation" />
+
+          <Shortcut Id               = "DesktopShortcut"
+                    Directory        = "DesktopFolder"
+                    Name             = "$(var.AppName)"
+                    Icon             = "ProgramIcon"
+                    WorkingDirectory = "InstallLocation" />
+        </File>
+
+        <File Id="EECloudAssembly"     Source="$(var.EECloud.TargetPath)" />
+        <File Id="APIAssembly"         Source="$(var.EECloud.API.TargetPath)">
+          <CopyFile Id="APIReference"  DestinationDirectory="API" />
+        </File>
+        <File Id="HostAssembly"        Source="$(var.EECloud.Host.TargetPath)">
+          <CopyFile Id="HostReference" DestinationDirectory="API" />
+        </File>
+
+        <File Id="PlayerIOAssembly"    Source="$(var.SolutionDir)References\PlayerIOClient.dll" />
+        <File Id="MySQLAssembly"       Source="$(var.SolutionDir)References\MySQL.Data.dll" />
       </Component>
     </DirectoryRef>
   </Fragment>
@@ -132,12 +147,5 @@
         </RegistryKey>
       </Component>
     </DirectoryRef>
-  </Fragment>
-
-  <Fragment>
-    <InstallExecuteSequence>
-      <!-- Remove old versions -->
-      <RemoveExistingProducts Before="InstallInitialize" />
-    </InstallExecuteSequence>
   </Fragment>
 </Wix>

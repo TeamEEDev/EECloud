@@ -30,25 +30,30 @@ Module ModuleMain
 #End Region
 
 #Region "Fields"
-    Private ReadOnly myBgAppProcess As New Process() With {.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False}}
+
     Private ReadOnly myHandle As IntPtr = GetConsoleWindow()
+
+    Private WithEvents myAppProcess As New Process() With {.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False},
+                                                           .EnableRaisingEvents = True}
+    Private WithEvents myTrayIcon As NotifyIcon
 
     Private ReadOnly mySeparatorText As String = Environment.NewLine &
                                                  New String("_"c, Console.BufferWidth - 1) & Environment.NewLine
 
-    Private WithEvents myTrayIcon As NotifyIcon
-
     Private myLastRestart As Date
     Private myRestartTry As Integer
+
 #End Region
 
 #Region "Properties"
 
     Private myConsoleVisible As Boolean = True
+
     Public Property ConsoleVisible As Boolean
         Get
             Return myConsoleVisible
         End Get
+
         Set(value As Boolean)
             If value Then
                 ShowWindow(myHandle, SW_RESTORE)
@@ -61,9 +66,13 @@ Module ModuleMain
         End Set
     End Property
 
+    Private Property Closing As Boolean
+
 #End Region
 
 #Region "Methods"
+
+#Region "Initializers"
 
     Private Sub Initialize()
         SetConsoleCtrlHandler(AddressOf ConsoleCtrlCheck, True)
@@ -90,29 +99,36 @@ Module ModuleMain
         Application.Run()
     End Sub
 
+#End Region
+
+#Region "Main methods"
+
     Sub Main()
         Initialize()
 
-        Do
-            myLastRestart = Now
-            Console.WriteLine(mySeparatorText)
+        RestartAppProcess()
+    End Sub
 
-            'Start process
-            myBgAppProcess.Start()
+    Private Sub RestartAppProcess()
+        myLastRestart = DateTime.UtcNow
+        Console.WriteLine(mySeparatorText)
 
-            Do Until myBgAppProcess.HasExited
-                Thread.Sleep(1000)
-            Loop
+        'Start the process
+        myAppProcess.Start()
+    End Sub
 
+    Private Sub myAppProcess_Exited(sender As Object, e As EventArgs) Handles myAppProcess.Exited
+        If Not Closing Then
             'Exit if the process exits with a 0 exit code
-            If myBgAppProcess.ExitCode = 0 Then
+            If myAppProcess.ExitCode = 0 Then
                 Close()
+                Exit Sub
             End If
 
             Console.WriteLine(mySeparatorText)
 
             'Wait if failing too often
-            If Now.Subtract(myLastRestart).TotalMinutes >= 1 Then
+            If DateTime.UtcNow.Subtract(myLastRestart).TotalMinutes >= 1 Then
                 myRestartTry = 0
             Else
                 Dim waitSecs As Integer = myRestartTry << 1
@@ -122,13 +138,15 @@ Module ModuleMain
                 myRestartTry += 1
             End If
 
-            'Restart
+            'Restart the process
             Console.Write("Restarting EECloud...")
-        Loop
-
-        ' ReSharper disable FunctionNeverReturns
+            RestartAppProcess()
+        End If
     End Sub
-    ' ReSharper restore FunctionNeverReturns
+
+#End Region
+
+#Region "Closing-related methods"
 
     Sub Close()
         BeforeClose()
@@ -136,7 +154,7 @@ Module ModuleMain
     End Sub
 
     Private Sub BeforeClose()
-        myBgAppProcess.Dispose()
+        Closing = True
 
         If myTrayIcon IsNot Nothing Then
             myTrayIcon.Dispose()
@@ -148,6 +166,8 @@ Module ModuleMain
 
         Return False
     End Function
+
+#End Region
 
 #End Region
 
