@@ -347,18 +347,14 @@
             Throw New ArgumentNullException("factID")
         End If
 
-        Try
-            OpenConnection()
+        OpenConnection()
 
-            Using command As New MySqlCommand("DELETE FROM facts WHERE FactID = @FactID",
-                                              Connection)
-                command.Parameters.AddWithValue("@FactID", factID)
+        Using command As New MySqlCommand("DELETE FROM facts WHERE FactID = @FactID",
+                                          Connection)
+            command.Parameters.AddWithValue("@FactID", factID)
 
-                command.ExecuteNonQuery()
-            End Using
-        Catch
-
-        End Try
+            command.ExecuteNonQuery()
+        End Using
     End Sub
 
     Friend Function RemoveFactAsync(factID As String) As Task Implements IEEService.RemoveFactAsync
