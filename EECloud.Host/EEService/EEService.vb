@@ -25,7 +25,7 @@
             Throw New ArgumentNullException("key")
         End If
 
-        Connection.Open()
+        OpenConnection()
 
         Using command As New MySqlCommand("SELECT SettingValue FROM settings WHERE SettingKey = @SettingKey",
                                           Connection)
@@ -51,7 +51,7 @@
             End If
         Next
 
-        Connection.Open()
+        OpenConnection()
 
         Using command As New MySqlCommand("SELECT SettingKey, SettingValue FROM settings WHERE SettingKey = @SettingKey0",
                                           Connection)
@@ -90,7 +90,7 @@
             Throw New ArgumentNullException("value")
         End If
 
-        Connection.Open()
+        OpenConnection()
 
         Using command As New MySqlCommand("INSERT INTO settings VALUES (@SettingKey, @SettingValue) ON DUPLICATE KEY UPDATE SettingValue = @SettingValue",
                                           Connection)
@@ -117,7 +117,7 @@
             End If
         Next
 
-        Connection.Open()
+        OpenConnection()
 
         Using command As New MySqlCommand(String.Empty, Connection)
             For i = 0 To keyValuePairs.Length - 1
@@ -141,7 +141,7 @@
             Throw New ArgumentNullException("username")
         End If
 
-        Connection.Open()
+        OpenConnection()
 
         Using command As New MySqlCommand("SELECT * FROM playerData WHERE Username = @Username",
                                           Connection)
@@ -167,7 +167,7 @@
             Throw New ArgumentNullException("usernames")
         End If
 
-        Connection.Open()
+        OpenConnection()
 
         Using command As New MySqlCommand("SELECT * FROM playerData WHERE Username = @Username0",
                                           Connection)
@@ -211,7 +211,7 @@
         limit = Math.Min(limit, 1000)
         If orderBy Is Nothing Then orderBy = "Username"
 
-        Connection.Open()
+        OpenConnection()
 
         Using command As New MySqlCommand("SELECT * FROM playerData ORDER BY @OrderBy LIMIT @Limit OFFSET @Offset",
                                           Connection)
@@ -253,7 +253,7 @@
             Exit Sub
         End If
 
-        Connection.Open()
+        OpenConnection()
 
         Using command As New MySqlCommand("INSERT INTO playerData (Username, GroupID) VALUES (@Username, @GroupID) ON DUPLICATE KEY UPDATE GroupID = @GroupID",
                                           Connection)
@@ -274,7 +274,7 @@
             Throw New ArgumentNullException("username")
         End If
 
-        Connection.Open()
+        OpenConnection()
 
         Using command As New MySqlCommand(String.Format("INSERT INTO playerData (Username, {0}Wins) VALUES (@Username, @Wins) ON DUPLICATE KEY UPDATE {0}Wins = @Wins",
                                                         gameName.ToString()),
@@ -297,7 +297,7 @@
             Throw New ArgumentNullException("factGroup")
         End If
 
-        Connection.Open()
+        OpenConnection()
 
         Using command As New MySqlCommand("SELECT FactID FROM facts WHERE FactGroup = @FactGroup",
                                           Connection)
@@ -326,7 +326,7 @@
             Throw New ArgumentNullException("factGroup")
         End If
 
-        Connection.Open()
+        OpenConnection()
 
         Using command As New MySqlCommand("INSERT INTO facts VALUES (@FactID, @FactGroup)",
                                           Connection)
@@ -348,7 +348,7 @@
         End If
 
         Try
-            Connection.Open()
+            OpenConnection()
 
             Using command As New MySqlCommand("DELETE FROM facts WHERE FactID = @FactID",
                                               Connection)
@@ -357,6 +357,7 @@
                 command.ExecuteNonQuery()
             End Using
         Catch
+
         End Try
     End Sub
 
@@ -366,6 +367,13 @@
 #End Region
 
 #Region "Miscellaneous"
+    Private Shared Sub OpenConnection()
+        If Connection.State <> ConnectionState.Open Then
+            Connection.Open()
+        End If
+    End Sub
+
+
     Private Shared Function ParsePlayerData(reader As MySqlDataReader) As UserData
         If reader Is Nothing Then
             Throw New ArgumentNullException("reader")
