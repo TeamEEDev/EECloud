@@ -204,7 +204,7 @@ Public NotInheritable Class EECloud
                     Environment.Exit(0)
                 End If
             Else
-                Throw New Exception("Unable to authenticate.")
+                Throw New Exception("Corrupt host data.")
             End If
         End If
     End Sub
