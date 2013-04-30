@@ -67,10 +67,10 @@ Module ModuleMain
 
                             'Write a batch file
                             Using writer As New StreamWriter(My.Application.Info.DirectoryPath & "\Updater.bat")
-                                writer.Write("START /wait Update.msi" & Environment.NewLine &
+                                writer.Write("START /WAIT Update.msi" & Environment.NewLine &
                                              "DEL /F /Q Update.msi" & Environment.NewLine &
                                              "START EECloud.Launcher.exe" & Environment.NewLine &
-                                             "DEL %0")
+                                             "DEL /F /Q %0")
                             End Using
 
                             'Start the batch file
@@ -79,8 +79,7 @@ Module ModuleMain
                                 .StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\Updater.bat") With
                                     {
                                         .UseShellExecute = False,
-                                        .CreateNoWindow = True,
-                                        .RedirectStandardOutput = True
+                                        .CreateNoWindow = True
                                     }
                             }.Start()
 
@@ -88,7 +87,7 @@ Module ModuleMain
                             End
 
                         Else
-                            setupDownload.Wait()
+                            webClient.CancelAsync()
                             File.Delete(My.Application.Info.DirectoryPath & "\Update.msi")
                         End If
                     End Using
