@@ -41,7 +41,7 @@
 
 
     Friend Function GetSettings(ParamArray keyList As String()) As Dictionary(Of String, String) Implements IEEService.GetSettings
-        If keyList Is Nothing OrElse keyList.Count = 0 Then
+        If keyList.Count = 0 Then
             Throw New ArgumentNullException("keyList")
         End If
 
@@ -107,7 +107,7 @@
 
 
     Friend Sub SetSettings(ParamArray keyValuePairs As KeyValuePair(Of String, String)()) Implements IEEService.SetSettings
-        If keyValuePairs Is Nothing OrElse keyValuePairs.Length = 0 Then
+        If keyValuePairs.Length = 0 Then
             Throw New ArgumentNullException("keyValuePairs")
         End If
 
@@ -163,7 +163,7 @@
 
 
     Friend Function GetPlayerDatas(ParamArray usernames As String()) As Dictionary(Of String, UserData) Implements IEEService.GetPlayerDatas
-        If usernames Is Nothing OrElse usernames.Length = 0 Then
+        If usernames.Length = 0 Then
             Throw New ArgumentNullException("usernames")
         End If
 
@@ -215,7 +215,7 @@
         End If
 
         limit = Math.Min(limit, 1000)
-        If orderBy Is Nothing Then orderBy = "Username"
+        If String.IsNullOrWhiteSpace(orderBy) Then orderBy = "Username"
 
         OpenConnection()
 
@@ -390,28 +390,47 @@
 
 
     Friend Sub OptimizeTables(ParamArray tableNames As String()) Implements IEEService.OptimizeTables
-        If tableNames Is Nothing OrElse tableNames.Count = 0 Then
-            Throw New ArgumentNullException("tableNames")
-        End If
+        If tableNames.Count = 0 Then
+            'Optimize all tables
+            OpenConnection()
 
-        For i = 0 To tableNames.Length - 1
-            If String.IsNullOrWhiteSpace(tableNames(i)) Then
-                Throw New ArgumentNullException("tableNames", "'TableNames()' mustn't contain empty or null values.")
+            Using command As New MySqlCommand("SHOW TABLES",
+                                              Connection)
+                Dim items As New List(Of String)
+                Using reader As MySqlDataReader = command.ExecuteReader()
+                    Do While reader.Read()
+                        items.Add(reader.GetString(0))
+                    Loop
+                End Using
+
+                tableNames = items.ToArray()
+                If tableNames.Count = 0 Then
+                    Throw New Exception("Couldn't find any tables in the MySQL database.")
+                End If
+            End Using
+
+        Else
+            'Optimize only the given tables
+            If tableNames.Count = 0 Then
+                Throw New ArgumentNullException("tableNames")
             End If
-        Next
 
-        OpenConnection()
-
-        Using command As New MySqlCommand("OPTIMIZE TABLE @TableName0",
-                                          Connection)
-            command.Parameters.AddWithValue("@TableName0", tableNames(0))
-
-            For i = 1 To tableNames.Length - 1
-                command.CommandText &= ", @TableName" & i
-                command.Parameters.AddWithValue("@TableName" & i, tableNames(i))
+            For i = 0 To tableNames.Length - 1
+                If String.IsNullOrWhiteSpace(tableNames(i)) Then
+                    Throw New ArgumentNullException("tableNames", "'TableNames()' mustn't contain empty or null values.")
+                End If
             Next
 
-            command.Parameters.AddWithValue("@TableName", String.Join(",", tableNames))
+            OpenConnection()
+        End If
+
+        Using command As New MySqlCommand("OPTIMIZE TABLE ",
+                                          Connection)
+            command.CommandText &= MySqlHelper.EscapeString(tableNames(0))
+
+            For i = 1 To tableNames.Length - 1
+                command.CommandText &= ", " & MySqlHelper.EscapeString(tableNames(i))
+            Next
 
             command.ExecuteNonQuery()
         End Using
