@@ -43,6 +43,12 @@
 
     Sub SetPlayerDataWins(gameName As RegisteredGameName, username As String, wins As UShort)
     Function SetPlayerDataWinsAsync(gameName As RegisteredGameName, username As String, wins As UShort) As Task
+
+    Sub OptimizeTable(tableName As String)
+    Function OptimizeTableAsync(tableName As String) As Task
+
+    Sub OptimizeTables(ParamArray tableNames As String())
+    Function OptimizeTablesAsync(ParamArray tableNames As String()) As Task
 End Interface
 
 Public NotInheritable Class UserData
