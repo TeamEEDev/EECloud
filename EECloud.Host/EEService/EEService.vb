@@ -41,13 +41,13 @@
 
 
     Friend Function GetSettings(ParamArray keyList As String()) As Dictionary(Of String, String) Implements IEEService.GetSettings
-        If keyList Is Nothing OrElse keyList.Count < 1 Then
-            Throw New ArgumentNullException("keyList", "'KeyList' can't be null, and its length must be 1 or more.")
+        If keyList Is Nothing OrElse keyList.Count = 0 Then
+            Throw New ArgumentNullException("keyList")
         End If
 
         For i = 0 To keyList.Length - 1
             If String.IsNullOrWhiteSpace(keyList(i)) Then
-                Throw New ArgumentNullException("keyList", "'KeyList' mustn't contain empty or null values.")
+                Throw New ArgumentNullException("keyList", "'KeyList()' mustn't contain empty or null values.")
             End If
         Next
 
@@ -107,13 +107,13 @@
 
 
     Friend Sub SetSettings(ParamArray keyValuePairs As KeyValuePair(Of String, String)()) Implements IEEService.SetSettings
-        If keyValuePairs Is Nothing OrElse keyValuePairs.Length < 1 Then
-            Throw New ArgumentNullException("keyValuePairs", "'KeyValuePairs' can't be null, and its length must be 1 or more.")
+        If keyValuePairs Is Nothing OrElse keyValuePairs.Length = 0 Then
+            Throw New ArgumentNullException("keyValuePairs")
         End If
 
         For i = 0 To keyValuePairs.Length - 1
             If String.IsNullOrWhiteSpace(keyValuePairs(i).Key) OrElse String.IsNullOrWhiteSpace(keyValuePairs(i).Value) Then
-                Throw New ArgumentNullException("keyValuePairs", "'KeyValuePairs' mustn't contain empty or null values.")
+                Throw New ArgumentNullException("keyValuePairs", "'KeyValuePairs()' mustn't contain empty or null values.")
             End If
         Next
 
@@ -163,9 +163,15 @@
 
 
     Friend Function GetPlayerDatas(ParamArray usernames As String()) As Dictionary(Of String, UserData) Implements IEEService.GetPlayerDatas
-        If usernames Is Nothing OrElse usernames.Length < 1 Then
+        If usernames Is Nothing OrElse usernames.Length = 0 Then
             Throw New ArgumentNullException("usernames")
         End If
+
+        For i = 0 To usernames.Length - 1
+            If String.IsNullOrWhiteSpace(usernames(i)) Then
+                Throw New ArgumentNullException("usernames", "'Usernames()' mustn't contain empty or null values.")
+            End If
+        Next
 
         OpenConnection()
 
@@ -359,6 +365,60 @@
 
     Friend Function RemoveFactAsync(factID As String) As Task Implements IEEService.RemoveFactAsync
         Return Task.Run(Sub() RemoveFact(factID))
+    End Function
+#End Region
+
+#Region "Optimizations"
+    Friend Sub OptimizeTable(tableName As String) Implements IEEService.OptimizeTable
+        If String.IsNullOrWhiteSpace(tableName) Then
+            Throw New ArgumentNullException("tableName")
+        End If
+
+        OpenConnection()
+
+        Using command As New MySqlCommand("OPTIMIZE TABLE @TableName",
+                                          Connection)
+            command.Parameters.AddWithValue("@TableName", tableName)
+
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+
+    Friend Function OptimizeTableAsync(tableName As String) As Task Implements IEEService.OptimizeTableAsync
+        Return Task.Run(Sub() OptimizeTable(tableName))
+    End Function
+
+
+    Friend Sub OptimizeTables(ParamArray tableNames As String()) Implements IEEService.OptimizeTables
+        If tableNames Is Nothing OrElse tableNames.Count = 0 Then
+            Throw New ArgumentNullException("tableNames")
+        End If
+
+        For i = 0 To tableNames.Length - 1
+            If String.IsNullOrWhiteSpace(tableNames(i)) Then
+                Throw New ArgumentNullException("tableNames", "'TableNames()' mustn't contain empty or null values.")
+            End If
+        Next
+
+        OpenConnection()
+
+        Using command As New MySqlCommand("OPTIMIZE TABLE @TableName0",
+                                          Connection)
+            command.Parameters.AddWithValue("@TableName0", tableNames(0))
+
+            For i = 1 To tableNames.Length - 1
+                command.CommandText &= ", @TableName" & i
+                command.Parameters.AddWithValue("@TableName" & i, tableNames(i))
+            Next
+
+            command.Parameters.AddWithValue("@TableName", String.Join(",", tableNames))
+
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+
+    Friend Function OptimizeTablesAsync(ParamArray tableNames As String()) As Task Implements IEEService.OptimizeTablesAsync
+        Return Task.Run(Sub() OptimizeTables(tableNames))
     End Function
 #End Region
 
