@@ -248,9 +248,9 @@ RetryLogin:
                         Cloud.Logger.Log(LogPriority.Info, "Disconnected. Reason: " & e.Reason)
                     End If
 
-                    For Each plugin In Client.PluginManager.Plugins
-                        Cloud.Logger.Log(LogPriority.Info, String.Format("Disabling {0}...", plugin.Name))
-                        plugin.Stop()
+                    For i = 0 To Client.PluginManager.Plugins.Count - 1
+                        Cloud.Logger.Log(LogPriority.Info, String.Format("Disabling {0}...", Client.PluginManager.Plugins(i).Name))
+                        Client.PluginManager.Plugins(i).Stop()
                     Next
 
                     If Client.Connection.UserExpectingDisconnect Then

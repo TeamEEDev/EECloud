@@ -37,8 +37,8 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
                                 AddCommand(attribute.Type, handle)
 
                                 If attribute.Aliases IsNot Nothing Then
-                                    For Each item As String In attribute.Aliases
-                                        AddCommand(item, handle)
+                                    For i = 0 To attribute.Aliases.Length - 1
+                                        AddCommand(attribute.Aliases(i), handle)
                                     Next
                                 End If
                             Catch ex As Exception
