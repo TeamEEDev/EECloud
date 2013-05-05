@@ -405,20 +405,20 @@
         End Get
     End Property
 
-    Public ReadOnly Property CursePotion As Boolean Implements IPlayer.CursePotion
+    Public ReadOnly Property FirePotion As Boolean Implements IPlayer.FirePotion
         Get
             Try
-                Return myPlayer.CursePotion
+                Return myPlayer.FirePotion
             Catch
                 Return Nothing
             End Try
         End Get
     End Property
 
-    Public ReadOnly Property FirePotion As Boolean Implements IPlayer.FirePotion
+    Public ReadOnly Property CursePotion As Boolean Implements IPlayer.CursePotion
         Get
             Try
-                Return myPlayer.FirePotion
+                Return myPlayer.CursePotion
             Catch
                 Return Nothing
             End Try

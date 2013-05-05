@@ -47,19 +47,19 @@
         End Get
     End Property
 
-    Private myCursePotionCount As Integer
-
-    Public ReadOnly Property CursePotionCount As Integer Implements IPotionManager.CursePotionCount
-        Get
-            Return myCursePotionCount
-        End Get
-    End Property
-
     Private myFirePotionCount As Integer
 
     Public ReadOnly Property FirePotionCount As Integer Implements IPotionManager.FirePotionCount
         Get
             Return myFirePotionCount
+        End Get
+    End Property
+
+    Private myCursePotionCount As Integer
+
+    Public ReadOnly Property CursePotionCount As Integer Implements IPotionManager.CursePotionCount
+        Get
+            Return myCursePotionCount
         End Get
     End Property
 
@@ -86,26 +86,28 @@
                 startNum = i - 1
             End If
         Next
+
         Dim pointer As UInteger = startNum
         Do
             If TryCast(e.PlayerIOMessage.Item(pointer), String) IsNot Nothing AndAlso e.PlayerIOMessage.GetString(pointer) = "ps" Then
                 Exit Do
             End If
+
             Select Case DirectCast(e.PlayerIOMessage.GetInteger(pointer - 1UI), Potion)
-                Case Potion.BlueAura
-                    myBlueAuraPotionCount = e.PlayerIOMessage.GetInteger(pointer)
                 Case Potion.RedAura
                     myRedAuraPotionCount = e.PlayerIOMessage.GetInteger(pointer)
+                Case Potion.BlueAura
+                    myBlueAuraPotionCount = e.PlayerIOMessage.GetInteger(pointer)
                 Case Potion.YellowAura
                     myYellowAuraPotionCount = e.PlayerIOMessage.GetInteger(pointer)
                 Case Potion.GreenAura
                     myGreenAuraPotionCount = e.PlayerIOMessage.GetInteger(pointer)
                 Case Potion.Jump
                     myJumpPotionCount = e.PlayerIOMessage.GetInteger(pointer)
-                Case Potion.Curse
-                    myCursePotionCount = e.PlayerIOMessage.GetInteger(pointer)
                 Case Potion.Fire
                     myFirePotionCount = e.PlayerIOMessage.GetInteger(pointer)
+                Case Potion.Curse
+                    myCursePotionCount = e.PlayerIOMessage.GetInteger(pointer)
                 Case Potion.Protection
                     myProtectionPotionCount = e.PlayerIOMessage.GetInteger(pointer)
             End Select

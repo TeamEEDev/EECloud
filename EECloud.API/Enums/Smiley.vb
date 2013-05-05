@@ -90,4 +90,7 @@
     Bruce = 88
     Unit = 89
     Spartan = 90
+    Helen = 91
+    MooMoo = 92
+    Scarecrow = 93
 End Enum
