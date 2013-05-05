@@ -7,4 +7,9 @@
     ReadOnly Property FirePotionCount As Integer
     ReadOnly Property CursePotionCount As Integer
     ReadOnly Property ProtectionPotionCount As Integer
+    ReadOnly Property ZombiePotionCount As Integer
+    ReadOnly Property RespawnPotionCount As Integer
+    ReadOnly Property LevitationPotionCount As Integer
+    ReadOnly Property FlauntPotionCount As Integer
+    ReadOnly Property SolitudePotionCount As Integer
 End Interface

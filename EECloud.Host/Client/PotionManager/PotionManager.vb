@@ -71,6 +71,46 @@
         End Get
     End Property
 
+    Private myZombiePotionCount As Integer
+
+    Public ReadOnly Property ZombiePotionCount As Integer Implements IPotionManager.ZombiePotionCount
+        Get
+            Return myZombiePotionCount
+        End Get
+    End Property
+
+    Private myRespawnPotionCount As Integer
+
+    Public ReadOnly Property RespawnPotionCount As Integer Implements IPotionManager.RespawnPotionCount
+        Get
+            Return myRespawnPotionCount
+        End Get
+    End Property
+
+    Private myLevitationPotionCount As Integer
+
+    Public ReadOnly Property LevitationPotionCount As Integer Implements IPotionManager.LevitationPotionCount
+        Get
+            Return myLevitationPotionCount
+        End Get
+    End Property
+
+    Private myFlauntPotionCount As Integer
+
+    Public ReadOnly Property FlauntPotionCount As Integer Implements IPotionManager.FlauntPotionCount
+        Get
+            Return myFlauntPotionCount
+        End Get
+    End Property
+
+    Private mySolitudePotionCount As Integer
+
+    Public ReadOnly Property SolitudePotionCount As Integer Implements IPotionManager.SolitudePotionCount
+        Get
+            Return mySolitudePotionCount
+        End Get
+    End Property
+
 #End Region
 
 #Region "Methods"
@@ -110,6 +150,16 @@
                     myCursePotionCount = e.PlayerIOMessage.GetInteger(pointer)
                 Case Potion.Protection
                     myProtectionPotionCount = e.PlayerIOMessage.GetInteger(pointer)
+                Case Potion.Zombie
+                    myZombiePotionCount = e.PlayerIOMessage.GetInteger(pointer)
+                Case Potion.Respawn
+                    myRespawnPotionCount = e.PlayerIOMessage.GetInteger(pointer)
+                Case Potion.Levitation
+                    myLevitationPotionCount = e.PlayerIOMessage.GetInteger(pointer)
+                Case Potion.Flaunt
+                    myFlauntPotionCount = e.PlayerIOMessage.GetInteger(pointer)
+                Case Potion.Solitude
+                    mySolitudePotionCount = e.PlayerIOMessage.GetInteger(pointer)
             End Select
             pointer -= 2
         Loop
