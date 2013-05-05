@@ -1,3 +1,4 @@
 ﻿Public Enum LabelBlock
-    BlockLabel = Block.BlockLabel
+    DecorationLabel = Block.DecorationLabel
+    DecorationSign = Block.DecorationSign
 End Enum

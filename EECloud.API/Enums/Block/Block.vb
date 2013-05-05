@@ -401,6 +401,12 @@
     BackgroundSpartaGreen = 639
     BackgroundSpartaRed = 640
 
+    BlockFarm = 212
+    DecorationFarmCrop = 386
+    DecorationFarmPlants = 387
+    DecorationFarmFenceLeftEnded = 388
+    DecorationFarmFenceRightEnded = 389
+
     DecorationPrizeTrophy = 223
 
     DecorationSpring2011Grass1 = 233
@@ -514,6 +520,8 @@
     DecorationSciFi2013GreenStraight = 380
     BackgroundSciFi2013 = 637
 
+    DecorationSign = 385
+
     BackgroundCheckeredGrey = 513
     BackgroundCheckeredDarkBlue = 514
     BackgroundCheckeredPurple = 515
@@ -571,5 +579,5 @@
     BackgroundChristmas2012Green = 625
     BackgroundChristmas2012Blue = 626
 
-    BlockLabel = 1000
+    DecorationLabel = 1000
 End Enum

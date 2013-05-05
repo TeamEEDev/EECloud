@@ -142,7 +142,7 @@ Friend NotInheritable Class World
                               byteArrayY(i) * 256 + byteArrayY(i + 1)) = New WorldWorldPortalBlock(DirectCast(block1, API.WorldPortalBlock), portalTarget)
                     Next
 
-                Case Block.BlockLabel
+                Case Block.DecorationSign, Block.DecorationLabel
                     Dim text As String = m.GetString(pointer)
                     pointer += 1
 
