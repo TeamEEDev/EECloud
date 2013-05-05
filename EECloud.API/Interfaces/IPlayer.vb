@@ -47,6 +47,11 @@
     ReadOnly Property FirePotion As Boolean
     ReadOnly Property CursePotion As Boolean
     ReadOnly Property ProtectionPotion As Boolean
+    ReadOnly Property ZombiePotion As Boolean
+    ReadOnly Property RespawnPotion As Boolean
+    ReadOnly Property LevitationPotion As Boolean
+    ReadOnly Property FlauntPotion As Boolean
+    ReadOnly Property SolitudePotion As Boolean
 
     ReadOnly Property LastPotion As Potion?
     ReadOnly Property LastPotionEnabled As Boolean

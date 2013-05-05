@@ -333,6 +333,46 @@
         End Get
     End Property
 
+    Private myZombiePotion As Boolean
+
+    Public ReadOnly Property ZombiePotion As Boolean Implements IPlayer.ZombiePotion
+        Get
+            Return myZombiePotion
+        End Get
+    End Property
+
+    Private myRespawnPotion As Boolean
+
+    Public ReadOnly Property RespawnPotion As Boolean Implements IPlayer.RespawnPotion
+        Get
+            Return myRespawnPotion
+        End Get
+    End Property
+
+    Private myLevitationPotion As Boolean
+
+    Public ReadOnly Property LevitationPotion As Boolean Implements IPlayer.LevitationPotion
+        Get
+            Return myLevitationPotion
+        End Get
+    End Property
+
+    Private myFlauntPotion As Boolean
+
+    Public ReadOnly Property FlauntPotion As Boolean Implements IPlayer.FlauntPotion
+        Get
+            Return myFlauntPotion
+        End Get
+    End Property
+
+    Private mySolitudePotion As Boolean
+
+    Public ReadOnly Property SolitudePotion As Boolean Implements IPlayer.SolitudePotion
+        Get
+            Return mySolitudePotion
+        End Get
+    End Property
+
     Private myLastPotion As Potion?
 
     Public ReadOnly Property LastPotion As Potion? Implements IPlayer.LastPotion
@@ -524,6 +564,16 @@
                     myCursePotion = e.Enabled
                 Case Potion.Protection
                     myProtectionPotion = e.Enabled
+                Case Potion.Zombie
+                    myZombiePotion = e.Enabled
+                Case Potion.Respawn
+                    myRespawnPotion = e.Enabled
+                Case Potion.Levitation
+                    myLevitationPotion = e.Enabled
+                Case Potion.Flaunt
+                    myFlauntPotion = e.Enabled
+                Case Potion.Solitude
+                    mySolitudePotion = e.Enabled
             End Select
         End If
     End Sub
