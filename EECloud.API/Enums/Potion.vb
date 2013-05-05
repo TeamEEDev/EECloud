@@ -7,4 +7,9 @@
     Fire = 6
     Curse = 7
     Protection = 8
+    Zombie = 9
+    Respawn = 10
+    Levitation = 11
+    Flaunt = 12
+    Solitude = 13
 End Enum

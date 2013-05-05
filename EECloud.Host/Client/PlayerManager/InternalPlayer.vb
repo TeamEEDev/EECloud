@@ -309,19 +309,19 @@
         End Get
     End Property
 
-    Private myCursePotion As Boolean
-
-    Public ReadOnly Property CursePotion As Boolean Implements IPlayer.CursePotion
-        Get
-            Return myCursePotion
-        End Get
-    End Property
-
     Private myFirePotion As Boolean
 
     Public ReadOnly Property FirePotion As Boolean Implements IPlayer.FirePotion
         Get
             Return myFirePotion
+        End Get
+    End Property
+
+    Private myCursePotion As Boolean
+
+    Public ReadOnly Property CursePotion As Boolean Implements IPlayer.CursePotion
+        Get
+            Return myCursePotion
         End Get
     End Property
 
@@ -518,10 +518,10 @@
                     myGreenAuraPotion = e.Enabled
                 Case Potion.Jump
                     myJumpPotion = e.Enabled
-                Case Potion.Curse
-                    myCursePotion = e.Enabled
                 Case Potion.Fire
                     myFirePotion = e.Enabled
+                Case Potion.Curse
+                    myCursePotion = e.Enabled
                 Case Potion.Protection
                     myProtectionPotion = e.Enabled
             End Select
