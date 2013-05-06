@@ -1,11 +1,11 @@
-﻿Imports System.Threading
-
-Friend NotInheritable Class DefaultCommandListener
+﻿Friend NotInheritable Class DefaultCommandListener
 
 #Region "Fields"
+
     Private ReadOnly myClient As IClient(Of Player)
     Private WithEvents myConnection As IConnection
     Private WithEvents myPlayerManager As IPlayerManager(Of Player)
+
 #End Region
 
 #Region "Methods"
@@ -16,16 +16,10 @@ Friend NotInheritable Class DefaultCommandListener
         myPlayerManager = myClient.PlayerManager
     End Sub
 
-#If DEBUG Then
-    <Command("douploadertest", Group.Operator)>
-    Public Sub DoUploaderTestCommand(request As CommandRequest)
-        For i = 0 To myClient.World.SizeX - 1
-            For j = 0 To myClient.World.SizeY - 1
-                myClient.Uploader.Upload(New BlockPlaceUploadMessage(Layer.Foreground, i, j, Block.BlockBasicLightBlue))
-            Next
-        Next
-    End Sub
-#End If
+
+#Region "EECloud-only"
+
+#Region "Ranks"
 
     <Command("getrank", Group.Moderator, Aliases:={"rank", "group", "getgroup", "userrank", "usergroup", "playerrank", "playergroup"})>
     Public Async Sub GetRankCommand(request As CommandRequest, username As String)
@@ -45,80 +39,6 @@ Friend NotInheritable Class DefaultCommandListener
         request.Sender.Reply(String.Format("User {0} is {1}.", username.ToUpper(InvariantCulture), GetGroupString(rank)))
     End Sub
 
-    'TODO: Make this happen in Host application
-    'Private pinging As Boolean
-
-    '<Command("pinghost", Group.Moderator)>
-    'Public Sub PingHostCommand(request As CommandRequest)
-    '    If request.Sender IsNot Nothing Then
-    '        If Not pinging Then
-    '            pinging = True
-    '            Call New Thread(Sub(obj As Object)
-    '                                Beep()
-    '                                MessageBox.Show("Ping from user: " & request.Sender.Username,
-    '                                                "Ping received",
-    '                                                MessageBoxButtons.OK,
-    '                                                MessageBoxIcon.Information)
-
-    '                                pinging = False
-    '                            End Sub).Start()
-    '        Else
-    '            request.Sender.Reply("A ping has been already sent.")
-    '        End If
-    '    Else
-    '        request.Sender.Reply("Cannot ping from console.")
-    '    End If
-    'End Sub
-
-    <Command("respawnall", Group.Moderator)>
-    Public Sub RespawnAllCommand(request As CommandRequest)
-        myClient.Chatter.RespawnAll()
-    End Sub
-
-    <Command("killemall", Group.Moderator)>
-    Public Sub KillEmAllCommand(request As CommandRequest)
-        myClient.Chatter.KillAll()
-    End Sub
-
-    <Command("kill", Group.Moderator)>
-    Public Sub KillCommand(request As CommandRequest, username As String)
-        Dim player As IPlayer = GetPlayer(username)
-        If player IsNot Nothing Then
-            player.Kill()
-            request.Sender.Reply("Killed.")
-        Else
-            request.Sender.Reply("Unknown player.")
-        End If
-    End Sub
-
-    <Command("access", Group.Moderator)>
-    Public Sub BanStrCommand(request As CommandRequest)
-        request.Sender.Reply("Test.")
-    End Sub
-
-    <Command("access", Group.Moderator)>
-    Public Sub BanStrCommand(request As CommandRequest, ParamArray editkey As String())
-        myConnection.Send(New AccessSendMessage(String.Join(" ", editkey)))
-        request.Sender.Reply("Key sent.")
-    End Sub
-
-    <Command("banstr", Group.Host, Aliases:={"banstring", "banmsg", "banmessage"})>
-    Public Sub BanStrCommand(request As CommandRequest, newMessage As String)
-        My.Settings.BanString = newMessage
-        My.Settings.Save()
-        request.Sender.Reply("Ban message changed.")
-    End Sub
-
-    <Command("requestchar", Group.Host, Aliases:={"commandchar", "requestchr"})>
-    Public Sub requestCharCommand(request As CommandRequest, character As String)
-        If character.Length = 1 Then
-            My.Settings.CommandChar = character(0)
-            My.Settings.Save()
-            request.Sender.Reply("Command character changed, restarting EECloud is required.")
-        Else
-            request.Sender.Reply("Character expected, string received.")
-        End If
-    End Sub
 
     <Command("admin", Group.Host, Aliases:={"administrator"})>
     Public Sub AdminCommand(request As CommandRequest, username As String)
@@ -184,6 +104,7 @@ Friend NotInheritable Class DefaultCommandListener
         End If
     End Sub
 
+
     Private Shared Function GetGroupString(rank As Group) As String
         Select Case rank
             Case Group.Host
@@ -207,59 +128,9 @@ Friend NotInheritable Class DefaultCommandListener
         End Select
     End Function
 
-    <Command("online", Group.Host, Aliases:={"who"})>
-    Public Sub OnlineCommand(request As CommandRequest)
-        Dim playerList As String() = (From player In myClient.PlayerManager Select player.Username).ToArray()
-        If playerList.Count > 0 Then
-            request.Sender.Reply(String.Format("{0} players are online: {1}", playerList.Count, String.Join(", ", playerList)))
-        Else
-            request.Sender.Reply("No one is currently online.")
-        End If
-    End Sub
+#End Region
 
-    <Command("say", Group.Moderator)>
-    Public Sub SayCommand(request As CommandRequest, ParamArray msg As String())
-        Dim realSenderString As String = String.Empty
-
-        If myClient.Game.MyPlayer IsNot Nothing Then
-            If request.Sender.Type = CommandSenderType.Player OrElse request.Sender.Type = CommandSenderType.Remote Then
-                'TODO: realSenderString = ?
-            End If
-        End If
-
-        myClient.Chatter.Send(realSenderString &
-                              String.Join(" ", msg))
-    End Sub
-
-    <Command("send", Group.Admin)>
-    Public Sub SendCommand(request As CommandRequest, type As String, ParamArray parameters As String())
-        myClient.Connection.Send(New CustomSendMessage(type, parameters))
-    End Sub
-
-    <Command("open", Group.Host)>
-    Public Sub OpenCommand(request As CommandRequest)
-        Process.Start(My.Application.Info.DirectoryPath & "\Plugins\")
-    End Sub
-
-    <Command("about", Group.Trusted)>
-    Public Sub AboutCommand(request As CommandRequest, plugin As String)
-        Dim pluginObj As IPluginObject = myClient.PluginManager.Plugin(plugin)
-        If pluginObj IsNot Nothing Then
-            request.Sender.Reply(String.Format("{0} {1} by {2}. Category: {3} - {4}",
-                                    pluginObj.Name,
-                                    pluginObj.Attribute.Version,
-                                    String.Join(", ", pluginObj.Attribute.Authors),
-                                    pluginObj.Attribute.Category,
-                                    pluginObj.Attribute.Description))
-        Else
-            request.Sender.Reply("Unknown plugin.")
-        End If
-    End Sub
-
-    <Command("about", Group.Trusted)>
-    Public Sub AboutCommand(request As CommandRequest)
-        request.Sender.Reply(String.Format("This bot is run by {0} Version {1}", My.Application.Info.Title, My.Application.Info.Version))
-    End Sub
+#Region "Plugins"
 
     <Command("enable", Group.Operator)>
     Public Sub EnableCommand(request As CommandRequest, plugin As String)
@@ -291,36 +162,267 @@ Friend NotInheritable Class DefaultCommandListener
         End If
     End Sub
 
+
+    <Command("open", Group.Host)>
+    Public Sub OpenCommand(request As CommandRequest)
+        Process.Start(My.Application.Info.DirectoryPath & "\Plugins\")
+    End Sub
+
+
+    <Command("about", Group.Trusted)>
+    Public Sub AboutCommand(request As CommandRequest, plugin As String)
+        Dim pluginObj As IPluginObject = myClient.PluginManager.Plugin(plugin)
+        If pluginObj IsNot Nothing Then
+            request.Sender.Reply(String.Format("{0} {1} by {2}. Category: {3} - {4}",
+                                    pluginObj.Name,
+                                    pluginObj.Attribute.Version,
+                                    String.Join(", ", pluginObj.Attribute.Authors),
+                                    pluginObj.Attribute.Category,
+                                    pluginObj.Attribute.Description))
+        Else
+            request.Sender.Reply("Unknown plugin.")
+        End If
+    End Sub
+
+#End Region
+
+#Region "Messages"
+
+    <Command("say", Group.Moderator)>
+    Public Sub SayCommand(request As CommandRequest, ParamArray msg As String())
+        Dim realSenderString As String = String.Empty
+
+        If myClient.Game.MyPlayer IsNot Nothing Then
+            If request.Sender.Type = CommandSenderType.Player OrElse request.Sender.Type = CommandSenderType.Remote Then
+                'TODO: realSenderString = ?
+            End If
+        End If
+
+        myClient.Chatter.Send(realSenderString &
+                              String.Join(" ", msg))
+    End Sub
+
+    <Command("send", Group.Admin)>
+    Public Sub SendCommand(request As CommandRequest, type As String, ParamArray parameters As String())
+        myClient.Connection.Send(New CustomSendMessage(type, parameters))
+    End Sub
+
+
     <Command("ping", Group.Trusted)>
     Public Sub PingCommand(request As CommandRequest)
         request.Sender.Reply("Pong!")
     End Sub
 
-    <Command("hello", Group.Moderator, aliases:={"hi", "hai"})>
+
+    <Command("hello", Group.Moderator, aliases:={"hi"})>
     Public Sub HelloCommand(request As CommandRequest)
         request.Sender.Reply("Hello!")
     End Sub
 
-    <Command("hello", Group.Moderator, aliases:={"hi", "hai"})>
+    <Command("hello", Group.Moderator, aliases:={"hi"})>
     Public Sub HelloCommand(request As CommandRequest, username As String)
         myClient.Chatter.Chat(String.Format("Hello {0}!", GetPlayerNormalizedUsername(username)))
     End Sub
 
-    <Command("goodbye", Group.Moderator, aliases:={"bye", "bai"})>
+    <Command("goodbye", Group.Moderator, aliases:={"bye"})>
     Public Sub GoodbyeCommand(request As CommandRequest)
         request.Sender.Reply("Goodbye!")
     End Sub
 
-    <Command("goodbye", Group.Moderator, aliases:={"bye", "bai"})>
+    <Command("goodbye", Group.Moderator, aliases:={"bye"})>
     Public Sub GoodbyeCommand(request As CommandRequest, username As String)
         myClient.Chatter.Chat(String.Format("Goodbye {0}!", GetPlayerNormalizedUsername(username)))
+    End Sub
+
+#End Region
+
+#Region "Application-related stuff"
+
+    <Command("host", Group.Moderator, Aliases:={"gethost", "hoster"})>
+    Public Sub HostCommand(request As CommandRequest)
+        request.Sender.Reply("Current host: " & Cloud.HostUsername)
+    End Sub
+
+    <Command("env", Group.Moderator, Aliases:={"getenv"})>
+    Public Sub GetEnvironmentCommand(request As CommandRequest)
+        Dim env As String
+        If Cloud.IsNoGUI Then
+            env = "Cloud"
+        Else
+            env = "Desktop"
+        End If
+        request.Sender.Reply("Current environment: " & env)
+    End Sub
+
+
+    'TODO: Make this happen in Host application
+    'Private pinging As Boolean
+
+    '<Command("pinghost", Group.Moderator)>
+    'Public Sub PingHostCommand(request As CommandRequest)
+    '    If request.Sender IsNot Nothing Then
+    '        If Not pinging Then
+    '            pinging = True
+    '            Call New Thread(Sub(obj As Object)
+    '                                Beep()
+    '                                MessageBox.Show("Ping from user: " & request.Sender.Username,
+    '                                                "Ping received",
+    '                                                MessageBoxButtons.OK,
+    '                                                MessageBoxIcon.Information)
+
+    '                                pinging = False
+    '                            End Sub).Start()
+    '        Else
+    '            request.Sender.Reply("A ping has been already sent.")
+    '        End If
+    '    Else
+    '        request.Sender.Reply("Cannot ping from console.")
+    '    End If
+    'End Sub
+
+    <Command("restart", Group.Moderator)>
+    Public Sub RestartCommand(request As CommandRequest)
+        request.Sender.Reply("Restarting...")
+        myClient.Connection.Close(True)
+    End Sub
+
+    <Command("end", Group.Moderator, Aliases:={"shutdown", "leave", "leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
+    Public Sub EndCommand(request As CommandRequest)
+        request.Sender.Reply("Terminating...")
+
+        If myClient.Connection.Connected Then
+            myClient.Connection.Close()
+        Else
+            Environment.Exit(0)
+        End If
+    End Sub
+
+    <Command("killbot", Group.Operator)>
+    Public Sub KillBotCommand(request As CommandRequest)
+        request.Sender.Reply("Dying...")
+        Environment.Exit(0)
+    End Sub
+
+
+    <Command("requestchar", Group.Host, Aliases:={"requestchr", "commandchar", "cmdchr"})>
+    Public Sub RequestCharCommand(request As CommandRequest, character As String)
+        If character.Length = 1 Then
+            My.Settings.CommandChar = character(0)
+            My.Settings.Save()
+            request.Sender.Reply("Command character changed, restarting EECloud is required.")
+        Else
+            request.Sender.Reply("Character expected, string received.")
+        End If
+    End Sub
+
+    <Command("banstr", Group.Host, Aliases:={"banstring", "banmsg", "banmessage"})>
+    Public Sub BanStrCommand(request As CommandRequest, newMessage As String)
+        My.Settings.BanString = newMessage
+        My.Settings.Save()
+        request.Sender.Reply("Ban message changed.")
+    End Sub
+
+
+    <Command("about", Group.Trusted)>
+    Public Sub AboutCommand(request As CommandRequest)
+        request.Sender.Reply(String.Format("This bot is run by {0} Version {1}", My.Application.Info.Title, My.Application.Info.Version))
+    End Sub
+
+#End Region
+
+#Region "Miscellaneous"
+
+#If DEBUG Then
+    <Command("douploadertest", Group.Operator)>
+    Public Sub DoUploaderTestCommand(request As CommandRequest)
+        For i = 0 To myClient.World.SizeX - 1
+            For j = 0 To myClient.World.SizeY - 1
+                myClient.Uploader.Upload(New BlockPlaceUploadMessage(Layer.Foreground, i, j, Block.BlockBasicLightBlue))
+            Next
+        Next
+    End Sub
+#End If
+
+
+    <Command("reloadplayer", Group.Moderator, Aliases:={"rplayer"})>
+    Public Async Sub ReloadPlayerCommand(request As CommandRequest, username As String)
+        username = GetPlayerNormalizedUsername(username)
+        Dim player As IPlayer = GetPlayer(username, True)
+
+        If player IsNot Nothing Then
+            Await player.ReloadUserDataAsync()
+            request.Sender.Reply(String.Format("Reloaded the UserData of {0}.", username))
+        Else
+            request.Sender.Reply("Unknown player.")
+        End If
+    End Sub
+
+#End Region
+
+#End Region
+
+#Region "Ingame stuff"
+
+#Region "World-related"
+
+    <Command("online", Group.Host)>
+    Public Sub OnlineCommand(request As CommandRequest)
+        Dim playerList As String() = (From player In myClient.PlayerManager Select player.Username).ToArray()
+        If playerList.Count > 0 Then
+            request.Sender.Reply(String.Format("{0} players are online: {1}", playerList.Count, String.Join(", ", playerList)))
+        Else
+            request.Sender.Reply("No one is currently online.")
+        End If
+    End Sub
+
+
+    <Command("access", Group.Moderator)>
+    Public Sub AccessCommand(request As CommandRequest, ParamArray editkey As String())
+        myConnection.Send(New AccessSendMessage(String.Join(" ", editkey)))
+        request.Sender.Reply("Key sent.")
+    End Sub
+
+
+    <Command("name", Group.Moderator, AccessRight:=AccessRight.Owner, Aliases:={"rename", "renameworld", "renamelevel", "worldname", "levelname"})>
+    Public Sub ChangeWorldNameCommand(request As CommandRequest, ParamArray newName As String())
+        myClient.Connection.Send(New ChangeWorldNameSendMessage(String.Join(" ", newName)))
+        request.Sender.Reply("Renamed.")
     End Sub
 
     <Command("setcode", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"code", "editkey", "seteditkey"})>
     Public Sub SetCodeCommand(request As CommandRequest, editkey As String)
         myClient.Connection.Send(New ChangeWorldEditKeySendMessage(editkey))
-        request.Sender.Reply("Changed edit key")
+        request.Sender.Reply("Changed edit key.")
     End Sub
+
+
+    <Command("loadlevel", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"load", "loadworld", "reload", "reloadworld", "reloadlevel"})>
+    Public Sub LoadWorldCommand(request As CommandRequest)
+        request.Sender.Reply("Reloaded.")
+        myClient.Chatter.Loadlevel()
+    End Sub
+
+    <Command("save", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"saveworld", "savelevel"})>
+    Public Sub SaveWorldCommand(request As CommandRequest)
+        myClient.Connection.Send(New SaveWorldSendMessage)
+        request.Sender.Reply("Saved.")
+    End Sub
+
+    <Command("reset", Group.Operator, Aliases:={"resetworld", "resetlevel", "resetplayers"})>
+    Public Sub ResetCommand(request As CommandRequest)
+        myClient.Chatter.Reset()
+        request.Sender.Reply("Reset.")
+    End Sub
+
+    <Command("clear", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"clearworld", "clearlevel"})>
+    Public Sub ClearWorldCommand(request As CommandRequest)
+        myClient.Connection.Send(New ClearWorldSendMessage())
+        request.Sender.Reply("Cleared.")
+    End Sub
+
+#End Region
+
+#Region "Player(s)-related"
 
     <Command("kick", Group.Trusted, AccessRight:=AccessRight.Owner, Aliases:={"ki", "kickp", "kickplayer"})>
     Public Sub KickCommand(request As CommandRequest, username As String, ParamArray reason As String())
@@ -354,87 +456,45 @@ Friend NotInheritable Class DefaultCommandListener
         End If
     End Sub
 
-    <Command("reloadplayer", Group.Moderator, Aliases:={"rplayer"})>
-    Public Async Sub ReloadPlayerCommand(request As CommandRequest, username As String)
-        username = GetPlayerNormalizedUsername(username)
-        Dim player As IPlayer = GetPlayer(username, True)
 
+    <Command("kill", Group.Moderator)>
+    Public Sub KillCommand(request As CommandRequest, username As String)
+        Dim player As IPlayer = GetPlayer(username)
         If player IsNot Nothing Then
-            Await player.ReloadUserDataAsync()
-            request.Sender.Reply(String.Format("Reloaded the UserData of {0}.", username))
+            player.Kill()
+            request.Sender.Reply("Killed.")
         Else
             request.Sender.Reply("Unknown player.")
         End If
     End Sub
 
-    <Command("env", Group.Moderator, Aliases:={"getenv", "iscloud"})>
-    Public Sub GetEnvironmentCommand(request As CommandRequest)
-        Dim env As String
-        If Cloud.IsNoGUI Then
-            env = "Cloud"
-        Else
-            env = "Desktop"
-        End If
-        request.Sender.Reply("Current environment: " & env)
+    <Command("killemall", Group.Moderator)>
+    Public Sub KillEmAllCommand(request As CommandRequest)
+        myClient.Chatter.KillAll()
     End Sub
 
-    <Command("host", Group.Moderator, Aliases:={"gethost", "hoster"})>
-    Public Sub HostCommand(request As CommandRequest)
-        request.Sender.Reply("Current host: " & Cloud.HostUsername)
+    <Command("respawnall", Group.Moderator)>
+    Public Sub RespawnAllCommand(request As CommandRequest)
+        myClient.Chatter.RespawnAll()
     End Sub
 
-    <Command("restart", Group.Moderator)>
-    Public Sub RestartCommand(request As CommandRequest)
-        request.Sender.Reply("Restarting...")
-        myClient.Connection.Close(True)
-    End Sub
+#End Region
 
-    <Command("end", Group.Moderator, Aliases:={"shutdown", "leave", "leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
-    Public Sub EndCommand(request As CommandRequest)
-        request.Sender.Reply("Terminating...")
+#End Region
 
-        If myClient.Connection.Connected Then
-            myClient.Connection.Close()
-        Else
-            Environment.Exit(0)
-        End If
-    End Sub
 
-    <Command("killbot", Group.Operator)>
-    Public Sub KillBotCommand(request As CommandRequest)
-        request.Sender.Reply("Dying...")
-        Environment.Exit(0)
-    End Sub
 
-    <Command("clear", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"clearworld", "clearlevel"})>
-    Public Sub ClearWorldCommand(request As CommandRequest)
-        myClient.Connection.Send(New ClearWorldSendMessage())
-        request.Sender.Reply("Cleared.")
-    End Sub
 
-    <Command("name", Group.Moderator, AccessRight:=AccessRight.Owner, Aliases:={"rename", "renameworld", "renamelevel", "worldname", "levelname"})>
-    Public Sub ChangeWorldNameCommand(request As CommandRequest, ParamArray newName As String())
-        myClient.Connection.Send(New ChangeWorldNameSendMessage(String.Join(" ", newName)))
-        request.Sender.Reply("Renamed.")
-    End Sub
 
-    <Command("loadlevel", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"load", "loadworld", "reload", "reloadworld", "reloadlevel"})>
-    Public Sub LoadWorldCommand(request As CommandRequest)
-        request.Sender.Reply("Reloaded.")
-        myClient.Chatter.Loadlevel()
-    End Sub
 
-    <Command("save", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"saveworld", "savelevel"})>
-    Public Sub SaveWorldCommand(request As CommandRequest)
-        myClient.Connection.Send(New SaveWorldSendMessage)
-        request.Sender.Reply("Saved.")
-    End Sub
 
-    <Command("reset", Group.Operator, Aliases:={"resetworld", "resetlevel", "resetplayers"})>
-    Public Sub ResetCommand(request As CommandRequest)
-        myClient.Chatter.Reset()
-        request.Sender.Reply("Reset.")
-    End Sub
+    
+
+    
+
+    
+
+    
 
     Private Sub myConnection_ReceiveInfo(sender As Object, e As InfoReceiveMessage) Handles myConnection.ReceiveInfo
         myConnection.UserExpectingDisconnect = True
