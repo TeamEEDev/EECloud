@@ -21,7 +21,7 @@
 
 #Region "Ranks"
 
-    <Command("getrank", Group.Moderator, Aliases:={"rank", "group", "getgroup", "userrank", "usergroup", "playerrank", "playergroup"})>
+    <Command("getrank", Group.Moderator, Aliases:={"rank", "group"})>
     Public Async Sub GetRankCommand(request As CommandRequest, username As String)
         username = GetPlayerNormalizedUsername(username)
         Dim player As IPlayer = GetPlayer(username, True)
@@ -185,19 +185,20 @@
 
 #Region "Application-related stuff"
 
-    <Command("host", Group.Moderator, Aliases:={"gethost", "hoster"})>
+    <Command("host", Group.Moderator, Aliases:={"hoster"})>
     Public Sub HostCommand(request As CommandRequest)
         request.Sender.Reply("Current host: " & Cloud.HostUsername)
     End Sub
 
-    <Command("env", Group.Moderator, Aliases:={"getenv"})>
-    Public Sub GetEnvironmentCommand(request As CommandRequest)
+    <Command("env", Group.Moderator, Aliases:={"environment"})>
+    Public Sub EnvironmentCommand(request As CommandRequest)
         Dim env As String
         If Cloud.IsNoGUI Then
             env = "Cloud"
         Else
             env = "Desktop"
         End If
+
         request.Sender.Reply("Current environment: " & env)
     End Sub
 
@@ -233,7 +234,7 @@
         myClient.Connection.Close(True)
     End Sub
 
-    <Command("end", Group.Moderator, Aliases:={"shutdown", "leave", "leaveworld", "leavelevel", "exit", "exitworld", "exitlevel"})>
+    <Command("end", Group.Moderator, Aliases:={"leave", "exit"})>
     Public Sub EndCommand(request As CommandRequest)
         request.Sender.Reply("Terminating...")
 
@@ -330,38 +331,38 @@
     End Sub
 
 
-    <Command("name", Group.Moderator, AccessRight:=AccessRight.Owner, Aliases:={"rename", "renameworld", "renamelevel", "worldname", "levelname"})>
+    <Command("name", Group.Moderator, AccessRight:=AccessRight.Owner)>
     Public Sub ChangeWorldNameCommand(request As CommandRequest, ParamArray newName As String())
         myClient.Connection.Send(New ChangeWorldNameSendMessage(String.Join(" ", newName)))
         request.Sender.Reply("Renamed.")
     End Sub
 
-    <Command("setcode", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"code", "editkey", "seteditkey"})>
+    <Command("setcode", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"code", "key", "editkey"})>
     Public Sub SetCodeCommand(request As CommandRequest, editkey As String)
         myClient.Connection.Send(New ChangeWorldEditKeySendMessage(editkey))
         request.Sender.Reply("Changed edit key.")
     End Sub
 
 
-    <Command("loadlevel", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"load", "loadworld", "reload", "reloadworld", "reloadlevel"})>
+    <Command("loadlevel", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"reload"})>
     Public Sub LoadWorldCommand(request As CommandRequest)
         request.Sender.Reply("Reloaded.")
         myClient.Chatter.Loadlevel()
     End Sub
 
-    <Command("save", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"saveworld", "savelevel"})>
+    <Command("save", Group.Operator, AccessRight:=AccessRight.Owner)>
     Public Sub SaveWorldCommand(request As CommandRequest)
         myClient.Connection.Send(New SaveWorldSendMessage)
         request.Sender.Reply("Saved.")
     End Sub
 
-    <Command("reset", Group.Operator, Aliases:={"resetworld", "resetlevel", "resetplayers"})>
+    <Command("reset", Group.Operator, Aliases:={"resetplayers"})>
     Public Sub ResetCommand(request As CommandRequest)
         myClient.Chatter.Reset()
         request.Sender.Reply("Reset.")
     End Sub
 
-    <Command("clear", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"clearworld", "clearlevel"})>
+    <Command("clear", Group.Operator, AccessRight:=AccessRight.Owner)>
     Public Sub ClearWorldCommand(request As CommandRequest)
         myClient.Connection.Send(New ClearWorldSendMessage())
         request.Sender.Reply("Cleared.")
@@ -371,12 +372,16 @@
 
 #Region "Player(s)-related"
 
-    <Command("kick", Group.Trusted, AccessRight:=AccessRight.Owner, Aliases:={"ki", "kickp", "kickplayer"})>
+    <Command("kick", Group.Trusted, AccessRight:=AccessRight.Owner, Aliases:={"kickplayer"})>
     Public Sub KickCommand(request As CommandRequest, username As String, ParamArray reason As String())
         Dim player As Player = GetPlayer(username)
         If player IsNot Nothing Then
             If request.Sender Is Nothing OrElse request.Rights >= Group.Operator OrElse player.Group <= request.Rights Then
-                player.Kick(String.Join(" ", reason))
+                If reason.Length = 0 Then
+                    player.Kick()
+                Else
+                    player.Kick(String.Join(" ", reason))
+                End If
 
                 request.Sender.Reply("Kicked.")
             Else
@@ -387,20 +392,9 @@
         End If
     End Sub
 
-    <Command("kick", Group.Trusted, AccessRight:=AccessRight.Owner, Aliases:={"ki", "kickp", "kickplayer"})>
+    <Command("kick", Group.Trusted, AccessRight:=AccessRight.Owner, Aliases:={"kickplayer"})>
     Public Sub KickCommand(request As CommandRequest, username As String)
-        Dim player As Player = GetPlayer(username)
-        If player IsNot Nothing Then
-            If request.Sender Is Nothing OrElse request.Rights >= Group.Operator OrElse player.Group <= request.Rights Then
-                player.Kick()
-
-                request.Sender.Reply("Kicked.")
-            Else
-                request.Sender.Reply("Not allowed to kick a player with a higher rank than yourself.")
-            End If
-        Else
-            request.Sender.Reply("Can't find player.")
-        End If
+        KickCommand(request, username, New String() {})
     End Sub
 
 
@@ -415,12 +409,12 @@
         End If
     End Sub
 
-    <Command("killemall", Group.Moderator)>
+    <Command("killemall", Group.Moderator, Aliases:={"killplayers"})>
     Public Sub KillEmAllCommand(request As CommandRequest)
         myClient.Chatter.KillAll()
     End Sub
 
-    <Command("respawnall", Group.Moderator)>
+    <Command("respawnall", Group.Moderator, Aliases:={"respawnplayers"})>
     Public Sub RespawnAllCommand(request As CommandRequest)
         myClient.Chatter.RespawnAll()
     End Sub
