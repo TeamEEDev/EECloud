@@ -75,59 +75,6 @@
         ChangeRank(request, GetPlayerNormalizedUsername(username), Group.Banned)
     End Sub
 
-    Private Async Sub ChangeRank(request As CommandRequest, username As String, rank As Group)
-        username = GetPlayerNormalizedUsername(username)
-        Dim currRank As Group
-        Dim player As Player = GetPlayer(username, True)
-
-        If player IsNot Nothing Then
-            currRank = player.Group
-        Else
-            Dim playerData As UserData = Await Cloud.Service.GetPlayerDataAsync(username)
-            If playerData IsNot Nothing Then
-                currRank = playerData.GroupID
-            End If
-        End If
-
-
-        If request.Sender Is Nothing OrElse currRank < request.Rights Then
-            If player IsNot Nothing Then
-                player.Group = rank
-                player.Save()
-            Else
-                Await Cloud.Service.SetPlayerDataGroupIDAsync(username, rank)
-            End If
-
-            request.Sender.Reply(String.Format("{0} is now {1}.", username.ToUpper(InvariantCulture), GetGroupString(rank)))
-        Else
-            request.Sender.Reply("Not allowed to change rank of that player.")
-        End If
-    End Sub
-
-
-    Private Shared Function GetGroupString(rank As Group) As String
-        Select Case rank
-            Case Group.Host
-                Return "the host"
-            Case Group.Admin
-                Return "an administrator"
-            Case Group.Operator
-                Return "an operator"
-            Case Group.Moderator
-                Return "a moderator"
-            Case Group.Trusted
-                Return "a trusted player"
-            Case Group.User
-                Return "a normal player"
-            Case Group.Limited
-                Return "a limited player"
-            Case Group.Banned
-                Return "banned"
-            Case Else
-                Return "a player with an unknown rank"
-        End Select
-    End Function
-
 #End Region
 
 #Region "Plugins"
@@ -483,45 +430,7 @@
 #End Region
 
 
-
-
-
-
-
-    
-
-    
-
-    
-
-    
-
-    Private Sub myConnection_ReceiveInfo(sender As Object, e As InfoReceiveMessage) Handles myConnection.ReceiveInfo
-        myConnection.UserExpectingDisconnect = True
-        Cloud.Logger.Log(LogPriority.Info, String.Format("{0}: {1}.", e.Title, e.Text))
-    End Sub
-
-    Private Sub myPlayerManager_GroupChange(sender As Object, e As Player) Handles myPlayerManager.GroupChange
-        If myClient.Game.AccessRight >= AccessRight.Owner Then
-            If e.Group >= Group.Moderator Then
-                e.GiveEdit()
-            ElseIf e.Group <= Group.Banned Then
-                e.Kick(My.Settings.BanString)
-            Else
-                e.RemoveEdit()
-            End If
-        End If
-    End Sub
-
-    Private Sub myPlayerManager_UserDataReady(sender As Object, e As Player) Handles myPlayerManager.UserDataReady
-        If myClient.Game.AccessRight >= AccessRight.Owner Then
-            If e.Group >= Group.Moderator Then
-                e.GiveEdit()
-            ElseIf e.Group <= Group.Banned Then
-                e.Kick(My.Settings.BanString)
-            End If
-        End If
-    End Sub
+#Region "Other things (event handlers and helper methods)"
 
     Private Sub myConnection_PreviewReceiveSay(sender As Object, e As SayReceiveMessage) Handles myConnection.PreviewReceiveSay
         Dim player As Player = myPlayerManager.Player(e.UserID)
@@ -541,6 +450,89 @@
     Private Sub myConnection_SendSay(sender As Object, e As Cancelable(Of SaySendMessage)) Handles myConnection.SendSay
         Cloud.Logger.Log(LogPriority.Info, myClient.Chatter.SyntaxProvider.ApplyChatSyntax(e.Value.Text, myClient.Game.MyPlayer.Username))
     End Sub
+
+    Private Sub myConnection_ReceiveInfo(sender As Object, e As InfoReceiveMessage) Handles myConnection.ReceiveInfo
+        myConnection.UserExpectingDisconnect = True
+        Cloud.Logger.Log(LogPriority.Info, String.Format("{0}: {1}.", e.Title, e.Text))
+    End Sub
+
+
+    Private Sub myPlayerManager_UserDataReady(sender As Object, e As Player) Handles myPlayerManager.UserDataReady
+        If myClient.Game.AccessRight >= AccessRight.Owner Then
+            If e.Group >= Group.Moderator Then
+                e.GiveEdit()
+            ElseIf e.Group <= Group.Banned Then
+                e.Kick(My.Settings.BanString)
+            End If
+        End If
+    End Sub
+
+    Private Sub myPlayerManager_GroupChange(sender As Object, e As Player) Handles myPlayerManager.GroupChange
+        If myClient.Game.AccessRight >= AccessRight.Owner Then
+            If e.Group >= Group.Moderator Then
+                e.GiveEdit()
+            ElseIf e.Group <= Group.Banned Then
+                e.Kick(My.Settings.BanString)
+            Else
+                e.RemoveEdit()
+            End If
+        End If
+    End Sub
+
+
+    Private Async Sub ChangeRank(request As CommandRequest, username As String, rank As Group)
+        username = GetPlayerNormalizedUsername(username)
+        Dim currRank As Group
+        Dim player As Player = GetPlayer(username, True)
+
+        If player IsNot Nothing Then
+            currRank = player.Group
+        Else
+            Dim playerData As UserData = Await Cloud.Service.GetPlayerDataAsync(username)
+            If playerData IsNot Nothing Then
+                currRank = playerData.GroupID
+            End If
+        End If
+
+
+        If request.Sender Is Nothing OrElse currRank < request.Rights Then
+            If player IsNot Nothing Then
+                player.Group = rank
+                player.Save()
+            Else
+                Await Cloud.Service.SetPlayerDataGroupIDAsync(username, rank)
+            End If
+
+            request.Sender.Reply(String.Format("{0} is now {1}.", username.ToUpper(InvariantCulture), GetGroupString(rank)))
+        Else
+            request.Sender.Reply("Not allowed to change rank of that player.")
+        End If
+    End Sub
+
+
+    Private Shared Function GetGroupString(rank As Group) As String
+        Select Case rank
+            Case Group.Host
+                Return "the host"
+            Case Group.Admin
+                Return "an administrator"
+            Case Group.Operator
+                Return "an operator"
+            Case Group.Moderator
+                Return "a moderator"
+            Case Group.Trusted
+                Return "a trusted player"
+            Case Group.User
+                Return "a normal player"
+            Case Group.Limited
+                Return "a limited player"
+            Case Group.Banned
+                Return "banned"
+            Case Else
+                Return "a player with an unknown rank"
+        End Select
+    End Function
+
 
     Private Function GetPlayer(username As String, Optional usernameAlreadyNormalized As Boolean = False) As Player
         If Not usernameAlreadyNormalized Then
@@ -567,6 +559,8 @@
     Private Shared Function GetPlayerNormalizedUsername(username As String) As String
         Return username.Replace("."c, String.Empty)
     End Function
+
+#End Region
 
 #End Region
 
