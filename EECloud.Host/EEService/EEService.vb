@@ -424,10 +424,8 @@
             OpenConnection()
         End If
 
-        Using command As New MySqlCommand("OPTIMIZE TABLE ",
+        Using command As New MySqlCommand("OPTIMIZE TABLE " & MySqlHelper.EscapeString(tableNames(0)),
                                           Connection)
-            command.CommandText &= MySqlHelper.EscapeString(tableNames(0))
-
             For i = 1 To tableNames.Length - 1
                 command.CommandText &= ", " & MySqlHelper.EscapeString(tableNames(i))
             Next
