@@ -39,17 +39,16 @@
 
     Private Sub myConnection_OnReceiveCrown(sender As Object, e As CrownReceiveMessage) Handles myConnection.ReceiveCrown
         SyncLock myPlayers
-            If myPlayers.ContainsKey(e.UserID) Then
-                myCrown = myPlayers(e.UserID)
+            Dim player As InternalPlayer
+            If myPlayers.TryGetValue(e.UserID, player) Then
+                myCrown = player
             End If
         End SyncLock
     End Sub
 
     Private Sub myConnection_OnReceiveLeft(sender As Object, e As LeftReceiveMessage) Handles myConnection.ReceiveLeft
         SyncLock myPlayers
-            If myPlayers.ContainsKey(e.UserID) Then
-                myPlayers.Remove(e.UserID)
-            End If
+            myPlayers.Remove(e.UserID)
         End SyncLock
 
         RaiseEvent RemoveUser(Me, e)

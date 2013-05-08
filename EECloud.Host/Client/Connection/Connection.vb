@@ -870,8 +870,8 @@ Friend NotInheritable Class Connection
 
     Private Sub myConnection_OnMessage(sender As Object, m As Message) Handles myConnection.OnMessage
         Try
-            If myMessageDictionary.ContainsKey(m.Type) Then
-                Dim messageType As Type = myMessageDictionary(m.Type)
+            Dim messageType As Type
+            If myMessageDictionary.TryGetValue(m.Type, messageType) Then
                 Dim constructorInfo As ConstructorInfo = messageType.GetConstructor(BindingFlags.NonPublic Or BindingFlags.Instance, Nothing, New Type() {GetType(Message)}, Nothing)
                 Dim message As ReceiveMessage = DirectCast(constructorInfo.Invoke(New Object() {m}), ReceiveMessage)
                 RaiseEvent ReceiveMessage(Me, message)
@@ -955,8 +955,9 @@ Friend NotInheritable Class Connection
 
     Private Sub RegisterStartMessages()
         SyncLock myLockObj
-            If myRegisteredStartMessages = False Then
+            If Not myRegisteredStartMessages Then
                 myRegisteredStartMessages = True
+
                 RegisterMessage("init", GetType(InitReceiveMessage))
 
                 RegisterMessage("info", GetType(InfoReceiveMessage))
@@ -1028,11 +1029,15 @@ Friend NotInheritable Class Connection
 
     Private Sub RegisterMessage(str As String, type As Type)
         Try
+#If DEBUG Then
             If Not type.IsSubclassOf(GetType(ReceiveMessage)) Then
                 Throw New InvalidOperationException("Invalid class! Must inherit '" & GetType(ReceiveMessage).FullName & "'.")
             Else
                 myMessageDictionary.Add(str, type)
             End If
+#Else
+            myMessageDictionary.Add(str, type)
+#End If
         Catch
             Cloud.Logger.Log(LogPriority.Error, "Failed to register messages with type """ & str & """.")
         End Try
@@ -1047,7 +1052,9 @@ Friend NotInheritable Class Connection
     End Sub
 
     Private Sub UnRegisterAll()
+        myRegisteredStartMessages = False
         myRegisteredMessages = False
+
         myMessageDictionary.Clear()
     End Sub
 
