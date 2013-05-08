@@ -56,18 +56,6 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property HostUserame() As String
-            Get
-                Return CType(Me("HostUserame"),String)
-            End Get
-            Set
-                Me("HostUserame") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
         Public Property Updated() As Boolean
             Get
@@ -75,6 +63,18 @@ Namespace My
             End Get
             Set
                 Me("Updated") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property HostUserame() As String
+            Get
+                Return CType(Me("HostUserame"),String)
+            End Get
+            Set
+                Me("HostUserame") = value
             End Set
         End Property
         
@@ -159,18 +159,6 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property Restart() As Boolean
-            Get
-                Return CType(Me("Restart"),Boolean)
-            End Get
-            Set
-                Me("Restart") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
         Public Property GameVersionNumber() As Integer
             Get
@@ -178,6 +166,18 @@ Namespace My
             End Get
             Set
                 Me("GameVersionNumber") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property Restart() As Boolean
+            Get
+                Return CType(Me("Restart"),Boolean)
+            End Get
+            Set
+                Me("Restart") = value
             End Set
         End Property
     End Class
