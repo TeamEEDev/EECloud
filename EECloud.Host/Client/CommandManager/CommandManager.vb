@@ -57,7 +57,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
 
     Private Sub AddCommand(name As String, handle As CommandHandle)
         'Overloading command?
-        Dim items As List(Of CommandHandle)
+        Dim items As List(Of CommandHandle) = Nothing
         If myCommandsDictionary.TryGetValue(name, items) Then
             For Each item In items
                 If handle.Count = item.Count Then
@@ -82,7 +82,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
     End Sub
 
     Private Function ProcessMessage(request As CommandRequest) As Boolean
-        Dim handleList As List(Of CommandHandle)
+        Dim handleList As List(Of CommandHandle) = Nothing
         If Not myCommandsDictionary.TryGetValue(request.Phrase.Type, handleList) Then
             Return False
         End If

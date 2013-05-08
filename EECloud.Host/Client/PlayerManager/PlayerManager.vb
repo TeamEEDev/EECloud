@@ -54,9 +54,9 @@
     Friend ReadOnly Property Player(number As Integer) As TPlayer Implements IPlayerManager(Of TPlayer).Player
         Get
             SyncLock myUsernameDictionary
-                Dim player As TPlayer
-                If myIDDictionary.TryGetValue(number, player) Then
-                    Return player
+                Dim player1 As TPlayer = Nothing
+                If myIDDictionary.TryGetValue(number, player1) Then
+                    Return player1
                 Else
                     Return Nothing
                 End If
@@ -67,7 +67,7 @@
     Friend ReadOnly Property Player(username As String) As TPlayer Implements IPlayerManager(Of TPlayer).Player
         Get
             SyncLock myUsernameDictionary
-                Dim list As List(Of TPlayer)
+                Dim list As List(Of TPlayer) = Nothing
                 If myUsernameDictionary.TryGetValue(username.ToLower(InvariantCulture), list) Then
                     If list.Count > 0 Then
                         Return list(0)
@@ -121,7 +121,7 @@
                 myIDDictionary.Remove(e.UserID)
 
                 SyncLock myUsernameDictionary
-                    Dim list As List(Of TPlayer)
+                    Dim list As List(Of TPlayer) = Nothing
                     If myUsernameDictionary.TryGetValue(player1.Username, list) Then
                         For n = 0 To list.Count - 1
                             If list(n).UserID = e.UserID Then

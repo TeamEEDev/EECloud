@@ -870,7 +870,7 @@ Friend NotInheritable Class Connection
 
     Private Sub myConnection_OnMessage(sender As Object, m As Message) Handles myConnection.OnMessage
         Try
-            Dim messageType As Type
+            Dim messageType As Type = Nothing
             If myMessageDictionary.TryGetValue(m.Type, messageType) Then
                 Dim constructorInfo As ConstructorInfo = messageType.GetConstructor(BindingFlags.NonPublic Or BindingFlags.Instance, Nothing, New Type() {GetType(Message)}, Nothing)
                 Dim message As ReceiveMessage = DirectCast(constructorInfo.Invoke(New Object() {m}), ReceiveMessage)

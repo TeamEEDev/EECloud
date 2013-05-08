@@ -523,7 +523,7 @@
     End Sub
 
     Private Sub myConnection_OnReceiveTeleport(sender As Object, e As TeleportReceiveMessage) Handles myConnection.PreviewReceiveTeleport
-        Dim loc As Point
+        Dim loc As Point = Nothing
         If e.Coordinates.TryGetValue(myUserID, loc) Then
             myPlayerPosX = loc.X
             myPlayerPosY = loc.Y

@@ -39,7 +39,7 @@
 
     Private Sub myConnection_OnReceiveCrown(sender As Object, e As CrownReceiveMessage) Handles myConnection.ReceiveCrown
         SyncLock myPlayers
-            Dim player As InternalPlayer
+            Dim player As InternalPlayer = Nothing
             If myPlayers.TryGetValue(e.UserID, player) Then
                 myCrown = player
             End If
