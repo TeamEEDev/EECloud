@@ -54,14 +54,14 @@ Namespace My
             End Get
         End Property
         
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("")> _
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property HostUserame() As String
             Get
-                Return CType(Me("HostUserame"), String)
+                Return CType(Me("HostUserame"),String)
             End Get
-            Set(value As String)
+            Set
                 Me("HostUserame") = value
             End Set
         End Property
@@ -166,6 +166,18 @@ Namespace My
             End Get
             Set
                 Me("Restart") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property GameVersionNumber() As Integer
+            Get
+                Return CType(Me("GameVersionNumber"),Integer)
+            End Get
+            Set
+                Me("GameVersionNumber") = value
             End Set
         End Property
     End Class

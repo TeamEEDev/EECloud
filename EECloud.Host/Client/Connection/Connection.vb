@@ -17,7 +17,6 @@ Friend NotInheritable Class Connection
     Private Const GameID As String = "everybody-edits-su9rn58o40itdbnw69plyw"
     Private Const NormalRoom As String = "Everybodyedits"
     Private Const GameVersionSetting As String = "GameVersion"
-    Private Shared myGameVersionNumber As Integer = 0
 #End Region
 
 #Region "Properties"
@@ -41,6 +40,19 @@ Friend NotInheritable Class Connection
     End Property
 
     Friend Property UserExpectingDisconnect As Boolean Implements IConnection.UserExpectingDisconnect
+
+    Private Shared myGameVersionNumber As Integer
+
+    Private Shared Property GameVersionNumber As Integer
+        Get
+            Return myGameVersionNumber
+        End Get
+        Set(value As Integer)
+            myGameVersionNumber = value
+            My.Settings.GameVersionNumber = value
+            My.Settings.Save()
+        End Set
+    End Property
 
 #End Region
 
@@ -323,10 +335,11 @@ Friend NotInheritable Class Connection
 
     Sub New(client As IClient(Of Player))
         myClient = client
+        myGameVersionNumber = My.Settings.GameVersionNumber
 
-        If myGameVersionNumber = 0 Then
+        If GameVersionNumber = 0 Then
             Try
-                myGameVersionNumber = Integer.Parse(Cloud.Service.GetSetting(GameVersionSetting))
+                GameVersionNumber = Integer.Parse(Cloud.Service.GetSetting(GameVersionSetting))
             Catch
                 Cloud.Logger.Log(LogPriority.Warning, "Invalid GameVersion setting.")
             End Try
@@ -347,7 +360,7 @@ Friend NotInheritable Class Connection
 
     Private Shared Function GetIOConnection(ioClient As Client, id As String) As PlayerIOClient.Connection
         Try
-            Return ioClient.Multiplayer.CreateJoinRoom(id, NormalRoom & myGameVersionNumber, True, Nothing, Nothing)
+            Return ioClient.Multiplayer.CreateJoinRoom(id, NormalRoom & GameVersionNumber, True, Nothing, Nothing)
         Catch ex As PlayerIOError
             If ex.ErrorCode = ErrorCode.UnknownRoomType Then
                 UpdateVersion(ex)
@@ -369,9 +382,9 @@ Friend NotInheritable Class Connection
             If currentRoomType.StartsWith(NormalRoom, StringComparison.Ordinal) Then
                 newVersion = Integer.Parse(currentRoomType.Substring(NormalRoom.Length, currentRoomType.Length - NormalRoom.Length - 1))
 
-                If newVersion > myGameVersionNumber Then
-                    myGameVersionNumber = newVersion
-                    Cloud.Service.SetSettingAsync(GameVersionSetting, CStr(myGameVersionNumber))
+                If newVersion > GameVersionNumber Then
+                    GameVersionNumber = newVersion
+                    Cloud.Service.SetSettingAsync(GameVersionSetting, CStr(GameVersionNumber))
                     Exit Sub
                 End If
             End If
@@ -831,9 +844,9 @@ Friend NotInheritable Class Connection
             Case GetType(UpgradeReceiveMessage)
                 Dim m As UpgradeReceiveMessage = DirectCast(e, UpgradeReceiveMessage)
                 RaiseEvent PreviewReceiveUpgrade(Me, m)
-                myGameVersionNumber += 1
+                GameVersionNumber += 1
+                Cloud.Service.SetSettingAsync("GameVersion", CStr(GameVersionNumber))
                 Cloud.Logger.Log(LogPriority.Info, "The game has been updated!")
-                Cloud.Service.SetSettingAsync("GameVersion", CStr(myGameVersionNumber))
                 RaiseEvent ReceiveUpgrade(Me, m)
 
             Case GetType(InfoReceiveMessage)
