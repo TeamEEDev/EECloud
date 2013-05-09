@@ -36,15 +36,21 @@ Public Interface IChatter
     ''' Kicks a user
     ''' </summary>
     ''' <param name="username">The username of the person being kicked.</param>
-    ''' <param name="msg">The reason for the kick.</param>
+    ''' <param name="reason">The reason for the kick.</param>
     ''' <remarks></remarks>
-    Sub Kick(username As String, msg As String)
+    Sub Kick(username As String, reason As String)
+
+    ''' <summary>
+    ''' Kicks all guests
+    ''' </summary>
+    ''' <remarks></remarks>
+    Sub KickGuests()
 
     ''' <summary>
     ''' Reloads the level from its last save.
     ''' </summary>
     ''' <remarks></remarks>
-    Sub Loadlevel()
+    Sub LoadLevel()
 
     ''' <summary>
     ''' Resets everyone's position
