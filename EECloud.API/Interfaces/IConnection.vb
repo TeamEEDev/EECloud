@@ -1,5 +1,41 @@
 ﻿Public Interface IConnection
 
+    ''' <summary>
+    ''' Returns true if the connection is still active.
+    ''' </summary>
+    ReadOnly Property Connected As Boolean
+
+    ''' <summary>
+    ''' The world's ID
+    ''' </summary>
+    ReadOnly Property WorldID As String
+
+    ''' <summary>
+    ''' Determines whether a disconnect is expected by the user. If it is, EECloud won't try to rejoin the same world as it is in, but will restart showing the "Join world" dialog.
+    ''' </summary>
+    Property UserExpectingDisconnect As Boolean
+
+
+    ''' <summary>
+    ''' Connects using the given data.
+    ''' </summary>
+    ''' <param name="type">The type of the account used to log in.</param>
+    ''' <param name="username">Username, e-mail address, or access token</param>
+    ''' <param name="id">The ID of the world to join.</param>
+    Function ConnectAsync(type As AccountType, username As String, password As String, id As String) As Task
+
+    ''' <summary>
+    ''' Sends the given message.
+    ''' </summary>
+    ''' <param name="message">The message being sent</param>
+    Sub Send(message As SendMessage)
+
+    ''' <summary>
+    ''' Terminates the connection.
+    ''' </summary>
+    Sub Close(Optional restart As Boolean = False)
+
+
     Event InitComplete As EventHandler
     Event ReceiveMessage As EventHandler(Of ReceiveMessage)
     Event Disconnecting As EventHandler(Of EventArgs)
@@ -136,40 +172,5 @@
     Event UploadWorldPortalPlace As EventHandler(Of Cancelable(Of WorldPortalPlaceUploadMessage))
     Event UploadLabelPlace As EventHandler(Of Cancelable(Of LabelPlaceUploadMessage))
     Event UploadRotatablePlace As EventHandler(Of Cancelable(Of RotatablePlaceUploadMessage))
-
-
-    ''' <summary>
-    ''' Returns true if the connection is still active.
-    ''' </summary>
-    ReadOnly Property Connected As Boolean
-
-    ''' <summary>
-    ''' The world's ID
-    ''' </summary>
-    ReadOnly Property WorldID As String
-
-    ''' <summary>
-    ''' Determines whether a disconnect is expected by the user. If it is, EECloud won't try to rejoin the same world as it is in, but will restart showing the "Join world" dialog.
-    ''' </summary>
-    Property UserExpectingDisconnect As Boolean
-
-    ''' <summary>
-    ''' Connects using the given data.
-    ''' </summary>
-    ''' <param name="type">The type of the account used to log in.</param>
-    ''' <param name="username">Username, e-mail address, or access token</param>
-    ''' <param name="id">The ID of the world to join.</param>
-    Function ConnectAsync(type As AccountType, username As String, password As String, id As String) As Task
-
-    ''' <summary>
-    ''' Sends the given message.
-    ''' </summary>
-    ''' <param name="message">The message being sent</param>
-    Sub Send(message As SendMessage)
-
-    ''' <summary>
-    ''' Terminates the connection.
-    ''' </summary>
-    Sub Close(Optional restart As Boolean = False)
 
 End Interface

@@ -1,13 +1,9 @@
 ﻿Friend Interface IPlayer
 
-    Event GroupChange As EventHandler
-    Event LoadUserData As EventHandler(Of UserData)
-    Event UserDataReady As EventHandler
-    Event SaveUserData As EventHandler
-
     ReadOnly Property Username As String
     ReadOnly Property UserID As Integer
     ReadOnly Property DatabaseName As String
+
     ReadOnly Property IsUserDataReady As Boolean
     ReadOnly Property IsGuest As Boolean
     ReadOnly Property IsGod As Boolean
@@ -60,9 +56,11 @@
 
     Property Group As Group
 
+
     Sub Save()
     Sub ReloadUserData()
     Function ReloadUserDataAsync() As Task
+
     Sub Reply(msg As String)
     Sub Kick(msg As String)
     Sub Kick()
@@ -71,5 +69,11 @@
     Sub Kill()
     Sub Teleport()
     Sub Teleport(x As Integer, y As Integer)
+
+
+    Event GroupChange As EventHandler
+    Event LoadUserData As EventHandler(Of UserData)
+    Event UserDataReady As EventHandler
+    Event SaveUserData As EventHandler
 
 End Interface
