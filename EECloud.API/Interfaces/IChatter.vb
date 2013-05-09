@@ -4,12 +4,6 @@
 Public Interface IChatter
 
     ''' <summary>
-    ''' Sends a message to the specified user.
-    ''' </summary>
-    ''' <param name="msg">The message text to be sent.</param>
-    Sub Reply(username As String, msg As String)
-
-    ''' <summary>
     ''' Sends a chat message with the current chat style.
     ''' </summary>
     ''' <param name="msg">The message text to be sent.</param>
@@ -20,6 +14,12 @@ Public Interface IChatter
     ''' </summary>
     ''' <param name="msg">The message text to be sent.</param>
     Sub Send(msg As String)
+
+    ''' <summary>
+    ''' Sends a message to the specified user.
+    ''' </summary>
+    ''' <param name="msg">The message text to be sent.</param>
+    Sub Reply(username As String, msg As String)
 
     ''' <summary>
     ''' Kicks a user
