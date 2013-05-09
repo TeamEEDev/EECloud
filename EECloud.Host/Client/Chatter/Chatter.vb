@@ -41,8 +41,16 @@
         myInternalChatter.SendChat(myInternalChatter.ChatSyntaxProvider.ApplyReplySyntax(msg, myChatName, username))
     End Sub
 
-    Friend Sub Kick(username As String, msg As String) Implements IChatter.Kick
-        myInternalChatter.SendChat(myInternalChatter.ChatSyntaxProvider.ApplyKickSyntax(myChatName, username, msg))
+    Public Sub Kick(username As String) Implements IChatter.Kick
+        myInternalChatter.SendChat(myInternalChatter.ChatSyntaxProvider.ApplyKickSyntax(myChatName, username, String.Empty))
+    End Sub
+
+    Friend Sub Kick(username As String, reason As String) Implements IChatter.Kick
+        myInternalChatter.SendChat(myInternalChatter.ChatSyntaxProvider.ApplyKickSyntax(myChatName, username, reason))
+    End Sub
+
+    Friend Sub KickGuests() Implements IChatter.KickGuests
+        myInternalChatter.SendChat("/kickguests")
     End Sub
 
     Friend Sub Loadlevel() Implements IChatter.Loadlevel
@@ -109,10 +117,6 @@
 
     Public Sub KillAll() Implements IChatter.KillAll
         myInternalChatter.SendChat("/killemall")
-    End Sub
-
-    Public Sub Kick(username As String) Implements IChatter.Kick
-        myInternalChatter.SendChat(myInternalChatter.ChatSyntaxProvider.ApplyKickSyntax(myChatName, username, String.Empty))
     End Sub
 
     Public Sub Teleport(username As String) Implements IChatter.Teleport

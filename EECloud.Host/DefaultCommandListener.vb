@@ -408,6 +408,12 @@
         KickCommand(request, username, New String() {})
     End Sub
 
+    <Command("kickguests", Group.Trusted, AccessRight:=AccessRight.Owner)>
+    Public Sub KickGuestsCommand(request As CommandRequest)
+        myClient.Chatter.KickGuests()
+        request.Sender.Reply("Guests have been kicked.")
+    End Sub
+
 
     <Command("kill", Group.Moderator)>
     Public Sub KillCommand(request As CommandRequest, username As String)
@@ -455,6 +461,18 @@
         If player IsNot Nothing Then
             myClient.Chatter.Teleport(player.Username, posX, posY)
             request.Sender.Reply(player.Username.ToUpper(InvariantCulture) & " has been teleported.")
+        Else
+            request.Sender.Reply("Can't find player.")
+        End If
+    End Sub
+
+
+    <Command("getpos", Group.Trusted, AccessRight:=AccessRight.Owner, Aliases:={"pos"})>
+    Public Sub GetPosCommand(request As CommandRequest, username As String)
+        Dim player As Player = GetPlayer(username)
+        If player IsNot Nothing Then
+            request.Sender.Reply(player.Username.ToUpper(InvariantCulture) & "'s current position is " &
+                                 player.BlockX & " | " & player.BlockY)
         Else
             request.Sender.Reply("Can't find player.")
         End If
