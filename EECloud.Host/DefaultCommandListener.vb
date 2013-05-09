@@ -331,6 +331,17 @@
     End Sub
 
 
+    <Command("potionson", Group.Moderator)>
+    Public Sub PotionsOnCommand(request As CommandRequest, ParamArray potions As String())
+        myClient.Chatter.PotionsOn(potions)
+    End Sub
+
+    <Command("potionsoff", Group.Moderator)>
+    Public Sub PotionsOffCommand(request As CommandRequest, ParamArray potions As String())
+        myClient.Chatter.PotionsOff(potions)
+    End Sub
+
+
     <Command("name", Group.Moderator, AccessRight:=AccessRight.Owner)>
     Public Sub ChangeWorldNameCommand(request As CommandRequest, ParamArray newName As String())
         myClient.Connection.Send(New ChangeWorldNameSendMessage(String.Join(" ", newName)))
@@ -417,6 +428,36 @@
     <Command("respawnall", Group.Moderator, Aliases:={"respawnplayers"})>
     Public Sub RespawnAllCommand(request As CommandRequest)
         myClient.Chatter.RespawnAll()
+    End Sub
+
+
+    <Command("teleport", Group.Moderator, AccessRight:=AccessRight.Owner, Aliases:={"tele"})>
+    Public Sub TeleportCommand(request As CommandRequest, username As String)
+        Dim player As Player = GetPlayer(username)
+        If player IsNot Nothing Then
+            myClient.Chatter.Teleport(player.Username)
+            request.Sender.Reply(player.Username.ToUpper(InvariantCulture) & " has been teleported.")
+        Else
+            request.Sender.Reply("Can't find player.")
+        End If
+    End Sub
+
+    <Command("teleport", Group.Moderator, AccessRight:=AccessRight.Owner, Aliases:={"tele"})>
+    Public Sub TeleportCommand(request As CommandRequest, username As String, x As String, y As String)
+        Dim posX As Integer
+        Dim posY As Integer
+        If Not Integer.TryParse(x, posX) OrElse Not Integer.TryParse(y, posY) Then
+            request.Sender.Reply("Invalid arguments.")
+            Exit Sub
+        End If
+
+        Dim player As Player = GetPlayer(username)
+        If player IsNot Nothing Then
+            myClient.Chatter.Teleport(player.Username, posX, posY)
+            request.Sender.Reply(player.Username.ToUpper(InvariantCulture) & " has been teleported.")
+        Else
+            request.Sender.Reply("Can't find player.")
+        End If
     End Sub
 
 #End Region
