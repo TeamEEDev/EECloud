@@ -61,6 +61,40 @@
         myInternalChatter.SendChat("/removeedit " & username)
     End Sub
 
+    Public Sub PotionsOn(ParamArray potions As String()) Implements IChatter.PotionsOn
+        myInternalChatter.SendChat("/potionson  " & String.Join(" ", potions))
+    End Sub
+
+    Public Sub PotionsOn(ParamArray potions As Integer()) Implements IChatter.PotionsOn
+        myInternalChatter.SendChat("/potionson  " & String.Join(" ", potions))
+    End Sub
+
+    Public Sub PotionsOn(ParamArray potions As Potion()) Implements IChatter.PotionsOn
+        Dim p(potions.Length - 1) As Integer
+        For n = 0 To potions.Length - 1
+            p(n) = CInt(potions(n))
+        Next
+
+        myInternalChatter.SendChat("/potionson  " & String.Join(" ", p))
+    End Sub
+
+    Public Sub PotionsOff(ParamArray potions As String()) Implements IChatter.PotionsOff
+        myInternalChatter.SendChat("/potionsoff  " & String.Join(" ", potions))
+    End Sub
+
+    Public Sub PotionsOff(ParamArray potions As Integer()) Implements IChatter.PotionsOff
+        myInternalChatter.SendChat("/potionsoff  " & String.Join(" ", potions))
+    End Sub
+
+    Public Sub PotionsOff(ParamArray potions As Potion()) Implements IChatter.PotionsOff
+        Dim p(potions.Length - 1) As Integer
+        For n = 0 To potions.Length - 1
+            p(n) = CInt(potions(n))
+        Next
+
+        myInternalChatter.SendChat("/potionsoff  " & String.Join(" ", p))
+    End Sub
+
     Public Sub Respawn() Implements IChatter.Respawn
         myInternalChatter.SendChat("/respawn")
     End Sub

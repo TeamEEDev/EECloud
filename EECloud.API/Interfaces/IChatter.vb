@@ -7,8 +7,7 @@ Public Interface IChatter
     ''' <summary>
     ''' Sends a message to the specified user.
     ''' </summary>
-    ''' <param name="username">The username of the user.</param>
-    ''' <param name="msg">The message text.</param>
+    ''' <param name="msg">The message text to be sent.</param>
     ''' <remarks></remarks>
     Sub Reply(username As String, msg As String)
 
@@ -27,14 +26,14 @@ Public Interface IChatter
     Sub Send(msg As String)
 
     ''' <summary>
-    ''' Kicks a user.
+    ''' Kicks a user
     ''' </summary>
     ''' <param name="username">The username of the person being kicked.</param>
     ''' <remarks></remarks>
     Sub Kick(username As String)
 
     ''' <summary>
-    ''' Kicks a user.
+    ''' Kicks a user
     ''' </summary>
     ''' <param name="username">The username of the person being kicked.</param>
     ''' <param name="msg">The reason for the kick.</param>
@@ -42,13 +41,13 @@ Public Interface IChatter
     Sub Kick(username As String, msg As String)
 
     ''' <summary>
-    ''' Reloads the level data.
+    ''' Reloads the level from its last save.
     ''' </summary>
     ''' <remarks></remarks>
     Sub Loadlevel()
 
     ''' <summary>
-    ''' Resets everyone's position.
+    ''' Resets everyone's position
     ''' </summary>
     ''' <remarks></remarks>
     Sub Reset()
@@ -56,19 +55,53 @@ Public Interface IChatter
     ''' <summary>
     ''' Gives edit rights to a user
     ''' </summary>
-    ''' <param name="username">The username of the target</param>
     ''' <remarks></remarks>
     Sub GiveEdit(username As String)
 
     ''' <summary>
     ''' Takes edit rights away from a user
     ''' </summary>
-    ''' <param name="username">The username of the target</param>
     ''' <remarks></remarks>
     Sub RemoveEdit(username As String)
 
     ''' <summary>
-    ''' Respawns the bot, moving it to the last checkpoint or its spawn
+    ''' Enables the use of specific potions in the world.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Sub PotionsOn(ParamArray potions As String())
+
+    ''' <summary>
+    ''' Enables the use of specific potions in the world.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Sub PotionsOn(ParamArray potions As Integer())
+
+    ''' <summary>
+    ''' Enables the use of specific potions in the world.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Sub PotionsOn(ParamArray potions As Potion())
+
+    ''' <summary>
+    ''' Disables the use of specific potions in the world.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Sub PotionsOff(ParamArray potions As String())
+
+    ''' <summary>
+    ''' Disables the use of specific potions in the world.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Sub PotionsOff(ParamArray potions As Integer())
+
+    ''' <summary>
+    ''' Disables the use of specific potions in the world.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Sub PotionsOff(ParamArray potions As Potion())
+
+    ''' <summary>
+    ''' Respawns the bot, moving it to the last checkpoint or its spawn position.
     ''' </summary>
     ''' <remarks></remarks>
     Sub Respawn()
@@ -92,19 +125,19 @@ Public Interface IChatter
     Sub KillAll()
 
     ''' <summary>
-    ''' Teleports the given player
+    ''' Teleports the given player to the host's current location.
     ''' </summary>
     ''' <remarks></remarks>
     Sub Teleport(username As String)
 
     ''' <summary>
-    ''' Teleports the given player
+    ''' Teleports the given player to a specific position.
     ''' </summary>
     ''' <remarks></remarks>
     Sub Teleport(username As String, x As Integer, y As Integer)
 
     ''' <summary>
-    ''' The Syntax provider used to generate chat strings
+    ''' The syntax provider used to generate chat strings
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
