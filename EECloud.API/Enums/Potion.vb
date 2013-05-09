@@ -1,4 +1,5 @@
 ﻿Public Enum Potion
+
     RedAura = 1
     BlueAura = 2
     YellowAura = 3
@@ -12,4 +13,5 @@
     Levitation = 11
     Flaunt = 12
     Solitude = 13
+
 End Enum

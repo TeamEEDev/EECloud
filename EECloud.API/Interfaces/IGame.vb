@@ -1,4 +1,5 @@
 ﻿Public Interface IGame
+
     ReadOnly Property WorldName As String
     ReadOnly Property AccessRight As AccessRight
     ReadOnly Property Encryption As String
@@ -11,4 +12,5 @@
     ReadOnly Property TotalWoots As Integer
 
     ReadOnly Property MyPlayer As Player
+
 End Interface

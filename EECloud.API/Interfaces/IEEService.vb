@@ -1,4 +1,5 @@
 ﻿Public Interface IEEService
+
     ReadOnly Property ConnectionString As String
 
 
@@ -49,11 +50,15 @@
 
     Sub OptimizeTables(ParamArray tableNames As String())
     Function OptimizeTablesAsync(ParamArray tableNames As String()) As Task
+
 End Interface
 
+
 Public NotInheritable Class UserData
+
     Public Property Username As String
     Public Property GroupID As Short
     Public Property YoScrollWins As UShort
     Public Property FTBreakerWins As UShort
+
 End Class
