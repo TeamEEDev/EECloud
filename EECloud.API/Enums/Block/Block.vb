@@ -1,4 +1,5 @@
 ﻿Public Enum Block
+
     BlockGravityNothing = 0
     BlockGravityLeft = 1
     BlockGravityUp = 2
@@ -580,4 +581,5 @@
     BackgroundChristmas2012Blue = 626
 
     DecorationLabel = 1000
+
 End Enum

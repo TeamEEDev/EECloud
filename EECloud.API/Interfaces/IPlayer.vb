@@ -1,4 +1,5 @@
 ﻿Friend Interface IPlayer
+
     Event GroupChange As EventHandler
     Event LoadUserData As EventHandler(Of UserData)
     Event UserDataReady As EventHandler
@@ -70,4 +71,5 @@
     Sub Kill()
     Sub Teleport()
     Sub Teleport(x As Integer, y As Integer)
+
 End Interface

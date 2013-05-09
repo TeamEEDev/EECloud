@@ -1,4 +1,5 @@
 ﻿Public Enum AutoText
+
     None = -1
     Hi = 1
     Bye = 2
@@ -10,4 +11,5 @@
     No = 8
     Right = 9
     Left = 0
+
 End Enum

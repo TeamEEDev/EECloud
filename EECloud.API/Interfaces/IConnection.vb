@@ -1,4 +1,5 @@
 ﻿Public Interface IConnection
+
     Event InitComplete As EventHandler
     Event ReceiveMessage As EventHandler(Of ReceiveMessage)
     Event Disconnecting As EventHandler(Of EventArgs)
@@ -140,48 +141,35 @@
     ''' <summary>
     ''' Returns true if the connection is still active.
     ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
     ReadOnly Property Connected As Boolean
 
     ''' <summary>
     ''' The world's ID
     ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
     ReadOnly Property WorldID As String
 
     ''' <summary>
     ''' Determines whether a disconnect is expected by the user. If it is, EECloud won't try to rejoin the same world as it is in, but will restart showing the "Join world" dialog.
     ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
     Property UserExpectingDisconnect As Boolean
 
     ''' <summary>
     ''' Connects using the given data.
     ''' </summary>
-    ''' <param name="type">AccountType we are using to login</param>
-    ''' <param name="username">Username, Email or Token</param>
-    ''' <param name="password">Password</param>
-    ''' <param name="id">WorldID we are entering</param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
+    ''' <param name="type">The type of the account used to log in.</param>
+    ''' <param name="username">Username, e-mail address, or access token</param>
+    ''' <param name="id">The ID of the world to join.</param>
     Function ConnectAsync(type As AccountType, username As String, password As String, id As String) As Task
 
     ''' <summary>
     ''' Sends the given message.
     ''' </summary>
     ''' <param name="message">The message being sent</param>
-    ''' <remarks></remarks>
     Sub Send(message As SendMessage)
 
     ''' <summary>
     ''' Terminates the connection.
     ''' </summary>
-    ''' <remarks></remarks>
     Sub Close(Optional restart As Boolean = False)
+
 End Interface

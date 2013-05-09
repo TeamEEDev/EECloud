@@ -1,4 +1,5 @@
 ﻿Public Interface IKeyManager
+
     Event OnPress As EventHandler(Of Key)
     Event OnRelease As EventHandler(Of Key)
 
@@ -15,4 +16,5 @@
     Sub PressRedKey()
     Sub PressBlueKey()
     Sub PressGreenKey()
+
 End Interface
