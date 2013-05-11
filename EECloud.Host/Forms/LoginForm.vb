@@ -3,12 +3,10 @@
 Friend NotInheritable Class LoginForm
 
 #Region "Fields"
-
     Private ReadOnly regularAccounts As New List(Of Integer)
     Private ReadOnly facebookAccounts As New List(Of Integer)
 
     Private selectedLoginType As AccountType
-
 #End Region
 
 #Region "Methods"
