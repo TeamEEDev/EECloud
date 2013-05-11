@@ -30,7 +30,6 @@ Module ModuleMain
 #End Region
 
 #Region "Fields"
-
     Private ReadOnly myHandle As IntPtr = GetConsoleWindow()
 
     Private WithEvents myAppProcess As New Process() With {.StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\EECloud.exe") With {.UseShellExecute = False},
@@ -42,7 +41,6 @@ Module ModuleMain
 
     Private myLastRestart As Date
     Private myRestartTry As Integer
-
 #End Region
 
 #Region "Properties"

@@ -1,55 +1,55 @@
 ﻿''' <summary>
-''' A client that has its own connection and has details about the current room it is in.
+''' A Client that has its own Connection and has details about the current room it is in.
 ''' </summary>
 Public Interface IClient(Of TPlayer As {Player, New})
 
     ''' <summary>
-    ''' The connection to a room.
+    ''' The Connection to a room
     ''' </summary>
     ReadOnly Property Connection As IConnection
 
     ''' <summary>
-    ''' The client's main chatter instance.
+    ''' The Client's main Chatter instance
     ''' </summary>
     ReadOnly Property Chatter As IChatter
 
     ''' <summary>
-    ''' The client's world instance.
+    ''' The Client's World instance
     ''' </summary>
     ReadOnly Property World As IWorld
 
     ''' <summary>
-    ''' The client's main uploader instance that can upload blocks to a world.
+    ''' The Client's main Uploader instance that can upload blocks to a world.
     ''' </summary>
     ReadOnly Property Uploader As IUploader
 
     ''' <summary>
-    ''' The client's plugin manager service you can enable/disable plugins for the client with.
+    ''' The Plugin Manager service you can enable/disable plugins for this Client with.
     ''' </summary>
     ReadOnly Property PluginManager As IPluginManager
 
     ''' <summary>
-    ''' The client's player manager service that contains data about users of the current room the client is in.
+    ''' The Player Manager service that contains data about users of the current room this Client is in.
     ''' </summary>
     ReadOnly Property PlayerManager As IPlayerManager(Of TPlayer)
 
     ''' <summary>
-    ''' The client's command manager service. If it wouldn't exist, you wouldn't be able to give the client any commands.
+    ''' The Command Manager service which allows you to give commands to this Client.
     ''' </summary>
     ReadOnly Property CommandManager As ICommandManager
 
     ''' <summary>
-    ''' Details and options for the world the client is in.
+    ''' Details and options for the World the Client is in.
     ''' </summary>
     ReadOnly Property Game As IGame
 
     ''' <summary>
-    ''' The client's key manager that is responsible for firing key, switch, etc. press/release/toggle events.
+    ''' The Client's Key Manager service that is responsible for firing key, switch, etc. press/release/toggle events.
     ''' </summary>
     ReadOnly Property KeyManager As IKeyManager
 
     ''' <summary>
-    ''' The client's potion manager that is responsible for keeping track of player's potions
+    ''' The Client's Potion Manager service that is responsible for keeping track of players' potions.
     ''' </summary>
     ReadOnly Property PotionManager As IPotionManager
 

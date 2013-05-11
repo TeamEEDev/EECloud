@@ -29,6 +29,7 @@
         myChatName = name
     End Sub
 
+
     Friend Sub Chat(msg As String) Implements IChatter.Chat
         myInternalChatter.SendChat(myInternalChatter.ChatSyntaxProvider.ApplyChatSyntax(msg, myChatName))
     End Sub
@@ -40,6 +41,24 @@
     Friend Sub Reply(username As String, msg As String) Implements IChatter.Reply
         myInternalChatter.SendChat(myInternalChatter.ChatSyntaxProvider.ApplyReplySyntax(msg, myChatName, username))
     End Sub
+
+
+    Public Sub GiveEdit(username As String) Implements IChatter.GiveEdit
+        myInternalChatter.SendChat("/giveedit " & username)
+    End Sub
+
+    Public Sub RemoveEdit(username As String) Implements IChatter.RemoveEdit
+        myInternalChatter.SendChat("/removeedit " & username)
+    End Sub
+
+    Public Sub Teleport(username As String) Implements IChatter.Teleport
+        myInternalChatter.SendChat("/teleport " & username)
+    End Sub
+
+    Public Sub Teleport(username As String, x As Integer, y As Integer) Implements IChatter.Teleport
+        myInternalChatter.SendChat("/teleport " & username & " " & x & " " & y)
+    End Sub
+
 
     Public Sub Kick(username As String) Implements IChatter.Kick
         myInternalChatter.SendChat(myInternalChatter.ChatSyntaxProvider.ApplyKickSyntax(myChatName, username, String.Empty))
@@ -53,21 +72,26 @@
         myInternalChatter.SendChat("/kickguests")
     End Sub
 
-    Friend Sub Loadlevel() Implements IChatter.Loadlevel
-        myInternalChatter.SendChat("/loadlevel")
+    Public Sub Kill(username As String) Implements IChatter.Kill
+        myInternalChatter.SendChat("/kill " & username)
+    End Sub
+
+    Public Sub KillAll() Implements IChatter.KillAll
+        myInternalChatter.SendChat("/killemall")
     End Sub
 
     Friend Sub Reset() Implements IChatter.Reset
         myInternalChatter.SendChat("/reset")
     End Sub
 
-    Public Sub GiveEdit(username As String) Implements IChatter.GiveEdit
-        myInternalChatter.SendChat("/giveedit " & username)
+    Public Sub Respawn() Implements IChatter.Respawn
+        myInternalChatter.SendChat("/respawn")
     End Sub
 
-    Public Sub RemoveEdit(username As String) Implements IChatter.RemoveEdit
-        myInternalChatter.SendChat("/removeedit " & username)
+    Public Sub RespawnAll() Implements IChatter.RespawnAll
+        myInternalChatter.SendChat("/respawnall")
     End Sub
+
 
     Public Sub PotionsOn(ParamArray potions As String()) Implements IChatter.PotionsOn
         myInternalChatter.SendChat("/potionson  " & String.Join(" ", potions))
@@ -103,28 +127,9 @@
         myInternalChatter.SendChat("/potionsoff  " & String.Join(" ", p))
     End Sub
 
-    Public Sub Respawn() Implements IChatter.Respawn
-        myInternalChatter.SendChat("/respawn")
-    End Sub
 
-    Public Sub RespawnAll() Implements IChatter.RespawnAll
-        myInternalChatter.SendChat("/respawnall")
-    End Sub
-
-    Public Sub Kill(username As String) Implements IChatter.Kill
-        myInternalChatter.SendChat("/kill " & username)
-    End Sub
-
-    Public Sub KillAll() Implements IChatter.KillAll
-        myInternalChatter.SendChat("/killemall")
-    End Sub
-
-    Public Sub Teleport(username As String) Implements IChatter.Teleport
-        myInternalChatter.SendChat("/teleport " & username)
-    End Sub
-
-    Public Sub Teleport(username As String, x As Integer, y As Integer) Implements IChatter.Teleport
-        myInternalChatter.SendChat("/teleport " & username & " " & x & " " & y)
+    Friend Sub LoadLevel() Implements IChatter.LoadLevel
+        myInternalChatter.SendChat("/loadlevel")
     End Sub
 
 #End Region

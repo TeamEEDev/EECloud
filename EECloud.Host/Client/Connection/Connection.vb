@@ -57,6 +57,7 @@ Friend NotInheritable Class Connection
 #End Region
 
 #Region "Events"
+
     Friend Event Disconnect(sender As Object, e As DisconnectEventArgs) Implements IConnection.Disconnect
 
     Friend Event Disconnecting(sender As Object, e As EventArgs) Implements IConnection.Disconnecting

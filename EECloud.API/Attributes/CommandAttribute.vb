@@ -32,7 +32,7 @@ Public NotInheritable Class CommandAttribute
     Public Property AccessRight As AccessRight
     
     ''' <summary>
-    ''' Alternative types for this command
+    ''' Alternative Types for this command
     ''' </summary>
     Public Property Aliases As String()
 

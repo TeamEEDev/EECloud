@@ -1,11 +1,9 @@
 ﻿Friend NotInheritable Class DefaultCommandListener
 
 #Region "Fields"
-
     Private ReadOnly myClient As IClient(Of Player)
     Private WithEvents myConnection As IConnection
     Private WithEvents myPlayerManager As IPlayerManager(Of Player)
-
 #End Region
 
 #Region "Methods"
@@ -358,7 +356,7 @@
     <Command("loadlevel", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"reload"})>
     Public Sub LoadWorldCommand(request As CommandRequest)
         request.Sender.Reply("Reloaded.")
-        myClient.Chatter.Loadlevel()
+        myClient.Chatter.LoadLevel()
     End Sub
 
     <Command("save", Group.Operator, AccessRight:=AccessRight.Owner)>
