@@ -2,6 +2,7 @@
 
 Public NotInheritable Class RefreshShopReceiveMessage
     Inherits ReceiveMessage
+
     'TODO: Load arguments
 
     Friend Sub New(message As Message)

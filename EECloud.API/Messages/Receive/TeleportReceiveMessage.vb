@@ -2,8 +2,10 @@
 
 Public NotInheritable Class TeleportReceiveMessage
     Inherits ReceiveMessage
-    Public ReadOnly ResetCoins As Boolean
+
     '0
+    Public ReadOnly ResetCoins As Boolean
+
     Public ReadOnly Coordinates As New Dictionary(Of Integer, Point)
 
     Friend Sub New(message As Message)

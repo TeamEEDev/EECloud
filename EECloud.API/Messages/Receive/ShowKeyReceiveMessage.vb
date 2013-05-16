@@ -2,8 +2,9 @@
 
 Public NotInheritable Class ShowKeyReceiveMessage
     Inherits ReceiveMessage
-    Public ReadOnly Keys As Key()
+
     '0
+    Public ReadOnly Keys As Key()
 
     Friend Sub New(message As Message)
         MyBase.New(message)

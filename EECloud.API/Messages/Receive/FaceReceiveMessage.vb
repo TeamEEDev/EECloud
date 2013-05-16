@@ -2,10 +2,11 @@
 
 Public NotInheritable Class FaceReceiveMessage
     Inherits ReceiveMessage
-    Public ReadOnly UserID As Integer
+
     '0
-    Public ReadOnly Face As Smiley
+    Public ReadOnly UserID As Integer
     '1
+    Public ReadOnly Face As Smiley
 
     Friend Sub New(message As Message)
         MyBase.New(message)

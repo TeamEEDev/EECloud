@@ -2,10 +2,11 @@
 
 Public NotInheritable Class WriteReceiveMessage
     Inherits ReceiveMessage
-    Public ReadOnly Title As String
+
     '0
-    Public ReadOnly Text As String
+    Public ReadOnly Title As String
     '1
+    Public ReadOnly Text As String
 
     Friend Sub New(message As Message)
         MyBase.New(message)

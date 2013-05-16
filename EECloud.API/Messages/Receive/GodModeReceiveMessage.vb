@@ -2,10 +2,11 @@
 
 Public NotInheritable Class GodModeReceiveMessage
     Inherits ReceiveMessage
-    Public ReadOnly UserID As Integer
+
     '0
-    Public ReadOnly IsGod As Boolean
+    Public ReadOnly UserID As Integer
     '1
+    Public ReadOnly IsGod As Boolean
 
     Friend Sub New(message As Message)
         MyBase.New(message)

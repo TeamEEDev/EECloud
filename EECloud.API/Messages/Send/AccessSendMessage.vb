@@ -2,6 +2,7 @@
 
 Public NotInheritable Class AccessSendMessage
     Inherits SendMessage
+
     Public ReadOnly EditKey As String
 
     Public Sub New(editKey As String)
