@@ -232,7 +232,7 @@ Friend NotInheritable Class World
     End Sub
 
     Private Sub myConnection_ReceiveWorldPortalPlace(sender As Object, e As WorldPortalPlaceReceiveMessage) Handles myConnection.ReceiveWorldPortalPlace
-        Dim block As New WorldWorldPortalBlock(e.WorldPortalBlock, e.PortalTarget)
+        Dim block As New WorldWorldPortalBlock(e.WorldPortalBlock, e.WorldPortalTarget)
         myBlocks(e.Layer, e.PosX, e.PosY) = block
         RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer))
     End Sub

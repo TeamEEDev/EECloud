@@ -2,6 +2,7 @@
 
 Public NotInheritable Class PotionSendMessage
     Inherits SendMessage
+
     Public ReadOnly Potion As Potion
 
     Public Sub New(potion As Potion)

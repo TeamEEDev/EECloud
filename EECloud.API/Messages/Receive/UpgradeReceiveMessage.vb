@@ -2,6 +2,7 @@
 
 Public NotInheritable Class UpgradeReceiveMessage
     Inherits ReceiveMessage
+
     'No arguments
 
     Friend Sub New(message As Message)

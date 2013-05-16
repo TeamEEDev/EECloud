@@ -2,6 +2,7 @@
 
 Public NotInheritable Class SoundPlaceSendMessage
     Inherits BlockPlaceSendMessage
+
     Public ReadOnly SoundID As Integer
 
     Public Sub New(layer As Layer, x As Integer, y As Integer, block As SoundBlock, soundID As Integer)
