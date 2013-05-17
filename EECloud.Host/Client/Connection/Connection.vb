@@ -48,9 +48,11 @@ Friend NotInheritable Class Connection
             Return myGameVersionNumber
         End Get
         Set(value As Integer)
-            myGameVersionNumber = value
-            My.Settings.GameVersionNumber = value
-            My.Settings.Save()
+            If value <> myGameVersionNumber Then
+                myGameVersionNumber = value
+                My.Settings.GameVersionNumber = value
+                My.Settings.Save()
+            End If
         End Set
     End Property
 
@@ -354,6 +356,8 @@ Friend NotInheritable Class Connection
             Catch
                 Cloud.Logger.Log(LogPriority.Warning, "Invalid GameVersion setting.")
             End Try
+        Else
+            Task.Run(Sub() GetVersion())
         End If
     End Sub
 
@@ -399,6 +403,7 @@ Friend NotInheritable Class Connection
     Private Shared Sub UpdateVersion(ex As PlayerIOError)
         Dim errorMessage As String() = ex.Message.Split("["c)(1).Split(" "c)
         Dim newVersion As Integer
+        Dim versionIsUpToDate As Boolean
 
         Dim currentRoomType As String
         For i = errorMessage.Length - 1 To 0 Step -1
@@ -411,11 +416,15 @@ Friend NotInheritable Class Connection
                     GameVersionNumber = newVersion
                     Cloud.Service.SetSettingAsync(GameVersionSetting, CStr(GameVersionNumber))
                     Exit Sub
+                ElseIf newVersion = GameVersionNumber Then
+                    versionIsUpToDate = True
                 End If
             End If
         Next
 
-        Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get room version.")
+        If Not versionIsUpToDate Then
+            Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get game version.")
+        End If
     End Sub
 
     Private Function RaiseSendEvent(message As SendMessage) As Boolean
