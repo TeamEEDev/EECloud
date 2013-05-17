@@ -42,7 +42,7 @@
 
     Public Event UserDataReady(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).UserDataReady
 
-    Public Event OnTeleport(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnTeleport
+    Public Event OnTeleportEveryone(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnTeleportEveryone
 
     Public Event OnKill(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnKill
 #End Region
@@ -282,13 +282,13 @@
         End If
     End Sub
 
-    Private Sub myConnection_ReceiveTeleport(sender As Object, e As TeleportReceiveMessage) Handles myConnection.ReceiveTeleport
+    Private Sub myConnection_ReceiveTeleportEveryone(sender As Object, e As TeleportEveryoneReceiveMessage) Handles myConnection.ReceiveTeleportEveryone
         Dim p As TPlayer
         For Each p1 In e.Coordinates
             p = Player(p1.Key)
 
             If p IsNot Nothing Then
-                RaiseEvent OnTeleport(Me, p)
+                RaiseEvent OnTeleportEveryone(Me, p)
             End If
         Next
     End Sub

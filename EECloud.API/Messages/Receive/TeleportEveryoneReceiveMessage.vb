@@ -1,6 +1,6 @@
 ﻿Imports PlayerIOClient
 
-Public NotInheritable Class TeleportReceiveMessage
+Public NotInheritable Class TeleportEveryoneReceiveMessage
     Inherits ReceiveMessage
 
     '0
