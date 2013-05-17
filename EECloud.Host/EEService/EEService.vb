@@ -441,7 +441,7 @@
 
 #Region "Miscellaneous"
     Public Sub ForceOpenConnection() Implements IEEService.ForceOpenConnection
-        If Connection.State <> ConnectionState.Open Then
+        If Connection.State = ConnectionState.Closed Then
             Connection.Open()
         End If
     End Sub
