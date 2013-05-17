@@ -41,7 +41,7 @@ Friend NotInheritable Class Connection
 
     Friend Property UserExpectingDisconnect As Boolean Implements IConnection.UserExpectingDisconnect
 
-    Private Shared myGameVersionNumber As Integer
+    Private Shared myGameVersionNumber As Integer = My.Settings.GameVersionNumber
 
     Private Shared Property GameVersionNumber As Integer
         Get
@@ -336,11 +336,21 @@ Friend NotInheritable Class Connection
 
     Sub New(client As IClient(Of Player))
         myClient = client
-        myGameVersionNumber = My.Settings.GameVersionNumber
 
         If GameVersionNumber = 0 Then
             Try
-                GameVersionNumber = Integer.Parse(Cloud.Service.GetSetting(GameVersionSetting))
+                Dim task1 = Cloud.Service.GetSettingAsync(GameVersionSetting)
+                Dim task2 = Task.Run(Of Boolean)(Function() GetVersion())
+
+                Dim completedTask As Integer = Task.WaitAny(task1, task2)
+                If completedTask = 0 Then
+                    GameVersionNumber = Integer.Parse(task1.Result)
+                Else
+                    If Not task2.Result Then
+                        'Wait for the result of the MySQL query
+                        GameVersionNumber = Integer.Parse(task1.Result)
+                    End If
+                End If
             Catch
                 Cloud.Logger.Log(LogPriority.Warning, "Invalid GameVersion setting.")
             End Try
@@ -370,6 +380,20 @@ Friend NotInheritable Class Connection
                 Throw
             End If
         End Try
+    End Function
+
+    Private Shared Function GetVersion() As Boolean
+        Try
+            Dim client = PlayerIO.QuickConnect.SimpleConnect(GameID, "guest", "guest")
+            client.Multiplayer.CreateJoinRoom("Nothing", "Nothing", False, Nothing, Nothing)
+        Catch ex As PlayerIOError
+            If ex.ErrorCode = ErrorCode.UnknownRoomType Then
+                UpdateVersion(ex)
+                Return True
+            End If
+        End Try
+
+        Return False 'Something went wrong
     End Function
 
     Private Shared Sub UpdateVersion(ex As PlayerIOError)
