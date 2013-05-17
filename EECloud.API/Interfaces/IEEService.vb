@@ -53,6 +53,7 @@
 
 
     Sub ForceOpenConnection()
+    Function ForceOpenConnectionAsync() As Task
 
 End Interface
 

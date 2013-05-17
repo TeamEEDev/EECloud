@@ -446,6 +446,10 @@
         End If
     End Sub
 
+    Public Function ForceOpenConnectionAsync() As Task Implements IEEService.ForceOpenConnectionAsync
+        Return Task.Run(Sub() ForceOpenConnection())
+    End Function
+
 
     Private Shared Function ParsePlayerData(reader As MySqlDataReader) As UserData
         If reader Is Nothing Then
