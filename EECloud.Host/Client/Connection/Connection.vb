@@ -345,13 +345,9 @@ Friend NotInheritable Class Connection
                 Dim task2 = Task.Run(Of Boolean)(Function() GetVersion())
 
                 Dim completedTask As Integer = Task.WaitAny(task1, task2)
-                If completedTask = 0 Then
+                If completedTask = 0 OrElse Not task2.Result Then
+                    'Use the result of the MySQL query
                     GameVersionNumber = Integer.Parse(task1.Result)
-                Else
-                    If Not task2.Result Then
-                        'Wait for the result of the MySQL query
-                        GameVersionNumber = Integer.Parse(task1.Result)
-                    End If
                 End If
             Catch
                 Cloud.Logger.Log(LogPriority.Warning, "Invalid GameVersion setting.")
