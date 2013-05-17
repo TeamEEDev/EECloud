@@ -1,23 +1,23 @@
 ﻿''' <summary>
 ''' Describes the door/gate which state has just been changed.
 ''' </summary>
-    Public Enum Key
-    
+Public Enum Key
+
     ''' <summary>
     ''' The red door/gate
     ''' </summary>
     Red
-    
+
     ''' <summary>
     ''' The green door/gate
     ''' </summary>
     Green
-    
+
     ''' <summary>
     ''' The blue door/gate
     ''' </summary>
     Blue
-    
+
     ''' <summary>
     ''' The timed door/gate
     ''' </summary>

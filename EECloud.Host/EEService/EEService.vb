@@ -25,7 +25,7 @@
             Throw New ArgumentNullException("key")
         End If
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand("SELECT SettingValue FROM settings WHERE SettingKey = @SettingKey",
                                           Connection)
@@ -51,7 +51,7 @@
             End If
         Next
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand("SELECT SettingKey, SettingValue FROM settings WHERE SettingKey = @SettingKey0",
                                           Connection)
@@ -90,7 +90,7 @@
             Throw New ArgumentNullException("value")
         End If
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand("INSERT INTO settings VALUES (@SettingKey, @SettingValue) ON DUPLICATE KEY UPDATE SettingValue = @SettingValue",
                                           Connection)
@@ -117,7 +117,7 @@
             End If
         Next
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand(String.Empty, Connection)
             For i = 0 To keyValuePairs.Length - 1
@@ -141,7 +141,7 @@
             Throw New ArgumentNullException("username")
         End If
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand("SELECT * FROM playerData WHERE Username = @Username",
                                           Connection)
@@ -173,7 +173,7 @@
             End If
         Next
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand("SELECT * FROM playerData WHERE Username = @Username0",
                                           Connection)
@@ -217,7 +217,7 @@
         limit = Math.Min(limit, 1000)
         If String.IsNullOrWhiteSpace(orderBy) Then orderBy = "Username"
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand("SELECT * FROM playerData ORDER BY @OrderBy LIMIT @Limit OFFSET @Offset",
                                           Connection)
@@ -259,7 +259,7 @@
             Exit Sub
         End If
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand("INSERT INTO playerData (Username, GroupID) VALUES (@Username, @GroupID) ON DUPLICATE KEY UPDATE GroupID = @GroupID",
                                           Connection)
@@ -280,7 +280,7 @@
             Throw New ArgumentNullException("username")
         End If
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand(String.Format("INSERT INTO playerData (Username, {0}Wins) VALUES (@Username, @Wins) ON DUPLICATE KEY UPDATE {0}Wins = @Wins",
                                                         gameName.ToString()),
@@ -303,7 +303,7 @@
             Throw New ArgumentNullException("factGroup")
         End If
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand("SELECT FactID FROM facts WHERE FactGroup = @FactGroup",
                                           Connection)
@@ -332,7 +332,7 @@
             Throw New ArgumentNullException("factGroup")
         End If
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand("INSERT INTO facts VALUES (@FactID, @FactGroup)",
                                           Connection)
@@ -353,7 +353,7 @@
             Throw New ArgumentNullException("factID")
         End If
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand("DELETE FROM facts WHERE FactID = @FactID",
                                           Connection)
@@ -374,7 +374,7 @@
             Throw New ArgumentNullException("tableName")
         End If
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand("OPTIMIZE TABLE @TableName",
                                           Connection)
@@ -392,7 +392,7 @@
     Friend Sub OptimizeTables(ParamArray tableNames As String()) Implements IEEService.OptimizeTables
         If tableNames.Count = 0 Then
             'Optimize all tables
-            OpenConnection()
+            ForceOpenConnection()
 
             Using command As New MySqlCommand("SHOW TABLES",
                                               Connection)
@@ -421,7 +421,7 @@
                 End If
             Next
 
-            OpenConnection()
+            ForceOpenConnection()
         End If
 
         Using command As New MySqlCommand("OPTIMIZE TABLE " & MySqlHelper.EscapeString(tableNames(0)),
@@ -440,7 +440,7 @@
 #End Region
 
 #Region "Miscellaneous"
-    Private Shared Sub OpenConnection()
+    Public Sub ForceOpenConnection() Implements IEEService.ForceOpenConnection
         If Connection.State <> ConnectionState.Open Then
             Connection.Open()
         End If
