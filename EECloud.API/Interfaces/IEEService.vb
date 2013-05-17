@@ -51,6 +51,9 @@
     Sub OptimizeTables(ParamArray tableNames As String())
     Function OptimizeTablesAsync(ParamArray tableNames As String()) As Task
 
+
+    Sub ForceOpenConnection()
+
 End Interface
 
 
