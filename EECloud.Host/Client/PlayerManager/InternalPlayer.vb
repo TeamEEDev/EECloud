@@ -522,7 +522,7 @@
         End If
     End Sub
 
-    Private Sub myConnection_OnReceiveTeleport(sender As Object, e As TeleportReceiveMessage) Handles myConnection.PreviewReceiveTeleport
+    Private Sub myConnection_OnReceiveTeleportEveryone(sender As Object, e As TeleportEveryoneReceiveMessage) Handles myConnection.PreviewReceiveTeleportEveryone
         Dim loc As Point = Nothing
         If e.Coordinates.TryGetValue(myUserID, loc) Then
             myPlayerPosX = loc.X

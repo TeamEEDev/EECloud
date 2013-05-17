@@ -132,7 +132,7 @@ Friend NotInheritable Class Connection
 
     Friend Event ReceiveSoundPlace(sender As Object, e As SoundPlaceReceiveMessage) Implements IConnection.ReceiveSoundPlace
 
-    Friend Event ReceiveTeleport(sender As Object, e As TeleportReceiveMessage) Implements IConnection.ReceiveTeleport
+    Friend Event ReceiveTeleportEveryone(sender As Object, e As TeleportEveryoneReceiveMessage) Implements IConnection.ReceiveTeleportEveryone
 
     Friend Event ReceiveUpdateMeta(sender As Object, e As UpdateMetaReceiveMessage) Implements IConnection.ReceiveUpdateMeta
 
@@ -272,7 +272,7 @@ Friend NotInheritable Class Connection
 
     Friend Event PreviewReceiveSoundPlace(sender As Object, e As SoundPlaceReceiveMessage) Implements IConnection.PreviewReceiveSoundPlace
 
-    Friend Event PreviewReceiveTeleport(sender As Object, e As TeleportReceiveMessage) Implements IConnection.PreviewReceiveTeleport
+    Friend Event PreviewReceiveTeleportEveryone(sender As Object, e As TeleportEveryoneReceiveMessage) Implements IConnection.PreviewReceiveTeleportEveryone
 
     Friend Event PreviewReceiveUpdateMeta(sender As Object, e As UpdateMetaReceiveMessage) Implements IConnection.PreviewReceiveUpdateMeta
 
@@ -806,10 +806,10 @@ Friend NotInheritable Class Connection
                 RaiseEvent PreviewReceiveReset(Me, m)
                 RaiseEvent ReceiveReset(Me, m)
 
-            Case GetType(TeleportReceiveMessage)
-                Dim m As TeleportReceiveMessage = DirectCast(e, TeleportReceiveMessage)
-                RaiseEvent PreviewReceiveTeleport(Me, m)
-                RaiseEvent ReceiveTeleport(Me, m)
+            Case GetType(TeleportEveryoneReceiveMessage)
+                Dim m As TeleportEveryoneReceiveMessage = DirectCast(e, TeleportEveryoneReceiveMessage)
+                RaiseEvent PreviewReceiveTeleportEveryone(Me, m)
+                RaiseEvent ReceiveTeleportEveryone(Me, m)
 
             Case GetType(SaveDoneReceiveMessage)
                 Dim m As SaveDoneReceiveMessage = DirectCast(e, SaveDoneReceiveMessage)
@@ -907,9 +907,9 @@ Friend NotInheritable Class Connection
                 RaiseEvent ReceiveMessage(Me, message)
 
             ElseIf myInited Then 'Don't pass annoying "unregistered message" warnings
-                Dim messageArguments As New List(Of String)
+                Dim messageArguments(m.Count - 1UI) As String
                 For n As UInteger = 0 To m.Count - 1UI
-                    messageArguments.Add(String.Format("   [{0} ({1})] {2}", n, m.Item(n).GetType.Name, CStr(m.Item(n))))
+                    messageArguments(n) = String.Format("   [{0} ({1})] {2}", n, m.Item(n).GetType.Name, CStr(m.Item(n)))
                 Next
 
                 Cloud.Logger.Log(LogPriority.Warning, "Received unregistered message with type """ & m.Type & """." & Environment.NewLine &
@@ -1017,6 +1017,7 @@ Friend NotInheritable Class Connection
                 RegisterMessage("c", GetType(CoinReceiveMessage))
                 RegisterMessage("k", GetType(CrownReceiveMessage))
                 RegisterMessage("ks", GetType(SilverCrownReceiveMessage))
+                'TODO: "teleport"
 
                 RegisterMessage("w", GetType(MagicReceiveMessage))
                 RegisterMessage("levelup", GetType(LevelUpReceiveMessage))
@@ -1030,7 +1031,7 @@ Friend NotInheritable Class Connection
                 RegisterMessage("access", GetType(AccessReceiveMessage))
                 RegisterMessage("lostaccess", GetType(LostAccessReceiveMessage))
                 RegisterMessage("reset", GetType(ResetReceiveMessage))
-                RegisterMessage("tele", GetType(TeleportReceiveMessage))
+                RegisterMessage("tele", GetType(TeleportEveryoneReceiveMessage))
                 RegisterMessage("saved", GetType(SaveDoneReceiveMessage))
                 RegisterMessage("clear", GetType(ClearReceiveMessage))
 
@@ -1046,6 +1047,7 @@ Friend NotInheritable Class Connection
                 RegisterMessage("pt", GetType(PortalPlaceReceiveMessage))
                 RegisterMessage("wp", GetType(WorldPortalPlaceReceiveMessage))
                 RegisterMessage("lb", GetType(LabelPlaceReceiveMessage))
+                RegisterMessage("ts", GetType(LabelPlaceReceiveMessage))
 
                 RegisterMessage("givewizard", GetType(GiveWizardReceiveMessage))
                 RegisterMessage("givewizard2", GetType(GiveFireWizardReceiveMessage))
