@@ -119,6 +119,12 @@ Public Interface IChatter
 
 
     ''' <summary>
+    ''' Makes the world shown or hidden in the lobby.
+    ''' </summary>
+    Sub ChangeVisibility(visible As Boolean)
+
+
+    ''' <summary>
     ''' Reloads the level from its last save.
     ''' </summary>
     Sub LoadLevel()

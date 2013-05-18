@@ -346,17 +346,26 @@
         request.Sender.Reply("Renamed.")
     End Sub
 
-    <Command("setcode", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"code", "key", "editkey"})>
-    Public Sub SetCodeCommand(request As CommandRequest, editkey As String)
+    <Command("code", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"key", "editkey"})>
+    Public Sub CodeCommand(request As CommandRequest, editkey As String)
         myClient.Connection.Send(New ChangeWorldEditKeySendMessage(editkey))
         request.Sender.Reply("Changed edit key.")
+    End Sub
+
+    <Command("visible", Group.Operator, AccessRight:=AccessRight.Owner)>
+    Public Sub VisibleCommand(request As CommandRequest, visible As String)
+        Dim v As Boolean
+        If Boolean.TryParse(visible, v) Then
+            myClient.Chatter.ChangeVisibility(v)
+            request.Sender.Reply("World visibility has been set to " & v.ToString() & ".")
+        End If
     End Sub
 
 
     <Command("loadlevel", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"reload"})>
     Public Sub LoadWorldCommand(request As CommandRequest)
-        request.Sender.Reply("Reloaded.")
         myClient.Chatter.LoadLevel()
+        request.Sender.Reply("Reloaded.")
     End Sub
 
     <Command("save", Group.Operator, AccessRight:=AccessRight.Owner)>
