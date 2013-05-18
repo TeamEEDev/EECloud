@@ -30,7 +30,7 @@
     End Sub
 
 
-    Friend Sub Chat(msg As String) Implements IChatter.Chat
+    Public Sub Chat(msg As String) Implements IChatter.Chat
         myInternalChatter.SendChat(myInternalChatter.ChatSyntaxProvider.ApplyChatSyntax(msg, myChatName))
     End Sub
 
@@ -38,7 +38,7 @@
         myInternalChatter.SendChat(msg)
     End Sub
 
-    Friend Sub Reply(username As String, msg As String) Implements IChatter.Reply
+    Public Sub Reply(username As String, msg As String) Implements IChatter.Reply
         myInternalChatter.SendChat(myInternalChatter.ChatSyntaxProvider.ApplyReplySyntax(msg, myChatName, username))
     End Sub
 
@@ -64,11 +64,11 @@
         myInternalChatter.SendChat(myInternalChatter.ChatSyntaxProvider.ApplyKickSyntax(myChatName, username, String.Empty))
     End Sub
 
-    Friend Sub Kick(username As String, reason As String) Implements IChatter.Kick
+    Public Sub Kick(username As String, reason As String) Implements IChatter.Kick
         myInternalChatter.SendChat(myInternalChatter.ChatSyntaxProvider.ApplyKickSyntax(myChatName, username, reason))
     End Sub
 
-    Friend Sub KickGuests() Implements IChatter.KickGuests
+    Public Sub KickGuests() Implements IChatter.KickGuests
         myInternalChatter.SendChat("/kickguests")
     End Sub
 
@@ -80,7 +80,7 @@
         myInternalChatter.SendChat("/killemall")
     End Sub
 
-    Friend Sub Reset() Implements IChatter.Reset
+    Public Sub Reset() Implements IChatter.Reset
         myInternalChatter.SendChat("/reset")
     End Sub
 
@@ -128,7 +128,12 @@
     End Sub
 
 
-    Friend Sub LoadLevel() Implements IChatter.LoadLevel
+    Public Sub ChangeVisibility(visible As Boolean) Implements IChatter.ChangeVisibility
+        myInternalChatter.SendChat("/visible " & visible.ToString())
+    End Sub
+
+
+    Public Sub LoadLevel() Implements IChatter.LoadLevel
         myInternalChatter.SendChat("/loadlevel")
     End Sub
 
