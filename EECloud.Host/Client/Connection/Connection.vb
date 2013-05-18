@@ -134,6 +134,8 @@ Friend NotInheritable Class Connection
 
     Friend Event ReceiveTeleportEveryone(sender As Object, e As TeleportEveryoneReceiveMessage) Implements IConnection.ReceiveTeleportEveryone
 
+    Friend Event ReceiveTeleportPlayer(sender As Object, e As TeleportPlayerReceiveMessage) Implements IConnection.ReceiveTeleportPlayer
+
     Friend Event ReceiveUpdateMeta(sender As Object, e As UpdateMetaReceiveMessage) Implements IConnection.ReceiveUpdateMeta
 
     Friend Event ReceiveUpgrade(sender As Object, e As UpgradeReceiveMessage) Implements IConnection.ReceiveUpgrade
@@ -273,6 +275,8 @@ Friend NotInheritable Class Connection
     Friend Event PreviewReceiveSoundPlace(sender As Object, e As SoundPlaceReceiveMessage) Implements IConnection.PreviewReceiveSoundPlace
 
     Friend Event PreviewReceiveTeleportEveryone(sender As Object, e As TeleportEveryoneReceiveMessage) Implements IConnection.PreviewReceiveTeleportEveryone
+
+    Friend Event PreviewReceiveTeleportPlayer(sender As Object, e As TeleportPlayerReceiveMessage) Implements IConnection.PreviewReceiveTeleportPlayer
 
     Friend Event PreviewReceiveUpdateMeta(sender As Object, e As UpdateMetaReceiveMessage) Implements IConnection.PreviewReceiveUpdateMeta
 
@@ -811,6 +815,11 @@ Friend NotInheritable Class Connection
                 RaiseEvent PreviewReceiveTeleportEveryone(Me, m)
                 RaiseEvent ReceiveTeleportEveryone(Me, m)
 
+            Case GetType(TeleportPlayerReceiveMessage)
+                Dim m As TeleportPlayerReceiveMessage = DirectCast(e, TeleportPlayerReceiveMessage)
+                RaiseEvent PreviewReceiveTeleportPlayer(Me, m)
+                RaiseEvent ReceiveTeleportPlayer(Me, m)
+
             Case GetType(SaveDoneReceiveMessage)
                 Dim m As SaveDoneReceiveMessage = DirectCast(e, SaveDoneReceiveMessage)
                 RaiseEvent PreviewReceiveSaveDone(Me, m)
@@ -1017,7 +1026,6 @@ Friend NotInheritable Class Connection
                 RegisterMessage("c", GetType(CoinReceiveMessage))
                 RegisterMessage("k", GetType(CrownReceiveMessage))
                 RegisterMessage("ks", GetType(SilverCrownReceiveMessage))
-                'TODO: "teleport"
 
                 RegisterMessage("w", GetType(MagicReceiveMessage))
                 RegisterMessage("levelup", GetType(LevelUpReceiveMessage))
@@ -1032,6 +1040,7 @@ Friend NotInheritable Class Connection
                 RegisterMessage("lostaccess", GetType(LostAccessReceiveMessage))
                 RegisterMessage("reset", GetType(ResetReceiveMessage))
                 RegisterMessage("tele", GetType(TeleportEveryoneReceiveMessage))
+                RegisterMessage("teleport", GetType(TeleportPlayerReceiveMessage))
                 RegisterMessage("saved", GetType(SaveDoneReceiveMessage))
                 RegisterMessage("clear", GetType(ClearReceiveMessage))
 

@@ -534,6 +534,13 @@
         End If
     End Sub
 
+    Private Sub myConnection_OnReceiveTeleportPlayer(sender As Object, e As TeleportPlayerReceiveMessage) Handles myConnection.PreviewReceiveTeleportPlayer
+        If e.UserID = myUserID Then
+            myPlayerPosX = e.PlayerPosX
+            myPlayerPosY = e.PlayerPosY
+        End If
+    End Sub
+
     Private Sub myConnection_ReceiveLeft(sender As Object, e As LeftReceiveMessage) Handles myConnection.PreviewReceiveLeft
         If e.UserID = myUserID Then
             myConnection = Nothing

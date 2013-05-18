@@ -44,6 +44,8 @@
 
     Public Event OnTeleportEveryone(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnTeleportEveryone
 
+    Public Event OnTeleportPlayer(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnTeleportPlayer
+
     Public Event OnKill(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnKill
 #End Region
 
@@ -291,6 +293,14 @@
                 RaiseEvent OnTeleportEveryone(Me, p)
             End If
         Next
+    End Sub
+
+    Private Sub myConnection_ReceiveTeleportPlayer(sender As Object, e As TeleportPlayerReceiveMessage) Handles myConnection.ReceiveTeleportPlayer
+        Dim p As TPlayer = Player(e.UserID)
+
+        If p IsNot Nothing Then
+            RaiseEvent OnTeleportPlayer(Me, p)
+        End If
     End Sub
 
     Private Sub myConnection_ReceiveWootUp(sender As Object, e As WootUpReceiveMessage) Handles myConnection.ReceiveWootUp
