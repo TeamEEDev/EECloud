@@ -37,6 +37,7 @@
     Event OnWootUp As EventHandler(Of TPlayer)
     Event OnMagic As EventHandler(Of TPlayer)
     Event OnTeleportEveryone As EventHandler(Of TPlayer)
+    Event OnTeleportPlayer As EventHandler(Of TPlayer)
     Event OnKill As EventHandler(Of TPlayer)
 
     Event Join As EventHandler(Of TPlayer)

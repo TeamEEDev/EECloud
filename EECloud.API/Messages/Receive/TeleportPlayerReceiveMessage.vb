@@ -24,27 +24,27 @@ Public NotInheritable Class TeleportPlayerReceiveMessage
     '0
     Public ReadOnly UserID As Integer
     '1
-    Public ReadOnly UnknownVar1 As Double
+    Public ReadOnly PlayerPosX As Integer
     '2
-    Public ReadOnly UnknownVar2 As Double
+    Public ReadOnly PlayerPosY As Integer
 
     Friend Sub New(message As Message)
         MyBase.New(message)
 
         UserID = message.GetInteger(0)
-        UnknownVar1 = message.GetDouble(1)
-        UnknownVar2 = message.GetDouble(2)
+        PlayerPosX = message.GetInteger(1)
+        PlayerPosY = message.GetInteger(2)
     End Sub
 
-    'Public ReadOnly Property BlockX As Integer
-    '    Get
-    '        Return PlayerPosX + 8 >> 4
-    '    End Get
-    'End Property
+    Public ReadOnly Property BlockX As Integer
+        Get
+            Return PlayerPosX + 8 >> 4
+        End Get
+    End Property
 
-    'Public ReadOnly Property BlockY As Integer
-    '    Get
-    '        Return PlayerPosY + 8 >> 4
-    '    End Get
-    'End Property
+    Public ReadOnly Property BlockY As Integer
+        Get
+            Return PlayerPosY + 8 >> 4
+        End Get
+    End Property
 End Class
