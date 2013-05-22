@@ -82,13 +82,15 @@ Friend NotInheritable Class Connection
 
     Friend Event ReceiveFace(sender As Object, e As FaceReceiveMessage) Implements IConnection.ReceiveFace
 
+    Friend Event ReceiveGiveWizard(sender As Object, e As GiveWizardReceiveMessage) Implements IConnection.ReceiveGiveWizard
+
     Friend Event ReceiveGiveFireWizard(sender As Object, e As GiveFireWizardReceiveMessage) Implements IConnection.ReceiveGiveFireWizard
 
-    Friend Event ReceiveGiveGrinch(sender As Object, e As GiveGrinchReceiveMessage) Implements IConnection.ReceiveGiveGrinch
+    Friend Event ReceiveGiveDarkWizard(sender As Object, e As GiveDarkWizardReceiveMessage) Implements IConnection.ReceiveGiveDarkWizard
 
     Friend Event ReceiveGiveWitch(sender As Object, e As GiveWitchReceiveMessage) Implements IConnection.ReceiveGiveWitch
 
-    Friend Event ReceiveGiveWizard(sender As Object, e As GiveWizardReceiveMessage) Implements IConnection.ReceiveGiveWizard
+    Friend Event ReceiveGiveGrinch(sender As Object, e As GiveGrinchReceiveMessage) Implements IConnection.ReceiveGiveGrinch
 
     Friend Event ReceiveGodMode(sender As Object, e As GodModeReceiveMessage) Implements IConnection.ReceiveGodMode
 
@@ -224,13 +226,15 @@ Friend NotInheritable Class Connection
 
     Friend Event PreviewReceiveFace(sender As Object, e As FaceReceiveMessage) Implements IConnection.PreviewReceiveFace
 
+    Friend Event PreviewReceiveGiveWizard(sender As Object, e As GiveWizardReceiveMessage) Implements IConnection.PreviewReceiveGiveWizard
+
     Friend Event PreviewReceiveGiveFireWizard(sender As Object, e As GiveFireWizardReceiveMessage) Implements IConnection.PreviewReceiveGiveFireWizard
 
-    Friend Event PreviewReceiveGiveGrinch(sender As Object, e As GiveGrinchReceiveMessage) Implements IConnection.PreviewReceiveGiveGrinch
+    Friend Event PreviewReceiveGiveDarkWizard(sender As Object, e As GiveDarkWizardReceiveMessage) Implements IConnection.PreviewReceiveGiveDarkWizard
 
     Friend Event PreviewReceiveGiveWitch(sender As Object, e As GiveWitchReceiveMessage) Implements IConnection.PreviewReceiveGiveWitch
 
-    Friend Event PreviewReceiveGiveWizard(sender As Object, e As GiveWizardReceiveMessage) Implements IConnection.PreviewReceiveGiveWizard
+    Friend Event PreviewReceiveGiveGrinch(sender As Object, e As GiveGrinchReceiveMessage) Implements IConnection.PreviewReceiveGiveGrinch
 
     Friend Event PreviewReceiveGodMode(sender As Object, e As GodModeReceiveMessage) Implements IConnection.PreviewReceiveGodMode
 
@@ -857,6 +861,11 @@ Friend NotInheritable Class Connection
                 RaiseEvent PreviewReceiveGiveFireWizard(Me, m)
                 RaiseEvent ReceiveGiveFireWizard(Me, m)
 
+            Case GetType(GiveDarkWizardReceiveMessage)
+                Dim m As GiveDarkWizardReceiveMessage = DirectCast(e, GiveDarkWizardReceiveMessage)
+                RaiseEvent PreviewReceiveGiveDarkWizard(Me, m)
+                RaiseEvent ReceiveGiveDarkWizard(Me, m)
+
             Case GetType(GiveWitchReceiveMessage)
                 Dim m As GiveWitchReceiveMessage = DirectCast(e, GiveWitchReceiveMessage)
                 RaiseEvent PreviewReceiveGiveWitch(Me, m)
@@ -1060,6 +1069,7 @@ Friend NotInheritable Class Connection
 
                 RegisterMessage("givewizard", GetType(GiveWizardReceiveMessage))
                 RegisterMessage("givewizard2", GetType(GiveFireWizardReceiveMessage))
+                RegisterMessage("givedarkwizard", GetType(GiveDarkWizardReceiveMessage))
                 RegisterMessage("givewitch", GetType(GiveWitchReceiveMessage))
                 RegisterMessage("givegrinch", GetType(GiveGrinchReceiveMessage))
 

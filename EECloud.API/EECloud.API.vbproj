@@ -122,6 +122,7 @@
     <Compile Include="Interfaces\World\IWorldSoundBlock.vb" />
     <Compile Include="Custom stuff\Location.vb" />
     <Compile Include="Messages\Receive\AllowPotionsReceiveMessage.vb" />
+    <Compile Include="Messages\Receive\GiveDarkWizardReceiveMessage.vb" />
     <Compile Include="Messages\Receive\TeleportPlayerReceiveMessage.vb" />
     <Compile Include="Messages\Receive\PortalPlaceReceiveMessage.vb" />
     <Compile Include="Messages\Receive\KillReceiveMessage.vb" />
