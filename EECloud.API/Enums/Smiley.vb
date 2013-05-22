@@ -94,5 +94,9 @@
     Helen = 91
     MooMoo = 92
     Scarecrow = 93
+    DarkWizard = 94
+    KungFuMaster = 95
+    Fox = 96
+    NightVision = 97
 
 End Enum
