@@ -37,8 +37,8 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
                                 AddCommand(attribute.Type, handle)
 
                                 If attribute.Aliases IsNot Nothing Then
-                                    For Each item As String In attribute.Aliases
-                                        AddCommand(item, handle)
+                                    For i = 0 To attribute.Aliases.Length - 1
+                                        AddCommand(attribute.Aliases(i), handle)
                                     Next
                                 End If
                             Catch ex As Exception
@@ -57,8 +57,9 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
 
     Private Sub AddCommand(name As String, handle As CommandHandle)
         'Overloading command?
-        If myCommandsDictionary.ContainsKey(name) Then
-            For Each item In myCommandsDictionary(name)
+        Dim items As List(Of CommandHandle) = Nothing
+        If myCommandsDictionary.TryGetValue(name, items) Then
+            For Each item In items
                 If handle.Count = item.Count Then
                     Cloud.Logger.Log(LogPriority.Error, "Can't overload command because of conflicting parameter count: " & name)
                     Exit Sub
@@ -81,7 +82,8 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
     End Sub
 
     Private Function ProcessMessage(request As CommandRequest) As Boolean
-        If Not myCommandsDictionary.ContainsKey(request.Phrase.Type) Then
+        Dim handleList As List(Of CommandHandle) = Nothing
+        If Not myCommandsDictionary.TryGetValue(request.Phrase.Type, handleList) Then
             Return False
         End If
 
@@ -89,7 +91,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
         request.Sender.InjectChatter(myClient.Chatter)
 
         Dim mostHandle As CommandHandle = Nothing
-        For Each handle In myCommandsDictionary(request.Phrase.Type)
+        For Each handle In handleList
             'Check for syntax
             If (handle.Count = request.Phrase.Parameters.Length AndAlso Not handle.HasParamArray) OrElse (handle.HasParamArray AndAlso handle.Count < request.Phrase.Parameters.Length) Then
                 TryRunCmd(request, handle)

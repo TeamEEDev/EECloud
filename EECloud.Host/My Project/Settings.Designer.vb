@@ -54,18 +54,6 @@ Namespace My
             End Get
         End Property
         
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("")> _
-        Public Property HostUserame() As String
-            Get
-                Return CType(Me("HostUserame"), String)
-            End Get
-            Set(value As String)
-                Me("HostUserame") = value
-            End Set
-        End Property
-        
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
@@ -75,6 +63,18 @@ Namespace My
             End Get
             Set
                 Me("Updated") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property HostUserame() As String
+            Get
+                Return CType(Me("HostUserame"),String)
+            End Get
+            Set
+                Me("HostUserame") = value
             End Set
         End Property
         
@@ -154,6 +154,18 @@ Namespace My
             End Get
             Set
                 Me("BanString") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property GameVersionNumber() As Integer
+            Get
+                Return CType(Me("GameVersionNumber"),Integer)
+            End Get
+            Set
+                Me("GameVersionNumber") = value
             End Set
         End Property
         

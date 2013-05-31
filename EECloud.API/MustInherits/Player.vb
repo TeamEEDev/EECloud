@@ -405,16 +405,6 @@
         End Get
     End Property
 
-    Public ReadOnly Property CursePotion As Boolean Implements IPlayer.CursePotion
-        Get
-            Try
-                Return myPlayer.CursePotion
-            Catch
-                Return Nothing
-            End Try
-        End Get
-    End Property
-
     Public ReadOnly Property FirePotion As Boolean Implements IPlayer.FirePotion
         Get
             Try
@@ -425,10 +415,70 @@
         End Get
     End Property
 
+    Public ReadOnly Property CursePotion As Boolean Implements IPlayer.CursePotion
+        Get
+            Try
+                Return myPlayer.CursePotion
+            Catch
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
     Public ReadOnly Property ProtectionPotion As Boolean Implements IPlayer.ProtectionPotion
         Get
             Try
                 Return myPlayer.ProtectionPotion
+            Catch
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property ZombiePotion As Boolean Implements IPlayer.ZombiePotion
+        Get
+            Try
+                Return myPlayer.ZombiePotion
+            Catch
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property RespawnPotion As Boolean Implements IPlayer.RespawnPotion
+        Get
+            Try
+                Return myPlayer.RespawnPotion
+            Catch
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property LevitationPotion As Boolean Implements IPlayer.LevitationPotion
+        Get
+            Try
+                Return myPlayer.LevitationPotion
+            Catch
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property FlauntPotion As Boolean Implements IPlayer.FlauntPotion
+        Get
+            Try
+                Return myPlayer.FlauntPotion
+            Catch
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property Potion As Boolean Implements IPlayer.SolitudePotion
+        Get
+            Try
+                Return myPlayer.SolitudePotion
             Catch
                 Return Nothing
             End Try

@@ -2,6 +2,7 @@
 
 Public NotInheritable Class ChangeFaceSendMessage
     Inherits SendMessage
+
     Public ReadOnly Face As Smiley
 
     Public Sub New(face As Smiley)

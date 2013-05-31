@@ -10,11 +10,9 @@
 #Region "SynchronziedDeque Members"
 
 #Region "Fields"
-
         Private ReadOnly myDeque As Deque(Of T)
 
         Private ReadOnly myRoot As Object
-
 #End Region
 
 #Region "Construction"

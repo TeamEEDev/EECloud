@@ -2,12 +2,13 @@
 
 Public Class BlockPlaceUploadMessage
     Inherits UploadMessage
+
     Public ReadOnly Layer As Layer
     Public ReadOnly X As Integer
     Public ReadOnly Y As Integer
     Public ReadOnly Block As Block
     Private ReadOnly myForced As Boolean
-    Protected UploadCheck As Byte = 0
+    Protected UploadCheck As Byte
 
     Public Sub New(layer As Layer, x As Integer, y As Integer, block As Block, Optional forced As Boolean = False)
         Me.Layer = layer
@@ -35,7 +36,7 @@ Public Class BlockPlaceUploadMessage
             UploadCheck = CByte(UploadCheck + 1)
             Return X = message.PosX AndAlso Y = message.PosY AndAlso Layer = message.Layer
         Else
-            Cloud.Logger.Log(LogPriority.Warning, String.Format("Block failed to upload with ID {0}, at postion {1} | {2}.", Block, X, Y))
+            Cloud.Logger.Log(LogPriority.Warning, String.Format("Block failed to upload with ID {0}, at position {1} | {2}.", Block, X, Y))
             Return True
         End If
     End Function
