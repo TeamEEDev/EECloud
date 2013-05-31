@@ -107,7 +107,7 @@
     Private Sub myConnection_ReceiveInit(sender As Object, e As InitReceiveMessage) Handles myConnection.ReceiveInit
         myMyPlayer = New Player()
         myMyPlayer.SetupPlayer(New InternalPlayer(myClient, e), myClient.Chatter)
-        myOwner = e.UsernameOwner
+        myOwner = e.OwnerUsername
         myWorldName = e.WorldName
         myPlays = e.Plays
         myEncryption = Derot(e.Encryption)
@@ -135,7 +135,7 @@
     Private Sub myConnection_ReceiveUpdateMeta(sender As Object, e As UpdateMetaReceiveMessage) Handles myConnection.ReceiveUpdateMeta
         myWorldName = e.WorldName
         myPlays = e.Plays
-        myOwner = e.Owner
+        myOwner = e.OwnerUsername
         myCurrentWoots = e.CurrentWoots
         myTotalWoots = e.TotalWoots
     End Sub

@@ -7,15 +7,11 @@ Partial Friend Class Deque(Of T)
 #Region "Deque Members"
 
 #Region "Fields"
-
     Private myFront As Node
-
     Private myBack As Node
 
     Private myCount As Integer
-
     Private myVersion As Long
-
 #End Region
 
 #Region "Construction"

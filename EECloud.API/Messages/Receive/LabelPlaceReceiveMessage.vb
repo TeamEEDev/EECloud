@@ -2,10 +2,11 @@
 
 Public NotInheritable Class LabelPlaceReceiveMessage
     Inherits BlockPlaceReceiveMessage
-    Public ReadOnly LabelBlock As LabelBlock
+
     '2
-    Public ReadOnly Text As String
+    Public ReadOnly LabelBlock As LabelBlock
     '3
+    Public ReadOnly Text As String
 
     Friend Sub New(message As Message)
         MyBase.New(message, Layer.Foreground, message.GetInteger(0), message.GetInteger(1), DirectCast(message.GetInteger(2), Block))

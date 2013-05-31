@@ -1,4 +1,5 @@
 ﻿Public Interface IEEService
+
     ReadOnly Property ConnectionString As String
 
 
@@ -43,11 +44,25 @@
 
     Sub SetPlayerDataWins(gameName As RegisteredGameName, username As String, wins As UShort)
     Function SetPlayerDataWinsAsync(gameName As RegisteredGameName, username As String, wins As UShort) As Task
+
+    Sub OptimizeTable(tableName As String)
+    Function OptimizeTableAsync(tableName As String) As Task
+
+    Sub OptimizeTables(ParamArray tableNames As String())
+    Function OptimizeTablesAsync(ParamArray tableNames As String()) As Task
+
+
+    Sub ForceOpenConnection()
+    Function ForceOpenConnectionAsync() As Task
+
 End Interface
 
+
 Public NotInheritable Class UserData
+
     Public Property Username As String
     Public Property GroupID As Short
     Public Property YoScrollWins As UShort
     Public Property FTBreakerWins As UShort
+
 End Class

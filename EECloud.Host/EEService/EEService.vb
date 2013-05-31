@@ -25,7 +25,7 @@
             Throw New ArgumentNullException("key")
         End If
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand("SELECT SettingValue FROM settings WHERE SettingKey = @SettingKey",
                                           Connection)
@@ -41,17 +41,17 @@
 
 
     Friend Function GetSettings(ParamArray keyList As String()) As Dictionary(Of String, String) Implements IEEService.GetSettings
-        If keyList Is Nothing OrElse keyList.Count < 1 Then
-            Throw New ArgumentNullException("keyList", "'KeyList' can't be null, and its length must be 1 or more.")
+        If keyList.Count = 0 Then
+            Throw New ArgumentNullException("keyList")
         End If
 
         For i = 0 To keyList.Length - 1
             If String.IsNullOrWhiteSpace(keyList(i)) Then
-                Throw New ArgumentNullException("keyList", "'KeyList' mustn't contain empty or null values.")
+                Throw New ArgumentNullException("keyList", "'KeyList()' mustn't contain empty or null values.")
             End If
         Next
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand("SELECT SettingKey, SettingValue FROM settings WHERE SettingKey = @SettingKey0",
                                           Connection)
@@ -90,7 +90,7 @@
             Throw New ArgumentNullException("value")
         End If
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand("INSERT INTO settings VALUES (@SettingKey, @SettingValue) ON DUPLICATE KEY UPDATE SettingValue = @SettingValue",
                                           Connection)
@@ -107,17 +107,17 @@
 
 
     Friend Sub SetSettings(ParamArray keyValuePairs As KeyValuePair(Of String, String)()) Implements IEEService.SetSettings
-        If keyValuePairs Is Nothing OrElse keyValuePairs.Length < 1 Then
-            Throw New ArgumentNullException("keyValuePairs", "'KeyValuePairs' can't be null, and its length must be 1 or more.")
+        If keyValuePairs.Length = 0 Then
+            Throw New ArgumentNullException("keyValuePairs")
         End If
 
         For i = 0 To keyValuePairs.Length - 1
             If String.IsNullOrWhiteSpace(keyValuePairs(i).Key) OrElse String.IsNullOrWhiteSpace(keyValuePairs(i).Value) Then
-                Throw New ArgumentNullException("keyValuePairs", "'KeyValuePairs' mustn't contain empty or null values.")
+                Throw New ArgumentNullException("keyValuePairs", "'KeyValuePairs()' mustn't contain empty or null values.")
             End If
         Next
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand(String.Empty, Connection)
             For i = 0 To keyValuePairs.Length - 1
@@ -141,7 +141,7 @@
             Throw New ArgumentNullException("username")
         End If
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand("SELECT * FROM playerData WHERE Username = @Username",
                                           Connection)
@@ -163,11 +163,17 @@
 
 
     Friend Function GetPlayerDatas(ParamArray usernames As String()) As Dictionary(Of String, UserData) Implements IEEService.GetPlayerDatas
-        If usernames Is Nothing OrElse usernames.Length < 1 Then
+        If usernames.Length = 0 Then
             Throw New ArgumentNullException("usernames")
         End If
 
-        OpenConnection()
+        For i = 0 To usernames.Length - 1
+            If String.IsNullOrWhiteSpace(usernames(i)) Then
+                Throw New ArgumentNullException("usernames", "'Usernames()' mustn't contain empty or null values.")
+            End If
+        Next
+
+        ForceOpenConnection()
 
         Using command As New MySqlCommand("SELECT * FROM playerData WHERE Username = @Username0",
                                           Connection)
@@ -209,9 +215,9 @@
         End If
 
         limit = Math.Min(limit, 1000)
-        If orderBy Is Nothing Then orderBy = "Username"
+        If String.IsNullOrWhiteSpace(orderBy) Then orderBy = "Username"
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand("SELECT * FROM playerData ORDER BY @OrderBy LIMIT @Limit OFFSET @Offset",
                                           Connection)
@@ -253,7 +259,7 @@
             Exit Sub
         End If
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand("INSERT INTO playerData (Username, GroupID) VALUES (@Username, @GroupID) ON DUPLICATE KEY UPDATE GroupID = @GroupID",
                                           Connection)
@@ -274,7 +280,7 @@
             Throw New ArgumentNullException("username")
         End If
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand(String.Format("INSERT INTO playerData (Username, {0}Wins) VALUES (@Username, @Wins) ON DUPLICATE KEY UPDATE {0}Wins = @Wins",
                                                         gameName.ToString()),
@@ -297,7 +303,7 @@
             Throw New ArgumentNullException("factGroup")
         End If
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand("SELECT FactID FROM facts WHERE FactGroup = @FactGroup",
                                           Connection)
@@ -326,7 +332,7 @@
             Throw New ArgumentNullException("factGroup")
         End If
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand("INSERT INTO facts VALUES (@FactID, @FactGroup)",
                                           Connection)
@@ -347,7 +353,7 @@
             Throw New ArgumentNullException("factID")
         End If
 
-        OpenConnection()
+        ForceOpenConnection()
 
         Using command As New MySqlCommand("DELETE FROM facts WHERE FactID = @FactID",
                                           Connection)
@@ -362,12 +368,87 @@
     End Function
 #End Region
 
+#Region "Optimizations"
+    Friend Sub OptimizeTable(tableName As String) Implements IEEService.OptimizeTable
+        If String.IsNullOrWhiteSpace(tableName) Then
+            Throw New ArgumentNullException("tableName")
+        End If
+
+        ForceOpenConnection()
+
+        Using command As New MySqlCommand("OPTIMIZE TABLE @TableName",
+                                          Connection)
+            command.Parameters.AddWithValue("@TableName", tableName)
+
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+
+    Friend Function OptimizeTableAsync(tableName As String) As Task Implements IEEService.OptimizeTableAsync
+        Return Task.Run(Sub() OptimizeTable(tableName))
+    End Function
+
+
+    Friend Sub OptimizeTables(ParamArray tableNames As String()) Implements IEEService.OptimizeTables
+        If tableNames.Count = 0 Then
+            'Optimize all tables
+            ForceOpenConnection()
+
+            Using command As New MySqlCommand("SHOW TABLES",
+                                              Connection)
+                Dim items As New List(Of String)
+                Using reader As MySqlDataReader = command.ExecuteReader()
+                    Do While reader.Read()
+                        items.Add(reader.GetString(0))
+                    Loop
+                End Using
+
+                tableNames = items.ToArray()
+                If tableNames.Count = 0 Then
+                    Throw New Exception("Couldn't find any tables in the MySQL database.")
+                End If
+            End Using
+
+        Else
+            'Optimize only the given tables
+            If tableNames.Count = 0 Then
+                Throw New ArgumentNullException("tableNames")
+            End If
+
+            For i = 0 To tableNames.Length - 1
+                If String.IsNullOrWhiteSpace(tableNames(i)) Then
+                    Throw New ArgumentNullException("tableNames", "'TableNames()' mustn't contain empty or null values.")
+                End If
+            Next
+
+            ForceOpenConnection()
+        End If
+
+        Using command As New MySqlCommand("OPTIMIZE TABLE " & MySqlHelper.EscapeString(tableNames(0)),
+                                          Connection)
+            For i = 1 To tableNames.Length - 1
+                command.CommandText &= ", " & MySqlHelper.EscapeString(tableNames(i))
+            Next
+
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+
+    Friend Function OptimizeTablesAsync(ParamArray tableNames As String()) As Task Implements IEEService.OptimizeTablesAsync
+        Return Task.Run(Sub() OptimizeTables(tableNames))
+    End Function
+#End Region
+
 #Region "Miscellaneous"
-    Private Shared Sub OpenConnection()
-        If Connection.State <> ConnectionState.Open Then
+    Public Sub ForceOpenConnection() Implements IEEService.ForceOpenConnection
+        If Connection.State = ConnectionState.Closed Then
             Connection.Open()
         End If
     End Sub
+
+    Public Function ForceOpenConnectionAsync() As Task Implements IEEService.ForceOpenConnectionAsync
+        Return Task.Run(Sub() ForceOpenConnection())
+    End Function
 
 
     Private Shared Function ParsePlayerData(reader As MySqlDataReader) As UserData
@@ -384,7 +465,7 @@
 
     Private Shared Function TryCastString(input As Object) As String
         Try
-            If input IsNot DBNull.Value AndAlso input IsNot Nothing Then
+            If input IsNot DBNull.Value Then
                 Return CStr(input)
             Else
                 Return String.Empty
@@ -396,7 +477,7 @@
 
     Private Shared Function TryCastShort(input As Object) As Short
         Try
-            If input IsNot DBNull.Value AndAlso input IsNot Nothing Then
+            If input IsNot DBNull.Value Then
                 Return CShort(input)
             Else
                 Return 0
@@ -408,7 +489,7 @@
 
     Private Shared Function TryCastUShort(input As Object) As UShort
         Try
-            If input IsNot DBNull.Value AndAlso input IsNot Nothing Then
+            If input IsNot DBNull.Value Then
                 Return CUShort(input)
             Else
                 Return 0

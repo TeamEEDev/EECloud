@@ -2,28 +2,29 @@
 
 Public NotInheritable Class MoveReceiveMessage
     Inherits ReceiveMessage
-    Public ReadOnly UserID As Integer
+
     '0
-    Public ReadOnly PlayerPosX As Integer
+    Public ReadOnly UserID As Integer
     '1
-    Public ReadOnly PlayerPosY As Integer
+    Public ReadOnly PlayerPosX As Integer
     '2
-    Public ReadOnly SpeedX As Double
+    Public ReadOnly PlayerPosY As Integer
     '3
-    Public ReadOnly SpeedY As Double
+    Public ReadOnly SpeedX As Double
     '4
-    Public ReadOnly ModifierX As Double
+    Public ReadOnly SpeedY As Double
     '5
-    Public ReadOnly ModifierY As Double
+    Public ReadOnly ModifierX As Double
     '6
-    Public ReadOnly Horizontal As Double
+    Public ReadOnly ModifierY As Double
     '7
-    Public ReadOnly Vertical As Double
+    Public ReadOnly Horizontal As Double
     '8
-    Public ReadOnly Coins As Integer
+    Public ReadOnly Vertical As Double
     '9
-    Public ReadOnly IsPurple As Boolean
+    Public ReadOnly Coins As Integer
     '10
+    Public ReadOnly IsPurple As Boolean
 
     Friend Sub New(message As Message)
         MyBase.New(message)

@@ -2,6 +2,7 @@
 
 Public Class BlockPlaceSendMessage
     Inherits SendMessage
+
     Public ReadOnly Layer As Layer
     Public ReadOnly X As Integer
     Public ReadOnly Y As Integer

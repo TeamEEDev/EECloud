@@ -2,7 +2,8 @@
 
 Public NotInheritable Class RefreshShopReceiveMessage
     Inherits ReceiveMessage
-    'TODO: Load arguments
+
+    'No arguments; this is just a request to refresh the shop on the client-side.
 
     Friend Sub New(message As Message)
         MyBase.New(message)

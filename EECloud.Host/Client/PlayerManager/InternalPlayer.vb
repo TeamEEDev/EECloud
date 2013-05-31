@@ -309,14 +309,6 @@
         End Get
     End Property
 
-    Private myCursePotion As Boolean
-
-    Public ReadOnly Property CursePotion As Boolean Implements IPlayer.CursePotion
-        Get
-            Return myCursePotion
-        End Get
-    End Property
-
     Private myFirePotion As Boolean
 
     Public ReadOnly Property FirePotion As Boolean Implements IPlayer.FirePotion
@@ -325,11 +317,59 @@
         End Get
     End Property
 
+    Private myCursePotion As Boolean
+
+    Public ReadOnly Property CursePotion As Boolean Implements IPlayer.CursePotion
+        Get
+            Return myCursePotion
+        End Get
+    End Property
+
     Private myProtectionPotion As Boolean
 
     Public ReadOnly Property ProtectionPotion As Boolean Implements IPlayer.ProtectionPotion
         Get
             Return myProtectionPotion
+        End Get
+    End Property
+
+    Private myZombiePotion As Boolean
+
+    Public ReadOnly Property ZombiePotion As Boolean Implements IPlayer.ZombiePotion
+        Get
+            Return myZombiePotion
+        End Get
+    End Property
+
+    Private myRespawnPotion As Boolean
+
+    Public ReadOnly Property RespawnPotion As Boolean Implements IPlayer.RespawnPotion
+        Get
+            Return myRespawnPotion
+        End Get
+    End Property
+
+    Private myLevitationPotion As Boolean
+
+    Public ReadOnly Property LevitationPotion As Boolean Implements IPlayer.LevitationPotion
+        Get
+            Return myLevitationPotion
+        End Get
+    End Property
+
+    Private myFlauntPotion As Boolean
+
+    Public ReadOnly Property FlauntPotion As Boolean Implements IPlayer.FlauntPotion
+        Get
+            Return myFlauntPotion
+        End Get
+    End Property
+
+    Private mySolitudePotion As Boolean
+
+    Public ReadOnly Property SolitudePotion As Boolean Implements IPlayer.SolitudePotion
+        Get
+            Return mySolitudePotion
         End Get
     End Property
 
@@ -482,15 +522,22 @@
         End If
     End Sub
 
-    Private Sub myConnection_OnReceiveTeleport(sender As Object, e As TeleportReceiveMessage) Handles myConnection.PreviewReceiveTeleport
-        If e.Coordinates.ContainsKey(myUserID) Then
-            Dim loc = e.Coordinates.Item(myUserID)
+    Private Sub myConnection_OnReceiveTeleportEveryone(sender As Object, e As TeleportEveryoneReceiveMessage) Handles myConnection.PreviewReceiveTeleportEveryone
+        Dim loc As Point = Nothing
+        If e.Coordinates.TryGetValue(myUserID, loc) Then
             myPlayerPosX = loc.X
             myPlayerPosY = loc.Y
 
             If e.ResetCoins = True Then
                 myCoins = 0
             End If
+        End If
+    End Sub
+
+    Private Sub myConnection_OnReceiveTeleportPlayer(sender As Object, e As TeleportPlayerReceiveMessage) Handles myConnection.PreviewReceiveTeleportPlayer
+        If e.UserID = myUserID Then
+            myPlayerPosX = e.PlayerPosX
+            myPlayerPosY = e.PlayerPosY
         End If
     End Sub
 
@@ -518,12 +565,22 @@
                     myGreenAuraPotion = e.Enabled
                 Case Potion.Jump
                     myJumpPotion = e.Enabled
-                Case Potion.Curse
-                    myCursePotion = e.Enabled
                 Case Potion.Fire
                     myFirePotion = e.Enabled
+                Case Potion.Curse
+                    myCursePotion = e.Enabled
                 Case Potion.Protection
                     myProtectionPotion = e.Enabled
+                Case Potion.Zombie
+                    myZombiePotion = e.Enabled
+                Case Potion.Respawn
+                    myRespawnPotion = e.Enabled
+                Case Potion.Levitation
+                    myLevitationPotion = e.Enabled
+                Case Potion.Flaunt
+                    myFlauntPotion = e.Enabled
+                Case Potion.Solitude
+                    mySolitudePotion = e.Enabled
             End Select
         End If
     End Sub
