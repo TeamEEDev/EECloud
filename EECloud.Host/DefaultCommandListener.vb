@@ -45,14 +45,11 @@
             'If playerData IsNot Nothing Then
             '    rank = playerData.GroupID
             'End If
-            request.Sender.Reply("Player not online.")
+            cmd.Sender.Reply("Player not online.")
             Exit Sub
         End If
 
-        request.Sender.Reply(String.Format("User {0} is {1}.", username.ToUpper(InvariantCulture), GetGroupString(rank)))
-    End Sub
-
-        cmd.Reply(String.Format("User {0} is {1}.", username.ToUpper(InvariantCulture), GetGroupString(rank)))
+        cmd.Sender.Reply(String.Format("User {0} is {1}.", username.ToUpper(InvariantCulture), GetGroupString(rank)))
     End Sub
 
     Private pinging As Boolean
@@ -62,15 +59,15 @@
         If cmd.Sender IsNot Nothing Then
             If Not pinging Then
                 pinging = True
-                Call New Thread(Sub(obj As Object)
-                                    Beep()
-                                    MessageBox.Show("Ping from user: " & cmd.Sender.Username,
-                                                    "Ping received",
-                                                    MessageBoxButtons.OK,
-                                                    MessageBoxIcon.Information)
+                Task.Run(Sub()
+                             Beep()
+                             MessageBox.Show("Ping from user: " & cmd.Sender.Username,
+                                             "Ping received",
+                                             MessageBoxButtons.OK,
+                                             MessageBoxIcon.Information)
 
-                                    pinging = False
-                                End Sub).Start()
+                             pinging = False
+                         End Sub)
             Else
                 cmd.Reply("A ping has been already sent.")
             End If
@@ -164,7 +161,6 @@
         ChangeRank(cmd, GetPlayerNormalizedUsername(username), Group.Banned)
     End Sub
 
-#End Region
     Private Sub ChangeRank(cmd As ICommand(Of Player), username As String, rank As Group)
         username = GetPlayerNormalizedUsername(username)
         Dim currRank As Group
@@ -178,6 +174,9 @@
                 currRank = playerData.GroupID
             End If
         End If
+    End Sub
+
+#End Region
 
 #Region "Plugins"
 
@@ -188,16 +187,16 @@
             If Not pluginObj.Started Then
                 pluginObj.Restart()
                 request.Sender.Reply("Started plugin.")
-        If cmd.Sender Is Nothing OrElse currRank < cmd.Sender.Group Then
-            If player IsNot Nothing Then
-                player.Group = rank
-                player.Save()
-            Else
-                request.Sender.Reply("Plugin already started, please disable it first!")
-            End If
-        Else
-            request.Sender.Reply("Unknown plugin.")
-        End If
+                If cmd.Sender Is Nothing OrElse currRank < cmd.Sender.Group Then
+                    If player IsNot Nothing Then
+                        player.Group = rank
+                        player.Save()
+                    Else
+                        request.Sender.Reply("Plugin already started, please disable it first!")
+                    End If
+                Else
+                    request.Sender.Reply("Unknown plugin.")
+                End If
     End Sub
 
     <Command("disable", Group.Operator)>
@@ -210,10 +209,10 @@
             Else
                 request.Sender.Reply("Plugin not started, please enable it first!")
 
-            cmd.Reply(String.Format("{0} is now {1}.", username.ToUpper(InvariantCulture), GetGroupString(rank)))
+                cmd.Reply(String.Format("{0} is now {1}.", username.ToUpper(InvariantCulture), GetGroupString(rank)))
         Else
-            cmd.Reply("Not allowed to change rank of that player.")
-        End If
+                cmd.Reply("Not allowed to change rank of that player.")
+            End If
     End Sub
 
     Private Shared Function GetGroupString(rank As Group) As String
@@ -670,7 +669,7 @@
     <Command("loadlevel", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"load", "loadworld", "reload", "reloadworld", "reloadlevel"})>
     Public Sub LoadWorldCommand(cmd As ICommand(Of Player))
         cmd.Reply("Reloaded.")
-        myClient.Chatter.Loadlevel()
+        myClient.Chatter.LoadLevel()
     End Sub
 
     <Command("save", Group.Operator, AccessRight:=AccessRight.Owner, Aliases:={"saveworld", "savelevel"})>
