@@ -35,7 +35,6 @@
         RaiseEvent OnCommand(Me, eventArgs)
 
         If Not eventArgs.Handled Then
-            request.Sender.InjectChatter(myClient.Chatter)
             request.Sender.Reply("Unknown command.")
         End If
     End Sub

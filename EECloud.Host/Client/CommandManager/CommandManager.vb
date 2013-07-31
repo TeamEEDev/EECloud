@@ -87,9 +87,6 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
             Return False
         End If
 
-        'First, inject the chatter
-        request.Sender.InjectChatter(myClient.Chatter)
-
         Dim mostHandle As CommandHandle = Nothing
         For Each handle In handleList
             'Check for syntax
@@ -107,11 +104,12 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
         'Try the one that most methods fit in
         If mostHandle IsNot Nothing Then
             TryRunCmd(request, mostHandle)
+            Return True
         ElseIf request.Rights >= Group.Moderator Then
             request.Sender.Reply(GetUsagesStr(request.Phrase.Type))
         End If
 
-        Return True
+        Return False
     End Function
 
     Private Function GetUsagesStr(cmd As String) As String
