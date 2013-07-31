@@ -20,7 +20,7 @@
 #Region "Ranks"
 
     <Command("getrank", Group.Moderator, Aliases:={"rank", "group"})>
-    Public Async Sub GetRankCommand(request As CommandRequest, username As String)
+    Public Sub GetRankCommand(request As CommandRequest, username As String)
         username = GetPlayerNormalizedUsername(username)
         Dim player As IPlayer = GetPlayer(username, True)
         Dim rank As Group
@@ -28,10 +28,12 @@
         If player IsNot Nothing Then
             rank = player.Group
         Else
-            Dim playerData = Await Cloud.Service.GetPlayerDataAsync(username)
-            If playerData IsNot Nothing Then
-                rank = playerData.GroupID
-            End If
+            'Dim playerData = Await Cloud.Service.GetPlayerDataAsync(username)
+            'If playerData IsNot Nothing Then
+            '    rank = playerData.GroupID
+            'End If
+            request.Sender.Reply("Player not online.")
+            Exit Sub
         End If
 
         request.Sender.Reply(String.Format("User {0} is {1}.", username.ToUpper(InvariantCulture), GetGroupString(rank)))
@@ -290,18 +292,18 @@
 #End If
 
 
-    <Command("reloadplayer", Group.Moderator, Aliases:={"rplayer"})>
-    Public Async Sub ReloadPlayerCommand(request As CommandRequest, username As String)
-        username = GetPlayerNormalizedUsername(username)
-        Dim player As IPlayer = GetPlayer(username, True)
+    '<Command("reloadplayer", Group.Moderator, Aliases:={"rplayer"})>
+    'Public Async Sub ReloadPlayerCommand(request As CommandRequest, username As String)
+    '    username = GetPlayerNormalizedUsername(username)
+    '    Dim player As IPlayer = GetPlayer(username, True)
 
-        If player IsNot Nothing Then
-            Await player.ReloadUserDataAsync()
-            request.Sender.Reply(String.Format("Reloaded the UserData of {0}.", username))
-        Else
-            request.Sender.Reply("Unknown player.")
-        End If
-    End Sub
+    '    If player IsNot Nothing Then
+    '        Await player.ReloadUserDataAsync()
+    '        request.Sender.Reply(String.Format("Reloaded the UserData of {0}.", username))
+    '    Else
+    '        request.Sender.Reply("Unknown player.")
+    '    End If
+    'End Sub
 
 #End Region
 
@@ -540,7 +542,7 @@
     End Sub
 
 
-    Private Async Sub ChangeRank(request As CommandRequest, username As String, rank As Group)
+    Private Sub ChangeRank(request As CommandRequest, username As String, rank As Group)
         username = GetPlayerNormalizedUsername(username)
         Dim currRank As Group
         Dim player As Player = GetPlayer(username, True)
@@ -548,10 +550,11 @@
         If player IsNot Nothing Then
             currRank = player.Group
         Else
-            Dim playerData As UserData = Await Cloud.Service.GetPlayerDataAsync(username)
-            If playerData IsNot Nothing Then
-                currRank = playerData.GroupID
-            End If
+            'Dim playerData As UserData = Await Cloud.Service.GetPlayerDataAsync(username)
+            'If playerData IsNot Nothing Then
+            '    currRank = playerData.GroupID
+            'End If
+            request.Sender.Reply("Player not online.")
         End If
 
 
@@ -560,7 +563,7 @@
                 player.Group = rank
                 player.Save()
             Else
-                Await Cloud.Service.SetPlayerDataGroupIDAsync(username, rank)
+                'Await Cloud.Service.SetPlayerDataGroupIDAsync(username, rank)
             End If
 
             request.Sender.Reply(String.Format("{0} is now {1}.", username.ToUpper(InvariantCulture), GetGroupString(rank)))

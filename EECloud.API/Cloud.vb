@@ -79,17 +79,17 @@
     End Property
 
 
-    Private Shared myService As IEEService
+    'Private Shared myService As IEEService
 
-    Public Shared Property Service As IEEService
-        Get
-            Return myService
-        End Get
+    'Public Shared Property Service As IEEService
+    '    Get
+    '        Return myService
+    '    End Get
 
-        Friend Set(value As IEEService)
-            myService = value
-        End Set
-    End Property
+    '    Friend Set(value As IEEService)
+    '        myService = value
+    '    End Set
+    'End Property
 
 
     Private Shared myClientFactory As IClientFactory

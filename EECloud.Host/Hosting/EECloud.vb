@@ -125,7 +125,7 @@ Public NotInheritable Class EECloud
         End If
 
         Cloud.ClientFactory = New ClientFactory()
-        Cloud.Service = New EEService()
+        'Cloud.Service = New EEService()
 
         myClient = Cloud.ClientFactory.CreateClient(myCommandChar)
     End Sub

@@ -58,8 +58,8 @@
 
 
     Sub Save()
-    Sub ReloadUserData()
-    Function ReloadUserDataAsync() As Task
+    'Sub ReloadUserData()
+    'Function ReloadUserDataAsync() As Task
 
     Sub Reply(msg As String)
     Sub Kick(msg As String)
@@ -72,7 +72,7 @@
 
 
     Event GroupChange As EventHandler
-    Event LoadUserData As EventHandler(Of UserData)
+    'Event LoadUserData As EventHandler(Of UserData)
     Event UserDataReady As EventHandler
     Event SaveUserData As EventHandler
 

@@ -9,7 +9,7 @@
 #Region "Events"
     Friend Event GroupChange(sender As Object, e As EventArgs) Implements IPlayer.GroupChange
 
-    Friend Event LoadUserData(sender As Object, e As UserData) Implements IPlayer.LoadUserData
+    'Friend Event LoadUserData(sender As Object, e As UserData) Implements IPlayer.LoadUserData
 
     Public Event UserDataReady(sender As Object, e As EventArgs) Implements IPlayer.UserDataReady
 
@@ -432,33 +432,33 @@
         mySpawnY = initMessage.SpawnY
     End Sub
 
-    Friend Sub ReloadUserData() Implements IPlayer.ReloadUserData
-        Dim userData As UserData = Cloud.Service.GetPlayerData(DatabaseName)
-        If userData IsNot Nothing Then
-            myGroup = userData.GroupID
-            RaiseEvent LoadUserData(Me, userData)
-        End If
+    'Friend Sub ReloadUserData() Implements IPlayer.ReloadUserData
+    '    Dim userData As UserData = Cloud.Service.GetPlayerData(DatabaseName)
+    '    If userData IsNot Nothing Then
+    '        myGroup = userData.GroupID
+    '        RaiseEvent LoadUserData(Me, userData)
+    '    End If
 
-        If Not myIsUserDataReady Then
-            myIsUserDataReady = True
-            RaiseEvent UserDataReady(Me, EventArgs.Empty)
-        End If
-    End Sub
+    '    If Not myIsUserDataReady Then
+    '        myIsUserDataReady = True
+    '        RaiseEvent UserDataReady(Me, EventArgs.Empty)
+    '    End If
+    'End Sub
 
-    Public Async Function ReloadUserDataAsync() As Task Implements IPlayer.ReloadUserDataAsync
-        Dim userData As UserData = Await Cloud.Service.GetPlayerDataAsync(DatabaseName)
-        If userData IsNot Nothing Then
-            ' ReSharper disable VBWarnings::BC42104
-            myGroup = userData.GroupID
-            ' ReSharper restore VBWarnings::BC42104
-            RaiseEvent LoadUserData(Me, userData)
-        End If
+    'Public Async Function ReloadUserDataAsync() As Task Implements IPlayer.ReloadUserDataAsync
+    '    Dim userData As UserData = Await Cloud.Service.GetPlayerDataAsync(DatabaseName)
+    '    If userData IsNot Nothing Then
+    '        ' ReSharper disable VBWarnings::BC42104
+    '        myGroup = userData.GroupID
+    '        ' ReSharper restore VBWarnings::BC42104
+    '        RaiseEvent LoadUserData(Me, userData)
+    '    End If
 
-        If Not myIsUserDataReady Then
-            myIsUserDataReady = True
-            RaiseEvent UserDataReady(Me, EventArgs.Empty)
-        End If
-    End Function
+    '    If Not myIsUserDataReady Then
+    '        myIsUserDataReady = True
+    '        RaiseEvent UserDataReady(Me, EventArgs.Empty)
+    '    End If
+    'End Function
 
     Friend Sub Reply(msg As String) Implements IPlayer.Reply
         myClient.Chatter.Reply(myUsername, msg)
@@ -601,8 +601,8 @@
         myClient.Chatter.Kick(myUsername, msg)
     End Sub
 
-    Public Async Sub Save() Implements IPlayer.Save
-        Await Cloud.Service.SetPlayerDataGroupIDAsync(DatabaseName, CShort(Group))
+    Public Sub Save() Implements IPlayer.Save
+        'Await Cloud.Service.SetPlayerDataGroupIDAsync(DatabaseName, CShort(Group))
         RaiseEvent SaveUserData(Me, EventArgs.Empty)
     End Sub
 
