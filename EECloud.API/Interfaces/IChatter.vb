@@ -1,9 +1,5 @@
 ﻿''' <summary>
 ''' Allows chatting using the standard format.
-﻿
-
-''' <summary>
-'''     Allows chatting using the standard format.
 ''' </summary>
 Public Interface IChatter
 
