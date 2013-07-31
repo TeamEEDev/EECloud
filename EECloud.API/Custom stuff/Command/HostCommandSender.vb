@@ -1,16 +1,14 @@
 ﻿Public Class HostCommandSender
-    Inherits CommandSender
+    Implements ICommandSender
 
 
 #Region "Methods"
     Public Sub New()
-        MyBase.New(CommandSenderType.Host)
+
     End Sub
 
-    Public Overrides Sub Reply(msg As String)
+    Public Sub Reply(msg As String) Implements ICommandSender.Reply
         Cloud.Logger.Log(LogPriority.Info, msg)
     End Sub
 #End Region
-
-
 End Class

@@ -1,9 +1,9 @@
 ﻿Public Class CommandRequest
 
 #Region "Properties"
-    Private ReadOnly mySender As CommandSender
+    Private ReadOnly mySender As ICommandSender
 
-    Public ReadOnly Property Sender As CommandSender
+    Public ReadOnly Property Sender As ICommandSender
         Get
             Return mySender
         End Get
@@ -27,7 +27,7 @@
 #End Region
 
 #Region "Methods"
-    Sub New(sender As CommandSender, phrase As CommandPhrase, rights As Group)
+    Sub New(sender As ICommandSender, phrase As CommandPhrase, rights As Group)
         mySender = sender
         myPhrase = phrase
         myRights = rights
