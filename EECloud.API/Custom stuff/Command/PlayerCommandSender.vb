@@ -1,32 +1,26 @@
-﻿Public NotInheritable Class PlayerCommandSender
+﻿Public Class PlayerCommandSender(Of TPlayer As {Player, New})
     Inherits CommandSender
-
 #Region "Properties"
-    Private ReadOnly myPlayer As Player
+    Private myPlayer As TPlayer
 
-    Public ReadOnly Property UserID As Integer
+    Public ReadOnly Property Player As TPlayer
         Get
-            Return myPlayer.UserID
-        End Get
-    End Property
-
-    Public ReadOnly Property Username As String
-        Get
-            Return myPlayer.Username
+            Return myPlayer
         End Get
     End Property
 #End Region
 
 #Region "Methods"
-    Public Sub New(player As Player)
+    Public Sub New(player As TPlayer)
         MyBase.New(CommandSenderType.Player)
 
         myPlayer = player
     End Sub
 
-    Public Overrides Sub Reply(msg As String)
-        Chatter.Reply(Username, msg)
+    Friend Overrides Sub Reply(msg As String)
+        Player.Reply(msg)
     End Sub
+
 #End Region
 
 End Class

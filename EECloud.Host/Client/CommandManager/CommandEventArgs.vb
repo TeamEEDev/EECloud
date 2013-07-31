@@ -2,19 +2,22 @@
 
 #Region "Properties"
     Private myRequest As CommandRequest
+﻿Friend NotInheritable Class CommandEventArgs
+    Inherits EventArgs
 
-    Friend ReadOnly Property Request As CommandRequest
-        Get
-            Return myRequest
-        End Get
-    End Property
+#Region "Properties"
+    Friend Property Handled As Boolean
 
-    Friend Handled As Boolean
+    Friend Property Message As String
+    Friend Property Rights As Group
+    Friend Property UserID As Integer
 #End Region
 
 #Region "Methods"
-    Friend Sub New(request As CommandRequest)
-        myRequest = request
+    Friend Sub New(msg As String, group As Group, user As Integer)
+        Message = msg
+        Rights = group
+        UserID = user
     End Sub
 #End Region
 

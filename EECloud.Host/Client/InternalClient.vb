@@ -91,7 +91,7 @@
         End Get
     End Property
 
-    Private ReadOnly myCommandManager As CommandManager(Of Player)
+    Private ReadOnly myCommandManager As ICommandManager
 
     Friend ReadOnly Property CommandManager As ICommandManager Implements IClient(Of Player).CommandManager
         Get
@@ -99,7 +99,7 @@
         End Get
     End Property
 
-    Private ReadOnly myPlayerManager As PlayerManager(Of Player)
+    Private ReadOnly myPlayerManager As IPlayerManager(Of Player)
 
     Friend ReadOnly Property PlayerManager As IPlayerManager(Of Player) Implements IClient(Of Player).PlayerManager
         Get
