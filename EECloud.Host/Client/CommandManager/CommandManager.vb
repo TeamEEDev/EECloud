@@ -4,15 +4,25 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
     Implements ICommandManager, IDisposable
 
 #Region "Fields"
-    Private ReadOnly myCommandsDictionary As New Dictionary(Of String, List(Of CommandHandle))
+    Private ReadOnly myCommandsDictionary As New Dictionary(Of String, List(Of CommandHandle(Of TPlayer)))
     Private ReadOnly myClient As IClient(Of TPlayer)
     Private WithEvents myInternalCommandManager As InternalCommandManager
     Private myAddedTargets As New List(Of Object)
 #End Region
 
+#Region "Properties"
+
+    Friend ReadOnly Property Count As Integer Implements ICommandManager.Count
+        Get
+            Return myCommandsDictionary.Count
+        End Get
+    End Property
+
+#End Region
+
 #Region "Methods"
 
-    Friend Sub New(client As IClient(Of TPlayer), internalCommandManager As InternalCommandManager)
+    Sub New(client As IClient(Of TPlayer), internalCommandManager As InternalCommandManager)
         myClient = client
         myInternalCommandManager = internalCommandManager
     End Sub
@@ -24,15 +34,15 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
                     Throw New EECloudException(ErrorCode.CommandTargetAlreadyAdded)
                 End If
 
-
+                Dim attributes As CommandAttribute()
                 For Each method As MethodInfo In target.GetType.GetMethods()
-                    Dim attributes As CommandAttribute() = method.GetCustomAttributes(GetType(CommandAttribute), True)
+                    attributes = method.GetCustomAttributes(GetType(CommandAttribute), True)
 
                     If attributes IsNot Nothing AndAlso attributes.Length = 1 Then
-                        Dim attribute As CommandAttribute = attributes(0)
+                        Dim attribute = attributes(0)
 
                         Try
-                            Dim handle As New CommandHandle(attribute, method, target)
+                            Dim handle As New CommandHandle(Of TPlayer)(attribute, method, target)
                             Try
                                 AddCommand(attribute.Type, handle)
 
@@ -64,12 +74,16 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
                     Cloud.Logger.Log(LogPriority.Error, "Can't overload command because of conflicting parameter count: " & name)
                     Exit Sub
                 End If
+    Private Sub ProcessMessage(sender As Object, e As CommandEventArgs) Handles myInternalCommandManager.OnCommand
+        If Not e.Handled Then
+            Dim msgSender As TPlayer = myClient.PlayerManager.Player(e.UserID)
+            Dim cmd As String() = e.Message.Split(" "c)
+            Dim type As String = cmd(0).ToLower(InvariantCulture)
 
-                If item.HasParamArray Then
-                    If handle.HasParamArray OrElse handle.Count >= item.Count Then 'Dare you merge the two Ifs, Jojatekok... 
-                        Cloud.Logger.Log(LogPriority.Error, "Can't overload command because of conflicting ParamArray variable: " & name)
-                        Exit Sub
-                    End If
+            If e.Message.StartsWith("help ", StringComparison.OrdinalIgnoreCase) AndAlso myCommandsDictionary.ContainsKey(cmd(1).ToLower(InvariantCulture)) Then
+                e.Handled = True
+                If e.Rights >= Group.Moderator Then
+                    ReplyToSender(msgSender, GetUsagesStr(cmd(1).ToLower(InvariantCulture)))
                 End If
             Next
 
@@ -93,24 +107,34 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
             If (handle.Count = request.Phrase.Parameters.Length AndAlso Not handle.HasParamArray) OrElse (handle.HasParamArray AndAlso handle.Count < request.Phrase.Parameters.Length) Then
                 TryRunCmd(request, handle)
                 Return True
+            ElseIf myCommandsDictionary.ContainsKey(type) Then
+                e.Handled = True
+                Dim cmdLengthMinus1 As Integer = cmd.Length - 1
 
-            ElseIf handle.Count <= request.Phrase.Parameters.Length Then
-                If mostHandle Is Nothing OrElse handle.Count > mostHandle.Count Then
-                    mostHandle = handle
+                Dim mostHandle As CommandHandle(Of TPlayer) = Nothing
+                For Each handle In myCommandsDictionary(type)
+                    'Check for syntax
+                    If handle.Count <= cmdLengthMinus1 Then
+                        If handle.Count = cmdLengthMinus1 OrElse handle.HasParamArray Then
+                            TryRunCmd(msgSender, e.Rights, cmd, type, e.Message, handle)
+                            Exit Sub
+                        Else
+                            If mostHandle Is Nothing OrElse handle.Count > mostHandle.Count Then
+                                mostHandle = handle
+                            End If
+                        End If
+                    End If
+                Next
+
+                'Try the one that most methods fit in
+                If mostHandle IsNot Nothing Then
+                    TryRunCmd(msgSender, e.Rights, cmd, type, e.Message, mostHandle)
+                ElseIf e.Rights >= Group.Moderator Then
+                    ReplyToSender(msgSender, GetUsagesStr(type))
                 End If
             End If
-        Next
-
-        'Try the one that most methods fit in
-        If mostHandle IsNot Nothing Then
-            TryRunCmd(request, mostHandle)
-            Return True
-        ElseIf request.Rights >= Group.Moderator Then
-            request.Sender.Reply(GetUsagesStr(request.Phrase.Type))
         End If
-
-        Return False
-    End Function
+    End Sub
 
     Private Function GetUsagesStr(cmd As String) As String
         Dim usages As String = String.Empty
@@ -118,54 +142,122 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
         Return "Command usage(s): " & Left(usages, usages.Length - 3)
     End Function
 
-    Private Sub TryRunCmd(request As CommandRequest, handle As CommandHandle)
+    Private Sub TryRunCmd(sender As TPlayer, rights As Group, cmd As String(), type As String, text As String, handle As CommandHandle(Of TPlayer))
         'Check for rights
-        If handle.Attribute.MinPermission > request.Rights Then
-            If request.Rights >= Group.Moderator Then
-                request.Sender.Reply("You are not allowed to use this command!")
+        If handle.Attribute.MinPermission > rights Then
+            If sender Is Nothing Then
+                Exit Sub
             End If
 
-            Exit Sub
+            If handle.Attribute.MinPermission > sender.Group Then
+                If sender.Group >= Group.Moderator Then
+                    ReplyToSender(sender, "You are not allowed to use this command!")
+                End If
+
+                Exit Sub
+            End If
         End If
 
         'Check for the bot's access rights
         If myClient.Game.AccessRight < handle.Attribute.AccessRight Then
             If handle.Attribute.AccessRight = AccessRight.Edit Then
-                request.Sender.Reply("Bot needs edit rights to run this command")
+                ReplyToSender(sender, "Bot needs edit rights to run this command")
             Else
-                request.Sender.Reply("Bot needs owner rights to run this command.")
+                ReplyToSender(sender, "Bot needs owner rights to run this command.")
             End If
             Exit Sub
         End If
 
-        'Excecute
-        If Not handle.HasParamArray Then
-            handle.Run(request, request.Phrase.Parameters)
-        Else
-            Dim args(handle.Count) As Object
+        'Build args
+        Dim toCount As Integer = cmd.Length - 1
+        If toCount > handle.Count Then toCount = handle.Count
 
-            For i = 0 To handle.Count - 1
-                args(i) = request.Phrase.Parameters(i)
-            Next
+        Dim args(toCount + DirectCast(IIf(handle.HasParamArray, 1, 0), Integer)) As Object
+        args(0) = New Command(Of TPlayer)(sender, type, text)
 
-            Dim pramArgs(request.Phrase.Parameters.Length - handle.Count - 1) As String
+        For i = 1 To toCount
+            args(i) = cmd(i)
+        Next
+
+        If handle.HasParamArray Then
+            toCount += 1
+            Dim pramArgs(cmd.Length - toCount - 1) As String
             For i = 0 To pramArgs.Length - 1
-                pramArgs(i) = request.Phrase.Parameters(i + handle.Count)
+                pramArgs(i) = cmd(i + toCount)
             Next
 
             args(args.Length - 1) = pramArgs
+        End If
 
-            handle.Run(request, args)
+        'Excecute
+        handle.Run(args)
+    End Sub
+
+    Private Shared Sub ReplyToSender(sender As TPlayer, msg As String)
+        If sender IsNot Nothing Then
+            sender.Reply(msg)
+        Else
+            Cloud.Logger.Log(LogPriority.Info, msg)
         End If
     End Sub
 
-    Friend Sub InvokeCommand(request As CommandRequest) Implements ICommandManager.InvokeCommand
+    Friend Sub InvokeCommand(player As Player, msg As String, rights As Group) Implements ICommandManager.InvokeCommand
         Try
-            myInternalCommandManager.HandleMessage(request)
+            If player IsNot Nothing Then
+                If player.Group >= rights Then
+                    myInternalCommandManager.HandleMessage(My.Settings.CommandChar & msg, player.UserID, player.Group)
+                Else
+                    myInternalCommandManager.HandleMessage(My.Settings.CommandChar & msg, player.UserID, rights)
+                End If
+            Else
+                myInternalCommandManager.HandleMessage(msg, -1, rights) 'Works without sending CommandChar
+            End If
         Catch ex As Exception
             Cloud.Logger.LogEx(ex)
         End Try
     End Sub
+
+    Private Sub AddCommand(name As String, handle As CommandHandle(Of TPlayer))
+        If myCommandsDictionary.ContainsKey(name) Then
+            Dim list As List(Of CommandHandle(Of TPlayer)) = myCommandsDictionary(name)
+            Dim usedNums As New List(Of Integer)
+            Dim maxNum As Integer = -1
+
+            For Each item In list
+                If item.HasParamArray Then
+                    maxNum = item.Count
+                Else
+                    usedNums.Add(item.Count)
+                End If
+            Next
+
+            If maxNum = -1 OrElse (handle.Count <= maxNum AndAlso Not handle.HasParamArray) Then
+                If Not usedNums.Contains(handle.Count) OrElse (handle.HasParamArray AndAlso Not usedNums.Contains(handle.Count + 1)) Then
+                    myCommandsDictionary(name).Add(handle)
+                Else
+                    Cloud.Logger.Log(LogPriority.Error, "Can't overload command because of conflicting parameter count: " & name)
+                End If
+            Else
+                Cloud.Logger.Log(LogPriority.Error, "Can't overload command because of conflicting ParamArray variable: " & name)
+            End If
+        Else
+            Dim list As New List(Of CommandHandle(Of TPlayer))
+            list.Add(handle)
+            myCommandsDictionary.Add(name, list)
+        End If
+    End Sub
+
+    Friend Function Contains(cmd As String) As Boolean Implements ICommandManager.Contains
+        Return myCommandsDictionary.ContainsKey(cmd)
+    End Function
+
+    Friend Function Contains(cmd As String, paramCount As Integer) As Boolean Implements ICommandManager.Contains
+        If Contains(cmd) Then
+            Return myCommandsDictionary(cmd).Any(Function(cmdHandle) cmdHandle.Count <= paramCount)
+        Else
+            Return False
+        End If
+    End Function
 
 #End Region
 
@@ -189,16 +281,10 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
         MyBase.Finalize()
     End Sub
 
-    Friend Sub Dispose() Implements IDisposable.Dispose
+    Friend Sub Dispose() Implements IDisposable.Dispose, ICommandManager.Dispose
         ' Do not change this code.  Put cleanup code in Dispose(disposing As Boolean) above.
         Dispose(True)
         GC.SuppressFinalize(Me)
-    End Sub
-
-    Private Sub myInternalCommandManager_OnCommand(sender As Object, e As CommandEventArgs) Handles myInternalCommandManager.OnCommand
-        If e.Handled = False AndAlso ProcessMessage(e.Request) Then
-            e.Handled = True
-        End If
     End Sub
 
 #End Region

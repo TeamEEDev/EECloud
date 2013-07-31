@@ -84,9 +84,11 @@
     <Compile Include="Client\Chatter\Chatter.vb" />
     <Compile Include="Client\Chatter\InternalChatter.vb" />
     <Compile Include="Client\Chatter\SimpleChatSyntaxProvider.vb" />
+    <Compile Include="Client\CommandManager\Command.vb" />
     <Compile Include="Client\CommandManager\CommandEventArgs.vb" />
     <Compile Include="Client\CommandManager\CommandHandle.vb" />
     <Compile Include="Client\CommandManager\CommandManager.vb" />
+    <Compile Include="Client\CommandManager\GlobalCommandManager.vb" />
     <Compile Include="Client\CommandManager\InternalCommandManager.vb" />
     <Compile Include="Client\Connection\Connection.vb" />
     <Compile Include="Client\Game\Game.vb" />

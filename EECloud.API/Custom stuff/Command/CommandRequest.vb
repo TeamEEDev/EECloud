@@ -27,10 +27,9 @@
 #End Region
 
 #Region "Methods"
-    Sub New(sender As CommandSender, phrase As CommandPhrase, rights As Group)
+    Sub New(sender As CommandSender, phrase As CommandPhrase)
         mySender = sender
         myPhrase = phrase
-        myRights = rights
     End Sub
 #End Region
 

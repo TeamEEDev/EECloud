@@ -8,14 +8,6 @@
             Return myType
         End Get
     End Property
-
-    Private myChatter As IChatter
-
-    Protected ReadOnly Property Chatter As IChatter
-        Get
-            Return myChatter
-        End Get
-    End Property
 #End Region
 
 #Region "Methods"
@@ -23,11 +15,7 @@
         myType = type
     End Sub
 
-    Public MustOverride Sub Reply(msg As String)
-
-    Friend Sub InjectChatter(chatter As IChatter)
-        myChatter = chatter
-    End Sub
+    Friend MustOverride Sub Reply(msg As String)
 #End Region
 
 End Class
