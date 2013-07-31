@@ -75,41 +75,15 @@ Friend NotInheritable Class CommandHandle
         Next
     End Sub
 
-    Friend Sub Run(request As CommandRequest)
+    Friend Sub Run(request As CommandRequest, ParamArray args As Object())
         Try
-            myMethodInfo.Invoke(myTarget, GetArgArray(request))
-        Catch cmdEx As CommandException
-            Throw
+            myMethodInfo.Invoke(myTarget, {request}.Concat(args))
         Catch ex As Exception
-            request.Sender.Reply("Command failed to excecute")
+            request.Sender.Reply("Command failed to excecute: " & myAttribute.Type)
             Cloud.Logger.Log(LogPriority.Error, "Command failed to excecute: " & myAttribute.Type)
             Cloud.Logger.LogEx(ex)
         End Try
     End Sub
-
-    Friend Function GetArgArray(request As CommandRequest) As Object()
-        Dim args As New List(Of Object)
-        args.Add(request)
-
-        If Not HasParamArray Then
-            args.AddRange(request.Phrase.Parameters)
-        Else
-            'Normals
-            For i = 0 To Count - 1
-                args.Add(request.Phrase.Parameters(i))
-            Next
-
-            'ParamArray
-            Dim pramArgs As New List(Of String)
-            For i = Count To request.Phrase.Parameters.Length - 1
-                pramArgs.Add(request.Phrase.Parameters(Count))
-            Next
-
-            args.Add(pramArgs.ToArray)
-        End If
-
-        Return args.ToArray
-    End Function
 
     Private ReadOnly mySyntaxStr As String
 
