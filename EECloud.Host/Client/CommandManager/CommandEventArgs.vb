@@ -1,7 +1,7 @@
 ﻿Friend Class CommandEventArgs
 
 #Region "Properties"
-    Private ReadOnly myRequest As CommandRequest
+    Private myRequest As CommandRequest
 
     Friend ReadOnly Property Request As CommandRequest
         Get

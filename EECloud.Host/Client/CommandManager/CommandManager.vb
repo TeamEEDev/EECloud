@@ -87,6 +87,8 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
             Return False
         End If
 
+        'First, inject the chatter
+        request.Sender.InjectChatter(myClient.Chatter)
 
         Dim mostHandle As CommandHandle = Nothing
         For Each handle In handleList
@@ -139,23 +141,32 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
         End If
 
         'Excecute
-        handle.Run(request)
+        If Not handle.HasParamArray Then
+            handle.Run(request, request.Phrase.Parameters)
+        Else
+            Dim args(handle.Count) As Object
+
+            For i = 0 To handle.Count - 1
+                args(i) = request.Phrase.Parameters(i)
+            Next
+
+            Dim pramArgs(request.Phrase.Parameters.Length - handle.Count - 1) As String
+            For i = 0 To pramArgs.Length - 1
+                pramArgs(i) = request.Phrase.Parameters(i + handle.Count)
+            Next
+
+            args(args.Length - 1) = pramArgs
+
+            handle.Run(request, args)
+        End If
     End Sub
 
-    Friend Function InvokeCommand(request As CommandRequest) As ICommandResult Implements ICommandManager.InvokeCommand
+    Friend Sub InvokeCommand(request As CommandRequest) Implements ICommandManager.InvokeCommand
         Try
             myInternalCommandManager.HandleMessage(request)
         Catch ex As Exception
             Cloud.Logger.LogEx(ex)
         End Try
-    End Function
-
-    Public Function InvokeCommand(request As CommandRequest, scope As CommandScope) As ICommandResult Implements ICommandManager.InvokeCommand
-
-    End Function
-
-    Public Sub SetHandler() Implements ICommandManager.SetHandler
-
     End Sub
 
 #End Region
