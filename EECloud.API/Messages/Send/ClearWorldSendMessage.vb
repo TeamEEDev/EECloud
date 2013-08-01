@@ -2,6 +2,7 @@
 
 Public NotInheritable Class ClearWorldSendMessage
     Inherits SendMessage
+
     'No arguments
 
     Friend Overrides Function GetMessage(game As IGame) As Message

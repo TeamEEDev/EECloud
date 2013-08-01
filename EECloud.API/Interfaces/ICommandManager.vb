@@ -25,15 +25,17 @@
     Function Contains(cmd As String, paramCount As Integer) As Boolean
 
     ''' <summary>
-    '''     Loads the command handlers of instance into this CommandManager
+    ''' Loads the command handlers of instance into this CommandManager
     ''' </summary>
     ''' <param name="target">The instance being extracted</param>
-    ''' <remarks></remarks>
     Sub Load(target As Object)
 
     ''' <summary>
     '''     Runs a command
     ''' </summary>
+    ''' <param name="request">The CommandRequest being used to run this command</param>
+    Sub InvokeCommand(request As CommandRequest)
+
     ''' <param name="player">Player being invoked or null</param>
     ''' <param name="msg">The command being invoked</param>
     ''' <param name="rights">Minimum rights, if the player has higher rights, this will be ignored</param>

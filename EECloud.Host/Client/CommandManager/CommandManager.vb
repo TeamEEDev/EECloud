@@ -7,7 +7,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
     Private ReadOnly myCommandsDictionary As New Dictionary(Of String, List(Of CommandHandle(Of TPlayer)))
     Private ReadOnly myClient As IClient(Of TPlayer)
     Private WithEvents myInternalCommandManager As InternalCommandManager
-    Private myAddedTargets As New List(Of Object)
+    Private ReadOnly myAddedTargets As New List(Of Object)
 #End Region
 
 #Region "Properties"
@@ -240,7 +240,6 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
             End If
 
             myInternalCommandManager = Nothing
-            myAddedTargets = Nothing
         End If
         myDisposedValue = True
     End Sub

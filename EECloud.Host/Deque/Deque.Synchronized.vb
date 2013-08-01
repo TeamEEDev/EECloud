@@ -1,6 +1,4 @@
-﻿
-
-Partial Friend Class Deque (Of T)
+﻿Partial Friend Class Deque(Of T)
 
 #Region "SynchronizedDeque Class"
 
@@ -12,17 +10,14 @@ Partial Friend Class Deque (Of T)
 #Region "SynchronziedDeque Members"
 
 #Region "Fields"
-
         Private ReadOnly myDeque As Deque(Of T)
 
         Private ReadOnly myRoot As Object
-
 #End Region
 
 #Region "Construction"
 
         Friend Sub New(deque As Deque(Of T))
-
             If deque Is Nothing Then
                 Throw New ArgumentNullException("deque")
             End If
@@ -111,7 +106,7 @@ Partial Friend Class Deque (Of T)
 
 #Region "Properties"
 
-        Friend Overrides ReadOnly Property Count() As Integer
+        Friend Overrides ReadOnly Property Count As Integer
             Get
                 SyncLock myRoot
                     Return myDeque.Count
@@ -119,7 +114,7 @@ Partial Friend Class Deque (Of T)
             End Get
         End Property
 
-        Friend Overrides ReadOnly Property IsSynchronized() As Boolean
+        Friend Overrides ReadOnly Property IsSynchronized As Boolean
             Get
                 Return True
             End Get
@@ -128,7 +123,9 @@ Partial Friend Class Deque (Of T)
 #End Region
 
 #End Region
+
     End Class
 
 #End Region
+
 End Class

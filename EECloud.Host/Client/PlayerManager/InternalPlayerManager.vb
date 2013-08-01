@@ -28,28 +28,27 @@
         myConnection = client.Connection
     End Sub
 
-    Private Async Sub myConnection_OnReceiveAdd(sender As Object, e As AddReceiveMessage) Handles myConnection.ReceiveAdd
+    Private Sub myConnection_OnReceiveAdd(sender As Object, e As AddReceiveMessage) Handles myConnection.ReceiveAdd
         If Not myPlayers.ContainsKey(e.UserID) Then
             Dim player As InternalPlayer = New InternalPlayer(myClient, e)
             myPlayers.Add(player.UserID, player)
             RaiseEvent AddUser(Me, player)
-            Await player.ReloadUserDataAsync()
+            'Await player.ReloadUserDataAsync()
         End If
     End Sub
 
     Private Sub myConnection_OnReceiveCrown(sender As Object, e As CrownReceiveMessage) Handles myConnection.ReceiveCrown
         SyncLock myPlayers
-            If myPlayers.ContainsKey(e.UserID) Then
-                myCrown = myPlayers(e.UserID)
+            Dim player As InternalPlayer = Nothing
+            If myPlayers.TryGetValue(e.UserID, player) Then
+                myCrown = player
             End If
         End SyncLock
     End Sub
 
     Private Sub myConnection_OnReceiveLeft(sender As Object, e As LeftReceiveMessage) Handles myConnection.ReceiveLeft
         SyncLock myPlayers
-            If myPlayers.ContainsKey(e.UserID) Then
-                myPlayers.Remove(e.UserID)
-            End If
+            myPlayers.Remove(e.UserID)
         End SyncLock
 
         RaiseEvent RemoveUser(Me, e)
@@ -64,4 +63,5 @@
     End Property
 
 #End Region
+
 End Class

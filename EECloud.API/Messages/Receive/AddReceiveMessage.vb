@@ -2,32 +2,33 @@
 
 Public NotInheritable Class AddReceiveMessage
     Inherits ReceiveMessage
-    Public ReadOnly UserID As Integer
+
     '0
-    Public ReadOnly Username As String
+    Public ReadOnly UserID As Integer
     '1
-    Public ReadOnly Face As Smiley
+    Public ReadOnly Username As String
     '2
-    Public ReadOnly PlayerPosX As Integer
+    Public ReadOnly Face As Smiley
     '3
-    Public ReadOnly PlayerPosY As Integer
+    Public ReadOnly PlayerPosX As Integer
     '4
-    Public ReadOnly IsGod As Boolean
+    Public ReadOnly PlayerPosY As Integer
     '5
-    Public ReadOnly IsMod As Boolean
+    Public ReadOnly IsGod As Boolean
     '6
-    Public ReadOnly HasChat As Boolean
+    Public ReadOnly IsMod As Boolean
     '7
-    Public ReadOnly Coins As Integer
+    Public ReadOnly HasChat As Boolean
     '8
-    Public ReadOnly IsMyFriend As Boolean
+    Public ReadOnly Coins As Integer
     '9
-    Public ReadOnly IsPurple As Boolean
+    Public ReadOnly IsMyFriend As Boolean
     '10
-    Public ReadOnly MagicClass As MagicClass
+    Public ReadOnly IsPurple As Boolean
     '11
-    Public ReadOnly IsClubMember As Boolean
+    Public ReadOnly MagicClass As MagicClass
     '12
+    Public ReadOnly IsClubMember As Boolean
 
     Friend Sub New(message As Message)
         MyBase.New(message)

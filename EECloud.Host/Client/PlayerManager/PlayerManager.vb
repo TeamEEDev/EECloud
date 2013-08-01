@@ -42,7 +42,9 @@
 
     Public Event UserDataReady(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).UserDataReady
 
-    Public Event OnTeleport(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnTeleport
+    Public Event OnTeleportEveryone(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnTeleportEveryone
+
+    Public Event OnTeleportPlayer(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnTeleportPlayer
 
     Public Event OnKill(sender As Object, e As TPlayer) Implements IPlayerManager(Of TPlayer).OnKill
 #End Region
@@ -51,23 +53,11 @@
     Private ReadOnly myIDDictionary As New Dictionary(Of Integer, TPlayer)
     Private ReadOnly myUsernameDictionary As New Dictionary(Of String, List(Of TPlayer))
 
-    Friend ReadOnly Property Player(number As Integer) As TPlayer Implements IPlayerManager(Of TPlayer).Player
-        Get
-            SyncLock myUsernameDictionary
-                If myIDDictionary.ContainsKey(number) Then
-                    Return myIDDictionary(number)
-                Else
-                    Return Nothing
-                End If
-            End SyncLock
-        End Get
-    End Property
-
     Friend ReadOnly Property Player(username As String) As TPlayer Implements IPlayerManager(Of TPlayer).Player
         Get
             SyncLock myUsernameDictionary
-                If myUsernameDictionary.ContainsKey(username.ToLower(InvariantCulture)) Then
-                    Dim list As List(Of TPlayer) = myUsernameDictionary(username.ToLower(InvariantCulture))
+                Dim list As List(Of TPlayer) = Nothing
+                If myUsernameDictionary.TryGetValue(username.ToLower(InvariantCulture), list) Then
                     If list.Count > 0 Then
                         Return list(0)
                     Else
@@ -116,17 +106,17 @@
         Dim player1 As TPlayer = Nothing
 
         SyncLock myIDDictionary
-            If myIDDictionary.ContainsKey(e.UserID) Then
-                player1 = myIDDictionary(e.UserID)
+            If myIDDictionary.TryGetValue(e.UserID, player1) Then
                 myIDDictionary.Remove(e.UserID)
 
                 SyncLock myUsernameDictionary
-                    If myUsernameDictionary.ContainsKey(player1.Username) Then
-                        Dim list As List(Of TPlayer) = myUsernameDictionary(player1.Username)
-
-                        For Each item In From item1 In list Where item1.UserID = e.UserID
-                            list.Remove(item)
-                            Exit For
+                    Dim list As List(Of TPlayer) = Nothing
+                    If myUsernameDictionary.TryGetValue(player1.Username, list) Then
+                        For n = 0 To list.Count - 1
+                            If list(n).UserID = e.UserID Then
+                                list.RemoveAt(n)
+                                Exit For
+                            End If
                         Next
                     End If
                 End SyncLock
@@ -186,9 +176,7 @@
 
                 SyncLock myUsernameDictionary
                     If Not myUsernameDictionary.ContainsKey(player1.Username) Then
-                        Dim list As New List(Of TPlayer)
-                        list.Add(player1)
-                        myUsernameDictionary.Add(player1.Username, list)
+                        myUsernameDictionary.Add(player1.Username, New List(Of TPlayer) From {player1})
                     Else
                         myUsernameDictionary(player1.Username).Add(player1)
                     End If
@@ -283,15 +271,23 @@
         End If
     End Sub
 
-    Private Sub myConnection_ReceiveTeleport(sender As Object, e As TeleportReceiveMessage) Handles myConnection.ReceiveTeleport
+    Private Sub myConnection_ReceiveTeleportEveryone(sender As Object, e As TeleportEveryoneReceiveMessage) Handles myConnection.ReceiveTeleportEveryone
         Dim p As TPlayer
         For Each p1 In e.Coordinates
             p = Player(p1.Key)
 
             If p IsNot Nothing Then
-                RaiseEvent OnTeleport(Me, p)
+                RaiseEvent OnTeleportEveryone(Me, p)
             End If
         Next
+    End Sub
+
+    Private Sub myConnection_ReceiveTeleportPlayer(sender As Object, e As TeleportPlayerReceiveMessage) Handles myConnection.ReceiveTeleportPlayer
+        Dim p As TPlayer = Player(e.UserID)
+
+        If p IsNot Nothing Then
+            RaiseEvent OnTeleportPlayer(Me, p)
+        End If
     End Sub
 
     Private Sub myConnection_ReceiveWootUp(sender As Object, e As WootUpReceiveMessage) Handles myConnection.ReceiveWootUp
@@ -330,7 +326,7 @@
     End Sub
 
     Public Function GetEnumerator() As IEnumerator(Of TPlayer) Implements IEnumerable(Of TPlayer).GetEnumerator
-        Return myIDDictionary.Values.GetEnumerator
+        Return myIDDictionary.Values.GetEnumerator()
     End Function
 
     Public Function GetEnumerator1() As IEnumerator Implements IEnumerable.GetEnumerator
@@ -338,4 +334,5 @@
     End Function
 
 #End Region
+
 End Class

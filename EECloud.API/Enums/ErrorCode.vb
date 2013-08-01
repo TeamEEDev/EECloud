@@ -1,4 +1,5 @@
 ﻿Public Enum ErrorCode
+
     GameVersionNotInList
     PlayerIOError
     InvalidPlugin
@@ -8,4 +9,5 @@
     ServiceConnectionFailed
     InvalidCommand
     CommandTargetAlreadyAdded
+
 End Enum

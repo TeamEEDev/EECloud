@@ -2,6 +2,7 @@
 
 Public NotInheritable Class PortalPlaceSendMessage
     Inherits BlockPlaceSendMessage
+
     Public ReadOnly PortalID As Integer
     Public ReadOnly PortalTarget As Integer
     Public ReadOnly PortalRotation As PortalRotation

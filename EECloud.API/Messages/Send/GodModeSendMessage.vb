@@ -2,6 +2,7 @@
 
 Public NotInheritable Class GodModeSendMessage
     Inherits SendMessage
+
     Public ReadOnly GodModeEnabled As Boolean
 
     Public Sub New(godModeEnabled As Boolean)

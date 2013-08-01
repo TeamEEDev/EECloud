@@ -2,10 +2,11 @@
 
 Public NotInheritable Class CoinReceiveMessage
     Inherits ReceiveMessage
-    Public ReadOnly UserID As Integer
+
     '0
-    Public ReadOnly Coins As Integer
+    Public ReadOnly UserID As Integer
     '1
+    Public ReadOnly Coins As Integer
 
     Friend Sub New(message As Message)
         MyBase.New(message)

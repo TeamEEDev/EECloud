@@ -3,12 +3,10 @@
 Friend NotInheritable Class LoginForm
 
 #Region "Fields"
-
     Private ReadOnly regularAccounts As New List(Of Integer)
     Private ReadOnly facebookAccounts As New List(Of Integer)
 
     Private selectedLoginType As AccountType
-
 #End Region
 
 #Region "Methods"
@@ -20,8 +18,6 @@ Friend NotInheritable Class LoginForm
     Friend Sub New()
         Icon = My.Resources.Icon
         InitializeComponent()
-
-        KeyPreview = True
     End Sub
 
     Private Sub LoginForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -238,4 +234,5 @@ Friend NotInheritable Class LoginForm
     End Sub
 
 #End Region
+
 End Class
