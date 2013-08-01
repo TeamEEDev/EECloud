@@ -117,6 +117,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="XmlElement\Facts.vb" />
+    <Compile Include="XmlElement\PlayerData.vb" />
+    <Compile Include="XmlElement\EEService.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -137,9 +140,7 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="XML\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\EECloud.API\EECloud.API.vbproj">
       <Project>{580ddf14-7848-4318-b9d8-55cbc3a2bc9e}</Project>
