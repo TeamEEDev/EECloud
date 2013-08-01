@@ -1,7 +1,3 @@
-﻿Friend Class CommandEventArgs
-
-#Region "Properties"
-    Private myRequest As CommandRequest
 ﻿Friend NotInheritable Class CommandEventArgs
     Inherits EventArgs
 
@@ -20,5 +16,4 @@
         UserID = user
     End Sub
 #End Region
-
 End Class
