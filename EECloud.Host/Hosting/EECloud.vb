@@ -2,9 +2,6 @@
 Imports System.IO
 
 Public NotInheritable Class EECloud
-    Private Shared myLicenseUsername As String
-    Private Shared myLicenseKey As String
-
     Private Shared ReadOnly myCommandChar As Char
 
     Private Shared myUsername As String
@@ -25,8 +22,6 @@ Public NotInheritable Class EECloud
         End If
 
         Cloud.Logger = New Logger()
-        myLicenseUsername = My.Settings.LicenseUsername
-        myLicenseKey = My.Settings.LicenseKey
 
         If My.Settings.LoginTypes.Count > 0 Then
             myUsername = My.Settings.LoginEmails(0)
@@ -40,7 +35,7 @@ Public NotInheritable Class EECloud
 
         myCommandChar = My.Settings.CommandChar
 
-        Cloud.LicenseUsername = myLicenseUsername
+        Cloud.LicenseUsername = String.Empty 'TODO
     End Sub
 
     Public Shared ReadOnly Property Client As IClient(Of Player)
@@ -54,7 +49,6 @@ Public NotInheritable Class EECloud
         SetLoginData(username, password, type, worldID)
 
         Init(False, False, True)
-        CheckLicense()
 
         Client.CommandManager.Load(New DefaultCommandListener(Client))
 
@@ -66,7 +60,6 @@ Public NotInheritable Class EECloud
 
     Friend Shared Sub RunDesktopMode()
         Init(False, False, False)
-        CheckLicense()
 
         Dim loginTask As Task = ShowLogin()
         Client.CommandManager.Load(New DefaultCommandListener(Client))
@@ -90,7 +83,6 @@ Public NotInheritable Class EECloud
 
     Public Shared Sub RunDebugMode(plugin As Type)
         Init(True, False, False)
-        CheckLicense()
 
         Dim loginTask As Task = ShowLogin()
         Client.CommandManager.Load(New DefaultCommandListener(Client))
@@ -109,7 +101,6 @@ Public NotInheritable Class EECloud
         SetLicenseData(licenseUsername, licenseKey)
 
         Init(debug, True, console)
-        CheckLicense()
     End Sub
 
     Private Shared Sub Init(dev As Boolean, hosted As Boolean, noConsole As Boolean)
@@ -126,7 +117,7 @@ Public NotInheritable Class EECloud
         End If
 
         Cloud.ClientFactory = New ClientFactory()
-        Cloud.Service = New EEService()
+        Cloud.Service = New EEService.EEService()
 
         myClient = Cloud.ClientFactory.CreateClient(myCommandChar)
     End Sub
@@ -167,9 +158,10 @@ Public NotInheritable Class EECloud
     End Sub
 
     Public Shared Sub SetLicenseData(username As String, key As String)
-        myLicenseUsername = username
-        myLicenseKey = key
-        Cloud.LicenseUsername = myLicenseUsername
+        'myLicenseUsername = username
+        'myLicenseKey = key
+        'Cloud.LicenseUsername = myLicenseUsername
+        'TODO
     End Sub
 
     Public Shared Async Function ShowLogin() As Task
@@ -195,21 +187,6 @@ Public NotInheritable Class EECloud
             My.Settings.Save()
         End If
     End Function
-
-    Private Shared Async Sub CheckLicense()
-        If Not Await Cloud.Service.CheckLicenseAsync(myLicenseUsername, myLicenseKey) Then
-            If Not Cloud.IsNoGUI Then
-                If New LicenseForm().ShowDialog() = DialogResult.OK Then
-                    SetLicenseData(My.Settings.LicenseUsername, My.Settings.LicenseKey)
-                    CheckLicense()
-                Else
-                    Environment.Exit(0)
-                End If
-            Else
-                Throw New Exception("Unable to authenticate.")
-            End If
-        End If
-    End Sub
 
     Public Shared Sub LoadDir(dir As String)
         For Each assembly In GetAssemblies(dir)
