@@ -2,15 +2,14 @@
 
 Public NotInheritable Class PortalPlaceReceiveMessage
     Inherits BlockPlaceReceiveMessage
-
-    '2
     Public ReadOnly PortalBlock As PortalBlock
-    '3
+    '2
     Public ReadOnly PortalRotation As PortalRotation
-    '4
+    '3
     Public ReadOnly PortalID As Integer
-    '5
+    '4
     Public ReadOnly PortalTarget As Integer
+    '5
 
     Friend Sub New(message As Message)
         MyBase.New(message, Layer.Foreground, message.GetInteger(0), message.GetInteger(1), DirectCast(message.GetInteger(2), Block))

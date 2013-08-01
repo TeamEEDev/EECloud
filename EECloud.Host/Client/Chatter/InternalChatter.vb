@@ -78,5 +78,4 @@ Friend NotInheritable Class InternalChatter
     End Sub
 
 #End Region
-
 End Class

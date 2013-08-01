@@ -17,6 +17,7 @@ Friend NotInheritable Class Connection
     Private Const GameID As String = "everybody-edits-su9rn58o40itdbnw69plyw"
     Private Const NormalRoom As String = "Everybodyedits"
     Private Const GameVersionSetting As String = "GameVersion"
+    Private Shared myGameVersionNumber As Integer = 0
 #End Region
 
 #Region "Properties"
@@ -41,25 +42,9 @@ Friend NotInheritable Class Connection
 
     Friend Property UserExpectingDisconnect As Boolean Implements IConnection.UserExpectingDisconnect
 
-    Private Shared myGameVersionNumber As Integer = My.Settings.GameVersionNumber
-
-    Private Shared Property GameVersionNumber As Integer
-        Get
-            Return myGameVersionNumber
-        End Get
-        Set(value As Integer)
-            If value <> myGameVersionNumber Then
-                myGameVersionNumber = value
-                My.Settings.GameVersionNumber = value
-                My.Settings.Save()
-            End If
-        End Set
-    End Property
-
 #End Region
 
 #Region "Events"
-
     Friend Event Disconnect(sender As Object, e As DisconnectEventArgs) Implements IConnection.Disconnect
 
     Friend Event Disconnecting(sender As Object, e As EventArgs) Implements IConnection.Disconnecting
@@ -82,15 +67,13 @@ Friend NotInheritable Class Connection
 
     Friend Event ReceiveFace(sender As Object, e As FaceReceiveMessage) Implements IConnection.ReceiveFace
 
-    Friend Event ReceiveGiveWizard(sender As Object, e As GiveWizardReceiveMessage) Implements IConnection.ReceiveGiveWizard
-
     Friend Event ReceiveGiveFireWizard(sender As Object, e As GiveFireWizardReceiveMessage) Implements IConnection.ReceiveGiveFireWizard
 
-    Friend Event ReceiveGiveDarkWizard(sender As Object, e As GiveDarkWizardReceiveMessage) Implements IConnection.ReceiveGiveDarkWizard
+    Friend Event ReceiveGiveGrinch(sender As Object, e As GiveGrinchReceiveMessage) Implements IConnection.ReceiveGiveGrinch
 
     Friend Event ReceiveGiveWitch(sender As Object, e As GiveWitchReceiveMessage) Implements IConnection.ReceiveGiveWitch
 
-    Friend Event ReceiveGiveGrinch(sender As Object, e As GiveGrinchReceiveMessage) Implements IConnection.ReceiveGiveGrinch
+    Friend Event ReceiveGiveWizard(sender As Object, e As GiveWizardReceiveMessage) Implements IConnection.ReceiveGiveWizard
 
     Friend Event ReceiveGodMode(sender As Object, e As GodModeReceiveMessage) Implements IConnection.ReceiveGodMode
 
@@ -134,9 +117,7 @@ Friend NotInheritable Class Connection
 
     Friend Event ReceiveSoundPlace(sender As Object, e As SoundPlaceReceiveMessage) Implements IConnection.ReceiveSoundPlace
 
-    Friend Event ReceiveTeleportEveryone(sender As Object, e As TeleportEveryoneReceiveMessage) Implements IConnection.ReceiveTeleportEveryone
-
-    Friend Event ReceiveTeleportPlayer(sender As Object, e As TeleportPlayerReceiveMessage) Implements IConnection.ReceiveTeleportPlayer
+    Friend Event ReceiveTeleport(sender As Object, e As TeleportReceiveMessage) Implements IConnection.ReceiveTeleport
 
     Friend Event ReceiveUpdateMeta(sender As Object, e As UpdateMetaReceiveMessage) Implements IConnection.ReceiveUpdateMeta
 
@@ -226,15 +207,13 @@ Friend NotInheritable Class Connection
 
     Friend Event PreviewReceiveFace(sender As Object, e As FaceReceiveMessage) Implements IConnection.PreviewReceiveFace
 
-    Friend Event PreviewReceiveGiveWizard(sender As Object, e As GiveWizardReceiveMessage) Implements IConnection.PreviewReceiveGiveWizard
-
     Friend Event PreviewReceiveGiveFireWizard(sender As Object, e As GiveFireWizardReceiveMessage) Implements IConnection.PreviewReceiveGiveFireWizard
 
-    Friend Event PreviewReceiveGiveDarkWizard(sender As Object, e As GiveDarkWizardReceiveMessage) Implements IConnection.PreviewReceiveGiveDarkWizard
+    Friend Event PreviewReceiveGiveGrinch(sender As Object, e As GiveGrinchReceiveMessage) Implements IConnection.PreviewReceiveGiveGrinch
 
     Friend Event PreviewReceiveGiveWitch(sender As Object, e As GiveWitchReceiveMessage) Implements IConnection.PreviewReceiveGiveWitch
 
-    Friend Event PreviewReceiveGiveGrinch(sender As Object, e As GiveGrinchReceiveMessage) Implements IConnection.PreviewReceiveGiveGrinch
+    Friend Event PreviewReceiveGiveWizard(sender As Object, e As GiveWizardReceiveMessage) Implements IConnection.PreviewReceiveGiveWizard
 
     Friend Event PreviewReceiveGodMode(sender As Object, e As GodModeReceiveMessage) Implements IConnection.PreviewReceiveGodMode
 
@@ -278,9 +257,7 @@ Friend NotInheritable Class Connection
 
     Friend Event PreviewReceiveSoundPlace(sender As Object, e As SoundPlaceReceiveMessage) Implements IConnection.PreviewReceiveSoundPlace
 
-    Friend Event PreviewReceiveTeleportEveryone(sender As Object, e As TeleportEveryoneReceiveMessage) Implements IConnection.PreviewReceiveTeleportEveryone
-
-    Friend Event PreviewReceiveTeleportPlayer(sender As Object, e As TeleportPlayerReceiveMessage) Implements IConnection.PreviewReceiveTeleportPlayer
+    Friend Event PreviewReceiveTeleport(sender As Object, e As TeleportReceiveMessage) Implements IConnection.PreviewReceiveTeleport
 
     Friend Event PreviewReceiveUpdateMeta(sender As Object, e As UpdateMetaReceiveMessage) Implements IConnection.PreviewReceiveUpdateMeta
 
@@ -347,22 +324,13 @@ Friend NotInheritable Class Connection
     Sub New(client As IClient(Of Player))
         myClient = client
 
-        'If GameVersionNumber = 0 Then
-        '    Try
-        '        Dim task1 = Cloud.Service.GetSettingAsync(GameVersionSetting)
-        '        Dim task2 = Task.Run(Of Boolean)(Function() GetVersion())
-
-        '        Dim completedTask As Integer = Task.WaitAny(task1, task2)
-        '        If completedTask = 0 OrElse Not task2.Result Then
-        '            'Use the result of the MySQL query
-        '            GameVersionNumber = Integer.Parse(task1.Result)
-        '        End If
-        '    Catch
-        '        Cloud.Logger.Log(LogPriority.Warning, "Invalid GameVersion setting.")
-        '    End Try
-        'Else
-        Task.Run(Sub() GetVersion())
-        'End If
+        If myGameVersionNumber = 0 Then
+            Try
+                myGameVersionNumber = Integer.Parse(Cloud.Service.GetSetting(GameVersionSetting))
+            Catch
+                Cloud.Logger.Log(LogPriority.Warning, "Invalid GameVersion setting.")
+            End Try
+        End If
     End Sub
 
     Private Sub SetupConnection(connection As PlayerIOClient.Connection, id As String)
@@ -379,7 +347,7 @@ Friend NotInheritable Class Connection
 
     Private Shared Function GetIOConnection(ioClient As Client, id As String) As PlayerIOClient.Connection
         Try
-            Return ioClient.Multiplayer.CreateJoinRoom(id, NormalRoom & GameVersionNumber, True, Nothing, Nothing)
+            Return ioClient.Multiplayer.CreateJoinRoom(id, NormalRoom & myGameVersionNumber, True, Nothing, Nothing)
         Catch ex As PlayerIOError
             If ex.ErrorCode = ErrorCode.UnknownRoomType Then
                 UpdateVersion(ex)
@@ -390,24 +358,9 @@ Friend NotInheritable Class Connection
         End Try
     End Function
 
-    Private Shared Function GetVersion() As Boolean
-        Try
-            Dim client = PlayerIO.QuickConnect.SimpleConnect(GameID, "guest", "guest")
-            client.Multiplayer.CreateJoinRoom("Nothing", "Nothing", False, Nothing, Nothing)
-        Catch ex As PlayerIOError
-            If ex.ErrorCode = ErrorCode.UnknownRoomType Then
-                UpdateVersion(ex)
-                Return True
-            End If
-        End Try
-
-        Return False 'Something went wrong
-    End Function
-
     Private Shared Sub UpdateVersion(ex As PlayerIOError)
-        Dim errorMessage As String() = ex.Message.Split("["c)(1).Split(" "c)
+        Dim errorMessage() As String = ex.Message.Split("["c)(1).Split(" "c)
         Dim newVersion As Integer
-        Dim versionIsUpToDate As Boolean
 
         Dim currentRoomType As String
         For i = errorMessage.Length - 1 To 0 Step -1
@@ -416,19 +369,15 @@ Friend NotInheritable Class Connection
             If currentRoomType.StartsWith(NormalRoom, StringComparison.Ordinal) Then
                 newVersion = Integer.Parse(currentRoomType.Substring(NormalRoom.Length, currentRoomType.Length - NormalRoom.Length - 1))
 
-                If newVersion > GameVersionNumber Then
-                    GameVersionNumber = newVersion
-                    'Cloud.Service.SetSettingAsync(GameVersionSetting, CStr(GameVersionNumber))
+                If newVersion > myGameVersionNumber Then
+                    myGameVersionNumber = newVersion
+                    Cloud.Service.SetSettingAsync(GameVersionSetting, CStr(myGameVersionNumber))
                     Exit Sub
-                ElseIf newVersion = GameVersionNumber Then
-                    versionIsUpToDate = True
                 End If
             End If
         Next
 
-        If Not versionIsUpToDate Then
-            Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get game version.")
-        End If
+        Throw New EECloudException(API.ErrorCode.GameVersionNotInList, "Unable to get room version.")
     End Sub
 
     Private Function RaiseSendEvent(message As SendMessage) As Boolean
@@ -814,15 +763,10 @@ Friend NotInheritable Class Connection
                 RaiseEvent PreviewReceiveReset(Me, m)
                 RaiseEvent ReceiveReset(Me, m)
 
-            Case GetType(TeleportEveryoneReceiveMessage)
-                Dim m As TeleportEveryoneReceiveMessage = DirectCast(e, TeleportEveryoneReceiveMessage)
-                RaiseEvent PreviewReceiveTeleportEveryone(Me, m)
-                RaiseEvent ReceiveTeleportEveryone(Me, m)
-
-            Case GetType(TeleportPlayerReceiveMessage)
-                Dim m As TeleportPlayerReceiveMessage = DirectCast(e, TeleportPlayerReceiveMessage)
-                RaiseEvent PreviewReceiveTeleportPlayer(Me, m)
-                RaiseEvent ReceiveTeleportPlayer(Me, m)
+            Case GetType(TeleportReceiveMessage)
+                Dim m As TeleportReceiveMessage = DirectCast(e, TeleportReceiveMessage)
+                RaiseEvent PreviewReceiveTeleport(Me, m)
+                RaiseEvent ReceiveTeleport(Me, m)
 
             Case GetType(SaveDoneReceiveMessage)
                 Dim m As SaveDoneReceiveMessage = DirectCast(e, SaveDoneReceiveMessage)
@@ -861,11 +805,6 @@ Friend NotInheritable Class Connection
                 RaiseEvent PreviewReceiveGiveFireWizard(Me, m)
                 RaiseEvent ReceiveGiveFireWizard(Me, m)
 
-            Case GetType(GiveDarkWizardReceiveMessage)
-                Dim m As GiveDarkWizardReceiveMessage = DirectCast(e, GiveDarkWizardReceiveMessage)
-                RaiseEvent PreviewReceiveGiveDarkWizard(Me, m)
-                RaiseEvent ReceiveGiveDarkWizard(Me, m)
-
             Case GetType(GiveWitchReceiveMessage)
                 Dim m As GiveWitchReceiveMessage = DirectCast(e, GiveWitchReceiveMessage)
                 RaiseEvent PreviewReceiveGiveWitch(Me, m)
@@ -892,9 +831,9 @@ Friend NotInheritable Class Connection
             Case GetType(UpgradeReceiveMessage)
                 Dim m As UpgradeReceiveMessage = DirectCast(e, UpgradeReceiveMessage)
                 RaiseEvent PreviewReceiveUpgrade(Me, m)
-                GameVersionNumber += 1
-                'Cloud.Service.SetSettingAsync("GameVersion", CStr(GameVersionNumber))
+                myGameVersionNumber += 1
                 Cloud.Logger.Log(LogPriority.Info, "The game has been updated!")
+                Cloud.Service.SetSettingAsync("GameVersion", CStr(myGameVersionNumber))
                 RaiseEvent ReceiveUpgrade(Me, m)
 
             Case GetType(InfoReceiveMessage)
@@ -918,16 +857,16 @@ Friend NotInheritable Class Connection
 
     Private Sub myConnection_OnMessage(sender As Object, m As Message) Handles myConnection.OnMessage
         Try
-            Dim messageType As Type = Nothing
-            If myMessageDictionary.TryGetValue(m.Type, messageType) Then
+            If myMessageDictionary.ContainsKey(m.Type) Then
+                Dim messageType As Type = myMessageDictionary(m.Type)
                 Dim constructorInfo As ConstructorInfo = messageType.GetConstructor(BindingFlags.NonPublic Or BindingFlags.Instance, Nothing, New Type() {GetType(Message)}, Nothing)
                 Dim message As ReceiveMessage = DirectCast(constructorInfo.Invoke(New Object() {m}), ReceiveMessage)
                 RaiseEvent ReceiveMessage(Me, message)
 
             ElseIf myInited Then 'Don't pass annoying "unregistered message" warnings
-                Dim messageArguments(m.Count - 1UI) As String
+                Dim messageArguments As New List(Of String)
                 For n As UInteger = 0 To m.Count - 1UI
-                    messageArguments(n) = String.Format("   [{0} ({1})] {2}", n, m.Item(n).GetType.Name, CStr(m.Item(n)))
+                    messageArguments.Add(String.Format("   [{0} ({1})] {2}", n, m.Item(n).GetType.Name, CStr(m.Item(n))))
                 Next
 
                 Cloud.Logger.Log(LogPriority.Warning, "Received unregistered message with type """ & m.Type & """." & Environment.NewLine &
@@ -1003,9 +942,8 @@ Friend NotInheritable Class Connection
 
     Private Sub RegisterStartMessages()
         SyncLock myLockObj
-            If Not myRegisteredStartMessages Then
+            If myRegisteredStartMessages = False Then
                 myRegisteredStartMessages = True
-
                 RegisterMessage("init", GetType(InitReceiveMessage))
 
                 RegisterMessage("info", GetType(InfoReceiveMessage))
@@ -1048,8 +986,7 @@ Friend NotInheritable Class Connection
                 RegisterMessage("access", GetType(AccessReceiveMessage))
                 RegisterMessage("lostaccess", GetType(LostAccessReceiveMessage))
                 RegisterMessage("reset", GetType(ResetReceiveMessage))
-                RegisterMessage("tele", GetType(TeleportEveryoneReceiveMessage))
-                RegisterMessage("teleport", GetType(TeleportPlayerReceiveMessage))
+                RegisterMessage("tele", GetType(TeleportReceiveMessage))
                 RegisterMessage("saved", GetType(SaveDoneReceiveMessage))
                 RegisterMessage("clear", GetType(ClearReceiveMessage))
 
@@ -1065,11 +1002,9 @@ Friend NotInheritable Class Connection
                 RegisterMessage("pt", GetType(PortalPlaceReceiveMessage))
                 RegisterMessage("wp", GetType(WorldPortalPlaceReceiveMessage))
                 RegisterMessage("lb", GetType(LabelPlaceReceiveMessage))
-                RegisterMessage("ts", GetType(LabelPlaceReceiveMessage))
 
                 RegisterMessage("givewizard", GetType(GiveWizardReceiveMessage))
                 RegisterMessage("givewizard2", GetType(GiveFireWizardReceiveMessage))
-                RegisterMessage("givedarkwizard", GetType(GiveDarkWizardReceiveMessage))
                 RegisterMessage("givewitch", GetType(GiveWitchReceiveMessage))
                 RegisterMessage("givegrinch", GetType(GiveGrinchReceiveMessage))
 
@@ -1080,15 +1015,11 @@ Friend NotInheritable Class Connection
 
     Private Sub RegisterMessage(str As String, type As Type)
         Try
-#If DEBUG Then
             If Not type.IsSubclassOf(GetType(ReceiveMessage)) Then
                 Throw New InvalidOperationException("Invalid class! Must inherit '" & GetType(ReceiveMessage).FullName & "'.")
             Else
                 myMessageDictionary.Add(str, type)
             End If
-#Else
-            myMessageDictionary.Add(str, type)
-#End If
         Catch
             Cloud.Logger.Log(LogPriority.Error, "Failed to register messages with type """ & str & """.")
         End Try
@@ -1103,14 +1034,11 @@ Friend NotInheritable Class Connection
     End Sub
 
     Private Sub UnRegisterAll()
-        myRegisteredStartMessages = False
         myRegisteredMessages = False
-
         myMessageDictionary.Clear()
     End Sub
 
 #End Region
 
 #End Region
-
 End Class

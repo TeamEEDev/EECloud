@@ -1,12 +1,13 @@
 ﻿Public Enum AccountType
 
     ''' <summary>
-    ''' Represents an account which was created on http://everybodyedits.com/
+    '''     Represents a everybody edits.com account
     ''' </summary>
+    ''' <remarks></remarks>
     Regular = 0
 
     ''' <summary>
-    ''' Represents an account linked to Facebook
+    '''     Represents an account linked to facebook
     ''' </summary>
     ''' <remarks></remarks>
     Facebook = 1

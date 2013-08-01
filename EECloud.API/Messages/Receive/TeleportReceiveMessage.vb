@@ -1,11 +1,9 @@
 ﻿Imports PlayerIOClient
 
-Public NotInheritable Class TeleportEveryoneReceiveMessage
+Public NotInheritable Class TeleportReceiveMessage
     Inherits ReceiveMessage
-
-    '0
     Public ReadOnly ResetCoins As Boolean
-
+    '0
     Public ReadOnly Coordinates As New Dictionary(Of Integer, Point)
 
     Friend Sub New(message As Message)

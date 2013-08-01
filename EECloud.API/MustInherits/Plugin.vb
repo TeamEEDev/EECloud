@@ -43,11 +43,10 @@
     End Sub
 
     Protected Overrides Function EnablePart(Of TPart As {PluginPart(Of TPlayer, TProtocol), New})() As TPart
-        Dim part As New TPart()
+        Dim part As New TPart
         part.Enable(Client, Me)
         Return part
     End Function
 
 #End Region
-
 End Class

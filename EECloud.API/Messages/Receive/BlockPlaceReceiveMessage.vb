@@ -2,15 +2,14 @@
 
 Public Class BlockPlaceReceiveMessage
     Inherits ReceiveMessage
-
-    '0
     Public ReadOnly Layer As Layer
-    '1
+    '0
     Public ReadOnly PosX As Integer
-    '2
+    '1
     Public ReadOnly PosY As Integer
-    '3
+    '2
     Public ReadOnly Block As Block
+    '3
 
     Friend Sub New(message As Message)
         MyBase.New(message)

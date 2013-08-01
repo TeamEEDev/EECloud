@@ -74,10 +74,9 @@
     End Sub
 
     Private Sub myConnection_ReceiveHideKey(sender As Object, e As HideKeyReceiveMessage) Handles myConnection.ReceiveHideKey
-        For i = 0 To e.Keys.Length - 1
-            RaiseEvent OnPress(Me, e.Keys(i))
-
-            Select Case e.Keys(i)
+        For Each key1 In e.Keys
+            RaiseEvent OnPress(Me, key1)
+            Select Case key1
                 Case Key.Blue
                     RaiseEvent OnBlueKey(Me, False)
                     myBlueKey = False
@@ -95,10 +94,9 @@
     End Sub
 
     Private Sub myConnection_ReceiveShowKey(sender As Object, e As ShowKeyReceiveMessage) Handles myConnection.ReceiveShowKey
-        For i = 0 To e.Keys.Length - 1
-            RaiseEvent OnRelease(Me, e.Keys(i))
-
-            Select Case e.Keys(i)
+        For Each key1 In e.Keys
+            RaiseEvent OnRelease(Me, key1)
+            Select Case key1
                 Case Key.Blue
                     RaiseEvent OnBlueKey(Me, True)
                     myBlueKey = True
@@ -116,5 +114,4 @@
     End Sub
 
 #End Region
-
 End Class

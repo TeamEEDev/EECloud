@@ -99,5 +99,4 @@
     Protected MustOverride Sub Disable()
     Protected MustOverride Function EnablePart(Of TPart As {PluginPart(Of TPlayer, TProtocol), New})() As TPart
 #End Region
-
 End Class

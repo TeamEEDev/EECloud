@@ -2,11 +2,10 @@
 
 Public NotInheritable Class AutoTextReceiveMessage
     Inherits ReceiveMessage
-
-    '0
     Public ReadOnly UserID As Integer
-    '1
+    '0
     Public ReadOnly AutoText As String
+    '1
 
     Friend Sub New(message As Message)
         MyBase.New(message)

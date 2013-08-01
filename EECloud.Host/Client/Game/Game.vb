@@ -107,7 +107,7 @@
     Private Sub myConnection_ReceiveInit(sender As Object, e As InitReceiveMessage) Handles myConnection.ReceiveInit
         myMyPlayer = New Player()
         myMyPlayer.SetupPlayer(New InternalPlayer(myClient, e), myClient.Chatter)
-        myOwner = e.OwnerUsername
+        myOwner = e.UsernameOwner
         myWorldName = e.WorldName
         myPlays = e.Plays
         myEncryption = Derot(e.Encryption)
@@ -135,7 +135,7 @@
     Private Sub myConnection_ReceiveUpdateMeta(sender As Object, e As UpdateMetaReceiveMessage) Handles myConnection.ReceiveUpdateMeta
         myWorldName = e.WorldName
         myPlays = e.Plays
-        myOwner = e.OwnerUsername
+        myOwner = e.Owner
         myCurrentWoots = e.CurrentWoots
         myTotalWoots = e.TotalWoots
     End Sub
@@ -152,7 +152,7 @@
         Const ascUm = Asc("M"c)
         Const ascUz = Asc("Z"c)
 
-        Dim array As Char() = input.ToCharArray()
+        Dim array() As Char = input.ToCharArray()
 
         Dim charNum As Integer
         For i = 0 To input.Length - 1
@@ -179,5 +179,4 @@
     End Function
 
 #End Region
-
 End Class

@@ -140,7 +140,6 @@ Partial NotInheritable Class LoginForm
         Me.Controls.Add(Me.TextBoxWorldID)
         Me.Controls.Add(Me.TextBoxEmail)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.Name = "LoginForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent

@@ -1,5 +1,4 @@
 ﻿Public Enum Block
-
     BlockGravityNothing = 0
     BlockGravityLeft = 1
     BlockGravityUp = 2
@@ -209,11 +208,6 @@
     BlockBoostUp = 116
     BlockBoostDown = 117
 
-    BlockLadderCastle = 118
-    BlockLadderNinja = 120
-    BlockLadderJungleVertical = 98
-    BlockLadderJungleHorizontal = 99
-
     BlockWater = 119
     DecorationWater = 300
     BackgroundWaterBasic = 574
@@ -221,6 +215,18 @@
     BackgroundWaterFish = 576
     BackgroundWaterSeaHorse = 577
     BackgroundWaterSeaweed = 578
+
+    BlockSwamp = 369
+    DecorationSwamp1 = 370
+    DecorationSwamp2 = 371
+    DecorationSwamp3 = 372
+    DecorationSwamp4 = 373
+    BackgroundSwamp = 630
+
+    BlockLadderCastle = 118
+    BlockLadderNinja = 120
+    BlockLadderJungleVertical = 98
+    BlockLadderJungleHorizontal = 99
 
     BlockToolWinTrophy = 121
     BlockToolSpawnPoint = 255
@@ -384,30 +390,6 @@
 
     BlockJungleVase = 199
 
-    BlockLavaYellow = 202
-    BlockLavaOrange = 203
-    BlockLavaRed = 204
-    BackgroundLavaYellow = 627
-    BackgroundLavaOrange = 628
-    BackgroundLavaRed = 629
-
-    BlockSpartaSolidGrey = 208
-    BlockSpartaSolidGreen = 209
-    BlockSpartaSolidRed = 210
-    BlockSpartaOneWay = 211
-    DecorationSpartaPillarTop = 382
-    DecorationSpartaPillarMiddle = 383
-    DecorationSpartaPillarBottom = 384
-    BackgroundSpartaGrey = 638
-    BackgroundSpartaGreen = 639
-    BackgroundSpartaRed = 640
-
-    BlockFarm = 212
-    DecorationFarmCrop = 386
-    DecorationFarmPlants = 387
-    DecorationFarmFenceLeftEnded = 388
-    DecorationFarmFenceRightEnded = 389
-
     DecorationPrizeTrophy = 223
 
     DecorationSpring2011Grass1 = 233
@@ -499,13 +481,6 @@
     BlockHazardSpike = 361
     BlockHazardFire = 368
 
-    BlockSwamp = 369
-    DecorationSwamp1 = 370
-    DecorationSwamp2 = 371
-    DecorationSwamp3 = 372
-    DecorationSwamp4 = 373
-    BackgroundSwamp = 630
-
     DecorationChristmas2012BlueVertical = 362
     DecorationChristmas2012BlueHorizontal = 363
     DecorationChristmas2012BlueCross = 364
@@ -520,8 +495,6 @@
     DecorationSciFi2013GreenSlope = 379
     DecorationSciFi2013GreenStraight = 380
     BackgroundSciFi2013 = 637
-
-    DecorationSign = 385
 
     BackgroundCheckeredGrey = 513
     BackgroundCheckeredDarkBlue = 514
@@ -580,6 +553,12 @@
     BackgroundChristmas2012Green = 625
     BackgroundChristmas2012Blue = 626
 
-    DecorationLabel = 1000
+    BlockLavaYellow = 202
+    BlockLavaOrange = 203
+    BlockLavaRed = 204
+    BackgroundLavaYellow = 627
+    BackgroundLavaOrange = 628
+    BackgroundLavaRed = 629
 
+    BlockLabel = 1000
 End Enum

@@ -2,13 +2,12 @@
 
 Public NotInheritable Class SayReceiveMessage
     Inherits ReceiveMessage
-
-    '0
     Public ReadOnly UserID As Integer
-    '1
+    '0
     Public ReadOnly Text As String
-    '2
+    '1
     Public ReadOnly IsMyFriend As Boolean
+    '2
 
     Friend Sub New(message As Message)
         MyBase.New(message)

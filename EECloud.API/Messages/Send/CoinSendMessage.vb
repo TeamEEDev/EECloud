@@ -2,7 +2,6 @@
 
 Public NotInheritable Class CoinSendMessage
     Inherits SendMessage
-
     Public ReadOnly Coins As Integer
     Public ReadOnly CoinX As Integer
     Public ReadOnly CoinY As Integer

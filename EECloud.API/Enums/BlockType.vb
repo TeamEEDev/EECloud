@@ -1,5 +1,4 @@
 ﻿Public Enum BlockType
-
     Normal
     Rotatable
     CoinDoor
@@ -7,5 +6,4 @@
     Sound
     Label
     WorldPortal
-
 End Enum

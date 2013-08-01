@@ -13,7 +13,6 @@
         End Set
     End Property
 
-
     Private Shared myIsHosted As Boolean
 
     Public Shared Property IsHosted As Boolean
@@ -25,7 +24,6 @@
             myIsHosted = value
         End Set
     End Property
-
 
     Private Shared myIsNoConsole As Boolean
 
@@ -39,7 +37,6 @@
         End Set
     End Property
 
-
     Private Shared myIsNoGUI As Boolean
 
     Public Shared Property IsNoGUI As Boolean
@@ -51,20 +48,6 @@
             myIsNoGUI = value
         End Set
     End Property
-
-
-    Private Shared myStartupWorldID As String
-
-    Public Shared Property StartupWorldID As String
-        Get
-            Return myStartupWorldID
-        End Get
-
-        Friend Set(value As String)
-            myStartupWorldID = value
-        End Set
-    End Property
-
 
     Private Shared myLogger As ILogger
 
@@ -78,19 +61,17 @@
         End Set
     End Property
 
+    Private Shared myService As IEEService
 
-    'Private Shared myService As IEEService
+    Public Shared Property Service As IEEService
+        Get
+            Return myService
+        End Get
 
-    'Public Shared Property Service As IEEService
-    '    Get
-    '        Return myService
-    '    End Get
-
-    '    Friend Set(value As IEEService)
-    '        myService = value
-    '    End Set
-    'End Property
-
+        Friend Set(value As IEEService)
+            myService = value
+        End Set
+    End Property
 
     Private Shared myClientFactory As IClientFactory
 
@@ -104,16 +85,39 @@
         End Set
     End Property
 
+    Private Shared myLicenseUsername As String
 
-    Private Shared myHostUsername As String
-
-    Public Shared Property HostUsername As String
+    Public Shared Property LicenseUsername As String
         Get
-            Return myHostUsername
+            Return myLicenseUsername
         End Get
 
         Friend Set(value As String)
-            myHostUsername = value
+            myLicenseUsername = value
+        End Set
+    End Property
+
+    Private Shared myLicenseInGameName As String
+
+    Public Shared Property LicenseInGameName As String
+        Get
+            Return myLicenseInGameName
+        End Get
+
+        Friend Set(value As String)
+            myLicenseInGameName = value
+        End Set
+    End Property
+
+    Private Shared myStartupWorldID As String
+
+    Public Shared Property StartupWorldID As String
+        Get
+            Return myStartupWorldID
+        End Get
+
+        Friend Set(value As String)
+            myStartupWorldID = value
         End Set
     End Property
 
@@ -126,5 +130,4 @@
     End Sub
 
 #End Region
-
 End Class

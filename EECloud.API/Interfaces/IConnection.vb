@@ -1,41 +1,4 @@
 ﻿Public Interface IConnection
-
-    ''' <summary>
-    ''' Returns true if the connection is still active.
-    ''' </summary>
-    ReadOnly Property Connected As Boolean
-
-    ''' <summary>
-    ''' The world's ID
-    ''' </summary>
-    ReadOnly Property WorldID As String
-
-    ''' <summary>
-    ''' Determines whether a disconnect is expected by the user. If it is, EECloud won't try to rejoin the same world as it is in, but will restart showing the "Join world" dialog.
-    ''' </summary>
-    Property UserExpectingDisconnect As Boolean
-
-
-    ''' <summary>
-    ''' Connects using the given data.
-    ''' </summary>
-    ''' <param name="type">The type of the account used to log in.</param>
-    ''' <param name="username">Username, e-mail address, or access token</param>
-    ''' <param name="id">The ID of the world to join.</param>
-    Function ConnectAsync(type As AccountType, username As String, password As String, id As String) As Task
-
-    ''' <summary>
-    ''' Sends the given message.
-    ''' </summary>
-    ''' <param name="message">The message being sent</param>
-    Sub Send(message As SendMessage)
-
-    ''' <summary>
-    ''' Terminates the connection.
-    ''' </summary>
-    Sub Close(Optional restart As Boolean = False)
-
-
     Event InitComplete As EventHandler
     Event ReceiveMessage As EventHandler(Of ReceiveMessage)
     Event Disconnecting As EventHandler(Of EventArgs)
@@ -49,11 +12,10 @@
     Event ReceiveCoinDoorPlace As EventHandler(Of CoinDoorPlaceReceiveMessage)
     Event ReceiveCrown As EventHandler(Of CrownReceiveMessage)
     Event ReceiveFace As EventHandler(Of FaceReceiveMessage)
-    Event ReceiveGiveWizard As EventHandler(Of GiveWizardReceiveMessage)
     Event ReceiveGiveFireWizard As EventHandler(Of GiveFireWizardReceiveMessage)
-    Event ReceiveGiveDarkWizard As EventHandler(Of GiveDarkWizardReceiveMessage)
-    Event ReceiveGiveWitch As EventHandler(Of GiveWitchReceiveMessage)
     Event ReceiveGiveGrinch As EventHandler(Of GiveGrinchReceiveMessage)
+    Event ReceiveGiveWitch As EventHandler(Of GiveWitchReceiveMessage)
+    Event ReceiveGiveWizard As EventHandler(Of GiveWizardReceiveMessage)
     Event ReceiveGodMode As EventHandler(Of GodModeReceiveMessage)
     Event ReceiveHideKey As EventHandler(Of HideKeyReceiveMessage)
     Event ReceiveInfo As EventHandler(Of InfoReceiveMessage)
@@ -74,8 +36,7 @@
     Event ReceiveShowKey As EventHandler(Of ShowKeyReceiveMessage)
     Event ReceiveSilverCrown As EventHandler(Of SilverCrownReceiveMessage)
     Event ReceiveSoundPlace As EventHandler(Of SoundPlaceReceiveMessage)
-    Event ReceiveTeleportEveryone As EventHandler(Of TeleportEveryoneReceiveMessage)
-    Event ReceiveTeleportPlayer As EventHandler(Of TeleportPlayerReceiveMessage)
+    Event ReceiveTeleport As EventHandler(Of TeleportReceiveMessage)
     Event ReceiveUpdateMeta As EventHandler(Of UpdateMetaReceiveMessage)
     Event ReceiveUpgrade As EventHandler(Of UpgradeReceiveMessage)
     Event ReceiveWrite As EventHandler(Of WriteReceiveMessage)
@@ -97,11 +58,10 @@
     Event PreviewReceiveCoinDoorPlace As EventHandler(Of CoinDoorPlaceReceiveMessage)
     Event PreviewReceiveCrown As EventHandler(Of CrownReceiveMessage)
     Event PreviewReceiveFace As EventHandler(Of FaceReceiveMessage)
-    Event PreviewReceiveGiveWizard As EventHandler(Of GiveWizardReceiveMessage)
     Event PreviewReceiveGiveFireWizard As EventHandler(Of GiveFireWizardReceiveMessage)
-    Event PreviewReceiveGiveDarkWizard As EventHandler(Of GiveDarkWizardReceiveMessage)
-    Event PreviewReceiveGiveWitch As EventHandler(Of GiveWitchReceiveMessage)
     Event PreviewReceiveGiveGrinch As EventHandler(Of GiveGrinchReceiveMessage)
+    Event PreviewReceiveGiveWitch As EventHandler(Of GiveWitchReceiveMessage)
+    Event PreviewReceiveGiveWizard As EventHandler(Of GiveWizardReceiveMessage)
     Event PreviewReceiveGodMode As EventHandler(Of GodModeReceiveMessage)
     Event PreviewReceiveHideKey As EventHandler(Of HideKeyReceiveMessage)
     Event PreviewReceiveInfo As EventHandler(Of InfoReceiveMessage)
@@ -122,8 +82,7 @@
     Event PreviewReceiveShowKey As EventHandler(Of ShowKeyReceiveMessage)
     Event PreviewReceiveSilverCrown As EventHandler(Of SilverCrownReceiveMessage)
     Event PreviewReceiveSoundPlace As EventHandler(Of SoundPlaceReceiveMessage)
-    Event PreviewReceiveTeleportEveryone As EventHandler(Of TeleportEveryoneReceiveMessage)
-    Event PreviewReceiveTeleportPlayer As EventHandler(Of TeleportPlayerReceiveMessage)
+    Event PreviewReceiveTeleport As EventHandler(Of TeleportReceiveMessage)
     Event PreviewReceiveUpdateMeta As EventHandler(Of UpdateMetaReceiveMessage)
     Event PreviewReceiveUpgrade As EventHandler(Of UpgradeReceiveMessage)
     Event PreviewReceiveWrite As EventHandler(Of WriteReceiveMessage)
@@ -177,4 +136,52 @@
     Event UploadLabelPlace As EventHandler(Of Cancelable(Of LabelPlaceUploadMessage))
     Event UploadRotatablePlace As EventHandler(Of Cancelable(Of RotatablePlaceUploadMessage))
 
+
+    ''' <summary>
+    '''     Returns true if the connection is still active.
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    ReadOnly Property Connected As Boolean
+
+    ''' <summary>
+    '''     The world's ID
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    ReadOnly Property WorldID As String
+
+    ''' <summary>
+    '''    Determines whether a disconnect is expected by the user. If it is, EECloud won't try to rejoin the same world as it is in, but will restart showing the "Join world" dialog.
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Property UserExpectingDisconnect As Boolean
+
+    ''' <summary>
+    '''     Connects using the given data.
+    ''' </summary>
+    ''' <param name="type">AccountType we are using to login</param>
+    ''' <param name="username">Username, Email or Token</param>
+    ''' <param name="password">Password</param>
+    ''' <param name="id">WorldID we are entering</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Function ConnectAsync(type As AccountType, username As String, password As String, id As String) As Task
+
+    ''' <summary>
+    '''     Sends the given message.
+    ''' </summary>
+    ''' <param name="message">The message being sent</param>
+    ''' <remarks></remarks>
+    Sub Send(message As SendMessage)
+
+    ''' <summary>
+    '''     Terminates the connection.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Sub Close(Optional restart As Boolean = False)
 End Interface

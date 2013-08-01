@@ -2,46 +2,45 @@
 
 Public NotInheritable Class InitReceiveMessage
     Inherits ReceiveMessage
-
+    Public ReadOnly UsernameOwner As String
     '0
-    Public ReadOnly OwnerUsername As String
-    '1
     Public ReadOnly WorldName As String
-    '2
+    '1
     Public ReadOnly Plays As Integer
-    '3
+    '2
     Public ReadOnly CurrentWoots As Integer
-    '4
+    '3
     Public ReadOnly TotalWoots As Integer
-    '5
+    '4
     Public ReadOnly Encryption As String
-    '6
+    '5
     Public ReadOnly UserID As Integer
-    '7
+    '6
     Public ReadOnly SpawnX As Integer
-    '8
+    '7
     Public ReadOnly SpawnY As Integer
-    '9
+    '8
     Public ReadOnly Username As String
-    '10
+    '9
     Public ReadOnly CanEdit As Boolean
-    '11
+    '10
     Public ReadOnly IsOwner As Boolean
-    '12
+    '11
     Public ReadOnly SizeX As Integer
-    '13
+    '12
     Public ReadOnly SizeY As Integer
-    '14
+    '13
     Public ReadOnly IsTutorialRoom As Boolean
-    '15
+    '14
     Public ReadOnly Gravity As Double
-    '16
+    '15
     Public ReadOnly AllowPotions As Boolean
+    '16
 
     Friend Sub New(message As Message)
         MyBase.New(message)
 
-        OwnerUsername = message.GetString(0)
+        UsernameOwner = message.GetString(0)
         WorldName = message.GetString(1)
         Plays = message.GetInteger(2)
         CurrentWoots = message.GetInteger(3)

@@ -1,13 +1,15 @@
 ﻿''' <summary>
-''' Represents a SoundBlock in a world
+'''     Represents a SoundBlock in a world
 ''' </summary>
-Public Interface IWorldSoundBlock
-
+''' <remarks></remarks>
+    Public Interface IWorldSoundBlock
     Inherits IWorldBlock
-
+    
     ''' <summary>
-    ''' Returns the SoundID associated with this SoundBlock.
+    '''     Returns the SoundID associated with a note block
     ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     ReadOnly Property SoundID As Integer
-
 End Interface

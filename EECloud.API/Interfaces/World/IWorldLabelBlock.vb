@@ -1,13 +1,11 @@
-﻿''' <summary>
-''' Represents a LabelBlock in a world
-''' </summary>
-Public Interface IWorldLabelBlock
-
+﻿Public Interface IWorldLabelBlock
     Inherits IWorldBlock
-
+    
     ''' <summary>
-    ''' Returns the text associated with this LabelBlock.
+    '''     Returns the Text associated with a label block
     ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     ReadOnly Property Text As String
-
 End Interface
