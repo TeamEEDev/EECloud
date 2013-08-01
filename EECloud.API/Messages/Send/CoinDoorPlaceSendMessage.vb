@@ -2,7 +2,6 @@
 
 Public NotInheritable Class CoinDoorPlaceSendMessage
     Inherits BlockPlaceSendMessage
-
     Public ReadOnly CoinsToCollect As Integer
 
     Public Sub New(layer As Layer, x As Integer, y As Integer, block As CoinDoorBlock, coinsToCollect As Integer)

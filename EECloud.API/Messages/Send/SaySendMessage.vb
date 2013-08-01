@@ -2,7 +2,6 @@
 
 Public NotInheritable Class SaySendMessage
     Inherits SendMessage
-
     Public ReadOnly Text As String
 
     Public Sub New(text As String)

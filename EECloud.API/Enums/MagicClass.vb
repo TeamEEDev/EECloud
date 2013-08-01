@@ -1,5 +1,4 @@
 ﻿Public Enum MagicClass
-
     Amateur = 1
     Novice = 2
     Student = 3
@@ -12,5 +11,4 @@
     Expert = 10
     Master = 11
     GrandMaster = 12
-
 End Enum

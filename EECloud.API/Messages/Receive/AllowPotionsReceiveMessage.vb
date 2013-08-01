@@ -2,9 +2,8 @@
 
 Public Class AllowPotionsReceiveMessage
     Inherits ReceiveMessage
-
-    '0
     Public ReadOnly Allowed As Boolean
+    '0
 
     Friend Sub New(message As Message)
         MyBase.New(message)

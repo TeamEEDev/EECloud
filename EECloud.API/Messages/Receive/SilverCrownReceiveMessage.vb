@@ -2,9 +2,8 @@
 
 Public NotInheritable Class SilverCrownReceiveMessage
     Inherits ReceiveMessage
-
-    '0
     Public ReadOnly UserID As Integer
+    '0
 
     Friend Sub New(message As Message)
         MyBase.New(message)

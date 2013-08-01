@@ -2,7 +2,6 @@
 
 Public NotInheritable Class AutoSaySendMessage
     Inherits SendMessage
-
     Public ReadOnly Text As AutoText
 
     Public Sub New(text As AutoText)

@@ -214,7 +214,7 @@
             Throw New ArgumentException("Limit must be bigger than 0.", "limit")
         End If
 
-        limit = Math.Min(limit, 1000)
+        limit = Math.Min(limit, 1000UI)
         If String.IsNullOrWhiteSpace(orderBy) Then orderBy = "Username"
 
         ForceOpenConnection()
@@ -231,7 +231,7 @@
                     Dim pointer As UInteger
                     While reader.Read() AndAlso limit > pointer
                         userDatas.Add(ParsePlayerData(reader))
-                        pointer += 1
+                        pointer += 1UI
                     End While
 
                     Return userDatas.ToArray()
@@ -500,8 +500,8 @@
     End Function
 
 
-    Private Shared Function NumberToDbValue(input As Object)
-        If input = 0 Then
+    Private Shared Function NumberToDbValue(input As Object) As Object
+        If Equals(input, CObj(0)) Then
             Return DBNull.Value
         End If
 

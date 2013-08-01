@@ -2,7 +2,6 @@
 
 Public Class AllowPotionsSendMessage
     Inherits SendMessage
-
     Public ReadOnly Allowed As Boolean
 
     Public Sub New(allowed As Boolean)

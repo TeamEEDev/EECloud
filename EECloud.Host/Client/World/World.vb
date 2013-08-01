@@ -142,7 +142,7 @@ Friend NotInheritable Class World
                               byteArrayY(i) * 256 + byteArrayY(i + 1)) = New WorldWorldPortalBlock(DirectCast(block1, API.WorldPortalBlock), portalTarget)
                     Next
 
-                Case Block.DecorationSign, Block.DecorationLabel
+                Case Block.BlockLabel
                     Dim text As String = m.GetString(pointer)
                     pointer += 1
 
@@ -232,7 +232,7 @@ Friend NotInheritable Class World
     End Sub
 
     Private Sub myConnection_ReceiveWorldPortalPlace(sender As Object, e As WorldPortalPlaceReceiveMessage) Handles myConnection.ReceiveWorldPortalPlace
-        Dim block As New WorldWorldPortalBlock(e.WorldPortalBlock, e.WorldPortalTarget)
+        Dim block As New WorldWorldPortalBlock(e.WorldPortalBlock, e.PortalTarget)
         myBlocks(e.Layer, e.PosX, e.PosY) = block
         RaiseEvent BlockPlace(Me, New BlockPlaceEventArgs(e.PosX, e.PosY, e.Layer))
     End Sub
@@ -258,5 +258,4 @@ Friend NotInheritable Class World
     End Sub
 
 #End Region
-
 End Class

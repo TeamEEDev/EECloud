@@ -2,7 +2,6 @@
 
 Public NotInheritable Class SoundPlaceUploadMessage
     Inherits BlockPlaceUploadMessage
-
     Public ReadOnly SoundID As Integer
 
     Public Sub New(layer As Layer, x As Integer, y As Integer, block As SoundBlock, soundID As Integer)

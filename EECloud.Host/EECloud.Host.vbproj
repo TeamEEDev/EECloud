@@ -47,6 +47,10 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="PlayerIOClient, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\PlayerIOClient.dll</HintPath>
@@ -60,6 +64,7 @@
   <ItemGroup>
     <Import Include="EECloud.API" />
     <Import Include="Microsoft.VisualBasic" />
+    <Import Include="MySql.Data.MySqlClient" />
     <Import Include="System" />
     <Import Include="System.Collections" />
     <Import Include="System.Collections.Generic" />
@@ -102,10 +107,11 @@
     <Compile Include="Deque\Deque.Node.vb" />
     <Compile Include="Deque\Deque.Synchronized.vb" />
     <Compile Include="Deque\Deque.vb" />
-    <Compile Include="Forms\HostDataForm.Designer.vb">
-      <DependentUpon>HostDataForm.vb</DependentUpon>
+    <Compile Include="EEService\EEService.vb" />
+    <Compile Include="Forms\LicenseForm.Designer.vb">
+      <DependentUpon>LicenseForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\HostDataForm.vb">
+    <Compile Include="Forms\LicenseForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\LoginForm.Designer.vb">
@@ -158,8 +164,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\HostDataForm.resx">
-      <DependentUpon>HostDataForm.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\LicenseForm.resx">
+      <DependentUpon>LicenseForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.vb</DependentUpon>

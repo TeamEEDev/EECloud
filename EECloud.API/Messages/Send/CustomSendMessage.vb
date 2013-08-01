@@ -2,7 +2,6 @@
 
 Friend NotInheritable Class CustomSendMessage
     Inherits SendMessage
-
     Private ReadOnly myMessage As Message
 
     Public Sub New(type As String, ParamArray parameters As String())

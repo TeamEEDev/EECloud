@@ -3,7 +3,6 @@ Imports PlayerIOClient
 
 Public MustInherit Class ReceiveMessage
     Inherits EventArgs
-
     <EditorBrowsable(EditorBrowsableState.Advanced)>
     Public ReadOnly PlayerIOMessage As Message
 

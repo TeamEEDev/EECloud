@@ -1,5 +1,4 @@
 ﻿Public Enum RotatableBlock
-
     BlockHazardSpike = Block.BlockHazardSpike
 
     DecorationSciFi2013BlueSlope = Block.DecorationSciFi2013BlueSlope
@@ -8,5 +7,4 @@
     DecorationSciFi2013YellowStraight = Block.DecorationSciFi2013YellowStraight
     DecorationSciFi2013GreenSlope = Block.DecorationSciFi2013GreenSlope
     DecorationSciFi2013GreenStraight = Block.DecorationSciFi2013GreenStraight
-
 End Enum

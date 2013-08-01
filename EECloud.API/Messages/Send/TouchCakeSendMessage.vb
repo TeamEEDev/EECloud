@@ -2,7 +2,6 @@
 
 Public NotInheritable Class TouchCakeSendMessage
     Inherits SendMessage
-
     Public ReadOnly X As Integer
     Public ReadOnly Y As Integer
 

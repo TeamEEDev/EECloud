@@ -3,14 +3,14 @@
 Public NotInheritable Class PotionReceiveMessage
     Inherits ReceiveMessage
 
-    '0
     Public ReadOnly UserID As Integer
-    '1
+    '0
     Public ReadOnly Potion As Potion
-    '2
+    '1
     Public ReadOnly Enabled As Boolean
-    '3
+    '2
     Public ReadOnly Timeout As Integer
+    '3
 
     Friend Sub New(message As Message)
         MyBase.New(message)

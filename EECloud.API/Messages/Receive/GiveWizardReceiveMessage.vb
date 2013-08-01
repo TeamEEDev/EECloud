@@ -2,7 +2,6 @@
 
 Public NotInheritable Class GiveWizardReceiveMessage
     Inherits ReceiveMessage
-
     'No arguments
 
     Friend Sub New(message As Message)

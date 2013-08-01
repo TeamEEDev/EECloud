@@ -2,7 +2,6 @@
 
 Public Class CheckpointSendMessage
     Inherits SendMessage
-
     Public ReadOnly X As Integer
     Public ReadOnly Y As Integer
 
@@ -10,6 +9,7 @@ Public Class CheckpointSendMessage
         Me.X = x
         Me.Y = y
     End Sub
+
 
     Friend Overrides Function GetMessage(game As IGame) As Message
         Return Message.Create("checkpoint", X, Y)

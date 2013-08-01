@@ -1,8 +1,7 @@
 ﻿Imports PlayerIOClient
 
-Public NotInheritable Class RotatablePlaceUploadMessage
+Public Class RotatablePlaceUploadMessage
     Inherits BlockPlaceUploadMessage
-
     Public ReadOnly Rotation As Integer
 
     Public Sub New(layer As Layer, x As Integer, y As Integer, block As RotatableBlock, rotation As Integer)

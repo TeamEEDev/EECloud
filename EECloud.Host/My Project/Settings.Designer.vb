@@ -56,6 +56,30 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property LicenseUsername() As String
+            Get
+                Return CType(Me("LicenseUsername"),String)
+            End Get
+            Set
+                Me("LicenseUsername") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property LicenseKey() As String
+            Get
+                Return CType(Me("LicenseKey"),String)
+            End Get
+            Set
+                Me("LicenseKey") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
         Public Property Updated() As Boolean
             Get
@@ -63,18 +87,6 @@ Namespace My
             End Get
             Set
                 Me("Updated") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property HostUserame() As String
-            Get
-                Return CType(Me("HostUserame"),String)
-            End Get
-            Set
-                Me("HostUserame") = value
             End Set
         End Property
         
@@ -154,18 +166,6 @@ Namespace My
             End Get
             Set
                 Me("BanString") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
-        Public Property GameVersionNumber() As Integer
-            Get
-                Return CType(Me("GameVersionNumber"),Integer)
-            End Get
-            Set
-                Me("GameVersionNumber") = value
             End Set
         End Property
         
