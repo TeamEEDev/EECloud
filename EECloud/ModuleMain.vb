@@ -13,7 +13,15 @@ Module ModuleMain
         AddHandler AppDomain.CurrentDomain.AssemblyResolve, AddressOf AppDomain_AssemblyResolve
         CheckForUpdates()
 
-        Host.EECloud.RunDesktopMode()
+        Dim restart As Boolean
+        'Cmd Args
+        For Each s As String In My.Application.CommandLineArgs
+            If s.ToLower.Equals("-restart") Then
+                restart = True
+            End If
+        Next
+
+        Host.EECloud.RunDesktopMode(restart)
     End Sub
 
 #End Region
