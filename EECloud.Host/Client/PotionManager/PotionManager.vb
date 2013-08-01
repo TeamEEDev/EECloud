@@ -121,7 +121,7 @@
 
     Private Sub myConnection_ReceiveInit(sender As Object, e As InitReceiveMessage) Handles myConnection.ReceiveInit
         Dim startNum As UInteger
-        For i = CInt(e.PlayerIOMessage.Count - 1UI) To 1 Step -1
+        For i = CInt(e.PlayerIOMessage.Count - 1UI) To 0 Step -1
             If TryCast(e.PlayerIOMessage.Item(i), String) IsNot Nothing AndAlso e.PlayerIOMessage.GetString(i) = "pe" Then
                 startNum = i - 1
             End If

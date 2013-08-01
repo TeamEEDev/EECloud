@@ -16,7 +16,7 @@ Module ModuleMain
         Dim restart As Boolean
 
         'Cmd arguments
-        For i = 0 To My.Application.CommandLineArgs.Count - 1
+        For i = My.Application.CommandLineArgs.Count - 1 To 0
             If My.Application.CommandLineArgs(i).ToLowerInvariant() = "-restart" Then
                 restart = True
             End If

@@ -22,12 +22,12 @@ Friend NotInheritable Class LoginForm
 
     Private Sub LoginForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If My.Settings.LoginTypes.Count > 0 Then
-            For n = 0 To My.Settings.LoginTypes.Count - 1
-                Select Case My.Settings.LoginTypes(n)
+            For i = 0 To My.Settings.LoginTypes.Count - 1
+                Select Case My.Settings.LoginTypes(i)
                     Case AccountType.Regular
-                        regularAccounts.Add(n)
+                        regularAccounts.Add(i)
                     Case Else 'AccountType.Facebook
-                        facebookAccounts.Add(n)
+                        facebookAccounts.Add(i)
                 End Select
             Next
 
@@ -189,8 +189,8 @@ Friend NotInheritable Class LoginForm
                 selectedLoginType = AccountType.Regular
 
                 If regularAccounts.Count > 0 Then
-                    For n = 0 To regularAccounts.Count - 1
-                        TextBoxEmail.Items.Add(My.Settings.LoginEmails(regularAccounts(n)))
+                    For i = 0 To regularAccounts.Count - 1
+                        TextBoxEmail.Items.Add(My.Settings.LoginEmails(regularAccounts(i)))
                     Next
 
                     TextBoxEmail.Text = TextBoxEmail.Items(0)
@@ -207,8 +207,8 @@ Friend NotInheritable Class LoginForm
                 selectedLoginType = AccountType.Facebook
 
                 If facebookAccounts.Count > 0 Then
-                    For n = 0 To facebookAccounts.Count - 1
-                        TextBoxEmail.Items.Add(My.Settings.LoginEmails(facebookAccounts(n)))
+                    For i = 0 To facebookAccounts.Count - 1
+                        TextBoxEmail.Items.Add(My.Settings.LoginEmails(facebookAccounts(i)))
                     Next
 
                     TextBoxEmail.Text = TextBoxEmail.Items(0)

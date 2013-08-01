@@ -125,9 +125,9 @@
                 SyncLock myUsernameDictionary
                     Dim list As List(Of TPlayer) = Nothing
                     If myUsernameDictionary.TryGetValue(player1.Username, list) Then
-                        For n = 0 To list.Count - 1
-                            If list(n).UserID = e.UserID Then
-                                list.RemoveAt(n)
+                        For i = 0 To list.Count - 1
+                            If list(i).UserID = e.UserID Then
+                                list.RemoveAt(i)
                                 Exit For
                             End If
                         Next

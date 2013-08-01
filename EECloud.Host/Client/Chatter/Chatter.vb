@@ -103,8 +103,8 @@
 
     Public Sub PotionsOn(ParamArray potions As Potion()) Implements IChatter.PotionsOn
         Dim p(potions.Length - 1) As Integer
-        For n = 0 To potions.Length - 1
-            p(n) = CInt(potions(n))
+        For i = potions.Length - 1 To 0 Step -1
+            p(i) = CInt(potions(i))
         Next
 
         myInternalChatter.SendChat("/potionson  " & String.Join(" ", p))
@@ -120,8 +120,8 @@
 
     Public Sub PotionsOff(ParamArray potions As Potion()) Implements IChatter.PotionsOff
         Dim p(potions.Length - 1) As Integer
-        For n = 0 To potions.Length - 1
-            p(n) = CInt(potions(n))
+        For i = potions.Length - 1 To 0 Step -1
+            p(i) = CInt(potions(i))
         Next
 
         myInternalChatter.SendChat("/potionsoff  " & String.Join(" ", p))

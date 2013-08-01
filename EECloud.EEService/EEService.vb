@@ -45,7 +45,7 @@
             Throw New ArgumentNullException("keyList")
         End If
 
-        For i = 0 To keyList.Length - 1
+        For i = keyList.Length - 1 To 0 Step -1
             If String.IsNullOrWhiteSpace(keyList(i)) Then
                 Throw New ArgumentNullException("keyList", "'KeyList()' mustn't contain empty or null values.")
             End If
@@ -111,7 +111,7 @@
             Throw New ArgumentNullException("keyValuePairs")
         End If
 
-        For i = 0 To keyValuePairs.Length - 1
+        For i = keyValuePairs.Length - 1 To 0 Step -1
             If String.IsNullOrWhiteSpace(keyValuePairs(i).Key) OrElse String.IsNullOrWhiteSpace(keyValuePairs(i).Value) Then
                 Throw New ArgumentNullException("keyValuePairs", "'KeyValuePairs()' mustn't contain empty or null values.")
             End If
@@ -166,8 +166,8 @@
         If usernames.Length = 0 Then
             Throw New ArgumentNullException("usernames")
         End If
-
-        For i = 0 To usernames.Length - 1
+0:
+        For i = usernames.Length - 1 To 0 Step -1
             If String.IsNullOrWhiteSpace(usernames(i)) Then
                 Throw New ArgumentNullException("usernames", "'Usernames()' mustn't contain empty or null values.")
             End If
@@ -415,7 +415,7 @@
                 Throw New ArgumentNullException("tableNames")
             End If
 
-            For i = 0 To tableNames.Length - 1
+            For i = tableNames.Length - 1 To 0 Step -1
                 If String.IsNullOrWhiteSpace(tableNames(i)) Then
                     Throw New ArgumentNullException("tableNames", "'TableNames()' mustn't contain empty or null values.")
                 End If
