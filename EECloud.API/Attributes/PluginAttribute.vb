@@ -57,8 +57,8 @@ Public NotInheritable Class PluginAttribute
 
             If value.Length >= 2 AndAlso value.Length <= 15 Then
                 Dim throwEx As Boolean
-                For n = 0 To value.Length - 1
-                    If Char.IsWhiteSpace(value(n)) Then
+                For i = value.Length - 1 To 0 Step -1
+                    If Char.IsWhiteSpace(value(i)) Then
                         throwEx = True
                         Exit For
                     End If

@@ -169,7 +169,7 @@ Friend NotInheritable Class World
         Dim sizeYMinus1 = blockArray.GetLength(2) - 1
 
         '<Fill the middle with GravityNothing blocks>
-        For l = Layer.Foreground To Layer.Background
+        For l = Layer.Background To Layer.Foreground Step -1
             For x = 1 To sizeXMinusSomething
                 For y = 1 To sizeYMinus1
                     blockArray(l, x, y) = New WorldBlock(Block.BlockGravityNothing) 'Create a new instance for every block
@@ -187,8 +187,8 @@ Friend NotInheritable Class World
         End If
 
         sizeXMinusSomething -= 1
-        For l = Layer.Foreground To IIf(drawBorder, Layer.Foreground, Layer.Background)
-            For y = 0 To sizeYMinus1
+        For l = IIf(drawBorder, Layer.Foreground, Layer.Background) To Layer.Foreground Step -1
+            For y = sizeYMinus1 To 0 Step -1
                 blockArray(0, 0, y) = New WorldBlock(blockToDraw)
                 blockArray(0, sizeYMinus1, y) = New WorldBlock(blockToDraw)
             Next

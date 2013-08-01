@@ -155,7 +155,7 @@
         Dim array As Char() = input.ToCharArray()
 
         Dim charNum As Integer
-        For i = 0 To input.Length - 1
+        For i = input.Length - 1 To 0 Step -1
             charNum = Asc(array(i))
 
             If charNum >= ascLa AndAlso charNum <= ascLz Then

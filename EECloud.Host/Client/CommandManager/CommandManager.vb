@@ -151,7 +151,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
         If handle.HasParamArray Then
             toCount += 1
             Dim pramArgs(cmd.Length - toCount - 1) As String
-            For i = 0 To pramArgs.Length - 1
+            For i = pramArgs.Length - 1 To 0 Step -1
                 pramArgs(i) = cmd(i + toCount)
             Next
 

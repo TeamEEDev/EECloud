@@ -19,8 +19,8 @@ Friend NotInheritable Class DefaultCommandListener
 #If DEBUG Then
     <Command("douploadertest", Group.Operator)>
     Public Sub DoUploaderTestCommand(cmd As ICommand(Of Player))
-        For i = 0 To myClient.World.SizeX - 1
-            For j = 0 To myClient.World.SizeY - 1
+        For i = myClient.World.SizeX - 1 To 0 Step -1
+            For j = myClient.World.SizeY - 1 To 0 Step -1
                 myClient.Uploader.Upload(New BlockPlaceUploadMessage(Layer.Foreground, i, j, Block.BlockBasicLightBlue))
             Next
         Next

@@ -66,7 +66,7 @@
 
     Public ReadOnly Property IsGuest As Boolean Implements IPlayer.IsGuest
         Get
-            'Not my fault for this being the way it is done in the swf
+            'It is done like this in the SWF
             Return Username.Contains("-"c)
         End Get
     End Property
