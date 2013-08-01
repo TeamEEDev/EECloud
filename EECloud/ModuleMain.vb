@@ -14,9 +14,10 @@ Module ModuleMain
         CheckForUpdates()
 
         Dim restart As Boolean
-        'Cmd Args
-        For Each s As String In My.Application.CommandLineArgs
-            If s.ToLower.Equals("-restart") Then
+
+        'Cmd arguments
+        For i = 0 To My.Application.CommandLineArgs.Count - 1
+            If My.Application.CommandLineArgs(i).ToLowerInvariant() = "-restart" Then
                 restart = True
             End If
         Next
@@ -44,11 +45,11 @@ Module ModuleMain
     Private Async Sub CheckForUpdates()
         Try
             Using webClient As New WebClient()
-                Dim newVersionString As String = Await webClient.DownloadStringTaskAsync(New Uri("http://dl.dropbox.com/u/13946635/EECloud/Version.txt"))
+                Dim newVersionString As String = Await webClient.DownloadStringTaskAsync(New Uri("http://dl.dropboxusercontent.com/u/13946635/EECloud/Version.txt"))
                 Dim newVersionComparable As New Version(newVersionString)
 
                 If newVersionComparable.CompareTo(My.Application.Info.Version) > 0 Then
-                    Dim setupDownload As Task = webClient.DownloadFileTaskAsync(New Uri("http://dl.dropbox.com/u/13946635/EECloud/EECloud.Setup.msi"), My.Application.Info.DirectoryPath & "\Update.msi")
+                    Dim setupDownload As Task = webClient.DownloadFileTaskAsync(New Uri("http://dl.dropboxusercontent.com/u/13946635/EECloud/EECloud.Setup.msi"), My.Application.Info.DirectoryPath & "\Update.msi")
 
                     If newVersionComparable.Revision = 0 Then
                         newVersionString = Left(newVersionString, newVersionString.Length - 2)

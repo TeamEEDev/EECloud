@@ -133,7 +133,13 @@ Module ModuleMain
             If DateTime.UtcNow.Subtract(myLastRestart).TotalMinutes >= 1 Then
                 myRestartTry = 0
             Else
-                Dim waitSecs As Integer = CInt(2 ^ myRestartTry)
+                Dim waitSecs As Integer
+                If myRestartTry < 22 Then
+                    waitSecs = CInt(2 ^ myRestartTry)
+                Else
+                    waitSecs = CInt(Integer.MaxValue / 1000)
+                End If
+
                 Console.WriteLine("Restarting in " & waitSecs & " second(s)...")
                 Thread.Sleep(waitSecs * 1000)
 
