@@ -61,11 +61,11 @@ Public NotInheritable Class EECloud
         Application.Run()
     End Sub
 
-    Friend Shared Sub RunDesktopMode()
+    Friend Shared Sub RunDesktopMode(restart As Boolean)
         Init(False, False, False)
         CheckHostData()
 
-        Dim loginTask As Task = ShowLogin()
+        Dim loginTask As Task = ShowLogin(restart)
         Client.CommandManager.Load(New DefaultCommandListener(Client))
 
         LoadDir(My.Application.Info.DirectoryPath)
@@ -170,8 +170,8 @@ Public NotInheritable Class EECloud
         Cloud.HostUsername = username
     End Sub
 
-    Public Shared Async Function ShowLogin() As Task
-        If Not My.Settings.Restart Then
+    Public Shared Async Function ShowLogin(Optional restart As Boolean = False) As Task
+        If Not restart Then
             Await Task.Run(
                 Sub()
                     If Not New LoginForm().ShowDialog() = DialogResult.OK Then
@@ -188,9 +188,6 @@ Public NotInheritable Class EECloud
             If My.Settings.LoginWorldIDs.Count > 0 Then
                 myWorldID = My.Settings.LoginWorldIDs(0)
             End If
-        Else
-            My.Settings.Restart = False
-            My.Settings.Save()
         End If
     End Function
 
@@ -253,17 +250,11 @@ RetryLogin:
                         Client.PluginManager.Plugins(i).Stop()
                     Next
 
-                    If Client.Connection.UserExpectingDisconnect Then
-                        My.Settings.Restart = False
-                    Else
-                        If e.Unexpected OrElse e.Restarting Then
-                            My.Settings.Restart = True
-                        Else
+                    If Not Client.Connection.UserExpectingDisconnect Then
+                        If Not e.Unexpected AndAlso Not e.Restarting Then
                             Environment.Exit(0)
                         End If
                     End If
-
-                    My.Settings.Save()
                     Environment.Exit(1)
                 End Sub
 

@@ -104,12 +104,16 @@ Module ModuleMain
     Sub Main()
         Initialize()
 
-        RestartAppProcess()
+        RestartAppProcess(False)
     End Sub
 
-    Private Sub RestartAppProcess()
+    Private Sub RestartAppProcess(restart As Boolean)
         myLastRestart = DateTime.UtcNow
         Console.WriteLine(mySeparatorText)
+
+        If restart Then
+            myAppProcess.StartInfo.Arguments = "-restart"
+        End If
 
         'Start the process
         myAppProcess.Start()
@@ -129,7 +133,7 @@ Module ModuleMain
             If DateTime.UtcNow.Subtract(myLastRestart).TotalMinutes >= 1 Then
                 myRestartTry = 0
             Else
-                Dim waitSecs As Integer = myRestartTry << 1
+                Dim waitSecs As Integer = CInt(2 ^ myRestartTry)
                 Console.WriteLine("Restarting in " & waitSecs & " second(s)...")
                 Thread.Sleep(waitSecs * 1000)
 
@@ -138,7 +142,7 @@ Module ModuleMain
 
             'Restart the process
             Console.Write("Restarting EECloud...")
-            RestartAppProcess()
+            RestartAppProcess(True)
         End If
     End Sub
 
