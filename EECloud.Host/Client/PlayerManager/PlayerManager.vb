@@ -53,6 +53,19 @@
     Private ReadOnly myIDDictionary As New Dictionary(Of Integer, TPlayer)
     Private ReadOnly myUsernameDictionary As New Dictionary(Of String, List(Of TPlayer))
 
+    Friend ReadOnly Property Player(number As Integer) As TPlayer Implements IPlayerManager(Of TPlayer).Player
+        Get
+            SyncLock myUsernameDictionary
+                Dim player1 As TPlayer = Nothing
+                If myIDDictionary.TryGetValue(number, player1) Then
+                    Return player1
+                Else
+                    Return Nothing
+                End If
+            End SyncLock
+        End Get
+    End Property
+
     Friend ReadOnly Property Player(username As String) As TPlayer Implements IPlayerManager(Of TPlayer).Player
         Get
             SyncLock myUsernameDictionary

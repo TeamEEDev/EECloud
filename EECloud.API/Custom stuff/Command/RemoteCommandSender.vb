@@ -1,5 +1,6 @@
 ﻿Public MustInherit Class RemoteCommandSender
     Inherits CommandSender
+
 #Region "Properties"
     Private myName As String
 

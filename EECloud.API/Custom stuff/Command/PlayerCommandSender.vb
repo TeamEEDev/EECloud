@@ -1,5 +1,6 @@
 ﻿Public Class PlayerCommandSender(Of TPlayer As {Player, New})
     Inherits CommandSender
+
 #Region "Properties"
     Private myPlayer As TPlayer
 
