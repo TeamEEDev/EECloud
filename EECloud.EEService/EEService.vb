@@ -231,7 +231,7 @@
                     Dim pointer As UInteger
                     While reader.Read() AndAlso limit > pointer
                         userDatas.Add(ParsePlayerData(reader))
-                        pointer += 1
+                        pointer += 1UI
                     End While
 
                     Return userDatas.ToArray()
@@ -501,7 +501,7 @@
 
 
     Private Shared Function NumberToDbValue(input As Object)
-        If input = 0 Then
+        If Equals(input, CObj(0)) Then
             Return DBNull.Value
         End If
 
