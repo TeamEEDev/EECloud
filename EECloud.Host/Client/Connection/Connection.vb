@@ -347,22 +347,22 @@ Friend NotInheritable Class Connection
     Sub New(client As IClient(Of Player))
         myClient = client
 
-        'If GameVersionNumber = 0 Then
-        '    Try
-        '        Dim task1 = Cloud.Service.GetSettingAsync(GameVersionSetting)
-        '        Dim task2 = Task.Run(Of Boolean)(Function() GetVersion())
+        If GameVersionNumber = 0 Then
+            Try
+                Dim task1 = Cloud.Service.GetSettingAsync(GameVersionSetting)
+                Dim task2 = Task.Run(Of Boolean)(Function() GetVersion())
 
-        '        Dim completedTask As Integer = Task.WaitAny(task1, task2)
-        '        If completedTask = 0 OrElse Not task2.Result Then
-        '            'Use the result of the MySQL query
-        '            GameVersionNumber = Integer.Parse(task1.Result)
-        '        End If
-        '    Catch
-        '        Cloud.Logger.Log(LogPriority.Warning, "Invalid GameVersion setting.")
-        '    End Try
-        'Else
-        Task.Run(Sub() GetVersion())
-        'End If
+                Dim completedTask As Integer = Task.WaitAny(task1, task2)
+                If completedTask = 0 OrElse Not task2.Result Then
+                    'Use the result of the MySQL query
+                    GameVersionNumber = Integer.Parse(task1.Result)
+                End If
+            Catch
+                Cloud.Logger.Log(LogPriority.Warning, "Invalid GameVersion setting.")
+            End Try
+        Else
+            Task.Run(Sub() GetVersion())
+        End If
     End Sub
 
     Private Sub SetupConnection(connection As PlayerIOClient.Connection, id As String)
@@ -418,7 +418,7 @@ Friend NotInheritable Class Connection
 
                 If newVersion > GameVersionNumber Then
                     GameVersionNumber = newVersion
-                    'Cloud.Service.SetSettingAsync(GameVersionSetting, CStr(GameVersionNumber))
+                    Cloud.Service.SetSettingAsync(GameVersionSetting, CStr(GameVersionNumber))
                     Exit Sub
                 ElseIf newVersion = GameVersionNumber Then
                     versionIsUpToDate = True
@@ -893,7 +893,7 @@ Friend NotInheritable Class Connection
                 Dim m As UpgradeReceiveMessage = DirectCast(e, UpgradeReceiveMessage)
                 RaiseEvent PreviewReceiveUpgrade(Me, m)
                 GameVersionNumber += 1
-                'Cloud.Service.SetSettingAsync("GameVersion", CStr(GameVersionNumber))
+                Cloud.Service.SetSettingAsync("GameVersion", CStr(GameVersionNumber))
                 Cloud.Logger.Log(LogPriority.Info, "The game has been updated!")
                 RaiseEvent ReceiveUpgrade(Me, m)
 

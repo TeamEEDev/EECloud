@@ -9,7 +9,7 @@
 #Region "Events"
     Public Event GroupChange(sender As Object, e As EventArgs) Implements IPlayer.GroupChange
 
-    'Public Event LoadUserData(sender As Object, e As UserData) Implements IPlayer.LoadUserData
+    Public Event LoadUserData(sender As Object, e As UserData) Implements IPlayer.LoadUserData
 
     Public Event UserDataReady(sender As Object, e As EventArgs) Implements IPlayer.UserDataReady
 
@@ -22,9 +22,9 @@
         RaiseEvent GroupChange(Me, e)
     End Sub
 
-    'Private Sub myPlayer_LoadUserData(sender As Object, e As UserData) Handles myPlayer.LoadUserData
-    '    RaiseEvent LoadUserData(Me, e)
-    'End Sub
+    Private Sub myPlayer_LoadUserData(sender As Object, e As UserData) Handles myPlayer.LoadUserData
+        RaiseEvent LoadUserData(Me, e)
+    End Sub
 
     Private Sub myPlayer_SaveUserData(sender As Object, e As EventArgs) Handles myPlayer.SaveUserData
         RaiseEvent SaveUserData(Me, e)
@@ -524,13 +524,13 @@
         myChatter = chatter
     End Sub
 
-    'Public Sub ReloadUserData() Implements IPlayer.ReloadUserData
-    '    myPlayer.ReloadUserData()
-    'End Sub
+    Public Sub ReloadUserData() Implements IPlayer.ReloadUserData
+        myPlayer.ReloadUserData()
+    End Sub
 
-    'Public Function ReloadUserDataAsync() As Task Implements IPlayer.ReloadUserDataAsync
-    '    Return myPlayer.ReloadUserDataAsync()
-    'End Function
+    Public Function ReloadUserDataAsync() As Task Implements IPlayer.ReloadUserDataAsync
+        Return myPlayer.ReloadUserDataAsync()
+    End Function
 
     Public Sub Reply(msg As String) Implements IPlayer.Reply
         myChatter.Reply(Username, msg)

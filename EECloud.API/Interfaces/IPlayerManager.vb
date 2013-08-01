@@ -43,4 +43,6 @@
     Event UserDataReady As EventHandler(Of TPlayer)
     Event GroupChange As EventHandler(Of TPlayer)
 
+    Sub Dispose()
+
 End Interface
