@@ -28,12 +28,12 @@
         myConnection = client.Connection
     End Sub
 
-    Private Sub myConnection_OnReceiveAdd(sender As Object, e As AddReceiveMessage) Handles myConnection.ReceiveAdd
+    Private Async Sub myConnection_OnReceiveAdd(sender As Object, e As AddReceiveMessage) Handles myConnection.ReceiveAdd
         If Not myPlayers.ContainsKey(e.UserID) Then
             Dim player As InternalPlayer = New InternalPlayer(myClient, e)
             myPlayers.Add(player.UserID, player)
             RaiseEvent AddUser(Me, player)
-            'Await player.ReloadUserDataAsync()
+            Await player.ReloadUserDataAsync()
         End If
     End Sub
 

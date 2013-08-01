@@ -214,7 +214,7 @@
             Throw New ArgumentException("Limit must be bigger than 0.", "limit")
         End If
 
-        limit = Math.Min(limit, 1000)
+        limit = Math.Min(limit, 1000UI)
         If String.IsNullOrWhiteSpace(orderBy) Then orderBy = "Username"
 
         ForceOpenConnection()

@@ -30,12 +30,6 @@
     ''' <param name="target">The instance being extracted</param>
     Sub Load(target As Object)
 
-    ''' <summary>
-    '''     Runs a command
-    ''' </summary>
-    ''' <param name="request">The CommandRequest being used to run this command</param>
-    Sub InvokeCommand(request As CommandRequest)
-
     ''' <param name="player">Player being invoked or null</param>
     ''' <param name="msg">The command being invoked</param>
     ''' <param name="rights">Minimum rights, if the player has higher rights, this will be ignored</param>

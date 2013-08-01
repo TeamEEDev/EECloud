@@ -1,4 +1,4 @@
-﻿Friend NotInheritable Class Client (Of TPlayer As {Player, New})
+﻿Friend NotInheritable Class Client(Of TPlayer As {Player, New})
     Implements IClient(Of TPlayer), IDisposable
 
 #Region "Fields"
