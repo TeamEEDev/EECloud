@@ -2,12 +2,13 @@
 
 Public NotInheritable Class SayOldReceiveMessage
     Inherits ReceiveMessage
-    Public ReadOnly Username As String
+
     '0
-    Public ReadOnly Text As String
+    Public ReadOnly Username As String
     '1
-    Public ReadOnly IsMyFriend As Boolean
+    Public ReadOnly Text As String
     '2
+    Public ReadOnly IsMyFriend As Boolean
 
     Friend Sub New(message As Message)
         MyBase.New(message)

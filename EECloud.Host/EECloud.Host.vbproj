@@ -47,10 +47,6 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MySql.Data, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\References\MySql.Data.dll</HintPath>
-    </Reference>
     <Reference Include="PlayerIOClient, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\PlayerIOClient.dll</HintPath>
@@ -63,9 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Import Include="EECloud.API" />
-    <Import Include="EECloud.EEService" />
     <Import Include="Microsoft.VisualBasic" />
-    <Import Include="MySql.Data.MySqlClient" />
     <Import Include="System" />
     <Import Include="System.Collections" />
     <Import Include="System.Collections.Generic" />
@@ -108,6 +102,12 @@
     <Compile Include="Deque\Deque.Node.vb" />
     <Compile Include="Deque\Deque.Synchronized.vb" />
     <Compile Include="Deque\Deque.vb" />
+    <Compile Include="Forms\HostDataForm.Designer.vb">
+      <DependentUpon>HostDataForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\HostDataForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\LoginForm.Designer.vb">
       <DependentUpon>LoginForm.vb</DependentUpon>
     </Compile>
@@ -141,7 +141,6 @@
     <Compile Include="Client\World\Blocks\WorldWorldPortalBlock.vb" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -157,12 +156,11 @@
       <Project>{580ddf14-7848-4318-b9d8-55cbc3a2bc9e}</Project>
       <Name>EECloud.API</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EECloud.EEService\EECloud.EEService.vbproj">
-      <Project>{a44db33e-fe2d-45d9-b736-27836843ec3f}</Project>
-      <Name>EECloud.EEService</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\HostDataForm.resx">
+      <DependentUpon>HostDataForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.vb</DependentUpon>
     </EmbeddedResource>

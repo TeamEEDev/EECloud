@@ -2,10 +2,11 @@
 
 Public Class RotatablePlaceReceiveMessage
     Inherits BlockPlaceReceiveMessage
-    Public Shadows ReadOnly RotatableBlock As RotatableBlock
+
     '2
-    Public ReadOnly Rotation As Integer
+    Public Shadows ReadOnly RotatableBlock As RotatableBlock
     '3
+    Public ReadOnly Rotation As Integer
 
     Friend Sub New(message As Message)
         MyBase.New(message, Layer.Foreground, message.GetInteger(0), message.GetInteger(1), DirectCast(message.GetInteger(2), Block))

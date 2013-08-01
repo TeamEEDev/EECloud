@@ -2,6 +2,7 @@
 
 Public NotInheritable Class ChangeWorldNameSendMessage
     Inherits SendMessage
+
     Public ReadOnly WorldName As String
 
     Public Sub New(worldName As String)

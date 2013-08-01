@@ -7,11 +7,8 @@ Public NotInheritable Class CommandAttribute
     Private ReadOnly myType As String
     
     ''' <summary>
-    '''     Command type (name) eg. "!test" will have the type "test"
+    ''' Command type (name) eg. "!test" will have the type "test"
     ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
     Public ReadOnly Property Type As String
         Get
             Return myType
@@ -21,11 +18,8 @@ Public NotInheritable Class CommandAttribute
     Private ReadOnly myMinPermission As Group
     
     ''' <summary>
-    '''     The required permission to invoke the command
+    ''' The required permission to invoke the command
     ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
     Public ReadOnly Property MinPermission As Group
         Get
             Return myMinPermission
@@ -33,19 +27,13 @@ Public NotInheritable Class CommandAttribute
     End Property
     
     ''' <summary>
-    '''     The access right the bot account must have to run the command
+    ''' The access right the bot account must have to run the command
     ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
     Public Property AccessRight As AccessRight
     
     ''' <summary>
-    '''     Alternative types for this command
+    ''' Alternative Types for this command
     ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
     Public Property Aliases As String()
 
 #End Region
@@ -58,4 +46,5 @@ Public NotInheritable Class CommandAttribute
     End Sub
 
 #End Region
+
 End Class

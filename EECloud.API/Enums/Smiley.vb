@@ -1,4 +1,5 @@
 ﻿Public Enum Smiley
+
     Smile = 0
     Grin = 1
     Tongue = 2
@@ -86,4 +87,16 @@
     Winter = 84
     FireDemon = 85
     Bishop = 86
+    Zombie = 87
+    Bruce = 88
+    Unit = 89
+    Spartan = 90
+    Helen = 91
+    MooMoo = 92
+    Scarecrow = 93
+    DarkWizard = 94
+    KungFuMaster = 95
+    Fox = 96
+    NightVision = 97
+
 End Enum

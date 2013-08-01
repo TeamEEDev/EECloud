@@ -1,7 +1,5 @@
-﻿
-
-<Serializable>
-Partial Friend Class Deque (Of T)
+﻿<Serializable>
+Partial Friend Class Deque(Of T)
     Implements ICollection
     Implements IEnumerable(Of T)
     Implements ICloneable
@@ -9,20 +7,17 @@ Partial Friend Class Deque (Of T)
 #Region "Deque Members"
 
 #Region "Fields"
+    Private myFront As Node
+    Private myBack As Node
 
-    Private myFront As Node = Nothing
-
-    Private myBack As Node = Nothing
-
-    Private myCount As Integer = 0
-
-    Private myVersion As Long = 0
-
+    Private myCount As Integer
+    Private myVersion As Long
 #End Region
 
 #Region "Construction"
 
     Friend Sub New()
+
     End Sub
 
     Friend Sub New(collection As IEnumerable(Of T))
@@ -48,17 +43,15 @@ Partial Friend Class Deque (Of T)
     End Sub
 
     Friend Overridable Function Contains(obj As T) As Boolean
-        Return Any(Function(o) EqualityComparer (Of T).[Default].Equals(o, obj))
+        Return Any(Function(o) EqualityComparer(Of T).[Default].Equals(o, obj))
     End Function
 
     Friend Overridable Sub PushFront(item As T)
-
         Dim newNode As New Node(item)
 
         newNode.[Next] = myFront
 
         If Count > 0 Then
-
             myFront.Previous = newNode
         End If
 
@@ -74,13 +67,11 @@ Partial Friend Class Deque (Of T)
     End Sub
 
     Friend Overridable Sub PushBack(item As T)
-
         Dim newNode As New Node(item)
 
         newNode.Previous = myBack
 
         If Count > 0 Then
-
             myBack.[Next] = newNode
         End If
 
@@ -89,7 +80,6 @@ Partial Friend Class Deque (Of T)
         myCount += 1
 
         If Count = 1 Then
-
             myFront = myBack
         End If
 
@@ -97,7 +87,6 @@ Partial Friend Class Deque (Of T)
     End Sub
 
     Friend Overridable Function PopFront() As T
-
         If Count = 0 Then
             Throw New InvalidOperationException("Deque is empty.")
         End If
@@ -109,10 +98,8 @@ Partial Friend Class Deque (Of T)
         myCount -= 1
 
         If Count > 0 Then
-
             myFront.Previous = Nothing
         Else
-
             myBack = Nothing
         End If
 
@@ -122,7 +109,6 @@ Partial Friend Class Deque (Of T)
     End Function
 
     Friend Overridable Function PopBack() As T
-
         If Count = 0 Then
             Throw New InvalidOperationException("Deque is empty.")
         End If
@@ -134,10 +120,8 @@ Partial Friend Class Deque (Of T)
         myCount -= 1
 
         If Count > 0 Then
-
             myBack.[Next] = Nothing
         Else
-
             myFront = Nothing
         End If
 
@@ -147,7 +131,6 @@ Partial Friend Class Deque (Of T)
     End Function
 
     Friend Overridable Function PeekFront() As T
-
         If Count = 0 Then
             Throw New InvalidOperationException("Deque is empty.")
         End If
@@ -156,7 +139,6 @@ Partial Friend Class Deque (Of T)
     End Function
 
     Friend Overridable Function PeekBack() As T
-
         If Count = 0 Then
             Throw New InvalidOperationException("Deque is empty.")
         End If
@@ -177,7 +159,6 @@ Partial Friend Class Deque (Of T)
     End Function
 
     Friend Shared Function Synchronized(deque As Deque(Of T)) As Deque(Of T)
-
         If deque Is Nothing Then
             Throw New ArgumentNullException("deque")
         End If
@@ -191,20 +172,19 @@ Partial Friend Class Deque (Of T)
 
 #Region "ICollection Members"
 
-    Friend Overridable ReadOnly Property IsSynchronized() As Boolean Implements ICollection.IsSynchronized
+    Friend Overridable ReadOnly Property IsSynchronized As Boolean Implements ICollection.IsSynchronized
         Get
             Return False
         End Get
     End Property
 
-    Friend Overridable ReadOnly Property Count() As Integer Implements ICollection.Count
+    Friend Overridable ReadOnly Property Count As Integer Implements ICollection.Count
         Get
             Return myCount
         End Get
     End Property
 
     Friend Overridable Sub CopyTo(array As Array, index As Integer) Implements ICollection.CopyTo
-
         If array Is Nothing Then
             Throw New ArgumentNullException("array")
         ElseIf index < 0 Then
@@ -212,9 +192,9 @@ Partial Friend Class Deque (Of T)
         ElseIf array.Rank > 1 Then
             Throw New ArgumentException("Array is multidimensional.")
         ElseIf index >= array.Length Then
-            Throw New ArgumentException("Index is equal to or greater " & "than the length of array.")
+            Throw New ArgumentException("Index is equal to or greater than the length of array.")
         ElseIf Count > array.Length - index Then
-            Throw New ArgumentException("The number of elements in the source Deque is greater " & "than the available space from index to the end of the " & "destination array.")
+            Throw New ArgumentException("The number of elements in the source Deque is greater than the available space from index to the end of the destination array.")
         End If
 
         Dim i As Integer = index
@@ -225,7 +205,7 @@ Partial Friend Class Deque (Of T)
         Next
     End Sub
 
-    Friend Overridable ReadOnly Property SyncRoot() As Object Implements ICollection.SyncRoot
+    Friend Overridable ReadOnly Property SyncRoot As Object Implements ICollection.SyncRoot
         Get
             Return Me
         End Get
@@ -259,10 +239,11 @@ Partial Friend Class Deque (Of T)
         Return New Enumerator(Me)
     End Function
 
-    Private Shared Function InlineAssignHelper (Of TType)(ByRef target As TType, value As TType) As TType
+    Private Shared Function InlineAssignHelper(Of TType)(ByRef target As TType, value As TType) As TType
         target = value
         Return value
     End Function
 
 #End Region
+
 End Class

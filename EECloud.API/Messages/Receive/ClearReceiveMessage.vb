@@ -2,10 +2,11 @@
 
 Public NotInheritable Class ClearReceiveMessage
     Inherits ReceiveMessage
-    Public ReadOnly RoomWidth As Integer
+
     '0
-    Public ReadOnly RoomHeight As Integer
+    Public ReadOnly RoomWidth As Integer
     '1
+    Public ReadOnly RoomHeight As Integer
 
     Friend Sub New(message As Message)
         MyBase.New(message)

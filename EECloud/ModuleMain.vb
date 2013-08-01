@@ -36,48 +36,59 @@ Module ModuleMain
     Private Async Sub CheckForUpdates()
         Try
             Using webClient As New WebClient()
-                Dim version As String = Await webClient.DownloadStringTaskAsync(New Uri("http://dl.dropbox.com/u/13946635/EECloud/Version.txt"))
+                Dim newVersionString As String = Await webClient.DownloadStringTaskAsync(New Uri("http://dl.dropbox.com/u/13946635/EECloud/Version.txt"))
+                Dim newVersionComparable As New Version(newVersionString)
 
-                If New Version(version).CompareTo(My.Application.Info.Version) > 0 Then
+                If newVersionComparable.CompareTo(My.Application.Info.Version) > 0 Then
+                    Dim setupDownload As Task = webClient.DownloadFileTaskAsync(New Uri("http://dl.dropbox.com/u/13946635/EECloud/EECloud.Setup.msi"), My.Application.Info.DirectoryPath & "\Update.msi")
+
+                    If newVersionComparable.Revision = 0 Then
+                        newVersionString = Left(newVersionString, newVersionString.Length - 2)
+                    End If
+
                     Using form As New Form() With {.TopMost = True}
                         If MessageBox.Show(form,
-                                           String.Format("An update is available (Version {0}). Do you want to update now?", version),
+                                           String.Format("An update is available (Version {0}). Do you want to update now?", newVersionString),
                                            "Update available",
                                            MessageBoxButtons.YesNo,
                                            MessageBoxIcon.Information) = DialogResult.Yes Then
 
-                            'Download
-                            webClient.DownloadFile(New Uri("http://dl.dropbox.com/u/13946635/EECloud/EECloud.Setup.msi"), My.Application.Info.DirectoryPath & "\EECloud.msi")
+                            If Not setupDownload.IsCompleted Then
+                                'Finish downloading the installer
+                                setupDownload.Wait()
 
-                            'Notify user
-                            MessageBox.Show(form,
-                                            "The update has been downloaded and it's ready to be installed. Press OK to start updating!",
-                                            "Update ready",
-                                            MessageBoxButtons.OK,
-                                            MessageBoxIcon.Information)
+                                'Notify user
+                                MessageBox.Show(form,
+                                                "The update has been downloaded and it's ready to be installed. Press OK to start updating!",
+                                                "Update ready",
+                                                MessageBoxButtons.OK,
+                                                MessageBoxIcon.Information)
+                            End If
 
                             'Write a batch file
-                            Using writer As New StreamWriter(My.Application.Info.DirectoryPath & "\Update.bat")
-                                writer.WriteLine("start /w EECloud.msi")
-                                writer.WriteLine("del EECloud.msi")
-                                writer.WriteLine("start EECloud.Launcher.exe")
-                                writer.WriteLine("del %0")
+                            Using writer As New StreamWriter(My.Application.Info.DirectoryPath & "\Updater.bat")
+                                writer.Write("START /WAIT Update.msi" & Environment.NewLine &
+                                             "DEL /F /Q Update.msi" & Environment.NewLine &
+                                             "START EECloud.Launcher.exe" & Environment.NewLine &
+                                             "DEL /F /Q %0")
                             End Using
 
                             'Start the batch file
                             Call New Process() With
                             {
-                                .StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\Update.bat") With
+                                .StartInfo = New ProcessStartInfo(My.Application.Info.DirectoryPath & "\Updater.bat") With
                                     {
                                         .UseShellExecute = False,
-                                        .CreateNoWindow = True,
-                                        .RedirectStandardOutput = True
+                                        .CreateNoWindow = True
                                     }
                             }.Start()
 
                             'Exit
                             End
 
+                        Else
+                            webClient.CancelAsync()
+                            File.Delete(My.Application.Info.DirectoryPath & "\Update.msi")
                         End If
                     End Using
                 End If
@@ -93,4 +104,5 @@ Module ModuleMain
 #End Region
 
 #End Region
+
 End Module

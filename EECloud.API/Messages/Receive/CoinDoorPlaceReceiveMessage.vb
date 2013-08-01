@@ -2,10 +2,11 @@
 
 Public NotInheritable Class CoinDoorPlaceReceiveMessage
     Inherits BlockPlaceReceiveMessage
-    Public ReadOnly CoinDoorBlock As CoinDoorBlock
+
     '2
-    Public ReadOnly CoinsToOpen As Integer
+    Public ReadOnly CoinDoorBlock As CoinDoorBlock
     '3
+    Public ReadOnly CoinsToOpen As Integer
 
     Friend Sub New(message As Message)
         MyBase.New(message, Layer.Foreground, message.GetInteger(0), message.GetInteger(1), DirectCast(message.GetInteger(2), Block))

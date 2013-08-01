@@ -1,15 +1,13 @@
 ﻿''' <summary>
-'''     Represents a PortalBlock in a world
+''' Represents a WorldPortalBlock in a world
 ''' </summary>
-''' <remarks></remarks>
 Public Interface IWorldWorldPortalBlock
+
     Inherits IWorldBlock
 
     ''' <summary>
-    '''     Returns the PortalTarget associated with a portal block
+    ''' Returns the PortalTarget associated with this WorldPortalBlock.
     ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
     ReadOnly Property PortalTarget As String
+
 End Interface

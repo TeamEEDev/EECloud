@@ -1,9 +1,10 @@
 ﻿Module Utils
+
 #Region "Properties"
 
     Friend ReadOnly Property CorrectLayer(id As Block, layer As Layer) As Layer
         Get
-            If (id > 0 AndAlso id < 500) OrElse id = Block.BlockLabel Then
+            If (id > 0 AndAlso id < 500) OrElse id = Block.DecorationLabel Then
                 Return layer.Foreground
             ElseIf id >= 500 AndAlso id < 1000 Then
                 Return layer.Background
@@ -54,9 +55,11 @@
 
     Friend ReadOnly Property IsLabel(id As Block) As Boolean
         Get
-            Return id = Block.BlockLabel
+            Return id = Block.DecorationSign OrElse
+                   id = Block.DecorationLabel
         End Get
     End Property
 
 #End Region
+
 End Module

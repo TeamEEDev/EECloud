@@ -13,6 +13,7 @@
         End Set
     End Property
 
+
     Private Shared myIsHosted As Boolean
 
     Public Shared Property IsHosted As Boolean
@@ -24,6 +25,7 @@
             myIsHosted = value
         End Set
     End Property
+
 
     Private Shared myIsNoConsole As Boolean
 
@@ -37,6 +39,7 @@
         End Set
     End Property
 
+
     Private Shared myIsNoGUI As Boolean
 
     Public Shared Property IsNoGUI As Boolean
@@ -49,65 +52,6 @@
         End Set
     End Property
 
-    Private Shared myLogger As ILogger
-
-    Public Shared Property Logger As ILogger
-        Get
-            Return myLogger
-        End Get
-
-        Friend Set(value As ILogger)
-            myLogger = value
-        End Set
-    End Property
-
-    Private Shared myService As IEEService
-
-    Public Shared Property Service As IEEService
-        Get
-            Return myService
-        End Get
-
-        Friend Set(value As IEEService)
-            myService = value
-        End Set
-    End Property
-
-    Private Shared myClientFactory As IClientFactory
-
-    Public Shared Property ClientFactory As IClientFactory
-        Get
-            Return myClientFactory
-        End Get
-
-        Friend Set(value As IClientFactory)
-            myClientFactory = value
-        End Set
-    End Property
-
-    Private Shared myLicenseUsername As String
-
-    Public Shared Property LicenseUsername As String
-        Get
-            Return myLicenseUsername
-        End Get
-
-        Friend Set(value As String)
-            myLicenseUsername = value
-        End Set
-    End Property
-
-    Private Shared myLicenseInGameName As String
-
-    Public Shared Property LicenseInGameName As String
-        Get
-            Return myLicenseInGameName
-        End Get
-
-        Friend Set(value As String)
-            myLicenseInGameName = value
-        End Set
-    End Property
 
     Private Shared myStartupWorldID As String
 
@@ -121,6 +65,58 @@
         End Set
     End Property
 
+
+    Private Shared myLogger As ILogger
+
+    Public Shared Property Logger As ILogger
+        Get
+            Return myLogger
+        End Get
+
+        Friend Set(value As ILogger)
+            myLogger = value
+        End Set
+    End Property
+
+
+    'Private Shared myService As IEEService
+
+    'Public Shared Property Service As IEEService
+    '    Get
+    '        Return myService
+    '    End Get
+
+    '    Friend Set(value As IEEService)
+    '        myService = value
+    '    End Set
+    'End Property
+
+
+    Private Shared myClientFactory As IClientFactory
+
+    Public Shared Property ClientFactory As IClientFactory
+        Get
+            Return myClientFactory
+        End Get
+
+        Friend Set(value As IClientFactory)
+            myClientFactory = value
+        End Set
+    End Property
+
+
+    Private Shared myHostUsername As String
+
+    Public Shared Property HostUsername As String
+        Get
+            Return myHostUsername
+        End Get
+
+        Friend Set(value As String)
+            myHostUsername = value
+        End Set
+    End Property
+
 #End Region
 
 #Region "Methods"
@@ -130,4 +126,5 @@
     End Sub
 
 #End Region
+
 End Class

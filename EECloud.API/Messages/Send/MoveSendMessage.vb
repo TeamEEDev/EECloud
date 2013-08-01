@@ -2,6 +2,7 @@
 
 Public NotInheritable Class MoveSendMessage
     Inherits SendMessage
+
     Public ReadOnly PosX As Integer
     Public ReadOnly PosY As Integer
     Public ReadOnly SpeedX As Double

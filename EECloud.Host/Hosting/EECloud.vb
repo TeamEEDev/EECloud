@@ -2,6 +2,8 @@
 Imports System.IO
 
 Public NotInheritable Class EECloud
+    Private Shared myHostUserame As String
+
     Private Shared ReadOnly myCommandChar As Char
 
     Private Shared myUsername As String
@@ -21,7 +23,7 @@ Public NotInheritable Class EECloud
             My.Settings.Updated = True
         End If
 
-        Cloud.Logger = New Logger()
+        myHostUserame = My.Settings.HostUserame
 
         If My.Settings.LoginTypes.Count > 0 Then
             myUsername = My.Settings.LoginEmails(0)
@@ -35,7 +37,7 @@ Public NotInheritable Class EECloud
 
         myCommandChar = My.Settings.CommandChar
 
-        Cloud.LicenseUsername = String.Empty 'TODO
+        Cloud.HostUsername = myHostUserame
     End Sub
 
     Public Shared ReadOnly Property Client As IClient(Of Player)
@@ -44,11 +46,12 @@ Public NotInheritable Class EECloud
         End Get
     End Property
 
-    Shared Sub RunCloudMode(licenseUsername As String, licenseKey As String, username As String, password As String, type As AccountType, worldID As String)
-        SetLicenseData(licenseUsername, licenseKey)
+    Shared Sub RunCloudMode(hostUserame As String, username As String, password As String, type As AccountType, worldID As String)
+        SetHostData(hostUserame)
         SetLoginData(username, password, type, worldID)
 
         Init(False, False, True)
+        CheckHostData()
 
         Client.CommandManager.Load(New DefaultCommandListener(Client))
 
@@ -60,6 +63,7 @@ Public NotInheritable Class EECloud
 
     Friend Shared Sub RunDesktopMode()
         Init(False, False, False)
+        CheckHostData()
 
         Dim loginTask As Task = ShowLogin()
         Client.CommandManager.Load(New DefaultCommandListener(Client))
@@ -83,6 +87,7 @@ Public NotInheritable Class EECloud
 
     Public Shared Sub RunDebugMode(plugin As Type)
         Init(True, False, False)
+        CheckHostData()
 
         Dim loginTask As Task = ShowLogin()
         Client.CommandManager.Load(New DefaultCommandListener(Client))
@@ -97,15 +102,18 @@ Public NotInheritable Class EECloud
         Application.Run()
     End Sub
 
-    Public Shared Sub EnableHostMode(licenseUsername As String, licenseKey As String, debug As Boolean, console As Boolean)
-        SetLicenseData(licenseUsername, licenseKey)
+    Public Shared Sub EnableHostMode(hostUserame As String, debug As Boolean, console As Boolean)
+        SetHostData(hostUserame)
 
         Init(debug, True, console)
+        CheckHostData()
     End Sub
 
     Private Shared Sub Init(dev As Boolean, hosted As Boolean, noConsole As Boolean)
         Console.WriteLine(String.Format("{0} Version {1}", My.Application.Info.Title, My.Application.Info.Version) & Environment.NewLine &
                           "Built on " & RetrieveLinkerTimestamp.ToString())
+
+        Cloud.Logger = New Logger()
 
         Cloud.IsDebug = dev
         Cloud.IsHosted = hosted
@@ -117,7 +125,7 @@ Public NotInheritable Class EECloud
         End If
 
         Cloud.ClientFactory = New ClientFactory()
-        Cloud.Service = New EEService.EEService()
+        'Cloud.Service = New EEService()
 
         myClient = Cloud.ClientFactory.CreateClient(myCommandChar)
     End Sub
@@ -157,11 +165,9 @@ Public NotInheritable Class EECloud
         myWorldID = worldID
     End Sub
 
-    Public Shared Sub SetLicenseData(username As String, key As String)
-        'myLicenseUsername = username
-        'myLicenseKey = key
-        'Cloud.LicenseUsername = myLicenseUsername
-        'TODO
+    Public Shared Sub SetHostData(username As String)
+        myHostUserame = username
+        Cloud.HostUsername = username
     End Sub
 
     Public Shared Async Function ShowLogin() As Task
@@ -187,6 +193,21 @@ Public NotInheritable Class EECloud
             My.Settings.Save()
         End If
     End Function
+
+    Private Shared Sub CheckHostData()
+        If String.IsNullOrWhiteSpace(My.Settings.HostUserame) Then
+            If Not Cloud.IsNoGUI Then
+                If New HostDataForm().ShowDialog() = DialogResult.OK Then
+                    SetHostData(My.Settings.HostUserame)
+                    CheckHostData()
+                Else
+                    Environment.Exit(0)
+                End If
+            Else
+                Throw New Exception("Corrupted host data.")
+            End If
+        End If
+    End Sub
 
     Public Shared Sub LoadDir(dir As String)
         For Each assembly In GetAssemblies(dir)
@@ -227,9 +248,9 @@ RetryLogin:
                         Cloud.Logger.Log(LogPriority.Info, "Disconnected. Reason: " & e.Reason)
                     End If
 
-                    For Each plugin In Client.PluginManager.Plugins
-                        Cloud.Logger.Log(LogPriority.Info, String.Format("Disabling {0}...", plugin.Name))
-                        plugin.Stop()
+                    For i = 0 To Client.PluginManager.Plugins.Count - 1
+                        Cloud.Logger.Log(LogPriority.Info, String.Format("Disabling {0}...", Client.PluginManager.Plugins(i).Name))
+                        Client.PluginManager.Plugins(i).Stop()
                     Next
 
                     If Client.Connection.UserExpectingDisconnect Then

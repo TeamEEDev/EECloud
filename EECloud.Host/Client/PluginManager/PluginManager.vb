@@ -11,11 +11,14 @@ Friend NotInheritable Class PluginManager
 
     Friend ReadOnly Property Plugin(name As String) As IPluginObject Implements IPluginManager.Plugin
         Get
-            For Each p In myPluginsList
-                If p.Name.Equals(name, StringComparison.OrdinalIgnoreCase) OrElse p.Attribute.ChatName.Equals(name, StringComparison.OrdinalIgnoreCase) Then
-                    Return p
+            Dim currentPlugin As IPluginObject
+            For i = 0 To myPluginsList.Count - 1
+                currentPlugin = myPluginsList(i)
+                If currentPlugin.Name.Equals(name, StringComparison.OrdinalIgnoreCase) OrElse currentPlugin.Attribute.ChatName.Equals(name, StringComparison.OrdinalIgnoreCase) Then
+                    Return currentPlugin
                 End If
             Next
+
             Return Nothing
         End Get
     End Property
@@ -82,4 +85,5 @@ Friend NotInheritable Class PluginManager
     End Sub
 
 #End Region
+
 End Class
