@@ -30,8 +30,10 @@ Friend Class HostDataForm
                 Exit Sub
             End If
         End If
+    End Sub
 
-        TextBoxUsername.Text = TextBoxUsername.Text.ToLower(InvariantCulture)
+    Private Sub TextBoxUsername_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBoxUsername.KeyPress
+        e.KeyChar = Char.ToLowerInvariant(e.KeyChar)
     End Sub
 
     Private Sub ButtonOk_Click(sender As Object, e As EventArgs) Handles ButtonOk.Click
