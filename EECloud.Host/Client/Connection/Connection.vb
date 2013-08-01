@@ -41,6 +41,24 @@ Friend NotInheritable Class Connection
 
     Friend Property UserExpectingDisconnect As Boolean Implements IConnection.UserExpectingDisconnect
 
+    Friend Property TimeConnected As Date? Implements IConnection.TimeConnected
+    Friend Property TimeDisconnected As Date Implements IConnection.TimeDisconnected
+
+    Private ReadOnly Property WasDisconnectUnexpected As Boolean
+        Get
+            If myProgramExpectingDisconnect OrElse TimeConnected Is Nothing Then
+                Return False
+            End If
+
+            If TimeDisconnected.Subtract(TimeConnected).TotalSeconds < 5 Then
+                UserExpectingDisconnect = True
+                Return False
+            End If
+
+            Return True
+        End Get
+    End Property
+
     Private Shared myGameVersionNumber As Integer = My.Settings.GameVersionNumber
 
     Private Shared Property GameVersionNumber As Integer
@@ -374,6 +392,7 @@ Friend NotInheritable Class Connection
         RegisterStartMessages()
 
         'Initializing the client
+        TimeConnected = DateTime.UtcNow
         Send(New InitSendMessage())
     End Sub
 
@@ -912,8 +931,9 @@ Friend NotInheritable Class Connection
     End Sub
 
     Private Sub myConnection_OnDisconnect(sender As Object, message As String) Handles myConnection.OnDisconnect
+        TimeDisconnected = DateTime.UtcNow
         UnRegisterAll()
-        RaiseEvent Disconnect(Me, New DisconnectEventArgs(Not myProgramExpectingDisconnect, myRestarting, message))
+        RaiseEvent Disconnect(Me, New DisconnectEventArgs(WasDisconnectUnexpected, myRestarting, message))
     End Sub
 
     Private Sub myConnection_OnMessage(sender As Object, m As Message) Handles myConnection.OnMessage
