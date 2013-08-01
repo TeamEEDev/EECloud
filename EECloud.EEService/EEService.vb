@@ -500,7 +500,7 @@
     End Function
 
 
-    Private Shared Function NumberToDbValue(input As Object)
+    Private Shared Function NumberToDbValue(input As Object) As Object
         If Equals(input, CObj(0)) Then
             Return DBNull.Value
         End If

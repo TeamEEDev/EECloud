@@ -19,8 +19,6 @@
 
 #Region "Ranks"
 
-    <Command("getrank", Group.Moderator, Aliases:={"rank", "group"})>
-    Public Sub GetRankCommand(request As CommandRequest, username As String)
 #If DEBUG Then
     <Command("douploadertest", Group.Operator)>
     Public Sub DoUploaderTestCommand(cmd As ICommand(Of Player))
@@ -32,7 +30,7 @@
     End Sub
 #End If
 
-    <Command("getrank", Group.Moderator, Aliases:={"rank", "group", "getgroup", "userrank", "usergroup", "playerrank", "playergroup"})>
+    <Command("getrank", Group.Moderator, Aliases:={"rank", "group"})>
     Public Sub GetRankCommand(cmd As ICommand(Of Player), username As String)
         username = GetPlayerNormalizedUsername(username)
         Dim player As IPlayer = GetPlayer(username, True)
@@ -188,9 +186,9 @@
                 pluginObj.Restart()
                 request.Sender.Reply("Started plugin.")
                 If cmd.Sender Is Nothing OrElse currRank < cmd.Sender.Group Then
-                    If player IsNot Nothing Then
-                        player.Group = rank
-                        player.Save()
+                    If Player IsNot Nothing Then
+                        Player.Group = rank
+                        Player.Save()
                     Else
                         request.Sender.Reply("Plugin already started, please disable it first!")
                     End If

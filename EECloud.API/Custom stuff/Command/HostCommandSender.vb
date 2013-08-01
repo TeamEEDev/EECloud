@@ -1,7 +1,6 @@
 ﻿Public Class HostCommandSender
     Inherits CommandSender
 
-
 #Region "Methods"
     Public Sub New()
         MyBase.New(CommandSenderType.Host)
@@ -11,6 +10,5 @@
         Cloud.Logger.Log(LogPriority.Info, msg)
     End Sub
 #End Region
-
 
 End Class
