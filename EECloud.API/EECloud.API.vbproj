@@ -90,7 +90,6 @@
     <Compile Include="Enums\Block\RotatableBlock.vb" />
     <Compile Include="Enums\Block\WorldPortalBlock.vb" />
     <Compile Include="Enums\CommandSenderType.vb" />
-    <Compile Include="Enums\EEService\RegisteredGameName.vb" />
     <Compile Include="Enums\SciFiSlopeRotation.vb" />
     <Compile Include="Enums\SciFiStraightRotation.vb" />
     <Compile Include="Enums\MagicClass.vb" />
@@ -105,7 +104,6 @@
     <Compile Include="Interfaces\ICommandManager.vb" />
     <Compile Include="Interfaces\IClientFactory.vb" />
     <Compile Include="Interfaces\IClientCloneFactory.vb" />
-    <Compile Include="Interfaces\IEEService.vb" />
     <Compile Include="Interfaces\IGame.vb" />
     <Compile Include="Interfaces\IKeyManager.vb" />
     <Compile Include="Interfaces\IPlayer.vb" />
