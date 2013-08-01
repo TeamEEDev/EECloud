@@ -15,16 +15,6 @@
     ''' </summary>
     Property UserExpectingDisconnect As Boolean
 
-    ''' <summary>
-    ''' Represents the time stamp of connecting to the world
-    ''' </summary>
-    Property TimeConnected As Date?
-
-    ''' <summary>
-    ''' Represents the time stamp of disconnecting from the world
-    ''' </summary>
-    Property TimeDisconnected As Date
-
 
     ''' <summary>
     ''' Connects using the given data.
