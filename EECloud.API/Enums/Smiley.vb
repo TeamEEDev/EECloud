@@ -98,5 +98,6 @@
     KungFuMaster = 95
     Fox = 96
     NightVision = 97
+    SummerGirl = 98
 
 End Enum
