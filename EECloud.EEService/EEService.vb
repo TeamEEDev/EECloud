@@ -465,7 +465,7 @@
 
     Private Shared Function TryCastString(input As Object) As String
         Try
-            If input IsNot DBNull.Value Then
+            If input IsNot DBNull.Value AndAlso input IsNot Nothing Then
                 Return CStr(input)
             Else
                 Return String.Empty
@@ -477,7 +477,7 @@
 
     Private Shared Function TryCastShort(input As Object) As Short
         Try
-            If input IsNot DBNull.Value Then
+            If input IsNot DBNull.Value AndAlso input IsNot Nothing Then
                 Return CShort(input)
             Else
                 Return 0
@@ -489,7 +489,7 @@
 
     Private Shared Function TryCastUShort(input As Object) As UShort
         Try
-            If input IsNot DBNull.Value Then
+            If input IsNot DBNull.Value AndAlso input IsNot Nothing Then
                 Return CUShort(input)
             Else
                 Return 0
