@@ -131,6 +131,7 @@
         <File Id="HostAssembly"        Source="$(var.EECloud.Host.TargetPath)">
           <CopyFile Id="HostReference" DestinationDirectory="API" />
         </File>
+        <File Id="EEServiceAssembly"   Source="$(var.EECloud.EEService.TargetPath)" />
 
         <File Id="PlayerIOAssembly"    Source="$(var.SolutionDir)References\PlayerIOClient.dll" />
         <File Id="MySQLAssembly"       Source="$(var.SolutionDir)References\MySQL.Data.dll" />
