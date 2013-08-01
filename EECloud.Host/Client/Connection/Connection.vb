@@ -926,7 +926,7 @@ Friend NotInheritable Class Connection
 
             ElseIf myInited Then 'Don't pass annoying "unregistered message" warnings
                 Dim messageArguments(m.Count - 1UI) As String
-                For i As UInteger = m.Count - 1UI To 0 Step -1
+                For i As UInteger = 0 To m.Count - 1UI
                     messageArguments(i) = String.Format("   [{0} ({1})] {2}", i, m.Item(i).GetType.Name, CStr(m.Item(i)))
                 Next
 
