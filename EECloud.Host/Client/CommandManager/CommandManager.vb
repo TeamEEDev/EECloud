@@ -7,7 +7,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
     Private ReadOnly myCommandsDictionary As New Dictionary(Of String, List(Of CommandHandle(Of TPlayer)))
     Private ReadOnly myClient As IClient(Of TPlayer)
     Private WithEvents myInternalCommandManager As InternalCommandManager
-    Private myAddedTargets As New List(Of Object)
+    Private ReadOnly myAddedTargets As New List(Of Object)
 #End Region
 
 #Region "Properties"
@@ -47,8 +47,8 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
                                 AddCommand(attribute.Type, handle)
 
                                 If attribute.Aliases IsNot Nothing Then
-                                    For i = 0 To attribute.Aliases.Length - 1
-                                        AddCommand(attribute.Aliases(i), handle)
+                                    For Each item As String In attribute.Aliases
+                                        AddCommand(item, handle)
                                     Next
                                 End If
                             Catch ex As Exception
@@ -65,15 +65,6 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
         End SyncLock
     End Sub
 
-    Private Sub AddCommand(name As String, handle As CommandHandle)
-        'Overloading command?
-        Dim items As List(Of CommandHandle) = Nothing
-        If myCommandsDictionary.TryGetValue(name, items) Then
-            For Each item In items
-                If handle.Count = item.Count Then
-                    Cloud.Logger.Log(LogPriority.Error, "Can't overload command because of conflicting parameter count: " & name)
-                    Exit Sub
-                End If
     Private Sub ProcessMessage(sender As Object, e As CommandEventArgs) Handles myInternalCommandManager.OnCommand
         If Not e.Handled Then
             Dim msgSender As TPlayer = myClient.PlayerManager.Player(e.UserID)
@@ -85,28 +76,6 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
                 If e.Rights >= Group.Moderator Then
                     ReplyToSender(msgSender, GetUsagesStr(cmd(1).ToLower(InvariantCulture)))
                 End If
-            Next
-
-            myCommandsDictionary(name).Add(handle)
-        Else
-            Dim list As New List(Of CommandHandle)
-            list.Add(handle)
-            myCommandsDictionary.Add(name, list)
-        End If
-    End Sub
-
-    Private Function ProcessMessage(request As CommandRequest) As Boolean
-        Dim handleList As List(Of CommandHandle) = Nothing
-        If Not myCommandsDictionary.TryGetValue(request.Phrase.Type, handleList) Then
-            Return False
-        End If
-
-        Dim mostHandle As CommandHandle = Nothing
-        For Each handle In handleList
-            'Check for syntax
-            If (handle.Count = request.Phrase.Parameters.Length AndAlso Not handle.HasParamArray) OrElse (handle.HasParamArray AndAlso handle.Count < request.Phrase.Parameters.Length) Then
-                TryRunCmd(request, handle)
-                Return True
             ElseIf myCommandsDictionary.ContainsKey(type) Then
                 e.Handled = True
                 Dim cmdLengthMinus1 As Integer = cmd.Length - 1
@@ -271,7 +240,6 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
             End If
 
             myInternalCommandManager = Nothing
-            myAddedTargets = Nothing
         End If
         myDisposedValue = True
     End Sub
@@ -288,5 +256,4 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
     End Sub
 
 #End Region
-
 End Class
