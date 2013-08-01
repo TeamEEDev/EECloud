@@ -456,10 +456,17 @@
             Throw New ArgumentNullException("reader")
         End If
 
-        Return New UserData With {.Username = reader.GetString(0),
-            .GroupID = TryCastShort(reader.GetValue(1)),
-            .YoScrollWins = TryCastUShort(reader.GetValue(2)),
-            .FTBreakerWins = TryCastUShort(reader.GetValue(3))}
+        Dim output As New UserData With {.Username = reader.GetString(0),
+                                         .GroupID = TryCastShort(reader.GetValue(1)),
+                                         .Wins = New Dictionary(Of RegisteredGameName, UShort)()}
+        Dim currentGameName As String
+        For i = 2 To reader.FieldCount - 1
+            currentGameName = reader.GetName(i)
+            output.Wins.Add(DirectCast([Enum].Parse(GetType(RegisteredGameName), currentGameName.Substring(0, currentGameName.Length - 4)), RegisteredGameName),
+                            TryCastUShort(reader.GetValue(i))) '"currentGameName.Length - 4" -> Remove the 'Wins' text from the end
+        Next
+
+        Return output
     End Function
 
 

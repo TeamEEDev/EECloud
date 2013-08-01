@@ -62,7 +62,6 @@ Public NotInheritable Class UserData
 
     Public Property Username As String
     Public Property GroupID As Short
-    Public Property YoScrollWins As UShort
-    Public Property FTBreakerWins As UShort
+    Public Property Wins As Dictionary(Of RegisteredGameName, UShort)
 
 End Class
