@@ -156,6 +156,10 @@
       <Project>{580ddf14-7848-4318-b9d8-55cbc3a2bc9e}</Project>
       <Name>EECloud.API</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EECloud.EEService\EECloud.EEService.vbproj">
+      <Project>{a44db33e-fe2d-45d9-b736-27836843ec3f}</Project>
+      <Name>EECloud.EEService</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Forms\HostDataForm.resx">
