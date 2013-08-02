@@ -16,7 +16,9 @@
 
 #Region "Creation"
     Friend Sub New()
-        CreateDefaultTables()
+        If Not IO.File.Exists(My.Application.Info.DirectoryPath & "\EEService.sqlite") Then
+            CreateDefaultTables()
+        End If
     End Sub
 #End Region
 
@@ -323,12 +325,12 @@
     Private Sub CreateDefaultTables()
         ForceOpenConnection()
 
-        Using command As New SQLiteCommand("CREATE TABLE IF NOT EXISTS settings (" &
+        Using command As New SQLiteCommand("CREATE TABLE settings (" &
                                                "SettingKey VARCHAR(50) NOT NULL PRIMARY KEY UNIQUE," &
                                                "SettingValue TEXT" &
                                            ");" &
  _
-                                           "CREATE TABLE IF NOT EXISTS playerData (" &
+                                           "CREATE TABLE playerData (" &
                                                "Username TEXT NOT NULL PRIMARY KEY UNIQUE," &
                                                "GroupID INTEGER",
                                            Connection)
@@ -338,10 +340,14 @@
             Next
 
             command.CommandText &= ");" &
-                                   "CREATE TABLE IF NOT EXISTS facts (" &
+                                   "CREATE TABLE facts (" &
                                        "FactID TEXT NOT NULL PRIMARY KEY UNIQUE," &
                                        "FactGroup TEXT NOT NULL" &
-                                   ");"
+                                   ");" &
+ _
+                                   "CREATE UNIQUE INDEX idx_SettingKey ON settings (SettingKey ASC);" &
+                                   "CREATE UNIQUE INDEX idx_Username ON playerData (Username ASC);" &
+                                   "CREATE UNIQUE INDEX idx_FactID ON facts (FactID ASC)"
 
             command.ExecuteNonQuery()
         End Using
