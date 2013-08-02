@@ -1,6 +1,6 @@
 ﻿Public Interface IEEService
 
-    ReadOnly Property ConnectionString As String
+    ReadOnly Property MySqlConnectionString As String
 
 
     Function GetSetting(key As String) As String
@@ -52,8 +52,8 @@
     Function OptimizeTablesAsync(ParamArray tableNames As String()) As Task
 
 
-    Sub ForceOpenConnection()
-    Function ForceOpenConnectionAsync() As Task
+    Sub ForceOpenMySqlConnection()
+    Function ForceOpenMySqlConnectionAsync() As Task
 
 End Interface
 

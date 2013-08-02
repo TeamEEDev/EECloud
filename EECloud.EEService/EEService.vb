@@ -2,17 +2,17 @@
     Implements IEEService, IDisposable
 
 #Region "Properties"
-    Private Shared ReadOnly myConnection As New Lazy(Of MySqlConnection)(Function() New MySqlConnection(MySQLConnStr))
+    Private Shared ReadOnly myMySqlConnection As New Lazy(Of MySqlConnection)(Function() New MySqlConnection(MySqlConnStr))
 
-    Private Shared ReadOnly Property Connection As MySqlConnection
+    Private Shared ReadOnly Property MySqlConnection As MySqlConnection
         Get
-            Return myConnection.Value
+            Return myMySqlConnection.Value
         End Get
     End Property
 
-    Public ReadOnly Property ConnectionString As String Implements IEEService.ConnectionString
+    Public ReadOnly Property MySqlConnectionString As String Implements IEEService.MySqlConnectionString
         Get
-            Return MySQLConnStr
+            Return MySqlConnStr
         End Get
     End Property
 #End Region
@@ -25,10 +25,10 @@
             Throw New ArgumentNullException("key")
         End If
 
-        ForceOpenConnection()
+        ForceOpenMySqlConnection()
 
         Using command As New MySqlCommand("SELECT SettingValue FROM settings WHERE SettingKey = @SettingKey",
-                                          Connection)
+                                          MySqlConnection)
             command.Parameters.AddWithValue("@SettingKey", key)
 
             Return DirectCast(command.ExecuteScalar(), String)
@@ -51,10 +51,10 @@
             End If
         Next
 
-        ForceOpenConnection()
+        ForceOpenMySqlConnection()
 
         Using command As New MySqlCommand("SELECT SettingKey, SettingValue FROM settings WHERE SettingKey = @SettingKey0",
-                                          Connection)
+                                          MySqlConnection)
             command.Parameters.AddWithValue("@SettingKey0", keyList(0))
 
             For i = 1 To keyList.Length - 1
@@ -90,10 +90,10 @@
             Throw New ArgumentNullException("value")
         End If
 
-        ForceOpenConnection()
+        ForceOpenMySqlConnection()
 
         Using command As New MySqlCommand("INSERT INTO settings VALUES (@SettingKey, @SettingValue) ON DUPLICATE KEY UPDATE SettingValue = @SettingValue",
-                                          Connection)
+                                          MySqlConnection)
             command.Parameters.AddWithValue("@SettingKey", key)
             command.Parameters.AddWithValue("@SettingValue", value)
 
@@ -117,9 +117,9 @@
             End If
         Next
 
-        ForceOpenConnection()
+        ForceOpenMySqlConnection()
 
-        Using command As New MySqlCommand(String.Empty, Connection)
+        Using command As New MySqlCommand(String.Empty, MySqlConnection)
             For i = 0 To keyValuePairs.Length - 1
                 command.CommandText &= String.Format("INSERT INTO settings VALUES (@SettingKey{0}, @SettingValue{0}) ON DUPLICATE KEY UPDATE SettingValue = @SettingValue{0};", i)
                 command.Parameters.AddWithValue("@SettingKey" & i, keyValuePairs(i).Key)
@@ -141,10 +141,10 @@
             Throw New ArgumentNullException("username")
         End If
 
-        ForceOpenConnection()
+        ForceOpenMySqlConnection()
 
         Using command As New MySqlCommand("SELECT * FROM playerData WHERE Username = @Username",
-                                          Connection)
+                                          MySqlConnection)
             command.Parameters.AddWithValue("@Username", username)
 
             Using reader As MySqlDataReader = command.ExecuteReader()
@@ -173,10 +173,10 @@
             End If
         Next
 
-        ForceOpenConnection()
+        ForceOpenMySqlConnection()
 
         Using command As New MySqlCommand("SELECT * FROM playerData WHERE Username = @Username0",
-                                          Connection)
+                                          MySqlConnection)
             command.Parameters.AddWithValue("@Username0", usernames(0))
 
             For i = 1 To usernames.Length - 1
@@ -217,10 +217,10 @@
         limit = Math.Min(limit, 1000UI)
         If String.IsNullOrWhiteSpace(orderBy) Then orderBy = "Username"
 
-        ForceOpenConnection()
+        ForceOpenMySqlConnection()
 
         Using command As New MySqlCommand("SELECT * FROM playerData ORDER BY @OrderBy LIMIT @Limit OFFSET @Offset",
-                                          Connection)
+                                          MySqlConnection)
             command.Parameters.AddWithValue("@OrderBy", orderBy)
             command.Parameters.AddWithValue("@Limit", limit)
             command.Parameters.AddWithValue("@Offset", offset)
@@ -259,10 +259,10 @@
             Exit Sub
         End If
 
-        ForceOpenConnection()
+        ForceOpenMySqlConnection()
 
         Using command As New MySqlCommand("INSERT INTO playerData (Username, GroupID) VALUES (@Username, @GroupID) ON DUPLICATE KEY UPDATE GroupID = @GroupID",
-                                          Connection)
+                                          MySqlConnection)
             command.Parameters.AddWithValue("@Username", username)
             command.Parameters.AddWithValue("@GroupID", NumberToDbValue(groupID))
 
@@ -280,11 +280,11 @@
             Throw New ArgumentNullException("username")
         End If
 
-        ForceOpenConnection()
+        ForceOpenMySqlConnection()
 
         Using command As New MySqlCommand(String.Format("INSERT INTO playerData (Username, {0}Wins) VALUES (@Username, @Wins) ON DUPLICATE KEY UPDATE {0}Wins = @Wins",
                                                         gameName.ToString()),
-                                          Connection)
+                                          MySqlConnection)
             command.Parameters.AddWithValue("@Username", username)
             command.Parameters.AddWithValue("@Wins", NumberToDbValue(wins))
 
@@ -303,10 +303,10 @@
             Throw New ArgumentNullException("factGroup")
         End If
 
-        ForceOpenConnection()
+        ForceOpenMySqlConnection()
 
         Using command As New MySqlCommand("SELECT FactID FROM facts WHERE FactGroup = @FactGroup",
-                                          Connection)
+                                          MySqlConnection)
             command.Parameters.AddWithValue("@FactGroup", factGroup)
 
             Dim items As New List(Of String)
@@ -332,10 +332,10 @@
             Throw New ArgumentNullException("factGroup")
         End If
 
-        ForceOpenConnection()
+        ForceOpenMySqlConnection()
 
         Using command As New MySqlCommand("INSERT INTO facts VALUES (@FactID, @FactGroup)",
-                                          Connection)
+                                          MySqlConnection)
             command.Parameters.AddWithValue("@FactID", factID)
             command.Parameters.AddWithValue("@FactGroup", factGroup)
 
@@ -353,10 +353,10 @@
             Throw New ArgumentNullException("factID")
         End If
 
-        ForceOpenConnection()
+        ForceOpenMySqlConnection()
 
         Using command As New MySqlCommand("DELETE FROM facts WHERE FactID = @FactID",
-                                          Connection)
+                                          MySqlConnection)
             command.Parameters.AddWithValue("@FactID", factID)
 
             command.ExecuteNonQuery()
@@ -374,10 +374,10 @@
             Throw New ArgumentNullException("tableName")
         End If
 
-        ForceOpenConnection()
+        ForceOpenMySqlConnection()
 
         Using command As New MySqlCommand("OPTIMIZE TABLE @TableName",
-                                          Connection)
+                                          MySqlConnection)
             command.Parameters.AddWithValue("@TableName", tableName)
 
             command.ExecuteNonQuery()
@@ -392,10 +392,10 @@
     Friend Sub OptimizeTables(ParamArray tableNames As String()) Implements IEEService.OptimizeTables
         If tableNames.Count = 0 Then
             'Optimize all tables
-            ForceOpenConnection()
+            ForceOpenMySqlConnection()
 
             Using command As New MySqlCommand("SHOW TABLES",
-                                              Connection)
+                                              MySqlConnection)
                 Dim items As New List(Of String)
                 Using reader As MySqlDataReader = command.ExecuteReader()
                     Do While reader.Read()
@@ -421,11 +421,11 @@
                 End If
             Next
 
-            ForceOpenConnection()
+            ForceOpenMySqlConnection()
         End If
 
         Using command As New MySqlCommand("OPTIMIZE TABLE " & MySqlHelper.EscapeString(tableNames(0)),
-                                          Connection)
+                                          MySqlConnection)
             For i = 1 To tableNames.Length - 1
                 command.CommandText &= ", " & MySqlHelper.EscapeString(tableNames(i))
             Next
@@ -440,14 +440,14 @@
 #End Region
 
 #Region "Miscellaneous"
-    Public Sub ForceOpenConnection() Implements IEEService.ForceOpenConnection
-        If Connection.State = ConnectionState.Closed Then
-            Connection.Open()
+    Public Sub ForceOpenMySqlConnection() Implements IEEService.ForceOpenMySqlConnection
+        If MySqlConnection.State = ConnectionState.Closed Then
+            MySqlConnection.Open()
         End If
     End Sub
 
-    Public Function ForceOpenConnectionAsync() As Task Implements IEEService.ForceOpenConnectionAsync
-        Return Task.Run(Sub() ForceOpenConnection())
+    Public Function ForceOpenMySqlConnectionAsync() As Task Implements IEEService.ForceOpenMySqlConnectionAsync
+        Return Task.Run(Sub() ForceOpenMySqlConnection())
     End Function
 
 
@@ -524,7 +524,7 @@
     Private Sub Dispose(disposing As Boolean)
         If Not myDisposedValue Then
             If disposing Then
-                Connection.Dispose()
+                MySqlConnection.Dispose()
             End If
         End If
         myDisposedValue = True
