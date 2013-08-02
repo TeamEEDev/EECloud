@@ -55,6 +55,10 @@
     Sub ForceOpenConnection()
     Function ForceOpenConnectionAsync() As Task
 
+
+    Sub CreateDefaultMySqlTables()
+    Function CreateDefaultMySqlTablesAsync() As Task
+
 End Interface
 
 
