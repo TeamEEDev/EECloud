@@ -198,8 +198,6 @@
     Friend Sub OptimizeTable(tableName As String) Implements IEEService.OptimizeTable
         If UseMySql Then
             myMySqlService.OptimizeTable(tableName)
-        Else 'If UseSQLite Then
-            mySQLiteService.OptimizeTable(tableName)
         End If
     End Sub
 
@@ -211,8 +209,6 @@
     Friend Sub OptimizeTables(ParamArray tableNames As String()) Implements IEEService.OptimizeTables
         If UseMySql Then
             myMySqlService.OptimizeTables(tableNames)
-        Else 'If UseSQLite Then
-            mySQLiteService.OptimizeTables(tableNames)
         End If
     End Sub
 

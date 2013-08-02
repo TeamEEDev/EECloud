@@ -84,7 +84,7 @@
 
         ForceOpenConnection()
 
-        Using command As New SQLiteCommand("INSERT INTO settings VALUES (@SettingKey, @SettingValue) ON DUPLICATE KEY UPDATE SettingValue = @SettingValue",
+        Using command As New SQLiteCommand("INSERT OR REPLACE INTO settings VALUES (@SettingKey, @SettingValue)",
                                            Connection)
             command.Parameters.AddWithValue("@SettingKey", key)
             command.Parameters.AddWithValue("@SettingValue", value)
@@ -108,7 +108,7 @@
 
         Using command As New SQLiteCommand(String.Empty, Connection)
             For i = 0 To keyValuePairs.Length - 1
-                command.CommandText &= String.Format("INSERT INTO settings VALUES (@SettingKey{0}, @SettingValue{0}) ON DUPLICATE KEY UPDATE SettingValue = @SettingValue{0};", i)
+                command.CommandText &= String.Format("INSERT OR REPLACE INTO settings VALUES (@SettingKey{0}, @SettingValue{0});", i)
                 command.Parameters.AddWithValue("@SettingKey" & i, keyValuePairs(i).Key)
                 command.Parameters.AddWithValue("@SettingValue" & i, keyValuePairs(i).Value)
             Next
@@ -228,7 +228,7 @@
 
         ForceOpenConnection()
 
-        Using command As New SQLiteCommand("INSERT INTO playerData (Username, GroupID) VALUES (@Username, @GroupID) ON DUPLICATE KEY UPDATE GroupID = @GroupID",
+        Using command As New SQLiteCommand("INSERT OR REPLACE INTO playerData (Username, GroupID) VALUES (@Username, @GroupID)",
                                            Connection)
             command.Parameters.AddWithValue("@Username", username)
             command.Parameters.AddWithValue("@GroupID", NumberToDbValue(groupID))
@@ -244,7 +244,7 @@
 
         ForceOpenConnection()
 
-        Using command As New SQLiteCommand(String.Format("INSERT INTO playerData (Username, {0}Wins) VALUES (@Username, @Wins) ON DUPLICATE KEY UPDATE {0}Wins = @Wins",
+        Using command As New SQLiteCommand(String.Format("INSERT OR REPLACE INTO playerData (Username, {0}Wins) VALUES (@Username, @Wins)",
                                                          gameName.ToString()),
                                            Connection)
             command.Parameters.AddWithValue("@Username", username)
@@ -306,68 +306,6 @@
         Using command As New SQLiteCommand("DELETE FROM facts WHERE FactID = @FactID",
                                            Connection)
             command.Parameters.AddWithValue("@FactID", factID)
-
-            command.ExecuteNonQuery()
-        End Using
-    End Sub
-#End Region
-
-#Region "Optimizations"
-    Friend Sub OptimizeTable(tableName As String)
-        If String.IsNullOrWhiteSpace(tableName) Then
-            Throw New ArgumentNullException("tableName")
-        End If
-
-        ForceOpenConnection()
-
-        Using command As New SQLiteCommand("OPTIMIZE TABLE @TableName",
-                                           Connection)
-            command.Parameters.AddWithValue("@TableName", tableName)
-
-            command.ExecuteNonQuery()
-        End Using
-    End Sub
-
-    Friend Sub OptimizeTables(ParamArray tableNames As String())
-        If tableNames.Count = 0 Then
-            'Optimize all tables
-            ForceOpenConnection()
-
-            Using command As New SQLiteCommand("SHOW TABLES",
-                                               Connection)
-                Dim items As New List(Of String)
-                Using reader As SQLiteDataReader = command.ExecuteReader()
-                    Do While reader.Read()
-                        items.Add(reader.GetString(0))
-                    Loop
-                End Using
-
-                tableNames = items.ToArray()
-                If tableNames.Count = 0 Then
-                    Throw New Exception("Couldn't find any tables in the SQLite database.")
-                End If
-            End Using
-
-        Else
-            'Optimize only the given tables
-            If tableNames.Count = 0 Then
-                Throw New ArgumentNullException("tableNames")
-            End If
-
-            For i = tableNames.Length - 1 To 0 Step -1
-                If String.IsNullOrWhiteSpace(tableNames(i)) Then
-                    Throw New ArgumentNullException("tableNames", "'TableNames()' mustn't contain empty or null values.")
-                End If
-            Next
-
-            ForceOpenConnection()
-        End If
-
-        Using command As New SQLiteCommand("OPTIMIZE TABLE " & MySqlHelper.EscapeString(tableNames(0)),
-                                          Connection)
-            For i = 1 To tableNames.Length - 1
-                command.CommandText &= ", " & MySqlHelper.EscapeString(tableNames(i))
-            Next
 
             command.ExecuteNonQuery()
         End Using
