@@ -105,6 +105,8 @@
       <Link>SharedAssemblyInfo.vb</Link>
     </Compile>
     <Compile Include="Config.vb" />
+    <Compile Include="SQLiteService.vb" />
+    <Compile Include="MySqlService.vb" />
     <Compile Include="EEService.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
