@@ -13,14 +13,17 @@
            Manufacturer = "$(var.AppAuthor)"
            UpgradeCode  = "$(var.UpgradeCode)">
     <Package Id               = "*"
+             Description      = "Installs the components of EECloud."
+             Comments         = "EECloud is a special platform which allows you to connect to the servers of Everybody Edits, and do actions like in the game."
              Manufacturer     = "$(var.AppAuthor)"
              InstallerVersion = "200"
              Languages        = "1033"
              Compressed       = "yes"
+             ReadOnly         = "yes"
              InstallScope     = "perUser" />
 
     <!-- Included CAB -->
-    <Media Id="1" Cabinet="EECloud.cab" EmbedCab="yes" CompressionLevel="high" />
+    <Media Id="1" Cabinet="$(var.AppName).cab" EmbedCab="yes" CompressionLevel="high" />
 
     <!-- Installer icon -->
     <Icon Id="ProgramIcon" SourceFile="$(var.SolutionDir)Resources\Icon.ico" />
@@ -32,7 +35,10 @@
 
     <!-- Upgrade info -->
     <Upgrade Id="$(var.UpgradeCode)">
-      <UpgradeVersion Minimum="$(var.AppVersion)" OnlyDetect="yes" Property="NEWERVERSIONDETECTED" />
+      <UpgradeVersion Minimum="$(var.AppVersion)"
+                      IncludeMinimum="no"
+                      OnlyDetect="yes"
+                      Property="NEWERVERSIONDETECTED" />
       <UpgradeVersion Minimum="0.0.0" Maximum="$(var.AppVersion)"
                       IncludeMinimum="yes" IncludeMaximum="no"
                       Property="OLDERVERSIONBEINGUPGRADED" />
@@ -47,11 +53,18 @@
     </Feature>
   </Product>
 
-  <!-- Remove old versions -->
+  <!-- Remove old versions and prevent downgrading -->
   <Fragment>
+    <CustomAction Id="PreventDowngrading" Error="A newer version of the product is already installed." />
+
     <InstallExecuteSequence>
-      <RemoveExistingProducts Before="InstallInitialize" />
+      <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWERVERSIONDETECTED</Custom>
+      <RemoveExistingProducts After="InstallFinalize" />
     </InstallExecuteSequence>
+
+    <InstallUISequence>
+      <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWERVERSIONDETECTED</Custom>
+    </InstallUISequence>
   </Fragment>
 
   <Fragment>
@@ -143,7 +156,7 @@
   <Fragment>
     <DirectoryRef Id="TARGETDIR">
       <Component Id="cAPIRegistryKeys" Guid="{C7D3C0F0-3C06-11E2-81C1-0800200C9A66}">
-        <RegistryKey Root="HKCU" Key="Software\Microsoft\.NETFramework\v4.5.50709\AssemblyFoldersEx\EECloud">
+        <RegistryKey Root="HKCU" Key="Software\Microsoft\.NETFramework\v4.5.50709\AssemblyFoldersEx\$(var.AppName)">
           <RegistryValue Name="Installed" Type="integer" Value="1" KeyPath="yes" />
           <RegistryValue Type="string" Value="[API]" />
         </RegistryKey>
