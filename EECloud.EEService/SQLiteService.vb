@@ -2,7 +2,7 @@
     Implements IDisposable
 
 #Region "Properties"
-    Private Shared ReadOnly myConnection As New Lazy(Of SQLiteConnection)(Function() New SQLiteConnection("Data Source=" & My.Application.Info.DirectoryPath & "\EEService.db;" &
+    Private Shared ReadOnly myConnection As New Lazy(Of SQLiteConnection)(Function() New SQLiteConnection("Data Source=" & My.Application.Info.DirectoryPath & "\EEService.sqlite;" &
                                                                                                           "Version=3"))
 
     Private Shared ReadOnly Property Connection As SQLiteConnection
@@ -13,6 +13,12 @@
 #End Region
 
 #Region "Methods"
+
+#Region "Creation"
+    Friend Sub New()
+        CreateDefaultTables()
+    End Sub
+#End Region
 
 #Region "Settings"
     Friend Function GetSetting(key As String) As String
@@ -369,10 +375,38 @@
 #End Region
 
 #Region "Miscellaneous"
-    Public Sub ForceOpenConnection()
+    Friend Sub ForceOpenConnection()
         If Connection.State = ConnectionState.Closed Then
             Connection.Open()
         End If
+    End Sub
+
+
+    Private Sub CreateDefaultTables()
+        ForceOpenConnection()
+
+        Using command As New SQLiteCommand("CREATE TABLE IF NOT EXISTS settings (" &
+                                               "SettingKey VARCHAR(50) NOT NULL PRIMARY KEY UNIQUE," &
+                                               "SettingValue TEXT" &
+                                           ");" &
+ _
+                                           "CREATE TABLE IF NOT EXISTS playerData (" &
+                                               "Username TEXT NOT NULL PRIMARY KEY UNIQUE," &
+                                               "GroupID INTEGER",
+                                           Connection)
+            Dim gameNames As String() = [Enum].GetNames(GetType(RegisteredGameName))
+            For i = 0 To gameNames.Length - 1
+                command.CommandText &= "," & MySqlHelper.EscapeString(gameNames(i)) & "Wins UNSIGNED INTEGER"
+            Next
+
+            command.CommandText &= ");" &
+                                   "CREATE TABLE IF NOT EXISTS facts (" &
+                                       "FactID TEXT NOT NULL PRIMARY KEY UNIQUE," &
+                                       "FactGroup TEXT NOT NULL" &
+                                   ");"
+
+            command.ExecuteNonQuery()
+        End Using
     End Sub
 
 
