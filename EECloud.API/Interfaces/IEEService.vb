@@ -52,8 +52,8 @@
     Function OptimizeTablesAsync(ParamArray tableNames As String()) As Task
 
 
-    Sub ForceOpenMySqlConnection()
-    Function ForceOpenMySqlConnectionAsync() As Task
+    Sub ForceOpenConnection()
+    Function ForceOpenConnectionAsync() As Task
 
 End Interface
 
