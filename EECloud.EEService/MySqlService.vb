@@ -29,11 +29,6 @@
         End Using
     End Function
 
-    Friend Function GetSettingAsync(key As String) As Task(Of String)
-        Return Task.Run(Of String)(Function() GetSetting(key))
-    End Function
-
-
     Friend Function GetSettings(ParamArray keyList As String()) As Dictionary(Of String, String)
         If keyList.Count = 0 Then
             Throw New ArgumentNullException("keyList")
@@ -71,10 +66,6 @@
         End Using
     End Function
 
-    Friend Function GetSettingsAsync(ParamArray keyList As String()) As Task(Of Dictionary(Of String, String))
-        Return Task.Run(Of Dictionary(Of String, String))(Function() GetSettings(keyList))
-    End Function
-
 
     Friend Sub SetSetting(key As String, value As String)
         If String.IsNullOrWhiteSpace(key) Then
@@ -94,11 +85,6 @@
             command.ExecuteNonQuery()
         End Using
     End Sub
-
-    Friend Function SetSettingAsync(key As String, value As String) As Task
-        Return Task.Run(Sub() SetSetting(key, value))
-    End Function
-
 
     Friend Sub SetSettings(ParamArray keyValuePairs As KeyValuePair(Of String, String)())
         If keyValuePairs.Length = 0 Then
@@ -123,10 +109,6 @@
             command.ExecuteNonQuery()
         End Using
     End Sub
-
-    Friend Function SetSettingsAsync(ParamArray keyValuePairs As KeyValuePair(Of String, String)()) As Task
-        Return Task.Run(Sub() SetSettings(keyValuePairs))
-    End Function
 #End Region
 
 #Region "PlayerDatas"
@@ -150,11 +132,6 @@
             End Using
         End Using
     End Function
-
-    Friend Function GetPlayerDataAsync(username As String) As Task(Of UserData)
-        Return Task.Run(Of UserData)(Function() GetPlayerData(username))
-    End Function
-
 
     Friend Function GetPlayerDatas(ParamArray usernames As String()) As Dictionary(Of String, UserData)
         If usernames.Length = 0 Then
@@ -196,11 +173,6 @@
         End Using
     End Function
 
-    Friend Function GetPlayerDatasAsync(ParamArray usernames As String()) As Task(Of Dictionary(Of String, UserData))
-        Return Task.Run(Of Dictionary(Of String, UserData))(Function() GetPlayerDatas(usernames))
-    End Function
-
-
     Friend Function GetPlayerDataRange(Optional offset As UInteger = 0,
                                        Optional limit As UInteger = 1000,
                                        Optional orderBy As String = "Username") As UserData()
@@ -236,12 +208,6 @@
         End Using
     End Function
 
-    Friend Function GetPlayerDataRangeAsync(Optional offset As UInteger = 0,
-                                            Optional limit As UInteger = 1000,
-                                            Optional orderBy As String = "Username") As Task(Of UserData())
-        Return Task.Run(Of UserData())(Function() GetPlayerDataRange(offset, limit, orderBy))
-    End Function
-
 
     Private Shared ReadOnly myAcceptedGroupIDs As Short() = {400, 300, 100, 0, -100, -200}
 
@@ -264,11 +230,6 @@
         End Using
     End Sub
 
-    Friend Function SetPlayerDataGroupIDAsync(username As String, groupID As Short) As Task
-        Return Task.Run(Sub() SetPlayerDataGroupID(username, groupID))
-    End Function
-
-
     Friend Sub SetPlayerDataWins(gameName As RegisteredGameName, username As String, wins As UShort)
         If String.IsNullOrWhiteSpace(username) Then
             Throw New ArgumentNullException("username")
@@ -285,10 +246,6 @@
             command.ExecuteNonQuery()
         End Using
     End Sub
-
-    Friend Function SetPlayerDataWinsAsync(gameName As RegisteredGameName, username As String, wins As UShort) As Task
-        Return Task.Run(Sub() SetPlayerDataWins(gameName, username, wins))
-    End Function
 #End Region
 
 #Region "Facts"
@@ -313,11 +270,6 @@
         End Using
     End Function
 
-    Friend Function GetFactsAsync(factGroup As String) As Task(Of String())
-        Return Task.Run(Of String())(Function() GetFacts(factGroup))
-    End Function
-
-
     Friend Sub SetFact(factID As String, factGroup As String)
         If String.IsNullOrWhiteSpace(factID) Then
             Throw New ArgumentNullException("factID")
@@ -337,11 +289,6 @@
         End Using
     End Sub
 
-    Friend Function SetFactAsync(factID As String, factGroup As String) As Task
-        Return Task.Run(Sub() SetFact(factID, factGroup))
-    End Function
-
-
     Friend Sub RemoveFact(factID As String)
         If String.IsNullOrWhiteSpace(factID) Then
             Throw New ArgumentNullException("factID")
@@ -356,10 +303,6 @@
             command.ExecuteNonQuery()
         End Using
     End Sub
-
-    Friend Function RemoveFactAsync(factID As String) As Task
-        Return Task.Run(Sub() RemoveFact(factID))
-    End Function
 #End Region
 
 #Region "Optimizations"
@@ -377,11 +320,6 @@
             command.ExecuteNonQuery()
         End Using
     End Sub
-
-    Friend Function OptimizeTableAsync(tableName As String) As Task
-        Return Task.Run(Sub() OptimizeTable(tableName))
-    End Function
-
 
     Friend Sub OptimizeTables(ParamArray tableNames As String())
         If tableNames.Count = 0 Then
@@ -427,10 +365,6 @@
             command.ExecuteNonQuery()
         End Using
     End Sub
-
-    Friend Function OptimizeTablesAsync(ParamArray tableNames As String()) As Task
-        Return Task.Run(Sub() OptimizeTables(tableNames))
-    End Function
 #End Region
 
 #Region "Miscellaneous"
@@ -439,10 +373,6 @@
             Connection.Open()
         End If
     End Sub
-
-    Public Function ForceOpenConnectionAsync() As Task
-        Return Task.Run(Sub() ForceOpenConnection())
-    End Function
 
 
     Private Shared Function ParsePlayerData(reader As MySqlDataReader) As UserData
