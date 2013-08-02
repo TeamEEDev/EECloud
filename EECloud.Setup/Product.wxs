@@ -135,6 +135,7 @@
 
         <File Id="PlayerIOAssembly"    Source="$(var.SolutionDir)References\PlayerIOClient.dll" />
         <File Id="MySQLAssembly"       Source="$(var.SolutionDir)References\MySQL.Data.dll" />
+        <File Id="SQLiteAssembly"       Source="$(var.SolutionDir)References\System.Data.SQLite.dll" />
       </Component>
     </DirectoryRef>
   </Fragment>

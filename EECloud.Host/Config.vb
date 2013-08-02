@@ -2,8 +2,6 @@
 
 Module Config
 
-    'Friend Const MySQLConnStr As String = ""
-
     Friend ReadOnly InvariantCulture As CultureInfo = CultureInfo.InvariantCulture
 
     Friend Function MakeFirstLetterUpperCased(value As String)
