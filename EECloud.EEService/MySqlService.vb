@@ -375,6 +375,37 @@
     End Sub
 
 
+    Friend Sub CreateDefaultTables()
+        ForceOpenConnection()
+
+        Using command As New MySqlCommand("CREATE TABLE IF NOT EXISTS settings (" &
+                                              "SettingKey VARCHAR(50) NOT NULL PRIMARY KEY," &
+                                              "SettingValue TEXT," &
+                                              "UNIQUE INDEX SettingKey_UNIQUE (SettingKey ASC)" &
+                                           ");" &
+ _
+                                           "CREATE TABLE IF NOT EXISTS playerData (" &
+                                               "Username VARCHAR(20) NOT NULL PRIMARY KEY," &
+                                               "GroupID SMALLINT(6)," &
+                                               "UNIQUE INDEX Username_UNIQUE (Username ASC)",
+                                           Connection)
+            Dim gameNames As String() = [Enum].GetNames(GetType(RegisteredGameName))
+            For i = 0 To gameNames.Length - 1
+                command.CommandText &= "," & MySqlHelper.EscapeString(gameNames(i)) & "Wins SMALLINT(6) UNSIGNED"
+            Next
+
+            command.CommandText &= ");" &
+                                   "CREATE TABLE IF NOT EXISTS facts (" &
+                                       "FactID VARCHAR(50) NOT NULL PRIMARY KEY," &
+                                       "FactGroup VARCHAR(50) NOT NULL," &
+                                       "UNIQUE INDEX FactID_UNIQUE (FactID ASC)" &
+                                   ");"
+
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+
+
     Private Shared Function ParsePlayerData(reader As MySqlDataReader) As UserData
         If reader Is Nothing Then
             Throw New ArgumentNullException("reader")
