@@ -53,16 +53,24 @@ Friend NotInheritable Class Logger
                     End If
                 Case ConsoleKey.Backspace
                     If Input.Length > 0 Then
-                        Input = Left(Input, Input.Length - 1)
-
+                        Input = Input.Substring(0, Input.Length - 1)
                     End If
 
                 Case Else
-                    If inputKey.Modifiers <> ConsoleModifiers.Control AndAlso inputKey.KeyChar <> Nothing Then
+                    If Not Char.IsControl(inputKey.KeyChar) Then
                         If Input.Length <= maxInputLength Then
                             myInput &= inputKey.KeyChar
                             Console.Write(inputKey.KeyChar)
                         End If
+
+                        'ElseIf inputKey.Key = ConsoleKey.LeftArrow Then
+                        '    If Console.CursorLeft > 1 Then
+                        '        Console.CursorLeft -= 1
+                        '    End If
+                        'ElseIf inputKey.Key = ConsoleKey.RightArrow Then
+                        '    If Console.CursorLeft < Console.BufferWidth - 2 Then
+                        '        Console.CursorLeft += 1
+                        '    End If
                     End If
             End Select
         Loop
