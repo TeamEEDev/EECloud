@@ -30,13 +30,11 @@
     <Property Id="ARPPRODUCTICON" Value="ProgramIcon" />
 
     <!-- Disable repair/modify -->
-    <Property Id="ARPNOREPAIR" Value="1" />
     <Property Id="ARPNOMODIFY" Value="1" />
 
     <!-- Upgrade info -->
     <Upgrade Id="$(var.UpgradeCode)">
       <UpgradeVersion Minimum="$(var.AppVersion)"
-                      IncludeMinimum="no"
                       OnlyDetect="yes"
                       Property="NEWERVERSIONDETECTED" />
       <UpgradeVersion Minimum="0.0.0" Maximum="$(var.AppVersion)"
@@ -58,8 +56,8 @@
     <CustomAction Id="PreventDowngrading" Error="A newer version of the product is already installed." />
 
     <InstallExecuteSequence>
+      <RemoveExistingProducts Before="InstallInitialize" />
       <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWERVERSIONDETECTED</Custom>
-      <RemoveExistingProducts After="InstallFinalize" />
     </InstallExecuteSequence>
 
     <InstallUISequence>
