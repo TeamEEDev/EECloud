@@ -23,7 +23,6 @@ Friend NotInheritable Class Logger
 #Region "Properties"
 
     Private myInput As String = String.Empty
-
     Private Property Input As String
         Get
             Return myInput
@@ -45,7 +44,16 @@ Friend NotInheritable Class Logger
         End Get
     End Property
 
+    Private myCurrentInputLineIndex As Integer
     Private Property CurrentInputLineIndex As Integer
+        Get
+            Return myCurrentInputLineIndex
+        End Get
+        Set(value As Integer)
+            Console.CursorTop += value - myCurrentInputLineIndex
+            myCurrentInputLineIndex = value
+        End Set
+    End Property
 
     Private ReadOnly Property LastInputLineMaxCursorLeft As Integer
         Get
@@ -87,14 +95,13 @@ Friend NotInheritable Class Logger
                         Dim currentCursorLeft As Integer = Console.CursorLeft
                         Dim tmpCursorLeft As Integer = CursorLeftWithoutPreTag
 
-                        Input = Input.Substring(0, tmpCursorLeft) & inputKey.KeyChar & Input.Substring(tmpCursorLeft)
-                        'Overwrite(True, inputKey.KeyChar & myInput.Substring(tmpCursorLeft))
+                        myInput = myInput.Substring(0, tmpCursorLeft) & inputKey.KeyChar & myInput.Substring(tmpCursorLeft)
+                        Overwrite(True, myInput.Substring(tmpCursorLeft))
 
                         If currentCursorLeft <> Console.BufferWidth - 1 Then
                             Console.CursorLeft = currentCursorLeft + 1
                         Else
                             Console.CursorLeft = 0
-                            Console.CursorTop += 1
                             CurrentInputLineIndex += 1
                         End If
 
@@ -106,7 +113,7 @@ Friend NotInheritable Class Logger
 
                     'Check the current input line
                     If Console.CursorLeft = 0 AndAlso LastInputLineMaxCursorLeft = 0 Then
-                        CurrentInputLineIndex += 1
+                        myCurrentInputLineIndex += 1
                     End If
 
                 Else
@@ -128,7 +135,6 @@ Friend NotInheritable Class Logger
                                         Console.CursorLeft = currentCursorLeft - 1
                                     Else 'CurrentInputLineIndex has to be reduced by 1
                                         Console.CursorLeft = Console.BufferWidth - 1
-                                        Console.CursorTop -= 1
                                         CurrentInputLineIndex -= 1
                                     End If
                                 End If
@@ -139,7 +145,6 @@ Friend NotInheritable Class Logger
                             If Console.CursorLeft > PreTagLength OrElse (CurrentInputLineIndex <> 0 AndAlso Console.CursorLeft > 0) Then
                                 Console.CursorLeft -= 1
                             ElseIf CurrentInputLineIndex <> 0 Then
-                                Console.CursorTop -= 1
                                 Console.CursorLeft = Console.BufferWidth - 1
                                 CurrentInputLineIndex -= 1
                             End If
@@ -151,7 +156,6 @@ Friend NotInheritable Class Logger
                                 End If
                             ElseIf ExtraInputLines <> CurrentInputLineIndex Then
                                 Console.CursorLeft = 0
-                                Console.CursorTop += 1
                                 CurrentInputLineIndex += 1
                             End If
 
@@ -169,7 +173,7 @@ Friend NotInheritable Class Logger
 
         Dim currentInput As String = Input
         myInput = String.Empty
-        CurrentInputLineIndex = 0
+        myCurrentInputLineIndex = 0
 
         RaiseEvent OnInput(Me, currentInput)
     End Sub
@@ -222,7 +226,7 @@ Friend NotInheritable Class Logger
         End If
 
         If setCursorLeft Then
-            Console.CursorLeft = newStr.Length + PreTagLength
+            Console.CursorLeft = (newStr.Length + PreTagLength) Mod Console.BufferWidth
         Else
             Console.CursorTop = currentCursorTop
         End If
