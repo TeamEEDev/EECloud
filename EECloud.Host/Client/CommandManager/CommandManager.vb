@@ -108,7 +108,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
     Private Function GetUsagesStr(cmd As String) As String
         Dim usages As String = String.Empty
         usages = myCommandsDictionary(cmd).Aggregate(usages, Function(current, handle) current & handle.ToString() & " / ")
-        Return "Command usage(s): " & Left(usages, usages.Length - 3)
+        Return "Command usage(s): " & usages.Substring(0, usages.Length - 3)
     End Function
 
     Private Sub TryRunCmd(sender As TPlayer, rights As Group, cmd As String(), type As String, text As String, handle As CommandHandle(Of TPlayer))

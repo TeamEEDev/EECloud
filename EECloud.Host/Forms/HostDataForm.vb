@@ -33,7 +33,7 @@ Friend Class HostDataForm
     End Sub
 
     Private Sub TextBoxUsername_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBoxUsername.KeyPress
-        e.KeyChar = Char.ToLowerInvariant(e.KeyChar)
+        e.KeyChar = Char.ToLower(e.KeyChar, InvariantCulture)
     End Sub
 
     Private Sub ButtonOk_Click(sender As Object, e As EventArgs) Handles ButtonOk.Click

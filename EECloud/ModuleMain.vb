@@ -52,7 +52,7 @@ Module ModuleMain
                     Dim setupDownload As Task = webClient.DownloadFileTaskAsync(New Uri("http://dl.dropboxusercontent.com/u/13946635/EECloud/EECloud.Setup.msi"), My.Application.Info.DirectoryPath & "\Update.msi")
 
                     If newVersionComparable.Revision = 0 Then
-                        newVersionString = Left(newVersionString, newVersionString.Length - 2)
+                        newVersionString = newVersionString.Substring(0, newVersionString.Length - 2)
                     End If
 
                     Using form As New Form() With {.TopMost = True}
