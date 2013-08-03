@@ -4,7 +4,7 @@
 #Region "Fields"
     Private myPlugin As IPlugin
     Private ReadOnly myPluginType As Type
-    Private ReadOnly myLockObj As New Object()
+    Private ReadOnly myLockObj As New Object
     Private ReadOnly myCloneFactory As IClientCloneFactory
 #End Region
 

@@ -5,7 +5,7 @@ Friend NotInheritable Class Connection
     Implements IConnection
 
 #Region "Fields"
-    Private ReadOnly myLockObj As New Object()
+    Private ReadOnly myLockObj As New Object
 
     Private ReadOnly myClient As IClient(Of Player)
     Private WithEvents myConnection As PlayerIOClient.Connection
