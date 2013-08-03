@@ -31,7 +31,7 @@ Friend NotInheritable Class Logger
         Set(value As String)
             If Not Cloud.IsNoConsole Then
                 SyncLock myLockObj
-                    Overwrite(False, PreTag & value, False)
+                    Overwrite(False, PreTag & value)
                 End SyncLock
 
                 myInput = value
@@ -84,7 +84,20 @@ Friend NotInheritable Class Logger
                 If Not Char.IsControl(inputKey.KeyChar) Then
                     If CurrentInputLineIndex <> ExtraInputLines OrElse Console.CursorLeft <> LastInputLineMaxCursorLeft Then
                         'Insert text
-                        'TODO
+                        Dim currentCursorLeft As Integer = Console.CursorLeft
+                        Dim tmpCursorLeft As Integer = CursorLeftWithoutPreTag
+
+                        Input = Input.Substring(0, tmpCursorLeft) & inputKey.KeyChar & Input.Substring(tmpCursorLeft)
+                        'Overwrite(True, inputKey.KeyChar & myInput.Substring(tmpCursorLeft))
+
+                        If currentCursorLeft <> Console.BufferWidth - 1 Then
+                            Console.CursorLeft = currentCursorLeft + 1
+                        Else
+                            Console.CursorLeft = 0
+                            Console.CursorTop += 1
+                            CurrentInputLineIndex += 1
+                        End If
+
                     Else
                         'Regular text input
                         myInput &= inputKey.KeyChar
@@ -107,13 +120,9 @@ Friend NotInheritable Class Logger
                             If Input.Length > 0 Then
                                 If CurrentInputLineIndex <> 0 OrElse Console.CursorLeft > PreTagLength Then
                                     Dim currentCursorLeft As Integer = Console.CursorLeft
+                                    Dim tmpCursorLeft As Integer = CursorLeftWithoutPreTag
 
-                                    Dim realCursorLeft As Integer = Console.CursorLeft
-                                    If CurrentInputLineIndex = 0 Then
-                                        realCursorLeft -= 2
-                                    End If
-
-                                    Input = Input.Substring(0, realCursorLeft - 1) & Input.Substring(realCursorLeft)
+                                    Input = Input.Substring(0, tmpCursorLeft - 1) & Input.Substring(tmpCursorLeft)
 
                                     If Console.CursorLeft <> 0 Then
                                         Console.CursorLeft = currentCursorLeft - 1
@@ -158,14 +167,14 @@ Friend NotInheritable Class Logger
     Private Sub TriggerInput()
         Console.Write(GetNewLineByCursorPos() & PreTag)
 
-        Dim storedInput As String = Input
+        Dim currentInput As String = Input
         myInput = String.Empty
         CurrentInputLineIndex = 0
 
-        RaiseEvent OnInput(Me, storedInput)
+        RaiseEvent OnInput(Me, currentInput)
     End Sub
 
-    Private Function GetNewLineByCursorPos()
+    Private Shared Function GetNewLineByCursorPos()
         If Console.CursorLeft = 0 Then
             Return String.Empty
         End If
@@ -180,7 +189,7 @@ Friend NotInheritable Class Logger
                                                  priority.ToString().ToUpper(InvariantCulture),
                                                  str)
             SyncLock myLockObj
-                Overwrite(False, output, False)
+                Overwrite(False, output)
                 Console.CursorTop -= CurrentInputLineIndex
                 Console.Write(GetNewLineByCursorPos() &
                               PreTag & Input)
@@ -195,23 +204,27 @@ Friend NotInheritable Class Logger
                                              ex.ToString(), ex.Message, ex.StackTrace))
     End Sub
 
-    Private Sub Overwrite(fromCurrentPos As Boolean, newStr As String, Optional setCursorPos As Boolean = True)
+    Private Sub Overwrite(fromCurrentPos As Boolean, newStr As String, Optional setCursorLeft As Boolean = False)
         If Not fromCurrentPos Then
             Console.CursorTop -= CurrentInputLineIndex
             Console.CursorLeft = 0
         End If
 
+        Dim currentCursorTop As String = Console.CursorTop
         Dim spaces As Integer = Console.BufferWidth - Console.CursorLeft +
                                 Console.BufferWidth * CurrentInputLineIndex -
                                 newStr.Length - 1
+
         If spaces > 0 Then
             Console.Write(newStr & Space(spaces))
         Else
             Console.Write(newStr)
         End If
 
-        If setCursorPos Then
+        If setCursorLeft Then
             Console.CursorLeft = newStr.Length + PreTagLength
+        Else
+            Console.CursorTop = currentCursorTop
         End If
     End Sub
 
