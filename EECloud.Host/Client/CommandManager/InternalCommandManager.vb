@@ -38,7 +38,7 @@
     Private Sub GlobalCommandManager_OnConsoleCommand(sender As Object, e As CommandEventArgs)
         If ShouldHandle(e.Message) AndAlso Not e.Handled Then
             e.Handled = True
-            HandleMessage(Cloud.Logger.Input.Substring(1), e.UserID, e.Rights)
+            HandleMessage(e.Message.Substring(1), e.UserID, e.Rights)
         End If
     End Sub
 
