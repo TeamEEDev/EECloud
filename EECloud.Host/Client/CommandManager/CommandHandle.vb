@@ -47,7 +47,7 @@ Friend NotInheritable Class CommandHandle (Of TPlayer As {New, Player})
             Throw New EECloudException(ErrorCode.InvalidCommand)
         End If
 
-        mySyntaxStr = "!command"
+        mySyntaxStr = My.Settings.CommandChar & "command"
         Dim param As ParameterInfo
         For i As Integer = 1 To params.Count - 1
             param = params(i)
@@ -76,7 +76,7 @@ Friend NotInheritable Class CommandHandle (Of TPlayer As {New, Player})
         Try
             myMethodInfo.Invoke(myTarget, args)
         Catch ex As Exception
-            Cloud.Logger.Log(LogPriority.Error, "Command failed to excecute: " & myAttribute.Type)
+            Cloud.Logger.Log(LogPriority.Error, "Command failed to execute: " & myAttribute.Type)
             Cloud.Logger.LogEx(ex)
         End Try
     End Sub

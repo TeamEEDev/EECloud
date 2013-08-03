@@ -37,7 +37,7 @@ Module ModuleMain
     Private WithEvents myTrayIcon As NotifyIcon
 
     Private ReadOnly mySeparatorText As String = Environment.NewLine &
-                                                 New String("_"c, Console.BufferWidth - 1) & Environment.NewLine
+                                                 New String("_"c, Console.BufferWidth)
 
     Private myLastRestart As Date
     Private myRestartTry As Integer

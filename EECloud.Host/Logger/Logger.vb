@@ -4,15 +4,25 @@ Friend NotInheritable Class Logger
     Implements ILogger
 
 #Region "Fields"
-    Private myInput As String = String.Empty
-    Private Shared ReadOnly maxInputLength As Integer = Console.BufferWidth - 4
+
+    Private Const PreTag As String = "> "
+    Private Const PreTagLength As Integer = 2
+
+    Private Shared ReadOnly MaxCharsOfFirstLine As Integer = Console.BufferWidth - PreTagLength
+
+    'TODO: SyncLock object
+
 #End Region
 
 #Region "Events"
+
     Friend Event OnInput As EventHandler Implements ILogger.OnInput
+
 #End Region
 
 #Region "Properties"
+
+    Private myInput As String = String.Empty
 
     Friend Property Input As String Implements ILogger.Input
         Get
@@ -20,12 +30,19 @@ Friend NotInheritable Class Logger
         End Get
         Set(value As String)
             If Not Cloud.IsNoConsole Then
-                Overwrite(Input.Length + 1, ">" & value)
-                Console.CursorLeft = value.Length + 1
+                Overwrite(False, PreTag & value, False)
                 myInput = value
             End If
         End Set
     End Property
+
+    Private ReadOnly Property InputLines As Integer
+        Get
+            Return (Input.Length + PreTagLength) \ Console.BufferWidth + 1
+        End Get
+    End Property
+
+    Private Property CurrentInputLine As Integer
 
 #End Region
 
@@ -33,7 +50,7 @@ Friend NotInheritable Class Logger
 
     Sub New()
         If Not Cloud.IsNoConsole Then
-            Console.Write(">")
+            Console.Write(PreTag)
             Call New Thread(AddressOf HandleInput) With {.IsBackground = True}.Start()
         End If
     End Sub
@@ -44,39 +61,80 @@ Friend NotInheritable Class Logger
         Do
             inputKey = Console.ReadKey(True)
 
-            Select Case inputKey.Key
-                Case ConsoleKey.Enter
-                    If Input.Length > 0 Then
-                        Console.WriteLine()
-                        RaiseEvent OnInput(Me, New EventArgs())
-                        Input = String.Empty
-                    End If
-                Case ConsoleKey.Backspace
-                    If Input.Length > 0 Then
-                        Input = Input.Substring(0, Input.Length - 1)
-                    End If
+            If Not Char.IsControl(inputKey.KeyChar) Then
+                'Regular text input
+                myInput &= inputKey.KeyChar
+                Console.Write(inputKey.KeyChar)
 
-                Case Else
-                    If Not Char.IsControl(inputKey.KeyChar) Then
-                        If Input.Length <= maxInputLength Then
-                            myInput &= inputKey.KeyChar
-                            Console.Write(inputKey.KeyChar)
+                'Check the current input line
+                If Console.CursorLeft = 0 Then
+                    CurrentInputLine += 1
+                End If
+
+            Else
+                Select Case inputKey.Key
+                    Case ConsoleKey.Enter
+                        If Input.Length > 0 Then
+                            RaiseEvent OnInput(Me, New EventArgs())
+                            ResetInput()
                         End If
 
-                        'ElseIf inputKey.Key = ConsoleKey.LeftArrow Then
-                        '    If Console.CursorLeft > 1 Then
-                        '        Console.CursorLeft -= 1
-                        '    End If
-                        'ElseIf inputKey.Key = ConsoleKey.RightArrow Then
-                        '    If Console.CursorLeft < Console.BufferWidth - 2 Then
-                        '        Console.CursorLeft += 1
-                        '    End If
-                    End If
-            End Select
+                    Case ConsoleKey.Backspace
+                        If Input.Length > 0 Then
+                            If CurrentInputLine <> 0 OrElse Console.CursorLeft > PreTagLength Then
+                                Dim currentCursorLeft As Integer = Console.CursorLeft
+
+                                Dim realCursorLeft As Integer = Console.CursorLeft
+                                If CurrentInputLine = 0 Then
+                                    realCursorLeft -= 2
+                                End If
+
+                                Input = Input.Substring(0, realCursorLeft - 1) & Input.Substring(realCursorLeft)
+
+                                If Console.CursorLeft <> 0 Then
+                                    Console.CursorLeft = currentCursorLeft - 1
+                                Else 'CurrentInputLine has to be changed
+                                    Console.CursorLeft = Console.BufferWidth - 1
+                                    Console.CursorTop -= 1
+                                    CurrentInputLine -= 1
+                                End If
+                            End If
+                        End If
+
+
+                    Case ConsoleKey.LeftArrow
+                        If Console.CursorLeft > PreTagLength OrElse (CurrentInputLine <> 0 AndAlso Console.CursorLeft > 0) Then
+                            Console.CursorLeft -= 1
+                        ElseIf CurrentInputLine <> 0 Then
+                            Console.CursorTop -= 1
+                            Console.CursorLeft = Console.BufferWidth - 1
+                            CurrentInputLine -= 1
+                        End If
+
+                    Case ConsoleKey.RightArrow
+                        If Console.CursorLeft + 1 < Console.BufferWidth Then
+                            If Console.CursorLeft + CurrentInputLine * Console.BufferWidth < Input.Length + PreTagLength Then
+                                Console.CursorLeft += 1
+                            End If
+                        ElseIf InputLines <> CurrentInputLine + 1 Then
+                            Console.CursorLeft = 0
+                            Console.CursorTop += 1
+                            CurrentInputLine += 1
+                        End If
+
+                        'TODO: ConsoleKey.UpArrow, ConsoleKey.DownArrow
+                End Select
+            End If
         Loop
         ' ReSharper disable FunctionNeverReturns
     End Sub
     ' ReSharper restore FunctionNeverReturns
+
+    Private Sub ResetInput()
+        myInput = String.Empty
+        CurrentInputLine = 0
+        Console.Write(Environment.NewLine & PreTag)
+    End Sub
 
     Friend Sub Log(priority As LogPriority, str As String) Implements ILogger.Log
         If Not Cloud.IsNoConsole Then
@@ -84,26 +142,37 @@ Friend NotInheritable Class Logger
                                                  Now.ToLongTimeString(),
                                                  priority.ToString().ToUpper(InvariantCulture),
                                                  str)
-            Overwrite(Input.Length + 1, output)
+            Overwrite(False, output, False)
+            Console.CursorTop -= CurrentInputLine
             Console.Write(Environment.NewLine &
-                          ">" & Input)
+                          PreTag & Input)
         End If
     End Sub
 
     Friend Sub LogEx(ex As Exception) Implements ILogger.LogEx
-        Cloud.Logger.Log(LogPriority.Error, String.Format("{0} was unhandeled:" & Environment.NewLine &
-                                                          "{1}" & Environment.NewLine &
-                                                          "{2}",
-                                                          ex.ToString(), ex.Message, ex.StackTrace))
+        Log(LogPriority.Error, String.Format("{0} was unhandeled:" & Environment.NewLine &
+                                             "{1}" & Environment.NewLine &
+                                             "{2}",
+                                             ex.ToString(), ex.Message, ex.StackTrace))
     End Sub
 
-    Private Shared Sub Overwrite(oldLength As Integer, newStr As String)
-        Console.CursorLeft = 0
-        Dim spaces As Integer = oldLength - newStr.Length
+    Private Sub Overwrite(fromCurrentPos As Boolean, newStr As String, Optional setCursorPos As Boolean = True)
+        If Not fromCurrentPos Then
+            Console.CursorTop -= CurrentInputLine
+            Console.CursorLeft = 0
+        End If
+
+        Dim spaces As Integer = Console.BufferWidth - Console.CursorLeft +
+                                Console.BufferWidth * CurrentInputLine -
+                                newStr.Length - 1
         If spaces > 0 Then
             Console.Write(newStr & Space(spaces))
         Else
             Console.Write(newStr)
+        End If
+
+        If setCursorPos Then
+            Console.CursorLeft = newStr.Length + PreTagLength
         End If
     End Sub
 
