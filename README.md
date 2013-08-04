@@ -1,5 +1,5 @@
 # EECloud
-EECloud is a special platform which allows you to connect to the servers of [Everybody Edits][], and do actions like in the game.
+EECloud is an open source platform that you can use to connect to the servers of Everybody Edits and perform actions with, just like you would in the game.
 
 [Everybody Edits]: http://everybodyedits.com/
 

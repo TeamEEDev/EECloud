@@ -2,7 +2,7 @@
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?define AppName     = EECloud ?>
-  <?define AppVersion  = 0.9.29 ?>
+  <?define AppVersion  = 0.9.30 ?>
   <?define AppAuthor   = EEDev ?>
   <?define UpgradeCode = {EBE9213C-08D9-4561-8028-FB63B80AEA90} ?>
 
@@ -14,7 +14,7 @@
            UpgradeCode  = "$(var.UpgradeCode)">
     <Package Id               = "*"
              Description      = "Installs the components of EECloud."
-             Comments         = "EECloud is a special platform which allows you to connect to the servers of Everybody Edits, and do actions like in the game."
+             Comments         = "EECloud is an open source platform that you can use to connect to the servers of Everybody Edits and perform actions with, just like you would in the game."
              Manufacturer     = "$(var.AppAuthor)"
              InstallerVersion = "200"
              Languages        = "1033"
