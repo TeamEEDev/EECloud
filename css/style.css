@@ -1,83 +1,94 @@
 html,body {
-font-family:"Segoe UI", Arial, Helvetica, sans-serif;
-margin:0!important;
+	font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+	margin: 0;
 }
 
 p {
-margin-top:5px;
+	margin-top: 5px;
 }
 
 .eecdesktophead {
-font-size:28px;
-text-transform:uppercase;
+	font-size: 28px;
+	text-transform: uppercase;
 }
 
 .highlights .container {
-border-top:1px solid #ddd;
-padding:30px 0;
+	border-top: 1px solid #ddd;
+	padding: 30px 0;
 }
 
 .arrowimg {
-width:35px;
-margin:0 auto;
+	width: 35px;
+	margin: 0 auto;
 }
 
 #eecloud {
-padding:100px 0;
+	padding: 100px 0;
 }
 
 #eecdesktopheader {
-background-color:#fff;
-padding:0 0 60px;
+	background-color: #fff;
+	padding: 0 0 60px;
 }
 
 .eecdesktopimg {
-box-shadow:0 0 50px #bbb;
+	box-shadow: 0 0 50px #bbb;
 }
 
 .row {
-margin-top:20px;
+	margin-top: 20px;
 }
 
 .head_text {
-font-size:31px;
+	font-size: 31px;
 }
 
-a.downloadbutton {
-background:#F09609 url(../img/download.png) no-repeat 14px 10px;
-display:block;
-width:230px;
-color:#FFF;
-text-decoration:none;
-position:relative;
-margin-top:30px;
-padding:11px 30px 13px 60px;
+a.button {
+	display: block;
+	width: 230px;
+	color: #FFF;
+	text-decoration: none;
+	position: relative;
+	margin-top: 30px;
+	padding: 11px 30px 13px 60px;
 }
 
-a.downloadbutton:hover {
-background-color:#fbb118;
+a.button strong {
+	display: block;
+	font-size: 17px;
+	line-height: 1;
+	margin-bottom:4px;
 }
 
-a.downloadbutton:active {
-top:2px;
+a.button span {
+	display: block;
+	line-height: 1;
+	font-size: 12px;
 }
 
-a.downloadbutton strong {
-display:block;
-font-size:17px;
-line-height:1;
-margin-bottom:4px;
+a.button:active {
+	top: 2px;
 }
 
-a.downloadbutton span {
-display:block;
-line-height:1;
-font-size:12px;
+a.buttongithub {
+	background: #03DD28 url(../img/github.png) no-repeat 14px 10px;
+}
+
+a.buttongithub:hover {
+	background-color: #09F124;
+}
+
+a.buttondownload {
+	background: #F19809 url(../img/download.png) no-repeat 14px 10px;
+}
+
+a.buttondownload:hover {
+	background-color: #FBB018;
 }
 
 p.downloadexplain {
-font-size:12px;
-color:#aaa;
-width:300px;
-line-height:170%;
+	font-size: 12px;
+	color: #AAA;
+	width: 300px;
+	line-height: 168%;
 }
