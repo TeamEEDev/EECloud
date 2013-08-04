@@ -1,0 +1,83 @@
+html,body {
+font-family:"Segoe UI", Arial, Helvetica, sans-serif;
+margin:0!important;
+}
+
+p {
+margin-top:5px;
+}
+
+.eecdesktophead {
+font-size:28px;
+text-transform:uppercase;
+}
+
+.highlights .container {
+border-top:1px solid #ddd;
+padding:30px 0;
+}
+
+.arrowimg {
+width:35px;
+margin:0 auto;
+}
+
+#eecloud {
+padding:100px 0;
+}
+
+#eecdesktopheader {
+background-color:#fff;
+padding:0 0 60px;
+}
+
+.eecdesktopimg {
+box-shadow:0 0 50px #bbb;
+}
+
+.row {
+margin-top:20px;
+}
+
+.head_text {
+font-size:31px;
+}
+
+a.downloadbutton {
+background:#F09609 url(../img/download.png) no-repeat 14px 10px;
+display:block;
+width:230px;
+color:#FFF;
+text-decoration:none;
+position:relative;
+margin-top:30px;
+padding:11px 30px 13px 60px;
+}
+
+a.downloadbutton:hover {
+background-color:#fbb118;
+}
+
+a.downloadbutton:active {
+top:2px;
+}
+
+a.downloadbutton strong {
+display:block;
+font-size:17px;
+line-height:1;
+margin-bottom:4px;
+}
+
+a.downloadbutton span {
+display:block;
+line-height:1;
+font-size:12px;
+}
+
+p.downloadexplain {
+font-size:12px;
+color:#aaa;
+width:300px;
+line-height:170%;
+}
