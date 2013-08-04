@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>EECloud by TeamEEDev</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/TeamEEDev/EECloud">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/TeamEEDev/EECloud/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/TeamEEDev/EECloud/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>EECloud</h1>
+          <p>EECloud is a special platform which allows you to connect to the servers of Everybody Edits, and do actions like in the game</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/TeamEEDev">TeamEEDev</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a name="eecloud" class="anchor" href="#eecloud"><span class="octicon octicon-link"></span></a>EECloud</h1>
+
+<p>EECloud is a special platform which allows you to connect to the servers of <a href="http://everybodyedits.com/">Everybody Edits</a>, and do actions like in the game.</p>
+
+<h2>
+<a name="the-structure" class="anchor" href="#the-structure"><span class="octicon octicon-link"></span></a>The structure</h2>
+
+<p>This repository consists of 5 elements:</p>
+
+<ul>
+<li>EECloud          - The official implementation of EECloud.Host, for use in production</li>
+<li>EECloud.API      - The API refrenced by Plugins to use the functions of EECloud</li>
+<li>EECloud.Host     - Hosting API can be used to run EECloud Plugins on any .NET Application</li>
+<li>EECloud.Launcher - Works as a wrapper around EECloud.exe, restarts in case the connection gets lost</li>
+<li>EECloud.Setup    - Installs the components of EECloud</li>
+</ul><p>The project is written in <a href="http://wikipedia.org/wiki/Visual_Basic_.NET">VB.NET</a>, and requires <a href="http://www.microsoft.com/download/details.aspx?id=30653">Microsoft .NET Framework 4.5</a> (or higher), <a href="http://www.microsoft.com/download/details.aspx?id=30679">Visual C++ Redistributable 2012 Update 1</a>(or higher), and <a href="http://wixtoolset.org/">WiX Toolset</a> (for the installer project) to be installed.</p>
+
+<h2>
+<a name="components" class="anchor" href="#components"><span class="octicon octicon-link"></span></a>Components</h2>
+
+<h3>
+<a name="connection-specific-components" class="anchor" href="#connection-specific-components"><span class="octicon octicon-link"></span></a>Connection-specific components</h3>
+
+<p>These components are shared between all plugins in a connection:</p>
+
+<ul>
+<li>Game</li>
+<li>Uploader</li>
+<li>PluginManager</li>
+<li>KeyManager</li>
+<li>Connection</li>
+<li>World</li>
+</ul><h3>
+<a name="plugin-specific-components" class="anchor" href="#plugin-specific-components"><span class="octicon octicon-link"></span></a>Plugin-specific components</h3>
+
+<p>These components have a new instance per plugin and have customized behavior for the plugin they are serving:</p>
+
+<ul>
+<li>Client</li>
+<li>Chatter</li>
+<li>CommandManager</li>
+<li>PlayerManager</li>
+</ul>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
