@@ -71,24 +71,24 @@ a.button:active {
 }
 
 a.buttongithub {
-	background: #03DD28 url(../img/github.png) no-repeat 14px 10px;
+	background: #09C31C url(../img/github.png) no-repeat 14px 10px;
 }
 
 a.buttongithub:hover {
-	background-color: #09F124;
+	background-color: #06D021;
 }
 
 a.buttondownload {
-	background: #F19809 url(../img/download.png) no-repeat 14px 10px;
+	background: #F49B15 url(../img/download.png) no-repeat 14px 10px;
 }
 
 a.buttondownload:hover {
-	background-color: #FBB018;
+	background-color: #F8A71B;
 }
 
 p.downloadexplain {
 	font-size: 12px;
 	color: #AAA;
 	width: 300px;
-	line-height: 168%;
+	line-height: 160%;
 }
