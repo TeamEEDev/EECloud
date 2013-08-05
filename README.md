@@ -4,13 +4,14 @@ EECloud is an open source platform that you can use to connect to the servers of
 [Everybody Edits]: http://everybodyedits.com/
 
 ## The structure
-This repository consists of 5 elements:
+This repository consists of 6 elements:
 
-  * EECloud          - The official implementation of EECloud.Host, for use in production
-  * EECloud.API      - The API refrenced by Plugins to use the functions of EECloud
-  * EECloud.Host     - Hosting API can be used to run EECloud Plugins on any .NET Application
-  * EECloud.Launcher - Works as a wrapper around EECloud.exe, restarts in case the connection gets lost
-  * EECloud.Setup    - Installs the components of EECloud
+  * EECloud           - The official implementation of EECloud.Host, for use in production
+  * EECloud.API       - The API refrenced by plugins to use the functions of EECloud
+  * EECloud.Host      - Hosting API can be used to run EECloud plugins on any .NET application
+  * EECloud.EEService - Stores and fetches data of players, and other useful information in a SQL database
+  * EECloud.Launcher  - Works as a wrapper around EECloud.exe, restarts in case the connection gets lost
+  * EECloud.Setup     - Installs the components of EECloud
 
 The project is written in [VB.NET][], and requires [Microsoft .NET Framework 4.5][] (or higher), [Visual C++ Redistributable 2012 Update 1][](or higher), and [WiX Toolset][] (for the installer project) to be installed.
 
