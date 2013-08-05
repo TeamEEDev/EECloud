@@ -103,7 +103,6 @@
     <Compile Include="..\EECloud\SharedAssemblyInfo.vb">
       <Link>SharedAssemblyInfo.vb</Link>
     </Compile>
-    <Compile Include="Config.vb" />
     <Compile Include="SQLiteService.vb" />
     <Compile Include="MySqlService.vb" />
     <Compile Include="EEService.vb" />

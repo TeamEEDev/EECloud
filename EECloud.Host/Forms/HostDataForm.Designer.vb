@@ -25,21 +25,23 @@ Partial NotInheritable Class HostDataForm
         Me.TextBoxUsername = New System.Windows.Forms.TextBox()
         Me.ButtonOk = New System.Windows.Forms.Button()
         Me.LabelUsername = New System.Windows.Forms.Label()
+        Me.TextBoxMySqlConnStr = New System.Windows.Forms.TextBox()
+        Me.LabelMySqlConnStr = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'TextBoxUsername
         '
-        Me.TextBoxUsername.Location = New System.Drawing.Point(115, 12)
+        Me.TextBoxUsername.Location = New System.Drawing.Point(116, 12)
         Me.TextBoxUsername.Name = "TextBoxUsername"
-        Me.TextBoxUsername.Size = New System.Drawing.Size(137, 20)
+        Me.TextBoxUsername.Size = New System.Drawing.Size(156, 20)
         Me.TextBoxUsername.TabIndex = 0
         '
         'ButtonOk
         '
-        Me.ButtonOk.Location = New System.Drawing.Point(12, 38)
+        Me.ButtonOk.Location = New System.Drawing.Point(12, 84)
         Me.ButtonOk.Name = "ButtonOk"
-        Me.ButtonOk.Size = New System.Drawing.Size(240, 23)
-        Me.ButtonOk.TabIndex = 1
+        Me.ButtonOk.Size = New System.Drawing.Size(260, 23)
+        Me.ButtonOk.TabIndex = 2
         Me.ButtonOk.Text = "Ok"
         Me.ButtonOk.UseVisualStyleBackColor = True
         '
@@ -52,14 +54,34 @@ Partial NotInheritable Class HostDataForm
         Me.LabelUsername.TabIndex = 0
         Me.LabelUsername.Text = "In-game username:"
         '
+        'TextBoxMySqlConnStr
+        '
+        Me.TextBoxMySqlConnStr.Location = New System.Drawing.Point(116, 38)
+        Me.TextBoxMySqlConnStr.Multiline = True
+        Me.TextBoxMySqlConnStr.Name = "TextBoxMySqlConnStr"
+        Me.TextBoxMySqlConnStr.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.TextBoxMySqlConnStr.Size = New System.Drawing.Size(156, 40)
+        Me.TextBoxMySqlConnStr.TabIndex = 1
+        '
+        'LabelMySqlConnStr
+        '
+        Me.LabelMySqlConnStr.AutoSize = True
+        Me.LabelMySqlConnStr.Location = New System.Drawing.Point(12, 41)
+        Me.LabelMySqlConnStr.Name = "LabelMySqlConnStr"
+        Me.LabelMySqlConnStr.Size = New System.Drawing.Size(98, 26)
+        Me.LabelMySqlConnStr.TabIndex = 0
+        Me.LabelMySqlConnStr.Text = "MySQL connection" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "string (optional):"
+        '
         'HostDataForm
         '
         Me.AcceptButton = Me.ButtonOk
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(264, 73)
+        Me.ClientSize = New System.Drawing.Size(284, 119)
+        Me.Controls.Add(Me.LabelMySqlConnStr)
         Me.Controls.Add(Me.LabelUsername)
         Me.Controls.Add(Me.ButtonOk)
+        Me.Controls.Add(Me.TextBoxMySqlConnStr)
         Me.Controls.Add(Me.TextBoxUsername)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.KeyPreview = True
@@ -74,4 +96,6 @@ Partial NotInheritable Class HostDataForm
     Friend WithEvents TextBoxUsername As System.Windows.Forms.TextBox
     Friend WithEvents ButtonOk As System.Windows.Forms.Button
     Friend WithEvents LabelUsername As System.Windows.Forms.Label
+    Friend WithEvents TextBoxMySqlConnStr As System.Windows.Forms.TextBox
+    Friend WithEvents LabelMySqlConnStr As System.Windows.Forms.Label
 End Class

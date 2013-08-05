@@ -59,6 +59,9 @@
     Sub CreateDefaultMySqlTables()
     Function CreateDefaultMySqlTablesAsync() As Task
 
+
+    Sub Dispose()
+
 End Interface
 
 

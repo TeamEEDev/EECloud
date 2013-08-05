@@ -2,7 +2,7 @@
 Imports System.IO
 
 Public NotInheritable Class EECloud
-    Private Shared myHostUserame As String
+    Private Shared myHostMySqlConnStr As String
 
     Private Shared ReadOnly myCommandChar As Char
 
@@ -23,7 +23,7 @@ Public NotInheritable Class EECloud
             My.Settings.Updated = True
         End If
 
-        myHostUserame = My.Settings.HostUserame
+        Cloud.HostUsername = My.Settings.HostUserame
 
         If My.Settings.LoginTypes.Count > 0 Then
             myUsername = My.Settings.LoginEmails(0)
@@ -36,8 +36,6 @@ Public NotInheritable Class EECloud
         End If
 
         myCommandChar = My.Settings.CommandChar
-
-        Cloud.HostUsername = myHostUserame
     End Sub
 
     Public Shared ReadOnly Property Client As IClient(Of Player)
@@ -46,12 +44,13 @@ Public NotInheritable Class EECloud
         End Get
     End Property
 
-    Shared Sub RunCloudMode(hostUserame As String, username As String, password As String, type As AccountType, worldID As String)
-        SetHostData(hostUserame)
+    Shared Sub RunCloudMode(hostUserame As String, username As String, password As String, type As AccountType,
+                            worldID As String,
+                            Optional mySqlConnStr As String = Nothing)
+        SetHostData(hostUserame, mySqlConnStr)
         SetLoginData(username, password, type, worldID)
 
         Init(False, False, True)
-        CheckHostData()
 
         Client.CommandManager.Load(New DefaultCommandListener(Client))
 
@@ -63,7 +62,6 @@ Public NotInheritable Class EECloud
 
     Friend Shared Sub RunDesktopMode(restart As Boolean)
         Init(False, False, False)
-        CheckHostData()
 
         Dim loginTask As Task = ShowLogin(restart)
         Client.CommandManager.Load(New DefaultCommandListener(Client))
@@ -87,7 +85,6 @@ Public NotInheritable Class EECloud
 
     Public Shared Sub RunDebugMode(plugin As Type)
         Init(True, False, False)
-        CheckHostData()
 
         Dim loginTask As Task = ShowLogin()
         Client.CommandManager.Load(New DefaultCommandListener(Client))
@@ -102,11 +99,10 @@ Public NotInheritable Class EECloud
         Application.Run()
     End Sub
 
-    Public Shared Sub EnableHostMode(hostUserame As String, debug As Boolean, console As Boolean)
-        SetHostData(hostUserame)
+    Public Shared Sub EnableHostMode(hostUserame As String, debug As Boolean, console As Boolean, Optional mySqlConnStr As String = Nothing)
+        SetHostData(hostUserame, mySqlConnStr)
 
         Init(debug, True, console)
-        CheckHostData()
     End Sub
 
     Private Shared Sub Init(dev As Boolean, hosted As Boolean, noConsole As Boolean)
@@ -124,8 +120,10 @@ Public NotInheritable Class EECloud
             Application.EnableVisualStyles()
         End If
 
+        CheckHostData()
+
         Cloud.ClientFactory = New ClientFactory()
-        Cloud.Service = New EEService.EEService()
+        Cloud.Service = New EEService.EEService(myHostMySqlConnStr)
 
         myClient = Cloud.ClientFactory.CreateClient(myCommandChar)
     End Sub
@@ -165,9 +163,9 @@ Public NotInheritable Class EECloud
         myWorldID = worldID
     End Sub
 
-    Public Shared Sub SetHostData(username As String)
-        myHostUserame = username
+    Public Shared Sub SetHostData(username As String, mySqlConnStr As String)
         Cloud.HostUsername = username
+        myHostMySqlConnStr = mySqlConnStr
     End Sub
 
     Public Shared Async Function ShowLogin(Optional restart As Boolean = False) As Task
@@ -195,7 +193,7 @@ Public NotInheritable Class EECloud
         If String.IsNullOrWhiteSpace(My.Settings.HostUserame) Then
             If Not Cloud.IsNoGUI Then
                 If New HostDataForm().ShowDialog() = DialogResult.OK Then
-                    SetHostData(My.Settings.HostUserame)
+                    SetHostData(My.Settings.HostUserame, My.Settings.HostMySqlConnStr)
                     CheckHostData()
                 Else
                     Environment.Exit(0)
@@ -221,13 +219,16 @@ Public NotInheritable Class EECloud
     Private Shared Function LoadAssembly(dll As String) As Assembly
         Try
             Return Assembly.LoadFile(dll)
+
         Catch ex As FileLoadException
             Cloud.Logger.Log(LogPriority.Error, "Failed to load assembly: " & dll)
             Cloud.Logger.LogEx(ex)
+
         Catch ex As BadImageFormatException
             Cloud.Logger.Log(LogPriority.Error, "Currupted assembly: " & dll)
             Cloud.Logger.LogEx(ex)
         End Try
+
         Return Nothing
     End Function
 
@@ -263,6 +264,7 @@ RetryLogin:
             If Client.Connection.Connected Then
                 Cloud.Logger.Log(LogPriority.Info, "Connected.")
             End If
+
         Catch ex As EECloudPlayerIOException
             Select Case ex.PlayerIOError.ErrorCode
                 Case PlayerIOClient.ErrorCode.UnknownUser

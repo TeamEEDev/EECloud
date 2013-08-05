@@ -7,9 +7,10 @@
 
     Private Property UseMySql As Boolean
 
+    Private ReadOnly myMySqlConnStr As String
     Public ReadOnly Property MySqlConnectionString As String Implements IEEService.MySqlConnectionString
         Get
-            Return MySqlConnStr
+            Return myMySqlConnStr
         End Get
     End Property
 #End Region
@@ -18,9 +19,10 @@
 
 #Region "Creation"
 
-    Friend Sub New()
-        If Not String.IsNullOrEmpty(MySqlConnStr) Then
-            myMySqlService = New MySqlService()
+    Friend Sub New(mySqlConnStr As String)
+        If Not String.IsNullOrEmpty(mySqlConnStr) Then
+            myMySqlConnStr = mySqlConnStr
+            myMySqlService = New MySqlService(mySqlConnStr)
             UseMySql = True
         Else
             mySQLiteService = New SQLiteService()
@@ -260,7 +262,7 @@
         myDisposedValue = True
     End Sub
 
-    Friend Sub Dispose() Implements IDisposable.Dispose
+    Friend Sub Dispose() Implements IDisposable.Dispose, IEEService.Dispose
         Dispose(True)
     End Sub
 

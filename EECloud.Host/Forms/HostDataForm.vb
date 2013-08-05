@@ -21,7 +21,7 @@ Friend Class HostDataForm
         End If
     End Sub
 
-    Private Sub TextBoxUsername_KeyDown(sender As Object, e As KeyEventArgs) Handles TextBoxUsername.KeyDown
+    Private Sub TextBoxes_KeyDown(sender As Object, e As KeyEventArgs) Handles TextBoxUsername.KeyDown, TextBoxMySqlConnStr.KeyDown
         If e.Control Then
             If e.KeyCode = Keys.A Then
                 TextBoxUsername.SelectAll()
@@ -39,6 +39,7 @@ Friend Class HostDataForm
     Private Sub ButtonOk_Click(sender As Object, e As EventArgs) Handles ButtonOk.Click
         If Not String.IsNullOrWhiteSpace(TextBoxUsername.Text) Then
             My.Settings.HostUserame = TextBoxUsername.Text
+            My.Settings.HostMySqlConnStr = TextBoxMySqlConnStr.Text
             My.Settings.Save()
 
             DialogResult = DialogResult.OK

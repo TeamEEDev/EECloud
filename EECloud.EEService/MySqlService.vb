@@ -2,7 +2,7 @@
     Implements IDisposable
 
 #Region "Properties"
-    Private Shared ReadOnly myConnection As New Lazy(Of MySqlConnection)(Function() New MySqlConnection(MySqlConnStr))
+    Private Shared myConnection As Lazy(Of MySqlConnection)
 
     Private Shared ReadOnly Property Connection As MySqlConnection
         Get
@@ -12,6 +12,14 @@
 #End Region
 
 #Region "Methods"
+
+#Region "Creation"
+
+    Friend Sub New(mySqlConnStr As String)
+        myConnection = New Lazy(Of MySqlConnection)(Function() New MySqlConnection(mySqlConnStr))
+    End Sub
+
+#End Region
 
 #Region "Settings"
     Friend Function GetSetting(key As String) As String
