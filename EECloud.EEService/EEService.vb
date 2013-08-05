@@ -20,6 +20,12 @@
 #Region "Creation"
 
     Friend Sub New(mySqlConnStr As String)
+        If Not My.Settings.Updated Then
+            My.Settings.Upgrade()
+            My.Settings.Updated = True
+            My.Settings.Save()
+        End If
+
         If Not String.IsNullOrWhiteSpace(mySqlConnStr) Then
             myMySqlConnStr = mySqlConnStr
             myMySqlService = New MySqlService(mySqlConnStr)

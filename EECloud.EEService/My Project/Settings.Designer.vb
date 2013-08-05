@@ -53,16 +53,28 @@ Namespace My
                 Return defaultInstance
             End Get
         End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property MySqlFailed() As Boolean
+
+        <Global.System.Configuration.UserScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")> _
+        Public Property Updated() As Boolean
             Get
-                Return CType(Me("MySqlFailed"),Boolean)
+                Return CType(Me("Updated"), Boolean)
             End Get
-            Set
-                Me("MySqlFailed") = value
+            Set(value As Boolean)
+                Me("Updated") = value
+            End Set
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")> _
+        Public Property QueryMySqlConnStr() As Boolean
+            Get
+                Return CType(Me("QueryMySqlConnStr"), Boolean)
+            End Get
+            Set(value As Boolean)
+                Me("QueryMySqlConnStr") = value
             End Set
         End Property
     End Class

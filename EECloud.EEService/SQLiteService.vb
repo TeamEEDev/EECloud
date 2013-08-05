@@ -2,7 +2,9 @@
     Implements IDisposable
 
 #Region "Properties"
-    Private Shared ReadOnly myConnection As New Lazy(Of SQLiteConnection)(Function() New SQLiteConnection("Data Source=" & My.Application.Info.DirectoryPath & "\EEService.sqlite;" &
+    Friend Shared ReadOnly DbLocation As String = My.Application.Info.DirectoryPath & "\EEService.sqlite"
+
+    Private Shared ReadOnly myConnection As New Lazy(Of SQLiteConnection)(Function() New SQLiteConnection("Data Source=" & DbLocation & ";" &
                                                                                                           "Version=3"))
 
     Private Shared ReadOnly Property Connection As SQLiteConnection

@@ -383,7 +383,7 @@
             End If
 
         Catch
-            My.Settings.MySqlFailed = True
+            My.Settings.QueryMySqlConnStr = True
             My.Settings.Save()
 
             Throw

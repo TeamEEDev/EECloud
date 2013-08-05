@@ -21,6 +21,7 @@ Public NotInheritable Class EECloud
         If Not My.Settings.Updated Then
             My.Settings.Upgrade()
             My.Settings.Updated = True
+            My.Settings.Save()
         End If
 
         Cloud.HostUsername = My.Settings.HostUserame
@@ -190,21 +191,21 @@ Public NotInheritable Class EECloud
         End If
     End Function
 
-    Private Shared Sub CheckHostData()
-        If String.IsNullOrWhiteSpace(My.Settings.HostUserame) OrElse EEService.My.Settings.MySqlFailed Then
+    Private Shared Sub CheckHostData(Optional ignoreCheckSQLiteDb As Boolean = False)
+        If Not (ignoreCheckSQLiteDb OrElse File.Exists(EEService.SQLiteService.DbLocation)) OrElse EEService.My.Settings.QueryMySqlConnStr OrElse String.IsNullOrWhiteSpace(My.Settings.HostUserame) Then
             If Not Cloud.IsNoGUI Then
                 If New HostDataForm().ShowDialog() = DialogResult.OK Then
-                    EEService.My.Settings.MySqlFailed = False
+                    EEService.My.Settings.QueryMySqlConnStr = False
                     EEService.My.Settings.Save()
 
                     SetHostData(My.Settings.HostUserame, My.Settings.HostMySqlConnStr)
-                    CheckHostData()
+                    CheckHostData(True)
                 Else
                     Environment.Exit(0)
                 End If
 
             Else
-                EEService.My.Settings.MySqlFailed = False
+                EEService.My.Settings.QueryMySqlConnStr = False
                 EEService.My.Settings.Save()
 
                 Throw New Exception("Corrupted host data.")
