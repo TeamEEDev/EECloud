@@ -1,7 +1,10 @@
-﻿Imports System.Reflection
-Imports System.IO
+﻿Imports System.IO
+Imports System.Reflection
 
 Public NotInheritable Class EECloud
+
+#Region "Fields"
+
     Private Shared myHostMySqlConnStr As String
 
     Private Shared ReadOnly myCommandChar As Char
@@ -12,6 +15,32 @@ Public NotInheritable Class EECloud
     Private Shared myWorldID As String
 
     Private Shared myClient As IClient(Of Player)
+
+#End Region
+
+#Region "Properties"
+
+    Private Shared myForceShowSettings As Boolean
+    Public Shared Property ForceShowSettings As Boolean
+        Get
+            Dim output = myForceShowSettings
+            myForceShowSettings = False
+            Return output
+        End Get
+        Set(value As Boolean)
+            myForceShowSettings = value
+        End Set
+    End Property
+
+    Public Shared ReadOnly Property Client As IClient(Of Player)
+        Get
+            Return myClient
+        End Get
+    End Property
+
+#End Region
+
+#Region "Methods"
 
     Private Sub New()
 
@@ -39,12 +68,6 @@ Public NotInheritable Class EECloud
 
         myCommandChar = My.Settings.CommandChar
     End Sub
-
-    Public Shared ReadOnly Property Client As IClient(Of Player)
-        Get
-            Return myClient
-        End Get
-    End Property
 
     Shared Sub RunCloudMode(hostUserame As String, username As String, password As String, type As AccountType,
                             worldID As String,
@@ -192,7 +215,9 @@ Public NotInheritable Class EECloud
     End Function
 
     Private Shared Sub CheckHostData(Optional ignoreCheckSQLiteDb As Boolean = False)
-        If Not (ignoreCheckSQLiteDb OrElse File.Exists(EEService.SQLiteService.DbLocation)) OrElse EEService.My.Settings.QueryMySqlConnStr OrElse String.IsNullOrWhiteSpace(My.Settings.HostUserame) Then
+        If ForceShowSettings OrElse _
+        String.IsNullOrWhiteSpace(My.Settings.HostUserame) OrElse EEService.My.Settings.QueryMySqlConnStr OrElse _
+        (Not ignoreCheckSQLiteDb AndAlso Not File.Exists(EEService.SQLiteService.DbLocation)) Then
             If Not Cloud.IsNoGUI Then
                 If New HostDataForm().ShowDialog() = DialogResult.OK Then
                     EEService.My.Settings.QueryMySqlConnStr = False
@@ -297,4 +322,7 @@ RetryLogin:
             GoTo RetryLogin
         End Try
     End Function
+
+#End Region
+
 End Class

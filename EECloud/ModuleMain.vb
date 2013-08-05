@@ -13,13 +13,20 @@ Module ModuleMain
         AddHandler AppDomain.CurrentDomain.AssemblyResolve, AddressOf AppDomain_AssemblyResolve
         CheckForUpdates()
 
+        Dim commandLineArgs = My.Application.CommandLineArgs
+        Dim invariantCulture = Globalization.CultureInfo.InvariantCulture
+
         Dim restart As Boolean
 
-        'Cmd arguments
-        For i = My.Application.CommandLineArgs.Count - 1 To 0 Step -1
-            If My.Application.CommandLineArgs(i).ToLowerInvariant() = "-restart" Then
-                restart = True
-            End If
+        'CMD arguments
+        For i = commandLineArgs.Count - 1 To 0 Step -1
+            Select Case commandLineArgs(i).ToLower(invariantCulture)
+                Case "-restart"
+                    restart = True
+
+                Case "-settings", "-changesettings"
+                    Host.EECloud.ForceShowSettings = True
+            End Select
         Next
 
         Host.EECloud.RunDesktopMode(restart)

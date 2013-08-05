@@ -104,15 +104,19 @@ Module ModuleMain
     Sub Main()
         Initialize()
 
-        RestartAppProcess(False)
+        RestartAppProcess(False, My.Application.CommandLineArgs.ToArray())
     End Sub
 
-    Private Sub RestartAppProcess(restart As Boolean)
+    Private Sub RestartAppProcess(restart As Boolean, Optional extraArguments As String() = Nothing)
         myLastRestart = DateTime.UtcNow
         Console.WriteLine(mySeparatorText)
 
         If restart Then
-            myAppProcess.StartInfo.Arguments = "-restart"
+            myAppProcess.StartInfo.Arguments = "-restart "
+        End If
+
+        If extraArguments IsNot Nothing AndAlso extraArguments.Length <> 0 Then
+            myAppProcess.StartInfo.Arguments &= String.Join(" ", extraArguments)
         End If
 
         'Start the process
