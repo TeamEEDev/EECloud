@@ -13,6 +13,7 @@ Friend Class HostDataForm
         InitializeComponent()
 
         TextBoxUsername.Text = My.Settings.HostUserame
+        TextBoxMySqlConnStr.Text = My.Settings.HostMySqlConnStr
     End Sub
 
     Private Sub LoginForm_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown

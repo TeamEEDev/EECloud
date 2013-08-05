@@ -20,7 +20,7 @@
 #Region "Creation"
 
     Friend Sub New(mySqlConnStr As String)
-        If Not String.IsNullOrEmpty(mySqlConnStr) Then
+        If Not String.IsNullOrWhiteSpace(mySqlConnStr) Then
             myMySqlConnStr = mySqlConnStr
             myMySqlService = New MySqlService(mySqlConnStr)
             UseMySql = True

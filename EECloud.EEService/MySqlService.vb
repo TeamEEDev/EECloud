@@ -378,7 +378,14 @@
 #Region "Miscellaneous"
     Public Sub ForceOpenConnection()
         If Connection.State = ConnectionState.Closed Then
-            Connection.Open()
+            Try
+                Connection.Open()
+            Catch ex As MySqlException
+                My.Settings.MySqlFailed = True
+                My.Settings.Save()
+
+                Throw
+            End Try
         End If
     End Sub
 

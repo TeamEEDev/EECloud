@@ -190,15 +190,22 @@ Public NotInheritable Class EECloud
     End Function
 
     Private Shared Sub CheckHostData()
-        If String.IsNullOrWhiteSpace(My.Settings.HostUserame) Then
+        If String.IsNullOrWhiteSpace(My.Settings.HostUserame) OrElse EEService.My.Settings.MySqlFailed Then
             If Not Cloud.IsNoGUI Then
                 If New HostDataForm().ShowDialog() = DialogResult.OK Then
+                    EEService.My.Settings.MySqlFailed = False
+                    EEService.My.Settings.Save()
+
                     SetHostData(My.Settings.HostUserame, My.Settings.HostMySqlConnStr)
                     CheckHostData()
                 Else
                     Environment.Exit(0)
                 End If
+
             Else
+                EEService.My.Settings.MySqlFailed = False
+                EEService.My.Settings.Save()
+
                 Throw New Exception("Corrupted host data.")
             End If
         End If
