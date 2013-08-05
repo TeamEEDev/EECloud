@@ -25,7 +25,7 @@ Friend Class HostDataForm
     Private Sub TextBoxes_KeyDown(sender As Object, e As KeyEventArgs) Handles TextBoxUsername.KeyDown, TextBoxMySqlConnStr.KeyDown
         If e.Control Then
             If e.KeyCode = Keys.A Then
-                TextBoxUsername.SelectAll()
+                DirectCast(sender, TextBox).SelectAll()
 
                 e.Handled = True
                 Exit Sub

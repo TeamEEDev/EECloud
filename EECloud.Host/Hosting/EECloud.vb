@@ -24,6 +24,7 @@ Public NotInheritable Class EECloud
         End If
 
         Cloud.HostUsername = My.Settings.HostUserame
+        myHostMySqlConnStr = My.Settings.HostMySqlConnStr
 
         If My.Settings.LoginTypes.Count > 0 Then
             myUsername = My.Settings.LoginEmails(0)

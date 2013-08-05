@@ -377,16 +377,17 @@
 
 #Region "Miscellaneous"
     Public Sub ForceOpenConnection()
-        If Connection.State = ConnectionState.Closed Then
-            Try
+        Try
+            If Connection.State = ConnectionState.Closed Then
                 Connection.Open()
-            Catch ex As MySqlException
-                My.Settings.MySqlFailed = True
-                My.Settings.Save()
+            End If
 
-                Throw
-            End Try
-        End If
+        Catch
+            My.Settings.MySqlFailed = True
+            My.Settings.Save()
+
+            Throw
+        End Try
     End Sub
 
 
