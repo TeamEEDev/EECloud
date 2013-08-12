@@ -13,7 +13,7 @@ This repository consists of 6 elements:
   * EECloud.Launcher  - Works as a wrapper around EECloud.exe, restarts in case the _Connection_ gets lost
   * EECloud.Setup     - Installs the components of EECloud
 
-The project is written in [VB.NET][], and requires [Microsoft .NET Framework 4.5][] (or higher), and [Visual C++ Redistributable 2012 Update 1][] (or higher) to be installed for its users. Developers should install [Microsoft Visual Studio 2012[] (or higher), and [WiX Toolset][] (in order to compile _EECloud.Setup)._
+The project is written in [VB.NET][], and requires [Microsoft .NET Framework 4.5][] (or higher), and [Visual C++ Redistributable 2012 Update 1][] (or higher) to be installed for its users. Developers should install [Microsoft Visual Studio 2012][] (or higher), and [WiX Toolset][] (in order to compile _EECloud.Setup)._
 
 [VB.NET]: http://wikipedia.org/wiki/Visual_Basic_.NET
 [Microsoft .NET Framework 4.5]: http://www.microsoft.com/download/details.aspx?id=30653
