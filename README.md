@@ -33,7 +33,7 @@ These components are shared between all _Plugins_ in a _Connection:_
   * World
 
 ### Plugin-specific components
-These components have a new instance per plugin and have customized behavior for the plugin they are serving:
+These components have a new instance per _Plugin_ and have customized behavior for the _Plugin_ they are serving:
 
   * Client
   * Chatter
