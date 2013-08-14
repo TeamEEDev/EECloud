@@ -1,4 +1,4 @@
-html,body {
+html, body {
 	font-family: "Segoe UI", Arial, Helvetica, sans-serif;
 	margin: 0;
 }
@@ -15,11 +15,6 @@ p {
 .highlights .container {
 	border-top: 1px solid #ddd;
 	padding: 30px 0;
-}
-
-.arrowimg {
-	width: 35px;
-	margin: 0 auto;
 }
 
 #eecloud {
@@ -91,4 +86,8 @@ p.downloadexplain {
 	color: #AAA;
 	width: 300px;
 	line-height: 160%;
+}
+
+div.footer {
+	text-align: center;
 }
