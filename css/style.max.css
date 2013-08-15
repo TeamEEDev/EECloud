@@ -67,6 +67,7 @@ a.button:active {
 
 a.buttongithub {
 	background: #09C31C url(../img/github.png) no-repeat 14px 10px;
+	background-size: 36px;
 }
 
 a.buttongithub:hover {
@@ -75,6 +76,7 @@ a.buttongithub:hover {
 
 a.buttondownload {
 	background: #F49B15 url(../img/download.png) no-repeat 14px 10px;
+	background-size: 36px;
 }
 
 a.buttondownload:hover {
