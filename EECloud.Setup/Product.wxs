@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="Windows-1252"?>
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?define AppName     = EECloud ?>
@@ -9,6 +9,7 @@
   <Product Id           = "*"
            Name         = "$(var.AppName)"
            Language     = "1033"
+           Codepage     = "1252"
            Version      = "$(var.AppVersion)"
            Manufacturer = "$(var.AppAuthor)"
            UpgradeCode  = "$(var.UpgradeCode)">
@@ -18,6 +19,7 @@
              Manufacturer     = "$(var.AppAuthor)"
              InstallerVersion = "200"
              Languages        = "1033"
+             SummaryCodepage= = "1252"
              Compressed       = "yes"
              ReadOnly         = "yes"
              InstallScope     = "perUser" />
@@ -29,17 +31,22 @@
     <Icon Id="ProgramIcon" SourceFile="$(var.SolutionDir)Resources\Icon.ico" />
     <Property Id="ARPPRODUCTICON" Value="ProgramIcon" />
 
-    <!-- Disable repair/modify -->
+    <!-- Disable the "Modify" option -->
     <Property Id="ARPNOMODIFY" Value="1" />
+
+    <!-- Check whether Microsoft .NET Framework 4.5 (or higher) is installed -->
+    <PropertyRef Id="NETFRAMEWORK45" />
+    <Condition Message="This application requires Microsoft .NET Framework 4.5 (or higher) to be installed. Please equip it, and then run this installer again.">
+        <![CDATA[Installed OR NETFRAMEWORK45]]>
+    </Condition>
 
     <!-- Upgrade info -->
     <Upgrade Id="$(var.UpgradeCode)">
-      <UpgradeVersion Minimum="$(var.AppVersion)"
-                      OnlyDetect="yes"
-                      Property="NEWERVERSIONDETECTED" />
-      <UpgradeVersion Minimum="0.0.0" Maximum="$(var.AppVersion)"
-                      IncludeMinimum="yes" IncludeMaximum="no"
-                      Property="OLDERVERSIONBEINGUPGRADED" />
+      <UpgradeVersion Property="SELFFOUND" OnlyDetect="yes"
+                      Minimum="$(var.AppVersion)" IncludeMinimum="yes"
+                      Maximum="$(var.AppVersion)" IncludeMaximum="yes" />
+      <UpgradeVersion Property="NEWERVERSIONFOUND" OnlyDetect="yes"
+                      Minimum="$(var.AppVersion)" IncludeMinimum="no" />
     </Upgrade>
 
     <!-- Main feature -->
@@ -53,16 +60,14 @@
 
   <!-- Remove old versions and prevent downgrading -->
   <Fragment>
+    <CustomAction Id="AlreadyUpdated" Error="EECloud v$(var.AppVersion) has already been installed." />
     <CustomAction Id="PreventDowngrading" Error="A newer version of the product is already installed." />
 
     <InstallExecuteSequence>
+      <Custom Action="AlreadyUpdated" After="FindRelatedProducts">SELFFOUND</Custom>
+      <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWERVERSIONFOUND</Custom>
       <RemoveExistingProducts Before="InstallInitialize" />
-      <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWERVERSIONDETECTED</Custom>
     </InstallExecuteSequence>
-
-    <InstallUISequence>
-      <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWERVERSIONDETECTED</Custom>
-    </InstallUISequence>
   </Fragment>
 
   <Fragment>
