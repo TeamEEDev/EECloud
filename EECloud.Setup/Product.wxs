@@ -14,8 +14,8 @@
            Manufacturer = "$(var.AppAuthor)"
            UpgradeCode  = "$(var.UpgradeCode)">
     <Package Id               = "*"
-             Description      = "Installs the components of EECloud."
-             Comments         = "EECloud is an open source platform that you can use to connect to the servers of Everybody Edits and perform actions with, just like you would in the game."
+             Description      = "Installs the components of $(var.AppName)."
+             Comments         = "$(var.AppName) is an open source platform that you can use to connect to the servers of Everybody Edits and perform actions with, just like you would in the game."
              Manufacturer     = "$(var.AppAuthor)"
              InstallerVersion = "200"
              Languages        = "1033"
@@ -60,7 +60,7 @@
 
   <!-- Remove old versions and prevent downgrading -->
   <Fragment>
-    <CustomAction Id="AlreadyUpdated" Error="EECloud v$(var.AppVersion) has already been installed." />
+    <CustomAction Id="AlreadyUpdated" Error="$(var.AppName) v$(var.AppVersion) has already been installed." />
     <CustomAction Id="PreventDowngrading" Error="A newer version of the product is already installed." />
 
     <InstallExecuteSequence>
