@@ -2,11 +2,10 @@
     Implements IDisposable
 
 #Region "Properties"
-    Private Shared myConnection As Lazy(Of MySqlConnection)
-
+    Private Shared myConnection As MySqlConnection
     Private Shared ReadOnly Property Connection As MySqlConnection
         Get
-            Return myConnection.Value
+            Return myConnection
         End Get
     End Property
 #End Region
@@ -16,7 +15,8 @@
 #Region "Creation"
 
     Friend Sub New(mySqlConnStr As String)
-        myConnection = New Lazy(Of MySqlConnection)(Function() New MySqlConnection(mySqlConnStr))
+        myConnection = New MySqlConnection(mySqlConnStr)
+        InitializeConnection()
     End Sub
 
 #End Region
@@ -391,7 +391,7 @@
     End Sub
 
 
-    Friend Sub CreateDefaultTables()
+    Friend Sub InitializeConnection()
         ForceOpenConnection()
 
         Using command As New MySqlCommand("CREATE TABLE IF NOT EXISTS settings (" &

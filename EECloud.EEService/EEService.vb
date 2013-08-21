@@ -237,17 +237,6 @@
     Public Function ForceOpenConnectionAsync() As Task Implements IEEService.ForceOpenConnectionAsync
         Return Task.Run(Sub() ForceOpenConnection())
     End Function
-
-
-    Public Sub CreateDefaultMySqlTables() Implements IEEService.CreateDefaultMySqlTables
-        If UseMySql Then
-            myMySqlService.CreateDefaultTables()
-        End If
-    End Sub
-
-    Public Function CreateDefaultMySqlTablesAsync() As Task Implements IEEService.CreateDefaultMySqlTablesAsync
-        Return Task.Run(Sub() CreateDefaultMySqlTables())
-    End Function
 #End Region
 
 #End Region

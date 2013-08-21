@@ -224,7 +224,7 @@ Friend NotInheritable Class Logger
                                 Console.BufferWidth * extraLinesToOverwrite -
                                 newStr.Length
 
-        If spaces <> 0 Then
+        If spaces > 0 Then
             Console.Write(newStr & Space(spaces))
         Else
             Console.Write(newStr)

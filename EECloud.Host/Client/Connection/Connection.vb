@@ -354,7 +354,7 @@ Friend NotInheritable Class Connection
 
                 Dim completedTask As Integer = Task.WaitAny(task1, task2)
                 If completedTask = 0 OrElse Not task2.Result Then
-                    'Use the result of the MySQL query
+                    'Use the result of the SQL DB query
                     GameVersionNumber = Integer.Parse(task1.Result)
                 End If
             Catch

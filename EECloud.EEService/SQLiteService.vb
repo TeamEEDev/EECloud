@@ -4,12 +4,11 @@
 #Region "Properties"
     Friend Shared ReadOnly DbLocation As String = My.Application.Info.DirectoryPath & "\EEService.sqlite"
 
-    Private Shared ReadOnly myConnection As New Lazy(Of SQLiteConnection)(Function() New SQLiteConnection("Data Source=" & DbLocation & ";" &
-                                                                                                          "Version=3"))
-
+    Private Shared ReadOnly myConnection As New SQLiteConnection("Data Source=" & DbLocation & ";" &
+                                                                 "Version=3")
     Private Shared ReadOnly Property Connection As SQLiteConnection
         Get
-            Return myConnection.Value
+            Return myConnection
         End Get
     End Property
 #End Region
@@ -18,7 +17,7 @@
 
 #Region "Creation"
     Friend Sub New()
-        If Not IO.File.Exists(My.Application.Info.DirectoryPath & "\EEService.sqlite") Then
+        If Not IO.File.Exists(DbLocation) Then
             CreateDefaultTables()
         End If
     End Sub

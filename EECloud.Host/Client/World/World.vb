@@ -71,13 +71,10 @@ Friend NotInheritable Class World
             End If
 
             block1 = DirectCast(m.GetInteger(pointer), Block)
-            pointer += 1
-            layer = DirectCast(m.GetInteger(pointer), Layer)
-            pointer += 1
-            byteArrayX = m.GetByteArray(pointer)
-            pointer += 1
-            byteArrayY = m.GetByteArray(pointer)
-            pointer += 1
+            layer = DirectCast(m.GetInteger(pointer + 1), Layer)
+            byteArrayX = m.GetByteArray(pointer + 2)
+            byteArrayY = m.GetByteArray(pointer + 3)
+            pointer += 4
 
             Select Case block1
                 Case Block.BlockDoorCoinDoor,
@@ -120,11 +117,9 @@ Friend NotInheritable Class World
 
                 Case Block.BlockPortal, Block.BlockInvisiblePortal
                     Dim portalRotation As PortalRotation = DirectCast(m.GetInteger(pointer), PortalRotation)
-                    pointer += 1
-                    Dim portalID As Integer = m.GetInteger(pointer)
-                    pointer += 1
-                    Dim portalTarget As Integer = m.GetInteger(pointer)
-                    pointer += 1
+                    Dim portalID As Integer = m.GetInteger(pointer + 1)
+                    Dim portalTarget As Integer = m.GetInteger(pointer + 2)
+                    pointer += 3
 
                     For i As Integer = 0 To byteArrayX.Length - 1 Step 2
                         value(layer,

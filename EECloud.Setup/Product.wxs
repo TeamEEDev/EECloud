@@ -1,6 +1,6 @@
-﻿<?xml version="1.0" encoding="Windows-1252"?>
-
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<?xml version="1.0" encoding="Windows-1252"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
   <?define AppName     = EECloud ?>
   <?define AppVersion  = 0.9.30 ?>
   <?define AppAuthor   = EEDev ?>
@@ -19,11 +19,11 @@
              Manufacturer     = "$(var.AppAuthor)"
              InstallerVersion = "200"
              Languages        = "1033"
-             SummaryCodepage= = "1252"
+             SummaryCodepage  = "1252"
              Compressed       = "yes"
              ReadOnly         = "yes"
              InstallScope     = "perUser" />
-
+    
     <!-- Included CAB -->
     <Media Id="1" Cabinet="$(var.AppName).cab" EmbedCab="yes" CompressionLevel="high" />
 
@@ -37,17 +37,31 @@
     <!-- Check whether Microsoft .NET Framework 4.5 (or higher) is installed -->
     <PropertyRef Id="NETFRAMEWORK45" />
     <Condition Message="This application requires Microsoft .NET Framework 4.5 (or higher) to be installed. Please equip it, and then run this installer again.">
-        <![CDATA[Installed OR NETFRAMEWORK45]]>
+      <![CDATA[Installed OR NETFRAMEWORK45]]>
     </Condition>
 
     <!-- Upgrade info -->
     <Upgrade Id="$(var.UpgradeCode)">
+      <UpgradeVersion Property="OLDERVERSIONFOUND"
+                      Minimum="0.0.0" IncludeMinimum="yes"
+                      Maximum="$(var.AppVersion)" IncludeMaximum="no" />
+
       <UpgradeVersion Property="SELFFOUND" OnlyDetect="yes"
                       Minimum="$(var.AppVersion)" IncludeMinimum="yes"
                       Maximum="$(var.AppVersion)" IncludeMaximum="yes" />
       <UpgradeVersion Property="NEWERVERSIONFOUND" OnlyDetect="yes"
                       Minimum="$(var.AppVersion)" IncludeMinimum="no" />
     </Upgrade>
+    
+    <CustomAction Id="AlreadyUpdated" Error="$(var.AppName) v$(var.AppVersion) has already been installed." />
+    <CustomAction Id="PreventDowngrading" Error="A newer version of the product is already installed." />
+
+    <!-- Remove old versions and prevent downgrading -->
+    <InstallExecuteSequence>
+      <Custom Action="AlreadyUpdated" After="FindRelatedProducts">SELFFOUND</Custom>
+      <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWERVERSIONFOUND</Custom>
+      <RemoveExistingProducts Before="InstallInitialize" />
+    </InstallExecuteSequence>
 
     <!-- Main feature -->
     <Feature Id="Complete" Title="$(var.AppName)" Level="1">
@@ -57,18 +71,6 @@
       <ComponentRef Id="cAPIRegistryKeys" />
     </Feature>
   </Product>
-
-  <!-- Remove old versions and prevent downgrading -->
-  <Fragment>
-    <CustomAction Id="AlreadyUpdated" Error="$(var.AppName) v$(var.AppVersion) has already been installed." />
-    <CustomAction Id="PreventDowngrading" Error="A newer version of the product is already installed." />
-
-    <InstallExecuteSequence>
-      <Custom Action="AlreadyUpdated" After="FindRelatedProducts">SELFFOUND</Custom>
-      <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWERVERSIONFOUND</Custom>
-      <RemoveExistingProducts Before="InstallInitialize" />
-    </InstallExecuteSequence>
-  </Fragment>
 
   <Fragment>
     <!-- Folder structure -->
