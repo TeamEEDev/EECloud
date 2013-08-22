@@ -876,6 +876,12 @@
             of <paramref name="db"/> when it is no longer needed.
             </param>
         </member>
+        <member name="M:System.Data.SQLite.SQLite3.DisposeModules">
+            <summary>
+            This method attempts to dispose of all the <see cref="T:System.Data.SQLite.SQLiteModule"/> derived
+            object instances currently associated with the native database connection.
+            </summary>
+        </member>
         <member name="M:System.Data.SQLite.SQLite3.Cancel">
             <summary>
             Attempts to interrupt the query currently executing on the associated
@@ -6884,12 +6890,19 @@
         </member>
         <member name="P:System.Data.SQLite.SQLiteIndexOutputs.EstimatedCost">
             <summary>
-            Estimated cost of using this index.
+            Estimated cost of using this index.  Using a null value here
+            indicates that a default estimated cost value should be used.
             </summary>
         </member>
         <member name="T:System.Data.SQLite.SQLiteIndex">
             <summary>
             This class represents the various inputs and outputs used with the
+            <see cref="M:System.Data.SQLite.ISQLiteManagedModule.BestIndex(System.Data.SQLite.SQLiteVirtualTable,System.Data.SQLite.SQLiteIndex)"/> method.
+            </summary>
+        </member>
+        <member name="F:System.Data.SQLite.SQLiteIndex.DefaultEstimatedCost">
+            <summary>
+            The default estimated cost for use with the
             <see cref="M:System.Data.SQLite.ISQLiteManagedModule.BestIndex(System.Data.SQLite.SQLiteVirtualTable,System.Data.SQLite.SQLiteIndex)"/> method.
             </summary>
         </member>
@@ -6991,6 +7004,21 @@
             <see cref="M:System.Data.SQLite.ISQLiteManagedModule.Connect(System.Data.SQLite.SQLiteConnection,System.IntPtr,System.String[],System.Data.SQLite.SQLiteVirtualTable@,System.String@)"/> methods.
             </param>
         </member>
+        <member name="M:System.Data.SQLite.SQLiteVirtualTable.BestIndex(System.Data.SQLite.SQLiteIndex)">
+            <summary>
+            This method should normally be used by the
+            <see cref="M:System.Data.SQLite.ISQLiteManagedModule.BestIndex(System.Data.SQLite.SQLiteVirtualTable,System.Data.SQLite.SQLiteIndex)"/> method in order to
+            perform index selection based on the constraints provided by the
+            SQLite core library.
+            </summary>
+            <param name="index">
+            The <see cref="T:System.Data.SQLite.SQLiteIndex"/> object instance containing all the
+            data for the inputs and outputs relating to index selection.
+            </param>
+            <returns>
+            Non-zero upon success.
+            </returns>
+        </member>
         <member name="M:System.Data.SQLite.SQLiteVirtualTable.Rename(System.String)">
             <summary>
             Attempts to record the renaming of the virtual table associated
@@ -7051,6 +7079,13 @@
             The name of the virtual table.
             </summary>
         </member>
+        <member name="P:System.Data.SQLite.SQLiteVirtualTable.Index">
+            <summary>
+            The <see cref="T:System.Data.SQLite.SQLiteIndex"/> object instance containing all the
+            data for the inputs and outputs relating to the most recent index
+            selection.
+            </summary>
+        </member>
         <member name="P:System.Data.SQLite.SQLiteVirtualTable.NativeHandle">
             <summary>
             Returns the underlying SQLite native handle associated with this
@@ -7064,6 +7099,17 @@
             user-defined virtual table cursor classes implemented in managed code.
             </summary>
         </member>
+        <member name="F:System.Data.SQLite.SQLiteVirtualTableCursor.InvalidRowIndex">
+            <summary>
+            This value represents an invalid integer row sequence number.
+            </summary>
+        </member>
+        <member name="F:System.Data.SQLite.SQLiteVirtualTableCursor.rowIndex">
+            <summary>
+            The field holds the integer row sequence number for the current row
+            pointed to by this cursor object instance.
+            </summary>
+        </member>
         <member name="M:System.Data.SQLite.SQLiteVirtualTableCursor.#ctor(System.Data.SQLite.SQLiteVirtualTable)">
             <summary>
             Constructs an instance of this class.
@@ -7072,6 +7118,11 @@
             The <see cref="T:System.Data.SQLite.SQLiteVirtualTable"/> object instance associated
             with this object instance.
             </param>
+        </member>
+        <member name="M:System.Data.SQLite.SQLiteVirtualTableCursor.#ctor">
+            <summary>
+            Constructs an instance of this class.
+            </summary>
         </member>
         <member name="M:System.Data.SQLite.SQLiteVirtualTableCursor.TryPersistValues(System.Data.SQLite.SQLiteValue[])">
             <summary>
@@ -7104,6 +7155,21 @@
             <param name="values">
             The values corresponding to each column in the selected index.
             </param>
+        </member>
+        <member name="M:System.Data.SQLite.SQLiteVirtualTableCursor.GetRowIndex">
+            <summary>
+            Determines the integer row sequence number for the current row.
+            </summary>
+            <returns>
+            The integer row sequence number for the current row -OR- zero if
+            it cannot be determined.
+            </returns>
+        </member>
+        <member name="M:System.Data.SQLite.SQLiteVirtualTableCursor.NextRowIndex">
+            <summary>
+            Adjusts the integer row sequence number so that it refers to the
+            next row.
+            </summary>
         </member>
         <member name="M:System.Data.SQLite.SQLiteVirtualTableCursor.Dispose">
             <summary>
@@ -8896,6 +8962,12 @@
             The native pointer to a logical byte array or null upon failure.
             </returns>
         </member>
+        <member name="T:System.Data.SQLite.SQLiteMarshal">
+            <summary>
+            This class contains static methods that are used to perform several
+            low-level data marshalling tasks between native and managed code.
+            </summary>
+        </member>
         <member name="M:System.Data.SQLite.SQLiteMarshal.IntPtrForOffset(System.IntPtr,System.Int32)">
             <summary>
             Returns a new <see cref="T:System.IntPtr"/> object instance based on the
@@ -8912,6 +8984,39 @@
             </param>
             <returns>
             The new <see cref="T:System.IntPtr"/> object instance.
+            </returns>
+        </member>
+        <member name="M:System.Data.SQLite.SQLiteMarshal.RoundUp(System.Int32,System.Int32)">
+            <summary>
+            Rounds up an integer size to the next multiple of the alignment.
+            </summary>
+            <param name="size">
+            The size, in bytes, to be rounded up.
+            </param>
+            <param name="alignment">
+            The required alignment for the return value.
+            </param>
+            <returns>
+            The size, in bytes, rounded up to the next multiple of the
+            alignment.  This value may end up being the same as the original
+            size.
+            </returns>
+        </member>
+        <member name="M:System.Data.SQLite.SQLiteMarshal.NextOffsetOf(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Determines the offset, in bytes, of the next structure member.
+            </summary>
+            <param name="offset">
+            The offset, in bytes, of the current structure member.
+            </param>
+            <param name="size">
+            The size, in bytes, of the current structure member.
+            </param>
+            <param name="alignment">
+            The alignment, in bytes, of the next structure member.
+            </param>
+            <returns>
+            The offset, in bytes, of the next structure member.
             </returns>
         </member>
         <member name="M:System.Data.SQLite.SQLiteMarshal.ReadInt32(System.IntPtr,System.Int32)">
@@ -9023,12 +9128,6 @@
             user-defined virtual table module classes implemented in managed code.
             </summary>
         </member>
-        <member name="F:System.Data.SQLite.SQLiteModule.DefaultEstimatedCost">
-            <summary>
-            The default estimated cost for use with the
-            <see cref="M:System.Data.SQLite.ISQLiteManagedModule.BestIndex(System.Data.SQLite.SQLiteVirtualTable,System.Data.SQLite.SQLiteIndex)"/> method.
-            </summary>
-        </member>
         <member name="F:System.Data.SQLite.SQLiteModule.DefaultModuleVersion">
             <summary>
             The default version of the native sqlite3_module structure in use.
@@ -9038,6 +9137,20 @@
             <summary>
             This field is used to store the native sqlite3_module structure
             associated with this object instance.
+            </summary>
+        </member>
+        <member name="F:System.Data.SQLite.SQLiteModule.destroyModule">
+            <summary>
+            This field is used to store the destructor delegate to be passed to
+            the SQLite core library via the sqlite3_create_disposable_module()
+            function.
+            </summary>
+        </member>
+        <member name="F:System.Data.SQLite.SQLiteModule.disposableModule">
+            <summary>
+            This field is used to store a pointer to the native sqlite3_module
+            structure returned by the sqlite3_create_disposable_module
+            function.
             </summary>
         </member>
         <member name="F:System.Data.SQLite.SQLiteModule.tables">
@@ -9071,7 +9184,33 @@
             The name of the module.  This parameter cannot be null.
             </param>
         </member>
-        <member name="M:System.Data.SQLite.SQLiteModule.CreateNativeModule">
+        <member name="M:System.Data.SQLite.SQLiteModule.CreateDisposableModule(System.IntPtr)">
+            <summary>
+            Calls the native SQLite core library in order to create a new
+            disposable module containing the implementation of a virtual table.
+            </summary>
+            <param name="pDb">
+            The native database connection pointer to use.
+            </param>
+            <returns>
+            Non-zero upon success.
+            </returns>
+        </member>
+        <member name="M:System.Data.SQLite.SQLiteModule.xDestroyModule(System.IntPtr)">
+            <summary>
+            This method is called by the SQLite core library when the native
+            module associated with this object instance is being destroyed due
+            to its parent connection being closed.  It may also be called by
+            the "vtshim" module if/when the sqlite3_dispose_module() function
+            is called.
+            </summary>
+            <param name="pClientData">
+            The native user-data pointer associated with this module, as it was
+            provided to the SQLite core library when the native module instance
+            was created.
+            </param>
+        </member>
+        <member name="M:System.Data.SQLite.SQLiteModule.AllocateNativeModule">
             <summary>
             Creates and returns the native sqlite_module structure using the
             configured (or default) <see cref="T:System.Data.SQLite.ISQLiteNativeModule"/>
@@ -9083,7 +9222,7 @@
             implementation.
             </returns>
         </member>
-        <member name="M:System.Data.SQLite.SQLiteModule.CreateNativeModule(System.Data.SQLite.ISQLiteNativeModule)">
+        <member name="M:System.Data.SQLite.SQLiteModule.AllocateNativeModule(System.Data.SQLite.ISQLiteNativeModule)">
             <summary>
             Creates and returns the native sqlite_module structure using the
             specified <see cref="T:System.Data.SQLite.ISQLiteNativeModule"/> interface
@@ -9464,11 +9603,13 @@
             </summary>
             <param name="connection">
             The <see cref="T:System.Data.SQLite.SQLiteConnection"/> object instance to use when
-            declaring the schema of the virtual table.
+            declaring the schema of the virtual table.  This parameter may not
+            be null.
             </param>
             <param name="sql">
             The string containing the CREATE TABLE statement that completely
-            describes the schema for the virtual table.
+            describes the schema for the virtual table.  This parameter may not
+            be null.
             </param>
             <param name="error">
             Upon failure, this parameter must be modified to contain an error
@@ -10339,6 +10480,22 @@
             Finalizes this object instance.
             </summary>
         </member>
+        <member name="P:System.Data.SQLite.SQLiteModule.LogErrorsNoThrow">
+            <summary>
+            Returns or sets a boolean value indicating whether virtual table
+            errors should be logged using the <see cref="T:System.Data.SQLite.SQLiteLog"/> class.
+            </summary>
+        </member>
+        <member name="P:System.Data.SQLite.SQLiteModule.LogExceptionsNoThrow">
+            <summary>
+            Returns or sets a boolean value indicating whether exceptions
+            caught in the
+            <see cref="M:System.Data.SQLite.ISQLiteNativeModule.xDisconnect(System.IntPtr)"/> method,
+            <see cref="M:System.Data.SQLite.ISQLiteNativeModule.xDestroy(System.IntPtr)"/> method, and the
+            <see cref="M:System.Data.SQLite.SQLiteModule.Dispose"/> method should be logged using the
+            <see cref="T:System.Data.SQLite.SQLiteLog"/> class.
+            </summary>
+        </member>
         <member name="P:System.Data.SQLite.SQLiteModule.LogErrors">
             <summary>
             Returns or sets a boolean value indicating whether virtual table
@@ -10365,6 +10522,16 @@
             <summary>
             Returns the name of the module as it was registered with the SQLite
             core library.
+            </summary>
+        </member>
+        <member name="T:System.Data.SQLite.SQLiteModule.SQLiteNativeModule">
+            <summary>
+            This class implements the <see cref="T:System.Data.SQLite.ISQLiteNativeModule"/>
+            interface by forwarding those method calls to the
+            <see cref="T:System.Data.SQLite.SQLiteModule"/> object instance it contains.  If the
+            contained <see cref="T:System.Data.SQLite.SQLiteModule"/> object instance is null, all
+            the <see cref="T:System.Data.SQLite.ISQLiteNativeModule"/> methods simply generate an
+            error.
             </summary>
         </member>
         <member name="F:System.Data.SQLite.SQLiteModule.SQLiteNativeModule.DefaultLogErrors">
@@ -11391,6 +11558,17 @@
             table.  This parameter cannot be null.
             </param>
         </member>
+        <member name="M:System.Data.SQLite.SQLiteModuleEnumerable.GetSqlForDeclareTable">
+            <summary>
+            Determines the SQL statement used to declare the virtual table.
+            This method should be overridden in derived classes if they require
+            a custom virtual table schema.
+            </summary>
+            <returns>
+            The SQL statement used to declare the virtual table -OR- null if it
+            cannot be determined.
+            </returns>
+        </member>
         <member name="M:System.Data.SQLite.SQLiteModuleEnumerable.CursorTypeMismatchError(System.Data.SQLite.SQLiteVirtualTableCursor)">
             <summary>
             Sets the table error message to one that indicates the virtual
@@ -11415,11 +11593,16 @@
             The value of <see cref="F:System.Data.SQLite.SQLiteErrorCode.Error"/>.
             </returns>
         </member>
-        <member name="M:System.Data.SQLite.SQLiteModuleEnumerable.GetStringFromObject(System.Object)">
+        <member name="M:System.Data.SQLite.SQLiteModuleEnumerable.GetStringFromObject(System.Data.SQLite.SQLiteVirtualTableCursor,System.Object)">
             <summary>
             Determines the string to return as the column value for the object
             instance value.
             </summary>
+            <param name="cursor">
+            The <see cref="T:System.Data.SQLite.SQLiteVirtualTableCursor"/> object instance
+            associated with the previously opened virtual table cursor to be
+            used.
+            </param>
             <param name="value">
             The object instance to return a string representation for.
             </param>
@@ -11428,10 +11611,33 @@
             upon failure.
             </returns>
         </member>
-        <member name="M:System.Data.SQLite.SQLiteModuleEnumerable.GetRowIdFromObject(System.Object)">
+        <member name="M:System.Data.SQLite.SQLiteModuleEnumerable.MakeRowId(System.Int32,System.Int32)">
             <summary>
-            Determines the unique row identifier for the object instance value.
+            Constructs an <see cref="T:System.Int64"/> unique row identifier from two
+            <see cref="T:System.Int32"/> values.  The first <see cref="T:System.Int32"/> value
+            must contain the row sequence number for the current row and the
+            second value must contain the hash code of the enumerator value
+            for the current row.
             </summary>
+            <param name="rowIndex">
+            The integer row sequence number for the current row.
+            </param>
+            <param name="hashCode">
+            The hash code of the enumerator value for the current row.
+            </param>
+            <returns>
+            The unique row identifier or zero upon failure.
+            </returns>
+        </member>
+        <member name="M:System.Data.SQLite.SQLiteModuleEnumerable.GetRowIdFromObject(System.Data.SQLite.SQLiteVirtualTableCursor,System.Object)">
+            <summary>
+            Determines the unique row identifier for the current row.
+            </summary>
+            <param name="cursor">
+            The <see cref="T:System.Data.SQLite.SQLiteVirtualTableCursor"/> object instance
+            associated with the previously opened virtual table cursor to be
+            used.
+            </param>
             <param name="value">
             The object instance to return a unique row identifier for.
             </param>
