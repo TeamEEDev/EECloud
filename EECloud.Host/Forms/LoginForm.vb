@@ -23,7 +23,7 @@ Friend NotInheritable Class LoginForm
     Private Sub LoginForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If My.Settings.LoginTypes.Count > 0 Then
             For i = 0 To My.Settings.LoginTypes.Count - 1
-                Select Case My.Settings.LoginTypes(i)
+                Select Case CType(My.Settings.LoginTypes(i), AccountType)
                     Case AccountType.Regular
                         regularAccounts.Add(i)
                     Case Else 'AccountType.Facebook
@@ -31,7 +31,7 @@ Friend NotInheritable Class LoginForm
                 End Select
             Next
 
-            Select Case My.Settings.LoginTypes(0)
+            Select Case CType(My.Settings.LoginTypes(0), AccountType)
                 Case AccountType.Regular
                     RadioButtonRegular.Checked = True
                 Case Else 'AccountType.Facebook
@@ -43,7 +43,7 @@ Friend NotInheritable Class LoginForm
 
         If My.Settings.LoginWorldIDs.Count > 0 Then
             TextBoxWorldID.Items.AddRange(My.Settings.LoginWorldIDs.Cast(Of String)().ToArray())
-            TextBoxWorldID.Text = TextBoxWorldID.Items(0)
+            TextBoxWorldID.Text = DirectCast(TextBoxWorldID.Items(0), String)
         End If
     End Sub
 
@@ -135,9 +135,9 @@ Friend NotInheritable Class LoginForm
                     End If
 
                     If RadioButtonRegular.Checked Then
-                        My.Settings.LoginTypes.Insert(0, AccountType.Regular)
+                        My.Settings.LoginTypes.Insert(0, CStr(AccountType.Regular))
                     Else 'If RadioButtonFacebook.Checked Then
-                        My.Settings.LoginTypes.Insert(0, AccountType.Facebook)
+                        My.Settings.LoginTypes.Insert(0, CStr(AccountType.Facebook))
                     End If
                     My.Settings.LoginEmails.Insert(0, TextBoxEmail.Text)
                     My.Settings.LoginPasswords.Insert(0, TextBoxPassword.Text)
@@ -193,7 +193,7 @@ Friend NotInheritable Class LoginForm
                         TextBoxEmail.Items.Add(My.Settings.LoginEmails(regularAccounts(i)))
                     Next
 
-                    TextBoxEmail.Text = TextBoxEmail.Items(0)
+                    TextBoxEmail.Text = DirectCast(TextBoxEmail.Items(0), String)
                     TextBoxPassword.Text = My.Settings.LoginPasswords(regularAccounts(0))
                 Else
                     TextBoxEmail.Text = String.Empty
@@ -211,7 +211,7 @@ Friend NotInheritable Class LoginForm
                         TextBoxEmail.Items.Add(My.Settings.LoginEmails(facebookAccounts(i)))
                     Next
 
-                    TextBoxEmail.Text = TextBoxEmail.Items(0)
+                    TextBoxEmail.Text = DirectCast(TextBoxEmail.Items(0), String)
                 Else
                     TextBoxEmail.Text = String.Empty
                 End If

@@ -36,7 +36,7 @@ Friend NotInheritable Class CommandManager(Of TPlayer As {New, Player})
 
                 Dim attributes As CommandAttribute()
                 For Each method As MethodInfo In target.GetType.GetMethods()
-                    attributes = method.GetCustomAttributes(GetType(CommandAttribute), True)
+                    attributes = DirectCast(method.GetCustomAttributes(GetType(CommandAttribute), True), CommandAttribute())
 
                     If attributes IsNot Nothing AndAlso attributes.Length = 1 Then
                         Dim attribute = attributes(0)

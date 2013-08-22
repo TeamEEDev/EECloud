@@ -122,8 +122,8 @@
     Private Sub myConnection_ReceiveInit(sender As Object, e As InitReceiveMessage) Handles myConnection.ReceiveInit
         Dim startNum As UInteger
         For i = CInt(e.PlayerIOMessage.Count - 1UI) To 0 Step -1
-            If TryCast(e.PlayerIOMessage.Item(i), String) IsNot Nothing AndAlso e.PlayerIOMessage.GetString(i) = "pe" Then
-                startNum = i - 1
+            If TryCast(e.PlayerIOMessage.Item(CUInt(i)), String) IsNot Nothing AndAlso e.PlayerIOMessage.GetString(CUInt(i)) = "pe" Then
+                startNum = CUInt(i - 1)
             End If
         Next
 
@@ -161,7 +161,7 @@
                 Case Potion.Solitude
                     mySolitudePotionCount = e.PlayerIOMessage.GetInteger(pointer)
             End Select
-            pointer -= 2
+            pointer -= 2UI
         Loop
     End Sub
 

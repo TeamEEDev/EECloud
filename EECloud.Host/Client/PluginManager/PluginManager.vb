@@ -43,7 +43,7 @@ Friend NotInheritable Class PluginManager
         SyncLock myPluginsList
             If Not t.Namespace = "EECloud" AndAlso Not t.Namespace.StartsWith("EECloud.", StringComparison.Ordinal) Then
                 If GetType(IPlugin).IsAssignableFrom(t) Then
-                    Dim attributes As PluginAttribute() = t.GetCustomAttributes(GetType(PluginAttribute), True)
+                    Dim attributes As PluginAttribute() = DirectCast(t.GetCustomAttributes(GetType(PluginAttribute), True), PluginAttribute())
 
                     If attributes IsNot Nothing AndAlso attributes.Length = 1 Then
                         Dim pluginObj As IPluginObject = New PluginObject(t, attributes(0), myCloneFactory)
@@ -62,7 +62,7 @@ Friend NotInheritable Class PluginManager
         Dim plugins1 As IEnumerable(Of Type) =
             From type As Type In assembly.GetTypes
             Where GetType(IPlugin).IsAssignableFrom(type)
-            Let attributes As PluginAttribute() = type.GetCustomAttributes(GetType(PluginAttribute), True)
+            Let attributes As PluginAttribute() = DirectCast(type.GetCustomAttributes(GetType(PluginAttribute), True), PluginAttribute())
             Where attributes IsNot Nothing AndAlso attributes.Length = 1
             Let attribute As PluginAttribute = attributes(0)
             Where attribute.StartupLoaded AndAlso (attribute.StartupRooms Is Nothing OrElse attribute.StartupRooms.Length = 0 OrElse attribute.StartupRooms.Contains(Cloud.StartupWorldID))

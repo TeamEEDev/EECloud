@@ -38,7 +38,7 @@ Friend NotInheritable Class DefaultCommandListener
         Else
             Dim playerData = Await Cloud.Service.GetPlayerDataAsync(username)
             If playerData IsNot Nothing Then
-                rank = playerData.GroupID
+                rank = CType(playerData.GroupID, Group)
             End If
         End If
 
@@ -164,7 +164,7 @@ Friend NotInheritable Class DefaultCommandListener
         Else
             Dim playerData As UserData = Await Cloud.Service.GetPlayerDataAsync(username)
             If playerData IsNot Nothing Then
-                currRank = playerData.GroupID
+                currRank = CType(playerData.GroupID, Group)
             End If
         End If
 
@@ -174,7 +174,7 @@ Friend NotInheritable Class DefaultCommandListener
                 player.Group = rank
                 player.Save()
             Else
-                Await Cloud.Service.SetPlayerDataGroupIDAsync(username, rank)
+                Await Cloud.Service.SetPlayerDataGroupIDAsync(username, CShort(rank))
             End If
 
             cmd.Reply(String.Format("{0} is now {1}.", username.ToUpper(InvariantCulture), GetGroupString(rank)))

@@ -59,7 +59,7 @@ Public NotInheritable Class EECloud
         If My.Settings.LoginTypes.Count > 0 Then
             myUsername = My.Settings.LoginEmails(0)
             myPassword = My.Settings.LoginPasswords(0)
-            myType = My.Settings.LoginTypes(0)
+            myType = CType(My.Settings.LoginTypes(0), AccountType)
         End If
 
         If My.Settings.LoginWorldIDs.Count > 0 Then
@@ -205,7 +205,7 @@ Public NotInheritable Class EECloud
             If My.Settings.LoginTypes.Count > 0 Then
                 myUsername = My.Settings.LoginEmails(0)
                 myPassword = My.Settings.LoginPasswords(0)
-                myType = My.Settings.LoginTypes(0)
+                myType = CType(My.Settings.LoginTypes(0), AccountType)
             End If
 
             If My.Settings.LoginWorldIDs.Count > 0 Then

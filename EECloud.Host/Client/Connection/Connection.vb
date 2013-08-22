@@ -925,9 +925,9 @@ Friend NotInheritable Class Connection
                 RaiseEvent ReceiveMessage(Me, message)
 
             ElseIf myInited Then 'Don't pass annoying "unregistered message" warnings
-                Dim messageArguments(m.Count - 1UI) As String
+                Dim messageArguments(CInt(m.Count) - 1) As String
                 For i As UInteger = 0 To m.Count - 1UI
-                    messageArguments(i) = String.Format("   [{0} ({1})] {2}", i, m.Item(i).GetType.Name, CStr(m.Item(i)))
+                    messageArguments(CInt(i)) = String.Format("   [{0} ({1})] {2}", i, m.Item(i).GetType.Name, CStr(m.Item(i)))
                 Next
 
                 Cloud.Logger.Log(LogPriority.Warning, "Received unregistered message with type """ & m.Type & """." & Environment.NewLine &

@@ -8,7 +8,7 @@ Friend NotInheritable Class Logger
     Private Const PreTag As String = "> "
     Private Const PreTagLength As Integer = 2
 
-    Private Shared ReadOnly MaxCursorLeft = Console.BufferWidth - 1
+    Private Shared ReadOnly MaxCursorLeft As Integer = Console.BufferWidth - 1
 
     Private ReadOnly myLockObj As New Object()
 
@@ -176,7 +176,7 @@ Friend NotInheritable Class Logger
         RaiseEvent OnInput(Me, currentInput)
     End Sub
 
-    Private Function GetNewLineByCursorPos()
+    Private Function GetNewLineByCursorPos() As String
         If LastInputLineMaxCursorLeft = 0 Then
             Return String.Empty
         End If

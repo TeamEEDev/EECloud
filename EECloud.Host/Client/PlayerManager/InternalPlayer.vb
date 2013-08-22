@@ -435,7 +435,7 @@
     Friend Sub ReloadUserData() Implements IPlayer.ReloadUserData
         Dim userData As UserData = Cloud.Service.GetPlayerData(DatabaseName)
         If userData IsNot Nothing Then
-            myGroup = userData.GroupID
+            myGroup = CType(userData.GroupID, Group)
             RaiseEvent LoadUserData(Me, userData)
         End If
 
@@ -448,9 +448,7 @@
     Public Async Function ReloadUserDataAsync() As Task Implements IPlayer.ReloadUserDataAsync
         Dim userData As UserData = Await Cloud.Service.GetPlayerDataAsync(DatabaseName)
         If userData IsNot Nothing Then
-            ' ReSharper disable VBWarnings::BC42104
-            myGroup = userData.GroupID
-            ' ReSharper restore VBWarnings::BC42104
+            myGroup = CType(userData.GroupID, Group)
             RaiseEvent LoadUserData(Me, userData)
         End If
 
@@ -593,7 +591,7 @@
 
     Private Sub myConnection_PreviewReceiveLevelUp(sender As Object, e As LevelUpReceiveMessage) Handles myConnection.PreviewReceiveLevelUp
         If e.UserID = myUserID Then
-            myMagicClass = e.NewClass
+            myMagicClass = CType(e.NewClass, MagicClass)
         End If
     End Sub
 
