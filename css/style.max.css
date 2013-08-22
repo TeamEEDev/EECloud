@@ -1,47 +1,79 @@
 html, body {
 	font-family: "Segoe UI", Arial, Helvetica, sans-serif;
-	margin: 0;
+	font-size: 16px;
 }
 
-p {
-	margin-top: 5px;
+body {
+	cursor: default;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: -moz-none;
+	-ms-user-select: none;
+	-khtml-user-select: none;
+	user-select: none;
+	width: 74%;
+	color: #222;
+	margin: 6em auto 6em auto;
 }
 
-.eecdesktophead {
-	font-size: 28px;
+
+table {
+	width: 100%;
+}
+
+td {
+	padding: 0 1em 0 1em;
+}
+
+
+h1, h2, h3 {
+	font-weight: normal;
+	margin: 0.1em 0 0.1em 0;
+}
+
+h2 {
 	text-transform: uppercase;
 }
 
-.highlights .container {
-	border-top: 1px solid #ddd;
-	padding: 30px 0;
+h3, p {
+	font-size: 0.9em;
+	margin-top: 0;
 }
 
-#eecloud {
-	padding: 100px 0;
+
+hr {
+	display: block;
+	border-color: #fff;
+	margin: 2.8em 1em 2.8em 1em;
 }
 
-#eecdesktopheader {
-	background-color: #fff;
-	padding: 0 0 60px;
-}
 
-.eecdesktopimg {
+img.highlighted {
+	display: block;
+	width: 78%;
 	box-shadow: 0 0 50px #bbb;
+	margin-left: auto;
 }
 
-.row {
-	margin-top: 20px;
+
+a {
+	color: #387fc7;
+	text-decoration: none;
 }
 
-.head_text {
-	font-size: 31px;
+a:hover, a:focus {
+	cursor: pointer;
+	color: #285c8f;
+	text-decoration: underline;
 }
+
+
+
 
 a.button {
 	display: block;
 	width: 230px;
-	color: #FFF;
+	color: #fff;
 	text-decoration: none;
 	position: relative;
 	margin-top: 30px;
@@ -52,7 +84,7 @@ a.button strong {
 	display: block;
 	font-size: 17px;
 	line-height: 1;
-	margin-bottom:4px;
+	margin-bottom: 4px;
 }
 
 a.button span {
@@ -84,12 +116,14 @@ a.buttondownload:hover {
 }
 
 p.downloadexplain {
-	font-size: 12px;
-	color: #AAA;
 	width: 300px;
+	font-size: 12px;
+	color: #999;
 	line-height: 160%;
+	margin-top: 0.9em;
 }
 
-div.footer {
+p.footer {
 	text-align: center;
+	line-height: 170%;
 }
