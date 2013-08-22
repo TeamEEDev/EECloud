@@ -13,7 +13,7 @@ body {
 	user-select: none;
 	width: 74%;
 	color: #222;
-	margin: 6em auto 6em auto;
+	margin: 80px auto 80px auto;
 }
 
 
@@ -50,7 +50,7 @@ hr {
 
 img.highlighted {
 	display: block;
-	width: 78%;
+	max-height: 290px;
 	box-shadow: 0 0 50px #bbb;
 	margin-left: auto;
 }
