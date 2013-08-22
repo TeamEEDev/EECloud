@@ -6,9 +6,11 @@ body {
 	-ms-user-select: none;
 	-khtml-user-select: none;
 	user-select: none;
+
 	font-family: "Segoe UI", Arial, Helvetica, Sans-Serif;
 	font-size: 16px;
 	color: #222;
+
 	min-width: 700px;
 	max-width: 1200px;
 	margin: 6% 13%;
@@ -53,10 +55,12 @@ p.downloadexplain {
 	margin-top: 0.9em;
 }
 
-div.footer {
+p.footer {
+	display: table;
 	text-align: center;
-	font-size: 0.9em;
-	line-height: 160%;
+	font-size: 0.8em;
+	line-height: 170%;
+	margin: 0 auto;
 }
 
 
