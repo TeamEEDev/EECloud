@@ -11,18 +11,25 @@ body {
 	-ms-user-select: none;
 	-khtml-user-select: none;
 	user-select: none;
-	width: 74%;
 	color: #222;
-	margin: 80px auto 80px auto;
+	min-width: 700px;
+	max-width: 1200px;
+	margin: 6% 13% 6% 13%;
 }
 
 
 table {
 	width: 100%;
+	margin: 0 auto;
 }
 
 td {
+	vertical-align: top;
 	padding: 0 1em 0 1em;
+}
+
+table.maintable td {
+	vertical-align: middle;
 }
 
 
@@ -41,6 +48,21 @@ h3, p {
 }
 
 
+p.downloadexplain {
+	width: 300px;
+	font-size: 12px;
+	color: #999;
+	line-height: 160%;
+	margin-top: 0.9em;
+}
+
+p.footer {
+	text-align: center;
+	font-size: 13px;
+	line-height: 170%;
+}
+
+
 hr {
 	display: block;
 	border-color: #fff;
@@ -50,6 +72,8 @@ hr {
 
 img.highlighted {
 	display: block;
+	width: 100%;
+	max-width: 471px;
 	max-height: 290px;
 	box-shadow: 0 0 50px #bbb;
 	margin-left: auto;
@@ -66,8 +90,6 @@ a:hover, a:focus {
 	color: #285c8f;
 	text-decoration: underline;
 }
-
-
 
 
 a.button {
@@ -98,32 +120,19 @@ a.button:active {
 }
 
 a.buttongithub {
-	background: #09C31C url(../img/github.png) no-repeat 14px 10px;
+	background: #09c31c url(../img/github.png) no-repeat 14px 10px;
 	background-size: 36px;
 }
 
 a.buttongithub:hover {
-	background-color: #06D021;
+	background-color: #06d021;
 }
 
 a.buttondownload {
-	background: #F49B15 url(../img/download.png) no-repeat 14px 10px;
+	background: #f49b15 url(../img/download.png) no-repeat 14px 10px;
 	background-size: 36px;
 }
 
 a.buttondownload:hover {
-	background-color: #F8A71B;
-}
-
-p.downloadexplain {
-	width: 300px;
-	font-size: 12px;
-	color: #999;
-	line-height: 160%;
-	margin-top: 0.9em;
-}
-
-p.footer {
-	text-align: center;
-	line-height: 170%;
+	background-color: #f8a71b;
 }
