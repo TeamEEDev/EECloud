@@ -34,7 +34,7 @@ table.maintable td {
 
 h1, h2, h3 {
 	font-weight: normal;
-	margin: 0.1em 0;
+	margin: 0 0 0.1em 0;
 }
 
 h2 {
@@ -56,11 +56,9 @@ p.downloadexplain {
 }
 
 p.footer {
-	display: table;
 	text-align: center;
-	font-size: 0.8em;
-	line-height: 170%;
-	margin: 0 auto;
+	font-size: 0.75em;
+	line-height: 160%;
 }
 
 
@@ -98,7 +96,6 @@ a.button {
 	width: 230px;
 	color: #fff;
 	text-decoration: none;
-	position: relative;
 	margin-top: 30px;
 	padding: 11px 30px 13px 60px;
 }
@@ -112,8 +109,8 @@ a.button strong {
 
 a.button span {
 	display: block;
-	line-height: 1;
 	font-size: 12px;
+	line-height: 1em;
 }
 
 a.button:active {
