@@ -407,7 +407,7 @@
                                            Connection)
             Dim gameNames As String() = [Enum].GetNames(GetType(RegisteredGameName))
             For i = 0 To gameNames.Length - 1
-                command.CommandText &= "," & MySqlHelper.EscapeString(gameNames(i)) & "Wins SMALLINT(6) UNSIGNED"
+                command.CommandText &= "," & gameNames(i) & "Wins SMALLINT(6) UNSIGNED"
             Next
 
             command.CommandText &= ");" &
