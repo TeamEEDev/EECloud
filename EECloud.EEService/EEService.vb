@@ -228,7 +228,7 @@
 #Region "Miscellaneous"
     Public Sub ForceOpenConnection() Implements IEEService.ForceOpenConnection
         If UseMySql Then
-            myMySqlService.ForceOpenConnection()
+            'myMySqlService.GetConnection()
         Else 'If UseSQLite Then
             mySQLiteService.ForceOpenConnection()
         End If
@@ -248,7 +248,7 @@
         If Not myDisposedValue Then
             If disposing Then
                 If UseMySql Then
-                    myMySqlService.Dispose()
+                    'myMySqlService.Dispose()
                 Else 'If UseSQLite Then
                     mySQLiteService.Dispose()
                 End If
