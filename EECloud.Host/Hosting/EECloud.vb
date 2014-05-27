@@ -214,7 +214,7 @@ Public NotInheritable Class EECloud
         End If
     End Function
 
-    Private Shared Sub CheckHostData(Optional ignoreCheckSQLiteDb As Boolean = False)
+    Private Shared Sub CheckHostData(Optional ignoreCheckSQLiteDb As Boolean = True)
         If ForceShowSettings OrElse _
         String.IsNullOrWhiteSpace(My.Settings.HostUserame) OrElse EEService.My.Settings.QueryMySqlConnStr OrElse _
         (Not ignoreCheckSQLiteDb AndAlso Not File.Exists(EEService.SQLiteService.DbLocation)) Then

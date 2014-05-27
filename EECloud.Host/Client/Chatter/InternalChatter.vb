@@ -22,13 +22,13 @@ Friend NotInheritable Class InternalChatter
     End Sub
 
     Friend Sub SendChat(msg As String)
-        If CheckHistory(msg) Then
-            If msg.StartsWith("/", StringComparison.Ordinal) Then
-                SendChat(msg & " .")
-            Else
-                SendChat("." & msg)
-            End If
+        If msg.StartsWith("/", StringComparison.Ordinal) Then
+            myClient.Connection.Send(New SaySendMessage(msg))
+            Return
+        End If
 
+        If CheckHistory(msg) Then
+            SendChat("." & msg)
             Exit Sub
         Else
             SyncLock myHistoryList

@@ -501,7 +501,7 @@ Friend NotInheritable Class DefaultCommandListener
         For Each p In myPlayerManager
             If p.Username = username Then
                 Return p
-            ElseIf p.Username.StartsWith(username, StringComparison.Ordinal) Then
+            ElseIf p.Username.StartsWith(username, StringComparison.OrdinalIgnoreCase) Then
                 If user Is Nothing Then
                     user = p
                 Else
